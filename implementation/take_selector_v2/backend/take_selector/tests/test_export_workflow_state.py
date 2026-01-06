@@ -26,7 +26,7 @@ class TestExportWorkflowState:
                 select_demo_segment=False
             )
             
-            output_file = Path("implementation/take_selector_v2/backend/frontend/data/workflow_state.json")
+            output_file = Path("implementation/take_selector_v2/frontend/data/workflow_state.json")
             
             assert output_file.exists()
             assert output_file.stat().st_size > 0
@@ -43,7 +43,7 @@ class TestExportWorkflowState:
                 select_demo_segment=False
             )
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             output_file = frontend_data_dir / "workflow_state.json"
             
             assert output_file.exists()
@@ -69,7 +69,7 @@ class TestExportWorkflowState:
                 select_demo_segment=True
             )
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             output_file = frontend_data_dir / "workflow_state.json"
             
             assert output_file.exists()
@@ -97,7 +97,7 @@ class TestExportWorkflowState:
                 select_demo_segment=False
             )
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             output_file = frontend_data_dir / "workflow_state.json"
             
             assert output_file.exists()
@@ -120,7 +120,7 @@ class TestExportWorkflowState:
                 select_demo_segment=False
             )
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             output_file = frontend_data_dir / "workflow_state.json"
             
             assert output_file.exists()
@@ -148,7 +148,7 @@ class TestExportWorkflowState:
                 select_demo_segment=False
             )
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             output_file = frontend_data_dir / "workflow_state.json"
             
             assert output_file.exists()
@@ -176,7 +176,7 @@ class TestExportWorkflowState:
                 select_demo_segment=False
             )
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             state1_path = frontend_data_dir / "workflow_state.json"
             
             with open(state1_path, 'r') as f:
@@ -211,7 +211,7 @@ class TestExportWorkflowState:
                 select_demo_segment=False
             )
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             output_file = frontend_data_dir / "workflow_state.json"
             
             assert output_file.exists()
@@ -236,7 +236,7 @@ class TestExportWorkflowState:
                 select_demo_segment=False
             )
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             output_file = frontend_data_dir / "workflow_state.json"
             
             assert output_file.exists()
@@ -270,7 +270,7 @@ class TestExportWorkflowState:
             assert "Groups:" in output
             assert "Selections:" in output
             
-            frontend_data_dir = Path("implementation/take_selector_v2/backend/frontend/data")
+            frontend_data_dir = Path("implementation/take_selector_v2/frontend/data")
             output_file = frontend_data_dir / "workflow_state.json"
             assert output_file.exists()
     

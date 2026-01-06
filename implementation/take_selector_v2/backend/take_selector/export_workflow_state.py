@@ -56,7 +56,7 @@ def export_workflow_state(
     
     state_dict = asdict(workflow.get_current_state())
     
-    output_dir = Path(__file__).parent.parent / "frontend" / "data"
+    output_dir = Path(__file__).parent.parent.parent / "frontend" / "data"
     output_dir.mkdir(parents=True, exist_ok=True)
     
     output_path = output_dir / "workflow_state.json"

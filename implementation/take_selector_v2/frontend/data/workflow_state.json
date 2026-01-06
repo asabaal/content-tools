@@ -1,5 +1,244 @@
 {
-  "segments": [],
-  "groups": [],
-  "selections": {}
+  "segments": [
+    {
+      "segment_id": "20251008_150255_unknown",
+      "start_time": 1.68,
+      "end_time": 6.7,
+      "text": "Where there was not God's book and then there was.",
+      "duration": 5.0200000000000005
+    },
+    {
+      "segment_id": "20251008_150255_unknown",
+      "start_time": 7.68,
+      "end_time": 10.7,
+      "text": "Welcome to Life is Your Word episode 3.",
+      "duration": 3.0199999999999996
+    },
+    {
+      "segment_id": "20251008_150255_unknown",
+      "start_time": 11.68,
+      "end_time": 17.7,
+      "text": "In this show, we build up our understanding of reality by seeking God's face.",
+      "duration": 6.02
+    },
+    {
+      "segment_id": "20251008_150255_unknown",
+      "start_time": 20.44,
+      "end_time": 22.46,
+      "text": "Today's reading is from Genesis chapter 1.",
+      "duration": 2.0199999999999996
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 27.200000000000003,
+      "end_time": 34.11,
+      "text": "When God began to create the heavens and the earth, the earth was in complete chaos and",
+      "duration": 6.909999999999997
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 35.010000000000005,
+      "end_time": 42.42,
+      "text": "darkness covered the face of the deep while a wind of God, while a wind from God",
+      "duration": 7.409999999999997
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 43.760000000000005,
+      "end_time": 45.349000000000004,
+      "text": "swept over the face of the waters.",
+      "duration": 1.5889999999999986
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 47.803,
+      "end_time": 50.74,
+      "text": "Then God said, let there be light and there was light.",
+      "duration": 2.9370000000000047
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 52.28,
+      "end_time": 58.11,
+      "text": "And God saw, and God saw that the light was good and",
+      "duration": 5.829999999999998
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 59.53,
+      "end_time": 61.95,
+      "text": "God separated the light from the darkness.",
+      "duration": 2.4200000000000017
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 62.49,
+      "end_time": 65.87,
+      "text": "God created humans in the image of God.",
+      "duration": 3.3800000000000026
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 67.00999999999999,
+      "end_time": 72.456,
+      "text": "God blessed them, saying be fruitful and fill the earth.",
+      "duration": 5.446000000000012
+    },
+    {
+      "segment_id": "20251008_150325_unknown",
+      "start_time": 74.104,
+      "end_time": 75.43,
+      "text": "I have given you everything.",
+      "duration": 1.3260000000000076
+    },
+    {
+      "segment_id": "20251008_150420_unknown",
+      "start_time": 79.62,
+      "end_time": 90.64000000000001,
+      "text": "In my past death, I lived in complete chaos and the great darkness of depression covered my face.",
+      "duration": 11.02000000000001
+    },
+    {
+      "segment_id": "20251008_150420_unknown",
+      "start_time": 90.62,
+      "end_time": 104.64000000000001,
+      "text": "I stopped listening to God's voice and I tried to run my race in my strength, in my strength, and I tried to run my race in my strength, rather than by Christ living in me.",
+      "duration": 14.02000000000001
+    },
+    {
+      "segment_id": "20251008_150420_unknown",
+      "start_time": 104.62,
+      "end_time": 110.64000000000001,
+      "text": "But God's, but then God spoke and I became.",
+      "duration": 6.02000000000001
+    },
+    {
+      "segment_id": "20251008_150420_unknown",
+      "start_time": 110.62,
+      "end_time": 119.64000000000001,
+      "text": "Life filled me, peace beyond human understanding, joy that defied worldly authorities,",
+      "duration": 9.02000000000001
+    },
+    {
+      "segment_id": "20251008_150420_unknown",
+      "start_time": 119.62,
+      "end_time": 128.64000000000001,
+      "text": "and I became compelled to shout God's praise from every mountaintop and share God's great works with everyone.",
+      "duration": 9.02000000000001
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 131.42000000000002,
+      "end_time": 136.44000000000003,
+      "text": "So I thank God regularly for my role in partaking in creation as",
+      "duration": 5.02000000000001
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 137.10000000000002,
+      "end_time": 142.76000000000002,
+      "text": "I create these things for your benefit just as God created all things for our benefit.",
+      "duration": 5.659999999999997
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 143.26000000000002,
+      "end_time": 148.44000000000003,
+      "text": "This reminds me, this reminds me that nothing is impossible",
+      "duration": 5.180000000000007
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 149.46,
+      "end_time": 151.48000000000002,
+      "text": "through Christ who gives me strength.",
+      "duration": 2.0200000000000102
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 153.51000000000002,
+      "end_time": 158.21,
+      "text": "This reminds me that nothing is impossible through Christ who gives me strength.",
+      "duration": 4.699999999999989
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 159.19000000000003,
+      "end_time": 167.33,
+      "text": "The one who speaks all things into being can transform your life too.",
+      "duration": 8.139999999999986
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 172.11,
+      "end_time": 175.45000000000002,
+      "text": "What death have you lived?",
+      "duration": 3.3400000000000034
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 177.11,
+      "end_time": 179.21,
+      "text": "They...",
+      "duration": 2.0999999999999943
+    },
+    {
+      "segment_id": "20251008_150513_unknown",
+      "start_time": 179.19,
+      "end_time": 182.13000000000002,
+      "text": "What death have you experienced that he needs?",
+      "duration": 2.940000000000026
+    },
+    {
+      "segment_id": "20251008_150622_unknown",
+      "start_time": 185.36,
+      "end_time": 190.12000000000003,
+      "text": "What death have you experienced and how has he breathed life into your death and",
+      "duration": 4.760000000000019
+    },
+    {
+      "segment_id": "20251008_150622_unknown",
+      "start_time": 190.72000000000003,
+      "end_time": 201.33,
+      "text": "How has he breathed life in and how has he breathed life into you and how did he speak you into being and",
+      "duration": 10.609999999999985
+    },
+    {
+      "segment_id": "20251008_150622_unknown",
+      "start_time": 202.95000000000002,
+      "end_time": 210.81000000000003,
+      "text": "How did he speak you into being and how did he speak you into being and life?",
+      "duration": 7.860000000000014
+    },
+    {
+      "segment_id": "20251008_150654_unknown",
+      "start_time": 213.43000000000004,
+      "end_time": 216.45000000000002,
+      "text": "Share your revelations in the comments.",
+      "duration": 3.019999999999982
+    },
+    {
+      "segment_id": "20251008_150654_unknown",
+      "start_time": 216.43000000000004,
+      "end_time": 218.45000000000002,
+      "text": "In love and unity, Aceh Vail.",
+      "duration": 2.019999999999982
+    }
+  ],
+  "groups": [
+    {
+      "group_id": "demo_group",
+      "segment_ids": [
+        "20251008_150325_unknown",
+        "20251008_150255_unknown"
+      ],
+      "selected_segment": "20251008_150255_unknown",
+      "metadata": {
+        "purpose": "demo"
+      }
+    }
+  ],
+  "selections": {
+    "demo_group": "20251008_150255_unknown"
+  }
 }

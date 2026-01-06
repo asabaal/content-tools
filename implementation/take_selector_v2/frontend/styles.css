@@ -72,6 +72,26 @@ h1 {
     border-left: 4px solid #4a90e2;
     padding: 12px;
     border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.segment:hover {
+    background: #f0f0f0;
+}
+
+.segment.highlighted {
+    background: #fff3cd;
+    border-left-color: #ffc107;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+.segment.backend-selected {
+    border-left-color: #28a745;
+}
+
+.segment.backend-selected .backend-selected-indicator {
+    display: inline-block;
 }
 
 .segment-header {
@@ -95,6 +115,16 @@ h1 {
     border-radius: 12px;
 }
 
+.backend-selected-indicator {
+    display: none;
+    font-size: 11px;
+    color: #28a745;
+    background: #d4edda;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
 .segment-text {
     font-size: 15px;
     line-height: 1.5;
@@ -107,6 +137,18 @@ h1 {
     border-left: 4px solid #007bff;
     padding: 12px;
     border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.group:hover {
+    background: #f0f0f0;
+}
+
+.group.highlighted {
+    background: #fff3cd;
+    border-left-color: #ffc107;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
 }
 
 .group-header {
@@ -156,6 +198,27 @@ h1 {
     padding: 3px 8px;
     border-radius: 12px;
     font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.segment-tag:hover {
+    transform: scale(1.05);
+}
+
+.segment-tag.highlighted {
+    background: #ffc107;
+    color: #333;
+}
+
+.segment-tag.backend-selected {
+    border: 2px solid #28a745;
+}
+
+.segment-tag.candidate {
+    background: #28a745;
+    color: white;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
 }
 
 .group-metadata {
@@ -174,6 +237,18 @@ h1 {
     padding: 12px;
     border-radius: 4px;
     margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.selection:hover {
+    background: #e8f0fe;
+}
+
+.selection.highlighted {
+    background: #fff3cd;
+    border-left-color: #ffc107;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
 }
 
 .selection-group {
