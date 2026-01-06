@@ -4,6 +4,7 @@ Take Selector v2 - Backend Package
 
 from .data_loader import load_transcript, Segment, Transcript, load_transcript_from_data_directory
 from .similarity import compute_segment_similarity, find_candidate_duplicates
+from .grouping import Group, GroupManager
 
 __all__ = [
     'load_transcript',
@@ -11,5 +12,7 @@ __all__ = [
     'Transcript',
     'load_transcript_from_data_directory',
     'compute_segment_similarity',
-    'find_candidate_duplicates'
+    'find_candidate_duplicates',
+    'Group',
+    'GroupManager'
 ]
