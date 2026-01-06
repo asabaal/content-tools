@@ -7,6 +7,7 @@ from .similarity import compute_segment_similarity, find_candidate_duplicates
 from .grouping import Group, GroupManager
 from .selection import SelectionManager
 from .workflow import TakeSelectorWorkflow, WorkflowState
+from .export_workflow_state import export_workflow_state
 
 __all__ = [
     'load_transcript',
@@ -19,5 +20,6 @@ __all__ = [
     'GroupManager',
     'SelectionManager',
     'TakeSelectorWorkflow',
-    'WorkflowState'
+    'WorkflowState',
+    'export_workflow_state'
 ]
