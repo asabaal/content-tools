@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# pytest cache
+.pytest_cache/
+.pytest_cache/
+.cache/
+*.cover
+
+# IDE
+.vscode/
+.idea/
+*.swp
