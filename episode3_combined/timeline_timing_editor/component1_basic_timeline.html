@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Word Timing Editor - Component 1: Basic Timeline Viewer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .controls {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .zoom-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .zoom-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .zoom-btn:hover {
+            background: #4338ca;
+        }
+        
+        .zoom-level {
+            background: #e0e7ff;
+            color: #4f46e5;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .timeline-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .timeline-canvas {
+            position: relative;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            min-height: 200px;
+            overflow: hidden;
+        }
+        
+        .time-ruler {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #64748b;
+            z-index: 10;
+        }
+        
+        .time-mark {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #cbd5e1;
+        }
+        
+        .time-mark.major {
+            width: 2px;
+            background: #94a3b8;
+        }
+        
+        .time-mark.minor {
+            width: 1px;
+            background: #e2e8f0;
+            opacity: 0.7;
+        }
+        
+        .time-label {
+            position: absolute;
+            top: 5px;
+            transform: translateX(-50%);
+            font-size: 11px;
+            white-space: nowrap;
+            color: #475569;
+            font-weight: 500;
+        }
+        
+        .time-label.minor {
+            font-size: 9px;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+        
+        .segments-area {
+            position: relative;
+            top: 30px;
+            min-height: 150px;
+            padding: 10px 0;
+        }
+        
+        .segment {
+            position: absolute;
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            line-height: 1.4;
+            z-index: 5;
+        }
+        
+        .segment:hover {
+            background: #bfdbfe;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+            z-index: 6;
+        }
+        
+        .segment-text {
+            color: #1e40af;
+            font-weight: 500;
+        }
+        
+        .segment-time {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+        
+        .word-marker {
+            position: absolute;
+            width: 2px;
+            background: #f59e0b;
+            opacity: 0.6;
+            border-radius: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 3;
+        }
+        
+        .word-marker:hover {
+            opacity: 1;
+            background: #d97706;
+            width: 3px;
+            z-index: 7;
+        }
+        
+        .playhead {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ef4444;
+            z-index: 20;
+            pointer-events: none;
+        }
+        
+        .playhead::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -4px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid #ef4444;
+        }
+        
+        .info-panel {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .info-panel h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .segment-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .segment-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+        
+        .segment-item:hover {
+            border-color: #4299e1;
+            box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
+        }
+        
+        .segment-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .segment-item-title {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .segment-item-time {
+            font-size: 12px;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .segment-item-text {
+            color: #4b5563;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .word-list {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #f1f5f9;
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        .word-item {
+            display: inline-block;
+            margin: 2px 4px;
+            padding: 2px 6px;
+            background: #fef3c7;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .word-item:hover {
+            background: #fde68a;
+        }
+        
+        .status {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            color: #0c4a6e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕐 Timeline Word Timing Editor</h1>
+            <p>Component 1: Basic Timeline Viewer - Visual timeline with segment and word timing display</p>
+        </div>
+        
+        <div class="controls">
+            <div class="zoom-controls">
+                <button class="zoom-btn" onclick="zoomOut()">➖</button>
+                <div class="zoom-level" id="zoomLevel">100%</div>
+                <button class="zoom-btn" onclick="zoomIn()">➕</button>
+                <button class="zoom-btn" onclick="resetZoom()">🔄</button>
+            </div>
+        </div>
+        
+        <div class="timeline-container">
+            <div class="timeline-canvas" id="timelineCanvas">
+                <div class="time-ruler" id="timeRuler"></div>
+                <div class="segments-area" id="segmentsArea"></div>
+                <div class="playhead" id="playhead" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h3>📊 Segment Information</h3>
+            <div class="segment-list" id="segmentList">
+                <!-- Segment details will be populated here -->
+            </div>
+        </div>
+        
+        <div class="status">
+            ✅ Component 1: Basic timeline viewer with segment positioning and word markers
+        </div>
+    </div>
+
+    <script>
+        // Sample data with word-level timing
+        const segments = [
+            {
+                id: 1,
+                text: "Welcome to Life is Your Word episode 3.",
+                startTime: 7.68,
+                endTime: 10.7,
+                words: [
+                    {word: "Welcome", start: 7.68, end: 7.95},
+                    {word: "to", start: 7.95, end: 8.10},
+                    {word: "Life", start: 8.10, end: 8.35},
+                    {word: "is", start: 8.35, end: 8.48},
+                    {word: "Your", start: 8.48, end: 8.72},
+                    {word: "Word", start: 8.72, end: 9.05},
+                    {word: "episode", start: 9.05, end: 9.45},
+                    {word: "3.", start: 9.45, end: 10.7}
+                ]
+            },
+            {
+                id: 2,
+                text: "In this show, we build up our understanding of reality by seeking God's face.",
+                startTime: 11.68,
+                endTime: 17.7,
+                words: [
+                    {word: "In", start: 11.68, end: 11.82},
+                    {word: "this", start: 11.82, end: 12.05},
+                    {word: "show,", start: 12.05, end: 12.45},
+                    {word: "we", start: 12.45, end: 12.62},
+                    {word: "build", start: 12.62, end: 12.95},
+                    {word: "up", start: 12.95, end: 13.15},
+                    {word: "our", start: 13.15, end: 13.38},
+                    {word: "understanding", start: 13.38, end: 14.12},
+                    {word: "of", start: 14.12, end: 14.25},
+                    {word: "reality", start: 14.25, end: 14.78},
+                    {word: "by", start: 14.78, end: 14.95},
+                    {word: "seeking", start: 14.95, end: 15.35},
+                    {word: "God's", start: 15.35, end: 15.68},
+                    {word: "face.", start: 15.68, end: 17.7}
+                ]
+            },
+            {
+                id: 3,
+                text: "Today's reading is from Genesis chapter 1.",
+                startTime: 20.44,
+                endTime: 22.46,
+                words: [
+                    {word: "Today's", start: 20.44, end: 20.85},
+                    {word: "reading", start: 20.85, end: 21.25},
+                    {word: "is", start: 21.25, end: 21.38},
+                    {word: "from", start: 21.38, end: 21.62},
+                    {word: "Genesis", start: 21.62, end: 22.05},
+                    {word: "chapter", start: 22.05, end: 22.25},
+                    {word: "1.", start: 22.25, end: 22.46}
+                ]
+            },
+            {
+                id: 4,
+                text: "When God began to create the heavens and the earth, the earth was in complete chaos and",
+                startTime: 27.2,
+                endTime: 34.11,
+                words: [
+                    {word: "When", start: 27.2, end: 27.45},
+                    {word: "God", start: 27.45, end: 27.75},
+                    {word: "began", start: 27.75, end: 28.05},
+                    {word: "to", start: 28.05, end: 28.18},
+                    {word: "create", start: 28.18, end: 28.55},
+                    {word: "the", start: 28.55, end: 28.72},
+                    {word: "heavens", start: 28.72, end: 29.25},
+                    {word: "and", start: 29.25, end: 29.42},
+                    {word: "the", start: 29.42, end: 29.55},
+                    {word: "earth,", start: 29.55, end: 29.95},
+                    {word: "the", start: 29.95, end: 30.08},
+                    {word: "earth", start: 30.08, end: 30.35},
+                    {word: "was", start: 30.35, end: 30.52},
+                    {word: "in", start: 30.52, end: 30.65},
+                    {word: "complete", start: 30.65, end: 31.05},
+                    {word: "chaos", start: 31.05, end: 31.45},
+                    {word: "and", start: 31.45, end: 31.62}
+                ]
+            }
+        ];
+        
+        let zoomLevel = 1.0;
+        let pixelsPerSecond = 50;
+        let totalDuration = 0;
+        
+        function initializeTimeline() {
+            // Calculate total duration
+            totalDuration = Math.max(...segments.map(s => s.endTime));
+            
+            // Set up timeline dimensions
+            updateTimelineDimensions();
+            
+            // Render time ruler
+            renderTimeRuler();
+            
+            // Render segments
+            renderSegments();
+            
+            // Render word markers
+            renderWordMarkers();
+            
+            // Update segment list
+            updateSegmentList();
+        }
+        
+        function updateTimelineDimensions() {
+            const canvas = document.getElementById('timelineCanvas');
+            const width = totalDuration * pixelsPerSecond * zoomLevel;
+            canvas.style.width = width + 'px';
+            canvas.style.minWidth = '800px';
+        }
+        
+        function renderTimeRuler() {
+            const ruler = document.getElementById('timeRuler');
+            ruler.innerHTML = '';
+            
+            const mainInterval = getTimeInterval();
+            const subInterval = getSubInterval(mainInterval);
+            
+            // Calculate range with padding
+            const startMark = Math.floor(0 / mainInterval) * mainInterval - mainInterval;
+            const endMark = Math.ceil(totalDuration / mainInterval) * mainInterval + mainInterval;
+            
+            // Render minor ticks first (background)
+            for (let time = startMark; time <= endMark; time += subInterval) {
+                // Only show minor ticks that don't coincide with major ticks
+                if (time % mainInterval !== 0) {
+                    const mark = document.createElement('div');
+                    mark.className = 'time-mark minor';
+                    mark.style.left = (time * pixelsPerSecond * zoomLevel) + 'px';
+                    
+                    // Add minor labels for very detailed views
+                    if (mainInterval <= 2 && time % 1 === 0) {
+                        const label = document.createElement('div');
+                        label.className = 'time-label minor';
+                        label.textContent = formatTime(time, true); // Short format for minor
+                        label.style.left = (time * pixelsPerSecond * zoomLevel) + 'px';
+                        ruler.appendChild(label);
+                    }
+                    
+                    ruler.appendChild(mark);
+                }
+            }
+            
+            // Render major ticks (foreground)
+            for (let time = startMark; time <= endMark; time += mainInterval) {
+                if (time >= 0 && time <= totalDuration) {
+                    const mark = document.createElement('div');
+                    mark.className = 'time-mark major';
+                    mark.style.left = (time * pixelsPerSecond * zoomLevel) + 'px';
+                    
+                    const label = document.createElement('div');
+                    label.className = 'time-label';
+                    label.textContent = formatTime(time);
+                    label.style.left = (time * pixelsPerSecond * zoomLevel) + 'px';
+                    
+                    ruler.appendChild(mark);
+                    ruler.appendChild(label);
+                }
+            }
+        }
+        
+        function getTimeInterval() {
+            // Calculate visible duration based on viewport width and zoom
+            const viewportWidth = window.innerWidth - 100; // Account for padding
+            const visibleDuration = viewportWidth / (pixelsPerSecond * zoomLevel);
+            
+            // Smart interval selection based on visible duration
+            if (visibleDuration <= 10) return 1;      // Every second for short views
+            if (visibleDuration <= 20) return 2;      // Every 2 seconds
+            if (visibleDuration <= 30) return 5;      // Every 5 seconds
+            if (visibleDuration <= 60) return 10;     // Every 10 seconds
+            if (visibleDuration <= 120) return 15;    // Every 15 seconds
+            if (visibleDuration <= 300) return 30;    // Every 30 seconds
+            if (visibleDuration <= 600) return 60;    // Every minute
+            return 120;                               // Every 2 minutes for long views
+        }
+        
+        function getSubInterval(mainInterval) {
+            // Return smaller interval for minor ticks
+            if (mainInterval <= 1) return 0.25;       // Quarter seconds
+            if (mainInterval <= 2) return 0.5;        // Half seconds
+            if (mainInterval <= 5) return 1;          // Seconds
+            if (mainInterval <= 10) return 2;         // 2 seconds
+            if (mainInterval <= 15) return 5;         // 5 seconds
+            if (mainInterval <= 30) return 10;        // 10 seconds
+            if (mainInterval <= 60) return 15;        // 15 seconds
+            if (mainInterval <= 120) return 30;       // 30 seconds
+            return 60;                                // 1 minute
+        }
+        
+        function formatTime(seconds, shortFormat = false) {
+            if (seconds < 0) return '';
+            
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (shortFormat && mins === 0) {
+                return `${secs}s`; // Short format for minor ticks
+            }
+            
+            if (mins >= 60) {
+                const hours = Math.floor(mins / 60);
+                const remainingMins = mins % 60;
+                return `${hours}:${remainingMins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function renderSegments() {
+            const area = document.getElementById('segmentsArea');
+            area.innerHTML = '';
+            
+            segments.forEach((segment, index) => {
+                const segmentEl = document.createElement('div');
+                segmentEl.className = 'segment';
+                segmentEl.style.left = (segment.startTime * pixelsPerSecond * zoomLevel) + 'px';
+                segmentEl.style.width = ((segment.endTime - segment.startTime) * pixelsPerSecond * zoomLevel) + 'px';
+                segmentEl.style.top = (40 + (index % 3) * 35) + 'px';
+                
+                segmentEl.innerHTML = `
+                    <div class="segment-text">${segment.text}</div>
+                    <div class="segment-time">${formatTime(segment.startTime)} - ${formatTime(segment.endTime)}</div>
+                `;
+                
+                segmentEl.addEventListener('click', () => selectSegment(segment));
+                segmentEl.addEventListener('mouseenter', () => highlightSegment(segment));
+                segmentEl.addEventListener('mouseleave', () => unhighlightSegment());
+                
+                area.appendChild(segmentEl);
+            });
+        }
+        
+        function renderWordMarkers() {
+            const area = document.getElementById('segmentsArea');
+            
+            segments.forEach((segment, segIndex) => {
+                segment.words.forEach((word, wordIndex) => {
+                    const marker = document.createElement('div');
+                    marker.className = 'word-marker';
+                    marker.style.left = (word.start * pixelsPerSecond * zoomLevel) + 'px';
+                    marker.style.top = '30px';
+                    marker.style.height = '150px';
+                    marker.title = `${word.word} (${formatTime(word.start)} - ${formatTime(word.end)})`;
+                    
+                    marker.addEventListener('click', () => selectWord(word, segment));
+                    marker.addEventListener('mouseenter', () => showWordTooltip(word, segment));
+                    
+                    area.appendChild(marker);
+                });
+            });
+        }
+        
+        function updateSegmentList() {
+            const list = document.getElementById('segmentList');
+            list.innerHTML = '';
+            
+            segments.forEach(segment => {
+                const item = document.createElement('div');
+                item.className = 'segment-item';
+                
+                const wordsHtml = segment.words.map(word => 
+                    `<span class="word-item" onclick="selectWord(${JSON.stringify(word).replace(/"/g, '&quot;')}, ${JSON.stringify(segment).replace(/"/g, '&quot;')})">${word.word}</span>`
+                ).join('');
+                
+                item.innerHTML = `
+                    <div class="segment-item-header">
+                        <div class="segment-item-title">Segment ${segment.id}</div>
+                        <div class="segment-item-time">${formatTime(segment.startTime)} - ${formatTime(segment.endTime)}</div>
+                    </div>
+                    <div class="segment-item-text">${segment.text}</div>
+                    <div class="word-list">${wordsHtml}</div>
+                `;
+                
+                list.appendChild(item);
+            });
+        }
+        
+        function selectSegment(segment) {
+            console.log('Selected segment:', segment);
+            // Highlight in list
+            updateSegmentList();
+        }
+        
+        function selectWord(word, segment) {
+            console.log('Selected word:', word, 'in segment:', segment);
+        }
+        
+        function highlightSegment(segment) {
+            // Visual feedback
+        }
+        
+        function unhighlightSegment() {
+            // Remove visual feedback
+        }
+        
+        function showWordTooltip(word, segment) {
+            // Show tooltip with word info
+        }
+        
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel * 1.5, 5.0);
+            updateZoom();
+        }
+        
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel / 1.5, 0.2);
+            updateZoom();
+        }
+        
+        function resetZoom() {
+            zoomLevel = 1.0;
+            updateZoom();
+        }
+        
+        function updateZoom() {
+            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+            initializeTimeline();
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initializeTimeline);
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+Comprehensive Module Test
+Browser Environment: PASS - Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:143.0) Gecko/20100101 Firefox/143.0
+Current URL: PASS - http://localhost:8080/comprehensive_test.html
+Module Support: PASS - ES6 modules supported (this page is using them)
+Data File Access: PASS - 200 - 32 segments
+Data Structure: PASS - Duration: 220.45000000000002s, Language: en
+Events Module Import: PASS - 12 event types defined
+DataManager Module Import: PASS - DataManager class imported
+TimelineViewer Module Import: PASS - TimelineViewer class imported
+DataManager Creation: PASS - DataManager instance created
+Data Loading: PASS - Data loaded successfully
+Data Statistics: PASS - 32 segments, 218.45000000000002s duration
+Data Access: PASS - Retrieved 32 segments
+First Segment: PASS - ID: 20251008_150255_seg_0, Start: 1.68s
+TimelineViewer Creation: PASS - TimelineViewer instance created
+TimelineViewer Initialization: PASS - TimelineViewer initialized and rendered
+TimelineViewer Status: PASS - Initialized: true, Visible: null
+Zoom In: PASS - Zoom in executed
+Zoom Out: PASS - Zoom out executed
+Reset Zoom: PASS - Zoom reset executed
+TimelineViewer Operations: FAIL - can't access property "querySelector", this.element is null
+[1:58:34 PM] Page loaded, starting tests...
+[1:58:34 PM] === Starting Comprehensive Module Tests ===
+[1:58:34 PM] Browser Environment: PASS - Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:143.0) Gecko/20100101 Firefox/143.0
+[1:58:34 PM] Current URL: PASS - http://localhost:8080/comprehensive_test.html
+[1:58:34 PM] Module Support: PASS - ES6 modules supported (this page is using them)
+[1:58:34 PM] === Testing Data File Access ===
+[1:58:34 PM] Data File Access: PASS - 200 - 32 segments
+[1:58:34 PM] Data Structure: PASS - Duration: 220.45000000000002s, Language: en
+[1:58:34 PM] === Testing Module Imports ===
+[1:58:34 PM] Events Module Import: PASS - 12 event types defined
+[1:58:34 PM] Available events: SEGMENT_UPDATED, SEGMENT_SELECTED, WORD_TIMING_CHANGED, TIMELINE_ZOOM_CHANGED, PLAYBACK_POSITION_CHANGED, DATA_LOADED, DATA_EXPORTED, DATA_IMPORTED, TRANSCRIPT_CHANGED, BOUNDARY_DRAGGED, SEGMENT_CREATED, SEGMENT_DELETED
+[1:58:34 PM] DataManager Module Import: PASS - DataManager class imported
+[1:58:34 PM] TimelineViewer Module Import: PASS - TimelineViewer class imported
+[1:58:34 PM] === Testing DataManager ===
+[1:58:34 PM] DataManager Creation: PASS - DataManager instance created
+[1:58:34 PM] Data loaded event received: 32 segments
+[1:58:34 PM] Data Loading: PASS - Data loaded successfully
+[1:58:34 PM] Data Statistics: PASS - 32 segments, 218.45000000000002s duration
+[1:58:34 PM] Data Access: PASS - Retrieved 32 segments
+[1:58:34 PM] First Segment: PASS - ID: 20251008_150255_seg_0, Start: 1.68s
+[1:58:34 PM] === Testing TimelineViewer ===
+[1:58:34 PM] TimelineViewer Creation: PASS - TimelineViewer instance created
+[1:58:34 PM] TimelineViewer Initialization: PASS - TimelineViewer initialized and rendered
+[1:58:34 PM] TimelineViewer Status: PASS - Initialized: true, Visible: null
+[1:58:34 PM] Zoom In: PASS - Zoom in executed
+[1:58:34 PM] Zoom Out: PASS - Zoom out executed
+[1:58:34 PM] Reset Zoom: PASS - Zoom reset executed
+[1:58:34 PM] TimelineViewer Operations: FAIL - can't access property "querySelector", this.element is null
+[1:58:34 PM] TimelineViewer error: can't access property "querySelector", this.element is null
+[1:58:34 PM] === Tests Completed ===

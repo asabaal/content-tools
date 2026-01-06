@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimal Test</title>
+</head>
+<body>
+    <h1>Testing Basic Functions</h1>
+    
+    <button onclick="testPlay()">Test Play Function</button>
+    <button onclick="testEdit()">Test Edit Function</button>
+    <button onclick="testGroup()">Test Group Function</button>
+    
+    <div id="output">Output will appear here</div>
+    
+    <script>
+        function testPlay() {
+            document.getElementById('output').innerHTML = "Play function works!";
+            console.log("Play function called");
+        }
+        
+        function testEdit() {
+            document.getElementById('output').innerHTML = "Edit function works!";
+            console.log("Edit function called");
+        }
+        
+        function testGroup() {
+            document.getElementById('output').innerHTML = "Group function works!";
+            console.log("Group function called");
+        }
+    </script>
+</body>
+</html>

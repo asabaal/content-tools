@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Data Loading</title>
+</head>
+<body>
+    <h1>Test Data Loading</h1>
+    <div id="output"></div>
+    
+    <script src="test_data.js"></script>
+    <script>
+        console.log('Script loaded');
+        console.log('fullTranscriptData:', fullTranscriptData);
+        
+        const output = document.getElementById('output');
+        if (typeof fullTranscriptData !== 'undefined') {
+            output.innerHTML = `
+                <h2>Data Loaded Successfully!</h2>
+                <p>Segments: ${fullTranscriptData.length}</p>
+                <p>First segment: ${fullTranscriptData[0].text}</p>
+                <p>Words in first segment: ${fullTranscriptData[0].words.length}</p>
+            `;
+        } else {
+            output.innerHTML = '<h2>Error: fullTranscriptData not defined</h2>';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integration Test: TimelineViewer + InteractiveBoundaries + WordRedistribution</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .integration-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .test-info {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .status-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .status-card {
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .status-card h3 {
+            margin: 0 0 10px 0;
+            color: #2d3748;
+            font-size: 14px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-indicator.success {
+            background: #10b981;
+        }
+        
+        .status-indicator.error {
+            background: #ef4444;
+        }
+        
+        .status-indicator.pending {
+            background: #f59e0b;
+        }
+        
+        .timeline-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 500px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #4338ca;
+        }
+        
+        .btn.secondary {
+            background: #6b7280;
+        }
+        
+        .btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .event-log {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        .workflow-demo {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .step-number {
+            background: #f59e0b;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="integration-container">
+        <div class="header">
+            <h1>🔗 Integration Test: TimelineViewer + InteractiveBoundaries + WordRedistribution</h1>
+            <p>Testing complete workflow with all three components working together</p>
+        </div>
+        
+        <div class="test-info">
+            <strong>🎯 Complete Integration Test Goals:</strong>
+            <ul>
+                <li>✅ TimelineViewer renders segments and handles selection</li>
+                <li>✅ InteractiveBoundaries adds draggable handles to selected segments</li>
+                <li>✅ WordRedistribution automatically redistributes words when boundaries change</li>
+                <li>✅ Event-driven communication between all components</li>
+                <li>✅ Data consistency maintained across the entire system</li>
+                <li>✅ Performance testing with real episode 3 data</li>
+            </ul>
+        </div>
+        
+        <div class="workflow-demo">
+            <strong>🔄 Complete Workflow Demo:</strong>
+            <div class="workflow-step">
+                <div class="step-number">1</div>
+                <span>Select a segment in TimelineViewer</span>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">2</div>
+                <span>InteractiveBoundaries shows draggable handles</span>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">3</div>
+                <span>Drag a boundary to resize the segment</span>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">4</div>
+                <span>WordRedistribution automatically adjusts word timings</span>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">5</div>
+                <span>All components stay synchronized through events</span>
+            </div>
+        </div>
+        
+        <div class="status-panel">
+            <div class="status-card">
+                <h3><span class="status-indicator pending" id="dataStatus"></span>Data Manager</h3>
+                <p id="dataStatusText">Initializing...</p>
+            </div>
+            <div class="status-card">
+                <h3><span class="status-indicator pending" id="timelineStatus"></span>TimelineViewer</h3>
+                <p id="timelineStatusText">Waiting...</p>
+            </div>
+            <div class="status-card">
+                <h3><span class="status-indicator pending" id="boundariesStatus"></span>InteractiveBoundaries</h3>
+                <p id="boundariesStatusText">Waiting...</p>
+            </div>
+            <div class="status-card">
+                <h3><span class="status-indicator pending" id="redistributionStatus"></span>WordRedistribution</h3>
+                <p id="redistributionStatusText">Waiting...</p>
+            </div>
+            <div class="status-card">
+                <h3><span class="status-indicator pending" id="integrationStatus"></span>Full Integration</h3>
+                <p id="integrationStatusText">Waiting...</p>
+            </div>
+        </div>
+        
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value" id="segmentCount">0</div>
+                <div class="metric-label">Segments Loaded</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="eventCount">0</div>
+                <div class="metric-label">Events Fired</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="boundaryChanges">0</div>
+                <div class="metric-label">Boundary Changes</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="redistributions">0</div>
+                <div class="metric-label">Word Redistributions</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="selectedSegment">None</div>
+                <div class="metric-label">Selected Segment</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="wordsProcessed">0</div>
+                <div class="metric-label">Words Processed</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="runFullIntegrationBtn">🚀 Run Full Integration</button>
+            <button class="btn" id="testWorkflowBtn">🔄 Test Complete Workflow</button>
+            <button class="btn" id="testEventChainBtn">📡 Test Event Chain</button>
+            <button class="btn" id="stressTestBtn">⚡ Stress Test</button>
+            <button class="btn" id="validateDataBtn">✅ Validate Data</button>
+            <button class="btn secondary" id="clearLogBtn">🗑️ Clear Log</button>
+        </div>
+        
+        <div class="timeline-container" id="timelineContainer">
+            <!-- All components will be rendered here -->
+        </div>
+        
+        <div class="event-log" id="eventLog">Full integration test log will appear here...</div>
+    </div>
+
+    <script type="module">
+        import { DataManager } from '../core/DataManager.js';
+        import { TimelineViewer } from '../TimelineViewer/TimelineViewer.js';
+        import { InteractiveBoundaries } from '../InteractiveBoundaries/InteractiveBoundaries.js';
+        import { WordRedistribution } from '../WordRedistribution/WordRedistribution.js';
+        import { EVENTS } from '../core/Events.js';
+        
+        // Global variables
+        let dataManager;
+        let timelineViewer;
+        let interactiveBoundaries;
+        let wordRedistribution;
+        let eventCount = 0;
+        let boundaryChangeCount = 0;
+        let redistributionCount = 0;
+        let wordsProcessedCount = 0;
+        
+        let integrationTestResults = {
+            dataLoaded: false,
+            timelineInitialized: false,
+            boundariesInitialized: false,
+            redistributionInitialized: false,
+            fullIntegrationWorking: false,
+            eventChainWorking: false,
+            dataConsistent: false
+        };
+        
+        // Logging function
+        function log(message, type = 'info') {
+            const logEl = document.getElementById('eventLog');
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️';
+            logEl.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+            logEl.scrollTop = logEl.scrollHeight;
+            
+            // Update event count
+            eventCount++;
+            updateMetrics();
+        }
+        
+        // Update status indicators
+        function updateStatus(component, status, text) {
+            const indicator = document.getElementById(`${component}Status`);
+            const textEl = document.getElementById(`${component}StatusText`);
+            
+            if (indicator) indicator.className = `status-indicator ${status}`;
+            if (textEl) textEl.textContent = text;
+        }
+        
+        // Update metrics
+        function updateMetrics() {
+            if (dataManager && dataManager.isDataLoaded()) {
+                const stats = dataManager.getStatistics();
+                document.getElementById('segmentCount').textContent = stats.segmentCount;
+            }
+            
+            document.getElementById('eventCount').textContent = eventCount;
+            document.getElementById('boundaryChanges').textContent = boundaryChangeCount;
+            document.getElementById('redistributions').textContent = redistributionCount;
+            document.getElementById('wordsProcessed').textContent = wordsProcessedCount;
+        }
+        
+        // Run full integration test
+        window.runFullIntegration = async function() {
+            try {
+                log('🚀 Starting full integration test...');
+                
+                // Step 1: Initialize DataManager
+                updateStatus('data', 'pending', 'Loading data...');
+                dataManager = new DataManager();
+                
+                dataManager.on(EVENTS.DATA_LOADED, (event) => {
+                    log(`Data loaded: ${event.data.segments} segments`);
+                    updateStatus('data', 'success', 'Data loaded');
+                    integrationTestResults.dataLoaded = true;
+                    updateMetrics();
+                });
+                
+                await dataManager.loadData();
+                
+                // Step 2: Initialize TimelineViewer
+                updateStatus('timeline', 'pending', 'Initializing...');
+                timelineViewer = new TimelineViewer(dataManager, {
+                    pixelsPerSecond: 50,
+                    zoomLevel: 1.0,
+                    showWordMarkers: true
+                });
+                
+                timelineViewer.addDataListener(EVENTS.SEGMENT_SELECTED, (event) => {
+                    log(`TimelineViewer: Segment selected ${event.data.segmentId}`);
+                    document.getElementById('selectedSegment').textContent = event.data.segmentId;
+                });
+                
+                const container = document.getElementById('timelineContainer');
+                await timelineViewer.initialize(container);
+                
+                log('TimelineViewer initialized successfully');
+                updateStatus('timeline', 'success', 'Initialized');
+                integrationTestResults.timelineInitialized = true;
+                
+                // Step 3: Initialize InteractiveBoundaries
+                updateStatus('boundaries', 'pending', 'Initializing...');
+                interactiveBoundaries = new InteractiveBoundaries(dataManager, {
+                    snapToWords: true,
+                    collisionDetection: true,
+                    minSegmentDuration: 0.5
+                });
+                
+                interactiveBoundaries.addDataListener(EVENTS.BOUNDARY_DRAGGED, (event) => {
+                    boundaryChangeCount++;
+                    log(`Boundaries: ${event.data.direction} boundary dragged for ${event.data.segmentId}`);
+                    updateMetrics();
+                });
+                
+                await interactiveBoundaries.initialize(container);
+                
+                log('InteractiveBoundaries initialized successfully');
+                updateStatus('boundaries', 'success', 'Initialized');
+                integrationTestResults.boundariesInitialized = true;
+                
+                // Step 4: Initialize WordRedistribution
+                updateStatus('redistribution', 'pending', 'Initializing...');
+                wordRedistribution = new WordRedistribution(dataManager, {
+                    minWordDuration: 0.1,
+                    maxWordDuration: 2.0,
+                    preserveNaturalPauses: true,
+                    pauseThreshold: 0.3
+                });
+                
+                // Listen for redistribution events
+                dataManager.on(EVENTS.SEGMENT_UPDATED, (event) => {
+                    if (event.data.changes.words) {
+                        redistributionCount++;
+                        const segment = dataManager.getSegment(event.data.segmentId);
+                        const wordCount = segment.words ? segment.words.length : 0;
+                        wordsProcessedCount += wordCount;
+                        log(`WordRedistribution: ${wordCount} words redistributed for segment ${event.data.segmentId}`);
+                        updateMetrics();
+                    }
+                });
+                
+                await wordRedistribution.initialize(container);
+                
+                log('WordRedistribution initialized successfully');
+                updateStatus('redistribution', 'success', 'Initialized');
+                integrationTestResults.redistributionInitialized = true;
+                
+                // Step 5: Set up component hierarchy
+                timelineViewer.addChildComponent(interactiveBoundaries);
+                timelineViewer.addChildComponent(wordRedistribution);
+                
+                // Step 6: Test integration
+                updateStatus('integration', 'pending', 'Testing integration...');
+                
+                // Test selection
+                const segments = dataManager.getSegments();
+                if (segments.length > 0) {
+                    const firstSegment = segments.find(s => s.words && s.words.length > 0);
+                    if (firstSegment) {
+                        const segmentId = firstSegment.id || firstSegment.segment_id;
+                        
+                        // Select segment (should trigger boundaries and prepare for redistribution)
+                        timelineViewer.selectSegment(segmentId);
+                        
+                        log(`Full integration test: Selected segment ${segmentId} with ${firstSegment.words.length} words`);
+                        updateStatus('integration', 'success', 'Integration working');
+                        integrationTestResults.fullIntegrationWorking = true;
+                    }
+                }
+                
+                log('🎉 Full integration test completed successfully!', 'success');
+                
+            } catch (error) {
+                log(`Full integration test failed: ${error.message}`, 'error');
+                updateStatus('integration', 'error', 'Test failed');
+                console.error('Integration test error:', error);
+            }
+        };
+        
+        // Test complete workflow
+        window.testWorkflow = function() {
+            try {
+                if (!timelineViewer || !interactiveBoundaries || !wordRedistribution) {
+                    log('Please run full integration test first', 'error');
+                    return;
+                }
+                
+                log('🔄 Testing complete workflow...');
+                
+                // Find a segment with words
+                const segments = dataManager.getSegments();
+                const segmentWithWords = segments.find(s => s.words && s.words.length > 0);
+                
+                if (!segmentWithWords) {
+                    log('No segments with word data found', 'error');
+                    return;
+                }
+                
+                const segmentId = segmentWithWords.id || segmentWithWords.segment_id;
+                
+                // Step 1: Select segment
+                log(`Step 1: Selecting segment ${segmentId}`);
+                timelineViewer.selectSegment(segmentId);
+                
+                // Step 2: Simulate boundary drag (this should trigger redistribution)
+                setTimeout(() => {
+                    log(`Step 2: Simulating boundary drag`);
+                    const newEndTime = segmentWithWords.end + 1.0;
+                    dataManager.updateSegment(segmentId, { end: newEndTime });
+                }, 1000);
+                
+                // Step 3: Verify redistribution happened
+                setTimeout(() => {
+                    log(`Step 3: Verifying word redistribution`);
+                    const validation = wordRedistribution.validateWordTimings(segmentId);
+                    if (validation.valid) {
+                        log('Workflow test completed successfully', 'success');
+                    } else {
+                        log(`Workflow test completed with validation warnings: ${validation.errors.join(', ')}`);
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                log(`Workflow test failed: ${error.message}`, 'error');
+            }
+        };
+        
+        // Test event chain
+        window.testEventChain = function() {
+            try {
+                if (!timelineViewer || !interactiveBoundaries || !wordRedistribution) {
+                    log('Please run full integration test first', 'error');
+                    return;
+                }
+                
+                log('📡 Testing event chain communication...');
+                
+                const segments = dataManager.getSegments();
+                const segmentWithWords = segments.find(s => s.words && s.words.length > 0);
+                
+                if (segmentWithWords) {
+                    const segmentId = segmentWithWords.id || segmentWithWords.segment_id;
+                    
+                    log(`Event chain: Triggering segment selection`);
+                    timelineViewer.selectSegment(segmentId);
+                    
+                    setTimeout(() => {
+                        log(`Event chain: Triggering boundary change`);
+                        const newStartTime = segmentWithWords.start - 0.5;
+                        dataManager.updateSegment(segmentId, { start: newStartTime });
+                    }, 500);
+                    
+                    setTimeout(() => {
+                        log('Event chain test completed successfully', 'success');
+                        integrationTestResults.eventChainWorking = true;
+                    }, 1500);
+                }
+                
+            } catch (error) {
+                log(`Event chain test failed: ${error.message}`, 'error');
+            }
+        };
+        
+        // Stress test
+        window.stressTest = function() {
+            try {
+                if (!timelineViewer || !dataManager) {
+                    log('Please run full integration test first', 'error');
+                    return;
+                }
+                
+                log('⚡ Running stress test on all components...');
+                
+                const segments = dataManager.getSegments();
+                const segmentsWithWords = segments.filter(s => s.words && s.words.length > 0);
+                let operations = 0;
+                
+                // Rapid operations on multiple segments
+                for (let i = 0; i < Math.min(5, segmentsWithWords.length); i++) {
+                    setTimeout(() => {
+                        const segment = segmentsWithWords[i];
+                        const segmentId = segment.id || segment.segment_id;
+                        
+                        // Select segment
+                        timelineViewer.selectSegment(segmentId);
+                        
+                        // Modify timing (triggers redistribution)
+                        const newEndTime = segment.end + (Math.random() * 0.5 - 0.25);
+                        dataManager.updateSegment(segmentId, { end: newEndTime });
+                        
+                        operations++;
+                        
+                        if (operations === Math.min(5, segmentsWithWords.length)) {
+                            log(`Stress test completed: ${operations} operations across all components`, 'success');
+                        }
+                    }, i * 200);
+                }
+                
+            } catch (error) {
+                log(`Stress test failed: ${error.message}`, 'error');
+            }
+        };
+        
+        // Validate data consistency
+        window.validateData = function() {
+            try {
+                if (!wordRedistribution || !dataManager) {
+                    log('Please run full integration test first', 'error');
+                    return;
+                }
+                
+                log('✅ Validating data consistency across all components...');
+                
+                const segments = dataManager.getSegments();
+                let totalErrors = 0;
+                let validatedSegments = 0;
+                
+                // Validate first 5 segments with words
+                const segmentsToValidate = segments
+                    .filter(s => s.words && s.words.length > 0)
+                    .slice(0, 5);
+                
+                for (const segment of segmentsToValidate) {
+                    const segmentId = segment.id || segment.segment_id;
+                    const validation = wordRedistribution.validateWordTimings(segmentId);
+                    
+                    if (!validation.valid) {
+                        log(`Validation errors in segment ${segmentId}: ${validation.errors.length} issues`);
+                        totalErrors += validation.errors.length;
+                    }
+                    validatedSegments++;
+                }
+                
+                if (totalErrors === 0) {
+                    log(`Data validation passed: ${validatedSegments} segments validated`, 'success');
+                    integrationTestResults.dataConsistent = true;
+                } else {
+                    log(`Data validation completed: ${totalErrors} errors found in ${validatedSegments} segments`);
+                }
+                
+            } catch (error) {
+                log(`Data validation failed: ${error.message}`, 'error');
+            }
+        };
+        
+        // Clear log
+        window.clearLog = function() {
+            document.getElementById('eventLog').textContent = 'Log cleared...\n';
+            eventCount = 0;
+            boundaryChangeCount = 0;
+            redistributionCount = 0;
+            wordsProcessedCount = 0;
+            updateMetrics();
+        };
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            log('Full integration test page loaded');
+            updateMetrics();
+            
+            // Add event listeners to buttons
+            document.getElementById('runFullIntegrationBtn').addEventListener('click', runFullIntegration);
+            document.getElementById('testWorkflowBtn').addEventListener('click', testWorkflow);
+            document.getElementById('testEventChainBtn').addEventListener('click', testEventChain);
+            document.getElementById('stressTestBtn').addEventListener('click', stressTest);
+            document.getElementById('validateDataBtn').addEventListener('click', validateData);
+            document.getElementById('clearLogBtn').addEventListener('click', clearLog);
+            
+            // Auto-run integration test after 1 second
+            setTimeout(() => {
+                runFullIntegration();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

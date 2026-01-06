@@ -1,0 +1,550 @@
+{
+  "video_file": "/home/asabaal/episode3_combined/combined_transcript.json",
+  "total_segments": 32,
+  "duplicate_groups": [
+    {
+      "group_id": "group_1",
+      "segments": [
+        {
+          "text": "Where there was not God's book and then there was.",
+          "start_time": 1.68,
+          "end_time": 6.7,
+          "segment_id": "seg_000",
+          "confidence": null
+        },
+        {
+          "text": "How has he breathed life in and how has he breathed life into you and how did he speak you into being and",
+          "start_time": 190.72000000000003,
+          "end_time": 201.33,
+          "segment_id": "seg_028",
+          "confidence": null
+        },
+        {
+          "text": "What death have you experienced and how has he breathed life into your death and",
+          "start_time": 185.36,
+          "end_time": 190.12000000000003,
+          "segment_id": "seg_027",
+          "confidence": null
+        },
+        {
+          "text": "What death have you experienced that he needs?",
+          "start_time": 179.19,
+          "end_time": 182.13000000000002,
+          "segment_id": "seg_026",
+          "confidence": null
+        },
+        {
+          "text": "What death have you lived?",
+          "start_time": 172.11,
+          "end_time": 175.45000000000002,
+          "segment_id": "seg_024",
+          "confidence": null
+        },
+        {
+          "text": "How did he speak you into being and how did he speak you into being and life?",
+          "start_time": 202.95000000000002,
+          "end_time": 210.81000000000003,
+          "segment_id": "seg_029",
+          "confidence": null
+        },
+        {
+          "text": "The one who speaks all things into being can transform your life too.",
+          "start_time": 159.19000000000003,
+          "end_time": 167.33,
+          "segment_id": "seg_023",
+          "confidence": null
+        },
+        {
+          "text": "This reminds me that nothing is impossible through Christ who gives me strength.",
+          "start_time": 153.51000000000002,
+          "end_time": 158.21,
+          "segment_id": "seg_022",
+          "confidence": null
+        },
+        {
+          "text": "through Christ who gives me strength.",
+          "start_time": 149.46,
+          "end_time": 151.48000000000002,
+          "segment_id": "seg_021",
+          "confidence": null
+        },
+        {
+          "text": "I stopped listening to God's voice and I tried to run my race in my strength, in my strength, and I tried to run my race in my strength, rather than by Christ living in me.",
+          "start_time": 90.62,
+          "end_time": 104.64000000000001,
+          "segment_id": "seg_014",
+          "confidence": null
+        },
+        {
+          "text": "In this show, we build up our understanding of reality by seeking God's face.",
+          "start_time": 11.68,
+          "end_time": 17.7,
+          "segment_id": "seg_002",
+          "confidence": null
+        },
+        {
+          "text": "I create these things for your benefit just as God created all things for our benefit.",
+          "start_time": 137.10000000000002,
+          "end_time": 142.76000000000002,
+          "segment_id": "seg_019",
+          "confidence": null
+        },
+        {
+          "text": "So I thank God regularly for my role in partaking in creation as",
+          "start_time": 131.42000000000002,
+          "end_time": 136.44000000000003,
+          "segment_id": "seg_018",
+          "confidence": null
+        },
+        {
+          "text": "and I became compelled to shout God's praise from every mountaintop and share God's great works with everyone.",
+          "start_time": 119.62,
+          "end_time": 128.64000000000001,
+          "segment_id": "seg_017",
+          "confidence": null
+        },
+        {
+          "text": "Life filled me, peace beyond human understanding, joy that defied worldly authorities,",
+          "start_time": 110.62,
+          "end_time": 119.64000000000001,
+          "segment_id": "seg_016",
+          "confidence": null
+        },
+        {
+          "text": "This reminds me, this reminds me that nothing is impossible",
+          "start_time": 143.26000000000002,
+          "end_time": 148.44000000000003,
+          "segment_id": "seg_020",
+          "confidence": null
+        },
+        {
+          "text": "But God's, but then God spoke and I became.",
+          "start_time": 104.62,
+          "end_time": 110.64000000000001,
+          "segment_id": "seg_015",
+          "confidence": null
+        },
+        {
+          "text": "God created humans in the image of God.",
+          "start_time": 62.49,
+          "end_time": 65.87,
+          "segment_id": "seg_010",
+          "confidence": null
+        },
+        {
+          "text": "God separated the light from the darkness.",
+          "start_time": 59.53,
+          "end_time": 61.95,
+          "segment_id": "seg_009",
+          "confidence": null
+        },
+        {
+          "text": "And God saw, and God saw that the light was good and",
+          "start_time": 52.28,
+          "end_time": 58.11,
+          "segment_id": "seg_008",
+          "confidence": null
+        },
+        {
+          "text": "Then God said, let there be light and there was light.",
+          "start_time": 47.803,
+          "end_time": 50.74,
+          "segment_id": "seg_007",
+          "confidence": null
+        },
+        {
+          "text": "darkness covered the face of the deep while a wind of God, while a wind from God",
+          "start_time": 35.010000000000005,
+          "end_time": 42.42,
+          "segment_id": "seg_005",
+          "confidence": null
+        },
+        {
+          "text": "When God began to create the heavens and the earth, the earth was in complete chaos and",
+          "start_time": 27.200000000000003,
+          "end_time": 34.11,
+          "segment_id": "seg_004",
+          "confidence": null
+        },
+        {
+          "text": "Today's reading is from Genesis chapter 1.",
+          "start_time": 20.44,
+          "end_time": 22.46,
+          "segment_id": "seg_003",
+          "confidence": null
+        },
+        {
+          "text": "In my past death, I lived in complete chaos and the great darkness of depression covered my face.",
+          "start_time": 79.62,
+          "end_time": 90.64000000000001,
+          "segment_id": "seg_013",
+          "confidence": null
+        },
+        {
+          "text": "swept over the face of the waters.",
+          "start_time": 43.760000000000005,
+          "end_time": 45.349000000000004,
+          "segment_id": "seg_006",
+          "confidence": null
+        },
+        {
+          "text": "God blessed them, saying be fruitful and fill the earth.",
+          "start_time": 67.00999999999999,
+          "end_time": 72.456,
+          "segment_id": "seg_011",
+          "confidence": null
+        },
+        {
+          "text": "Welcome to Life is Your Word episode 3.",
+          "start_time": 7.68,
+          "end_time": 10.7,
+          "segment_id": "seg_001",
+          "confidence": null
+        }
+      ],
+      "similarity_score": 0.8685714285714285,
+      "ai_analysis": "Found 28 semantically similar segments",
+      "ranking": [
+        {
+          "segment_id": "seg_001",
+          "segment": {
+            "text": "Welcome to Life is Your Word episode 3.",
+            "start_time": 7.68,
+            "end_time": 10.7,
+            "segment_id": "seg_001",
+            "confidence": null
+          },
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_009",
+          "segment": {
+            "text": "God separated the light from the darkness.",
+            "start_time": 59.53,
+            "end_time": 61.95,
+            "segment_id": "seg_009",
+            "confidence": null
+          },
+          "score": 0.9333333333333332,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_018",
+          "segment": {
+            "text": "So I thank God regularly for my role in partaking in creation as",
+            "start_time": 131.42000000000002,
+            "end_time": 136.44000000000003,
+            "segment_id": "seg_018",
+            "confidence": null
+          },
+          "score": 0.9199999999999999,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_005",
+          "segment": {
+            "text": "darkness covered the face of the deep while a wind of God, while a wind from God",
+            "start_time": 35.010000000000005,
+            "end_time": 42.42,
+            "segment_id": "seg_005",
+            "confidence": null
+          },
+          "score": 0.8880000000000001,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_000",
+          "segment": {
+            "text": "Where there was not God's book and then there was.",
+            "start_time": 1.68,
+            "end_time": 6.7,
+            "segment_id": "seg_000",
+            "confidence": null
+          },
+          "score": 0.8833333333333333,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_007",
+          "segment": {
+            "text": "Then God said, let there be light and there was light.",
+            "start_time": 47.803,
+            "end_time": 50.74,
+            "segment_id": "seg_007",
+            "confidence": null
+          },
+          "score": 0.8500000000000001,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_028",
+          "segment": {
+            "text": "How has he breathed life in and how has he breathed life into you and how did he speak you into being and",
+            "start_time": 190.72000000000003,
+            "end_time": 201.33,
+            "segment_id": "seg_028",
+            "confidence": null
+          },
+          "score": 0.85,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_023",
+          "segment": {
+            "text": "The one who speaks all things into being can transform your life too.",
+            "start_time": 159.19000000000003,
+            "end_time": 167.33,
+            "segment_id": "seg_023",
+            "confidence": null
+          },
+          "score": 0.85,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_022",
+          "segment": {
+            "text": "This reminds me that nothing is impossible through Christ who gives me strength.",
+            "start_time": 153.51000000000002,
+            "end_time": 158.21,
+            "segment_id": "seg_022",
+            "confidence": null
+          },
+          "score": 0.85,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_014",
+          "segment": {
+            "text": "I stopped listening to God's voice and I tried to run my race in my strength, in my strength, and I tried to run my race in my strength, rather than by Christ living in me.",
+            "start_time": 90.62,
+            "end_time": 104.64000000000001,
+            "segment_id": "seg_014",
+            "confidence": null
+          },
+          "score": 0.85,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_019",
+          "segment": {
+            "text": "I create these things for your benefit just as God created all things for our benefit.",
+            "start_time": 137.10000000000002,
+            "end_time": 142.76000000000002,
+            "segment_id": "seg_019",
+            "confidence": null
+          },
+          "score": 0.85,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_015",
+          "segment": {
+            "text": "But God's, but then God spoke and I became.",
+            "start_time": 104.62,
+            "end_time": 110.64000000000001,
+            "segment_id": "seg_015",
+            "confidence": null
+          },
+          "score": 0.8416666666666667,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_017",
+          "segment": {
+            "text": "and I became compelled to shout God's praise from every mountaintop and share God's great works with everyone.",
+            "start_time": 119.62,
+            "end_time": 128.64000000000001,
+            "segment_id": "seg_017",
+            "confidence": null
+          },
+          "score": 0.8399999999999999,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_002",
+          "segment": {
+            "text": "In this show, we build up our understanding of reality by seeking God's face.",
+            "start_time": 11.68,
+            "end_time": 17.7,
+            "segment_id": "seg_002",
+            "confidence": null
+          },
+          "score": 0.8374999999999999,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_027",
+          "segment": {
+            "text": "What death have you experienced and how has he breathed life into your death and",
+            "start_time": 185.36,
+            "end_time": 190.12000000000003,
+            "segment_id": "seg_027",
+            "confidence": null
+          },
+          "score": 0.825,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_016",
+          "segment": {
+            "text": "Life filled me, peace beyond human understanding, joy that defied worldly authorities,",
+            "start_time": 110.62,
+            "end_time": 119.64000000000001,
+            "segment_id": "seg_016",
+            "confidence": null
+          },
+          "score": 0.825,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_020",
+          "segment": {
+            "text": "This reminds me, this reminds me that nothing is impossible",
+            "start_time": 143.26000000000002,
+            "end_time": 148.44000000000003,
+            "segment_id": "seg_020",
+            "confidence": null
+          },
+          "score": 0.825,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_004",
+          "segment": {
+            "text": "When God began to create the heavens and the earth, the earth was in complete chaos and",
+            "start_time": 27.200000000000003,
+            "end_time": 34.11,
+            "segment_id": "seg_004",
+            "confidence": null
+          },
+          "score": 0.825,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_010",
+          "segment": {
+            "text": "God created humans in the image of God.",
+            "start_time": 62.49,
+            "end_time": 65.87,
+            "segment_id": "seg_010",
+            "confidence": null
+          },
+          "score": 0.8000000000000002,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_026",
+          "segment": {
+            "text": "What death have you experienced that he needs?",
+            "start_time": 179.19,
+            "end_time": 182.13000000000002,
+            "segment_id": "seg_026",
+            "confidence": null
+          },
+          "score": 0.8,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_024",
+          "segment": {
+            "text": "What death have you lived?",
+            "start_time": 172.11,
+            "end_time": 175.45000000000002,
+            "segment_id": "seg_024",
+            "confidence": null
+          },
+          "score": 0.8,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_021",
+          "segment": {
+            "text": "through Christ who gives me strength.",
+            "start_time": 149.46,
+            "end_time": 151.48000000000002,
+            "segment_id": "seg_021",
+            "confidence": null
+          },
+          "score": 0.8,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_008",
+          "segment": {
+            "text": "And God saw, and God saw that the light was good and",
+            "start_time": 52.28,
+            "end_time": 58.11,
+            "segment_id": "seg_008",
+            "confidence": null
+          },
+          "score": 0.8,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_003",
+          "segment": {
+            "text": "Today's reading is from Genesis chapter 1.",
+            "start_time": 20.44,
+            "end_time": 22.46,
+            "segment_id": "seg_003",
+            "confidence": null
+          },
+          "score": 0.8,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_011",
+          "segment": {
+            "text": "God blessed them, saying be fruitful and fill the earth.",
+            "start_time": 67.00999999999999,
+            "end_time": 72.456,
+            "segment_id": "seg_011",
+            "confidence": null
+          },
+          "score": 0.8,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_029",
+          "segment": {
+            "text": "How did he speak you into being and how did he speak you into being and life?",
+            "start_time": 202.95000000000002,
+            "end_time": 210.81000000000003,
+            "segment_id": "seg_029",
+            "confidence": null
+          },
+          "score": 0.0,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_013",
+          "segment": {
+            "text": "In my past death, I lived in complete chaos and the great darkness of depression covered my face.",
+            "start_time": 79.62,
+            "end_time": 90.64000000000001,
+            "segment_id": "seg_013",
+            "confidence": null
+          },
+          "score": 0.0,
+          "reasons": []
+        },
+        {
+          "segment_id": "seg_006",
+          "segment": {
+            "text": "swept over the face of the waters.",
+            "start_time": 43.760000000000005,
+            "end_time": 45.349000000000004,
+            "segment_id": "seg_006",
+            "confidence": null
+          },
+          "score": 0.0,
+          "reasons": []
+        }
+      ],
+      "recommended_segment": "seg_001"
+    }
+  ],
+  "processing_time": 277.8013460636139,
+  "model_used": "llama3.1:8b"
+}

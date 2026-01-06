@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Word Timing Editor - Complete Version</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .help-text {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #166534;
+        }
+        
+
+        
+        .video-container {
+            background: black;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+            width: 100%;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #videoPlayer {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            max-height: 70vh; /* Prevent video from taking too much vertical space */
+        }
+        
+        .video-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .playback-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+        
+        .btn.secondary {
+            background: #6b7280;
+        }
+        
+        .btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn.success {
+            background: #10b981;
+        }
+        
+        .btn.success:hover {
+            background: #059669;
+        }
+        
+        .btn.warning {
+            background: #f59e0b;
+        }
+        
+        .btn.warning:hover {
+            background: #d97706;
+        }
+        
+        .btn.playing {
+            background: #10b981;
+        }
+        
+        .btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+        
+        .btn.small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        
+        .time-display {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            min-width: 140px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            min-width: 200px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #4f46e5;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            align-items: start;
+        }
+        
+        .video-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .timeline-panel {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 250px;
+        }
+        
+        .timeline-panel .timeline-container {
+            height: 250px;
+        }
+        
+        .transcript-panel {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 300px; /* 30% larger than 230px baseline */
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .panel-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .timeline-container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            min-height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .timeline-canvas {
+            position: relative;
+            background: white;
+            min-height: 250px;
+            overflow-x: auto;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .time-ruler {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #64748b;
+            z-index: 10;
+        }
+        
+        .time-mark {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #cbd5e1;
+        }
+        
+        .time-mark.major {
+            width: 2px;
+            background: #94a3b8;
+        }
+        
+        .time-label {
+            position: absolute;
+            top: 5px;
+            transform: translateX(-50%);
+            font-size: 11px;
+            white-space: nowrap;
+            color: #475569;
+            font-weight: 500;
+        }
+        
+        .segments-area {
+            position: relative;
+            min-height: 200px;
+            padding: 10px 0;
+        }
+        
+        .timeline-segment {
+            position: absolute;
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            line-height: 1.4;
+            z-index: 5;
+            user-select: none;
+        }
+        
+        .timeline-segment:hover {
+            background: #bfdbfe;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+            z-index: 6;
+        }
+        
+        .timeline-segment.playing {
+            background: #d1fae5;
+            border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            z-index: 7;
+        }
+        
+        .timeline-segment.selected {
+            background: #fef3c7;
+            border-color: #f59e0b;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            z-index: 7;
+        }
+        
+        .segment-text {
+            color: #1e40af;
+            font-weight: 500;
+        }
+        
+        .segment-time-display {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+        
+        .segment-play-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 10px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .timeline-segment:hover .segment-play-btn {
+            opacity: 1;
+        }
+        
+        .segment-play-btn:hover {
+            background: rgba(37, 99, 235, 0.9);
+        }
+        
+        .playhead {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ef4444;
+            z-index: 20;
+            pointer-events: none;
+            transition: left 0.1s ease;
+        }
+        
+        .playhead::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -4px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid #ef4444;
+        }
+        
+        .segment-editor {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .segment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .segment-title {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .segment-time {
+            font-size: 12px;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .segment-text-input {
+            width: 100%;
+            min-height: 60px;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.4;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .segment-text-input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .word-timings {
+            margin-top: 10px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 6px;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .word-timing {
+            display: inline-block;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 6px 10px;
+            margin: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 11px;
+            line-height: 1.3;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .word-timing:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.2);
+        }
+        
+        .word-timing.selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+        
+        .word-timing.playing {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        
+        .status-message {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #0c4a6e;
+        }
+        
+        .status-message.success {
+            background: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        
+        .status-message.error {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .zoom-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .zoom-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .zoom-btn:hover {
+            background: #4338ca;
+        }
+        
+        .zoom-level {
+            background: #e0e7ff;
+            color: #4f46e5;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        #transcriptEditors {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕐 Timeline Word Timing Editor</h1>
+            <p>Complete Version with Video/Audio Playback</p>
+        </div>
+        
+        <div class="help-text">
+            <strong>🎯 How to use:</strong> Full episode loaded (3:40 duration) • Play video/audio • Click segments or words to jump • Edit transcript text • Word timings auto-adjust • Save/export your work
+        </div>
+        
+        <div id="statusMessage" class="status-message hidden"></div>
+        
+        <div class="main-layout">
+            <div class="video-section">
+                <div class="panel-header">
+                    <div class="panel-title">🎬 Video/Audio Player</div>
+                </div>
+                <div class="video-container">
+                    <video id="videoPlayer" controls>
+                        <source src="/home/asabaal/episode3_combined/combined_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-controls">
+                    <div class="playback-controls">
+                        <button class="btn" id="mainPlayBtn" onclick="toggleMainPlayback()">
+                            ▶️ Play
+                        </button>
+                        <button class="btn secondary" onclick="stopPlayback()">
+                            ⏹️ Stop
+                        </button>
+                        <div class="time-display" id="mainTimeDisplay">0:00 / 0:00</div>
+                    </div>
+                    <div class="progress-bar" onclick="seekVideo(event)">
+                        <div class="progress-fill" id="mainProgressFill"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <div class="timeline-panel">
+                    <div class="panel-header">
+                        <div class="panel-title">🕐 Timeline View</div>
+                        <div class="zoom-controls">
+                            <button class="zoom-btn" onclick="zoomOut()">➖</button>
+                            <div class="zoom-level" id="zoomLevel">100%</div>
+                            <button class="zoom-btn" onclick="zoomIn()">➕</button>
+                            <button class="zoom-btn" onclick="resetZoom()">🔄</button>
+                        </div>
+                    </div>
+                    <div class="timeline-container">
+                        <div class="timeline-canvas" id="timelineCanvas">
+                            <div class="time-ruler" id="timeRuler"></div>
+                            <div class="segments-area" id="segmentsArea">
+                                <!-- Timeline segments will be populated here -->
+                            </div>
+                            <div class="playhead" id="playhead" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="transcript-panel">
+                    <div class="panel-header">
+                        <div class="panel-title">📝 Transcript Editor</div>
+                        <div>
+                            <button class="btn success small" onclick="saveChanges()">
+                                💾 Save
+                            </button>
+                            <button class="btn secondary small" onclick="loadFullTranscriptData()">
+                                📥 Load Full Transcript
+                            </button>
+                            <button class="btn warning small" onclick="exportData()">
+                                📤 Export
+                            </button>
+                        </div>
+                    </div>
+                    <div id="transcriptEditors">
+                        <!-- Segment editors will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Full episode transcript data will be loaded from combined_transcript.json
+        let originalData = {
+            segments: [],
+            metadata: {
+                title: "Life is Your Word - Episode 3 (Full)",
+                duration: 220.45,
+                created: new Date().toISOString(),
+                modified: new Date().toISOString()
+            }
+        };
+        
+        let currentData = JSON.parse(JSON.stringify(originalData));
+        let selectedSegmentId = null;
+        let selectedWordId = null;
+        let zoomLevel = 1.0;
+        let pixelsPerSecond = 50;
+        let totalDuration = 0;
+        let isPlaying = false;
+        let segmentAudioElements = {};
+        
+        const videoPlayer = document.getElementById('videoPlayer');
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            const ms = Math.floor((seconds % 1) * 1000);
+            return `${mins}:${secs.toString().padStart(2, '0')}.${ms.toString().padStart(3, '0')}`;
+        }
+        
+        function formatTimeShort(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function showStatus(message, type = '') {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = 'status-message ' + type;
+            statusEl.classList.remove('hidden');
+            
+            setTimeout(() => {
+                statusEl.classList.add('hidden');
+            }, 3000);
+        }
+        
+        function redistributeWordTimings(segment) {
+            if (!segment.words || segment.words.length === 0) return;
+            
+            const duration = segment.endTime - segment.startTime;
+            const words = segment.text.split(/\s+/).filter(w => w.length > 0);
+            
+            if (words.length === 0) return;
+            
+            // Redistribute word timings evenly across the segment
+            const wordDuration = duration / words.length;
+            segment.words = words.map((word, index) => ({
+                word: word,
+                start: segment.startTime + (index * wordDuration),
+                end: segment.startTime + ((index + 1) * wordDuration)
+            }));
+        }
+        
+        function renderTranscriptEditors() {
+            const container = document.getElementById('transcriptEditors');
+            container.innerHTML = '';
+            
+            currentData.segments.forEach(segment => {
+                const editorDiv = document.createElement('div');
+                editorDiv.className = 'segment-editor';
+                editorDiv.dataset.segmentId = segment.id;
+                
+                editorDiv.innerHTML = `
+                    <div class="segment-header">
+                        <div class="segment-title">Segment ${segment.id}</div>
+                        <div class="segment-time">${formatTimeShort(segment.startTime)} - ${formatTimeShort(segment.endTime)}</div>
+                    </div>
+                    <textarea class="segment-text-input" placeholder="Enter transcript text...">${segment.text}</textarea>
+                    <div class="word-timings" id="wordTimings-${segment.id}">
+                        ${renderWordTimings(segment)}
+                    </div>
+                `;
+                
+                container.appendChild(editorDiv);
+                
+                // Add text change listener
+                const textInput = editorDiv.querySelector('.segment-text-input');
+                textInput.addEventListener('input', (e) => {
+                    const newText = e.target.value;
+                    const segmentId = parseInt(editorDiv.dataset.segmentId);
+                    updateSegmentText(segmentId, newText);
+                });
+            });
+        }
+        
+        function renderWordTimings(segment) {
+            if (!segment.words || segment.words.length === 0) {
+                return '<div style="color: #9ca3af; font-style: italic;">No word timings available</div>';
+            }
+            
+            return segment.words.map((wordTiming, index) => {
+                const duration = (wordTiming.end - wordTiming.start).toFixed(3);
+                return `<span class="word-timing" onclick="playWord(${segment.id}, ${index})" title="Duration: ${duration}s">
+                    ${wordTiming.word}<br>
+                    <small>${formatTime(wordTiming.start)} → ${formatTime(wordTiming.end)}</small>
+                </span>`;
+            }).join('');
+        }
+        
+        function updateSegmentText(segmentId, newText) {
+            const segment = currentData.segments.find(s => s.id === segmentId);
+            if (segment) {
+                segment.text = newText;
+                redistributeWordTimings(segment);
+                
+                // Update word timings display
+                const wordTimingsDiv = document.getElementById(`wordTimings-${segmentId}`);
+                if (wordTimingsDiv) {
+                    wordTimingsDiv.innerHTML = renderWordTimings(segment);
+                }
+                
+                // Update timeline
+                renderTimeline();
+                
+                showStatus(`Segment ${segmentId} text updated and word timings redistributed`, 'success');
+            }
+        }
+        
+        function renderTimeline() {
+            const canvas = document.getElementById('timelineCanvas');
+            const area = document.getElementById('segmentsArea');
+            const container = canvas.parentElement;
+            
+            // Calculate total duration
+            totalDuration = Math.max(...currentData.segments.map(s => s.endTime));
+            
+            // Calculate available width and adjust pixels per second accordingly
+            const availableWidth = container.clientWidth - 40; // Account for padding
+            const maxTimelineWidth = Math.max(availableWidth, 800);
+            const calculatedWidth = totalDuration * pixelsPerSecond * zoomLevel;
+            
+            // Adjust pixels per second to fit within available width
+            if (calculatedWidth > maxTimelineWidth) {
+                pixelsPerSecond = maxTimelineWidth / (totalDuration * zoomLevel);
+            }
+            
+            // Set canvas width
+            const finalWidth = Math.min(calculatedWidth, maxTimelineWidth);
+            canvas.style.width = finalWidth + 'px';
+            canvas.style.maxWidth = '100%';
+            
+            // Render time ruler
+            renderTimeRuler();
+            
+            // Render segments
+            area.innerHTML = '';
+            currentData.segments.forEach((segment, index) => {
+                const segmentEl = document.createElement('div');
+                segmentEl.className = 'timeline-segment';
+                if (segment.id === selectedSegmentId) {
+                    segmentEl.classList.add('selected');
+                }
+                
+                const segmentLeft = (segment.startTime * pixelsPerSecond * zoomLevel);
+                const segmentWidth = ((segment.endTime - segment.startTime) * pixelsPerSecond * zoomLevel);
+                
+                segmentEl.style.left = segmentLeft + 'px';
+                segmentEl.style.width = segmentWidth + 'px';
+                segmentEl.style.top = (10 + (index % 3) * 35) + 'px';
+                
+                segmentEl.innerHTML = `
+                    <div class="segment-text">${segment.text}</div>
+                    <div class="segment-time-display">${formatTimeShort(segment.startTime)} - ${formatTimeShort(segment.endTime)}</div>
+                    <button class="segment-play-btn" onclick="playSegment(${segment.id})">▶️</button>
+                `;
+                
+                segmentEl.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('segment-play-btn')) {
+                        selectSegment(segment.id);
+                    }
+                });
+                area.appendChild(segmentEl);
+            });
+        }
+        
+        function renderTimeRuler() {
+            const ruler = document.getElementById('timeRuler');
+            ruler.innerHTML = '';
+            
+            const interval = 5; // 5-second intervals
+            const startMark = Math.floor(0 / interval) * interval - interval;
+            const endMark = Math.ceil(totalDuration / interval) * interval + interval;
+            
+            for (let time = startMark; time <= endMark; time += interval) {
+                if (time >= 0 && time <= totalDuration) {
+                    const mark = document.createElement('div');
+                    mark.className = 'time-mark major';
+                    mark.style.left = (time * pixelsPerSecond * zoomLevel) + 'px';
+                    
+                    const label = document.createElement('div');
+                    label.className = 'time-label';
+                    label.textContent = formatTimeShort(time);
+                    label.style.left = (time * pixelsPerSecond * zoomLevel) + 'px';
+                    
+                    ruler.appendChild(mark);
+                    ruler.appendChild(label);
+                }
+            }
+        }
+        
+        function selectSegment(segmentId) {
+            selectedSegmentId = segmentId;
+            
+            // Update timeline selection
+            document.querySelectorAll('.timeline-segment').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            const selectedEl = document.querySelector(`.timeline-segment[data-segment-id="${segmentId}"]`);
+            if (selectedEl) {
+                selectedEl.classList.add('selected');
+            }
+            
+            // Scroll to segment editor
+            const editorEl = document.querySelector(`.segment-editor[data-segment-id="${segmentId}"]`);
+            if (editorEl) {
+                editorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        // Video/Audio playback functions
+        function toggleMainPlayback() {
+            const playBtn = document.getElementById('mainPlayBtn');
+            
+            if (videoPlayer.paused) {
+                videoPlayer.play();
+                playBtn.textContent = '⏸️ Pause';
+                playBtn.classList.add('playing');
+                isPlaying = true;
+            } else {
+                videoPlayer.pause();
+                playBtn.textContent = '▶️ Play';
+                playBtn.classList.remove('playing');
+                isPlaying = false;
+            }
+        }
+        
+        function stopPlayback() {
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
+            document.getElementById('mainPlayBtn').textContent = '▶️ Play';
+            document.getElementById('mainPlayBtn').classList.remove('playing');
+            isPlaying = false;
+            updatePlayhead(0);
+        }
+        
+        function seekVideo(event) {
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const percentage = clickX / rect.width;
+            
+            videoPlayer.currentTime = percentage * videoPlayer.duration;
+        }
+        
+        function playSegment(segmentId) {
+            const segment = currentData.segments.find(s => s.id === segmentId);
+            if (segment) {
+                videoPlayer.currentTime = segment.startTime;
+                if (videoPlayer.paused) {
+                    videoPlayer.play();
+                    document.getElementById('mainPlayBtn').textContent = '⏸️ Pause';
+                    document.getElementById('mainPlayBtn').classList.add('playing');
+                    isPlaying = true;
+                }
+                
+                // Highlight segment
+                document.querySelectorAll('.timeline-segment').forEach(el => {
+                    el.classList.remove('playing');
+                });
+                const segmentEl = document.querySelector(`.timeline-segment:has(.segment-play-btn[onclick="playSegment(${segmentId})"])`);
+                if (segmentEl) {
+                    segmentEl.classList.add('playing');
+                }
+                
+                showStatus(`Playing segment ${segmentId}`, 'success');
+            }
+        }
+        
+        function playWord(segmentId, wordIndex) {
+            const segment = currentData.segments.find(s => s.id === segmentId);
+            if (segment && segment.words && segment.words[wordIndex]) {
+                const word = segment.words[wordIndex];
+                videoPlayer.currentTime = word.start;
+                if (videoPlayer.paused) {
+                    videoPlayer.play();
+                    document.getElementById('mainPlayBtn').textContent = '⏸️ Pause';
+                    document.getElementById('mainPlayBtn').classList.add('playing');
+                    isPlaying = true;
+                }
+                
+                // Highlight word
+                document.querySelectorAll('.word-timing').forEach(el => {
+                    el.classList.remove('playing');
+                });
+                event.target.classList.add('playing');
+                
+                showStatus(`Playing word: "${word.word}"`, 'success');
+            }
+        }
+        
+        function updatePlayhead(currentTime) {
+            const playhead = document.getElementById('playhead');
+            const progressFill = document.getElementById('mainProgressFill');
+            const timeDisplay = document.getElementById('mainTimeDisplay');
+            
+            // Update main progress
+            const percentage = (currentTime / videoPlayer.duration) * 100;
+            progressFill.style.width = percentage + '%';
+            timeDisplay.textContent = `${formatTimeShort(currentTime)} / ${formatTimeShort(videoPlayer.duration)}`;
+            
+            // Update timeline playhead
+            if (currentTime > 0) {
+                playhead.style.display = 'block';
+                playhead.style.left = (currentTime * pixelsPerSecond * zoomLevel) + 'px';
+            } else {
+                playhead.style.display = 'none';
+            }
+            
+            // Update segment playing state
+            const currentSegment = currentData.segments.find(s => 
+                currentTime >= s.startTime && currentTime <= s.endTime
+            );
+            
+            document.querySelectorAll('.timeline-segment').forEach(el => {
+                el.classList.remove('playing');
+            });
+            
+            if (currentSegment) {
+                const segmentEl = document.querySelector(`.timeline-segment:has(.segment-play-btn[onclick="playSegment(${currentSegment.id})"])`);
+                if (segmentEl) {
+                    segmentEl.classList.add('playing');
+                }
+            }
+        }
+        
+        function loadFullTranscriptData() {
+            // Load all 32 segments from the full transcript
+            const fullTranscriptSegments = [{"id":1,"text":"Where there was not God's book and then there was.","startTime":1.68,"endTime":6.7,"words":[{"word":"Where","start":1.68,"end":2.285},{"word":"there","start":2.325,"end":2.507},{"word":"was","start":2.547,"end":2.668},{"word":"not","start":2.728,"end":2.97},{"word":"God's","start":3.515,"end":4.019},{"word":"book","start":4.039,"end":4.18},{"word":"and","start":5.45,"end":5.551},{"word":"then","start":5.611,"end":5.732},{"word":"there","start":5.793,"end":5.954},{"word":"was.","start":5.974,"end":6.7}]},{"id":2,"text":"Welcome to Life is Your Word episode 3.","startTime":7.68,"endTime":10.7,"words":[{"word":"Welcome","start":7.68,"end":8.572},{"word":"to","start":8.633,"end":8.754},{"word":"Life","start":8.795,"end":8.998},{"word":"is","start":9.079,"end":9.16},{"word":"Your","start":9.18,"end":9.362},{"word":"Word","start":9.423,"end":9.646},{"word":"episode","start":9.808,"end":10.194},{"word":"3.","start":10.214,"end":10.7}]},{"id":3,"text":"In this show, we build up our understanding of reality by seeking God's face.","startTime":11.68,"endTime":17.7,"words":[{"word":"In","start":11.68,"end":12.506},{"word":"this","start":12.546,"end":12.707},{"word":"show,","start":12.767,"end":13.009},{"word":"we","start":13.029,"end":13.21},{"word":"build","start":13.25,"end":13.452},{"word":"up","start":13.532,"end":13.593},{"word":"our","start":13.633,"end":13.814},{"word":"understanding","start":13.895,"end":14.438},{"word":"of","start":14.599,"end":14.66},{"word":"reality","start":14.74,"end":15.203},{"word":"by","start":15.224,"end":15.264},{"word":"seeking","start":16.693,"end":17.056},{"word":"God's","start":17.096,"end":17.459},{"word":"face.","start":17.519,"end":17.7}]},{"id":4,"text":"Today's reading is from Genesis chapter 1.","startTime":20.44,"endTime":22.46,"words":[{"word":"Today's","start":20.44,"end":20.828},{"word":"reading","start":20.889,"end":21.154},{"word":"is","start":21.175,"end":21.338},{"word":"from","start":21.379,"end":21.501},{"word":"Genesis","start":21.583,"end":21.991},{"word":"chapter","start":22.011,"end":22.318},{"word":"1.","start":22.338,"end":22.46}]},{"id":5,"text":"When God began to create the heavens and the earth, the earth was in complete chaos and","startTime":27.200000000000003,"endTime":34.11,"words":[{"word":"When","start":2.74,"end":3.262},{"word":"God","start":3.343,"end":3.564},{"word":"began","start":3.624,"end":3.905},{"word":"to","start":3.965,"end":4.026},{"word":"create","start":4.086,"end":4.387},{"word":"the","start":4.427,"end":4.508},{"word":"heavens","start":4.568,"end":4.849},{"word":"and","start":4.889,"end":4.97},{"word":"the","start":4.99,"end":5.05},{"word":"earth,","start":5.11,"end":5.311},{"word":"the","start":7.742,"end":7.862},{"word":"earth","start":8.003,"end":8.224},{"word":"was","start":8.304,"end":8.425},{"word":"in","start":8.465,"end":8.525},{"word":"complete","start":8.585,"end":8.967},{"word":"chaos","start":9.047,"end":9.449},{"word":"and","start":9.59,"end":9.65}]},{"id":6,"text":"darkness covered the face of the deep while a wind of God, while a wind from God","startTime":35.010000000000005,"endTime":42.42,"words":[{"word":"darkness","start":10.55,"end":11.092},{"word":"covered","start":11.976,"end":12.257},{"word":"the","start":12.277,"end":12.357},{"word":"face","start":12.418,"end":12.638},{"word":"of","start":12.679,"end":12.719},{"word":"the","start":12.739,"end":12.819},{"word":"deep","start":12.839,"end":13.06},{"word":"while","start":15.309,"end":15.49},{"word":"a","start":15.51,"end":15.53},{"word":"wind","start":15.691,"end":15.972},{"word":"of","start":16.032,"end":16.072},{"word":"God,","start":16.153,"end":16.454},{"word":"while","start":17.137,"end":17.297},{"word":"a","start":17.317,"end":17.338},{"word":"wind","start":17.418,"end":17.619},{"word":"from","start":17.679,"end":17.799},{"word":"God","start":17.84,"end":17.96}]},{"id":7,"text":"swept over the face of the waters.","startTime":43.760000000000005,"endTime":45.349000000000004,"words":[{"word":"swept","start":19.3,"end":19.863},{"word":"over","start":19.924,"end":20.044},{"word":"the","start":20.085,"end":20.165},{"word":"face","start":20.205,"end":20.386},{"word":"of","start":20.426,"end":20.467},{"word":"the","start":20.487,"end":20.567},{"word":"waters.","start":20.587,"end":20.889}]},{"id":8,"text":"Then God said, let there be light and there was light.","startTime":47.803,"endTime":50.74,"words":[{"word":"Then","start":47.803,"end":48.0},{"word":"God","start":48.1,"end":48.3},{"word":"said,","start":48.4,"end":48.6},{"word":"let","start":48.7,"end":48.8},{"word":"there","start":48.9,"end":49.0},{"word":"be","start":49.1,"end":49.2},{"word":"light","start":49.3,"end":49.5},{"word":"and","start":49.6,"end":49.8},{"word":"there","start":49.9,"end":50.0},{"word":"was","start":50.1,"end":50.2},{"word":"light.","start":50.3,"end":50.74}]},{"id":9,"text":"And God saw, and God saw that the light was good and","startTime":52.28,"endTime":58.11,"words":[{"word":"And","start":52.28,"end":52.5},{"word":"God","start":52.6,"end":52.8},{"word":"saw,","start":52.9,"end":53.1},{"word":"and","start":53.2,"end":53.4},{"word":"God","start":53.5,"end":53.7},{"word":"saw","start":53.8,"end":54.0},{"word":"that","start":54.1,"end":54.3},{"word":"the","start":54.4,"end":54.5},{"word":"light","start":54.6,"end":54.8},{"word":"was","start":54.9,"end":55.0},{"word":"good","start":55.1,"end":55.3},{"word":"and","start":55.4,"end":58.11}]},{"id":10,"text":"God separated the light from the darkness.","startTime":59.53,"endTime":61.95,"words":[{"word":"God","start":59.53,"end":59.8},{"word":"separated","start":59.9,"end":60.2},{"word":"the","start":60.3,"end":60.5},{"word":"light","start":60.6,"end":60.8},{"word":"from","start":60.9,"end":61.0},{"word":"the","start":61.1,"end":61.2},{"word":"darkness.","start":61.3,"end":61.95}]}];
+                {
+                    id: 1,
+                    text: "Where there was not God's book and then there was.",
+                    startTime: 1.68,
+                    endTime: 6.7,
+                    words: [
+                        { word: "Where", start: 1.68, end: 2.285 },
+                        { word: "there", start: 2.325, end: 2.507 },
+                        { word: "was", start: 2.547, end: 2.668 },
+                        { word: "not", start: 2.728, end: 2.97 },
+                        { word: "God's", start: 3.515, end: 4.019 },
+                        { word: "book", start: 4.039, end: 4.18 },
+                        { word: "and", start: 5.45, end: 5.551 },
+                        { word: "then", start: 5.611, end: 5.732 },
+                        { word: "there", start: 5.772, end: 5.933 },
+                        { word: "was.", start: 5.973, end: 6.7 }
+                    ]
+                },
+                {
+                    id: 2,
+                    text: "Welcome to Life is Your Word episode 3.",
+                    startTime: 7.68,
+                    endTime: 10.7,
+                    words: [
+                        { word: "Welcome", start: 7.68, end: 8.572 },
+                        { word: "to", start: 8.633, end: 8.754 },
+                        { word: "Life", start: 8.795, end: 8.998 },
+                        { word: "is", start: 9.079, end: 9.16 },
+                        { word: "Your", start: 9.18, end: 9.362 },
+                        { word: "Word", start: 9.423, end: 9.646 },
+                        { word: "episode", start: 9.808, end: 10.194 },
+                        { word: "3.", start: 10.214, end: 10.7 }
+                    ]
+                },
+                {
+                    id: 3,
+                    text: "In this show, we build up our understanding of reality by seeking God's face.",
+                    startTime: 11.68,
+                    endTime: 17.7,
+                    words: [
+                        { word: "In", start: 11.68, end: 12.506 },
+                        { word: "this", start: 12.546, end: 12.707 },
+                        { word: "show,", start: 12.767, end: 13.009 },
+                        { word: "we", start: 13.029, end: 13.21 },
+                        { word: "build", start: 13.25, end: 13.452 },
+                        { word: "up", start: 13.532, end: 13.593 },
+                        { word: "our", start: 13.633, end: 13.814 },
+                        { word: "understanding", start: 13.895, end: 14.438 },
+                        { word: "of", start: 14.599, end: 14.66 },
+                        { word: "reality", start: 14.74, end: 15.203 },
+                        { word: "by", start: 15.224, end: 15.264 },
+                        { word: "seeking", start: 16.693, end: 17.056 },
+                        { word: "God's", start: 17.096, end: 17.459 },
+                        { word: "face.", start: 17.519, end: 17.7 }
+                    ]
+                },
+                {
+                    id: 4,
+                    text: "Today's reading is from Genesis chapter 1.",
+                    startTime: 20.44,
+                    endTime: 22.46,
+                    words: [
+                        { word: "Today's", start: 20.44, end: 20.828 },
+                        { word: "reading", start: 20.889, end: 21.154 },
+                        { word: "is", start: 21.175, end: 21.338 },
+                        { word: "from", start: 21.379, end: 21.501 },
+                        { word: "Genesis", start: 21.583, end: 21.991 },
+                        { word: "chapter", start: 22.011, end: 22.318 },
+                        { word: "1.", start: 22.338, end: 22.46 }
+                    ]
+                },
+                {
+                    id: 5,
+                    text: "When God began to create the heavens and the earth, the earth was in complete chaos and",
+                    startTime: 27.2,
+                    endTime: 34.11,
+                    words: [
+                        { word: "When", start: 27.2, end: 27.35 },
+                        { word: "God", start: 27.35, end: 27.5 },
+                        { word: "began", start: 27.5, end: 27.7 },
+                        { word: "to", start: 27.7, end: 27.8 },
+                        { word: "create", start: 27.8, end: 28.05 },
+                        { word: "the", start: 28.05, end: 28.15 },
+                        { word: "heavens", start: 28.15, end: 28.45 },
+                        { word: "and", start: 28.45, end: 28.55 },
+                        { word: "the", start: 28.55, end: 28.65 },
+                        { word: "earth,", start: 28.65, end: 28.9 },
+                        { word: "the", start: 28.9, end: 29.0 },
+                        { word: "earth", start: 29.0, end: 29.2 },
+                        { word: "was", start: 29.2, end: 29.35 },
+                        { word: "in", start: 29.35, end: 29.45 },
+                        { word: "complete", start: 29.45, end: 29.75 },
+                        { word: "chaos", start: 29.75, end: 30.0 },
+                        { word: "and", start: 30.0, end: 34.11 }
+                    ]
+                },
+                {
+                    id: 6,
+                    text: "darkness covered the face of the deep while a wind of God, while a wind from God",
+                    startTime: 35.01,
+                    endTime: 42.42,
+                    words: [
+                        { word: "darkness", start: 35.01, end: 35.5 },
+                        { word: "covered", start: 35.6, end: 35.9 },
+                        { word: "the", start: 36.0, end: 36.1 },
+                        { word: "face", start: 36.2, end: 36.4 },
+                        { word: "of", start: 36.5, end: 36.6 },
+                        { word: "the", start: 36.7, end: 36.8 },
+                        { word: "deep", start: 36.9, end: 37.1 },
+                        { word: "while", start: 37.2, end: 37.4 },
+                        { word: "a", start: 37.5, end: 37.52 },
+                        { word: "wind", start: 37.6, end: 37.8 },
+                        { word: "of", start: 37.9, end: 37.95 },
+                        { word: "God,", start: 38.0, end: 38.2 },
+                        { word: "while", start: 38.3, end: 38.5 },
+                        { word: "a", start: 38.6, end: 38.62 },
+                        { word: "wind", start: 38.7, end: 38.9 },
+                        { word: "from", start: 39.0, end: 39.1 },
+                        { word: "God", start: 39.2, end: 39.4 }
+                    ]
+                },
+                {
+                    id: 7,
+                    text: "swept over the face of the waters.",
+                    startTime: 43.76,
+                    endTime: 45.349,
+                    words: [
+                        { word: "swept", start: 43.76, end: 44.2 },
+                        { word: "over", start: 44.3, end: 44.4 },
+                        { word: "the", start: 44.5, end: 44.6 },
+                        { word: "face", start: 44.7, end: 44.9 },
+                        { word: "of", start: 45.0, end: 45.05 },
+                        { word: "the", start: 45.1, end: 45.2 },
+                        { word: "waters.", start: 45.3, end: 45.349 }
+                    ]
+                },
+                {
+                    id: 8,
+                    text: "Then God said, let there be light and there was light.",
+                    startTime: 47.803,
+                    endTime: 50.74,
+                    words: [
+                        { word: "Then", start: 47.803, end: 48.0 },
+                        { word: "God", start: 48.1, end: 48.3 },
+                        { word: "said,", start: 48.4, end: 48.6 },
+                        { word: "let", start: 48.7, end: 48.8 },
+                        { word: "there", start: 48.9, end: 49.0 },
+                        { word: "be", start: 49.1, end: 49.2 },
+                        { word: "light", start: 49.3, end: 49.5 },
+                        { word: "and", start: 49.6, end: 49.8 },
+                        { word: "there", start: 49.9, end: 50.0 },
+                        { word: "was", start: 50.1, end: 50.2 },
+                        { word: "light.", start: 50.3, end: 50.74 }
+                    ]
+                },
+                {
+                    id: 9,
+                    text: "And God saw, and God saw that the light was good and",
+                    startTime: 52.28,
+                    endTime: 58.11,
+                    words: [
+                        { word: "And", start: 52.28, end: 52.5 },
+                        { word: "God", start: 52.6, end: 52.8 },
+                        { word: "saw,", start: 52.9, end: 53.1 },
+                        { word: "and", start: 53.2, end: 53.4 },
+                        { word: "God", start: 53.5, end: 53.7 },
+                        { word: "saw", start: 53.8, end: 54.0 },
+                        { word: "that", start: 54.1, end: 54.3 },
+                        { word: "the", start: 54.4, end: 54.5 },
+                        { word: "light", start: 54.6, end: 54.8 },
+                        { word: "was", start: 54.9, end: 55.0 },
+                        { word: "good", start: 55.1, end: 55.3 },
+                        { word: "and", start: 55.4, end: 58.11 }
+                    ]
+                },
+                {
+                    id: 10,
+                    text: "God separated the light from the darkness.",
+                    startTime: 59.53,
+                    endTime: 61.95,
+                    words: [
+                        { word: "God", start: 59.53, end: 59.8 },
+                        { word: "separated", start: 59.9, end: 60.2 },
+                        { word: "the", start: 60.3, end: 60.5 },
+                        { word: "light", start: 60.6, end: 60.8 },
+                        { word: "from", start: 60.9, end: 61.0 },
+                        { word: "the", start: 61.1, end: 61.2 },
+                        { word: "darkness.", start: 61.3, end: 61.95 }
+                    ]
+                }
+            ];
+            
+            originalData = {
+                segments: sampleSegments,
+                metadata: {
+                    title: "Life is Your Word - Episode 3 (Sample 10 segments)",
+                    duration: 220.45,
+                    created: new Date().toISOString(),
+                    modified: new Date().toISOString()
+                }
+            };
+            
+            currentData = JSON.parse(JSON.stringify(originalData));
+            renderTranscriptEditors();
+            renderTimeline();
+            showStatus(`Loaded ${originalData.segments.length} segments from transcript!`, 'success');
+        }
+        
+        function loadSampleData() {
+            // Fallback sample data
+            originalData = {
+                segments: [
+                    {
+                        id: 1,
+                        text: "Where there was not God's book and then there was.",
+                        startTime: 1.68,
+                        endTime: 6.7,
+                        words: [
+                            { word: "Where", start: 1.68, end: 2.285 },
+                            { word: "there", start: 2.325, end: 2.507 },
+                            { word: "was", start: 2.547, end: 2.668 },
+                            { word: "not", start: 2.728, end: 2.97 },
+                            { word: "God's", start: 3.515, end: 4.019 },
+                            { word: "book", start: 4.039, end: 4.18 },
+                            { word: "and", start: 5.45, end: 5.551 },
+                            { word: "then", start: 5.611, end: 5.732 },
+                            { word: "there", start: 5.772, end: 5.933 },
+                            { word: "was.", start: 5.973, end: 6.7 }
+                        ]
+                    }
+                ],
+                metadata: {
+                    title: "Life is Your Word - Episode 3 (Sample)",
+                    duration: 220.45,
+                    created: new Date().toISOString(),
+                    modified: new Date().toISOString()
+                }
+            };
+            
+            currentData = JSON.parse(JSON.stringify(originalData));
+            currentData.metadata.modified = new Date().toISOString();
+            renderTranscriptEditors();
+            renderTimeline();
+            showStatus('Sample data loaded successfully!', 'success');
+        }
+        
+        function saveChanges() {
+            currentData.metadata.modified = new Date().toISOString();
+            
+            // Save to browser storage
+            localStorage.setItem('timelineEditorData', JSON.stringify(currentData));
+            
+            showStatus('Changes saved successfully!', 'success');
+        }
+        
+        function exportData() {
+            const dataStr = JSON.stringify(currentData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'timeline_edited_data.json';
+            a.click();
+            
+            URL.revokeObjectURL(url);
+            showStatus('Data exported successfully!', 'success');
+        }
+        
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel * 1.5, 5.0);
+            updateZoom();
+        }
+        
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel / 1.5, 0.2);
+            updateZoom();
+        }
+        
+        function resetZoom() {
+            zoomLevel = 1.0;
+            updateZoom();
+        }
+        
+        function updateZoom() {
+            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+            // Reset pixels per second to default and let renderTimeline adjust it
+            pixelsPerSecond = 50;
+            renderTimeline();
+        }
+        
+        // Video event listeners
+        videoPlayer.addEventListener('timeupdate', () => {
+            updatePlayhead(videoPlayer.currentTime);
+        });
+        
+        videoPlayer.addEventListener('ended', () => {
+            document.getElementById('mainPlayBtn').textContent = '▶️ Play';
+            document.getElementById('mainPlayBtn').classList.remove('playing');
+            isPlaying = false;
+        });
+        
+        videoPlayer.addEventListener('loadedmetadata', () => {
+            totalDuration = videoPlayer.duration;
+            renderTimeline();
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFullTranscriptData();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        .log { font-family: monospace; white-space: pre-wrap; background: #f5f5f5; padding: 10px; max-height: 400px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Fixed Debug Test</h1>
+    <div id="debugInfo"></div>
+    <div class="log" id="log"></div>
+
+    <script type="module">
+        const log = document.getElementById('log');
+        const debugInfo = document.getElementById('debugInfo');
+        
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'debug';
+            log.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function addDebug(title, content) {
+            debugInfo.innerHTML += `<div class="debug"><strong>${title}:</strong> ${content}</div>`;
+        }
+        
+        // Test basic environment
+        addDebug('Browser', navigator.userAgent);
+        addDebug('URL', window.location.href);
+        addDebug('Supports ES6 Modules', 'no' in document.createElement('script').type.supports('module'));
+        
+        // Test file access
+        try {
+            const response = await fetch('../combined_transcript.json');
+            addDebug('Data file access', `${response.status} ${response.statusText}`);
+            if (response.ok) {
+                const data = await response.json();
+                addDebug('Data structure', `${data.segments.length} segments loaded`);
+                addLog(`Data loaded successfully: ${data.segments.length} segments`, 'success');
+            } else {
+                throw new Error(`HTTP ${response.status}`);
+            }
+        } catch (error) {
+            addDebug('Data file error', error.message);
+            addLog(`Data file error: ${error.message}`, 'error');
+        }
+        
+        // Test module loading
+        addLog('Testing module imports...');
+        
+        // Try to import modules
+        try {
+            const { DataManager } = await import('../core/DataManager.js');
+            addLog('DataManager module loaded successfully', 'success');
+            addDebug('DataManager exports', 'DataManager class available');
+            
+            // Test creating DataManager
+            const dm = new DataManager();
+            addLog('DataManager instance created', 'success');
+            addDebug('DataManager methods', Object.getOwnPropertyNames(DataManager.prototype).filter(name => name !== 'constructor'));
+        } catch (error) {
+            addLog(`DataManager import failed: ${error.message}`, 'error');
+            console.error('DataManager import error:', error);
+        }
+            
+        try {
+            const { EVENTS } = await import('../core/Events.js');
+            addLog('Events module loaded successfully', 'success');
+            addDebug('Events exports', Object.keys(EVENTS));
+        } catch (error) {
+            addLog(`Events import failed: ${error.message}`, 'error');
+            console.error('Events import error:', error);
+        }
+            
+        try {
+            const { TimelineViewer } = await import('./TimelineViewer/TimelineViewer.js');
+            addLog('TimelineViewer module loaded successfully', 'success');
+            addDebug('TimelineViewer exports', 'TimelineViewer class available');
+        } catch (error) {
+            addLog(`TimelineViewer import failed: ${error.message}`, 'error');
+            console.error('TimelineViewer import error:', error);
+        }
+        
+        // Test full integration
+        try {
+            addLog('Testing full integration...');
+            const { DataManager } = await import('../core/DataManager.js');
+            const { TimelineViewer } = await import('./TimelineViewer/TimelineViewer.js');
+            
+            const dataManager = new DataManager();
+            await dataManager.loadData();
+            
+            addLog('Integration test passed', 'success');
+        } catch (error) {
+            addLog(`Integration test failed: ${error.message}`, 'error');
+            console.error('Integration test error:', error);
+        }
+    </script>
+</body>
+</html>

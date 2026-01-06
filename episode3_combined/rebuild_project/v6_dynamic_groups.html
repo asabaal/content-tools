@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Selection Tool - v6 Dynamic Groups</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .controls-bar {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .multiselect-toggle {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .multiselect-toggle:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+        
+        .multiselect-toggle.active {
+            background: #059669;
+        }
+        
+        .selected-count {
+            background: #e0e7ff;
+            color: #4f46e5;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        
+        .bulk-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .bulk-btn {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .bulk-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+        
+        .bulk-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .video-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .video-section h2 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        #videoPlayer {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .groups-summary {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .groups-summary h2 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .groups-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .group-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .group-item:hover {
+            border-color: #4299e1;
+            box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
+        }
+        
+        .group-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        .group-name {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .group-count {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .create-group-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .create-group-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+        
+        .transcript-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .transcript-section h2 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .transcript-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .transcript-line:hover {
+            border-color: #4299e1;
+            box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
+        }
+        
+        .transcript-line.editing {
+            background: #fef3c7;
+            border-color: #f59e0b;
+        }
+        
+        .transcript-line[data-group-id] {
+            border-left: 4px solid;
+        }
+        
+        .transcript-line.multiselect-mode {
+            cursor: pointer;
+        }
+        
+        .transcript-line.selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+        
+        .segment-checkbox {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .transcript-line.multiselect-mode .segment-checkbox {
+            display: block;
+        }
+        
+        .transcript-line.multiselect-mode .segment-controls {
+            margin-left: 30px;
+        }
+        
+        .segment-controls {
+            display: flex;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+        
+        .segment-btn {
+            padding: 6px 10px;
+            border: 1px solid #d1d5db;
+            background: #f9fafb;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .segment-btn:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+        
+        .segment-btn.play { background: #dbeafe; color: #1e40af; }
+        .segment-btn.edit { background: #fef3c7; color: #92400e; }
+        .segment-btn.group { background: #dcfce7; color: #166534; }
+        .segment-btn.save { background: #d1fae5; color: #065f46; }
+        .segment-btn.cancel { background: #fee2e2; color: #991b1b; }
+        .segment-btn.merge { background: #e0e7ff; color: #3730a3; }
+        .segment-btn.split { background: #fce7f3; color: #9f1239; }
+        
+        .transcript-segment {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .transcript-segment:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+        
+        .segment-text-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #f59e0b;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            background: white;
+        }
+        
+        .segment-text-input:focus {
+            outline: none;
+            border-color: #d97706;
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+        }
+        
+        .segment-timestamp {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .group-badge {
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 5px;
+            color: white;
+        }
+        
+        .status {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            color: #0c4a6e;
+        }
+        
+        .playing {
+            background: #fef3c7 !important;
+            border-color: #f59e0b !important;
+        }
+        
+        .edit-controls {
+            display: none;
+            gap: 5px;
+        }
+        
+        .transcript-line.editing .edit-controls {
+            display: flex;
+        }
+        
+        .transcript-line.editing .segment-controls {
+            display: none;
+        }
+        
+        .group-selector {
+            position: absolute;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none;
+            min-width: 200px;
+        }
+        
+        .group-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 2px 0;
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .group-option:hover {
+            background: #f3f4f6;
+        }
+        
+        .group-option.none { color: #6b7280; }
+        
+        .group-option-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        
+        .merge-controls {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .ungrouped-count {
+            background: #f3f4f6;
+            color: #6b7280;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Take Selection Tool</h1>
+            <p>Manual duplicate detection and take selection for video transcripts</p>
+        </div>
+        
+        <div class="controls-bar">
+            <button class="multiselect-toggle" id="multiselectToggle" onclick="toggleMultiSelectMode()">
+                📋 Enable Multi-Select
+            </button>
+            <div class="selected-count" id="selectedCount">
+                0 segments selected
+            </div>
+            <div class="bulk-actions">
+                <button class="bulk-btn" onclick="bulkAssignToGroup()" disabled id="bulkGroupBtn">
+                    📋 Assign to Group
+                </button>
+                <button class="bulk-btn" onclick="bulkMerge()" disabled id="bulkMergeBtn">
+                    🔗 Merge Selected
+                </button>
+                <button class="bulk-btn" onclick="bulkDelete()" disabled id="bulkDeleteBtn">
+                    🗑️ Delete Selected
+                </button>
+            </div>
+        </div>
+        
+        <div class="video-section">
+            <h2>📹 Video Player</h2>
+            <video id="videoPlayer" controls>
+                <source src="/home/asabaal/episode3_combined/combined_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div class="groups-summary">
+            <h2>📊 Groups Summary</h2>
+            <div class="groups-list" id="groupsList">
+                <!-- Groups will be dynamically added here -->
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button class="create-group-btn" onclick="createNewGroup()">
+                    ➕ Create New Group
+                </button>
+                <div class="ungrouped-count">
+                    📝 Ungrouped: <span id="ungroupedCount">3</span> segments
+                </div>
+            </div>
+        </div>
+        
+        <div class="transcript-section">
+            <h2>📝 Transcript Segments</h2>
+            <div id="transcriptContainer">
+                <div class="transcript-line" data-start="1.0" data-end="6.0" data-segment-id="1">
+                    <input type="checkbox" class="segment-checkbox" onchange="toggleSegmentSelection(1)">
+                    <div class="segment-controls">
+                        <button class="segment-btn play" onclick="playSegment(1.0, 6.0)">▶️</button>
+                        <button class="segment-btn edit" onclick="startEdit(1)">✏️</button>
+                        <button class="segment-btn group" onclick="showGroupSelector(event, 1)">📋</button>
+                        <div class="merge-controls">
+                            <button class="segment-btn merge" onclick="mergeWithNext(1)">⬇️</button>
+                            <button class="segment-btn split" onclick="splitSegment(1)">✂️</button>
+                        </div>
+                    </div>
+                    <div class="edit-controls">
+                        <button class="segment-btn save" onclick="saveEdit(1)">💾</button>
+                        <button class="segment-btn cancel" onclick="cancelEdit(1)">❌</button>
+                    </div>
+                    <div class="transcript-segment" onclick="playSegment(1.0, 6.0)">
+                        Where there was not God's book and then there was.
+                    </div>
+                    <div class="segment-timestamp">00:01</div>
+                </div>
+                
+                <div class="transcript-line" data-start="7.0" data-end="11.0" data-segment-id="2">
+                    <input type="checkbox" class="segment-checkbox" onchange="toggleSegmentSelection(2)">
+                    <div class="segment-controls">
+                        <button class="segment-btn play" onclick="playSegment(7.0, 11.0)">▶️</button>
+                        <button class="segment-btn edit" onclick="startEdit(2)">✏️</button>
+                        <button class="segment-btn group" onclick="showGroupSelector(event, 2)">📋</button>
+                        <div class="merge-controls">
+                            <button class="segment-btn merge" onclick="mergeWithPrevious(2)">⬆️</button>
+                            <button class="segment-btn merge" onclick="mergeWithNext(2)">⬇️</button>
+                            <button class="segment-btn split" onclick="splitSegment(2)">✂️</button>
+                        </div>
+                    </div>
+                    <div class="edit-controls">
+                        <button class="segment-btn save" onclick="saveEdit(2)">💾</button>
+                        <button class="segment-btn cancel" onclick="cancelEdit(2)">❌</button>
+                    </div>
+                    <div class="transcript-segment" onclick="playSegment(7.0, 11.0)">
+                        And then there was the word that became flesh.
+                    </div>
+                    <div class="segment-timestamp">00:07</div>
+                </div>
+                
+                <div class="transcript-line" data-start="11.0" data-end="16.0" data-segment-id="3">
+                    <input type="checkbox" class="segment-checkbox" onchange="toggleSegmentSelection(3)">
+                    <div class="segment-controls">
+                        <button class="segment-btn play" onclick="playSegment(11.0, 16.0)">▶️</button>
+                        <button class="segment-btn edit" onclick="startEdit(3)">✏️</button>
+                        <button class="segment-btn group" onclick="showGroupSelector(event, 3)">📋</button>
+                        <div class="merge-controls">
+                            <button class="segment-btn merge" onclick="mergeWithPrevious(3)">⬆️</button>
+                            <button class="segment-btn split" onclick="splitSegment(3)">✂️</button>
+                        </div>
+                    </div>
+                    <div class="edit-controls">
+                        <button class="segment-btn save" onclick="saveEdit(3)">💾</button>
+                        <button class="segment-btn cancel" onclick="cancelEdit(3)">❌</button>
+                    </div>
+                    <div class="transcript-segment" onclick="playSegment(11.0, 16.0)">
+                        How did he speak you into being and how did he speak you into being and life?
+                    </div>
+                    <div class="segment-timestamp">00:11</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status">
+            ✅ Version 6: Dynamic group creation functionality added
+        </div>
+    </div>
+
+    <div class="group-selector" id="groupSelector">
+        <!-- Group options will be dynamically added here -->
+    </div>
+
+    <script>
+        let originalTexts = {};
+        let currentSegmentId = null;
+        let nextSegmentId = 4;
+        let multiSelectMode = false;
+        let selectedSegments = new Set();
+        let groups = {};
+        let nextGroupId = 1;
+        const groupColors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
+        
+        function createNewGroup() {
+            const groupName = prompt('Enter group name:');
+            if (!groupName || groupName.trim() === '') return;
+            
+            const groupId = 'group_' + nextGroupId++;
+            const color = groupColors[(nextGroupId - 2) % groupColors.length];
+            
+            groups[groupId] = {
+                id: groupId,
+                name: groupName.trim(),
+                color: color,
+                segments: []
+            };
+            
+            updateGroupsDisplay();
+            updateGroupSelector();
+            console.log(`Created group: ${groupName}`);
+        }
+        
+        function updateGroupsDisplay() {
+            const groupsList = document.getElementById('groupsList');
+            groupsList.innerHTML = '';
+            
+            Object.values(groups).forEach(group => {
+                const groupItem = document.createElement('div');
+                groupItem.className = 'group-item';
+                groupItem.innerHTML = `
+                    <div class="group-color" style="background: ${group.color}"></div>
+                    <div class="group-name">${group.name}</div>
+                    <div class="group-count">${group.segments.length}</div>
+                `;
+                groupsList.appendChild(groupItem);
+            });
+            
+            updateUngroupedCount();
+        }
+        
+        function updateGroupSelector() {
+            const selector = document.getElementById('groupSelector');
+            selector.innerHTML = '<div class="group-option none" onclick="assignToGroup(null)">❌ No Group</div>';
+            
+            Object.values(groups).forEach(group => {
+                const option = document.createElement('div');
+                option.className = 'group-option';
+                option.onclick = () => assignToGroup(group.id);
+                option.innerHTML = `
+                    <div class="group-option-color" style="background: ${group.color}"></div>
+                    <div>${group.name}</div>
+                `;
+                selector.appendChild(option);
+            });
+        }
+        
+        function updateUngroupedCount() {
+            const totalSegments = document.querySelectorAll('.transcript-line').length;
+            const groupedSegments = Object.values(groups).reduce((sum, group) => sum + group.segments.length, 0);
+            const ungrouped = totalSegments - groupedSegments;
+            document.getElementById('ungroupedCount').textContent = ungrouped;
+        }
+        
+        function toggleMultiSelectMode() {
+            multiSelectMode = !multiSelectMode;
+            const toggle = document.getElementById('multiselectToggle');
+            const lines = document.querySelectorAll('.transcript-line');
+            
+            if (multiSelectMode) {
+                toggle.textContent = '✅ Disable Multi-Select';
+                toggle.classList.add('active');
+                lines.forEach(line => {
+                    line.classList.add('multiselect-mode');
+                    line.addEventListener('click', handleLineClick);
+                });
+            } else {
+                toggle.textContent = '📋 Enable Multi-Select';
+                toggle.classList.remove('active');
+                lines.forEach(line => {
+                    line.classList.remove('multiselect-mode', 'selected');
+                    line.removeEventListener('click', handleLineClick);
+                    const checkbox = line.querySelector('.segment-checkbox');
+                    if (checkbox) checkbox.checked = false;
+                });
+                selectedSegments.clear();
+                updateSelectedCount();
+            }
+        }
+        
+        function handleLineClick(event) {
+            if (!multiSelectMode) return;
+            
+            const line = event.currentTarget;
+            const checkbox = line.querySelector('.segment-checkbox');
+            const segmentId = parseInt(line.dataset.segmentId);
+            
+            if (event.target.tagName === 'BUTTON' || event.target.tagName === 'INPUT') {
+                return;
+            }
+            
+            checkbox.checked = !checkbox.checked;
+            toggleSegmentSelection(segmentId);
+        }
+        
+        function toggleSegmentSelection(segmentId) {
+            const line = document.querySelector(`[data-segment-id="${segmentId}"]`);
+            
+            if (selectedSegments.has(segmentId)) {
+                selectedSegments.delete(segmentId);
+                line.classList.remove('selected');
+            } else {
+                selectedSegments.add(segmentId);
+                line.classList.add('selected');
+            }
+            
+            updateSelectedCount();
+        }
+        
+        function updateSelectedCount() {
+            const count = selectedSegments.size;
+            document.getElementById('selectedCount').textContent = `${count} segment${count !== 1 ? 's' : ''} selected`;
+            
+            const hasSelection = count > 0;
+            document.getElementById('bulkGroupBtn').disabled = !hasSelection;
+            document.getElementById('bulkMergeBtn').disabled = count < 2;
+            document.getElementById('bulkDeleteBtn').disabled = !hasSelection;
+        }
+        
+        function bulkAssignToGroup() {
+            if (selectedSegments.size === 0) return;
+            
+            const groupNames = Object.values(groups).map(g => g.name);
+            const groupName = prompt(`Enter group name or choose existing:\n${groupNames.join('\n')}`);
+            if (groupName === null) return;
+            
+            let group = Object.values(groups).find(g => g.name.toLowerCase() === groupName.toLowerCase());
+            
+            if (!group) {
+                const groupId = 'group_' + nextGroupId++;
+                const color = groupColors[(nextGroupId - 2) % groupColors.length];
+                group = {
+                    id: groupId,
+                    name: groupName.trim(),
+                    color: color,
+                    segments: []
+                };
+                groups[groupId] = group;
+            }
+            
+            selectedSegments.forEach(segmentId => {
+                assignSegmentToGroup(segmentId, group.id);
+            });
+            
+            updateGroupsDisplay();
+            updateGroupSelector();
+            console.log(`Assigned ${selectedSegments.size} segments to group "${group.name}"`);
+        }
+        
+        function bulkMerge() {
+            if (selectedSegments.size < 2) {
+                alert('Select at least 2 segments to merge!');
+                return;
+            }
+            
+            const sortedIds = Array.from(selectedSegments).sort((a, b) => {
+                const lineA = document.querySelector(`[data-segment-id="${a}"]`);
+                const lineB = document.querySelector(`[data-segment-id="${b}"]`);
+                return parseFloat(lineA.dataset.start) - parseFloat(lineB.dataset.start);
+            });
+            
+            const firstLine = document.querySelector(`[data-segment-id="${sortedIds[0]}"]`);
+            let mergedText = firstLine.querySelector('.transcript-segment').textContent.trim();
+            let endTime = parseFloat(firstLine.dataset.end);
+            
+            for (let i = 1; i < sortedIds.length; i++) {
+                const line = document.querySelector(`[data-segment-id="${sortedIds[i]}"]`);
+                mergedText += ' ' + line.querySelector('.transcript-segment').textContent.trim();
+                endTime = parseFloat(line.dataset.end);
+                line.remove();
+            }
+            
+            firstLine.querySelector('.transcript-segment').textContent = mergedText;
+            firstLine.dataset.end = endTime;
+            
+            selectedSegments.clear();
+            updateSelectedCount();
+            updateMergeButtons();
+            updateGroupsDisplay();
+            
+            console.log(`Merged ${sortedIds.length} segments`);
+        }
+        
+        function bulkDelete() {
+            if (selectedSegments.size === 0) return;
+            
+            if (!confirm(`Delete ${selectedSegments.size} selected segments?`)) {
+                return;
+            }
+            
+            selectedSegments.forEach(segmentId => {
+                const line = document.querySelector(`[data-segment-id="${segmentId}"]`);
+                line.remove();
+            });
+            
+            selectedSegments.clear();
+            updateSelectedCount();
+            updateMergeButtons();
+            updateGroupsDisplay();
+            
+            console.log(`Deleted ${selectedSegments.size} segments`);
+        }
+        
+        function playSegment(startTime, endTime) {
+            const video = document.getElementById('videoPlayer');
+            
+            document.querySelectorAll('.transcript-line').forEach(line => {
+                line.classList.remove('playing');
+            });
+            
+            const currentSegment = document.querySelector(`[data-start="${startTime}"]`);
+            if (currentSegment) {
+                currentSegment.classList.add('playing');
+            }
+            
+            video.currentTime = startTime;
+            video.play();
+            
+            setTimeout(() => {
+                if (video.currentTime >= endTime - 0.5) {
+                    video.pause();
+                    if (currentSegment) {
+                        currentSegment.classList.remove('playing');
+                    }
+                }
+            }, (endTime - startTime) * 1000);
+        }
+
+        function startEdit(segmentId) {
+            const line = document.querySelector(`[data-segment-id="${segmentId}"]`);
+            const segmentDiv = line.querySelector('.transcript-segment');
+            const currentText = segmentDiv.textContent.trim();
+            
+            originalTexts[segmentId] = currentText;
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'segment-text-input';
+            input.value = currentText;
+            
+            segmentDiv.replaceWith(input);
+            
+            line.classList.add('editing');
+            
+            input.focus();
+            input.select();
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    saveEdit(segmentId);
+                } else if (e.key === 'Escape') {
+                    cancelEdit(segmentId);
+                }
+            });
+        }
+
+        function saveEdit(segmentId) {
+            const line = document.querySelector(`[data-segment-id="${segmentId}"]`);
+            const input = line.querySelector('.segment-text-input');
+            const newText = input.value.trim();
+            
+            if (newText === '') {
+                alert('Text cannot be empty!');
+                return;
+            }
+            
+            const segmentDiv = document.createElement('div');
+            segmentDiv.className = 'transcript-segment';
+            segmentDiv.textContent = newText;
+            
+            const startTime = parseFloat(line.dataset.start);
+            const endTime = parseFloat(line.dataset.end);
+            segmentDiv.onclick = () => playSegment(startTime, endTime);
+            
+            input.replaceWith(segmentDiv);
+            
+            line.classList.remove('editing');
+            
+            delete originalTexts[segmentId];
+            
+            console.log(`Segment ${segmentId} saved: "${newText}"`);
+        }
+
+        function cancelEdit(segmentId) {
+            const line = document.querySelector(`[data-segment-id="${segmentId}"]`);
+            const input = line.querySelector('.segment-text-input');
+            const originalText = originalTexts[segmentId];
+            
+            const segmentDiv = document.createElement('div');
+            segmentDiv.className = 'transcript-segment';
+            segmentDiv.textContent = originalText;
+            
+            const startTime = parseFloat(line.dataset.start);
+            const endTime = parseFloat(line.dataset.end);
+            segmentDiv.onclick = () => playSegment(startTime, endTime);
+            
+            input.replaceWith(segmentDiv);
+            
+            line.classList.remove('editing');
+            
+            delete originalTexts[segmentId];
+        }
+
+        function showGroupSelector(event, segmentId) {
+            event.stopPropagation();
+            currentSegmentId = segmentId;
+            
+            const selector = document.getElementById('groupSelector');
+            const button = event.target;
+            const rect = button.getBoundingClientRect();
+            
+            selector.style.display = 'block';
+            selector.style.left = rect.left + 'px';
+            selector.style.top = (rect.bottom + 5) + 'px';
+        }
+
+        function assignToGroup(groupId) {
+            if (currentSegmentId === null) return;
+            
+            assignSegmentToGroup(currentSegmentId, groupId);
+            
+            document.getElementById('groupSelector').style.display = 'none';
+            updateGroupsDisplay();
+            
+            currentSegmentId = null;
+        }
+        
+        function assignSegmentToGroup(segmentId, groupId) {
+            const line = document.querySelector(`[data-segment-id="${segmentId}"]`);
+            const timestampDiv = line.querySelector('.segment-timestamp');
+            
+            // Remove from current group
+            const currentGroupId = line.dataset.groupId;
+            if (currentGroupId && groups[currentGroupId]) {
+                groups[currentGroupId].segments = groups[currentGroupId].segments.filter(id => id !== segmentId);
+            }
+            
+            // Remove existing styling
+            line.style.borderLeftColor = '';
+            line.dataset.groupId = '';
+            const existingBadge = timestampDiv.querySelector('.group-badge');
+            if (existingBadge) {
+                existingBadge.remove();
+            }
+            
+            // Assign to new group
+            if (groupId && groups[groupId]) {
+                line.style.borderLeftColor = groups[groupId].color;
+                line.dataset.groupId = groupId;
+                groups[groupId].segments.push(segmentId);
+                
+                const badge = document.createElement('span');
+                badge.className = 'group-badge';
+                badge.textContent = groups[groupId].name;
+                badge.style.background = groups[groupId].color;
+                timestampDiv.appendChild(badge);
+            }
+        }
+
+        function mergeWithPrevious(segmentId) {
+            const currentLine = document.querySelector(`[data-segment-id="${segmentId}"]`);
+            const previousLine = currentLine.previousElementSibling;
+            
+            if (!previousLine || !previousLine.classList.contains('transcript-line')) {
+                alert('No previous segment to merge with!');
+                return;
+            }
+            
+            const previousId = parseInt(previousLine.dataset.segmentId);
+            const currentText = currentLine.querySelector('.transcript-segment').textContent.trim();
+            const previousText = previousLine.querySelector('.transcript-segment').textContent.trim();
+            
+            const mergedText = previousText + ' ' + currentText;
+            
+            const previousSegment = previousLine.querySelector('.transcript-segment');
+            previousSegment.textContent = mergedText;
+            
+            const currentEndTime = parseFloat(currentLine.dataset.end);
+            previousLine.dataset.end = currentEndTime;
+            
+            currentLine.remove();
+            
+            updateMergeButtons();
+            
+            console.log(`Merged segment ${segmentId} into ${previousId}`);
+        }
+
+        function mergeWithNext(segmentId) {
+            const currentLine = document.querySelector(`[data-segment-id="${segmentId}"]`);
+            const nextLine = currentLine.nextElementSibling;
+            
+            if (!nextLine || !nextLine.classList.contains('transcript-line')) {
+                alert('No next segment to merge with!');
+                return;
+            }
+            
+            const nextId = parseInt(nextLine.dataset.segmentId);
+            const currentText = currentLine.querySelector('.transcript-segment').textContent.trim();
+            const nextText = nextLine.querySelector('.transcript-segment').textContent.trim();
+            
+            const mergedText = currentText + ' ' + nextText;
+            
+            const currentSegment = currentLine.querySelector('.transcript-segment');
+            currentSegment.textContent = mergedText;
+            
+            const nextEndTime = parseFloat(nextLine.dataset.end);
+            currentLine.dataset.end = nextEndTime;
+            
+            nextLine.remove();
+            
+            updateMergeButtons();
+            
+            console.log(`Merged segment ${nextId} into ${segmentId}`);
+        }
+
+        function splitSegment(segmentId) {
+            const currentLine = document.querySelector(`[data-segment-id="${segmentId}"]`);
+            const currentText = currentLine.querySelector('.transcript-segment').textContent.trim();
+            
+            const splitPoint = prompt('Enter position to split (character number):', Math.floor(currentText.length / 2));
+            
+            if (splitPoint === null) return;
+            
+            const pos = parseInt(splitPoint);
+            if (isNaN(pos) || pos <= 0 || pos >= currentText.length) {
+                alert('Invalid split position!');
+                return;
+            }
+            
+            const text1 = currentText.substring(0, pos).trim();
+            const text2 = currentText.substring(pos).trim();
+            
+            const startTime = parseFloat(currentLine.dataset.start);
+            const endTime = parseFloat(currentLine.dataset.end);
+            const duration = endTime - startTime;
+            const splitTime = startTime + (duration * pos / currentText.length);
+            
+            const currentSegment = currentLine.querySelector('.transcript-segment');
+            currentSegment.textContent = text1;
+            currentLine.dataset.end = splitTime;
+            
+            const newLine = currentLine.cloneNode(true);
+            newLine.dataset.segmentId = nextSegmentId++;
+            newLine.dataset.start = splitTime;
+            newLine.dataset.end = endTime;
+            
+            const newSegment = newLine.querySelector('.transcript-segment');
+            newSegment.textContent = text2;
+            newSegment.onclick = () => playSegment(splitTime, endTime);
+            
+            const newControls = newLine.querySelector('.segment-controls');
+            newControls.innerHTML = `
+                <input type="checkbox" class="segment-checkbox" onchange="toggleSegmentSelection(${nextSegmentId-1})">
+                <button class="segment-btn play" onclick="playSegment(${splitTime}, ${endTime})">▶️</button>
+                <button class="segment-btn edit" onclick="startEdit(${nextSegmentId-1})">✏️</button>
+                <button class="segment-btn group" onclick="showGroupSelector(event, ${nextSegmentId-1})">📋</button>
+                <div class="merge-controls">
+                    <button class="segment-btn merge" onclick="mergeWithPrevious(${nextSegmentId-1})">⬆️</button>
+                    <button class="segment-btn merge" onclick="mergeWithNext(${nextSegmentId-1})">⬇️</button>
+                    <button class="segment-btn split" onclick="splitSegment(${nextSegmentId-1})">✂️</button>
+                </div>
+            `;
+            
+            currentLine.parentNode.insertBefore(newLine, currentLine.nextSibling);
+            
+            updateMergeButtons();
+            
+            console.log(`Split segment ${segmentId} at position ${pos}`);
+        }
+
+        function updateMergeButtons() {
+            const allLines = document.querySelectorAll('.transcript-line');
+            
+            allLines.forEach((line, index) => {
+                const mergeControls = line.querySelector('.merge-controls');
+                if (!mergeControls) return;
+                
+                const isFirst = index === 0;
+                const isLast = index === allLines.length - 1;
+                
+                let buttons = '';
+                if (!isFirst) {
+                    buttons += `<button class="segment-btn merge" onclick="mergeWithPrevious(${line.dataset.segmentId})">⬆️</button>`;
+                }
+                if (!isLast) {
+                    buttons += `<button class="segment-btn merge" onclick="mergeWithNext(${line.dataset.segmentId})">⬇️</button>`;
+                }
+                buttons += `<button class="segment-btn split" onclick="splitSegment(${line.dataset.segmentId})">✂️</button>`;
+                
+                mergeControls.innerHTML = buttons;
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            const selector = document.getElementById('groupSelector');
+            if (!selector.contains(e.target) && !e.target.classList.contains('group')) {
+                selector.style.display = 'none';
+                currentSegmentId = null;
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                const video = document.getElementById('videoPlayer');
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            }
+        });
+        
+        // Initialize
+        updateGroupsDisplay();
+        updateGroupSelector();
+    </script>
+</body>
+</html>
