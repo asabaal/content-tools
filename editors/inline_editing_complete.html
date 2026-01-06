@@ -586,6 +586,43 @@
             background: #cbd5e0;
         }
         
+        .playlist {
+            background: #f7fafc; border-radius: 8px; padding: 15px;
+            max-width: 800px; margin: 0 auto;
+        }
+        
+        .playlist h3 {
+            color: #2d3748; margin-bottom: 10px; font-size:1.1rem;
+        }
+        
+        #clipList {
+            max-height: 200px; overflow-y: auto;
+        }
+        
+        .clip-item {
+            background: white; padding: 10px; margin-bottom: 8px;
+            border-radius: 6px; border-left: 4px solid #4299e1;
+            cursor: pointer; transition: all 0.2s;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .clip-item:hover {
+            background: #e6fffa; transform: translateX(2px);
+        }
+        
+        .clip-item.playing {
+            background: #bee3f8; border-left-color: #2b6cb0;
+        }
+        
+        .clip-text {
+            flex:1; margin-right: 10px; font-size: 0.9rem;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        
+        .clip-time {
+            font-size: 0.8rem; color: #718096; font-family: monospace;
+        }
+        
         .split-confirm-btn {
             background: #4299e1; color: white; border: none;
             padding: 10px 20px; border-radius: 6px; cursor: pointer;
@@ -762,7 +799,7 @@
             </div>
         </div>
 
-        <div class="transcript-section"><h2>📝 Interactive Transcript</h2><p>Click any highlighted segment to play or edit. Duplicate segments are color-coded and can be grouped/ungrouped.</p><div class="transcript-controls"><button class="create-group-button" onclick="createNewGroup()">➕ Create New Group</button><button class="edit-groups-button" onclick="openGroupEditor()">📝 Edit Groups</button><button class="toggle-edit-mode" onclick="toggleEditMode()">✏️ Toggle Edit Mode</button><button class="save-transcript-button" onclick="saveTranscript()" id="saveButton" style="display:none;">💾 Save Transcript</button><button class="download-transcript-button" onclick="downloadTranscript()">📥 Download</button><div class="save-status" id="saveStatus"></div></div><div class="edit-indicator" id="editIndicator">✏️ <strong>Edit Mode Active</strong> - Click any segment to edit. Changes are auto-saved to browser storage.<span class="word-count" id="wordCount">0 words</span></div><div class="transcript-paragraph">
+        <div class="transcript-section"><h2>📝 Interactive Transcript</h2><p>Click any highlighted segment to play or edit. Duplicate segments are color-coded and can be grouped/ungrouped.</p><div class="transcript-controls"><button class="create-group-button" onclick="createNewGroup()">➕ Create New Group</button><button class="edit-groups-button" onclick="openGroupEditor()">📝 Edit Groups</button><button class="toggle-edit-mode" onclick="toggleEditMode()">✏️ Toggle Edit Mode</button><button class="save-transcript-button" onclick="saveTranscript()" id="saveButton" style="display:none;">💾 Save Transcript</button><button class="download-transcript-button" onclick="downloadTranscript()">📥 Download</button><label><input type="radio" name="playbackMode" value="single" checked> Single Clip</label><label><input type="radio" name="playbackMode" value="group"> Group Clips</label><div class="save-status" id="saveStatus"></div></div><div class="edit-indicator" id="editIndicator">✏️ <strong>Edit Mode Active</strong> - Click any segment to edit. Changes are auto-saved to browser storage.<span class="word-count" id="wordCount">0 words</span></div><div class="transcript-paragraph">
                 <div class="transcript-line" data-segment-id="20251008_150255_seg_0">
                     <div class="segment-controls">
                         <button class="segment-group-btn" onclick="openSegmentGroupMenu('20251008_150255_seg_0', event)" title="Assign to group">📋</button>
@@ -1435,6 +1472,11 @@
         let gridVideos = [];
         let loopClips = true;
         
+        // Playlist and queue variables
+        let currentClipIndex = 0;
+        let clipQueue = [];
+        let isPlayingQueue = false;
+        
         // Use original transcript data to get word-level timings
         let originalTranscript = [{"text": "Where there was not God's book and then there was.", "start": 1.68, "end": 6.7, "segment_id": "20251008_150255_seg_0", "speaker": null, "words": [{"text": "Where", "start": 1.68, "end": 2.285}, {"text": "there", "start": 2.325, "end": 2.507}, {"text": "was", "start": 2.547, "end": 2.668}, {"text": "not", "start": 2.728, "end": 2.97}, {"text": "God's", "start": 3.515, "end": 4.019}, {"text": "book", "start": 4.039, "end": 4.18}, {"text": "and", "start": 5.45, "end": 5.551}, {"text": "then", "start": 5.611, "end": 5.732}, {"text": "there", "start": 5.793, "end": 5.954}, {"text": "was.", "start": 5.974, "end": 6.7}]}, {"text": "Welcome to Life is Your Word episode 3.", "start": 7.68, "end": 10.7, "segment_id": "20251008_150255_seg_1", "speaker": null, "words": [{"text": "Welcome", "start": 7.68, "end": 8.572}, {"text": "to", "start": 8.633, "end": 8.754}, {"text": "Life", "start": 8.795, "end": 8.998}, {"text": "is", "start": 9.079, "end": 9.16}, {"text": "Your", "start": 9.18, "end": 9.362}, {"text": "Word", "start": 9.423, "end": 9.646}, {"text": "episode", "start": 9.808, "end": 10.194}, {"text": "3.", "start": 10.214, "end": 10.7}]}, {"text": "In this show, we build up our understanding of reality by seeking God's face.", "start": 11.68, "end": 17.7, "segment_id": "20251008_150255_seg_2", "speaker": null, "words": [{"text": "In", "start": 11.68, "end": 12.506}, {"text": "this", "start": 12.546, "end": 12.707}, {"text": "show,", "start": 12.767, "end": 13.009}, {"text": "we", "start": 13.029, "end": 13.21}, {"text": "build", "start": 13.25, "end": 13.452}, {"text": "up", "start": 13.532, "end": 13.593}, {"text": "our", "start": 13.633, "end": 13.814}, {"text": "understanding", "start": 13.895, "end": 14.438}, {"text": "of", "start": 14.599, "end": 14.66}, {"text": "reality", "start": 14.74, "end": 15.203}, {"text": "by", "start": 15.224, "end": 15.264}, {"text": "seeking", "start": 16.693, "end": 17.056}, {"text": "God's", "start": 17.096, "end": 17.459}, {"text": "face.", "start": 17.519, "end": 17.7}]}, {"text": "Today's reading is from Genesis chapter 1.", "start": 20.44, "end": 22.46, "segment_id": "20251008_150255_seg_3", "speaker": null, "words": [{"text": "Today's", "start": 20.44, "end": 20.828}, {"text": "reading", "start": 20.889, "end": 21.154}, {"text": "is", "start": 21.175, "end": 21.338}, {"text": "from", "start": 21.379, "end": 21.501}, {"text": "Genesis", "start": 21.583, "end": 21.991}, {"text": "chapter", "start": 22.011, "end": 22.318}, {"text": "1.", "start": 22.338, "end": 22.46}]}, {"text": "When God began to create the heavens and the earth, the earth was in complete chaos and", "start": 27.200000000000003, "end": 34.11, "segment_id": "20251008_150325_seg_4", "speaker": null, "words": [{"text": "When", "start": 2.74, "end": 3.262}, {"text": "God", "start": 3.343, "end": 3.564}, {"text": "began", "start": 3.624, "end": 3.905}, {"text": "to", "start": 3.965, "end": 4.026}, {"text": "create", "start": 4.086, "end": 4.387}, {"text": "the", "start": 4.427, "end": 4.508}, {"text": "heavens", "start": 4.568, "end": 4.849}, {"text": "and", "start": 4.889, "end": 4.97}, {"text": "the", "start": 4.99, "end": 5.05}, {"text": "earth,", "start": 5.11, "end": 5.311}, {"text": "the", "start": 7.742, "end": 7.862}, {"text": "earth", "start": 8.003, "end": 8.224}, {"text": "was", "start": 8.304, "end": 8.425}, {"text": "in", "start": 8.465, "end": 8.525}, {"text": "complete", "start": 8.585, "end": 8.967}, {"text": "chaos", "start": 9.047, "end": 9.449}, {"text": "and", "start": 9.59, "end": 9.65}]}, {"text": "darkness covered the face of the deep while a wind of God, while a wind from God", "start": 35.010000000000005, "end": 42.42, "segment_id": "20251008_150325_seg_5", "speaker": null, "words": [{"text": "darkness", "start": 10.55, "end": 11.092}, {"text": "covered", "start": 11.976, "end": 12.257}, {"text": "the", "start": 12.277, "end": 12.357}, {"text": "face", "start": 12.418, "end": 12.638}, {"text": "of", "start": 12.679, "end": 12.719}, {"text": "the", "start": 12.739, "end": 12.819}, {"text": "deep", "start": 12.839, "end": 13.06}, {"text": "while", "start": 15.309, "end": 15.49}, {"text": "a", "start": 15.51, "end": 15.53}, {"text": "wind", "start": 15.691, "end": 15.972}, {"text": "of", "start": 16.032, "end": 16.072}, {"text": "God,", "start": 16.153, "end": 16.454}, {"text": "while", "start": 17.137, "end": 17.297}, {"text": "a", "start": 17.317, "end": 17.338}, {"text": "wind", "start": 17.418, "end": 17.619}, {"text": "from", "start": 17.679, "end": 17.799}, {"text": "God", "start": 17.84, "end": 17.96}]}, {"text": "swept over the face of the waters.", "start": 43.760000000000005, "end": 45.349000000000004, "segment_id": "20251008_150325_seg_6", "speaker": null, "words": [{"text": "swept", "start": 19.3, "end": 19.863}, {"text": "over", "start": 19.924, "end": 20.044}, {"text": "the", "start": 20.085, "end": 20.165}, {"text": "face", "start": 20.205, "end": 20.386}, {"text": "of", "start": 20.426, "end": 20.467}, {"text": "the", "start": 20.487, "end": 20.567}, {"text": "waters.", "start": 20.587, "end": 20.889}]}, {"text": "Then God said, let there be light and there was light.", "start": 47.803, "end": 50.74, "segment_id": "20251008_150325_seg_7", "speaker": null, "words": [{"text": "Then", "start": 23.343, "end": 23.504}, {"text": "God", "start": 23.585, "end": 23.786}, {"text": "said,", "start": 23.846, "end": 24.027}, {"text": "let", "start": 24.349, "end": 24.47}, {"text": "there", "start": 24.49, "end": 24.631}, {"text": "be", "start": 24.671, "end": 24.751}, {"text": "light", "start": 24.792, "end": 24.993}, {"text": "and", "start": 25.013, "end": 25.536}, {"text": "there", "start": 25.556, "end": 25.717}, {"text": "was", "start": 25.757, "end": 25.838}, {"text": "light.", "start": 25.878, "end": 26.28}]}, {"text": "And God saw, and God saw that the light was good and", "start": 52.28, "end": 58.11, "segment_id": "20251008_150325_seg_8", "speaker": null, "words": [{"text": "And", "start": 27.82, "end": 28.162}, {"text": "God", "start": 28.222, "end": 28.443}, {"text": "saw,", "start": 28.504, "end": 28.765}, {"text": "and", "start": 28.805, "end": 32.022}, {"text": "God", "start": 32.102, "end": 32.323}, {"text": "saw", "start": 32.363, "end": 32.524}, {"text": "that", "start": 32.564, "end": 32.705}, {"text": "the", "start": 32.725, "end": 32.806}, {"text": "light", "start": 32.866, "end": 33.027}, {"text": "was", "start": 33.067, "end": 33.168}, {"text": "good", "start": 33.228, "end": 33.449}, {"text": "and", "start": 33.469, "end": 33.65}]}, {"text": "God separated the light from the darkness.", "start": 59.53, "end": 61.95, "segment_id": "20251008_150325_seg_9", "speaker": null, "words": [{"text": "God", "start": 35.07, "end": 35.68}, {"text": "separated", "start": 35.741, "end": 36.229}, {"text": "the", "start": 36.27, "end": 36.473}, {"text": "light", "start": 36.514, "end": 36.738}, {"text": "from", "start": 36.901, "end": 37.023}, {"text": "the", "start": 37.063, "end": 37.145}, {"text": "darkness.", "start": 37.185, "end": 37.49}]}, {"text": "God created humans in the image of God.", "start": 62.49, "end": 65.87, "segment_id": "20251008_150325_seg_10", "speaker": null, "words": [{"text": "God", "start": 38.03, "end": 39.771}, {"text": "created", "start": 39.852, "end": 40.155}, {"text": "humans", "start": 40.196, "end": 40.601}, {"text": "in", "start": 40.722, "end": 40.783}, {"text": "the", "start": 40.823, "end": 40.884}, {"text": "image", "start": 40.985, "end": 41.167}, {"text": "of", "start": 41.228, "end": 41.269}, {"text": "God.", "start": 41.309, "end": 41.41}]}, {"text": "God blessed them, saying be fruitful and fill the earth.", "start": 67.00999999999999, "end": 72.456, "segment_id": "20251008_150325_seg_11", "speaker": null, "words": [{"text": "God", "start": 42.55, "end": 43.173}, {"text": "blessed", "start": 43.233, "end": 43.494}, {"text": "them,", "start": 43.535, "end": 43.695}, {"text": "saying", "start": 44.881, "end": 45.183}, {"text": "be", "start": 45.223, "end": 45.745}, {"text": "fruitful", "start": 45.785, "end": 46.228}, {"text": "and", "start": 47.172, "end": 47.252}, {"text": "fill", "start": 47.293, "end": 47.654}, {"text": "the", "start": 47.694, "end": 47.755}, {"text": "earth.", "start": 47.815, "end": 47.996}]}, {"text": "I have given you everything.", "start": 74.104, "end": 75.43, "segment_id": "20251008_150325_seg_12", "speaker": null, "words": [{"text": "I", "start": 49.644, "end": 49.724}, {"text": "have", "start": 49.784, "end": 49.925}, {"text": "given", "start": 49.965, "end": 50.186}, {"text": "you", "start": 50.247, "end": 50.387}, {"text": "everything.", "start": 50.428, "end": 50.97}]}, {"text": "In my past death, I lived in complete chaos and the great darkness of depression covered my face.", "start": 79.62, "end": 90.64000000000001, "segment_id": "20251008_150420_seg_13", "speaker": null, "words": [{"text": "In", "start": 2.19, "end": 2.692}, {"text": "my", "start": 2.732, "end": 2.893}, {"text": "past", "start": 2.953, "end": 3.274}, {"text": "death,", "start": 3.334, "end": 3.595}, {"text": "I", "start": 5.341, "end": 5.402}, {"text": "lived", "start": 5.462, "end": 5.663}, {"text": "in", "start": 5.743, "end": 5.803}, {"text": "complete", "start": 5.843, "end": 6.205}, {"text": "chaos", "start": 6.265, "end": 6.706}, {"text": "and", "start": 7.529, "end": 7.61}, {"text": "the", "start": 7.63, "end": 8.914}, {"text": "great", "start": 8.975, "end": 9.175}, {"text": "darkness", "start": 9.236, "end": 9.657}, {"text": "of", "start": 9.717, "end": 9.758}, {"text": "depression", "start": 9.798, "end": 10.5}, {"text": "covered", "start": 11.082, "end": 11.424}, {"text": "my", "start": 11.464, "end": 11.825}, {"text": "face.", "start": 11.945, "end": 13.21}]}, {"text": "I stopped listening to God's voice and I tried to run my race in my strength, in my strength, and I tried to run my race in my strength, rather than by Christ living in me.", "start": 90.62, "end": 104.64000000000001, "segment_id": "20251008_150420_seg_14", "speaker": null, "words": [{"text": "I", "start": 13.19, "end": 13.551}, {"text": "stopped", "start": 13.611, "end": 13.852}, {"text": "listening", "start": 13.912, "end": 14.233}, {"text": "to", "start": 14.253, "end": 14.313}, {"text": "God's", "start": 14.373, "end": 14.614}, {"text": "voice", "start": 14.674, "end": 14.935}, {"text": "and", "start": 14.975, "end": 16.239}, {"text": "I", "start": 16.299, "end": 16.359}, {"text": "tried", "start": 16.459, "end": 16.68}, {"text": "to", "start": 16.7, "end": 16.76}, {"text": "run", "start": 16.82, "end": 16.961}, {"text": "my", "start": 17.021, "end": 17.141}, {"text": "race", "start": 17.181, "end": 17.422}, {"text": "in", "start": 17.522, "end": 17.583}, {"text": "my", "start": 17.743, "end": 17.903}, {"text": "strength,", "start": 17.964, "end": 18.285}, {"text": "in", "start": 18.846, "end": 18.946}, {"text": "my", "start": 19.047, "end": 19.227}, {"text": "strength,", "start": 19.287, "end": 19.628}, {"text": "and", "start": 20.17, "end": 20.25}, {"text": "I", "start": 20.31, "end": 20.35}, {"text": "tried", "start": 20.431, "end": 20.611}, {"text": "to", "start": 20.651, "end": 20.691}, {"text": "run", "start": 20.732, "end": 20.872}, {"text": "my", "start": 20.932, "end": 21.052}, {"text": "race", "start": 21.133, "end": 21.333}, {"text": "in", "start": 21.434, "end": 21.514}, {"text": "my", "start": 21.614, "end": 21.795}, {"text": "strength,", "start": 21.835, "end": 22.176}, {"text": "rather", "start": 23.499, "end": 23.8}, {"text": "than", "start": 23.82, "end": 24.282}, {"text": "by", "start": 24.322, "end": 24.442}, {"text": "Christ", "start": 24.522, "end": 24.803}, {"text": "living", "start": 24.843, "end": 25.124}, {"text": "in", "start": 25.244, "end": 25.325}, {"text": "me.", "start": 25.385, "end": 27.21}]}, {"text": "But God's, but then God spoke and I became.", "start": 104.62, "end": 110.64000000000001, "segment_id": "20251008_150420_seg_15", "speaker": null, "words": [{"text": "But", "start": 27.19, "end": 27.552}, {"text": "God's,", "start": 27.573, "end": 27.875}, {"text": "but", "start": 28.539, "end": 28.68}, {"text": "then", "start": 28.72, "end": 28.922}, {"text": "God", "start": 29.203, "end": 29.425}, {"text": "spoke", "start": 29.445, "end": 29.747}, {"text": "and", "start": 30.955, "end": 31.056}, {"text": "I", "start": 31.297, "end": 31.378}, {"text": "became.", "start": 31.519, "end": 33.21}]}, {"text": "Life filled me, peace beyond human understanding, joy that defied worldly authorities,", "start": 110.62, "end": 119.64000000000001, "segment_id": "20251008_150420_seg_16", "speaker": null, "words": [{"text": "Life", "start": 33.19, "end": 33.893}, {"text": "filled", "start": 33.933, "end": 34.395}, {"text": "me,", "start": 34.456, "end": 34.596}, {"text": "peace", "start": 35.802, "end": 36.083}, {"text": "beyond", "start": 36.143, "end": 36.424}, {"text": "human", "start": 36.525, "end": 36.766}, {"text": "understanding,", "start": 36.826, "end": 37.369}, {"text": "joy", "start": 38.915, "end": 39.157}, {"text": "that", "start": 39.177, "end": 39.257}, {"text": "defied", "start": 39.458, "end": 39.88}, {"text": "worldly", "start": 39.94, "end": 40.302}, {"text": "authorities,", "start": 40.342, "end": 42.21}]}, {"text": "and I became compelled to shout God's praise from every mountaintop and share God's great works with everyone.", "start": 119.62, "end": 128.64000000000001, "segment_id": "20251008_150420_seg_17", "speaker": null, "words": [{"text": "and", "start": 42.19, "end": 42.712}, {"text": "I", "start": 42.833, "end": 42.873}, {"text": "became", "start": 42.933, "end": 43.215}, {"text": "compelled", "start": 43.275, "end": 43.657}, {"text": "to", "start": 43.877, "end": 43.958}, {"text": "shout", "start": 44.018, "end": 44.259}, {"text": "God's", "start": 44.34, "end": 44.601}, {"text": "praise", "start": 44.701, "end": 45.002}, {"text": "from", "start": 45.344, "end": 45.465}, {"text": "every", "start": 45.505, "end": 45.886}, {"text": "mountaintop", "start": 45.927, "end": 46.569}, {"text": "and", "start": 46.951, "end": 47.032}, {"text": "share", "start": 47.313, "end": 47.574}, {"text": "God's", "start": 47.654, "end": 47.895}, {"text": "great", "start": 47.976, "end": 48.257}, {"text": "works", "start": 48.377, "end": 48.659}, {"text": "with", "start": 48.92, "end": 49.061}, {"text": "everyone.", "start": 49.261, "end": 51.21}]}, {"text": "So I thank God regularly for my role in partaking in creation as", "start": 131.42000000000002, "end": 136.44000000000003, "segment_id": "20251008_150513_seg_18", "speaker": null, "words": [{"text": "So", "start": 0.78, "end": 1.345}, {"text": "I", "start": 1.486, "end": 1.546}, {"text": "thank", "start": 1.607, "end": 1.808}, {"text": "God", "start": 1.869, "end": 2.07}, {"text": "regularly", "start": 2.252, "end": 2.796}, {"text": "for", "start": 2.816, "end": 2.877}, {"text": "my", "start": 3.804, "end": 4.107}, {"text": "role", "start": 4.187, "end": 4.429}, {"text": "in", "start": 4.51, "end": 4.57}, {"text": "partaking", "start": 4.631, "end": 5.095}, {"text": "in", "start": 5.135, "end": 5.175}, {"text": "creation", "start": 5.215, "end": 5.619}, {"text": "as", "start": 5.659, "end": 5.8}]}, {"text": "I create these things for your benefit just as God created all things for our benefit.", "start": 137.10000000000002, "end": 142.76000000000002, "segment_id": "20251008_150513_seg_19", "speaker": null, "words": [{"text": "I", "start": 6.46, "end": 6.802}, {"text": "create", "start": 6.843, "end": 7.366}, {"text": "these", "start": 7.387, "end": 7.548}, {"text": "things", "start": 7.608, "end": 7.83}, {"text": "for", "start": 7.89, "end": 7.991}, {"text": "your", "start": 8.051, "end": 8.212}, {"text": "benefit", "start": 8.273, "end": 8.676}, {"text": "just", "start": 9.361, "end": 9.602}, {"text": "as", "start": 9.723, "end": 9.804}, {"text": "God", "start": 9.844, "end": 10.126}, {"text": "created", "start": 10.247, "end": 10.609}, {"text": "all", "start": 10.65, "end": 10.952}, {"text": "things", "start": 11.012, "end": 11.274}, {"text": "for", "start": 11.496, "end": 11.617}, {"text": "our", "start": 11.697, "end": 11.778}, {"text": "benefit.", "start": 11.818, "end": 12.12}]}, {"text": "This reminds me, this reminds me that nothing is impossible", "start": 143.26000000000002, "end": 148.44000000000003, "segment_id": "20251008_150513_seg_20", "speaker": null, "words": [{"text": "This", "start": 12.62, "end": 14.555}, {"text": "reminds", "start": 14.615, "end": 14.978}, {"text": "me,", "start": 15.039, "end": 15.18}, {"text": "this", "start": 15.22, "end": 15.926}, {"text": "reminds", "start": 15.966, "end": 16.248}, {"text": "me", "start": 16.309, "end": 16.409}, {"text": "that", "start": 16.45, "end": 16.772}, {"text": "nothing", "start": 16.792, "end": 17.377}, {"text": "is", "start": 17.397, "end": 17.437}, {"text": "impossible", "start": 17.518, "end": 17.8}]}, {"text": "through Christ who gives me strength.", "start": 149.46, "end": 151.48000000000002, "segment_id": "20251008_150513_seg_21", "speaker": null, "words": [{"text": "through", "start": 18.82, "end": 19.432}, {"text": "Christ", "start": 19.473, "end": 19.779}, {"text": "who", "start": 19.82, "end": 19.963}, {"text": "gives", "start": 19.983, "end": 20.187}, {"text": "me", "start": 20.228, "end": 20.33}, {"text": "strength.", "start": 20.371, "end": 20.84}]}, {"text": "This reminds me that nothing is impossible through Christ who gives me strength.", "start": 153.51000000000002, "end": 158.21, "segment_id": "20251008_150513_seg_22", "speaker": null, "words": [{"text": "This", "start": 22.87, "end": 23.435}, {"text": "reminds", "start": 23.475, "end": 23.778}, {"text": "me", "start": 23.818, "end": 23.979}, {"text": "that", "start": 24.04, "end": 24.181}, {"text": "nothing", "start": 24.201, "end": 24.887}, {"text": "is", "start": 24.928, "end": 25.392}, {"text": "impossible", "start": 25.432, "end": 25.977}, {"text": "through", "start": 26.259, "end": 26.461}, {"text": "Christ", "start": 26.501, "end": 26.783}, {"text": "who", "start": 26.824, "end": 26.945}, {"text": "gives", "start": 26.985, "end": 27.167}, {"text": "me", "start": 27.207, "end": 27.308}, {"text": "strength.", "start": 27.368, "end": 27.57}]}, {"text": "The one who speaks all things into being can transform your life too.", "start": 159.19000000000003, "end": 167.33, "segment_id": "20251008_150513_seg_23", "speaker": null, "words": [{"text": "The", "start": 28.55, "end": 29.314}, {"text": "one", "start": 29.434, "end": 29.555}, {"text": "who", "start": 29.635, "end": 29.776}, {"text": "speaks", "start": 29.816, "end": 30.078}, {"text": "all", "start": 30.118, "end": 30.399}, {"text": "things", "start": 30.5, "end": 30.781}, {"text": "into", "start": 30.861, "end": 31.022}, {"text": "being", "start": 31.062, "end": 34.359}, {"text": "can", "start": 35.122, "end": 35.263}, {"text": "transform", "start": 35.323, "end": 35.846}, {"text": "your", "start": 35.886, "end": 36.127}, {"text": "life", "start": 36.208, "end": 36.429}, {"text": "too.", "start": 36.57, "end": 36.69}]}, {"text": "What death have you lived?", "start": 172.11, "end": 175.45000000000002, "segment_id": "20251008_150513_seg_24", "speaker": null, "words": [{"text": "What", "start": 41.47, "end": 42.057}, {"text": "death", "start": 42.098, "end": 42.523}, {"text": "have", "start": 42.563, "end": 42.725}, {"text": "you", "start": 42.826, "end": 43.029}, {"text": "lived?", "start": 43.11, "end": 44.81}]}, {"text": "They...", "start": 177.11, "end": 179.21, "segment_id": "20251008_150513_seg_25", "speaker": null, "words": [{"text": "They...", "start": 46.47, "end": 48.57}]}, {"text": "What death have you experienced that he needs?", "start": 179.19, "end": 182.13000000000002, "segment_id": "20251008_150513_seg_26", "speaker": null, "words": [{"text": "What", "start": 48.55, "end": 49.138}, {"text": "death", "start": 49.26, "end": 49.503}, {"text": "have", "start": 49.544, "end": 49.686}, {"text": "you", "start": 49.746, "end": 49.888}, {"text": "experienced", "start": 49.969, "end": 50.659}, {"text": "that", "start": 51.004, "end": 51.166}, {"text": "he", "start": 51.227, "end": 51.348}, {"text": "needs?", "start": 51.369, "end": 51.49}]}, {"text": "What death have you experienced and how has he breathed life into your death and", "start": 185.36, "end": 190.12000000000003, "segment_id": "20251008_150622_seg_27", "speaker": null, "words": [{"text": "What", "start": 1.23, "end": 1.795}, {"text": "death", "start": 1.875, "end": 2.097}, {"text": "have", "start": 2.138, "end": 2.279}, {"text": "you", "start": 2.339, "end": 2.481}, {"text": "experienced", "start": 2.561, "end": 3.287}, {"text": "and", "start": 3.691, "end": 3.771}, {"text": "how", "start": 3.852, "end": 4.013}, {"text": "has", "start": 4.094, "end": 4.235}, {"text": "he", "start": 4.276, "end": 4.377}, {"text": "breathed", "start": 4.437, "end": 4.699}, {"text": "life", "start": 4.74, "end": 5.002}, {"text": "into", "start": 5.143, "end": 5.345}, {"text": "your", "start": 5.385, "end": 5.546}, {"text": "death", "start": 5.587, "end": 5.788}, {"text": "and", "start": 5.93, "end": 5.99}]}, {"text": "How has he breathed life in and how has he breathed life into you and how did he speak you into being and", "start": 190.72000000000003, "end": 201.33, "segment_id": "20251008_150622_seg_28", "speaker": null, "words": [{"text": "How", "start": 6.59, "end": 7.192}, {"text": "has", "start": 7.252, "end": 7.392}, {"text": "he", "start": 7.412, "end": 7.493}, {"text": "breathed", "start": 7.553, "end": 7.813}, {"text": "life", "start": 7.854, "end": 8.114}, {"text": "in", "start": 8.195, "end": 8.295}, {"text": "and", "start": 8.716, "end": 8.816}, {"text": "how", "start": 8.856, "end": 8.977}, {"text": "has", "start": 9.037, "end": 9.197}, {"text": "he", "start": 9.258, "end": 9.378}, {"text": "breathed", "start": 9.458, "end": 9.759}, {"text": "life", "start": 9.839, "end": 10.06}, {"text": "into", "start": 10.2, "end": 10.421}, {"text": "you", "start": 10.461, "end": 10.641}, {"text": "and", "start": 10.662, "end": 15.094}, {"text": "how", "start": 15.154, "end": 15.315}, {"text": "did", "start": 15.375, "end": 15.515}, {"text": "he", "start": 15.555, "end": 15.656}, {"text": "speak", "start": 15.756, "end": 16.037}, {"text": "you", "start": 16.077, "end": 16.338}, {"text": "into", "start": 16.378, "end": 16.739}, {"text": "being", "start": 16.799, "end": 17.02}, {"text": "and", "start": 17.14, "end": 17.2}]}, {"text": "How did he speak you into being and how did he speak you into being and life?", "start": 202.95000000000002, "end": 210.81000000000003, "segment_id": "20251008_150622_seg_29", "speaker": null, "words": [{"text": "How", "start": 18.82, "end": 19.403}, {"text": "did", "start": 19.443, "end": 19.544}, {"text": "he", "start": 19.584, "end": 19.705}, {"text": "speak", "start": 19.785, "end": 20.066}, {"text": "you", "start": 20.107, "end": 20.328}, {"text": "into", "start": 20.368, "end": 20.951}, {"text": "being", "start": 21.011, "end": 21.293}, {"text": "and", "start": 21.313, "end": 24.63}, {"text": "how", "start": 24.71, "end": 24.831}, {"text": "did", "start": 24.871, "end": 24.971}, {"text": "he", "start": 25.012, "end": 25.132}, {"text": "speak", "start": 25.213, "end": 25.474}, {"text": "you", "start": 25.514, "end": 25.655}, {"text": "into", "start": 25.816, "end": 25.997}, {"text": "being", "start": 26.057, "end": 26.338}, {"text": "and", "start": 26.479, "end": 26.559}, {"text": "life?", "start": 26.58, "end": 26.68}]}, {"text": "Share your revelations in the comments.", "start": 213.43000000000004, "end": 216.45000000000002, "segment_id": "20251008_150654_seg_30", "speaker": null, "words": [{"text": "Share", "start": 0.62, "end": 1.269}, {"text": "your", "start": 1.289, "end": 1.411}, {"text": "revelations", "start": 1.451, "end": 1.958}, {"text": "in", "start": 1.998, "end": 2.059}, {"text": "the", "start": 2.1, "end": 2.161}, {"text": "comments.", "start": 2.201, "end": 3.64}]}, {"text": "In love and unity, Aceh Vail.", "start": 216.43000000000004, "end": 218.45000000000002, "segment_id": "20251008_150654_seg_31", "speaker": null, "words": [{"text": "In", "start": 3.62, "end": 3.967}, {"text": "love", "start": 4.008, "end": 4.171}, {"text": "and", "start": 4.191, "end": 4.273}, {"text": "unity,", "start": 4.334, "end": 4.62}, {"text": "Aceh", "start": 4.804, "end": 5.212}, {"text": "Vail.", "start": 5.538, "end": 5.64}]}];
         
@@ -1568,7 +1610,7 @@
                            data-end="${videoData.end}"
                            controls
                            preload="metadata">
-                        <source src="/home/asabaal/episode3_combined/episode3.mp4" type="video/mp4">
+                        <source src="data/video_combined.mp4" type="video/mp4">
                     </video>
                     <div class="video-overlay">
                         <div class="video-time">${formatTime(videoData.start)} - ${formatTime(videoData.end)}</div>
@@ -2017,6 +2059,78 @@
             }
         });
         
+        // Playlist and queue functions
+        function updatePlaylistDisplay() {
+            const clipList = document.getElementById('clipList');
+            clipList.innerHTML = '';
+            
+            clipQueue.forEach((clip, index) => {
+                const clipItem = document.createElement('div');
+                clipItem.className = 'clip-item' + (index === currentClipIndex && isPlayingQueue ? ' playing' : '');
+                clipItem.innerHTML = `
+                    <div class="clip-text">${clip.text}</div>
+                    <div class="clip-time">${formatTime(clip.startTime)} - ${formatTime(clip.endTime)}</div>
+                `;
+                clipItem.onclick = () => {
+                    currentClipIndex = index;
+                    playClipQueue();
+                };
+                clipList.appendChild(clipItem);
+            });
+            
+            if (clipQueue.length === 0) {
+                clipList.innerHTML = '<div style="color: #718096; text-align: center; padding: 20px;">No clips in queue</div>';
+            }
+        }
+        
+        function playClipQueue() {
+            if (clipQueue.length === 0) {
+                isPlayingQueue = false;
+                return;
+            }
+            
+            isPlayingQueue = true;
+            const clip = clipQueue[currentClipIndex];
+            const video = document.getElementById('videoPlayer');
+            
+            // Update UI
+            updatePlaylistDisplay();
+            document.getElementById('selectedText').textContent = 
+                `Playing clip ${currentClipIndex + 1}/${clipQueue.length}: ${clip.text.substring(0, 40)}${clip.text.length > 40 ? '...' : ''}`;
+            
+            // Play clip
+            video.currentTime = clip.startTime;
+            video.play();
+            
+            // Stop at end time and play next
+            setTimeout(() => {
+                if (video.currentTime >= clip.endTime - 0.5) {
+                    video.pause();
+                    currentClipIndex++;
+                    
+                    if (currentClipIndex < clipQueue.length) {
+                        if (loopClips) {
+                            setTimeout(() => playClipQueue(), 500);
+                        } else {
+                            isPlayingQueue = false;
+                            updatePlaylistDisplay();
+                            document.getElementById('selectedText').textContent = 'Queue finished';
+                        }
+                    } else {
+                        isPlayingQueue = false;
+                        currentClipIndex = 0;
+                        clipQueue = [];
+                        updatePlaylistDisplay();
+                        document.getElementById('selectedText').textContent = 'Queue finished';
+                    }
+                }
+            }, (clip.endTime - clip.startTime) * 1000);
+        }
+        
+            updatePlaylistDisplay();
+            playClipQueue();
+        }
+        
         // Initialize editor and playback mode listeners
         document.addEventListener('DOMContentLoaded', () => {
             // Load any unsaved draft
@@ -2041,6 +2155,9 @@
                 option.textContent = `Group ${groupId}`;
                 groupSelect.appendChild(option);
             });
+            
+            // Initialize playback mode listeners
+            const playbackModes = document.querySelectorAll('input[name="playbackMode"]');
             
             // Handle playback mode changes
             playbackModes.forEach(radio => {
@@ -2342,7 +2459,7 @@
                 video = document.createElement('video');
                 video.id = 'tempVideoPlayer';
                 video.style.display = 'none';
-                video.src = "/home/asabaal/episode3_combined/episode3.mp4";
+                video.src = "data/video_combined.mp4";
                 document.body.appendChild(video);
             }
             
@@ -2371,7 +2488,7 @@
                 video = document.createElement('video');
                 video.id = 'tempVideoPlayer';
                 video.style.display = 'none';
-                video.src = "/home/asabaal/episode3_combined/episode3.mp4";
+                video.src = "data/video_combined.mp4";
                 document.body.appendChild(video);
             }
             
