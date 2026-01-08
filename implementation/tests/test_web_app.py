@@ -129,6 +129,65 @@ class TestWebApp:
         response = client.get('/')
         assert b'Selection' in response.data
 
+    def test_selection_shows_selected_indicator(self, client):
+        client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'select_segment',
+                'segment_id': 's1'
+            }),
+            content_type='application/json'
+        )
+        
+        response = client.get('/')
+        
+        assert b'[SELECTED]' in response.data
+
+    def test_selection_clears_previous_selection(self, client):
+        client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'select_segment',
+                'segment_id': 's1'
+            }),
+            content_type='application/json'
+        )
+        
+        client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'select_segment',
+                'segment_id': 's1_alt'
+            }),
+            content_type='application/json'
+        )
+        
+        response = client.get('/')
+        
+        assert response.data.count(b'[SELECTED]') == 1
+
+    def test_only_one_segment_selected(self, client):
+        client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'select_segment',
+                'segment_id': 's1'
+            }),
+            content_type='application/json'
+        )
+        client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'select_segment',
+                'segment_id': 's2'
+            }),
+            content_type='application/json'
+        )
+        
+        response = client.get('/')
+        
+        assert response.data.count(b'[SELECTED]') == 1
+
     def test_index_has_switch_controls(self, client):
         response = client.get('/')
         assert b'Switch to this take' in response.data
