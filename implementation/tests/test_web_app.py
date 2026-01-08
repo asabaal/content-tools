@@ -1,5 +1,9 @@
 import pytest
 import json
+import subprocess
+import time
+import urllib.request
+import urllib.error
 from web_app import create_app
 
 
@@ -197,6 +201,29 @@ class TestIntentRoute:
         response = client.get('/intent')
         assert response.status_code == 405
 
+    def test_switch_take_with_invalid_id(self, client):
+        response = client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'switch_take',
+                'segment_id': 's1',
+                'take_id': 'invalid_take_id'
+            }),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    def test_switch_take_with_missing_take_id(self, client):
+        response = client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'switch_take',
+                'segment_id': 's1'
+            }),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
 
 class TestStatePersistence:
     def test_select_segment_updates_state(self, client):
@@ -225,3 +252,26 @@ class TestStatePersistence:
         
         response = client.get('/')
         assert b'Currently active' in response.data
+
+
+class TestAppEntry:
+    def test_app_module_imports_without_error(self):
+        from web_app import app
+        assert hasattr(app, 'create_app')
+
+    def test_app_entry_point_runs(self):
+        p = subprocess.Popen(
+            ['python', 'web_app/app.py'],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd='/mnt/storage/repos/content-tools/implementation'
+        )
+        time.sleep(2)
+        try:
+            r = urllib.request.urlopen('http://127.0.0.1:5000/')
+            assert r.status == 200
+            content = r.read().decode('utf-8')
+            assert 'Transcript Viewer' in content
+        finally:
+            p.terminate()
+            p.wait(timeout=2)
