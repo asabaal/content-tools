@@ -4,7 +4,11 @@ import subprocess
 import time
 import urllib.request
 import urllib.error
+import runpy
+import sys
+import os
 from web_app import create_app
+from web_app import app as app_module
 
 
 @pytest.fixture
@@ -275,3 +279,28 @@ class TestAppEntry:
         finally:
             p.terminate()
             p.wait(timeout=2)
+
+    def test_app_entry_point_code_coverage(self, monkeypatch):
+        def mock_run(host=None, port=None, debug=False):
+            pass
+        
+        monkeypatch.setattr(app_module.Flask, 'run', mock_run)
+        
+        old_argv = sys.argv.copy()
+        old_module = sys.modules.get('web_app.app')
+        
+        try:
+            sys.argv = ['web_app/app.py']
+            sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            
+            if 'web_app.app' in sys.modules:
+                del sys.modules['web_app.app']
+            
+            runpy.run_module('web_app.app', run_name='__main__', alter_sys=True)
+            
+            app = create_app()
+            assert app is not None
+        finally:
+            sys.argv = old_argv
+            if old_module:
+                sys.modules['web_app.app'] = old_module
