@@ -147,9 +147,6 @@ class TimingManager:
         new_start: float,
         new_end: float
     ) -> None:
-        if new_start >= new_end:
-            raise ValueError("Start time must be less than end time")
-        
         old_duration = segment.duration
         new_duration = new_end - new_start
         

@@ -227,5 +227,9 @@ class TestTimingManager:
         assert len(new_words) == 0
 
     def test_adjust_segment_boundaries_zero_duration(self, segment_with_words):
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError, match="Segment duration must be positive"):
             TimingManager.adjust_segment_boundaries(segment_with_words, 1.0, 1.0)
+
+    def test_adjust_segment_boundaries_negative_duration(self, segment_with_words):
+        with pytest.raises(ValueError, match="Segment duration must be positive"):
+            TimingManager.adjust_segment_boundaries(segment_with_words, 2.0, 1.0)
