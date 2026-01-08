@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcript Viewer - Phase 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .active {
+            background-color: #d4edda;
+            font-weight: bold;
+        }
+        .segment-row:hover {
+            background-color: #f5f5f5;
+        }
+        .info-box {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Transcript Viewer - Phase 2</h1>
+    
+    <div class="info-box">
+        <p><strong>Total Duration:</strong> {{ data.total_duration }} seconds</p>
+        <p><strong>Total Segments:</strong> {{ data.segments|length }}</p>
+        <p><strong>Total Groups:</strong> {{ data.groups|length }}</p>
+        <p><em>This is a read-only debug view for Phase 2 testing.</em></p>
+    </div>
+    
+    <h2>Segments</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Text</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Duration</th>
+                <th>Word Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for segment in data.segments %}
+            <tr class="segment-row">
+                <td>{{ segment.id }}</td>
+                <td>{{ segment.text }}</td>
+                <td>{{ "%.3f"|format(segment.start_time) }}s</td>
+                <td>{{ "%.3f"|format(segment.end_time) }}s</td>
+                <td>{{ "%.3f"|format(segment.duration) }}s</td>
+                <td>{{ segment.word_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h2>Groups and Takes</h2>
+    {% for group in data.groups %}
+    <h3>Group: {{ group.id }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Take ID</th>
+                <th>Segment ID</th>
+                <th>Text</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for take in group.takes %}
+            <tr class="{% if take.is_active %}active{% endif %}">
+                <td>{{ take.id }}</td>
+                <td>{{ take.segment_id }}</td>
+                <td>{{ take.text }}</td>
+                <td>{{ "%.3f"|format(take.start_time) }}s</td>
+                <td>{{ "%.3f"|format(take.end_time) }}s</td>
+                <td>{% if take.is_active %}Active{% else %}Inactive{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+    
+    <h2>Debug Information</h2>
+    <div class="info-box">
+        <p><strong>Phase 2 Features:</strong></p>
+        <ul>
+            <li>Load example transcript data</li>
+            <li>Call transcript_core logic</li>
+            <li>Display segments, groups, and takes</li>
+            <li>Show active take status</li>
+        </ul>
+        <p><strong>Phase 2 Limitations:</strong></p>
+        <ul>
+            <li>No editing capabilities</li>
+            <li>No drag and drop</li>
+            <li>No timeline canvas</li>
+            <li>No video/audio playback</li>
+            <li>No JavaScript interaction</li>
+        </ul>
+    </div>
+</body>
+</html>
