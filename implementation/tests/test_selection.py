@@ -54,6 +54,10 @@ class TestSelectionManager:
         take = sample_manager.get_selected_take("g1")
         assert take is None
 
+    def test_get_selected_take_nonexistent_group(self, sample_manager):
+        take = sample_manager.get_selected_take("g999")
+        assert take is None
+
     def test_get_all_selected_takes(self, sample_manager):
         takes = sample_manager.get_all_selected_takes()
         assert len(takes) == 2

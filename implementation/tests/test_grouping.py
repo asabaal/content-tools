@@ -82,6 +82,9 @@ class TestGroupManager:
     def test_reorder_group_takes_incomplete(self, sample_manager):
         assert sample_manager.reorder_group_takes("g1", ["t1"]) is False
 
+    def test_reorder_group_takes_nonexistent_group(self, sample_manager):
+        assert sample_manager.reorder_group_takes("g999", ["t1"]) is False
+
     def test_set_active_take(self, sample_manager):
         assert sample_manager.set_active_take("g1", "t2") is True
         
@@ -103,6 +106,10 @@ class TestGroupManager:
     def test_get_active_take_no_selection(self, sample_manager):
         sample_manager.clear_active_take("g1")
         active = sample_manager.get_active_take("g1")
+        assert active is None
+
+    def test_get_active_take_nonexistent_group(self, sample_manager):
+        active = sample_manager.get_active_take("g999")
         assert active is None
 
     def test_clear_active_take(self, sample_manager):

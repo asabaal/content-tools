@@ -154,3 +154,47 @@ class TestSegment:
     def test_empty_segment_duration(self):
         segment = Segment(id="s1", text="test", start_time=0.0, end_time=0.5)
         assert segment.duration == 0.5
+
+
+class TestTranscript:
+    def test_transcript_empty(self):
+        from transcript_core.models import Transcript
+        transcript = Transcript()
+        assert transcript.segment_count == 0
+        assert transcript.group_count == 0
+        assert transcript.duration == 0.0
+
+    def test_transcript_with_segments(self):
+        from transcript_core.models import Transcript
+        words = [Word(id="w1", text="test", start_time=0.0, end_time=1.0)]
+        segment = Segment(id="s1", text="test", start_time=0.0, end_time=1.0, words=words)
+        transcript = Transcript(segments=[segment])
+        
+        assert transcript.segment_count == 1
+        assert transcript.duration == 1.0
+
+    def test_transcript_segment_count(self):
+        from transcript_core.models import Transcript
+        words = [Word(id="w1", text="test", start_time=0.0, end_time=1.0)]
+        seg1 = Segment(id="s1", text="test", start_time=0.0, end_time=1.0, words=words)
+        seg2 = Segment(id="s2", text="test", start_time=1.0, end_time=2.0, words=words)
+        transcript = Transcript(segments=[seg1, seg2])
+        
+        assert transcript.segment_count == 2
+
+    def test_transcript_group_count(self):
+        from transcript_core.models import Transcript, Group
+        group1 = Group(id="g1")
+        group2 = Group(id="g2")
+        transcript = Transcript(groups=[group1, group2])
+        
+        assert transcript.group_count == 2
+
+    def test_transcript_duration_multiple_segments(self):
+        from transcript_core.models import Transcript
+        words = [Word(id="w1", text="test", start_time=0.0, end_time=1.0)]
+        seg1 = Segment(id="s1", text="test", start_time=0.0, end_time=1.0, words=words)
+        seg2 = Segment(id="s2", text="test", start_time=1.0, end_time=3.0, words=words)
+        transcript = Transcript(segments=[seg1, seg2])
+        
+        assert transcript.duration == 3.0

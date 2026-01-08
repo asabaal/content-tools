@@ -170,3 +170,62 @@ class TestTimingManager:
         TimingManager.set_segment_duration(segment, 2.0)
         
         assert segment.duration == 2.0
+
+    def test_equal_distribution_empty_texts(self):
+        words = [
+            Word(id="w1", text="Hello", start_time=0.0, end_time=1.0),
+        ]
+        
+        new_texts = []
+        new_words = TimingManager._equal_distribution(
+            0.0, 1.0, new_texts, words
+        )
+        
+        assert len(new_words) == 0
+
+    def test_equal_distribution_single_word(self, segment_with_words):
+        words = [
+            Word(id="w1", text="Hello", start_time=0.0, end_time=0.5),
+        ]
+        segment = Segment(id="s1", text="Hello", start_time=0.0, end_time=0.5, words=words)
+        
+        new_texts = ["Hello"]
+        new_words = TimingManager._equal_distribution(
+            0.0, 0.5, new_texts, words
+        )
+        
+        assert len(new_words) == 1
+        assert new_words[0].text == "Hello"
+        assert new_words[0].start_time == 0.0
+        assert new_words[0].end_time == 0.5
+
+    def test_proportional_distribution_single_word(self):
+        words = [
+            Word(id="w1", text="Hello", start_time=0.0, end_time=1.0),
+        ]
+        
+        new_texts = ["Hello"]
+        new_words = TimingManager._proportional_distribution(
+            0.0, 1.0, new_texts, words
+        )
+        
+        assert len(new_words) == 1
+        assert new_words[0].text == "Hello"
+        assert new_words[0].start_time == 0.0
+        assert new_words[0].end_time == 1.0
+
+    def test_proportional_distribution_empty_texts(self):
+        words = [
+            Word(id="w1", text="Hello", start_time=0.0, end_time=1.0),
+        ]
+        
+        new_texts = []
+        new_words = TimingManager._proportional_distribution(
+            0.0, 1.0, new_texts, words
+        )
+        
+        assert len(new_words) == 0
+
+    def test_adjust_segment_boundaries_zero_duration(self, segment_with_words):
+        with pytest.raises(ValueError):
+            TimingManager.adjust_segment_boundaries(segment_with_words, 1.0, 1.0)
