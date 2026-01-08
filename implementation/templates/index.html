@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transcript Viewer - Phase 2</title>
+    <title>Transcript Viewer - Phase 3</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +17,7 @@
             padding-bottom: 10px;
         }
         h2 {
-            border-bottom: 1px solid #ccc;
+            border-bottom:1px solid #ccc;
             padding-bottom: 5px;
             margin-top: 30px;
         }
@@ -40,6 +40,11 @@
         }
         .segment-row:hover {
             background-color: #f5f5f5;
+            cursor: pointer;
+        }
+        .selected {
+            background-color: #fff3cd;
+            font-weight: bold;
         }
         .info-box {
             background-color: #e7f3ff;
@@ -47,16 +52,24 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
+        .switch-btn {
+            cursor: pointer;
+            color: #0066cc;
+            text-decoration: underline;
+        }
+        .switch-btn:hover {
+            color: #004499;
+        }
     </style>
 </head>
 <body>
-    <h1>Transcript Viewer - Phase 2</h1>
+    <h1>Transcript Viewer - Phase 3</h1>
     
     <div class="info-box">
         <p><strong>Total Duration:</strong> {{ data.total_duration }} seconds</p>
         <p><strong>Total Segments:</strong> {{ data.segments|length }}</p>
         <p><strong>Total Groups:</strong> {{ data.groups|length }}</p>
-        <p><em>This is a read-only debug view for Phase 2 testing.</em></p>
+        <p><em>This view supports user intent: click segments to select, click take IDs to switch.</em></p>
     </div>
     
     <h2>Segments</h2>
@@ -69,17 +82,19 @@
                 <th>End Time</th>
                 <th>Duration</th>
                 <th>Word Count</th>
+                <th>Selection</th>
             </tr>
         </thead>
         <tbody>
             {% for segment in data.segments %}
-            <tr class="segment-row">
+            <tr class="segment-row {% if segment.is_selected %}selected{% endif %}" data-segment-id="{{ segment.id }}">
                 <td>{{ segment.id }}</td>
                 <td>{{ segment.text }}</td>
                 <td>{{ "%.3f"|format(segment.start_time) }}s</td>
                 <td>{{ "%.3f"|format(segment.end_time) }}s</td>
                 <td>{{ "%.3f"|format(segment.duration) }}s</td>
                 <td>{{ segment.word_count }}</td>
+                <td>{% if segment.is_selected %}[SELECTED]{% else %}{% endif %}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -97,6 +112,7 @@
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -108,6 +124,13 @@
                 <td>{{ "%.3f"|format(take.start_time) }}s</td>
                 <td>{{ "%.3f"|format(take.end_time) }}s</td>
                 <td>{% if take.is_active %}Active{% else %}Inactive{% endif %}</td>
+                <td>
+                    {% if not take.is_active %}
+                    <span class="switch-btn" data-take-switch="{{ take.id }}" data-segment-id="{{ take.segment_id }}">Switch to this take</span>
+                    {% else %}
+                    <em>Currently active</em>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -116,21 +139,27 @@
     
     <h2>Debug Information</h2>
     <div class="info-box">
-        <p><strong>Phase 2 Features:</strong></p>
+        <p><strong>Phase 3 Features:</strong></p>
         <ul>
             <li>Load example transcript data</li>
             <li>Call transcript_core logic</li>
             <li>Display segments, groups, and takes</li>
             <li>Show active take status</li>
+            <li>User can select segments by clicking</li>
+            <li>User can switch takes by clicking switch controls</li>
+            <li>JavaScript emits intent events to server</li>
         </ul>
-        <p><strong>Phase 2 Limitations:</strong></p>
+        <p><strong>Phase 3 Limitations:</strong></p>
         <ul>
             <li>No editing capabilities</li>
             <li>No drag and drop</li>
             <li>No timeline canvas</li>
             <li>No video/audio playback</li>
-            <li>No JavaScript interaction</li>
+            <li>JavaScript only emits intent, no logic</li>
         </ul>
     </div>
+
+    <script src="{{ url_for('static', filename='js/intent.js') }}"></script>
 </body>
 </html>
+

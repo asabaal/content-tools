@@ -153,3 +153,136 @@ This is intentional. Phase 2 is for debugging and verification only.
 - `web_app/views.py`: Logic that calls transcript_core
 - `templates/index.html`: Simple HTML template for display
 - `tests/test_web_app.py`: Server-side tests using Flask test client
+
+---
+
+# User Intent - Phase 3
+
+## What Phase 3 Adds
+
+Phase 3 adds minimal JavaScript to capture user intent without introducing:
+- Layout logic
+- Timeline logic
+- Video playback
+- Drag interactions
+- Browser automation
+
+User intent means: "The user clicked something, and the system recorded that intent correctly."
+
+## User Intent Supported
+
+Phase 3 supports exactly two user actions:
+
+1. **Select a transcript segment**: Clicking a segment marks it as selected
+   - Only one segment may be selected at a time
+   - Selection is tracked in server state
+   - Page reload shows updated selection
+
+2. **Change active take**: If a segment has multiple takes, clicking a control switches the active take
+   - Selection logic remains deterministic
+   - Uses transcript_core for all decisions
+   - State updates immediately
+
+## How Intent Flows from Browser to Server
+
+1. User clicks a segment or take switch control
+2. JavaScript in `static/js/intent.js` captures the click
+3. JavaScript emits an intent event via `fetch()` POST to `/intent`
+4. Server receives intent with payload:
+   ```json
+   {
+     "intent_type": "select_segment" | "switch_take",
+     "segment_id": "s1",
+     "take_id": "t2"
+   }
+   ```
+5. Server updates state using `transcript_core` logic:
+   - `views.handle_select_segment()` for segment selection
+   - `views.handle_switch_take()` for take switching
+6. State is re-rendered on next page load
+
+## Key Principle: JavaScript is "Dumb"
+
+The JavaScript layer:
+- **Does not compute** logic
+- **Does not decide** which take should be active
+- **Does not synchronize** state
+- **Just emits** events describing user intent
+
+All logic lives in `transcript_core`. The server remains the source of truth.
+
+## What Phase 3 Intentionally Does NOT Support
+
+- No editing of text
+- No timeline visuals
+- No drag or resize interactions
+- No video or audio playback
+- No browser automation
+- No client-side state machines
+- No real-time updates (no websockets)
+- No CSS beyond trivial readability
+
+## How to Run Phase 3
+
+The Flask app starts the same way as Phase 2:
+
+```bash
+cd implementation
+python -m web_app.app
+```
+
+The app will be available at: http://127.0.0.1:5000/
+
+Now you can:
+1. Click on any segment row to select it
+2. Click "Switch to this take" to change the active take
+3. Reload the page to see selections persist
+
+## How to Run Tests
+
+Python tests (server-side):
+
+```bash
+cd implementation
+python -m pytest tests/test_web_app.py -v
+```
+
+JavaScript tests (intent logic):
+
+```bash
+cd implementation
+npm run test:js
+# or directly:
+node tests/test_intent.js
+```
+
+Run all tests:
+
+```bash
+python -m pytest tests/ -v
+```
+
+## Phase 3 Structure (Additions)
+
+- `static/js/intent.js`: Minimal JavaScript for intent capture
+  - `sendIntent()`: Emits intent events via fetch()
+  - `selectSegment()`: Captures segment selection
+  - `switchTake()`: Captures take switching
+  - Event listeners attached on DOMContentLoaded
+- `tests/test_intent.js`: DOM-level tests for intent logic
+  - Tests payload structure
+  - Tests intent type emission
+  - Stubs `fetch()` - no real browser
+- `package.json`: NPM configuration for JS testing
+- `templates/index.html`: Updated with:
+  - `data-segment-id` attributes on segment rows
+  - `data-take-switch` attributes on switch controls
+  - Selection column showing [SELECTED] status
+  - Simple switch controls for inactive takes
+  - JavaScript include
+- `web_app/routes.py`: Added `/intent` POST route
+- `web_app/views.py`: Added state management and intent handlers
+- `tests/test_web_app.py`: Extended with:
+  - Tests for `/intent` route
+  - Tests for state persistence
+  - Tests for Phase 3 UI elements

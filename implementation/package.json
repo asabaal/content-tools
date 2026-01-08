@@ -1,0 +1,9 @@
+{
+  "name": "transcript-tool",
+  "version": "1.0.0",
+  "description": "Transcript editing tool - Phase 3",
+  "scripts": {
+    "test:js": "node tests/test_intent.js"
+  },
+  "devDependencies": {}
+}

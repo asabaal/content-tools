@@ -4,8 +4,12 @@ from transcript_core import (
     TimingManager
 )
 
+_state = {
+    'selected_segment_id': None
+}
 
-def get_transcript_data():
+
+def _initialize_data():
     segment_manager = SegmentManager()
     group_manager = GroupManager()
     
@@ -37,14 +41,36 @@ def get_transcript_data():
     group = group_manager.create_group("g1")
     take1 = Take(id="t1", segment=seg1, is_active=True)
     take2 = Take(id="t2", segment=seg1_alt, is_active=False)
+    take3 = Take(id="t3", segment=seg2, is_active=True)
     group_manager.add_take_to_group("g1", take1)
     group_manager.add_take_to_group("g1", take2)
+    group_manager.add_take_to_group("g1", take3)
     
     selection_manager = SelectionManager(group_manager.get_all_groups())
     
-    active_segments = segment_manager.get_all_segments()
-    groups_with_takes = []
+    return group_manager, selection_manager
+
+
+def get_transcript_data():
+    global _state
+    group_manager, selection_manager = _initialize_data()
     
+    segments_data = []
+    for group in group_manager.get_all_groups():
+        for take in group.takes:
+            seg = take.segment
+            seg_data = {
+                'id': seg.id,
+                'text': seg.text,
+                'start_time': seg.start_time,
+                'end_time': seg.end_time,
+                'duration': seg.duration,
+                'word_count': seg.word_count,
+                'is_selected': (seg.id == _state['selected_segment_id'])
+            }
+            segments_data.append(seg_data)
+    
+    groups_with_takes = []
     for group in group_manager.get_all_groups():
         group_data = {
             'id': group.id,
@@ -62,20 +88,33 @@ def get_transcript_data():
             })
         groups_with_takes.append(group_data)
     
-    segments_data = []
-    for seg in segment_manager.get_all_segments():
-        seg_data = {
-            'id': seg.id,
-            'text': seg.text,
-            'start_time': seg.start_time,
-            'end_time': seg.end_time,
-            'duration': seg.duration,
-            'word_count': seg.word_count
-        }
-        segments_data.append(seg_data)
+    unique_segments = []
+    seen_ids = set()
+    for seg in segments_data:
+        if seg['id'] not in seen_ids:
+            seen_ids.add(seg['id'])
+            unique_segments.append(seg)
     
     return {
-        'segments': segments_data,
+        'segments': unique_segments,
         'groups': groups_with_takes,
-        'total_duration': sum(seg.duration for seg in segment_manager.get_all_segments())
+        'total_duration': sum(seg['duration'] for seg in unique_segments)
     }
+
+
+def handle_select_segment(segment_id):
+    global _state
+    _state['selected_segment_id'] = segment_id
+    return True
+
+
+def handle_switch_take(take_id):
+    global _state
+    group_manager, selection_manager = _initialize_data()
+    
+    for group in group_manager.get_all_groups():
+        for take in group.takes:
+            if take.id == take_id:
+                selection_manager.select_take(take_id, group.id)
+                return True
+    return False

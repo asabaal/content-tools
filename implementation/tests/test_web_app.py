@@ -1,4 +1,5 @@
 import pytest
+import json
 from web_app import create_app
 
 
@@ -25,7 +26,7 @@ class TestWebApp:
 
     def test_index_has_transcript_title(self, client):
         response = client.get('/')
-        assert b'Transcript Viewer - Phase 2' in response.data
+        assert b'Transcript Viewer - Phase 3' in response.data
 
     def test_index_has_segments_header(self, client):
         response = client.get('/')
@@ -70,8 +71,8 @@ class TestWebApp:
     def test_index_has_debug_info(self, client):
         response = client.get('/')
         assert b'Debug Information' in response.data
-        assert b'Phase 2 Features' in response.data
-        assert b'Phase 2 Limitations' in response.data
+        assert b'Phase 3 Features' in response.data
+        assert b'Phase 3 Limitations' in response.data
 
     def test_index_shows_total_duration(self, client):
         response = client.get('/')
@@ -100,18 +101,127 @@ class TestWebApp:
     def test_index_has_segment_ids(self, client):
         response = client.get('/')
         assert b's1' in response.data
-        assert b's2' in response.data
+        assert b's1_alt' in response.data
 
     def test_index_has_take_ids(self, client):
         response = client.get('/')
         assert b't1' in response.data
         assert b't2' in response.data
 
-    def test_index_read_only_note(self, client):
+    def test_index_has_javascript(self, client):
         response = client.get('/')
-        assert b'read-only' in response.data or b'Read-Only' in response.data
+        assert b'intent.js' in response.data
 
-    def test_index_no_javascript_logic(self, client):
+    def test_index_has_data_attributes(self, client):
         response = client.get('/')
-        script_count = response.data.count(b'<script')
-        assert script_count == 0
+        assert b'data-segment-id' in response.data
+        assert b'data-take-switch' in response.data
+
+    def test_index_has_selection_column(self, client):
+        response = client.get('/')
+        assert b'Selection' in response.data
+
+    def test_index_has_switch_controls(self, client):
+        response = client.get('/')
+        assert b'Switch to this take' in response.data
+
+    def test_index_has_phase3_info(self, client):
+        response = client.get('/')
+        assert b'JavaScript emits intent events to server' in response.data
+
+
+class TestIntentRoute:
+    def test_intent_route_exists(self, client):
+        response = client.post('/intent')
+        assert response.status_code in [400, 415]
+
+    def test_intent_route_accepts_json(self, client):
+        response = client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'select_segment',
+                'segment_id': 's1',
+                'take_id': None
+            }),
+            content_type='application/json'
+        )
+        assert response.status_code == 200
+
+    def test_select_segment_intent(self, client):
+        response = client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'select_segment',
+                'segment_id': 's1'
+            }),
+            content_type='application/json'
+        )
+        assert response.status_code == 200
+        assert b'success' in response.data
+
+    def test_switch_take_intent(self, client):
+        response = client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'switch_take',
+                'segment_id': 's1_alt',
+                'take_id': 't2'
+            }),
+            content_type='application/json'
+        )
+        assert response.status_code == 200
+        assert b'success' in response.data
+
+    def test_intent_with_missing_type(self, client):
+        response = client.post(
+            '/intent',
+            data=json.dumps({
+                'segment_id': 's1'
+            }),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    def test_intent_with_invalid_type(self, client):
+        response = client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'invalid_type',
+                'segment_id': 's1'
+            }),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    def test_get_intent_not_allowed(self, client):
+        response = client.get('/intent')
+        assert response.status_code == 405
+
+
+class TestStatePersistence:
+    def test_select_segment_updates_state(self, client):
+        client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'select_segment',
+                'segment_id': 's1'
+            }),
+            content_type='application/json'
+        )
+        
+        response = client.get('/')
+        assert b'[SELECTED]' in response.data
+
+    def test_switch_take_updates_active_state(self, client):
+        client.post(
+            '/intent',
+            data=json.dumps({
+                'intent_type': 'switch_take',
+                'segment_id': 's1_alt',
+                'take_id': 't2'
+            }),
+            content_type='application/json'
+        )
+        
+        response = client.get('/')
+        assert b'Currently active' in response.data
