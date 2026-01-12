@@ -1,0 +1,292 @@
+{
+  "year": 2026,
+  "month": 3,
+  "monthly_theme": "The only three things that matter are faith, hope, and love, but the greatest of these is love.",
+  "weekly_subthemes": [
+    "Faith, Hope, Love: The Core Trio",
+    "Faith: Trusting the Unseen",
+    "Hope: Anticipating a Better Future",
+    "Love: The Ultimate Connection",
+    "Love: The Greatest of All"
+  ],
+  "weekly_subthemes_source": "human",
+  "slot_plan": {
+    "2026-03-02": "declarative_statement",
+    "2026-03-03": "excerpt",
+    "2026-03-04": "process_note",
+    "2026-03-05": "unanswered_question",
+    "2026-03-06": "reframing",
+    "2026-03-07": "quiet_observation",
+    "2026-03-09": "declarative_statement",
+    "2026-03-10": "excerpt",
+    "2026-03-11": "process_note",
+    "2026-03-12": "unanswered_question",
+    "2026-03-13": "reframing",
+    "2026-03-14": "quiet_observation",
+    "2026-03-16": "excerpt",
+    "2026-03-17": "declarative_statement",
+    "2026-03-18": "process_note",
+    "2026-03-19": "unanswered_question",
+    "2026-03-20": "reframing",
+    "2026-03-21": "quiet_observation",
+    "2026-03-23": "process_note",
+    "2026-03-24": "declarative_statement",
+    "2026-03-25": "excerpt",
+    "2026-03-26": "unanswered_question",
+    "2026-03-27": "reframing",
+    "2026-03-28": "quiet_observation",
+    "2026-03-30": "unanswered_question",
+    "2026-03-31": "declarative_statement",
+    "2026-04-01": "excerpt",
+    "2026-04-02": "process_note",
+    "2026-04-03": "reframing",
+    "2026-04-04": "quiet_observation"
+  },
+  "schedule_summary": [
+    {
+      "date": "2026-03-02",
+      "weekday": "Monday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-03",
+      "weekday": "Tuesday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-04",
+      "weekday": "Wednesday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-05",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-06",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-07",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-08",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    },
+    {
+      "date": "2026-03-09",
+      "weekday": "Monday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-10",
+      "weekday": "Tuesday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-11",
+      "weekday": "Wednesday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-12",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-13",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-14",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-15",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    },
+    {
+      "date": "2026-03-16",
+      "weekday": "Monday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-17",
+      "weekday": "Tuesday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-18",
+      "weekday": "Wednesday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-19",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-20",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-21",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-22",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    },
+    {
+      "date": "2026-03-23",
+      "weekday": "Monday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-24",
+      "weekday": "Tuesday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-25",
+      "weekday": "Wednesday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-26",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-27",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-28",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-29",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    },
+    {
+      "date": "2026-03-30",
+      "weekday": "Monday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-31",
+      "weekday": "Tuesday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-04-01",
+      "weekday": "Wednesday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-04-02",
+      "weekday": "Thursday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-04-03",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-04-04",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-04-05",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    }
+  ]
+}

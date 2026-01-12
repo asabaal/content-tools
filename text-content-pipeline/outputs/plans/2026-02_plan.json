@@ -1,0 +1,236 @@
+{
+  "year": 2026,
+  "month": 2,
+  "monthly_theme": "Evolving in Christ",
+  "weekly_subthemes": [
+    "Rooted in Grace",
+    "Deepening Discipleship",
+    "Shaping Christlike Character",
+    "Manifesting Christ's Love"
+  ],
+  "weekly_subthemes_source": "human",
+  "slot_plan": {
+    "2026-02-02": "declarative_statement",
+    "2026-02-03": "excerpt",
+    "2026-02-04": "process_note",
+    "2026-02-05": "unanswered_question",
+    "2026-02-06": "reframing",
+    "2026-02-07": "quiet_observation",
+    "2026-02-09": "declarative_statement",
+    "2026-02-10": "excerpt",
+    "2026-02-11": "process_note",
+    "2026-02-12": "unanswered_question",
+    "2026-02-13": "reframing",
+    "2026-02-14": "quiet_observation",
+    "2026-02-16": "declarative_statement",
+    "2026-02-17": "excerpt",
+    "2026-02-18": "process_note",
+    "2026-02-19": "unanswered_question",
+    "2026-02-20": "reframing",
+    "2026-02-21": "quiet_observation",
+    "2026-02-23": "declarative_statement",
+    "2026-02-24": "excerpt",
+    "2026-02-25": "process_note",
+    "2026-02-26": "unanswered_question",
+    "2026-02-27": "reframing",
+    "2026-02-28": "quiet_observation"
+  },
+  "schedule_summary": [
+    {
+      "date": "2026-02-02",
+      "weekday": "Monday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-03",
+      "weekday": "Tuesday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-04",
+      "weekday": "Wednesday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-05",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-06",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-07",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-08",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    },
+    {
+      "date": "2026-02-09",
+      "weekday": "Monday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-10",
+      "weekday": "Tuesday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-11",
+      "weekday": "Wednesday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-12",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-13",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-14",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-15",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    },
+    {
+      "date": "2026-02-16",
+      "weekday": "Monday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-17",
+      "weekday": "Tuesday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-18",
+      "weekday": "Wednesday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-19",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-20",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-21",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-22",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    },
+    {
+      "date": "2026-02-23",
+      "weekday": "Monday",
+      "slot_type": "declarative_statement",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-24",
+      "weekday": "Tuesday",
+      "slot_type": "excerpt",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-25",
+      "weekday": "Wednesday",
+      "slot_type": "process_note",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-26",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-27",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-28",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": null,
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-01",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": null,
+      "is_automated": false
+    }
+  ]
+}

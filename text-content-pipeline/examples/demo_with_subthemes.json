@@ -1,0 +1,15 @@
+{
+  "year": 2026,
+  "month": 2,
+  "monthly_theme": "The only three things that matter are faith, hope, and love, but the greatest of these is love.",
+  "weekly_subthemes": [
+    "Faith",
+    "Hope",
+    "Love",
+    "The Primacy of Love"
+  ],
+  "week_rule": "monday_determines_month",
+  "video_week": "last_week",
+  "style_preset": "default",
+  "notes": null
+}
