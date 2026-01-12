@@ -187,3 +187,28 @@ async def test_render_text_to_image_with_provided_path() -> None:
         )
         
         assert result == custom_path
+
+
+@pytest.mark.asyncio
+async def test_render_text_to_image_playwright_error() -> None:
+    """Test error handling when Playwright fails."""
+    with patch("src.renderer.html_renderer.async_playwright") as mock_playwright:
+        mock_playwright.return_value.__aenter__.side_effect = Exception("Playwright failed")
+        
+        from src.errors.exceptions import RendererError
+        
+        with pytest.raises(RendererError) as exc_info:
+            await render_text_to_image(
+                text="Test",
+                slot_info={
+                    "type": "post",
+                    "year": "2026",
+                    "month": "2",
+                    "day": "15",
+                    "week_number": "1",
+                    "subtheme": "Sub",
+                    "monthly_theme": "Theme",
+                },
+            )
+        
+        assert "Failed to render HTML to image" in str(exc_info.value)
