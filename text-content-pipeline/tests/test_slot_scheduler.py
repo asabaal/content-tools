@@ -130,6 +130,30 @@ def test_apply_slot_plan_missing_dates(sample_calendar: ResolvedCalendar) -> Non
     assert "Missing slot assignments for:" in str(exc_info.value)
 
 
+def test_apply_slot_plan_date_not_in_plan(sample_calendar: ResolvedCalendar) -> None:
+    """Test error when applying slot plan with date not found in plan."""
+    # Create a plan that misses one date - this should trigger missing dates error
+    incomplete_plan = {
+        "2026-02-02": "declarative_statement",
+        "2026-02-03": "excerpt",
+        "2026-02-04": "process_note",
+        "2026-02-05": "unanswered_question",
+        "2026-02-06": "reframing",
+        # Missing 2026-02-07
+        "2026-02-09": "excerpt",
+        "2026-02-10": "declarative_statement",
+        "2026-02-11": "process_note",
+        "2026-02-12": "unanswered_question",
+        "2026-02-13": "reframing",
+        "2026-02-14": "quiet_observation",
+    }
+    
+    with pytest.raises(SlotAssignmentError) as exc_info:
+        apply_slot_plan(sample_calendar, incomplete_plan)
+    
+    assert "Missing slot assignments for:" in str(exc_info.value)
+
+
 def test_apply_slot_plan_extra_dates(valid_slot_plan: dict[str, str], sample_calendar: ResolvedCalendar) -> None:
     """Test error when slot plan has extra dates."""
     extra_plan = valid_slot_plan.copy()

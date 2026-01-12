@@ -54,6 +54,32 @@ def test_invalid_weekly_subthemes_count():
         schema.MonthlyPayload(**payload_data)
 
 
+def test_invalid_weekly_subthemes_empty_list():
+    """Test that empty weekly_subthemes list raises error."""
+    payload_data = {
+        "year": 2026,
+        "month": 3,
+        "monthly_theme": "Test theme",
+        "weekly_subthemes": [],  # Empty list
+    }
+
+    with pytest.raises(PydanticValidationError, match="weekly_subthemes cannot be an empty list"):
+        schema.MonthlyPayload(**payload_data)
+
+
+def test_invalid_weekly_subthemes_empty_string():
+    """Test that empty strings in weekly_subthemes raises error."""
+    payload_data = {
+        "year": 2026,
+        "month": 3,
+        "monthly_theme": "Test theme",
+        "weekly_subthemes": ["Week 1", "", "Week 3", "Week 4"],  # Empty string at index 1
+    }
+
+    with pytest.raises(PydanticValidationError, match="weekly_subthemes\\[1\\] cannot be empty"):
+        schema.MonthlyPayload(**payload_data)
+
+
 def test_invalid_year_range():
     """Test that invalid year raises error."""
     payload_data = {
@@ -121,3 +147,25 @@ def test_validate_payload_wrong_weekly_count():
     payload = schema.MonthlyPayload(**payload_data)
     with pytest.raises(ValidationError, match="does not match number of Mondays"):
         validation.validate_payload(payload)
+
+
+def test_validate_payload_invalid_style_preset():
+    """Test that invalid style_preset raises error in validation."""
+    from unittest.mock import patch
+    
+    # Use February 2026 which has 4 Mondays
+    payload_data = {
+        "year": 2026,
+        "month": 2,
+        "monthly_theme": "Test theme",
+        "weekly_subthemes": ["Week 1", "Week 2", "Week 3", "Week 4"],
+        "style_preset": "default",
+    }
+
+    payload = schema.MonthlyPayload(**payload_data)
+    # Mock COLORFUL_PRESETS to simulate invalid preset and modify payload
+    with patch("src.config.defaults.COLORFUL_PRESETS", {}):
+        # Directly modify to bypass pydantic validation
+        object.__setattr__(payload, "style_preset", "invalid_preset")
+        with pytest.raises(ValidationError, match="style_preset 'invalid_preset' is not available"):
+            validation.validate_payload(payload)
