@@ -267,6 +267,7 @@ def run_all(
             orchestrator.validate_and_run(
                 str(payload_path),
                 model=model,
+                background_color=background_color,
                 skip_rendering=skip_rendering,
                 skip_text_generation=skip_text,
             )
