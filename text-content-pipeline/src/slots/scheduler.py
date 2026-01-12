@@ -169,10 +169,6 @@ def _build_week_slots(
         date_str = date.strftime("%Y-%m-%d")
 
         # Get slot type from plan
-        if date_str not in slot_plan:
-            raise SlotAssignmentError(
-                f"Date {date_str} (Week {week.week_number}, {weekday_name}) not found in slot plan"
-            )
         slot_type_str = slot_plan[date_str]
         slot_type = SlotFunction(slot_type_str)
 

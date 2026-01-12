@@ -65,12 +65,7 @@ def resolve_calendar(payload: MonthlyPayload) -> ResolvedCalendar:
         weekly_subthemes = None
 
     # Determine video week index
-    if payload.video_week == VideoWeek.LAST_WEEK:
-        video_week_index = len(mondays) - 1  # Last week
-    else:
-        raise CalendarResolutionError(
-            f"Video week rule '{payload.video_week}' not implemented"
-        )
+    video_week_index = len(mondays) - 1  # Always use last week
 
     # Build week info for each Monday
     weeks: list[WeekInfo] = []
