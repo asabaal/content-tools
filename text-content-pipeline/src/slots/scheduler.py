@@ -74,6 +74,7 @@ def apply_slot_plan(
             week=week,
             slot_plan=slot_plan,
             subtheme_source=subtheme_source,
+            weekly_subthemes=calendar.weekly_subthemes,
         )
         slots.extend(week_slots)
 
@@ -138,6 +139,7 @@ def _build_week_slots(
     week: WeekInfo,
     slot_plan: dict[str, str],
     subtheme_source: str,
+    weekly_subthemes: list[str] | None = None,
 ) -> list[DailySlot]:
     """Build all slots for a single week.
 
@@ -145,11 +147,17 @@ def _build_week_slots(
         week: Week information
         slot_plan: Date to slot type mapping
         subtheme_source: "human" or "ai"
+        weekly_subthemes: List of weekly subthemes
 
     Returns:
         List of daily slots for this week
     """
     slots: list[DailySlot] = []
+
+    # Get subtheme from weekly_subthemes if available
+    subtheme = week.subtheme
+    if weekly_subthemes and 0 <= week.week_number - 1 < len(weekly_subthemes):
+        subtheme = weekly_subthemes[week.week_number - 1]
 
     monday = datetime.strptime(week.monday_date, "%Y-%m-%d")
 
@@ -172,7 +180,7 @@ def _build_week_slots(
             date=date_str,
             weekday=weekday_name,
             slot_type=slot_type,
-            subtheme=week.subtheme,
+            subtheme=subtheme,
             week_number=week.week_number,
             is_automated=slot_type.is_automated(),
         )
@@ -186,7 +194,7 @@ def _build_week_slots(
         date=sunday_str,
         weekday="Sunday",
         slot_type=SlotFunction.HUMAN_INTENTIONAL,
-        subtheme=week.subtheme,
+        subtheme=subtheme,
         week_number=week.week_number,
         is_automated=False,
     )

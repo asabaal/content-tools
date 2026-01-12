@@ -6,8 +6,12 @@ from pathlib import Path
 from typing import Literal
 
 from src.ai_generator import generator
-from src.weekly_calendar.resolver import ResolvedCalendar, resolve_calendar
-from src.config.defaults import PLANS_DIR
+from src.config import defaults
+from src.config.defaults import (
+    IMAGE_FORMAT,
+    IMAGES_DIR,
+    PLANS_DIR,
+)
 from src.errors.exceptions import (
     AIGenerationError,
     PipelineError,
@@ -16,11 +20,13 @@ from src.payload import schema, validation
 from src.renderer import html_renderer
 from src.slots import scheduler
 from src.slots.enum import SlotFunction
+from src.weekly_calendar.resolver import resolve_calendar, ResolvedCalendar
 
 
 async def run_full_pipeline(
     payload: schema.MonthlyPayload,
     model: str | None = None,
+    background_color: str | None = None,
     skip_rendering: bool = False,
     skip_text_generation: bool = False,
 ) -> dict:
@@ -96,7 +102,7 @@ async def run_full_pipeline(
                         generated_texts[slot.date] = ""
         else:
             print("Stage 4: Skipping text generation")
-            generated_texts = {slot.date: "" for slot in schedule.slots if slot.is_automated}
+            generated_texts = {slot.date: "[PLACEHOLDER]" for slot in schedule.slots if slot.is_automated}
 
         # Stage 6: Render images
         if not skip_rendering:
@@ -108,25 +114,35 @@ async def run_full_pipeline(
                     try:
                         text = generated_texts.get(slot.date, "")
                         if text:
+                            # Parse date for filename
+                            year, month, day = map(int, slot.date.split("-"))
+
+                            slot_info = {
+                                "type": slot.slot_type.value,
+                                "year": year,
+                                "month": month,
+                                "day": day,
+                                "week_number": str(slot.week_number),
+                                "subtheme": slot.subtheme or "",
+                                "monthly_theme": calendar.monthly_theme,
+                            }
+
                             output_path = html_renderer.get_output_path(
-                                year=schedule.year,
-                                month=schedule.month,
-                                day=int(slot.date.split("-")[2]),
+                                year=year,
+                                month=month,
+                                day=day,
+                                monthly_theme=calendar.monthly_theme,
+                                week_number=slot.week_number,
+                                subtheme=slot.subtheme or "",
                                 slot_type=slot.slot_type.value,
                             )
 
-                            metadata = {
-                                "theme": calendar.monthly_theme,
-                            }
-                            if slot.subtheme:
-                                metadata["subtheme"] = slot.subtheme
-                            metadata["date"] = slot.date
-
                             await html_renderer.render_text_to_image(
                                 text=text,
+                                slot_info=slot_info,
                                 output_path=output_path,
                                 style_preset=payload.style_preset,
-                                metadata=metadata,
+                                background_color=background_color,
                             )
                             rendered_images.append(output_path)
                             print(f"  Rendered: {output_path}")
@@ -155,9 +171,9 @@ async def run_full_pipeline(
 
 
 def _save_plan(
-    calendar: ResolvedCalendar,
+    calendar,  # ResolvedCalendar
     slot_plan: dict[str, str],
-    schedule: scheduler.DailySlotSchedule,
+    schedule,  # scheduler.DailySlotSchedule
 ) -> str:
     """Save slot plan to JSON file.
 
@@ -197,11 +213,12 @@ def _save_plan(
     return str(path)
 
 
-async def validate_and_run(payload_path: str, **kwargs) -> dict:
+async def validate_and_run(payload_path: str, background_color: str | None = None, **kwargs) -> dict:
     """Validate payload and run pipeline.
 
     Args:
         payload_path: Path to payload JSON file
+        background_color: Optional background color override
         **kwargs: Additional arguments for run_full_pipeline
 
     Returns:
@@ -218,4 +235,4 @@ async def validate_and_run(payload_path: str, **kwargs) -> dict:
     print(f"Validated payload for {payload.year}-{payload.month:02d}: {payload.monthly_theme}")
 
     # Run pipeline
-    return await run_full_pipeline(payload, **kwargs)
+    return await run_full_pipeline(payload, background_color=background_color, **kwargs)

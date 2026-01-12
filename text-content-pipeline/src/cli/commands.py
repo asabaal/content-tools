@@ -198,6 +198,7 @@ def resolve_calendar_cmd(payload_path: str, output: str | None) -> None:
 @click.option("--skip-rendering", is_flag=True, help="Skip image rendering")
 @click.option("--skip-text", is_flag=True, help="Skip AI text generation")
 @click.option("--model", help="Override AI model (e.g., gpt-oss:20b)")
+@click.option("--background-color", help="Override background color (e.g., #4A90E2)")
 def run_all(
     payload: str | None,
     theme: str | None,
@@ -207,6 +208,7 @@ def run_all(
     skip_rendering: bool,
     skip_text: bool,
     model: str | None,
+    background_color: str | None,
 ) -> None:
     """Run full pipeline end-to-end.
 
@@ -353,7 +355,8 @@ def inspect_plan(payload_path: str) -> None:
 @click.option("--subthemes", help="Comma-separated weekly subthemes (optional)")
 @click.option("--year", type=int, default=2026, help="Year to run demo for")
 @click.option("--month", type=int, default=3, help="Month to run demo for (1-12)")
-def demo(theme: str | None, subthemes: str | None, year: int, month: int) -> None:
+@click.option("--background-color", help="Override background color (e.g., #4A90E2)")
+def demo(theme: str | None, subthemes: str | None, year: int, month: int, background_color: str | None) -> None:
     """Run demo with faith/hope/love concept.
 
     Example:
@@ -381,6 +384,9 @@ def demo(theme: str | None, subthemes: str | None, year: int, month: int) -> Non
     else:
         click.echo("✓ Running demo with AI-derived weekly subthemes")
         args = ["--theme", theme, "--year", str(year), "--month", str(month)]
+
+    if background_color:
+        args.extend(["--background-color", background_color])
 
     result = runner.invoke(run_all, args)
 

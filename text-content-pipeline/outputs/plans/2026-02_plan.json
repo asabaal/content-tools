@@ -3,10 +3,10 @@
   "month": 2,
   "monthly_theme": "Evolving in Christ",
   "weekly_subthemes": [
-    "Rooted in Grace",
-    "Deepening Discipleship",
-    "Shaping Christlike Character",
-    "Manifesting Christ's Love"
+    "Rooted in Christ",
+    "Growing in Grace",
+    "Maturing in Love",
+    "Bearing Fruit"
   ],
   "weekly_subthemes_source": "human",
   "slot_plan": {
@@ -40,196 +40,196 @@
       "date": "2026-02-02",
       "weekday": "Monday",
       "slot_type": "declarative_statement",
-      "subtheme": null,
+      "subtheme": "Rooted in Christ",
       "is_automated": true
     },
     {
       "date": "2026-02-03",
       "weekday": "Tuesday",
       "slot_type": "excerpt",
-      "subtheme": null,
+      "subtheme": "Rooted in Christ",
       "is_automated": true
     },
     {
       "date": "2026-02-04",
       "weekday": "Wednesday",
       "slot_type": "process_note",
-      "subtheme": null,
+      "subtheme": "Rooted in Christ",
       "is_automated": true
     },
     {
       "date": "2026-02-05",
       "weekday": "Thursday",
       "slot_type": "unanswered_question",
-      "subtheme": null,
+      "subtheme": "Rooted in Christ",
       "is_automated": true
     },
     {
       "date": "2026-02-06",
       "weekday": "Friday",
       "slot_type": "reframing",
-      "subtheme": null,
+      "subtheme": "Rooted in Christ",
       "is_automated": true
     },
     {
       "date": "2026-02-07",
       "weekday": "Saturday",
       "slot_type": "quiet_observation",
-      "subtheme": null,
+      "subtheme": "Rooted in Christ",
       "is_automated": true
     },
     {
       "date": "2026-02-08",
       "weekday": "Sunday",
       "slot_type": "human_intentional",
-      "subtheme": null,
+      "subtheme": "Rooted in Christ",
       "is_automated": false
     },
     {
       "date": "2026-02-09",
       "weekday": "Monday",
       "slot_type": "declarative_statement",
-      "subtheme": null,
+      "subtheme": "Growing in Grace",
       "is_automated": true
     },
     {
       "date": "2026-02-10",
       "weekday": "Tuesday",
       "slot_type": "excerpt",
-      "subtheme": null,
+      "subtheme": "Growing in Grace",
       "is_automated": true
     },
     {
       "date": "2026-02-11",
       "weekday": "Wednesday",
       "slot_type": "process_note",
-      "subtheme": null,
+      "subtheme": "Growing in Grace",
       "is_automated": true
     },
     {
       "date": "2026-02-12",
       "weekday": "Thursday",
       "slot_type": "unanswered_question",
-      "subtheme": null,
+      "subtheme": "Growing in Grace",
       "is_automated": true
     },
     {
       "date": "2026-02-13",
       "weekday": "Friday",
       "slot_type": "reframing",
-      "subtheme": null,
+      "subtheme": "Growing in Grace",
       "is_automated": true
     },
     {
       "date": "2026-02-14",
       "weekday": "Saturday",
       "slot_type": "quiet_observation",
-      "subtheme": null,
+      "subtheme": "Growing in Grace",
       "is_automated": true
     },
     {
       "date": "2026-02-15",
       "weekday": "Sunday",
       "slot_type": "human_intentional",
-      "subtheme": null,
+      "subtheme": "Growing in Grace",
       "is_automated": false
     },
     {
       "date": "2026-02-16",
       "weekday": "Monday",
       "slot_type": "declarative_statement",
-      "subtheme": null,
+      "subtheme": "Maturing in Love",
       "is_automated": true
     },
     {
       "date": "2026-02-17",
       "weekday": "Tuesday",
       "slot_type": "excerpt",
-      "subtheme": null,
+      "subtheme": "Maturing in Love",
       "is_automated": true
     },
     {
       "date": "2026-02-18",
       "weekday": "Wednesday",
       "slot_type": "process_note",
-      "subtheme": null,
+      "subtheme": "Maturing in Love",
       "is_automated": true
     },
     {
       "date": "2026-02-19",
       "weekday": "Thursday",
       "slot_type": "unanswered_question",
-      "subtheme": null,
+      "subtheme": "Maturing in Love",
       "is_automated": true
     },
     {
       "date": "2026-02-20",
       "weekday": "Friday",
       "slot_type": "reframing",
-      "subtheme": null,
+      "subtheme": "Maturing in Love",
       "is_automated": true
     },
     {
       "date": "2026-02-21",
       "weekday": "Saturday",
       "slot_type": "quiet_observation",
-      "subtheme": null,
+      "subtheme": "Maturing in Love",
       "is_automated": true
     },
     {
       "date": "2026-02-22",
       "weekday": "Sunday",
       "slot_type": "human_intentional",
-      "subtheme": null,
+      "subtheme": "Maturing in Love",
       "is_automated": false
     },
     {
       "date": "2026-02-23",
       "weekday": "Monday",
       "slot_type": "declarative_statement",
-      "subtheme": null,
+      "subtheme": "Bearing Fruit",
       "is_automated": true
     },
     {
       "date": "2026-02-24",
       "weekday": "Tuesday",
       "slot_type": "excerpt",
-      "subtheme": null,
+      "subtheme": "Bearing Fruit",
       "is_automated": true
     },
     {
       "date": "2026-02-25",
       "weekday": "Wednesday",
       "slot_type": "process_note",
-      "subtheme": null,
+      "subtheme": "Bearing Fruit",
       "is_automated": true
     },
     {
       "date": "2026-02-26",
       "weekday": "Thursday",
       "slot_type": "unanswered_question",
-      "subtheme": null,
+      "subtheme": "Bearing Fruit",
       "is_automated": true
     },
     {
       "date": "2026-02-27",
       "weekday": "Friday",
       "slot_type": "reframing",
-      "subtheme": null,
+      "subtheme": "Bearing Fruit",
       "is_automated": true
     },
     {
       "date": "2026-02-28",
       "weekday": "Saturday",
       "slot_type": "quiet_observation",
-      "subtheme": null,
+      "subtheme": "Bearing Fruit",
       "is_automated": true
     },
     {
       "date": "2026-03-01",
       "weekday": "Sunday",
       "slot_type": "human_intentional",
-      "subtheme": null,
+      "subtheme": "Bearing Fruit",
       "is_automated": false
     }
   ]

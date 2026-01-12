@@ -1,6 +1,6 @@
 """HTML renderer using headless browser."""
 
-import asyncio
+from datetime import datetime
 from pathlib import Path
 from typing import Literal
 
@@ -13,24 +13,26 @@ from src.config.defaults import (
     IMAGES_DIR,
     IMAGE_FORMAT,
 )
-from src.errors.exceptions import RendererError
 from src.renderer.template_builder import build_html
+from src.errors.exceptions import RendererError
 
 
 async def render_text_to_image(
     text: str,
-    output_path: str,
+    slot_info: dict[str, str],
+    output_path: str = "",
     style_preset: str = "default",
-    metadata: dict[str, str] | None = None,
+    background_color: str | None = None,
     aspect_ratio: Literal["1:1", "4:5"] = "1:1",
 ) -> str:
     """Render text content to a PNG image.
 
     Args:
         text: The text content to render
-        output_path: Path where image should be saved (or None for temp)
+        slot_info: Dictionary with slot information (type, date, week_number, subtheme, monthly_theme)
+        output_path: Path where image should be saved (or None to let function generate)
         style_preset: Name of colorful style preset
-        metadata: Optional metadata dict (e.g., theme, date)
+        background_color: Optional override color
         aspect_ratio: Image aspect ratio ("1:1" or "4:5")
 
     Returns:
@@ -46,7 +48,11 @@ async def render_text_to_image(
             f"Available: {list(COLORFUL_PRESETS.keys())}"
         )
 
-    preset = COLORFUL_PRESETS[style_preset]
+    preset = COLORFUL_PRESETS[style_preset].copy()
+    
+    # Override background color if specified
+    if background_color:
+        preset["background"] = background_color
 
     # Set dimensions based on aspect ratio
     if aspect_ratio == "4:5":
@@ -56,72 +62,23 @@ async def render_text_to_image(
         width = DEFAULT_IMAGE_WIDTH
         height = DEFAULT_IMAGE_HEIGHT
 
-    # Generate HTML
-    html_content = build_html(text, preset, metadata, width, height)
+    # Generate HTML using template builder
+    html_content = build_html(text, slot_info, preset, width, height)
+
+    # Generate filename if not provided
+    if not output_path:
+        output_path = get_output_path(
+            year=int(slot_info.get("year", datetime.now().year)),
+            month=int(slot_info.get("month", datetime.now().month)),
+            day=int(slot_info.get("day", datetime.now().day)),
+            monthly_theme=slot_info.get("monthly_theme", ""),
+            week_number=int(slot_info.get("week_number", 1)),
+            subtheme=slot_info.get("subtheme", ""),
+            slot_type=slot_info.get("type", "post"),
+        )
 
     # Render to image
     return await _render_html_to_image(html_content, output_path, width, height)
-
-
-def _generate_html_v2(
-    text: str,
-    preset: dict[str, str | int],
-    metadata: dict[str, str] | None,
-    max_width: int,
-    max_height: int,
-) -> str:
-    """Generate HTML from template and content.
-
-    Args:
-        text: Text content
-        preset: Style preset configuration
-        metadata: Optional metadata
-        max_width: Max image width
-        max_height: Max image height
-
-    Returns:
-        Complete HTML string
-    """
-    # Read template
-    template_path = Path(__file__).parent / "templates" / "template.html"
-    with open(template_path, "r", encoding="utf-8") as f:
-        template = f.read()
-
-    # Build metadata HTML if provided
-    metadata_html = ""
-    if metadata:
-        metadata_lines = []
-        if "theme" in metadata:
-            metadata_lines.append(f'<div class="metadata-line">{metadata["theme"]}</div>')
-        if "subtheme" in metadata:
-            metadata_lines.append(f'<div class="metadata-line">{metadata["subtheme"]}</div>')
-        if "date" in metadata:
-            metadata_lines.append(f'<div class="metadata-line">{metadata["date"]}</div>')
-
-        if metadata_lines:
-            metadata_html = '<div class="metadata">\n' + "\n".join(metadata_lines) + "\n</div>"
-
-    # Calculate sizes
-    font_size = int(preset.get("font_size", 48))
-    padding = int(preset.get("padding", 80))
-    metadata_font_size = font_size // 2
-    metadata_margin = font_size // 2
-    metadata_padding = font_size // 4
-    preset_width = int(preset.get("max_width", max_width))
-
-    # Fill template
-    return template.format(
-        background_color=preset.get("background", "#4A90E2"),
-        text_color=preset.get("text_color", "#FFFFFF"),
-        font_size=font_size,
-        padding=padding,
-        max_width=preset_width - (2 * padding),
-        metadata_html=metadata_html,
-        metadata_font_size=metadata_font_size,
-        metadata_margin=metadata_margin,
-        metadata_padding=metadata_padding,
-        text_content=text,
-    )
 
 
 async def _render_html_to_image(
@@ -151,10 +108,8 @@ async def _render_html_to_image(
                 viewport={"width": width, "height": height},
             )
 
-            # Set HTML content
             await page.set_content(html)
 
-            # Take screenshot
             screenshot_path = Path(output_path)
             await page.screenshot(
                 path=str(screenshot_path),
@@ -167,25 +122,42 @@ async def _render_html_to_image(
             return str(screenshot_path)
 
     except Exception as e:
-        raise RendererError(f"Failed to render HTML to image: {e}")
+        raise RendererError(f"Failed to render HTML to image: {e}") from e
 
 
 def get_output_path(
     year: int,
     month: int,
     day: int,
+    monthly_theme: str,
+    week_number: int,
+    subtheme: str,
     slot_type: str,
 ) -> str:
     """Generate output path for a daily post image.
 
     Args:
-        year: Year
-        month: Month (1-12)
-        day: Day (1-31)
+        year: Calendar year
+        month: Calendar month (1-12)
+        day: Calendar day (1-31)
+        monthly_theme: Monthly theme text
+        week_number: Week number
+        subtheme: Subtheme text
         slot_type: Slot type identifier
 
     Returns:
         Full path for image file
     """
-    filename = f"{year:04d}-{month:02d}-{day:02d}_{slot_type}.{IMAGE_FORMAT}"
+    import re
+    
+    def sanitize(s: str) -> str:
+        s = re.sub(r'[^\w\s-]', '', s)
+        s = re.sub(r'\s+', '-', s)
+        return s[:80] if len(s) > 80 else s
+    
+    theme_part = sanitize(monthly_theme)
+    subtheme_part = sanitize(subtheme) if subtheme else f"week{week_number:02d}"
+    type_part = sanitize(slot_type)
+    
+    filename = f"{year:04d}{month:02d}{day:02d}_{theme_part}_week{week_number:02d}_{subtheme_part}_{type_part}.{IMAGE_FORMAT}"
     return str(IMAGES_DIR / filename)
