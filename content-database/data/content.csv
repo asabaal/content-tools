@@ -1,0 +1,64 @@
+content_id,Month,Week of x,Release Date,Show/Content Type,Season,Episode,Media Source
+LW-S1E01,10,9/29/2025,10/3/2025,Life is your Word,1,1,Local
+LW-S1E02,10,10/6/2025,10/10/2025,Life is your Word,1,2,Local
+LW-S1E03,10,10/13/2025,10/17/2025,Life is your Word,1,3,Local
+LW-S1E04,10,10/20/2025,10/24/2025,Life is your Word,1,4,Local
+LW-S1E05,10,10/27/2025,10/31/2025,Life is your Word,1,5,Local
+LW-S1E06,11,11/3/2025,11/7/2025,Life is your Word,1,6,Local
+LW-S1E07,11,11/10/2025,11/14/2025,Life is your Word,1,7,Local
+LW-S1E08,11,11/17/2025,11/21/2025,Life is your Word,1,8,Local
+LW-S1E09,11,11/24/2025,11/28/2025,Life is your Word,1,9,Local
+LW-S1E10,12,12/1/2025,12/5/2025,Life is your Word,1,10,Local
+LW-S1E11,12,12/8/2025,12/12/2025,Life is your Word,1,11,Local
+LW-S1E12,1,1/5/2026,1/10/2026,Life is your Word,1,12,Local
+LW-S1E13,1,1/12/2026,1/17/2026,Life is your Word,1,13,
+LW-S1E14,1,1/19/2026,1/24/2026,Life is your Word,1,14,
+LW-S1E15,1,1/26/2026,1/31/2026,Life is your Word,1,15,
+MP-S1E01,2,2/2/2026,2/7/2026,Musical Poetry with Asabaal,1,1,
+MP-S1E02,2,2/9/2026,2/14/2026,Musical Poetry with Asabaal,1,2,
+MP-S1E03,2,2/16/2026,2/21/2026,Musical Poetry with Asabaal,1,3,
+BTS-S1E01,2,2/23/2026,2/28/2026,AV | Behind the Scenes,1,1,
+MP-S1E04,3,3/2/2026,3/7/2026,Musical Poetry with Asabaal,1,4,
+MP-S1E05,3,3/9/2026,3/14/2026,Musical Poetry with Asabaal,1,5,
+MP-S1E06,3,3/16/2026,3/21/2026,Musical Poetry with Asabaal,1,6,
+BTS-S1E02,3,3/23/2026,3/28/2026,AV | Behind the Scenes,1,2,
+MP-S1E07,4,3/30/2026,4/4/2026,Musical Poetry with Asabaal,1,7,
+MP-S1E08,4,4/6/2026,4/11/2026,Musical Poetry with Asabaal,1,8,
+BTS-S1E03,4,4/13/2026,4/18/2026,AV | Behind the Scenes,1,3,
+RS-S1E01,4,4/20/2026,4/25/2026,Reality Stewardship,1,1,
+LW-S2E01,5,4/27/2026,5/2/2026,Life is your Word,2,1,
+LW-S2E02,5,5/4/2026,5/9/2026,Life is your Word,2,2,
+LW-S2E03,5,5/11/2026,5/16/2026,Life is your Word,2,3,
+BTS-S1E04,5,5/18/2026,5/23/2026,AV | Behind the Scenes,1,4,
+RS-S1E02,5,5/25/2026,5/30/2026,Reality Stewardship,1,2,
+LW-S2E04,6,6/1/2026,6/6/2026,Life is your Word,2,4,
+LW-S2E05,6,6/8/2026,6/13/2026,Life is your Word,2,5,
+LW-S2E06,6,6/15/2026,6/20/2026,Life is your Word,2,6,
+RS-S1E03,6,6/22/2026,6/27/2026,Reality Stewardship,1,3,
+LW-S2E07,7,6/29/2026,7/4/2026,Life is your Word,2,7,
+LW-S2E08,7,7/6/2026,7/11/2026,Life is your Word,2,8,
+INAQ-001,7,7/13/2026,7/18/2026,I Never Asked to be Queer,1,1,
+BTS-S1E05,7,7/20/2026,7/25/2026,AV | Behind the Scenes,1,5,
+MP-S2E01,8,7/27/2026,8/1/2026,Musical Poetry with Asabaal,2,1,
+MP-S2E02,8,8/3/2026,8/8/2026,Musical Poetry with Asabaal,2,2,
+MP-S2E03,8,8/10/2026,8/15/2026,Musical Poetry with Asabaal,2,3,
+BTS-S1E06,8,8/17/2026,8/22/2026,AV | Behind the Scenes,1,6,
+RS-S1E04,8,8/24/2026,8/29/2026,Reality Stewardship,1,4,
+MP-S2E04,9,8/31/2026,9/5/2026,Musical Poetry with Asabaal,2,4,
+MP-S2E05,9,9/7/2026,9/12/2026,Musical Poetry with Asabaal,2,5,
+BTS-S1E07,9,9/14/2026,9/19/2026,AV | Behind the Scenes,1,7,
+RS-S1E05,9,9/21/2026,9/26/2026,Reality Stewardship,1,5,
+MP-S2E06,10,9/28/2026,10/3/2026,Musical Poetry with Asabaal,2,6,
+MP-S2E07,10,10/5/2026,10/10/2026,Musical Poetry with Asabaal,2,7,
+MP-S2E08,10,10/12/2026,10/17/2026,Musical Poetry with Asabaal,2,8,
+BTS-S1E08,10,10/19/2026,10/24/2026,AV | Behind the Scenes,1,8,
+RS-S1E06,10,10/26/2026,10/31/2026,Reality Stewardship,1,6,
+LW-S3E01,11,11/2/2026,11/7/2026,Life is your Word,3,1,
+LW-S3E02,11,11/9/2026,11/14/2026,Life is your Word,3,2,
+LW-S3E03,11,11/16/2026,11/21/2026,Life is your Word,3,3,
+RS-S1E07,11,11/23/2026,11/28/2026,Reality Stewardship,1,7,
+LW-S3E04,12,11/30/2026,12/5/2026,Life is your Word,3,4,
+LW-S3E05,12,12/7/2026,12/12/2026,Life is your Word,3,5,
+LW-S3E06,12,12/14/2026,12/19/2026,Life is your Word,3,6,
+RS-S1E08,12,12/21/2026,12/26/2026,Reality Stewardship,1,8,
+EMPTY-001,1,12/28/2026,1/2/2027,,,,

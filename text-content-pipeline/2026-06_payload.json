@@ -1,7 +1,7 @@
 {
   "year": 2026,
-  "month": 15,
-  "monthly_theme": "Test",
+  "month": 6,
+  "monthly_theme": "Test Theme",
   "weekly_subthemes": null,
   "week_rule": "monday_determines_month",
   "video_week": "last_week",

@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Transcript editing tool - Phase 3",
   "scripts": {
-    "test:js": "node tests/test_intent.js"
+    "test:js": "node tests/test_intent.js",
+    "test:js:coverage": "npx c8 --include implementation/static/js/intent.js node tests/test_intent.js"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
 }

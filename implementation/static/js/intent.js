@@ -38,35 +38,33 @@
         }
     }
 
-    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-        document.addEventListener('DOMContentLoaded', function() {
-            const segments = document.querySelectorAll('[data-segment-id]');
-            segments.forEach(segment => {
-                segment.addEventListener('click', function(event) {
-                    const segmentId = this.getAttribute('data-segment-id');
-                    updateSelectionIndicator(this, true);
-                    selectSegment(segmentId);
-                });
+    function setupIntentHandlers(dom) {
+        const doc = dom || document;
+        
+        const segments = doc.querySelectorAll('[data-segment-id]');
+        segments.forEach(segment => {
+            segment.addEventListener('click', function(event) {
+                const segmentId = this.getAttribute('data-segment-id');
+                updateSelectionIndicator(this, true);
+                selectSegment(segmentId);
             });
+        });
 
-            const takeSwitchers = document.querySelectorAll('[data-take-switch]');
-            takeSwitchers.forEach(switcher => {
-                switcher.addEventListener('click', function(event) {
-                    event.stopPropagation();
-                    const takeId = this.getAttribute('data-take-switch');
-                    const segmentId = this.getAttribute('data-segment-id');
-                    switchTake(takeId, segmentId);
-                });
+        const takeSwitchers = doc.querySelectorAll('[data-take-switch]');
+        takeSwitchers.forEach(switcher => {
+            switcher.addEventListener('click', function(event) {
+                event.stopPropagation();
+                const takeId = this.getAttribute('data-take-switch');
+                const segmentId = this.getAttribute('data-segment-id');
+                switchTake(takeId, segmentId);
             });
         });
     }
 
-    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-        module.exports = {
-            selectSegment,
-            switchTake,
-            sendIntent
-        };
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setupIntentHandlers(document);
+        });
     }
 })();
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, initial-scale=1.0">
+    <title>Visual Content Database</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Visual Content Database</h1>
+        </header>
+        
+        <main>
+            <section id="filters">
+                <h2>Filters</h2>
+                <div id="filter-container"></div>
+            </section>
+            
+            <section id="content">
+                <div id="content-list"></div>
+            </section>
+            
+            <aside id="details-panel" class="hidden">
+                <div class="close-btn" id="close-details">×</div>
+                <h2 id="details-title"></h2>
+                <div id="details-content"></div>
+                <div id="attached-content">
+                    <h3>Attached Content</h3>
+                    <div id="attached-content-items"></div>
+                </div>
+            </aside>
+        </main>
+    </div>
+    
+    <script src="js/data-ingestion.js"></script>
+    <script src="js/data-normalization.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

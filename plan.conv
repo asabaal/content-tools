@@ -1,0 +1,185 @@
+Phase 1: Lock the domain logic (highest leverage, lowest pain)
+Goal
+
+Make it impossible for transcript logic to be wrong.
+
+What to build
+
+A pure Python core that handles:
+
+Transcript segments
+
+Word timing redistribution
+
+Grouping
+
+Take selection rules
+
+Alignment logic
+
+Characteristics
+
+No HTML
+
+No JS
+
+No browser
+
+No media
+
+100% test coverage
+
+Runs in isolation
+
+Why this matters
+
+This is the brain of everything:
+
+Timeline
+
+Video grid
+
+AI grouping
+
+Playback sync
+
+If this is solid, UI bugs become annoying instead of existential.
+
+Deliverable (concrete)
+
+A Python package like:
+
+transcript_core/
+├─ segments.py
+├─ timing.py
+├─ grouping.py
+├─ selection.py
+└─ tests/
+
+
+You should be able to say:
+
+“Given transcript X, I know exactly which take should play and when.”
+
+That’s real progress.
+
+Phase 2: Server-side integration without interactivity
+Goal
+
+Prove the core logic works end-to-end without complex UI.
+
+What to build
+
+Flask app
+
+Renders transcript
+
+Calls Python core
+
+Displays results as plain text or lists
+
+What NOT to do
+
+No timeline canvas
+
+No dragging
+
+No synchronized playback
+
+No video grid
+
+Why
+
+This gives you:
+
+Confidence
+
+Debuggability
+
+A stable bridge between logic and UI
+
+If something is wrong here, it’s not HTML. It’s logic.
+
+Phase 3: Minimal JS for intent, not layout
+Goal
+
+Use JavaScript only to express user intent.
+
+Examples:
+
+“User selected segment A”
+
+“User switched take”
+
+“User pressed read”
+
+Rules
+
+JS does not compute
+
+JS does not decide
+
+JS does not synchronize
+
+JS just emits events
+
+This keeps JS testable and boring.
+
+Phase 4: Single-view interactivity (choose ONE)
+
+This is where you stop boiling the ocean.
+
+Pick exactly ONE to build first:
+Option A: Transcript-first editor
+
+Click text
+
+Selection state
+
+Read aloud
+
+Take switching
+
+Ignore timeline and grid completely.
+
+Option B: Timeline-only prototype
+
+Fake transcript
+
+Focus on zoom, scroll, selection
+
+Ignore video and text editing.
+
+Option C: Video grid-only comparison
+
+Fixed transcript
+
+Focus on playback sync
+
+Ignore editing entirely.
+
+👉 You must pick one.
+Trying to do all three is why you feel stuck.
+
+Phase 5: Browser automation (only here)
+When it enters
+
+Only after:
+
+The core logic is solid
+
+One interactive surface exists
+
+Bugs are visual or timing-related
+
+What to automate first
+
+Exactly one golden path:
+
+Click transcript → playback updates
+
+Or drag timeline → selection updates
+
+Or switch take → correct video plays
+
+One test. Not a suite.
