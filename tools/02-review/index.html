@@ -60,6 +60,39 @@
             gap: 12px;
         }
 
+        .edit-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: #2a2a4a;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #888;
+            transition: all 0.2s;
+        }
+
+        .edit-mode-toggle:hover {
+            background: #3a3a5a;
+        }
+
+        .edit-mode-toggle.active {
+            background: #f6ad55;
+            color: #0f0f1a;
+        }
+
+        .edit-mode-toggle .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #666;
+        }
+
+        .edit-mode-toggle.active .indicator {
+            background: #0f0f1a;
+        }
+
         .save-status {
             font-size: 12px;
             color: #888;
@@ -142,9 +175,22 @@
             background: #38a169;
         }
 
+        .btn-danger {
+            background: #f66;
+        }
+
+        .btn-danger:hover {
+            background: #e55;
+        }
+
         .btn-small {
             padding: 4px 8px;
             font-size: 11px;
+        }
+
+        .btn-tiny {
+            padding: 2px 6px;
+            font-size: 10px;
         }
 
         .time-display {
@@ -254,6 +300,11 @@
             border-left: 3px solid #48bb78;
         }
 
+        .segment.edit-mode {
+            background: rgba(246, 173, 85, 0.1);
+            border-color: #f6ad55;
+        }
+
         .segment-row {
             display: flex;
             justify-content: space-between;
@@ -277,6 +328,12 @@
             font-size: 14px;
             line-height: 1.5;
             color: #ddd;
+            outline: none;
+        }
+
+        .segment-text:focus {
+            background: rgba(76, 201, 240, 0.1);
+            border-radius: 4px;
         }
 
         .segment.active .segment-text {
@@ -305,21 +362,66 @@
             color: #fff;
         }
 
-        .segment-clip-tag {
-            font-size: 10px;
-            color: #48bb78;
-            margin-top: 4px;
+        .segment-actions {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .segment-actions button {
+            opacity: 0.7;
+        }
+
+        .segment:hover .segment-actions button {
+            opacity: 1;
         }
 
         .word {
             transition: background-color 0.1s;
             border-radius: 2px;
             padding: 0 1px;
+            cursor: default;
         }
 
         .word.active {
             background: rgba(76, 201, 240, 0.5);
             color: #fff;
+        }
+
+        .word.split-selected {
+            background: rgba(246, 173, 85, 0.6);
+            color: #0f0f1a;
+            border-radius: 2px;
+        }
+
+        .word.editable:hover {
+            background: rgba(246, 173, 85, 0.3);
+            cursor: pointer;
+        }
+
+        .word.editable.split-selected {
+            background: rgba(246, 173, 85, 0.6);
+        }
+
+        .add-segment-btn {
+            display: block;
+            width: 100%;
+            padding: 6px;
+            margin: 4px 0;
+            background: transparent;
+            border: 1px dashed #3a3a5a;
+            border-radius: 4px;
+            color: #666;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-segment-btn:hover {
+            border-color: #4cc9f0;
+            color: #4cc9f0;
+            background: rgba(76, 201, 240, 0.05);
         }
 
         .clips-section {
@@ -505,6 +607,24 @@
             margin-top: 4px;
             padding-top: 8px;
         }
+
+        .split-hint {
+            background: rgba(246, 173, 85, 0.2);
+            border: 1px solid #f6ad55;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin: 8px;
+            font-size: 12px;
+            color: #f6ad55;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .split-hint button {
+            padding: 4px 8px;
+            font-size: 11px;
+        }
     </style>
 </head>
 <body>
@@ -517,6 +637,10 @@
                 </div>
             </div>
             <div class="header-actions">
+                <div class="edit-mode-toggle" id="editModeToggle">
+                    <div class="indicator"></div>
+                    <span>Edit Mode</span>
+                </div>
                 <span class="save-status" id="saveStatus"></span>
                 <button class="btn btn-success btn-small" id="saveBtn">Save</button>
             </div>
@@ -545,6 +669,13 @@
                 <h2>Transcript</h2>
                 <span class="segment-count" id="segmentCount">0 segments</span>
             </div>
+            <div class="split-hint" id="splitHint" style="display: none;">
+                <span>Click a word to split, then click "Split Here"</span>
+                <div>
+                    <button class="btn btn-small" id="splitConfirmBtn">Split Here</button>
+                    <button class="btn btn-secondary btn-small" id="splitCancelBtn">Cancel</button>
+                </div>
+            </div>
             <div class="transcript-list" id="transcriptList">
                 <div class="loading">Loading transcript...</div>
             </div>
@@ -572,6 +703,9 @@
         let activeSegmentIndex = -1;
         let activeDropdown = null;
         let hasUnsavedChanges = false;
+        let editMode = false;
+        let splitSelectedWord = null;
+        let splitSegmentIndex = null;
 
         // DOM elements
         const video = document.getElementById('video');
@@ -589,6 +723,10 @@
         const createClipBtn = document.getElementById('createClipBtn');
         const saveBtn = document.getElementById('saveBtn');
         const saveStatus = document.getElementById('saveStatus');
+        const editModeToggle = document.getElementById('editModeToggle');
+        const splitHint = document.getElementById('splitHint');
+        const splitConfirmBtn = document.getElementById('splitConfirmBtn');
+        const splitCancelBtn = document.getElementById('splitCancelBtn');
 
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
@@ -631,30 +769,30 @@
 
         async function saveProject() {
             try {
+                const projectData = {
+                    ...project,
+                    transcript: transcript
+                };
+                
                 const response = await fetch('../../data/project.json', {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(project, null, 2)
+                    body: JSON.stringify(projectData, null, 2)
                 });
                 
                 if (!response.ok) {
-                    // Try POST if PUT fails
-                    const postResponse = await fetch('../../data/project.json', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(project, null, 2)
-                    });
-                    
-                    if (!postResponse.ok) {
-                        throw new Error('Failed to save');
-                    }
+                    throw new Error('Failed to save');
                 }
                 
                 markSaved();
                 console.log('[Review] Project saved');
             } catch (e) {
                 // Fallback: download as file
-                const blob = new Blob([JSON.stringify(project, null, 2)], { type: 'application/json' });
+                const projectData = {
+                    ...project,
+                    transcript: transcript
+                };
+                const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
@@ -737,10 +875,6 @@
             return null;
         }
 
-        // Make functions globally accessible for onclick handlers
-        window.deleteClip = deleteClip;
-        window.promptRename = promptRename;
-
         function renderClips() {
             if (project.clips.length === 0) {
                 clipsList.innerHTML = '<div class="clip-unassigned">No clips yet.<br>Create one to start organizing.</div>';
@@ -760,7 +894,6 @@
                 </div>
             `).join('');
 
-            // Add event listeners for clip actions
             document.querySelectorAll('.rename-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -784,6 +917,213 @@
             if (newName && newName !== clip.name) {
                 renameClip(clipId, newName);
             }
+        }
+
+        // Edit mode toggle
+        function toggleEditMode() {
+            editMode = !editMode;
+            editModeToggle.classList.toggle('active', editMode);
+            cancelSplit();
+            renderTranscript();
+        }
+
+        // Word redistribution when text is edited
+        function redistributeWords(seg, newText) {
+            if (!seg.words || seg.words.length === 0) return;
+            
+            const oldWords = seg.words.map(w => w.text.replace(/[.,!?;:]/g, '')).join(' ');
+            const oldCharCount = oldWords.length;
+            const newCharCount = newText.trim().length;
+            
+            if (oldCharCount === 0 || newCharCount === 0) return;
+            
+            const duration = seg.end - seg.start;
+            const newWords = newText.trim().split(/\s+/);
+            
+            // Simple proportional redistribution
+            const avgCharDuration = duration / newCharCount;
+            let currentTime = seg.start;
+            
+            seg.words = newWords.map(word => {
+                const wordDuration = word.length * avgCharDuration;
+                const wordStart = currentTime;
+                const wordEnd = Math.min(currentTime + wordDuration, seg.end);
+                currentTime = wordEnd;
+                
+                return {
+                    text: word,
+                    start: wordStart,
+                    end: wordEnd
+                };
+            });
+            
+            seg.text = newText.trim();
+        }
+
+        // Split segment at selected word
+        function splitSegmentAtWord() {
+            if (splitSelectedWord === null || splitSegmentIndex === null || !transcript) return;
+            
+            const seg = transcript.segments[splitSegmentIndex];
+            if (!seg.words || splitSelectedWord >= seg.words.length) return;
+            
+            const splitWord = seg.words[splitSelectedWord];
+            
+            // Create two new segments
+            const seg1 = {
+                ...seg,
+                text: seg.words.slice(0, splitSelectedWord).map(w => w.text).join(' '),
+                end: splitWord.start,
+                words: seg.words.slice(0, splitSelectedWord)
+            };
+            
+            const seg2 = {
+                ...seg,
+                id: `${seg.id}_split_${Date.now()}`,
+                text: seg.words.slice(splitSelectedWord).map(w => w.text).join(' '),
+                start: splitWord.start,
+                words: seg.words.slice(splitSelectedWord)
+            };
+            
+            // Remove empty segments
+            const newSegments = [...transcript.segments];
+            if (seg1.words.length > 0 && seg2.words.length > 0) {
+                newSegments.splice(splitSegmentIndex, 1, seg1, seg2);
+            } else {
+                console.log('[Review] Cannot split - would create empty segment');
+                cancelSplit();
+                return;
+            }
+            
+            // Update segment indices in clips
+            project.clips.forEach(clip => {
+                clip.segments.forEach(s => {
+                    if (s.segment_index > splitSegmentIndex) {
+                        s.segment_index++;
+                    } else if (s.segment_index === splitSegmentIndex) {
+                        // Assign to first part by default
+                        s.segment_index = splitSegmentIndex;
+                    }
+                });
+            });
+            
+            transcript.segments = newSegments;
+            markUnsaved();
+            cancelSplit();
+            renderTranscript();
+            renderClips();
+        }
+
+        function cancelSplit() {
+            splitSelectedWord = null;
+            splitSegmentIndex = null;
+            splitHint.style.display = 'none';
+            document.querySelectorAll('.word.split-selected').forEach(el => {
+                el.classList.remove('split-selected');
+            });
+        }
+
+        // Merge with adjacent segment
+        function mergeWithPrevious(segmentIndex) {
+            if (segmentIndex <= 0 || !transcript) return;
+            
+            const prevSeg = transcript.segments[segmentIndex - 1];
+            const currSeg = transcript.segments[segmentIndex];
+            
+            const merged = {
+                id: prevSeg.id,
+                text: prevSeg.text + ' ' + currSeg.text,
+                start: prevSeg.start,
+                end: currSeg.end,
+                words: [...prevSeg.words, ...currSeg.words],
+                original_video_id: prevSeg.original_video_id
+            };
+            
+            transcript.segments.splice(segmentIndex - 1, 2, merged);
+            
+            // Update clip assignments
+            project.clips.forEach(clip => {
+                clip.segments = clip.segments.filter(s => s.segment_index !== segmentIndex);
+                clip.segments.forEach(s => {
+                    if (s.segment_index > segmentIndex) {
+                        s.segment_index--;
+                    }
+                });
+            });
+            
+            markUnsaved();
+            renderTranscript();
+            renderClips();
+        }
+
+        function mergeWithNext(segmentIndex) {
+            if (segmentIndex >= transcript.segments.length - 1 || !transcript) return;
+            mergeWithPrevious(segmentIndex + 1);
+        }
+
+        // Delete segment
+        function deleteSegment(segmentIndex) {
+            if (!transcript || !confirm('Delete this segment?')) return;
+            
+            transcript.segments.splice(segmentIndex, 1);
+            
+            // Update clip assignments
+            project.clips.forEach(clip => {
+                clip.segments = clip.segments.filter(s => s.segment_index !== segmentIndex);
+                clip.segments.forEach(s => {
+                    if (s.segment_index > segmentIndex) {
+                        s.segment_index--;
+                    }
+                });
+            });
+            
+            markUnsaved();
+            renderTranscript();
+            renderClips();
+        }
+
+        // Add new segment
+        function addSegmentAfter(segmentIndex) {
+            if (!transcript) return;
+            
+            const currentSeg = transcript.segments[segmentIndex];
+            const nextSeg = transcript.segments[segmentIndex + 1];
+            
+            // Calculate new segment timing (halfway between current end and next start)
+            let newStart = currentSeg.end;
+            let newEnd = nextSeg ? nextSeg.start : currentSeg.end + 2;
+            
+            if (newEnd <= newStart) {
+                newEnd = newStart + 1;
+            }
+            
+            const newSeg = {
+                id: `seg_new_${Date.now()}`,
+                text: '[New segment - click to edit]',
+                start: newStart,
+                end: newEnd,
+                words: [{
+                    text: '[New segment - click to edit]',
+                    start: newStart,
+                    end: newEnd
+                }],
+                original_video_id: currentSeg.original_video_id
+            };
+            
+            transcript.segments.splice(segmentIndex + 1, 0, newSeg);
+            
+            // Update clip assignments
+            project.clips.forEach(clip => {
+                clip.segments.forEach(s => {
+                    if (s.segment_index > segmentIndex) {
+                        s.segment_index++;
+                    }
+                });
+            });
+            
+            markUnsaved();
+            renderTranscript();
+            renderClips();
         }
 
         // Transcript rendering
@@ -833,39 +1173,140 @@
 
                 let wordsHtml = '';
                 if (seg.words && seg.words.length > 0) {
-                    wordsHtml = seg.words.map(w => 
-                        `<span class="word" data-start="${w.start}" data-end="${w.end}">${w.text}</span>`
-                    ).join(' ');
+                    wordsHtml = seg.words.map((w, wi) => {
+                        const editableClass = editMode ? 'editable' : '';
+                        return `<span class="word ${editableClass}" data-word-index="${wi}" data-start="${w.start}" data-end="${w.end}">${w.text}</span>`;
+                    }).join(' ');
                 } else {
                     wordsHtml = seg.text;
                 }
 
                 const assignedClass = assignedClip ? 'assigned' : '';
+                const editModeClass = editMode ? 'edit-mode' : '';
                 const btnClass = assignedClip ? 'assigned' : '';
                 const btnText = assignedClip ? assignedClip.name : 'Assign';
 
+                // Edit buttons (only in edit mode)
+                const editButtons = editMode ? `
+                    <div class="segment-actions">
+                        <button class="btn btn-tiny btn-secondary split-btn" data-index="${index}">Split</button>
+                        <button class="btn btn-tiny btn-secondary merge-prev-btn" data-index="${index}" ${index === 0 ? 'disabled' : ''}>↑ Merge</button>
+                        <button class="btn btn-tiny btn-secondary merge-next-btn" data-index="${index}" ${index >= transcript.segments.length - 1 ? 'disabled' : ''}>Merge ↓</button>
+                        <button class="btn btn-tiny btn-secondary add-btn" data-index="${index}">+ Add</button>
+                        <button class="btn btn-tiny btn-danger delete-btn" data-index="${index}">✕</button>
+                    </div>
+                ` : '';
+
+                // Add segment button (in edit mode)
+                const addBtn = editMode ? `<button class="add-segment-btn" data-after="${index}">+ Add segment here</button>` : '';
+
                 html += `
-                    <div class="segment ${assignedClass}" data-index="${index}" data-start="${seg.start}" data-end="${seg.end}">
+                    <div class="segment ${assignedClass} ${editModeClass}" data-index="${index}" data-start="${seg.start}" data-end="${seg.end}">
                         <div class="segment-row">
                             <div class="segment-content">
                                 <div class="segment-time">${formatTime(seg.start)} - ${formatTime(seg.end)}</div>
-                                <div class="segment-text">${wordsHtml}</div>
+                                <div class="segment-text" contenteditable="${editMode}" data-index="${index}">${wordsHtml}</div>
+                                ${editButtons}
                             </div>
                             <button class="segment-assign-btn ${btnClass}" data-segment-index="${index}">${btnText}</button>
                         </div>
                     </div>
+                    ${addBtn}
                 `;
             });
 
             transcriptList.innerHTML = html;
 
-            // Segment click (jump to time)
-            document.querySelectorAll('.segment').forEach(el => {
-                el.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('segment-assign-btn')) return;
-                    const start = parseFloat(el.dataset.start);
-                    video.currentTime = start;
-                    video.play();
+            // Segment click (jump to time) - only when not in edit mode
+            if (!editMode) {
+                document.querySelectorAll('.segment').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('segment-assign-btn')) return;
+                        if (e.target.closest('.segment-actions')) return;
+                        const start = parseFloat(el.dataset.start);
+                        video.currentTime = start;
+                        video.play();
+                    });
+                });
+            }
+
+            // Word click for split (in edit mode)
+            if (editMode) {
+                document.querySelectorAll('.word.editable').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const segmentEl = el.closest('.segment');
+                        const segIndex = parseInt(segmentEl.dataset.index);
+                        
+                        // Clear previous selection
+                        document.querySelectorAll('.word.split-selected').forEach(w => {
+                            w.classList.remove('split-selected');
+                        });
+                        
+                        // Select this word
+                        el.classList.add('split-selected');
+                        splitSelectedWord = parseInt(el.dataset.wordIndex);
+                        splitSegmentIndex = segIndex;
+                        splitHint.style.display = 'flex';
+                    });
+                });
+            }
+
+            // Text editing
+            document.querySelectorAll('.segment-text[contenteditable="true"]').forEach(el => {
+                el.addEventListener('blur', (e) => {
+                    const index = parseInt(el.dataset.index);
+                    const seg = transcript.segments[index];
+                    const newText = el.textContent;
+                    
+                    if (newText !== seg.text) {
+                        redistributeWords(seg, newText);
+                        markUnsaved();
+                    }
+                });
+                
+                el.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        el.blur();
+                    }
+                });
+            });
+
+            // Edit action buttons
+            document.querySelectorAll('.split-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Scroll to show the hint
+                    splitHint.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            });
+
+            document.querySelectorAll('.merge-prev-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mergeWithPrevious(parseInt(btn.dataset.index));
+                });
+            });
+
+            document.querySelectorAll('.merge-next-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mergeWithNext(parseInt(btn.dataset.index));
+                });
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteSegment(parseInt(btn.dataset.index));
+                });
+            });
+
+            document.querySelectorAll('.add-btn, .add-segment-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    addSegmentAfter(parseInt(btn.dataset.index || btn.dataset.after));
                 });
             });
 
@@ -879,7 +1320,6 @@
         }
 
         function showAssignDropdown(btn, segmentIndex) {
-            // Close existing dropdown
             if (activeDropdown) {
                 activeDropdown.remove();
             }
@@ -899,7 +1339,6 @@
             
             dropdown.innerHTML = html;
             
-            // Position dropdown
             const rect = btn.getBoundingClientRect();
             dropdown.style.top = `${rect.bottom + 4}px`;
             dropdown.style.right = `${window.innerWidth - rect.right}px`;
@@ -907,7 +1346,6 @@
             document.body.appendChild(dropdown);
             activeDropdown = dropdown;
 
-            // Handle click
             dropdown.querySelectorAll('.assign-dropdown-item').forEach(item => {
                 item.addEventListener('click', () => {
                     const clipId = item.dataset.clipId === 'null' ? null : item.dataset.clipId;
@@ -917,7 +1355,6 @@
                 });
             });
 
-            // Close on outside click
             setTimeout(() => {
                 document.addEventListener('click', function closeDropdown(e) {
                     if (!dropdown.contains(e.target) && e.target !== btn) {
@@ -959,21 +1396,23 @@
                 activeSegmentIndex = newActiveIndex;
             }
 
-            // Word-level highlighting
-            document.querySelectorAll('.word.active').forEach(el => {
-                el.classList.remove('active');
-            });
+            // Word-level highlighting (only in non-edit mode)
+            if (!editMode) {
+                document.querySelectorAll('.word.active').forEach(el => {
+                    el.classList.remove('active');
+                });
 
-            if (newActiveIndex >= 0) {
-                const activeSegment = document.querySelector(`.segment[data-index="${newActiveIndex}"]`);
-                if (activeSegment) {
-                    const words = activeSegment.querySelectorAll('.word');
-                    for (const wordEl of words) {
-                        const wordStart = parseFloat(wordEl.dataset.start);
-                        const wordEnd = parseFloat(wordEl.dataset.end);
-                        if (time >= wordStart && time <= wordEnd) {
-                            wordEl.classList.add('active');
-                            break;
+                if (newActiveIndex >= 0) {
+                    const activeSegment = document.querySelector(`.segment[data-index="${newActiveIndex}"]`);
+                    if (activeSegment) {
+                        const words = activeSegment.querySelectorAll('.word');
+                        for (const wordEl of words) {
+                            const wordStart = parseFloat(wordEl.dataset.start);
+                            const wordEnd = parseFloat(wordEl.dataset.end);
+                            if (time >= wordStart && time <= wordEnd) {
+                                wordEl.classList.add('active');
+                                break;
+                            }
                         }
                     }
                 }
@@ -1045,8 +1484,14 @@
 
         saveBtn.addEventListener('click', saveProject);
 
+        editModeToggle.addEventListener('click', toggleEditMode);
+
+        splitConfirmBtn.addEventListener('click', splitSegmentAtWord);
+        splitCancelBtn.addEventListener('click', cancelSplit);
+
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.target.getAttribute('contenteditable') === 'true') return;
 
             switch (e.code) {
                 case 'Space':
@@ -1059,10 +1504,14 @@
                 case 'ArrowRight':
                     video.currentTime = Math.min(video.duration, video.currentTime + 5);
                     break;
+                case 'Escape':
+                    if (editMode) {
+                        cancelSplit();
+                    }
+                    break;
             }
         });
 
-        // Warn before leaving with unsaved changes
         window.addEventListener('beforeunload', (e) => {
             if (hasUnsavedChanges) {
                 e.preventDefault();
