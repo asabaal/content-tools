@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review - Content Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+
+        .app {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            background: #16213e;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4cc9f0;
+        }
+
+        .header-info {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .video-section {
+            background: #0f0f1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            padding-top: 40px;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 640px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        video {
+            width: 100%;
+            max-height: 360px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #1a1a2e;
+        }
+
+        .btn {
+            background: #4cc9f0;
+            color: #0f0f1a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #3aa8d8;
+        }
+
+        .btn-secondary {
+            background: #2a2a4a;
+            color: #eee;
+        }
+
+        .btn-secondary:hover {
+            background: #3a3a5a;
+        }
+
+        .time-display {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 13px;
+            color: #888;
+            min-width: 100px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #2a2a4a;
+            border-radius: 3px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4cc9f0;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .transcript-section {
+            background: #16213e;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #2a2a4a;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .transcript-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transcript-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .segment-count {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .transcript-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .source-marker {
+            padding: 8px 12px;
+            margin: 8px 0 4px 0;
+            background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .source-marker .source-name {
+            opacity: 0.9;
+        }
+
+        .source-marker .source-time {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            opacity: 0.7;
+        }
+
+        .segment {
+            padding: 12px;
+            margin-bottom: 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .segment:hover {
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .segment.active {
+            background: rgba(76, 201, 240, 0.2);
+            border-color: #4cc9f0;
+        }
+
+        .segment-time {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .segment-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        .segment.active .segment-text {
+            color: #fff;
+        }
+
+        .segment-source {
+            font-size: 10px;
+            color: #4cc9f0;
+            margin-top: 4px;
+            opacity: 0.7;
+        }
+
+        .transcript-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .transcript-list::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        .transcript-list::-webkit-scrollbar-thumb {
+            background: #3a3a5a;
+            border-radius: 4px;
+        }
+
+        .transcript-list::-webkit-scrollbar-thumb:hover {
+            background: #4a4a6a;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #666;
+        }
+
+        .error {
+            color: #f66;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>02 - Review</h1>
+            <div class="header-info">
+                <span id="videoInfo">Loading...</span>
+            </div>
+        </header>
+
+        <section class="video-section">
+            <div class="video-container">
+                <video id="video" preload="metadata">
+                    <source src="../../data/video_combined.mp4" type="video/mp4">
+                    Your browser does not support video playback.
+                </video>
+                <div class="video-controls">
+                    <button class="btn" id="playBtn">Play</button>
+                    <button class="btn btn-secondary" id="skipBackBtn">-5s</button>
+                    <button class="btn btn-secondary" id="skipFwdBtn">+5s</button>
+                    <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="transcript-section">
+            <div class="transcript-header">
+                <h2>Transcript</h2>
+                <span class="segment-count" id="segmentCount">0 segments</span>
+            </div>
+            <div class="transcript-list" id="transcriptList">
+                <div class="loading">Loading transcript...</div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let transcript = null;
+        let sources = null;
+        let activeSegmentIndex = -1;
+
+        const video = document.getElementById('video');
+        const playBtn = document.getElementById('playBtn');
+        const skipBackBtn = document.getElementById('skipBackBtn');
+        const skipFwdBtn = document.getElementById('skipFwdBtn');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const transcriptList = document.getElementById('transcriptList');
+        const segmentCount = document.getElementById('segmentCount');
+        const videoInfo = document.getElementById('videoInfo');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function getCurrentSource(time) {
+            if (!sources) return null;
+            for (const src of sources) {
+                if (time >= src.start && time <= src.end) {
+                    return src;
+                }
+            }
+            return null;
+        }
+
+        async function loadTranscript() {
+            console.log('[Review] Loading transcript...');
+            try {
+                const response = await fetch('../../data/transcript_combined.json');
+                console.log('[Review] Fetch response:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const data = await response.json();
+                console.log('[Review] Loaded', data.segments.length, 'segments from', data.sources?.length || 0, 'sources');
+                transcript = data;
+                sources = data.sources || [];
+                renderTranscript();
+                videoInfo.textContent = `${data.segments.length} segments | ${sources.length} videos | ${formatTime(data.duration)}`;
+            } catch (error) {
+                console.error('[Review] Error loading transcript:', error);
+                transcriptList.innerHTML = `<div class="error">Error loading transcript: ${error.message}<br><br>Make sure you're accessing via http://localhost (not file://)</div>`;
+            }
+        }
+
+        function renderTranscript() {
+            if (!transcript) return;
+
+            segmentCount.textContent = `${transcript.segments.length} segments`;
+            
+            let html = '';
+            let currentSourceId = null;
+
+            transcript.segments.forEach((seg, index) => {
+                const sourceId = seg.original_video_id;
+                
+                if (sourceId !== currentSourceId) {
+                    const source = sources.find(s => s.video_id === sourceId);
+                    if (source) {
+                        html += `
+                            <div class="source-marker" data-source-start="${source.start}">
+                                <span class="source-name">${source.video_id}</span>
+                                <span class="source-time">${formatTime(source.start)} - ${formatTime(source.end)}</span>
+                            </div>
+                        `;
+                    }
+                    currentSourceId = sourceId;
+                }
+
+                html += `
+                    <div class="segment" data-index="${index}" data-start="${seg.start}" data-end="${seg.end}">
+                        <div class="segment-time">${formatTime(seg.start)} - ${formatTime(seg.end)}</div>
+                        <div class="segment-text">${seg.text}</div>
+                    </div>
+                `;
+            });
+
+            transcriptList.innerHTML = html;
+
+            document.querySelectorAll('.segment').forEach(el => {
+                el.addEventListener('click', () => {
+                    const start = parseFloat(el.dataset.start);
+                    video.currentTime = start;
+                    video.play();
+                });
+            });
+        }
+
+        function updateActiveSegment() {
+            if (!transcript) return;
+
+            const time = video.currentTime;
+            let newActiveIndex = -1;
+
+            for (let i = 0; i < transcript.segments.length; i++) {
+                const seg = transcript.segments[i];
+                if (time >= seg.start && time <= seg.end) {
+                    newActiveIndex = i;
+                    break;
+                }
+            }
+
+            if (newActiveIndex !== activeSegmentIndex) {
+                document.querySelectorAll('.segment.active').forEach(el => {
+                    el.classList.remove('active');
+                });
+
+                if (newActiveIndex >= 0) {
+                    const activeEl = document.querySelector(`.segment[data-index="${newActiveIndex}"]`);
+                    if (activeEl) {
+                        activeEl.classList.add('active');
+                        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+
+                activeSegmentIndex = newActiveIndex;
+            }
+        }
+
+        function updateProgress() {
+            const current = video.currentTime;
+            const duration = video.duration || 0;
+            const percent = duration > 0 ? (current / duration) * 100 : 0;
+
+            timeDisplay.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
+            progressFill.style.width = `${percent}%`;
+
+            updateActiveSegment();
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+
+        video.addEventListener('play', () => {
+            playBtn.textContent = 'Pause';
+        });
+
+        video.addEventListener('pause', () => {
+            playBtn.textContent = 'Play';
+        });
+
+        video.addEventListener('timeupdate', updateProgress);
+
+        video.addEventListener('loadedmetadata', () => {
+            console.log('[Review] Video loaded, duration:', video.duration);
+            updateProgress();
+        });
+
+        video.addEventListener('error', (e) => {
+            console.error('[Review] Video error:', e);
+            const videoSection = document.querySelector('.video-section');
+            videoSection.innerHTML = `<div class="error">Video failed to load.<br>Error: ${video.error?.message || 'Unknown'}<br><br>Make sure you're accessing via http://localhost (not file://)</div>`;
+        });
+
+        skipBackBtn.addEventListener('click', () => {
+            video.currentTime = Math.max(0, video.currentTime - 5);
+        });
+
+        skipFwdBtn.addEventListener('click', () => {
+            video.currentTime = Math.min(video.duration, video.currentTime + 5);
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            video.currentTime = percent * video.duration;
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            switch (e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    playBtn.click();
+                    break;
+                case 'ArrowLeft':
+                    video.currentTime = Math.max(0, video.currentTime - 5);
+                    break;
+                case 'ArrowRight':
+                    video.currentTime = Math.min(video.duration, video.currentTime + 5);
+                    break;
+            }
+        });
+
+        loadTranscript();
+    </script>
+</body>
+</html>

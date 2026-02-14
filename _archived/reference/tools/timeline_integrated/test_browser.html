@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Module Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+        .log { font-family: monospace; background: #f8f9fa; padding: 10px; margin: 10px 0; border-radius: 5px; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Browser Module Test</h1>
+    <div id="output"></div>
+    <div class="log" id="log">Console output will appear here...</div>
+
+    <script type="module">
+        const output = document.getElementById('output');
+        const log = document.getElementById('log');
+        
+        function addLog(message) {
+            log.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function test(name, result, message) {
+            const div = document.createElement('div');
+            div.className = `test ${result ? 'pass' : 'fail'}`;
+            div.textContent = `${name}: ${result ? 'PASS' : 'FAIL'} - ${message}`;
+            output.appendChild(div);
+            addLog(`${name}: ${result ? 'PASS' : 'FAIL'} - ${message}`);
+        }
+        
+        addLog('Starting browser module tests...');
+        
+        // Test 1: Basic JavaScript
+        test('Basic JavaScript', true, 'JavaScript is working');
+        
+        // Test 2: ES6 Support
+        try {
+            eval('class TestClass {}');
+            test('ES6 Classes', true, 'ES6 classes supported');
+        } catch (e) {
+            test('ES6 Classes', false, e.message);
+        }
+        
+        // Test 3: Module Support
+        test('Module Support', 'no' in document.createElement('script'), 
+            'Module support detected');
+        
+        // Test 4: Fetch API
+        try {
+            const response = await fetch('../combined_transcript.json');
+            if (response.ok) {
+                test('Data File Access', true, `Data accessible (${response.status})`);
+                const data = await response.json();
+                test('Data Parsing', true, `Parsed ${data.segments.length} segments`);
+                addLog(`Data loaded: ${data.segments.length} segments, duration: ${data.duration}s`);
+            } else {
+                throw new Error(`HTTP ${response.status}`);
+            }
+        } catch (error) {
+            test('Data File Access', false, error.message);
+            addLog(`Data error: ${error.message}`);
+        }
+        
+        // Test 5: Import Events module
+        try {
+            const { EVENTS } = await import('./core/Events.js');
+            test('Events Module', true, `Events loaded with ${Object.keys(EVENTS).length} event types`);
+            addLog(`Events: ${Object.keys(EVENTS).join(', ')}`);
+        } catch (error) {
+            test('Events Module', false, error.message);
+            addLog(`Events import error: ${error.message}`);
+        }
+        
+        // Test 6: Import DataManager
+        try {
+            const { DataManager } = await import('./core/DataManager.js');
+            test('DataManager Module', true, 'DataManager class loaded');
+            
+            // Test DataManager instantiation
+            const dataManager = new DataManager();
+            test('DataManager Instance', true, 'DataManager created successfully');
+            
+            // Test data loading
+            await dataManager.loadData();
+            test('Data Loading', true, 'Data loaded into DataManager');
+            
+            const stats = dataManager.getStatistics();
+            test('Data Statistics', true, `Stats: ${stats.segmentCount} segments`);
+            
+        } catch (error) {
+            test('DataManager Module', false, error.message);
+            addLog(`DataManager error: ${error.message}`);
+        }
+        
+        // Test 7: Import TimelineViewer
+        try {
+            const { TimelineViewer } = await import('./TimelineViewer/TimelineViewer.js');
+            test('TimelineViewer Module', true, 'TimelineViewer class loaded');
+            
+            // Test TimelineViewer instantiation
+            const { DataManager } = await import('./core/DataManager.js');
+            const dataManager = new DataManager();
+            await dataManager.loadData();
+            
+            const timelineViewer = new TimelineViewer(dataManager);
+            test('TimelineViewer Instance', true, 'TimelineViewer created successfully');
+            
+        } catch (error) {
+            test('TimelineViewer Module', false, error.message);
+            addLog(`TimelineViewer error: ${error.message}`);
+        }
+        
+        addLog('Tests completed');
+    </script>
+</body>
+</html>

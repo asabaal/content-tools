@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        .log { font-family: monospace; white-space: pre-wrap; background: #f5f5f5; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Debug Test</h1>
+    <div id="debugInfo"></div>
+    <div class="log" id="log"></div>
+
+    <script>
+        const log = document.getElementById('log');
+        const debugInfo = document.getElementById('debugInfo');
+        
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'debug';
+            log.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+        }
+        
+        function addDebug(title, content) {
+            debugInfo.innerHTML += `<div class="debug"><strong>${title}:</strong> ${content}</div>`;
+        }
+        
+        // Test basic environment
+        addDebug('Browser', navigator.userAgent);
+        addDebug('URL', window.location.href);
+        addDebug('Supports ES6 Modules', 'no' in document.createElement('script').type.supports('module'));
+        
+        // Test file access
+        fetch('../combined_transcript.json')
+            .then(response => {
+                addDebug('Data file access', `${response.status} ${response.statusText}`);
+                if (response.ok) {
+                    addLog('Data file accessible', 'success');
+                    return response.json();
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            })
+            .then(data => {
+                addDebug('Data structure', `${data.segments.length} segments loaded`);
+                addLog(`Data loaded successfully: ${data.segments.length} segments`, 'success');
+            })
+            .catch(error => {
+                addDebug('Data file error', error.message);
+                addLog(`Data file error: ${error.message}`, 'error');
+            });
+        
+        // Test module loading
+        addLog('Testing module imports...');
+        
+        // Try to import modules
+        import('../core/DataManager.js')
+            .then(module => {
+                addLog('DataManager module loaded successfully', 'success');
+                addDebug('DataManager exports', Object.keys(module));
+                
+                // Test creating DataManager
+                const { DataManager } = module;
+                const dm = new DataManager();
+                addLog('DataManager instance created', 'success');
+            })
+            .catch(error => {
+                addLog(`DataManager import failed: ${error.message}`, 'error');
+                console.error('DataManager import error:', error);
+            });
+            
+        import('../core/Events.js')
+            .then(module => {
+                addLog('Events module loaded successfully', 'success');
+                addDebug('Events exports', Object.keys(module));
+            })
+            .catch(error => {
+                addLog(`Events import failed: ${error.message}`, 'error');
+                console.error('Events import error:', error);
+            });
+            
+        import('./TimelineViewer/TimelineViewer.js')
+            .then(module => {
+                addLog('TimelineViewer module loaded successfully', 'success');
+                addDebug('TimelineViewer exports', Object.keys(module));
+            })
+            .catch(error => {
+                addLog(`TimelineViewer import failed: ${error.message}`, 'error');
+                console.error('TimelineViewer import error:', error);
+            });
+    </script>
+</body>
+</html>

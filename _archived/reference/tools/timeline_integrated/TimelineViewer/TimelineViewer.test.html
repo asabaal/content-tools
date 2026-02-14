@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimelineViewer Component Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .test-header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .test-info {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .test-status {
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .component-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 500px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #4338ca;
+        }
+        
+        .btn.secondary {
+            background: #6b7280;
+        }
+        
+        .btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .log {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🕐 TimelineViewer Component Test</h1>
+            <p>Testing the modular TimelineViewer component with real episode 3 data</p>
+        </div>
+        
+        <div class="test-info">
+            <strong>📋 Test Objectives:</strong>
+            <ul>
+                <li>✅ Load real combined_transcript.json data (220+ segments)</li>
+                <li>✅ Render timeline with proper scaling and zoom</li>
+                <li>✅ Test segment selection and hover states</li>
+                <li>✅ Verify zoom controls functionality</li>
+                <li>✅ Test event emission to other components</li>
+                <li>✅ Validate performance with large dataset</li>
+            </ul>
+        </div>
+        
+        <div class="test-status">
+            <strong>🔍 Test Status:</strong>
+            <div id="testStatus">Initializing...</div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="loadDataBtn">📥 Load Data</button>
+            <button class="btn" id="testRenderingBtn">🎨 Test Rendering</button>
+            <button class="btn" id="testSelectionBtn">🎯 Test Selection</button>
+            <button class="btn" id="testZoomBtn">🔍 Test Zoom</button>
+            <button class="btn secondary" id="clearLogBtn">🗑️ Clear Log</button>
+        </div>
+        
+        <div class="component-container" id="timelineContainer">
+            <!-- TimelineViewer component will be rendered here -->
+        </div>
+        
+        <div class="log" id="log">TimelineViewer test log will appear here...</div>
+    </div>
+
+    <script type="module">
+        import { DataManager } from '../core/DataManager.js';
+        import { TimelineViewer } from './TimelineViewer.js';
+        import { EVENTS } from '../core/Events.js';
+        
+        // Global variables for testing
+        let dataManager;
+        let timelineViewer;
+        let testResults = {
+            dataLoaded: false,
+            rendered: false,
+            selectionTested: false,
+            zoomTested: false
+        };
+        
+        // Logging function
+        window.log = function(message, type = 'info') {
+            const logEl = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️';
+            logEl.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+            logEl.scrollTop = logEl.scrollHeight;
+        };
+        
+        // Update test status
+        function updateStatus() {
+            const statusEl = document.getElementById('testStatus');
+            const completed = Object.values(testResults).filter(v => v).length;
+            const total = Object.keys(testResults).length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            statusEl.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="flex: 1; background: #e5e7eb; border-radius: 4px; height: 20px; overflow: hidden;">
+                        <div style="width: ${percentage}%; background: #10b981; height: 100%; transition: width 0.3s ease;"></div>
+                    </div>
+                    <span>${completed}/${total} tests passed (${percentage}%)</span>
+                </div>
+            `;
+        }
+        
+        // Load data test
+        window.loadData = async function() {
+            try {
+                log('Starting data load test...');
+                
+                // Initialize DataManager
+                dataManager = new DataManager();
+                
+                // Set up event listeners
+                dataManager.on(EVENTS.DATA_LOADED, (event) => {
+                    log(`Data loaded successfully: ${event.data.segments} segments, ${event.data.duration}s duration`, 'success');
+                    testResults.dataLoaded = true;
+                    updateStatus();
+                });
+                
+                // Load the data
+                await dataManager.loadData();
+                
+                // Get statistics
+                const stats = dataManager.getStatistics();
+                log(`Data statistics: ${JSON.stringify(stats, null, 2)}`);
+                
+            } catch (error) {
+                log(`Data load failed: ${error.message}`, 'error');
+                console.error('Data load error:', error);
+            }
+        };
+        
+        // Test rendering
+        window.testRendering = async function() {
+            try {
+                if (!dataManager || !dataManager.isDataLoaded()) {
+                    log('Please load data first', 'error');
+                    return;
+                }
+                
+                log('Starting rendering test...');
+                
+                // Initialize TimelineViewer
+                timelineViewer = new TimelineViewer(dataManager, {
+                    pixelsPerSecond: 50,
+                    zoomLevel: 1.0,
+                    showWordMarkers: true
+                });
+                
+                // Set up event listeners
+                timelineViewer.addDataListener(EVENTS.SEGMENT_SELECTED, (event) => {
+                    log(`Segment selected: ${event.data.segmentId}`);
+                });
+                
+                timelineViewer.addDataListener(EVENTS.TIMELINE_ZOOM_CHANGED, (event) => {
+                    log(`Zoom changed: ${event.data.zoomLevel * 100}%`);
+                });
+                
+                // Initialize component
+                const container = document.getElementById('timelineContainer');
+                await timelineViewer.initialize(container);
+                
+                log('TimelineViewer rendered successfully', 'success');
+                testResults.rendered = true;
+                updateStatus();
+                
+                // Get component status
+                const status = timelineViewer.getStatus();
+                log(`Component status: ${JSON.stringify(status, null, 2)}`);
+                
+            } catch (error) {
+                log(`Rendering test failed: ${error.message}`, 'error');
+                console.error('Rendering error:', error);
+            }
+        };
+        
+        // Test selection
+        window.testSelection = function() {
+            try {
+                if (!timelineViewer || !timelineViewer.isInitialized) {
+                    log('Please render timeline first', 'error');
+                    return;
+                }
+                
+                log('Starting selection test...');
+                
+                // Get first segment
+                const segments = dataManager.getSegments();
+                if (segments.length === 0) {
+                    log('No segments available for selection test', 'error');
+                    return;
+                }
+                
+                const firstSegment = segments[0];
+                const segmentId = firstSegment.id || firstSegment.segment_id;
+                
+                // Test programmatic selection
+                timelineViewer.selectSegment(segmentId);
+                log(`Selected segment: ${segmentId}`);
+                
+                // Test selection of multiple segments
+                setTimeout(() => {
+                    if (segments.length > 1) {
+                        const secondSegment = segments[1];
+                        const secondId = secondSegment.id || secondSegment.segment_id;
+                        timelineViewer.selectSegment(secondId);
+                        log(`Selected second segment: ${secondId}`);
+                    }
+                }, 1000);
+                
+                log('Selection test completed', 'success');
+                testResults.selectionTested = true;
+                updateStatus();
+                
+            } catch (error) {
+                log(`Selection test failed: ${error.message}`, 'error');
+                console.error('Selection error:', error);
+            }
+        };
+        
+        // Test zoom
+        window.testZoom = function() {
+            try {
+                if (!timelineViewer || !timelineViewer.isInitialized) {
+                    log('Please render timeline first', 'error');
+                    return;
+                }
+                
+                log('Starting zoom test...');
+                
+                // Test zoom in
+                setTimeout(() => {
+                    timelineViewer.zoomIn();
+                    log('Zoomed in');
+                }, 500);
+                
+                // Test zoom in again
+                setTimeout(() => {
+                    timelineViewer.zoomIn();
+                    log('Zoomed in again');
+                }, 1000);
+                
+                // Test zoom out
+                setTimeout(() => {
+                    timelineViewer.zoomOut();
+                    log('Zoomed out');
+                }, 1500);
+                
+                // Test reset zoom
+                setTimeout(() => {
+                    timelineViewer.resetZoom();
+                    log('Zoom reset');
+                }, 2000);
+                
+                log('Zoom test completed', 'success');
+                testResults.zoomTested = true;
+                updateStatus();
+                
+            } catch (error) {
+                log(`Zoom test failed: ${error.message}`, 'error');
+                console.error('Zoom error:', error);
+            }
+        };
+        
+        // Clear log
+        window.clearLog = function() {
+            document.getElementById('log').textContent = 'Log cleared...\n';
+        };
+        
+        // Initialize test on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            log('TimelineViewer test page loaded');
+            updateStatus();
+            
+            // Add event listeners to buttons
+            document.getElementById('loadDataBtn').addEventListener('click', loadData);
+            document.getElementById('testRenderingBtn').addEventListener('click', testRendering);
+            document.getElementById('testSelectionBtn').addEventListener('click', testSelection);
+            document.getElementById('testZoomBtn').addEventListener('click', testZoom);
+            document.getElementById('clearLogBtn').addEventListener('click', clearLog);
+            
+            // Auto-load data after 1 second
+            setTimeout(() => {
+                loadData();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

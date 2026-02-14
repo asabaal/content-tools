@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Word Timing Editor - Component 5: Data Management</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .help-text {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #166534;
+        }
+        
+        .data-controls {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .data-controls h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .control-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+        
+        .btn.secondary {
+            background: #6b7280;
+        }
+        
+        .btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn.success {
+            background: #10b981;
+        }
+        
+        .btn.success:hover {
+            background: #059669;
+        }
+        
+        .btn.warning {
+            background: #f59e0b;
+        }
+        
+        .btn.warning:hover {
+            background: #d97706;
+        }
+        
+        .btn.danger {
+            background: #ef4444;
+        }
+        
+        .btn.danger:hover {
+            background: #dc2626;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .data-preview {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .data-preview h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .preview-content {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .status-message {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #0c4a6e;
+        }
+        
+        .status-message.success {
+            background: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        
+        .status-message.error {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        
+        .status-message.warning {
+            background: #fef3c7;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+        
+        .data-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .format-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .format-selector label {
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .format-selector select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            font-size: 14px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕐 Timeline Word Timing Editor</h1>
+            <p>Component 5: Data Management System</p>
+        </div>
+        
+        <div class="help-text">
+            <strong>🎯 How to use:</strong> Import data from JSON/CSV • Export to different formats • Auto-save to browser storage • View data statistics • Manage project files
+        </div>
+        
+        <div id="statusMessage" class="status-message hidden"></div>
+        
+        <div class="data-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="segmentCount">0</div>
+                <div class="stat-label">Segments</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalDuration">0:00</div>
+                <div class="stat-label">Total Duration</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="wordCount">0</div>
+                <div class="stat-label">Total Words</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="lastSaved">Never</div>
+                <div class="stat-label">Last Saved</div>
+            </div>
+        </div>
+        
+        <div class="data-controls">
+            <h3>📥 Import Data</h3>
+            <div class="control-group">
+                <div class="file-input-wrapper">
+                    <button class="btn">
+                        📁 Import JSON File
+                    </button>
+                    <input type="file" class="file-input" id="importJson" accept=".json">
+                </div>
+                
+                <div class="file-input-wrapper">
+                    <button class="btn secondary">
+                        📊 Import CSV File
+                    </button>
+                    <input type="file" class="file-input" id="importCsv" accept=".csv">
+                </div>
+                
+                <button class="btn warning" onclick="loadSampleData()">
+                    🎭 Load Sample Data
+                </button>
+                
+                <button class="btn secondary" onclick="clearAllData()">
+                    🗑️ Clear All Data
+                </button>
+            </div>
+        </div>
+        
+        <div class="data-controls">
+            <h3>📤 Export Data</h3>
+            <div class="format-selector">
+                <label for="exportFormat">Export Format:</label>
+                <select id="exportFormat">
+                    <option value="json">JSON</option>
+                    <option value="csv">CSV</option>
+                    <option value="srt">SRT Subtitles</option>
+                    <option value="vtt">WebVTT</option>
+                    <option value="txt">Plain Text</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <button class="btn success" onclick="exportData()">
+                    💾 Export Data
+                </button>
+                
+                <button class="btn" onclick="saveToBrowser()">
+                    🌐 Save to Browser
+                </button>
+                
+                <button class="btn secondary" onclick="loadFromBrowser()">
+                    📥 Load from Browser
+                </button>
+            </div>
+        </div>
+        
+        <div class="data-preview">
+            <h3>👁️ Data Preview</h3>
+            <div class="preview-content" id="dataPreview">
+                No data loaded. Import a file or load sample data to begin.
+            </div>
+        </div>
+        
+        <div class="status-message">
+            ✅ Component 5: Data management system with import/export and browser storage
+        </div>
+    </div>
+
+    <script>
+        // Current data state
+        let currentData = {
+            segments: [],
+            metadata: {
+                title: '',
+                duration: 0,
+                created: new Date().toISOString(),
+                modified: new Date().toISOString()
+            }
+        };
+        
+        // Your actual episode 3 data
+        const sampleData = {
+            segments: [
+                {
+                    id: 1,
+                    text: "Welcome to Life is Your Word episode 3.",
+                    startTime: 7.68,
+                    endTime: 10.7,
+                    audioUrl: "/home/asabaal/episode3_combined/audio/segment1.m4a"
+                },
+                {
+                    id: 2,
+                    text: "In this show, we build up our understanding of reality by seeking God's face.",
+                    startTime: 11.68,
+                    endTime: 17.7,
+                    audioUrl: "/home/asabaal/episode3_combined/audio/segment2.m4a"
+                },
+                {
+                    id: 3,
+                    text: "Today's reading is from Genesis chapter 1.",
+                    startTime: 20.44,
+                    endTime: 22.46,
+                    audioUrl: "/home/asabaal/episode3_combined/audio/segment3.m4a"
+                },
+                {
+                    id: 4,
+                    text: "When God began to create the heavens and the earth, the earth was in complete chaos and",
+                    startTime: 27.2,
+                    endTime: 34.11,
+                    audioUrl: "/home/asabaal/episode3_combined/audio/segment4.m4a"
+                }
+            ],
+            metadata: {
+                title: "Life is Your Word - Episode 3",
+                duration: 34.11,
+                created: new Date().toISOString(),
+                modified: new Date().toISOString()
+            }
+        };
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function showStatus(message, type = '') {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = 'status-message ' + type;
+            statusEl.classList.remove('hidden');
+            
+            setTimeout(() => {
+                statusEl.classList.add('hidden');
+            }, 3000);
+        }
+        
+        function updateStats() {
+            const segmentCount = currentData.segments.length;
+            const totalDuration = Math.max(...currentData.segments.map(s => s.endTime), 0);
+            const wordCount = currentData.segments.reduce((sum, s) => sum + (s.words ? s.words.length : s.text.split(' ').length), 0);
+            
+            document.getElementById('segmentCount').textContent = segmentCount;
+            document.getElementById('totalDuration').textContent = formatTime(totalDuration);
+            document.getElementById('wordCount').textContent = wordCount;
+        }
+        
+        function updatePreview() {
+            const preview = document.getElementById('dataPreview');
+            if (currentData.segments.length === 0) {
+                preview.textContent = 'No data loaded. Import a file or load sample data to begin.';
+            } else {
+                preview.textContent = JSON.stringify(currentData, null, 2);
+            }
+        }
+        
+        function loadSampleData() {
+            console.log('loadSampleData called');
+            console.log('sampleData:', sampleData);
+            currentData = JSON.parse(JSON.stringify(sampleData));
+            currentData.metadata.modified = new Date().toISOString();
+            updateStats();
+            updatePreview();
+            showStatus('Sample data loaded successfully!', 'success');
+        }
+        
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
+                currentData = {
+                    segments: [],
+                    metadata: {
+                        title: '',
+                        duration: 0,
+                        created: new Date().toISOString(),
+                        modified: new Date().toISOString()
+                    }
+                };
+                updateStats();
+                updatePreview();
+                showStatus('All data cleared.', 'warning');
+            }
+        }
+        
+        function exportData() {
+            const format = document.getElementById('exportFormat').value;
+            let content = '';
+            let filename = '';
+            let mimeType = '';
+            
+            switch (format) {
+                case 'json':
+                    content = JSON.stringify(currentData, null, 2);
+                    filename = 'timeline_data.json';
+                    mimeType = 'application/json';
+                    break;
+                    
+                case 'csv':
+                    content = exportToCSV();
+                    filename = 'timeline_data.csv';
+                    mimeType = 'text/csv';
+                    break;
+                    
+                case 'srt':
+                    content = exportToSRT();
+                    filename = 'timeline_subtitles.srt';
+                    mimeType = 'text/plain';
+                    break;
+                    
+                case 'vtt':
+                    content = exportToVTT();
+                    filename = 'timeline_subtitles.vtt';
+                    mimeType = 'text/vtt';
+                    break;
+                    
+                case 'txt':
+                    content = exportToTXT();
+                    filename = 'timeline_transcript.txt';
+                    mimeType = 'text/plain';
+                    break;
+            }
+            
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showStatus(`Data exported as ${filename}`, 'success');
+        }
+        
+        function exportToCSV() {
+            const headers = ['ID', 'Start Time', 'End Time', 'Duration', 'Text', 'Word Count'];
+            const rows = currentData.segments.map(segment => [
+                segment.id,
+                segment.startTime.toFixed(2),
+                segment.endTime.toFixed(2),
+                (segment.endTime - segment.startTime).toFixed(2),
+                `"${segment.text.replace(/"/g, '""')}"`,
+                segment.words ? segment.words.length : segment.text.split(' ').length
+            ]);
+            
+            return [headers, ...rows].map(row => row.join(',')).join('\n');
+        }
+        
+        function exportToSRT() {
+            return currentData.segments.map((segment, index) => {
+                const startTime = formatSRTTime(segment.startTime);
+                const endTime = formatSRTTime(segment.endTime);
+                return `${index + 1}\n${startTime} --> ${endTime}\n${segment.text}\n`;
+            }).join('\n');
+        }
+        
+        function exportToVTT() {
+            let vtt = 'WEBVTT\n\n';
+            vtt += currentData.segments.map(segment => {
+                const startTime = formatVTTTime(segment.startTime);
+                const endTime = formatVTTTime(segment.endTime);
+                return `${startTime} --> ${endTime}\n${segment.text}\n`;
+            }).join('\n');
+            return vtt;
+        }
+        
+        function exportToTXT() {
+            return currentData.segments.map(segment => {
+                const timestamp = `[${formatTime(segment.startTime)} - ${formatTime(segment.endTime)}]`;
+                return `${timestamp}\n${segment.text}\n`;
+            }).join('\n');
+        }
+        
+        function formatSRTTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            const ms = Math.floor((seconds % 1) * 1000);
+            return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')},${ms.toString().padStart(3, '0')}`;
+        }
+        
+        function formatVTTTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            const ms = Math.floor((seconds % 1) * 1000);
+            return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${ms.toString().padStart(3, '0')}`;
+        }
+        
+        function saveToBrowser() {
+            try {
+                localStorage.setItem('timelineEditorData', JSON.stringify(currentData));
+                const now = new Date().toLocaleString();
+                document.getElementById('lastSaved').textContent = now;
+                showStatus('Data saved to browser storage!', 'success');
+            } catch (e) {
+                showStatus('Error saving to browser: ' + e.message, 'error');
+            }
+        }
+        
+        function loadFromBrowser() {
+            try {
+                const saved = localStorage.getItem('timelineEditorData');
+                if (saved) {
+                    currentData = JSON.parse(saved);
+                    updateStats();
+                    updatePreview();
+                    showStatus('Data loaded from browser storage!', 'success');
+                } else {
+                    showStatus('No saved data found in browser', 'warning');
+                }
+            } catch (e) {
+                showStatus('Error loading from browser: ' + e.message, 'error');
+            }
+        }
+        
+        // File import handlers
+        document.getElementById('importJson').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        currentData = data;
+                        currentData.metadata.modified = new Date().toISOString();
+                        updateStats();
+                        updatePreview();
+                        showStatus('JSON file imported successfully!', 'success');
+                    } catch (e) {
+                        showStatus('Error parsing JSON file: ' + e.message, 'error');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+        
+        document.getElementById('importCsv').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const csv = event.target.result;
+                        const lines = csv.split('\n');
+                        const headers = lines[0].split(',');
+                        
+                        currentData.segments = [];
+                        for (let i = 1; i < lines.length; i++) {
+                            if (lines[i].trim()) {
+                                const values = lines[i].split(',');
+                                currentData.segments.push({
+                                    id: parseInt(values[0]) || i,
+                                    startTime: parseFloat(values[1]) || 0,
+                                    endTime: parseFloat(values[2]) || 0,
+                                    text: values[4].replace(/"/g, '') || ''
+                                });
+                            }
+                        }
+                        
+                        currentData.metadata.modified = new Date().toISOString();
+                        updateStats();
+                        updatePreview();
+                        showStatus('CSV file imported successfully!', 'success');
+                    } catch (e) {
+                        showStatus('Error parsing CSV file: ' + e.message, 'error');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStats();
+            updatePreview();
+            
+            // Check for saved data
+            const saved = localStorage.getItem('timelineEditorData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    const savedTime = new Date(data.metadata.modified).toLocaleString();
+                    document.getElementById('lastSaved').textContent = savedTime;
+                } catch (e) {
+                    // Ignore errors on initial load
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+module.exports = {
+    collectCoverageFrom: ['tests/test_intent.js'],
+    reporter: ['text'],
+    collectCoverageOptions: {},
+    instrument: true,
+    checkCoverage: true,
+    format: './coverage',
+    include: ['static/js/intent.js'],
+    reporterOptions: {
+        reports: ['text']
+    }
+};

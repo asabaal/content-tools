@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Working Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .segment { 
+            border: 1px solid #ccc; 
+            margin: 10px 0; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        .segment-controls { display: flex; gap: 5px; }
+        .transcript-segment { 
+            flex: 1; 
+            padding: 5px; 
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .transcript-segment:hover { background: #f0f0f0; }
+        button { 
+            padding: 5px 10px; 
+            border: 1px solid #ccc; 
+            background: #f9f9f9; 
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover { background: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <h1>Working Test - Manual Take Selection Tool</h1>
+    <p>Click buttons to test core functionality:</p>
+    
+    <div class="segment">
+        <div class="segment-controls">
+            <button onclick="testPlaySegment(1.68, 6.7)">▶️</button>
+            <button onclick="testEditSegment('seg_0')">✏️</button>
+            <button onclick="testGroupSegment('seg_0')">📋</button>
+        </div>
+        <span class="transcript-segment" id="seg_0" onclick="playSegmentClick(1.68, 6.7)">
+            Where there was not God's book and then there was.
+        </span>
+    </div>
+    
+    <div class="segment">
+        <div class="segment-controls">
+            <button onclick="testPlaySegment(7.68, 10.7)">▶️</button>
+            <button onclick="testEditSegment('seg_1')">✏️</button>
+            <button onclick="testGroupSegment('seg_1')">📋</button>
+        </div>
+        <span class="transcript-segment" id="seg_1" onclick="playSegmentClick(7.68, 10.7)">
+            And then there was the word.
+        </span>
+    </div>
+    
+    <div id="status" style="margin-top: 20px; padding: 10px; background: #f0f0f0;">
+        Status: Ready
+    </div>
+    
+    <script>
+        // Global functions - these must be accessible from onclick handlers
+        
+        function testPlaySegment(startTime, endTime) {
+            console.log('Playing segment:', startTime, endTime);
+            updateStatus('▶️ Playing segment from ' + formatTime(startTime) + ' to ' + formatTime(endTime));
+            
+            // Create video element if needed
+            let video = document.getElementById('tempVideoPlayer');
+            if (!video) {
+                video = document.createElement('video');
+                video.id = 'tempVideoPlayer';
+                video.style.display = 'none';
+                video.src = 'episode3.mp4';
+                document.body.appendChild(video);
+                console.log('Created video element');
+            }
+            
+            // Set time and play
+            video.currentTime = startTime;
+            video.play().catch(e => {
+                console.log('Play error:', e);
+                updateStatus('⚠️ Video play error - file may not exist');
+            });
+            
+            // Stop at end time
+            const checkTime = () => {
+                if (video.currentTime >= endTime) {
+                    video.pause();
+                    video.currentTime = startTime;
+                    updateStatus('✅ Segment playback completed');
+                } else {
+                    requestAnimationFrame(checkTime);
+                }
+            };
+            requestAnimationFrame(checkTime);
+        }
+        
+        function testEditSegment(segmentId) {
+            console.log('Editing segment:', segmentId);
+            const span = document.getElementById(segmentId);
+            
+            if (span.contentEditable === 'true') {
+                // Save edit
+                span.contentEditable = false;
+                span.style.background = '';
+                updateStatus('✅ Edit saved for segment: ' + segmentId);
+            } else {
+                // Start edit
+                span.contentEditable = true;
+                span.style.background = 'yellow';
+                span.focus();
+                updateStatus('✏️ Editing segment: ' + segmentId);
+            }
+        }
+        
+        function testGroupSegment(segmentId) {
+            console.log('Grouping segment:', segmentId);
+            const span = document.getElementById(segmentId);
+            
+            // Simple group assignment - cycle through groups 1-3
+            const currentGroup = span.getAttribute('data-group') || '0';
+            const newGroup = (parseInt(currentGroup) % 3) + 1;
+            
+            span.setAttribute('data-group', newGroup);
+            
+            // Color code by group
+            const colors = ['', '#ffcccc', '#ccffcc', '#ccccff'];
+            span.style.background = colors[newGroup];
+            
+            updateStatus('📋 Assigned segment ' + segmentId + ' to group ' + newGroup);
+        }
+        
+        function playSegmentClick(startTime, endTime) {
+            testPlaySegment(startTime, endTime);
+        }
+        
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return minutes + ':' + secs.toString().padStart(2, '0');
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('status').innerHTML = message;
+            console.log('Status:', message);
+        }
+        
+        // Initialize
+        console.log('Working test loaded');
+        updateStatus('✅ Ready - Click buttons to test functionality');
+    </script>
+</body>
+</html>

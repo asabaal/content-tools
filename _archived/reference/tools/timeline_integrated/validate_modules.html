@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module Validation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Module Validation</h1>
+    <div id="results"></div>
+
+    <script type="module">
+        const results = document.getElementById('results');
+        
+        function addResult(title, success, message, details = null) {
+            const div = document.createElement('div');
+            div.className = `result ${success ? 'success' : 'error'}`;
+            div.innerHTML = `
+                <strong>${title}:</strong> ${success ? '✅ PASS' : '❌ FAIL'} - ${message}
+                ${details ? `<pre>${details}</pre>` : ''}
+            `;
+            results.appendChild(div);
+        }
+        
+        function addInfo(message) {
+            const div = document.createElement('div');
+            div.className = 'result info';
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+        
+        // Test 1: Check if we can load Events module
+        try {
+            const EventsModule = await import('./core/Events.js');
+            addResult('Events Module Import', true, 'Events module imported successfully');
+            
+            // Check if expected exports exist
+            const hasEVENTS = EventsModule.EVENTS;
+            const hasCreateEvent = EventsModule.createEvent;
+            const hasValidateEventData = EventsModule.validateEventData;
+            
+            addResult('Events Exports', hasEVENTS && hasCreateEvent && hasValidateEventData, 
+                `EVENTS: ${!!hasEVENTS}, createEvent: ${!!hasCreateEvent}, validateEventData: ${!!hasValidateEventData}`);
+            
+        } catch (error) {
+            addResult('Events Module Import', false, error.message, error.stack);
+        }
+        
+        // Test 2: Check if we can load Component module
+        try {
+            const ComponentModule = await import('./core/Component.js');
+            addResult('Component Module Import', true, 'Component module imported successfully');
+            
+            const hasComponent = ComponentModule.Component;
+            addResult('Component Export', hasComponent, `Component class: ${!!hasComponent}`);
+            
+        } catch (error) {
+            addResult('Component Module Import', false, error.message, error.stack);
+        }
+        
+        // Test 3: Check if we can load DataManager module
+        try {
+            const DataManagerModule = await import('./core/DataManager.js');
+            addResult('DataManager Module Import', true, 'DataManager module imported successfully');
+            
+            const hasDataManager = DataManagerModule.DataManager;
+            addResult('DataManager Export', hasDataManager, `DataManager class: ${!!hasDataManager}`);
+            
+            // Test creating an instance
+            if (hasDataManager) {
+                const { DataManager } = DataManagerModule;
+                const dm = new DataManager();
+                addResult('DataManager Instantiation', true, 'DataManager instance created successfully');
+                
+                // Test basic methods
+                const hasOn = typeof dm.on === 'function';
+                const hasEmit = typeof dm.emit === 'function';
+                const hasLoadData = typeof dm.loadData === 'function';
+                
+                addResult('DataManager Methods', hasOn && hasEmit && hasLoadData, 
+                    `on: ${hasOn}, emit: ${hasEmit}, loadData: ${hasLoadData}`);
+            }
+            
+        } catch (error) {
+            addResult('DataManager Module Import', false, error.message, error.stack);
+        }
+        
+        // Test 4: Check TimelineViewer module
+        try {
+            const TimelineViewerModule = await import('./TimelineViewer/TimelineViewer.js');
+            addResult('TimelineViewer Module Import', true, 'TimelineViewer module imported successfully');
+            
+            const hasTimelineViewer = TimelineViewerModule.TimelineViewer;
+            addResult('TimelineViewer Export', hasTimelineViewer, `TimelineViewer class: ${!!hasTimelineViewer}`);
+            
+        } catch (error) {
+            addResult('TimelineViewer Module Import', false, error.message, error.stack);
+        }
+        
+        // Test 5: Check InteractiveBoundaries module
+        try {
+            const InteractiveBoundariesModule = await import('./InteractiveBoundaries/InteractiveBoundaries.js');
+            addResult('InteractiveBoundaries Module Import', true, 'InteractiveBoundaries module imported successfully');
+            
+            const hasInteractiveBoundaries = InteractiveBoundariesModule.InteractiveBoundaries;
+            addResult('InteractiveBoundaries Export', hasInteractiveBoundaries, 
+                `InteractiveBoundaries class: ${!!hasInteractiveBoundaries}`);
+            
+        } catch (error) {
+            addResult('InteractiveBoundaries Module Import', false, error.message, error.stack);
+        }
+        
+        // Test 6: Check data file access
+        try {
+            const response = await fetch('../combined_transcript.json');
+            if (response.ok) {
+                const data = await response.json();
+                addResult('Data File Access', true, 
+                    `Data loaded: ${data.segments.length} segments, ${data.duration}s duration`);
+            } else {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            addResult('Data File Access', false, error.message);
+        }
+        
+        addInfo('Module validation completed. Check results above for any issues.');
+    </script>
+</body>
+</html>

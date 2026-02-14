@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Loading</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffe0e0; border: 1px solid #ff0000; }
+        .success { background: #e0ffe0; border: 1px solid #00ff00; }
+    </style>
+</head>
+<body>
+    <h1>Debug Data Loading</h1>
+    <div id="debug-output"></div>
+    
+    <script src="full_transcript_data.js"></script>
+    <script>
+        const debug = document.getElementById('debug-output');
+        
+        function addDebug(message, isError = false) {
+            const div = document.createElement('div');
+            div.className = 'debug ' + (isError ? 'error' : 'success');
+            div.innerHTML = message;
+            debug.appendChild(div);
+            console.log(message);
+        }
+        
+        addDebug('Starting debug...');
+        
+        // Check if data is loaded
+        setTimeout(() => {
+            addDebug('Checking for fullTranscriptData...');
+            
+            if (typeof fullTranscriptData === 'undefined') {
+                addDebug('ERROR: fullTranscriptData is not defined', true);
+                return;
+            }
+            
+            addDebug('SUCCESS: fullTranscriptData is defined');
+            addDebug('Type: ' + typeof fullTranscriptData);
+            addDebug('Length: ' + fullTranscriptData.length);
+            
+            if (fullTranscriptData.length > 0) {
+                addDebug('First segment ID: ' + fullTranscriptData[0].id);
+                addDebug('First segment text: ' + fullTranscriptData[0].text);
+                addDebug('First segment words: ' + fullTranscriptData[0].words.length);
+                
+                // Test the processing logic
+                addDebug('Testing data processing...');
+                const transcriptSegments = [];
+                const timelineWords = [];
+                
+                fullTranscriptData.forEach(segment => {
+                    transcriptSegments.push(segment);
+                    segment.words.forEach(word => {
+                        timelineWords.push({
+                            id: word.word.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+                            word: word.word,
+                            startTime: word.start,
+                            endTime: word.end,
+                            segmentId: segment.id,
+                            selected: false
+                        });
+                    });
+                });
+                
+                addDebug('SUCCESS: Processed ' + transcriptSegments.length + ' segments');
+                addDebug('SUCCESS: Processed ' + timelineWords.length + ' words');
+                
+            } else {
+                addDebug('ERROR: fullTranscriptData is empty', true);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

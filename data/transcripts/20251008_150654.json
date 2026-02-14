@@ -1,0 +1,80 @@
+{
+  "video_id": "20251008_150654",
+  "language": "en",
+  "duration": 7.168,
+  "segments": [
+    {
+      "id": 1,
+      "text": "Share your revelations in the comments. In love and unity, Ace of El.",
+      "start": 0.7799999999999994,
+      "end": 5.1,
+      "words": [
+        {
+          "text": "Share",
+          "start": 0.7799999999999994,
+          "end": 1.2
+        },
+        {
+          "text": "your",
+          "start": 1.2,
+          "end": 1.36
+        },
+        {
+          "text": "revelations",
+          "start": 1.36,
+          "end": 1.82
+        },
+        {
+          "text": "in",
+          "start": 1.82,
+          "end": 2.02
+        },
+        {
+          "text": "the",
+          "start": 2.02,
+          "end": 2.1
+        },
+        {
+          "text": "comments.",
+          "start": 2.1,
+          "end": 2.6
+        },
+        {
+          "text": "In",
+          "start": 3.52,
+          "end": 3.94
+        },
+        {
+          "text": "love",
+          "start": 3.94,
+          "end": 4.08
+        },
+        {
+          "text": "and",
+          "start": 4.08,
+          "end": 4.24
+        },
+        {
+          "text": "unity,",
+          "start": 4.24,
+          "end": 4.52
+        },
+        {
+          "text": "Ace",
+          "start": 4.74,
+          "end": 4.86
+        },
+        {
+          "text": "of",
+          "start": 4.86,
+          "end": 5.0
+        },
+        {
+          "text": "El.",
+          "start": 5.0,
+          "end": 5.1
+        }
+      ]
+    }
+  ]
+}

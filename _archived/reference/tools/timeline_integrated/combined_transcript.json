@@ -1,0 +1,114 @@
+{
+  "language": "en",
+  "duration": 220.45000000000002,
+  "segments": [
+    {
+      "text": "Where there was not God's book and then there was.",
+      "start": 1.68,
+      "end": 6.7,
+      "segment_id": "20251008_150255_seg_0",
+      "speaker": null,
+      "words": [
+        {
+          "text": "Where",
+          "start": 1.68,
+          "end": 2.285
+        },
+        {
+          "text": "there",
+          "start": 2.325,
+          "end": 2.507
+        },
+        {
+          "text": "was",
+          "start": 2.547,
+          "end": 2.668
+        },
+        {
+          "text": "not",
+          "start": 2.728,
+          "end": 2.97
+        },
+        {
+          "text": "God's",
+          "start": 3.515,
+          "end": 4.019
+        },
+        {
+          "text": "book",
+          "start": 4.039,
+          "end": 4.18
+        },
+        {
+          "text": "and",
+          "start": 5.45,
+          "end": 5.551
+        },
+        {
+          "text": "then",
+          "start": 5.611,
+          "end": 5.732
+        },
+        {
+          "text": "there",
+          "start": 5.793,
+          "end": 5.954
+        },
+        {
+          "text": "was.",
+          "start": 5.974,
+          "end": 6.7
+        }
+      ]
+    },
+    {
+      "text": "Welcome to Life is Your Word episode 3.",
+      "start": 7.68,
+      "end": 10.7,
+      "segment_id": "20251008_150255_seg_1",
+      "speaker": null,
+      "words": [
+        {
+          "text": "Welcome",
+          "start": 7.68,
+          "end": 8.572
+        },
+        {
+          "text": "to",
+          "start": 8.633,
+          "end": 8.754
+        },
+        {
+          "text": "Life",
+          "start": 8.795,
+          "end": 8.998
+        },
+        {
+          "text": "is",
+          "start": 9.079,
+          "end": 9.16
+        },
+        {
+          "text": "Your",
+          "start": 9.18,
+          "end": 9.362
+        },
+        {
+          "text": "Word",
+          "start": 9.423,
+          "end": 9.646
+        },
+        {
+          "text": "episode",
+          "start": 9.687,
+          "end": 10.011
+        },
+        {
+          "text": "3.",
+          "start": 10.052,
+          "end": 10.7
+        }
+      ]
+    }
+  ]
+}

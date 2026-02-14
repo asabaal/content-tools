@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Syntax Test</title>
+</head>
+<body>
+    <div id="timelineCanvas"></div>
+    <div id="segmentsArea"></div>
+    <div id="timeRuler"></div>
+    
+    <script>
+        // Test the functions I added
+        let totalDuration = 0;
+        let pixelsPerSecond = 50;
+        let zoomLevel = 1.0;
+        let currentData = { segments: [] };
+        
+        function formatTime(seconds, shortFormat = false) {
+            if (seconds < 0) return '';
+            
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (shortFormat && mins === 0) {
+                return `${secs}s`;
+            }
+            
+            if (mins >= 60) {
+                const hours = Math.floor(mins / 60);
+                const remainingMins = mins % 60;
+                return `${hours}:${remainingMins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function getTimeInterval() {
+            const viewportWidth = window.innerWidth - 100;
+            const visibleDuration = viewportWidth / (pixelsPerSecond * zoomLevel);
+            
+            if (visibleDuration <= 10) return 1;
+            if (visibleDuration <= 20) return 2;
+            if (visibleDuration <= 30) return 5;
+            if (visibleDuration <= 60) return 10;
+            if (visibleDuration <= 120) return 15;
+            if (visibleDuration <= 300) return 30;
+            if (visibleDuration <= 600) return 60;
+            return 120;
+        }
+        
+        function getSubInterval(mainInterval) {
+            if (mainInterval <= 1) return 0.25;
+            if (mainInterval <= 2) return 0.5;
+            if (mainInterval <= 5) return 1;
+            if (mainInterval <= 10) return 2;
+            if (mainInterval <= 15) return 5;
+            if (mainInterval <= 30) return 10;
+            if (mainInterval <= 60) return 15;
+            if (mainInterval <= 120) return 30;
+            return 60;
+        }
+        
+        console.log('Syntax test passed');
+    </script>
+</body>
+</html>

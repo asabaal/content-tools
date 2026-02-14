@@ -1,0 +1,245 @@
+/* TimelineViewer Component Styles */
+.timeline-viewer {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    overflow: auto;
+    position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.timeline {
+    position: relative;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    min-height: 400px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.time-ruler {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #64748b;
+    z-index: 10;
+}
+
+.time-mark {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #cbd5e1;
+}
+
+.time-mark.major {
+    width: 2px;
+    background: #94a3b8;
+}
+
+.time-label {
+    position: absolute;
+    top: 5px;
+    transform: translateX(-50%);
+    font-size: 11px;
+    white-space: nowrap;
+    color: #475569;
+    font-weight: 500;
+}
+
+.time-label.minor {
+    font-size: 9px;
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.segments-area {
+    position: relative;
+    min-height: 350px;
+    padding: 10px 0;
+}
+
+.timeline-segment {
+    position: absolute;
+    background: #dbeafe;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    line-height: 1.4;
+    z-index: 5;
+    user-select: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-segment:hover {
+    background: #bfdbfe;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+    z-index: 6;
+    transform: translateY(-1px);
+}
+
+.timeline-segment.selected {
+    background: #d1fae5;
+    border-color: #10b981;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    z-index: 7;
+}
+
+.timeline-segment.hovered {
+    background: #fef3c7;
+    border-color: #f59e0b;
+}
+
+.segment-text {
+    color: #1e40af;
+    font-weight: 500;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.segment-time {
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 2px;
+    pointer-events: none;
+}
+
+.word-marker {
+    position: absolute;
+    width: 1px;
+    background: #f59e0b;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 3;
+}
+
+.word-marker:hover {
+    opacity: 1;
+    background: #d97706;
+    width: 2px;
+    z-index: 8;
+}
+
+.zoom-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: flex-end;
+}
+
+.zoom-btn {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.zoom-btn:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+
+.zoom-btn:active {
+    transform: translateY(0);
+}
+
+.zoom-level {
+    background: #e0e7ff;
+    color: #4f46e5;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    min-width: 50px;
+    text-align: center;
+    font-size: 12px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .timeline-viewer {
+        padding: 10px;
+    }
+    
+    .timeline-segment {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+    
+    .segment-text {
+        font-size: 11px;
+    }
+    
+    .zoom-controls {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .zoom-btn {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .timeline-viewer {
+        background: #1f2937;
+    }
+    
+    .timeline {
+        background: #111827;
+        border-color: #374151;
+    }
+    
+    .time-ruler {
+        background: #374151;
+        border-color: #4b5563;
+    }
+    
+    .time-label {
+        color: #d1d5db;
+    }
+    
+    .timeline-segment {
+        background: #1e3a8a;
+        border-color: #3b82f6;
+    }
+    
+    .timeline-segment:hover {
+        background: #1e40af;
+    }
+    
+    .timeline-segment.selected {
+        background: #065f46;
+        border-color: #10b981;
+    }
+    
+    .segment-text {
+        color: #dbeafe;
+    }
+    
+    .segment-time {
+        color: #9ca3af;
+    }
+}

@@ -1,0 +1,494 @@
+{
+  "video_id": "20251008_150325",
+  "language": "en",
+  "duration": 52.736,
+  "segments": [
+    {
+      "id": 1,
+      "text": "When God began to create the heavens and the earth, the earth was in complete chaos and darkness covered the face of the Jeep.",
+      "start": 2.779999999999998,
+      "end": 13.02,
+      "words": [
+        {
+          "text": "When",
+          "start": 2.779999999999998,
+          "end": 3.22
+        },
+        {
+          "text": "God",
+          "start": 3.22,
+          "end": 3.44
+        },
+        {
+          "text": "began",
+          "start": 3.44,
+          "end": 3.82
+        },
+        {
+          "text": "to",
+          "start": 3.82,
+          "end": 4.0
+        },
+        {
+          "text": "create",
+          "start": 4.0,
+          "end": 4.28
+        },
+        {
+          "text": "the",
+          "start": 4.28,
+          "end": 4.48
+        },
+        {
+          "text": "heavens",
+          "start": 4.48,
+          "end": 4.7
+        },
+        {
+          "text": "and",
+          "start": 4.7,
+          "end": 4.92
+        },
+        {
+          "text": "the",
+          "start": 4.92,
+          "end": 5.02
+        },
+        {
+          "text": "earth,",
+          "start": 5.02,
+          "end": 5.32
+        },
+        {
+          "text": "the",
+          "start": 5.78,
+          "end": 7.78
+        },
+        {
+          "text": "earth",
+          "start": 7.78,
+          "end": 8.16
+        },
+        {
+          "text": "was",
+          "start": 8.16,
+          "end": 8.34
+        },
+        {
+          "text": "in",
+          "start": 8.34,
+          "end": 8.46
+        },
+        {
+          "text": "complete",
+          "start": 8.46,
+          "end": 8.86
+        },
+        {
+          "text": "chaos",
+          "start": 8.86,
+          "end": 9.26
+        },
+        {
+          "text": "and",
+          "start": 9.26,
+          "end": 10.42
+        },
+        {
+          "text": "darkness",
+          "start": 10.42,
+          "end": 10.92
+        },
+        {
+          "text": "covered",
+          "start": 10.92,
+          "end": 12.12
+        },
+        {
+          "text": "the",
+          "start": 12.12,
+          "end": 12.32
+        },
+        {
+          "text": "face",
+          "start": 12.32,
+          "end": 12.52
+        },
+        {
+          "text": "of",
+          "start": 12.52,
+          "end": 12.68
+        },
+        {
+          "text": "the",
+          "start": 12.68,
+          "end": 12.78
+        },
+        {
+          "text": "Jeep.",
+          "start": 12.78,
+          "end": 13.02
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "While a wind of God, while a wind from God swept over the face of the waters, then God said, let there be light and there was light.",
+      "start": 14.94,
+      "end": 26.02,
+      "words": [
+        {
+          "text": "While",
+          "start": 14.94,
+          "end": 15.38
+        },
+        {
+          "text": "a",
+          "start": 15.38,
+          "end": 15.54
+        },
+        {
+          "text": "wind",
+          "start": 15.54,
+          "end": 15.84
+        },
+        {
+          "text": "of",
+          "start": 15.84,
+          "end": 16.02
+        },
+        {
+          "text": "God,",
+          "start": 16.02,
+          "end": 16.44
+        },
+        {
+          "text": "while",
+          "start": 16.54,
+          "end": 17.22
+        },
+        {
+          "text": "a",
+          "start": 17.22,
+          "end": 17.32
+        },
+        {
+          "text": "wind",
+          "start": 17.32,
+          "end": 17.5
+        },
+        {
+          "text": "from",
+          "start": 17.5,
+          "end": 17.7
+        },
+        {
+          "text": "God",
+          "start": 17.7,
+          "end": 18.26
+        },
+        {
+          "text": "swept",
+          "start": 18.26,
+          "end": 19.72
+        },
+        {
+          "text": "over",
+          "start": 19.72,
+          "end": 19.94
+        },
+        {
+          "text": "the",
+          "start": 19.94,
+          "end": 20.12
+        },
+        {
+          "text": "face",
+          "start": 20.12,
+          "end": 20.3
+        },
+        {
+          "text": "of",
+          "start": 20.3,
+          "end": 20.44
+        },
+        {
+          "text": "the",
+          "start": 20.44,
+          "end": 20.54
+        },
+        {
+          "text": "waters,",
+          "start": 20.54,
+          "end": 20.74
+        },
+        {
+          "text": "then",
+          "start": 21.84,
+          "end": 23.42
+        },
+        {
+          "text": "God",
+          "start": 23.42,
+          "end": 23.66
+        },
+        {
+          "text": "said,",
+          "start": 23.66,
+          "end": 23.94
+        },
+        {
+          "text": "let",
+          "start": 24.2,
+          "end": 24.38
+        },
+        {
+          "text": "there",
+          "start": 24.38,
+          "end": 24.54
+        },
+        {
+          "text": "be",
+          "start": 24.54,
+          "end": 24.68
+        },
+        {
+          "text": "light",
+          "start": 24.68,
+          "end": 24.88
+        },
+        {
+          "text": "and",
+          "start": 24.88,
+          "end": 25.48
+        },
+        {
+          "text": "there",
+          "start": 25.48,
+          "end": 25.62
+        },
+        {
+          "text": "was",
+          "start": 25.62,
+          "end": 25.78
+        },
+        {
+          "text": "light.",
+          "start": 25.78,
+          "end": 26.02
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "And God saw that the light was good and God separated the light from the darkness.",
+      "start": 27.46,
+      "end": 37.4,
+      "words": [
+        {
+          "text": "And",
+          "start": 27.46,
+          "end": 28.12
+        },
+        {
+          "text": "God",
+          "start": 28.12,
+          "end": 28.3
+        },
+        {
+          "text": "saw",
+          "start": 28.3,
+          "end": 28.64
+        },
+        {
+          "text": "that",
+          "start": 28.64,
+          "end": 29.96
+        },
+        {
+          "text": "the",
+          "start": 29.96,
+          "end": 32.76
+        },
+        {
+          "text": "light",
+          "start": 32.76,
+          "end": 32.92
+        },
+        {
+          "text": "was",
+          "start": 32.92,
+          "end": 33.12
+        },
+        {
+          "text": "good",
+          "start": 33.12,
+          "end": 33.32
+        },
+        {
+          "text": "and",
+          "start": 33.32,
+          "end": 35.3
+        },
+        {
+          "text": "God",
+          "start": 35.3,
+          "end": 35.52
+        },
+        {
+          "text": "separated",
+          "start": 35.52,
+          "end": 36.1
+        },
+        {
+          "text": "the",
+          "start": 36.1,
+          "end": 36.42
+        },
+        {
+          "text": "light",
+          "start": 36.42,
+          "end": 36.62
+        },
+        {
+          "text": "from",
+          "start": 36.62,
+          "end": 36.94
+        },
+        {
+          "text": "the",
+          "start": 36.94,
+          "end": 37.08
+        },
+        {
+          "text": "darkness.",
+          "start": 37.08,
+          "end": 37.4
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "God created humans in the image of God. God blessed them, saying be fruitful and fill the earth. I have given you everything.",
+      "start": 38.980000000000004,
+      "end": 50.88,
+      "words": [
+        {
+          "text": "God",
+          "start": 38.980000000000004,
+          "end": 39.64
+        },
+        {
+          "text": "created",
+          "start": 39.64,
+          "end": 40.06
+        },
+        {
+          "text": "humans",
+          "start": 40.06,
+          "end": 40.4
+        },
+        {
+          "text": "in",
+          "start": 40.4,
+          "end": 40.72
+        },
+        {
+          "text": "the",
+          "start": 40.72,
+          "end": 40.84
+        },
+        {
+          "text": "image",
+          "start": 40.84,
+          "end": 41.04
+        },
+        {
+          "text": "of",
+          "start": 41.04,
+          "end": 41.2
+        },
+        {
+          "text": "God.",
+          "start": 41.2,
+          "end": 41.46
+        },
+        {
+          "text": "God",
+          "start": 42.42,
+          "end": 43.08
+        },
+        {
+          "text": "blessed",
+          "start": 43.08,
+          "end": 43.38
+        },
+        {
+          "text": "them,",
+          "start": 43.38,
+          "end": 43.72
+        },
+        {
+          "text": "saying",
+          "start": 44.66,
+          "end": 45.06
+        },
+        {
+          "text": "be",
+          "start": 45.06,
+          "end": 45.66
+        },
+        {
+          "text": "fruitful",
+          "start": 45.66,
+          "end": 46.08
+        },
+        {
+          "text": "and",
+          "start": 46.08,
+          "end": 47.2
+        },
+        {
+          "text": "fill",
+          "start": 47.2,
+          "end": 47.52
+        },
+        {
+          "text": "the",
+          "start": 47.52,
+          "end": 47.72
+        },
+        {
+          "text": "earth.",
+          "start": 47.72,
+          "end": 48.0
+        },
+        {
+          "text": "I",
+          "start": 49.18,
+          "end": 49.62
+        },
+        {
+          "text": "have",
+          "start": 49.62,
+          "end": 49.78
+        },
+        {
+          "text": "given",
+          "start": 49.78,
+          "end": 50.06
+        },
+        {
+          "text": "you",
+          "start": 50.06,
+          "end": 50.3
+        },
+        {
+          "text": "everything.",
+          "start": 50.3,
+          "end": 50.88
+        }
+      ]
+    }
+  ]
+}

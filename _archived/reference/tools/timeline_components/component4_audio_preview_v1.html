@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Word Timing Editor - Component 4: Audio Preview v1</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .audio-controls {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .audio-controls h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .audio-player {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .playback-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #4338ca;
+        }
+        
+        .btn.secondary {
+            background: #6b7280;
+        }
+        
+        .btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+        
+        .time-display {
+            background: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #4f46e5;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        .segment-preview {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .segment-preview:hover {
+            border-color: #4f46e5;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.1);
+        }
+        
+        .segment-preview.playing {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+        
+        .segment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .segment-title {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .segment-time {
+            font-size: 12px;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .segment-text {
+            color: #4b5563;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .status {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            color: #0c4a6e;
+        }
+        
+        .help-text {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #166534;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕐 Timeline Word Timing Editor</h1>
+            <p>Component 4 v1: Basic Audio Preview</p>
+        </div>
+        
+        <div class="help-text">
+            <strong>🎯 How to use:</strong> Click play button to start audio • Click on segments to preview • Use progress bar to seek • Time display shows current position
+        </div>
+        
+        <div class="audio-controls">
+            <h3>🎵 Audio Preview Controls</h3>
+            
+            <div class="audio-player">
+                <div class="playback-controls">
+                    <button class="btn" id="playBtn" onclick="togglePlayPause()">▶️ Play</button>
+                    <button class="btn secondary" onclick="stopAudio()">⏹️ Stop</button>
+                    <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+                </div>
+                
+                <div class="progress-bar" id="progressBar" onclick="seekAudio(event)">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <h4 style="margin-top: 20px; margin-bottom: 10px; color: #2d3748;">📝 Segment Preview</h4>
+            <div id="segmentList">
+                <!-- Segments will be populated here -->
+            </div>
+        </div>
+        
+        <div class="status">
+            ✅ Component 4 v1: Basic audio preview with segment selection
+        </div>
+    </div>
+
+    <script>
+        // Sample segments data
+        let segments = [
+            {
+                id: 1,
+                text: "Welcome to Life is Your Word episode 3.",
+                startTime: 7.68,
+                endTime: 10.7,
+                audioUrl: "audio/segment1.mp3" // Mock audio URL
+            },
+            {
+                id: 2,
+                text: "In this show, we build up our understanding of reality by seeking God's face.",
+                startTime: 11.68,
+                endTime: 17.7,
+                audioUrl: "audio/segment2.mp3" // Mock audio URL
+            },
+            {
+                id: 3,
+                text: "Today's reading is from Genesis chapter 1.",
+                startTime: 20.44,
+                endTime: 22.46,
+                audioUrl: "audio/segment3.mp3" // Mock audio URL
+            },
+            {
+                id: 4,
+                text: "When God began to create the heavens and the earth, the earth was in complete chaos and",
+                startTime: 27.2,
+                endTime: 34.11,
+                audioUrl: "audio/segment4.mp3" // Mock audio URL
+            }
+        ];
+        
+        let isPlaying = false;
+        let currentTime = 0;
+        let duration = 40; // Mock duration in seconds
+        let playbackInterval = null;
+        let currentSegment = null;
+        let audioElement = null; // Will be initialized when page loads
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function renderSegments() {
+            const segmentList = document.getElementById('segmentList');
+            segmentList.innerHTML = '';
+            
+            segments.forEach(segment => {
+                const segmentEl = document.createElement('div');
+                segmentEl.className = 'segment-preview';
+                segmentEl.dataset.segmentId = segment.id;
+                
+                segmentEl.innerHTML = `
+                    <div class="segment-header">
+                        <div class="segment-title">Segment ${segment.id}</div>
+                        <div class="segment-time">${formatTime(segment.startTime)} - ${formatTime(segment.endTime)}</div>
+                    </div>
+                    <div class="segment-text">${segment.text}</div>
+                `;
+                
+                segmentEl.addEventListener('click', () => playSegment(segment));
+                segmentList.appendChild(segmentEl);
+            });
+        }
+        
+        function togglePlayPause() {
+            const playBtn = document.getElementById('playBtn');
+            
+            if (isPlaying) {
+                pauseAudio();
+                playBtn.textContent = '▶️ Play';
+            } else {
+                playAudio();
+                playBtn.textContent = '⏸️ Pause';
+            }
+        }
+        
+        function playAudio() {
+            // Use mock mode directly
+            mockPlayAudio();
+        }
+        
+        function pauseAudio() {
+            if (audioElement) {
+                audioElement.pause();
+            } else {
+                // Stop mock playback
+                if (playbackInterval) {
+                    clearInterval(playbackInterval);
+                    playbackInterval = null;
+                }
+            }
+            isPlaying = false;
+        }
+        
+        function stopAudio() {
+            if (audioElement) {
+                audioElement.pause();
+                audioElement.currentTime = 0;
+            } else {
+                // Stop mock playback
+                if (playbackInterval) {
+                    clearInterval(playbackInterval);
+                    playbackInterval = null;
+                }
+                currentTime = 0;
+            }
+            
+            isPlaying = false;
+            currentTime = 0;
+            updateProgress();
+            document.getElementById('playBtn').textContent = '▶️ Play';
+            
+            // Remove playing state from all segments
+            document.querySelectorAll('.segment-preview').forEach(el => {
+                el.classList.remove('playing');
+            });
+            currentSegment = null;
+        }
+        
+        // Mock playback fallback
+        function mockPlayAudio() {
+            isPlaying = true;
+            playbackInterval = setInterval(() => {
+                currentTime += 0.1;
+                if (currentTime >= duration) {
+                    stopAudio();
+                } else {
+                    updateProgress();
+                }
+            }, 100);
+        }
+        
+        function playSegment(segment) {
+            // Remove playing state from all segments
+            document.querySelectorAll('.segment-preview').forEach(el => {
+                el.classList.remove('playing');
+            });
+            
+            // Add playing state to selected segment
+            const segmentEl = document.querySelector(`[data-segment-id="${segment.id}"]`);
+            if (segmentEl) {
+                segmentEl.classList.add('playing');
+            }
+            
+            // Use mock mode directly
+            mockPlaySegment(segment);
+            
+            console.log('Playing segment:', segment);
+        }
+        
+        // Mock segment playback fallback
+        function mockPlaySegment(segment) {
+            currentTime = segment.startTime;
+            currentSegment = segment;
+            updateProgress();
+            
+            // Start mock playback
+            isPlaying = true;
+            document.getElementById('playBtn').textContent = '⏸️ Pause';
+            
+            playbackInterval = setInterval(() => {
+                currentTime += 0.1;
+                if (currentTime >= segment.endTime) {
+                    stopAudio();
+                } else {
+                    updateProgress();
+                }
+            }, 100);
+        }
+        
+        function seekAudio(event) {
+            const progressBar = document.getElementById('progressBar');
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const percentage = clickX / rect.width;
+            
+            currentTime = percentage * duration;
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const timeDisplay = document.getElementById('timeDisplay');
+            
+            const percentage = (currentTime / duration) * 100;
+            progressFill.style.width = percentage + '%';
+            timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+            
+            // Check if we've passed the current segment
+            if (currentSegment && currentTime > currentSegment.endTime) {
+                document.querySelectorAll('.segment-preview').forEach(el => {
+                    el.classList.remove('playing');
+                });
+                currentSegment = null;
+            }
+        }
+        
+        // Initialize audio event listeners
+        function initializeAudio() {
+            // For now, use mock mode only since external audio may be blocked
+            audioElement = null;
+            console.log('Using mock audio mode');
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSegments();
+            updateProgress();
+            initializeAudio();
+        });
+    </script>
+</body>
+</html>

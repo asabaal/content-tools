@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Duplicate Analysis Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        .header {
+            background: white; border-radius: 16px; padding: 30px;
+            margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .header h1 { font-size: 2.5rem; color: #2d3748; margin-bottom: 10px; }
+        .header p { color: #718096; font-size: 1.1rem; }
+        
+        .summary-cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background: white; border-radius: 12px; padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .summary-card:hover { transform: translateY(-2px); }
+        .summary-card h3 { font-size: 2.5rem; margin-bottom: 5px; font-weight: bold; }
+        .summary-card.primary h3 { color: #667eea; }
+        .summary-card.warning h3 { color: #f6ad55; }
+        .summary-card.success h3 { color: #48bb78; }
+        .summary-card.info h3 { color: #4299e1; }
+        .summary-card p { color: #718096; font-size: 0.95rem; }
+        
+        .transcript-section {
+            background: white; border-radius: 16px; padding: 30px;
+            margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .transcript-section h2 {
+            color: #2d3748; margin-bottom: 20px; font-size: 1.8rem;
+            border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;
+        }
+        
+        .transcript-paragraph {
+            font-size: 1.1rem; line-height: 1.8; color: #2d3748;
+            padding: 20px; background: #f8f9fa; border-radius: 12px;
+        }
+        
+        .transcript-line {
+            margin-bottom: 16px; position: relative;
+        }
+        
+        .transcript-segment-inline {
+            cursor: pointer; padding: 3px 6px; border-radius: 4px;
+            transition: all 0.2s ease; display: inline-block;
+        }
+        
+        .transcript-segment-inline:hover {
+            background: #e2e8f0; transform: translateY(-1px);
+        }
+        
+        .segment-timestamp {
+            font-size: 0.75rem; color: #718096; margin-top: 4px;
+            font-weight: 500; opacity: 0.8;
+        }
+        
+        .duplicate-highlight {
+            font-weight: 600; border-radius: 4px; padding: 3px 8px;
+            position: relative; border-bottom: 2px solid;
+        }
+        
+        .duplicate-highlight:hover {
+            transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .duplicate-highlight.duplicate-group-1 {
+            background: #fed7d7; color: #c53030; border-bottom-color: #f56565;
+        }
+        .duplicate-highlight.duplicate-group-1:hover { background: #fc8181; color: white; }
+        
+        .duplicate-highlight.duplicate-group-2 {
+            background: #feebc8; color: #c05621; border-bottom-color: #ed8936;
+        }
+        .duplicate-highlight.duplicate-group-2:hover { background: #f6ad55; color: white; }
+        
+        .duplicate-highlight.duplicate-group-3 {
+            background: #b2f5ea; color: #2c7a7b; border-bottom-color: #38b2ac;
+        }
+        .duplicate-highlight.duplicate-group-3:hover { background: #4fd1c5; color: white; }
+        
+        .video-section {
+            background: white; border-radius: 16px; padding: 30px;
+            margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .video-section h2 { color: #2d3748; margin-bottom: 20px; font-size: 1.5rem; }
+        
+        #videoPlayer {
+            width: 100%; max-width: 800px; height: auto;
+            aspect-ratio: 16/9; border-radius: 8px; background: #000;
+            margin: 0 auto; display: block;
+        }
+        
+        .duplicates-section {
+            background: white; border-radius: 16px; padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .duplicates-section h2 { color: #2d3748; margin-bottom: 25px; font-size: 1.5rem; }
+        
+        .duplicate-group {
+            background: #f7fafc; border-radius: 12px; padding: 25px;
+            margin-bottom: 25px; border-left: 5px solid #667eea;
+        }
+        
+        .group-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; flex-wrap: wrap; gap: 15px;
+        }
+        
+        .group-title { font-size: 1.3rem; color: #2d3748; font-weight: 600; }
+        
+        .similarity-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white; padding: 8px 16px; border-radius: 20px;
+            font-weight: bold; font-size: 0.9rem;
+        }
+        
+        .edit-group-button, .add-segment-button, .remove-group-button {
+            background: #4299e1; color: white; border: none; padding: 6px 12px;
+            border-radius: 6px; cursor: pointer; font-size: 0.8rem; margin-left: 8px;
+        }
+        
+        .remove-group-button { background: #e53e3e; }
+        
+        .segments-grid { display: grid; gap: 15px; }
+        
+        .segment-card {
+            background: white; border-radius: 8px; padding: 20px;
+            border: 2px solid #e2e8f0; transition: all 0.2s; cursor: pointer;
+        }
+        
+        .segment-card:hover { border-color: #667eea; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1); }
+        
+        .segment-card.recommended { border-color: #48bb78; background: linear-gradient(135deg, #f0fff4, #ffffff); }
+        
+        .segment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        
+        .segment-time {
+            background: #edf2f7; color: #4a5568; padding: 4px 10px;
+            border-radius: 6px; font-size: 0.85rem; font-weight: 600;
+        }
+        
+        .segment-text { color: #2d3748; line-height: 1.6; font-size: 1rem; }
+        
+        .segment-edit-input {
+            width: 100%; padding: 8px; border: 1px solid #cbd5e0;
+            border-radius: 4px; font-size: 1rem; margin-top: 8px;
+        }
+        
+        .play-button, .edit-button {
+            background: #667eea; color: white; border: none; padding: 8px 16px;
+            border-radius: 6px; cursor: pointer; font-size: 0.85rem; margin-left: 8px;
+        }
+        
+        .edit-button { background: #ed8936; }
+        
+        .group-edit-controls {
+            margin-top: 15px; padding-top: 15px; border-top: 1px solid #e2e8f0;
+        }
+        
+        .no-duplicates {
+            text-align: center; padding: 60px 20px; color: #718096;
+        }
+        
+        .footer { text-align: center; margin-top: 40px; padding: 20px; color: white; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Interactive Duplicate Analysis</h1>
+            <p>Edit and manage duplicate groups with real-time updates</p>
+        </div>
+
+        <div class="summary-cards">
+            <div class="summary-card primary">
+                <h3>32</h3>
+                <p>Total Segments</p>
+            </div>
+            <div class="summary-card warning">
+                <h3>3</h3>
+                <p>Duplicate Groups</p>
+            </div>
+            <div class="summary-card success">
+                <h3>0.0s</h3>
+                <p>Processing Time</p>
+            </div>
+            <div class="summary-card info">
+                <h3>simple_text_similarity</h3>
+                <p>AI Model</p>
+            </div>
+        </div>
+
+        <div class="transcript-section"><h2>📝 Full Transcript</h2><p>Click any highlighted segment to jump to that timestamp. Segments are color-coded by duplicate groups.</p><div class="transcript-paragraph">
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(1.68, 6.7)">Where there was not God's book and then there was.</span>
+                    <div class="segment-timestamp">00:01</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(7.68, 10.7)">Welcome to Life is Your Word episode 3.</span>
+                    <div class="segment-timestamp">00:07</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(11.68, 17.7)">In this show, we build up our understanding of reality by seeking God's face.</span>
+                    <div class="segment-timestamp">00:11</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(20.44, 22.46)">Today's reading is from Genesis chapter 1.</span>
+                    <div class="segment-timestamp">00:20</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(27.200000000000003, 34.11)">When God began to create the heavens and the earth, the earth was in complete chaos and</span>
+                    <div class="segment-timestamp">00:27</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(35.010000000000005, 42.42)">darkness covered the face of the deep while a wind of God, while a wind from God</span>
+                    <div class="segment-timestamp">00:35</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(43.760000000000005, 45.349000000000004)">swept over the face of the waters.</span>
+                    <div class="segment-timestamp">00:43</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(47.803, 50.74)">Then God said, let there be light and there was light.</span>
+                    <div class="segment-timestamp">00:47</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(52.28, 58.11)">And God saw, and God saw that the light was good and</span>
+                    <div class="segment-timestamp">00:52</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(59.53, 61.95)">God separated the light from the darkness.</span>
+                    <div class="segment-timestamp">00:59</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(62.49, 65.87)">God created humans in the image of God.</span>
+                    <div class="segment-timestamp">01:02</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(67.00999999999999, 72.456)">God blessed them, saying be fruitful and fill the earth.</span>
+                    <div class="segment-timestamp">01:07</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(74.104, 75.43)">I have given you everything.</span>
+                    <div class="segment-timestamp">01:14</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(79.62, 90.64000000000001)">In my past death, I lived in complete chaos and the great darkness of depression covered my face.</span>
+                    <div class="segment-timestamp">01:19</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(90.62, 104.64000000000001)">I stopped listening to God's voice and I tried to run my race in my strength, in my strength, and I tried to run my race in my strength, rather than by Christ living in me.</span>
+                    <div class="segment-timestamp">01:30</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(104.62, 110.64000000000001)">But God's, but then God spoke and I became.</span>
+                    <div class="segment-timestamp">01:44</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(110.62, 119.64000000000001)">Life filled me, peace beyond human understanding, joy that defied worldly authorities,</span>
+                    <div class="segment-timestamp">01:50</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(119.62, 128.64000000000001)">and I became compelled to shout God's praise from every mountaintop and share God's great works with everyone.</span>
+                    <div class="segment-timestamp">01:59</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(131.42000000000002, 136.44000000000003)">So I thank God regularly for my role in partaking in creation as</span>
+                    <div class="segment-timestamp">02:11</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(137.10000000000002, 142.76000000000002)">I create these things for your benefit just as God created all things for our benefit.</span>
+                    <div class="segment-timestamp">02:17</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline duplicate-highlight duplicate-group-1" title="Duplicate Group 1 • 02:23 - 02:28" 
+                          onclick="playSegment(143.26000000000002, 148.44000000000003)">This reminds me, this reminds me that nothing is impossible</span>
+                    <div class="segment-timestamp">02:23</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(149.46, 151.48000000000002)">through Christ who gives me strength.</span>
+                    <div class="segment-timestamp">02:29</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline duplicate-highlight duplicate-group-1" title="Duplicate Group 1 • 02:33 - 02:38" 
+                          onclick="playSegment(153.51000000000002, 158.21)">This reminds me that nothing is impossible through Christ who gives me strength.</span>
+                    <div class="segment-timestamp">02:33</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(159.19000000000003, 167.33)">The one who speaks all things into being can transform your life too.</span>
+                    <div class="segment-timestamp">02:39</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline duplicate-highlight duplicate-group-2" title="Duplicate Group 2 • 02:52 - 02:55" 
+                          onclick="playSegment(172.11, 175.45000000000002)">What death have you lived?</span>
+                    <div class="segment-timestamp">02:52</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(177.11, 179.21)">They...</span>
+                    <div class="segment-timestamp">02:57</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline duplicate-highlight duplicate-group-2" title="Duplicate Group 2 • 02:59 - 03:02" 
+                          onclick="playSegment(179.19, 182.13000000000002)">What death have you experienced that he needs?</span>
+                    <div class="segment-timestamp">02:59</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(185.36, 190.12000000000003)">What death have you experienced and how has he breathed life into your death and</span>
+                    <div class="segment-timestamp">03:05</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline duplicate-highlight duplicate-group-3" title="Duplicate Group 3 • 03:10 - 03:21" 
+                          onclick="playSegment(190.72000000000003, 201.33)">How has he breathed life in and how has he breathed life into you and how did he speak you into being and</span>
+                    <div class="segment-timestamp">03:10</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline duplicate-highlight duplicate-group-3" title="Duplicate Group 3 • 03:22 - 03:30" 
+                          onclick="playSegment(202.95000000000002, 210.81000000000003)">How did he speak you into being and how did he speak you into being and life?</span>
+                    <div class="segment-timestamp">03:22</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(213.43000000000004, 216.45000000000002)">Share your revelations in the comments.</span>
+                    <div class="segment-timestamp">03:33</div>
+                </div>
+                <div class="transcript-line">
+                    <span class="transcript-segment-inline "  
+                          onclick="playSegment(216.43000000000004, 218.45000000000002)">In love and unity, Aceh Vail.</span>
+                    <div class="segment-timestamp">03:36</div>
+                </div></div></div>
+
+        <div class="video-section">
+            <h2>📹 Video Player</h2>
+            <video id="videoPlayer" controls>
+                <source src="/home/asabaal/episode3_combined/combined_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="duplicates-section">
+            <h2>🔍 Editable Duplicate Groups</h2>
+            
+                <div class="duplicate-group" data-group-id="group_1">
+                    <div class="group-header">
+                        <div>
+                            <div class="group-title">🔄 Duplicate Group 1</div>
+                            <p style="color: #718096; margin-top: 5px;">Text similarity: 60.4%</p>
+                        </div>
+                        <div>
+                            <div class="similarity-badge">60.4% Similar</div>
+                            <button class="edit-group-button" onclick="toggleGroupEdit('group_1')">📝 Edit Group</button>
+                        </div>
+                    </div>
+                    <div class="segments-grid">
+                        
+                    <div class="segment-card recommended" 
+                         data-segment-id="seg_20"
+                         onclick="playSegment(143.26000000000002, 148.44000000000003)">
+                        <div class="segment-header">
+                            <span class="segment-time">⏰ 02:23 - 02:28</span>
+                            <div>
+                                <span class="recommended-badge">⭐ RECOMMENDED</span>
+                                <button class="play-button" onclick="event.stopPropagation(); playSegment(143.26000000000002, 148.44000000000003)">▶ Play</button>
+                                <button class="edit-button" onclick="event.stopPropagation(); toggleSegmentEdit('seg_20')">✏️ Edit</button>
+                            </div>
+                        </div>
+                        <div class="segment-text" id="text-seg_20">This reminds me, this reminds me that nothing is impossible</div>
+                        <input type="text" class="segment-edit-input" id="edit-seg_20" 
+                               value="This reminds me, this reminds me that nothing is impossible" style="display:none;" 
+                               onblur="saveSegmentEdit('seg_20')">
+                    </div>
+                    <div class="segment-card " 
+                         data-segment-id="seg_22"
+                         onclick="playSegment(153.51000000000002, 158.21)">
+                        <div class="segment-header">
+                            <span class="segment-time">⏰ 02:33 - 02:38</span>
+                            <div>
+                                
+                                <button class="play-button" onclick="event.stopPropagation(); playSegment(153.51000000000002, 158.21)">▶ Play</button>
+                                <button class="edit-button" onclick="event.stopPropagation(); toggleSegmentEdit('seg_22')">✏️ Edit</button>
+                            </div>
+                        </div>
+                        <div class="segment-text" id="text-seg_22">This reminds me that nothing is impossible through Christ who gives me strength.</div>
+                        <input type="text" class="segment-edit-input" id="edit-seg_22" 
+                               value="This reminds me that nothing is impossible through Christ who gives me strength." style="display:none;" 
+                               onblur="saveSegmentEdit('seg_22')">
+                    </div>
+                    </div>
+                    <div class="group-edit-controls" id="group-edit-group_1" style="display:none;">
+                        <button class="add-segment-button" onclick="showAddSegmentDialog('group_1')">➕ Add Segment</button>
+                        <button class="remove-group-button" onclick="removeGroup('group_1')">🗑️ Remove Group</button>
+                    </div>
+                </div>
+                <div class="duplicate-group" data-group-id="group_2">
+                    <div class="group-header">
+                        <div>
+                            <div class="group-title">🔄 Duplicate Group 2</div>
+                            <p style="color: #718096; margin-top: 5px;">Text similarity: 66.7%</p>
+                        </div>
+                        <div>
+                            <div class="similarity-badge">66.7% Similar</div>
+                            <button class="edit-group-button" onclick="toggleGroupEdit('group_2')">📝 Edit Group</button>
+                        </div>
+                    </div>
+                    <div class="segments-grid">
+                        
+                    <div class="segment-card recommended" 
+                         data-segment-id="seg_24"
+                         onclick="playSegment(172.11, 175.45000000000002)">
+                        <div class="segment-header">
+                            <span class="segment-time">⏰ 02:52 - 02:55</span>
+                            <div>
+                                <span class="recommended-badge">⭐ RECOMMENDED</span>
+                                <button class="play-button" onclick="event.stopPropagation(); playSegment(172.11, 175.45000000000002)">▶ Play</button>
+                                <button class="edit-button" onclick="event.stopPropagation(); toggleSegmentEdit('seg_24')">✏️ Edit</button>
+                            </div>
+                        </div>
+                        <div class="segment-text" id="text-seg_24">What death have you lived?</div>
+                        <input type="text" class="segment-edit-input" id="edit-seg_24" 
+                               value="What death have you lived?" style="display:none;" 
+                               onblur="saveSegmentEdit('seg_24')">
+                    </div>
+                    <div class="segment-card " 
+                         data-segment-id="seg_26"
+                         onclick="playSegment(179.19, 182.13000000000002)">
+                        <div class="segment-header">
+                            <span class="segment-time">⏰ 02:59 - 03:02</span>
+                            <div>
+                                
+                                <button class="play-button" onclick="event.stopPropagation(); playSegment(179.19, 182.13000000000002)">▶ Play</button>
+                                <button class="edit-button" onclick="event.stopPropagation(); toggleSegmentEdit('seg_26')">✏️ Edit</button>
+                            </div>
+                        </div>
+                        <div class="segment-text" id="text-seg_26">What death have you experienced that he needs?</div>
+                        <input type="text" class="segment-edit-input" id="edit-seg_26" 
+                               value="What death have you experienced that he needs?" style="display:none;" 
+                               onblur="saveSegmentEdit('seg_26')">
+                    </div>
+                    </div>
+                    <div class="group-edit-controls" id="group-edit-group_2" style="display:none;">
+                        <button class="add-segment-button" onclick="showAddSegmentDialog('group_2')">➕ Add Segment</button>
+                        <button class="remove-group-button" onclick="removeGroup('group_2')">🗑️ Remove Group</button>
+                    </div>
+                </div>
+                <div class="duplicate-group" data-group-id="group_3">
+                    <div class="group-header">
+                        <div>
+                            <div class="group-title">🔄 Duplicate Group 3</div>
+                            <p style="color: #718096; margin-top: 5px;">Text similarity: 63.7%</p>
+                        </div>
+                        <div>
+                            <div class="similarity-badge">63.7% Similar</div>
+                            <button class="edit-group-button" onclick="toggleGroupEdit('group_3')">📝 Edit Group</button>
+                        </div>
+                    </div>
+                    <div class="segments-grid">
+                        
+                    <div class="segment-card recommended" 
+                         data-segment-id="seg_28"
+                         onclick="playSegment(190.72000000000003, 201.33)">
+                        <div class="segment-header">
+                            <span class="segment-time">⏰ 03:10 - 03:21</span>
+                            <div>
+                                <span class="recommended-badge">⭐ RECOMMENDED</span>
+                                <button class="play-button" onclick="event.stopPropagation(); playSegment(190.72000000000003, 201.33)">▶ Play</button>
+                                <button class="edit-button" onclick="event.stopPropagation(); toggleSegmentEdit('seg_28')">✏️ Edit</button>
+                            </div>
+                        </div>
+                        <div class="segment-text" id="text-seg_28">How has he breathed life in and how has he breathed life into you and how did he speak you into being and</div>
+                        <input type="text" class="segment-edit-input" id="edit-seg_28" 
+                               value="How has he breathed life in and how has he breathed life into you and how did he speak you into being and" style="display:none;" 
+                               onblur="saveSegmentEdit('seg_28')">
+                    </div>
+                    <div class="segment-card " 
+                         data-segment-id="seg_29"
+                         onclick="playSegment(202.95000000000002, 210.81000000000003)">
+                        <div class="segment-header">
+                            <span class="segment-time">⏰ 03:22 - 03:30</span>
+                            <div>
+                                
+                                <button class="play-button" onclick="event.stopPropagation(); playSegment(202.95000000000002, 210.81000000000003)">▶ Play</button>
+                                <button class="edit-button" onclick="event.stopPropagation(); toggleSegmentEdit('seg_29')">✏️ Edit</button>
+                            </div>
+                        </div>
+                        <div class="segment-text" id="text-seg_29">How did he speak you into being and how did he speak you into being and life?</div>
+                        <input type="text" class="segment-edit-input" id="edit-seg_29" 
+                               value="How did he speak you into being and how did he speak you into being and life?" style="display:none;" 
+                               onblur="saveSegmentEdit('seg_29')">
+                    </div>
+                    </div>
+                    <div class="group-edit-controls" id="group-edit-group_3" style="display:none;">
+                        <button class="add-segment-button" onclick="showAddSegmentDialog('group_3')">➕ Add Segment</button>
+                        <button class="remove-group-button" onclick="removeGroup('group_3')">🗑️ Remove Group</button>
+                    </div>
+                </div>
+        </div>
+
+        <div class="footer">
+            <p>Interactive duplicate detection with editing capabilities • Processing time: 0.0 seconds</p>
+        </div>
+    </div>
+
+    <script>
+        function playSegment(startTime, endTime) {
+            const video = document.getElementById('videoPlayer');
+            video.currentTime = startTime;
+            video.play();
+            
+            setTimeout(() => {
+                if (video.currentTime >= endTime - 0.5) {
+                    video.pause();
+                }
+            }, (endTime - startTime) * 1000);
+        }
+        
+        function toggleSegmentEdit(segmentId) {
+            const textElement = document.getElementById('text-' + segmentId);
+            const editElement = document.getElementById('edit-' + segmentId);
+            
+            if (editElement.style.display === 'none') {
+                textElement.style.display = 'none';
+                editElement.style.display = 'block';
+                editElement.focus();
+            } else {
+                textElement.style.display = 'block';
+                editElement.style.display = 'none';
+            }
+        }
+        
+        function saveSegmentEdit(segmentId) {
+            const textElement = document.getElementById('text-' + segmentId);
+            const editElement = document.getElementById('edit-' + segmentId);
+            
+            textElement.textContent = editElement.value;
+            textElement.style.display = 'block';
+            editElement.style.display = 'none';
+        }
+        
+        function toggleGroupEdit(groupId) {
+            const editControls = document.getElementById('group-edit-' + groupId);
+            editControls.style.display = editControls.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        function removeGroup(groupId) {
+            if (confirm('Are you sure you want to remove this duplicate group?')) {
+                const groupElement = document.querySelector('[data-group-id="' + groupId + '"]');
+                groupElement.remove();
+            }
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                const video = document.getElementById('videoPlayer');
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
