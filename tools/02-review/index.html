@@ -233,6 +233,17 @@
             opacity: 0.7;
         }
 
+        .word {
+            transition: background-color 0.1s;
+            border-radius: 2px;
+            padding: 0 1px;
+        }
+
+        .word.active {
+            background: rgba(76, 201, 240, 0.5);
+            color: #fff;
+        }
+
         .transcript-list::-webkit-scrollbar {
             width: 8px;
         }
@@ -379,10 +390,20 @@
                     currentSourceId = sourceId;
                 }
 
+                // Render words as individual spans with timing data
+                let wordsHtml = '';
+                if (seg.words && seg.words.length > 0) {
+                    wordsHtml = seg.words.map(w => 
+                        `<span class="word" data-start="${w.start}" data-end="${w.end}">${w.text}</span>`
+                    ).join(' ');
+                } else {
+                    wordsHtml = seg.text;
+                }
+
                 html += `
                     <div class="segment" data-index="${index}" data-start="${seg.start}" data-end="${seg.end}">
                         <div class="segment-time">${formatTime(seg.start)} - ${formatTime(seg.end)}</div>
-                        <div class="segment-text">${seg.text}</div>
+                        <div class="segment-text">${wordsHtml}</div>
                     </div>
                 `;
             });
@@ -426,6 +447,26 @@
                 }
 
                 activeSegmentIndex = newActiveIndex;
+            }
+
+            // Word-level highlighting
+            document.querySelectorAll('.word.active').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            if (newActiveIndex >= 0) {
+                const activeSegment = document.querySelector(`.segment[data-index="${newActiveIndex}"]`);
+                if (activeSegment) {
+                    const words = activeSegment.querySelectorAll('.word');
+                    for (const wordEl of words) {
+                        const wordStart = parseFloat(wordEl.dataset.start);
+                        const wordEnd = parseFloat(wordEl.dataset.end);
+                        if (time >= wordStart && time <= wordEnd) {
+                            wordEl.classList.add('active');
+                            break;
+                        }
+                    }
+                }
             }
         }
 
