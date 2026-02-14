@@ -1,7 +1,7 @@
 {
   "clips": [
     {
-      "id": "clip_mlmyqby7",
+      "id": "clip_mlmz40lf_1",
       "name": "wind",
       "segments": [
         {
@@ -22,18 +22,39 @@
       "include": true
     },
     {
-      "id": "clip_mlmysmv7",
+      "id": "clip_mlmz4a81_2",
+      "name": "race",
+      "segments": [
+        {
+          "segment_index": 13,
+          "original_video_id": "20251008_150420",
+          "start": 92.0693125,
+          "end": 95.5093125,
+          "text": "and I tried to run my race in my strength"
+        },
+        {
+          "segment_index": 14,
+          "original_video_id": "20251008_150420",
+          "start": 95.5093125,
+          "end": 99.44931249999999,
+          "text": "and I tried to run my race in my strength"
+        }
+      ],
+      "include": true
+    },
+    {
+      "id": "clip_mlmz4kux_3",
       "name": "nothing is impossible",
       "segments": [
         {
-          "segment_index": 20,
+          "segment_index": 23,
           "original_video_id": "20251008_150513",
           "start": 143.8733125,
           "end": 151.2733125,
           "text": "this reminds me that nothing is impossible through Christ who gives me strength."
         },
         {
-          "segment_index": 21,
+          "segment_index": 24,
           "original_video_id": "20251008_150513",
           "start": 151.2733125,
           "end": 157.7133125,
@@ -43,18 +64,53 @@
       "include": true
     },
     {
-      "id": "clip_mlmyu1ku",
-      "name": "what death",
+      "id": "clip_mlmz5wv3_4",
+      "name": "transform",
       "segments": [
         {
+          "segment_index": 25,
+          "original_video_id": "20251008_150513",
+          "start": 157.7133125,
+          "end": 161.0333125,
+          "text": "The one who speaks all things into being can transform"
+        },
+        {
           "segment_index": 26,
+          "original_video_id": "20251008_150513",
+          "start": 161.0333125,
+          "end": 164.1933125,
+          "text": "the one who speaks all things into being can transform"
+        }
+      ],
+      "include": true
+    },
+    {
+      "id": "clip_mlmz68kh_5",
+      "name": "death lived",
+      "segments": [
+        {
+          "segment_index": 28,
+          "original_video_id": "20251008_150513",
+          "start": 169.8533125,
+          "end": 174.89331249999998,
+          "text": "What death have you lived?"
+        },
+        {
+          "segment_index": 29,
+          "original_video_id": "20251008_150513",
+          "start": 174.89331249999998,
+          "end": 176.9133125,
+          "text": "What death have you lived?"
+        },
+        {
+          "segment_index": 30,
           "original_video_id": "20251008_150513",
           "start": 176.9133125,
           "end": 180.0933125,
           "text": "What death have you experienced that he needs?"
         },
         {
-          "segment_index": 27,
+          "segment_index": 31,
           "original_video_id": "20251008_150622",
           "start": 184.136,
           "end": 186.056,
@@ -64,39 +120,39 @@
       "include": true
     },
     {
-      "id": "clip_mlmyuiwu",
-      "name": "being & life",
+      "id": "clip_mlmz6ncf_6",
+      "name": "life and being",
       "segments": [
         {
-          "segment_index": 28,
+          "segment_index": 32,
           "original_video_id": "20251008_150622",
           "start": 186.056,
           "end": 188.776,
           "text": "and how has he breathed life into your death?"
         },
         {
-          "segment_index": 29,
+          "segment_index": 33,
           "original_video_id": "20251008_150622",
           "start": 189.896,
           "end": 193.556,
           "text": "And how has he breathed life into you?"
         },
         {
-          "segment_index": 30,
+          "segment_index": 34,
           "original_video_id": "20251008_150622",
           "start": 197.45600000000002,
           "end": 199.856,
           "text": "And how does he speak you into being?"
         },
         {
-          "segment_index": 31,
+          "segment_index": 35,
           "original_video_id": "20251008_150622",
           "start": 201.576,
           "end": 204.11599999999999,
           "text": "And how does he speak you into being?"
         },
         {
-          "segment_index": 32,
+          "segment_index": 36,
           "original_video_id": "20251008_150622",
           "start": 206.95600000000002,
           "end": 209.676,
@@ -106,7 +162,7 @@
       "include": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_7",
       "name": "Where there was not God's folk, and...",
       "segments": [
         {
@@ -121,7 +177,7 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_8",
       "name": "Welcome to Life is your word episod...",
       "segments": [
         {
@@ -136,7 +192,7 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_9",
       "name": "In this show, we build up our under...",
       "segments": [
         {
@@ -151,7 +207,7 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_a",
       "name": "Today's reading is from Genesis cha...",
       "segments": [
         {
@@ -166,7 +222,7 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_b",
       "name": "When God began to create the heaven...",
       "segments": [
         {
@@ -181,7 +237,7 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_c",
       "name": "swept over the face of the waters,...",
       "segments": [
         {
@@ -196,7 +252,7 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_d",
       "name": "And God saw that the light was good...",
       "segments": [
         {
@@ -211,7 +267,7 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_e",
       "name": "God created humans in the image of...",
       "segments": [
         {
@@ -226,56 +282,71 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_f",
       "name": "In my past death, I lived in comple...",
       "segments": [
         {
           "segment_index": 10,
           "original_video_id": "20251008_150420",
           "start": 79.3493125,
-          "end": 89.4293125,
-          "text": "In my past death, I lived in complete chaos and the great darkness of depression covered my face."
+          "end": 88.5293125,
+          "text": "In my past death, I lived in complete chaos and the great darkness of depression covered"
         }
       ],
       "include": true,
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
-      "name": "I stopped listening to God's voice...",
+      "id": "clip_mlmz73gu_g",
+      "name": "my face.",
       "segments": [
         {
           "segment_index": 11,
           "original_video_id": "20251008_150420",
-          "start": 90.4893125,
-          "end": 97.7893125,
-          "text": "I stopped listening to God's voice and I tried to run my race in my strength and I tried"
+          "start": 88.5293125,
+          "end": 89.4293125,
+          "text": "my face."
         }
       ],
       "include": true,
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
-      "name": "to run my race in my strength rathe...",
+      "id": "clip_mlmz73gu_h",
+      "name": "I stopped listening to God's voice",
       "segments": [
         {
           "segment_index": 12,
           "original_video_id": "20251008_150420",
-          "start": 97.7893125,
-          "end": 102.9093125,
-          "text": "to run my race in my strength rather than by Christ living in me."
+          "start": 90.4893125,
+          "end": 92.0693125,
+          "text": "I stopped listening to God's voice"
         }
       ],
       "include": true,
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_i",
+      "name": "rather than by Christ living in me.",
+      "segments": [
+        {
+          "segment_index": 15,
+          "original_video_id": "20251008_150420",
+          "start": 99.44931249999999,
+          "end": 102.9093125,
+          "text": "rather than by Christ living in me."
+        }
+      ],
+      "include": true,
+      "autoCreated": true
+    },
+    {
+      "id": "clip_mlmz73gu_j",
       "name": "But God's, but then God spoke and I...",
       "segments": [
         {
-          "segment_index": 13,
+          "segment_index": 16,
           "original_video_id": "20251008_150420",
           "start": 103.9293125,
           "end": 108.9893125,
@@ -286,11 +357,11 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_k",
       "name": "Life filled me. Peace beyond human...",
       "segments": [
         {
-          "segment_index": 14,
+          "segment_index": 17,
           "original_video_id": "20251008_150420",
           "start": 110.5093125,
           "end": 114.4893125,
@@ -301,11 +372,11 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_l",
       "name": "Joy that defied world the authoriti...",
       "segments": [
         {
-          "segment_index": 15,
+          "segment_index": 18,
           "original_video_id": "20251008_150420",
           "start": 115.9693125,
           "end": 117.88931249999999,
@@ -316,11 +387,11 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_m",
       "name": "And I became compelled to shout God...",
       "segments": [
         {
-          "segment_index": 16,
+          "segment_index": 19,
           "original_video_id": "20251008_150420",
           "start": 119.3093125,
           "end": 126.8093125,
@@ -331,11 +402,11 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_n",
       "name": "So I thank God regularly for my rol...",
       "segments": [
         {
-          "segment_index": 17,
+          "segment_index": 20,
           "original_video_id": "20251008_150513",
           "start": 129.2133125,
           "end": 136.01331249999998,
@@ -346,11 +417,11 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_o",
       "name": "things for your benefit just as God...",
       "segments": [
         {
-          "segment_index": 18,
+          "segment_index": 21,
           "original_video_id": "20251008_150513",
           "start": 136.01331249999998,
           "end": 142.39331249999998,
@@ -361,11 +432,11 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_p",
       "name": "This reminds me,",
       "segments": [
         {
-          "segment_index": 19,
+          "segment_index": 22,
           "original_video_id": "20251008_150513",
           "start": 142.39331249999998,
           "end": 143.8733125,
@@ -376,71 +447,26 @@
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
-      "name": "The one who speaks all things into...",
+      "id": "clip_mlmz73gu_q",
+      "name": "your life too.",
       "segments": [
         {
-          "segment_index": 22,
+          "segment_index": 27,
           "original_video_id": "20251008_150513",
-          "start": 157.7133125,
-          "end": 161.8533125,
-          "text": "The one who speaks all things into being can transform the one who"
-        }
-      ],
-      "include": true,
-      "autoCreated": true
-    },
-    {
-      "id": "clip_mlmyuzfa",
-      "name": "speaks all things into being can tr...",
-      "segments": [
-        {
-          "segment_index": 23,
-          "original_video_id": "20251008_150513",
-          "start": 161.8533125,
+          "start": 164.1933125,
           "end": 165.2133125,
-          "text": "speaks all things into being can transform your life too."
+          "text": "your life too."
         }
       ],
       "include": true,
       "autoCreated": true
     },
     {
-      "id": "clip_mlmyuzfa",
-      "name": "What death have you lived?",
-      "segments": [
-        {
-          "segment_index": 24,
-          "original_video_id": "20251008_150513",
-          "start": 169.8533125,
-          "end": 174.89331249999998,
-          "text": "What death have you lived?"
-        }
-      ],
-      "include": true,
-      "autoCreated": true
-    },
-    {
-      "id": "clip_mlmyuzfa",
-      "name": "What death have you lived?",
-      "segments": [
-        {
-          "segment_index": 25,
-          "original_video_id": "20251008_150513",
-          "start": 174.89331249999998,
-          "end": 176.9133125,
-          "text": "What death have you lived?"
-        }
-      ],
-      "include": true,
-      "autoCreated": true
-    },
-    {
-      "id": "clip_mlmyuzfa",
+      "id": "clip_mlmz73gu_r",
       "name": "Share your revelations in the comme...",
       "segments": [
         {
-          "segment_index": 33,
+          "segment_index": 37,
           "original_video_id": "20251008_150654",
           "start": 212.3426875,
           "end": 216.6626875,
@@ -862,6 +888,8 @@
       },
       {
         "id": 5,
+        "original_id": 2,
+        "original_video_id": "20251008_150325",
         "text": "While a wind of God,",
         "start": 39.4733125,
         "end": 41.0733125,
@@ -891,11 +919,12 @@
             "start": 40.553312500000004,
             "end": 40.973312500000006
           }
-        ],
-        "original_video_id": "20251008_150325"
+        ]
       },
       {
-        "id": "5_split_1771112611088",
+        "id": "5_split_1771113162877",
+        "original_id": 2,
+        "original_video_id": "20251008_150325",
         "text": "while a wind from God",
         "start": 41.0733125,
         "end": 42.7933125,
@@ -925,11 +954,12 @@
             "start": 42.2333125,
             "end": 42.7933125
           }
-        ],
-        "original_video_id": "20251008_150325"
+        ]
       },
       {
-        "id": "5_split_1771112611088_split_1771112616824",
+        "id": "5_split_1771113162877_split_1771113165413",
+        "original_id": 2,
+        "original_video_id": "20251008_150325",
         "text": "swept over the face of the waters, then God said, let there be light and there was light.",
         "start": 42.7933125,
         "end": 50.553312500000004,
@@ -1024,8 +1054,7 @@
             "start": 50.3133125,
             "end": 50.553312500000004
           }
-        ],
-        "original_video_id": "20251008_150325"
+        ]
       },
       {
         "id": 6,
@@ -1244,9 +1273,11 @@
       },
       {
         "id": 8,
-        "text": "In my past death, I lived in complete chaos and the great darkness of depression covered my face.",
+        "original_id": 1,
+        "original_video_id": "20251008_150420",
+        "text": "In my past death, I lived in complete chaos and the great darkness of depression covered",
         "start": 79.3493125,
-        "end": 89.4293125,
+        "end": 88.5293125,
         "words": [
           {
             "text": "In",
@@ -1327,7 +1358,17 @@
             "text": "covered",
             "start": 87.6093125,
             "end": 88.5293125
-          },
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "original_id": 2,
+        "original_video_id": "20251008_150420",
+        "text": "my face.",
+        "start": 88.5293125,
+        "end": 89.4293125,
+        "words": [
           {
             "text": "my",
             "start": 88.5293125,
@@ -1338,16 +1379,15 @@
             "start": 88.94931249999999,
             "end": 89.4293125
           }
-        ],
-        "original_video_id": "20251008_150420"
+        ]
       },
       {
         "id": 10,
         "original_id": 3,
         "original_video_id": "20251008_150420",
-        "text": "I stopped listening to God's voice and I tried to run my race in my strength and I tried",
+        "text": "I stopped listening to God's voice",
         "start": 90.4893125,
-        "end": 97.7893125,
+        "end": 92.0693125,
         "words": [
           {
             "text": "I",
@@ -1378,7 +1418,17 @@
             "text": "voice",
             "start": 91.8893125,
             "end": 92.0693125
-          },
+          }
+        ]
+      },
+      {
+        "id": "10_split_1771113185253",
+        "original_id": 3,
+        "original_video_id": "20251008_150420",
+        "text": "and I tried to run my race in my strength",
+        "start": 92.0693125,
+        "end": 95.5093125,
+        "words": [
           {
             "text": "and",
             "start": 92.0693125,
@@ -1428,7 +1478,15 @@
             "text": "strength",
             "start": 95.0893125,
             "end": 95.5093125
-          },
+          }
+        ]
+      },
+      {
+        "id": "10_split_1771113185253_split_1771113189125",
+        "text": "and I tried to run my race in my strength",
+        "start": 95.5093125,
+        "end": 99.44931249999999,
+        "words": [
           {
             "text": "and",
             "start": 95.5093125,
@@ -1443,17 +1501,7 @@
             "text": "tried",
             "start": 97.5693125,
             "end": 97.7893125
-          }
-        ]
-      },
-      {
-        "id": 11,
-        "original_id": 4,
-        "original_video_id": "20251008_150420",
-        "text": "to run my race in my strength rather than by Christ living in me.",
-        "start": 97.7893125,
-        "end": 102.9093125,
-        "words": [
+          },
           {
             "text": "to",
             "start": 97.7893125,
@@ -1488,7 +1536,16 @@
             "text": "strength",
             "start": 98.94931249999999,
             "end": 99.44931249999999
-          },
+          }
+        ],
+        "original_video_id": "20251008_150420"
+      },
+      {
+        "id": "10_split_1771113185253_split_1771113189125_split_1771113194885",
+        "text": "rather than by Christ living in me.",
+        "start": 99.44931249999999,
+        "end": 102.9093125,
+        "words": [
           {
             "text": "rather",
             "start": 99.44931249999999,
@@ -1524,7 +1581,8 @@
             "start": 102.5293125,
             "end": 102.9093125
           }
-        ]
+        ],
+        "original_video_id": "20251008_150420"
       },
       {
         "id": 12,
@@ -1863,8 +1921,6 @@
       },
       {
         "id": 17,
-        "original_id": 2,
-        "original_video_id": "20251008_150513",
         "text": "things for your benefit just as God created all things for our benefit.",
         "start": 136.01331249999998,
         "end": 142.39331249999998,
@@ -1934,10 +1990,11 @@
             "start": 140.2133125,
             "end": 140.6533125
           }
-        ]
+        ],
+        "original_video_id": "20251008_150513"
       },
       {
-        "id": "17_split_1771112685620",
+        "id": "17_split_1771113213683",
         "text": "This reminds me,",
         "start": 142.39331249999998,
         "end": 143.8733125,
@@ -1961,7 +2018,7 @@
         "original_video_id": "20251008_150513"
       },
       {
-        "id": "17_split_1771112685620_split_1771112719265",
+        "id": "18_split_1771113206627",
         "text": "this reminds me that nothing is impossible through Christ who gives me strength.",
         "start": 143.8733125,
         "end": 151.2733125,
@@ -2035,7 +2092,7 @@
         "original_video_id": "20251008_150513"
       },
       {
-        "id": "17_split_1771112685620_split_1771112707035",
+        "id": "18_split_1771113206627_split_1771113226476",
         "text": "This reminds me that nothing is impossible through Christ who gives me strength.",
         "start": 151.2733125,
         "end": 157.7133125,
@@ -2109,10 +2166,10 @@
         "original_video_id": "20251008_150513"
       },
       {
-        "id": "17_split_1771112685620_split_1771112692763_split_1771112699035",
-        "text": "The one who speaks all things into being can transform the one who",
+        "id": "18_split_1771113206627_split_1771113226476_split_1771113233459",
+        "text": "The one who speaks all things into being can transform",
         "start": 157.7133125,
-        "end": 161.8533125,
+        "end": 161.0333125,
         "words": [
           {
             "text": "The",
@@ -2163,7 +2220,16 @@
             "text": "transform",
             "start": 160.4933125,
             "end": 161.0333125
-          },
+          }
+        ],
+        "original_video_id": "20251008_150513"
+      },
+      {
+        "id": "18_split_1771113206627_split_1771113226476_split_1771113233459_split_1771113318305",
+        "text": "the one who speaks all things into being can transform",
+        "start": 161.0333125,
+        "end": 164.1933125,
+        "words": [
           {
             "text": "the",
             "start": 161.0333125,
@@ -2178,18 +2244,7 @@
             "text": "who",
             "start": 161.6733125,
             "end": 161.8533125
-          }
-        ],
-        "original_video_id": "20251008_150513"
-      },
-      {
-        "id": 21,
-        "original_id": 6,
-        "original_video_id": "20251008_150513",
-        "text": "speaks all things into being can transform your life too.",
-        "start": 161.8533125,
-        "end": 165.2133125,
-        "words": [
+          },
           {
             "text": "speaks",
             "start": 161.8533125,
@@ -2224,7 +2279,16 @@
             "text": "transform",
             "start": 163.6733125,
             "end": 164.1933125
-          },
+          }
+        ],
+        "original_video_id": "20251008_150513"
+      },
+      {
+        "id": "18_split_1771113206627_split_1771113226476_split_1771113233459_split_1771113318305_split_1771113346384",
+        "text": "your life too.",
+        "start": 164.1933125,
+        "end": 165.2133125,
+        "words": [
           {
             "text": "your",
             "start": 164.1933125,
@@ -2240,7 +2304,8 @@
             "start": 164.8133125,
             "end": 165.2133125
           }
-        ]
+        ],
+        "original_video_id": "20251008_150513"
       },
       {
         "id": 22,
@@ -2278,7 +2343,7 @@
         ]
       },
       {
-        "id": "22_split_1771112758703",
+        "id": "22_split_1771113242010",
         "original_id": 7,
         "original_video_id": "20251008_150513",
         "text": "What death have you lived?",
@@ -2313,7 +2378,7 @@
         ]
       },
       {
-        "id": "22_split_1771112758703_split_1771112762055",
+        "id": "22_split_1771113242010_split_1771113248299",
         "text": "What death have you experienced that he needs?",
         "start": 176.9133125,
         "end": 180.0933125,
@@ -2397,7 +2462,7 @@
         ]
       },
       {
-        "id": "24_split_1771112781789",
+        "id": "24_split_1771113255931",
         "original_id": 1,
         "original_video_id": "20251008_150622",
         "text": "and how has he breathed life into your death?",

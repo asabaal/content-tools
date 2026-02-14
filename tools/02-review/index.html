@@ -764,8 +764,11 @@
             return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
 
+        let idCounter = 0;
+
         function generateId() {
-            return 'clip_' + Date.now().toString(36);
+            idCounter++;
+            return 'clip_' + Date.now().toString(36) + '_' + idCounter.toString(36);
         }
 
         function markUnsaved() {
