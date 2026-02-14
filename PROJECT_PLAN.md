@@ -14,26 +14,26 @@ This project provides a complete video editing pipeline that works with transcri
 ## Pipeline
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         CONTENT TOOLS PIPELINE                               │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  STEP 1            STEP 2          STEP 3          STEP 4          STEP 5  │
-│  INGEST            REVIEW          ASSIGN          SELECT          ASSEMBLE │
-│                                                                             │
-│  ┌──────────┐      ┌────────┐      ┌────────┐      ┌────────┐      ┌──────┐│
-│  │ raw/     │      │        │      │        │      │        │      │      ││
-│  │ ├video1  │─────►│ Watch  │─────►│ Group  │─────►│ Pick   │─────►│Order ││
-│  │ ├video2  │      │ + Read │      │ into   │      │ best   │      │clips ││
-│  │ └video3  │      │        │      │ clips  │      │ takes  │      │      ││
-│  └──────────┘      └────────┘      └────────┘      └────────┘      └──────┘│
-│       │                │               │               │              │     │
-│       ▼                ▼               ▼               ▼              ▼     │
-│  video files      transcript_*.json  clips.json   selections.json   EDL   │
-│                   (Whisper format)   (segments     (best take            │
-│                                       to clips)    per clip)             │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────────┐
+│                      CONTENT TOOLS PIPELINE                                │
+├───────────────────────────────────────────────────────────────────────────┤
+│                                                                           │
+│  STEP 1           STEP 2           STEP 3           STEP 4               │
+│  INGEST           REVIEW+ASSIGN    SELECT           ASSEMBLE              │
+│                                                                           │
+│  ┌─────────┐      ┌─────────┐      ┌─────────┐      ┌─────────┐          │
+│  │ raw/    │      │ Watch   │      │ Compare │      │ Order   │          │
+│  │ ├video1 │─────►│ + Group │─────►│ Takes   │─────►│ + Export│──► EDL  │
+│  │ ├video2 │      │ into    │      │ Pick    │      │ Timeline│          │
+│  │ └video3 │      │ Clips   │      │ Best    │      │         │          │
+│  └─────────┘      └─────────┘      └─────────┘      └─────────┘          │
+│       │                │                │                │               │
+│       ▼                ▼                ▼                ▼               │
+│  video files     project.json    selections.json    assembly.edl        │
+│                  (with clips)    (best take per                       │
+│                                   clip)                                │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -44,23 +44,22 @@ This project provides a complete video editing pipeline that works with transcri
 content-tools/
 ├── tools/                          # One tool per workflow step
 │   ├── 01-transcribe/              # Generate transcripts from video (Whisper)
-│   ├── 02-review/                  # Watch video + read synced transcript
-│   ├── 03-assign/                  # Group segments into clips
-│   ├── 04-select/                  # Choose best takes per clip
-│   └── 05-assemble/                # Order clips, export final timeline
+│   ├── 02-review/                  # Watch + Sync + Group segments into clips
+│   ├── 03-select/                  # Choose best takes per clip
+│   └── 04-assemble/                # Order clips, export final timeline
 │
 ├── core/                           # Shared Python modules
 │   ├── models.py                   # Data classes (Segment, Clip, Take, etc.)
 │   ├── io.py                       # Load/save JSON
 │   └── utils.py                    # Time formatting, etc.
 │
-├── data/                           # Working directory (gitignored)
+├── data/                           # Working directory
 │   ├── raw/                        # Input video files
 │   │   ├── 20251008_150255.mp4
 │   │   ├── 20251008_150325.mp4
 │   │   └── ...
 │   ├── transcripts/                # Generated transcripts (one per video)
-│   ├── project.json                # Current project state
+│   ├── project.json                # Current project state (clips, selections)
 │   └── output/                     # Final exports (EDL, etc.)
 │
 ├── _archived/                      # Previous implementation (for reference)
@@ -103,68 +102,38 @@ python tools/01-transcribe/transcribe.py data/raw/*.mp4
 }
 ```
 
-**Status**: NOT STARTED (can skip - existing transcripts available)
+**Status**: ✅ DONE
 
 ---
 
-### Tool 02: REVIEW
+### Tool 02: REVIEW & ASSIGN
 **Type**: Single HTML file
-**Purpose**: Watch video with synced transcript (read-only)
+**Purpose**: Watch video with synced transcript AND organize segments into clips
 
-**Features**:
-- Video player (left panel)
-- Transcript display (right panel)
-- Click segment → video jumps to timestamp
-- Play video → current segment highlights
+**Features:**
+- Video player with transcript sidebar
 - Word-level highlighting during playback
+- Click segment → video jumps to timestamp
+- **Clips panel** - manage clip groups (create, rename, delete)
+- **Assign segments** - add segments to clips
+- **Persistent state** - saves to project.json
 
 **Input**: 
-- Video file(s) from `data/raw/` or combined video
-- Transcript(s) from `data/transcripts/`
+- `data/video_combined.mp4`
+- `data/transcript_combined.json`
 
-**Output**: None (viewing only)
+**Output**: 
+- `data/project.json` with clip assignments
 
-**Status**: NOT STARTED (next to build)
-
----
-
-### Tool 03: ASSIGN
-**Type**: Single HTML file
-**Purpose**: Group segments into "clips" for your final video
-
-**Features**:
-- All features from REVIEW
-- Create new clip groups (name them: "intro", "main_point_1", etc.)
-- Assign segments to clips (drag-drop or click)
-- View all segments across all takes
-- Save assignments to `project.json`
-
-**Output**:
-```json
-{
-  "clips": [
-    {
-      "id": "clip_1",
-      "name": "Introduction",
-      "segments": [
-        {"video_id": "20251008_150255", "segment_id": "seg_0"},
-        {"video_id": "20251008_150325", "segment_id": "seg_0"}
-      ]
-    }
-  ]
-}
-```
-
-**Status**: NOT STARTED
+**Status**: IN PROGRESS (viewing done, adding assign features)
 
 ---
 
-### Tool 04: SELECT
+### Tool 03: SELECT
 **Type**: Single HTML file  
 **Purpose**: Choose the best take for each clip
 
-**Features**:
-- All features from ASSIGN
+**Features:**
 - Per-clip view: see all takes for a clip
 - Side-by-side video comparison (2x2 grid)
 - Mark "selected" take per clip
@@ -186,11 +155,11 @@ python tools/01-transcribe/transcribe.py data/raw/*.mp4
 
 ---
 
-### Tool 05: ASSEMBLE
+### Tool 04: ASSEMBLE
 **Type**: Single HTML file
 **Purpose**: Order selected clips into final timeline
 
-**Features**:
+**Features:**
 - Timeline view of selected clips
 - Drag to reorder clips
 - Toggle clips on/off (include/exclude from final)
@@ -260,10 +229,10 @@ Current test project: **Episode 3 - "Life is Your Word"**
 | 1 | `core/models.py` | None | ✅ DONE |
 | 2 | `core/io.py` | models | ✅ DONE |
 | 3 | `tools/01-transcribe/` | core | ✅ DONE |
-| 4 | `tools/02-review/` | core, transcribe | ✅ DONE |
-| 5 | `tools/03-assign/` | review | NOT STARTED |
-| 6 | `tools/04-select/` | assign | NOT STARTED |
-| 7 | `tools/05-assemble/` | select | NOT STARTED |
+| 4 | `tools/02-review/` (viewing) | core, transcribe | ✅ DONE |
+| 5 | `tools/02-review/` (add assign) | review base | 🔄 IN PROGRESS |
+| 6 | `tools/03-select/` | review+assign | NOT STARTED |
+| 7 | `tools/04-assemble/` | select | NOT STARTED |
 
 ---
 
@@ -279,11 +248,13 @@ Current test project: **Episode 3 - "Life is Your Word"**
 
 ## Next Steps
 
-1. Build `core/models.py` - Define data classes
-2. Build `core/io.py` - Load/save functions
-3. Build `tools/02-review/index.html` - First usable tool
-4. Test with existing data
-5. Continue with remaining tools
+1. ~~Build `core/models.py` - Define data classes~~ ✅
+2. ~~Build `core/io.py` - Load/save functions~~ ✅
+3. ~~Build `tools/01-transcribe/` - Whisper wrapper~~ ✅
+4. ~~Build `tools/02-review/` (viewing) - Video + transcript~~ ✅
+5. **Add assign features to Review** - Clips panel, segment assignment 🔄
+6. Build `tools/03-select/` - Take comparison
+7. Build `tools/04-assemble/` - Timeline + EDL export
 
 ---
 
