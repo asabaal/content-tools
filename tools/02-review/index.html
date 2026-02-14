@@ -450,6 +450,7 @@
         .clip-create {
             display: flex;
             gap: 4px;
+            margin-bottom: 8px;
         }
 
         .clip-create input {
@@ -465,6 +466,33 @@
         .clip-create input:focus {
             outline: none;
             border-color: #4cc9f0;
+        }
+
+        .auto-assign-btn {
+            width: 100%;
+            padding: 6px 8px;
+            background: #2a2a4a;
+            border: 1px solid #3a3a5a;
+            border-radius: 4px;
+            color: #888;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .auto-assign-btn:hover {
+            background: #3a3a5a;
+            color: #4cc9f0;
+            border-color: #4cc9f0;
+        }
+
+        .unassigned-count {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            padding: 4px;
+            margin-top: 4px;
         }
 
         .clips-list {
@@ -688,6 +716,8 @@
                     <input type="text" id="newClipName" placeholder="New clip name...">
                     <button class="btn btn-small" id="createClipBtn">+</button>
                 </div>
+                <button class="auto-assign-btn" id="autoAssignBtn">Auto-assign remaining segments</button>
+                <div class="unassigned-count" id="unassignedCount"></div>
             </div>
             <div class="clips-list" id="clipsList">
                 <div class="clip-unassigned">No clips yet</div>
@@ -875,7 +905,84 @@
             return null;
         }
 
+        function getUnassignedCount() {
+            if (!transcript) return 0;
+            let assignedCount = 0;
+            project.clips.forEach(clip => {
+                assignedCount += clip.segments.length;
+            });
+            return transcript.segments.length - assignedCount;
+        }
+
+        function updateUnassignedCount() {
+            const count = getUnassignedCount();
+            const el = document.getElementById('unassignedCount');
+            if (count > 0) {
+                el.textContent = `${count} unassigned segment${count !== 1 ? 's' : ''}`;
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+
+        function autoAssignRemaining() {
+            if (!transcript) return;
+            
+            const unassignedCount = getUnassignedCount();
+            if (unassignedCount === 0) {
+                alert('All segments are already assigned!');
+                return;
+            }
+            
+            if (!confirm(`This will create ${unassignedCount} new clip${unassignedCount !== 1 ? 's' : ''} (one per unassigned segment). Continue?`)) {
+                return;
+            }
+            
+            // Find all unassigned segment indices
+            const assignedIndices = new Set();
+            project.clips.forEach(clip => {
+                clip.segments.forEach(s => assignedIndices.add(s.segment_index));
+            });
+            
+            const unassignedIndices = [];
+            for (let i = 0; i < transcript.segments.length; i++) {
+                if (!assignedIndices.has(i)) {
+                    unassignedIndices.push(i);
+                }
+            }
+            
+            // Create a clip for each unassigned segment
+            unassignedIndices.forEach(index => {
+                const seg = transcript.segments[index];
+                const clipName = seg.text.length > 35 
+                    ? seg.text.substring(0, 35).trim() + '...' 
+                    : seg.text;
+                
+                const clip = {
+                    id: generateId(),
+                    name: clipName,
+                    segments: [{
+                        segment_index: index,
+                        original_video_id: seg.original_video_id,
+                        start: seg.start,
+                        end: seg.end,
+                        text: seg.text
+                    }],
+                    include: true,
+                    autoCreated: true
+                };
+                
+                project.clips.push(clip);
+            });
+            
+            markUnsaved();
+            renderClips();
+            renderTranscript();
+        }
+
         function renderClips() {
+            updateUnassignedCount();
+            
             if (project.clips.length === 0) {
                 clipsList.innerHTML = '<div class="clip-unassigned">No clips yet.<br>Create one to start organizing.</div>';
                 return;
@@ -1277,8 +1384,14 @@
             document.querySelectorAll('.split-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    // Scroll to show the hint
-                    splitHint.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    const segIndex = parseInt(btn.dataset.index);
+                    
+                    if (splitSelectedWord !== null && splitSegmentIndex === segIndex) {
+                        splitSegmentAtWord();
+                    } else {
+                        cancelSplit();
+                        alert('Click a word in the segment text above to select where to split');
+                    }
                 });
             });
 
@@ -1481,6 +1594,8 @@
                 createClip(newClipName.value);
             }
         });
+
+        document.getElementById('autoAssignBtn').addEventListener('click', autoAssignRemaining);
 
         saveBtn.addEventListener('click', saveProject);
 
