@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Takes - Content Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+
+        .app {
+            display: grid;
+            grid-template-columns: 280px 1fr 350px;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            background: #16213e;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4cc9f0;
+        }
+
+        .header-info {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .save-status {
+            font-size: 12px;
+            color: #888;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .save-status.unsaved {
+            color: #f6ad55;
+        }
+
+        .save-status.saved {
+            color: #48bb78;
+        }
+
+        .btn {
+            background: #4cc9f0;
+            color: #0f0f1a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #3aa8d8;
+        }
+
+        .btn-success {
+            background: #48bb78;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-secondary {
+            background: #2a2a4a;
+            color: #eee;
+        }
+
+        .btn-secondary:hover {
+            background: #3a3a5a;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+
+        /* Clips Panel */
+        .clips-panel {
+            background: #16213e;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #2a2a4a;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .panel-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clips-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .clip-group {
+            margin-bottom: 8px;
+        }
+
+        .clip-group-header {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            letter-spacing: 1px;
+        }
+
+        .clip-item {
+            background: #0f0f1a;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .clip-item:hover {
+            background: #1a2744;
+        }
+
+        .clip-item.active {
+            border-color: #4cc9f0;
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .clip-item.has-selection {
+            border-left: 3px solid #48bb78;
+        }
+
+        .clip-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clip-item-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #eee;
+        }
+
+        .clip-item-count {
+            font-size: 11px;
+            color: #888;
+            background: #2a2a4a;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .clip-item-count.multi {
+            background: #4cc9f0;
+            color: #0f0f1a;
+        }
+
+        .clip-item-check {
+            margin-top: 6px;
+            font-size: 11px;
+            color: #48bb78;
+        }
+
+        .no-takes {
+            color: #666;
+            font-style: italic;
+            font-size: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        /* Video Grid */
+        .video-panel {
+            background: #0f0f1a;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .video-panel-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-panel-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .video-grid {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            align-content: start;
+        }
+
+        .take-card {
+            background: #16213e;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .take-card.selected {
+            border-color: #48bb78;
+        }
+
+        .take-card-header {
+            padding: 8px 12px;
+            background: #1a2744;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .take-card-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+        }
+
+        .take-card.selected .take-card-title {
+            color: #48bb78;
+        }
+
+        .take-card video {
+            width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .take-card-actions {
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .take-card-time {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .select-take-btn {
+            background: #2a2a4a;
+            color: #888;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .select-take-btn:hover {
+            background: #48bb78;
+            color: #fff;
+        }
+
+        .select-take-btn.selected {
+            background: #48bb78;
+            color: #fff;
+        }
+
+        .no-clip-selected {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Transcript Panel */
+        .transcript-panel {
+            background: #16213e;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #2a2a4a;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .transcript-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .take-transcript {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #0f0f1a;
+            border-radius: 6px;
+            border: 1px solid transparent;
+        }
+
+        .take-transcript.selected {
+            border-color: #48bb78;
+            background: rgba(72, 187, 120, 0.1);
+        }
+
+        .take-transcript-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .take-transcript-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4cc9f0;
+        }
+
+        .take-transcript.selected .take-transcript-title {
+            color: #48bb78;
+        }
+
+        .take-transcript-time {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .take-transcript-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        /* Scrollbar */
+        .clips-list::-webkit-scrollbar,
+        .video-grid::-webkit-scrollbar,
+        .transcript-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .clips-list::-webkit-scrollbar-track,
+        .video-grid::-webkit-scrollbar-track,
+        .transcript-list::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        .clips-list::-webkit-scrollbar-thumb,
+        .video-grid::-webkit-scrollbar-thumb,
+        .transcript-list::-webkit-scrollbar-thumb {
+            background: #3a3a5a;
+            border-radius: 4px;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #666;
+        }
+
+        .error {
+            color: #f66;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-value {
+            color: #4cc9f0;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>03 - Select Takes</h1>
+            <div class="header-info">
+                <div class="stats" id="stats"></div>
+            </div>
+            <div class="header-actions">
+                <span class="save-status" id="saveStatus"></span>
+                <button class="btn btn-success btn-small" id="saveBtn">Save</button>
+            </div>
+        </header>
+
+        <section class="clips-panel">
+            <div class="panel-header">
+                <h2>Clips</h2>
+            </div>
+            <div class="clips-list" id="clipsList">
+                <div class="loading">Loading...</div>
+            </div>
+        </section>
+
+        <section class="video-panel">
+            <div class="video-panel-header">
+                <h2 id="videoPanelTitle">Select a clip to compare takes</h2>
+                <button class="btn btn-secondary btn-small" id="playAllBtn" style="display: none;">Play All</button>
+            </div>
+            <div class="video-grid" id="videoGrid">
+                <div class="no-clip-selected">
+                    Select a clip from the left panel to compare takes
+                </div>
+            </div>
+        </section>
+
+        <section class="transcript-panel">
+            <div class="panel-header">
+                <h2>Transcripts</h2>
+            </div>
+            <div class="transcript-list" id="transcriptList">
+                <div class="no-clip-selected">
+                    Transcripts will appear here
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // State
+        let project = null;
+        let transcript = null;
+        let selectedClipId = null;
+        let hasUnsavedChanges = false;
+
+        // DOM elements
+        const clipsList = document.getElementById('clipsList');
+        const videoGrid = document.getElementById('videoGrid');
+        const transcriptList = document.getElementById('transcriptList');
+        const videoPanelTitle = document.getElementById('videoPanelTitle');
+        const playAllBtn = document.getElementById('playAllBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const saveStatus = document.getElementById('saveStatus');
+        const stats = document.getElementById('stats');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function markUnsaved() {
+            hasUnsavedChanges = true;
+            saveStatus.textContent = 'Unsaved';
+            saveStatus.className = 'save-status unsaved';
+        }
+
+        function markSaved() {
+            hasUnsavedChanges = false;
+            saveStatus.textContent = 'Saved';
+            saveStatus.className = 'save-status saved';
+            setTimeout(() => {
+                saveStatus.textContent = '';
+                saveStatus.className = 'save-status';
+            }, 2000);
+        }
+
+        // Load data
+        async function loadData() {
+            try {
+                // Load project
+                const projectResp = await fetch('../../data/project.json');
+                if (!projectResp.ok) throw new Error('No project.json found');
+                project = await projectResp.json();
+
+                // Get transcript from project or load separately
+                if (project.transcript) {
+                    transcript = project.transcript;
+                } else {
+                    const transResp = await fetch('../../data/transcript_combined.json');
+                    transcript = await transResp.json();
+                }
+
+                console.log('[Select] Loaded', project.clips?.length || 0, 'clips');
+                renderClips();
+                updateStats();
+            } catch (error) {
+                console.error('[Select] Error loading data:', error);
+                clipsList.innerHTML = `<div class="error">Error: ${error.message}<br><br>Make sure you've saved a project in Review & Assign first.</div>`;
+            }
+        }
+
+        function updateStats() {
+            const totalClips = project?.clips?.length || 0;
+            const withSelection = project?.clips?.filter(c => c.selected_segment).length || 0;
+            const multiTakes = project?.clips?.filter(c => c.segments?.length > 1).length || 0;
+
+            stats.innerHTML = `
+                <div class="stat"><span class="stat-value">${totalClips}</span> clips</div>
+                <div class="stat"><span class="stat-value">${multiTakes}</span> with multiple takes</div>
+                <div class="stat"><span class="stat-value">${withSelection}</span> selected</div>
+            `;
+        }
+
+        function getClipById(clipId) {
+            return project?.clips?.find(c => c.id === clipId);
+        }
+
+        function getSegmentByIndex(index) {
+            return transcript?.segments?.[index];
+        }
+
+        function isSegmentSelected(clip, segmentIndex) {
+            return clip?.selected_segment?.segment_index === segmentIndex;
+        }
+
+        // Render clips list
+        function renderClips() {
+            if (!project?.clips?.length) {
+                clipsList.innerHTML = '<div class="no-takes">No clips found.<br>Create clips in Review & Assign first.</div>';
+                return;
+            }
+
+            // Separate multi-take clips from single-take
+            const multiTakeClips = project.clips.filter(c => c.segments?.length > 1);
+            const singleTakeClips = project.clips.filter(c => c.segments?.length === 1);
+
+            let html = '';
+
+            if (multiTakeClips.length > 0) {
+                html += '<div class="clip-group">';
+                html += '<div class="clip-group-header">Multiple Takes (' + multiTakeClips.length + ')</div>';
+                
+                multiTakeClips.forEach(clip => {
+                    const hasSelection = clip.selected_segment;
+                    const isActive = selectedClipId === clip.id;
+                    
+                    html += `
+                        <div class="clip-item ${isActive ? 'active' : ''} ${hasSelection ? 'has-selection' : ''}" 
+                             data-clip-id="${clip.id}">
+                            <div class="clip-item-header">
+                                <span class="clip-item-name">${clip.name}</span>
+                                <span class="clip-item-count multi">${clip.segments.length} takes</span>
+                            </div>
+                            ${hasSelection ? '<div class="clip-item-check">✓ Take selected</div>' : ''}
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            }
+
+            if (singleTakeClips.length > 0) {
+                html += '<div class="clip-group">';
+                html += '<div class="clip-group-header">Single Take (' + singleTakeClips.length + ')</div>';
+                
+                singleTakeClips.forEach(clip => {
+                    const hasSelection = clip.selected_segment;
+                    const isActive = selectedClipId === clip.id;
+                    
+                    html += `
+                        <div class="clip-item ${isActive ? 'active' : ''} ${hasSelection ? 'has-selection' : ''}" 
+                             data-clip-id="${clip.id}">
+                            <div class="clip-item-header">
+                                <span class="clip-item-name">${clip.name}</span>
+                                <span class="clip-item-count">1 take</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            }
+
+            clipsList.innerHTML = html;
+
+            // Add click handlers
+            document.querySelectorAll('.clip-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    selectClip(el.dataset.clipId);
+                });
+            });
+        }
+
+        function selectClip(clipId) {
+            selectedClipId = clipId;
+            
+            // Update active state in list
+            document.querySelectorAll('.clip-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.clipId === clipId);
+            });
+
+            const clip = getClipById(clipId);
+            if (!clip) return;
+
+            videoPanelTitle.textContent = clip.name;
+            playAllBtn.style.display = clip.segments?.length > 1 ? 'block' : 'none';
+
+            renderVideoGrid(clip);
+            renderTranscripts(clip);
+        }
+
+        function renderVideoGrid(clip) {
+            if (!clip?.segments?.length) {
+                videoGrid.innerHTML = '<div class="no-clip-selected">No segments in this clip</div>';
+                return;
+            }
+
+            const html = clip.segments.map((segRef, index) => {
+                const segment = getSegmentByIndex(segRef.segment_index);
+                if (!segment) return '';
+
+                const isSelected = isSegmentSelected(clip, segRef.segment_index);
+                const videoId = segment.original_video_id;
+                
+                // Calculate position in original video
+                const start = segment.start;
+
+                return `
+                    <div class="take-card ${isSelected ? 'selected' : ''}" data-segment-index="${segRef.segment_index}">
+                        <div class="take-card-header">
+                            <span class="take-card-title">Take ${index + 1} ${isSelected ? '(Selected)' : ''}</span>
+                        </div>
+                        <video controls preload="metadata">
+                            <source src="../../data/video_combined.mp4#t=${start}" type="video/mp4">
+                        </video>
+                        <div class="take-card-actions">
+                            <span class="take-card-time">${formatTime(segment.start)} - ${formatTime(segment.end)}</span>
+                            <button class="select-take-btn ${isSelected ? 'selected' : ''}" 
+                                    data-segment-index="${segRef.segment_index}">
+                                ${isSelected ? '✓ Selected' : 'Select'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            videoGrid.innerHTML = html;
+
+            // Add select handlers
+            document.querySelectorAll('.select-take-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectTake(clip.id, parseInt(btn.dataset.segmentIndex));
+                });
+            });
+        }
+
+        function renderTranscripts(clip) {
+            if (!clip?.segments?.length) {
+                transcriptList.innerHTML = '<div class="no-clip-selected">No transcripts</div>';
+                return;
+            }
+
+            const html = clip.segments.map((segRef, index) => {
+                const segment = getSegmentByIndex(segRef.segment_index);
+                if (!segment) return '';
+
+                const isSelected = isSegmentSelected(clip, segRef.segment_index);
+
+                return `
+                    <div class="take-transcript ${isSelected ? 'selected' : ''}" data-segment-index="${segRef.segment_index}">
+                        <div class="take-transcript-header">
+                            <span class="take-transcript-title">Take ${index + 1}</span>
+                            <span class="take-transcript-time">${formatTime(segment.start)} - ${formatTime(segment.end)}</span>
+                        </div>
+                        <div class="take-transcript-text">${segment.text}</div>
+                    </div>
+                `;
+            }).join('');
+
+            transcriptList.innerHTML = html;
+
+            // Add click to select
+            document.querySelectorAll('.take-transcript').forEach(el => {
+                el.addEventListener('click', () => {
+                    selectTake(clip.id, parseInt(el.dataset.segmentIndex));
+                });
+            });
+        }
+
+        function selectTake(clipId, segmentIndex) {
+            const clip = getClipById(clipId);
+            if (!clip) return;
+
+            const segment = getSegmentByIndex(segmentIndex);
+            if (!segment) return;
+
+            // Update selection
+            clip.selected_segment = {
+                segment_index: segmentIndex,
+                original_video_id: segment.original_video_id,
+                start: segment.start,
+                end: segment.end,
+                text: segment.text
+            };
+
+            markUnsaved();
+            
+            // Re-render
+            renderClips();
+            renderVideoGrid(clip);
+            renderTranscripts(clip);
+            updateStats();
+        }
+
+        // Save
+        async function saveProject() {
+            try {
+                const response = await fetch('../../data/project.json', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(project, null, 2)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save');
+                }
+
+                markSaved();
+                console.log('[Select] Project saved');
+            } catch (e) {
+                // Fallback: download as file
+                const blob = new Blob([JSON.stringify(project, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'project.json';
+                a.click();
+                URL.revokeObjectURL(url);
+                markSaved();
+            }
+        }
+
+        // Play all takes
+        playAllBtn.addEventListener('click', () => {
+            const videos = document.querySelectorAll('.take-card video');
+            videos.forEach((video, index) => {
+                video.currentTime = 0;
+                video.play();
+            });
+        });
+
+        saveBtn.addEventListener('click', saveProject);
+
+        // Warn before leaving with unsaved changes
+        window.addEventListener('beforeunload', (e) => {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>

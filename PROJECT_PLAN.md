@@ -116,6 +116,8 @@ python tools/01-transcribe/transcribe.py data/raw/*.mp4
 - Click segment → video jumps to timestamp
 - **Clips panel** - manage clip groups (create, rename, delete)
 - **Assign segments** - add segments to clips
+- **Edit mode** - edit text, split/merge/delete segments
+- **Auto-assign** - create clips for all unassigned segments
 - **Persistent state** - saves to project.json
 
 **Input**: 
@@ -123,9 +125,9 @@ python tools/01-transcribe/transcribe.py data/raw/*.mp4
 - `data/transcript_combined.json`
 
 **Output**: 
-- `data/project.json` with clip assignments
+- `data/project.json` with clip assignments and edited transcript
 
-**Status**: IN PROGRESS (viewing done, adding assign features)
+**Status**: ✅ DONE
 
 ---
 
@@ -134,12 +136,13 @@ python tools/01-transcribe/transcribe.py data/raw/*.mp4
 **Purpose**: Choose the best take for each clip
 
 **Features:**
-- Per-clip view: see all takes for a clip
-- Side-by-side video comparison (2x2 grid)
-- Mark "selected" take per clip
-- (Optional) AI duplicate detection highlighting
+- **Clips list** - organized by multi-take (needs selection) vs single-take
+- **Video grid** - side-by-side comparison of all takes
+- **Transcript comparison** - text view of each take
+- **Select take** - mark the best version per clip
+- **Visual indicators** - green checkmark for selected clips
 
-**Output**: Updates `project.json` with selections
+**Output**: Updates `project.json` with `selected_segment` per clip
 ```json
 {
   "clips": [
@@ -151,7 +154,7 @@ python tools/01-transcribe/transcribe.py data/raw/*.mp4
 }
 ```
 
-**Status**: NOT STARTED
+**Status**: ✅ DONE
 
 ---
 
@@ -229,10 +232,9 @@ Current test project: **Episode 3 - "Life is Your Word"**
 | 1 | `core/models.py` | None | ✅ DONE |
 | 2 | `core/io.py` | models | ✅ DONE |
 | 3 | `tools/01-transcribe/` | core | ✅ DONE |
-| 4 | `tools/02-review/` (viewing) | core, transcribe | ✅ DONE |
-| 5 | `tools/02-review/` (add assign) | review base | 🔄 IN PROGRESS |
-| 6 | `tools/03-select/` | review+assign | NOT STARTED |
-| 7 | `tools/04-assemble/` | select | NOT STARTED |
+| 4 | `tools/02-review/` | core, transcribe | ✅ DONE |
+| 5 | `tools/03-select/` | review+assign | ✅ DONE |
+| 6 | `tools/04-assemble/` | select | NOT STARTED |
 
 ---
 
@@ -251,10 +253,9 @@ Current test project: **Episode 3 - "Life is Your Word"**
 1. ~~Build `core/models.py` - Define data classes~~ ✅
 2. ~~Build `core/io.py` - Load/save functions~~ ✅
 3. ~~Build `tools/01-transcribe/` - Whisper wrapper~~ ✅
-4. ~~Build `tools/02-review/` (viewing) - Video + transcript~~ ✅
-5. **Add assign features to Review** - Clips panel, segment assignment 🔄
-6. Build `tools/03-select/` - Take comparison
-7. Build `tools/04-assemble/` - Timeline + EDL export
+4. ~~Build `tools/02-review/` - Video + transcript + clip assignment~~ ✅
+5. ~~Build `tools/03-select/` - Take comparison and selection~~ ✅
+6. **Build `tools/04-assemble/` - Timeline + EDL export** 🔄
 
 ---
 
