@@ -273,6 +273,9 @@
         .take-card-header {
             padding: 8px 12px;
             background: #1a2744;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .take-card-title {
@@ -662,7 +665,11 @@
                 return `
                     <div class="take-card ${isSelected ? 'selected' : ''}" data-segment-index="${segRef.segment_index}">
                         <div class="take-card-header">
-                            <span class="take-card-title">Take ${index + 1}${isSelected ? ' (Selected)' : ''}</span>
+                            <span class="take-card-title">Take ${index + 1}</span>
+                            <button class="select-take-btn ${isSelected ? 'selected' : ''}"
+                                    data-segment-index="${segRef.segment_index}">
+                                ${isSelected ? 'Selected' : 'Select'}
+                            </button>
                         </div>
                         <video controls preload="metadata"
                                data-start="${start}"
@@ -671,10 +678,6 @@
                         </video>
                         <div class="take-card-footer">
                             <span class="take-card-time">${formatTime(start)} - ${formatTime(end)}</span>
-                            <button class="select-take-btn ${isSelected ? 'selected' : ''}"
-                                    data-segment-index="${segRef.segment_index}">
-                                ${isSelected ? 'Selected' : 'Select'}
-                            </button>
                         </div>
                     </div>
                 `;

@@ -16,7 +16,9 @@ import json
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
+PORT = int(os.environ.get('PORT', sys.argv[1] if len(sys.argv) > 1 else 8000))
+
+socketserver.TCPServer.allow_reuse_address = True
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
