@@ -240,30 +240,69 @@
             letter-spacing: 1px;
         }
 
-        .video-grid-container {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            justify-content: center;
-            align-content: flex-start;
+        .video-player-section {
             padding: 20px;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .video-grid {
+        .video-player-section.hidden {
+            display: none;
+        }
+
+        #mainVideo {
+            max-width: 100%;
+            max-height: 400px;
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .current-take-info {
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .current-take-label {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .current-take-time {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .takes-grid-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .takes-grid {
             display: grid;
-            grid-template-columns: repeat(4, 200px);
-            gap: 16px;
-            align-content: start;
-            width: max-content;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
         }
 
         .take-card {
-            width: 200px;
             background: #16213e;
-            border-radius: 8px;
-            overflow: hidden;
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
             border: 2px solid transparent;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
+        }
+
+        .take-card:hover {
+            background: #1a2744;
+        }
+
+        .take-card.active {
+            border-color: #4cc9f0;
         }
 
         .take-card.selected {
@@ -271,11 +310,10 @@
         }
 
         .take-card-header {
-            padding: 8px 12px;
-            background: #1a2744;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 8px;
         }
 
         .take-card-title {
@@ -284,36 +322,40 @@
             color: #888;
         }
 
+        .take-card.active .take-card-title {
+            color: #4cc9f0;
+        }
+
         .take-card.selected .take-card-title {
             color: #48bb78;
         }
 
-        .take-card video {
-            width: 100%;
-            aspect-ratio: 9 / 16;
-            object-fit: cover;
-            display: block;
-            background: #000;
-        }
-
-        .take-card-footer {
-            padding: 8px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
         .take-card-time {
             font-family: 'SF Mono', 'Monaco', monospace;
-            font-size: 11px;
+            font-size: 10px;
             color: #666;
+            margin-bottom: 8px;
+        }
+
+        .take-card-text {
+            font-size: 11px;
+            color: #aaa;
+            line-height: 1.4;
+            max-height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
 
         .select-take-btn {
+            width: 100%;
+            margin-top: 10px;
             background: #2a2a4a;
             color: #888;
             border: none;
-            padding: 4px 10px;
+            padding: 6px 10px;
             border-radius: 4px;
             font-size: 11px;
             cursor: pointer;
@@ -352,6 +394,15 @@
             background: #0f0f1a;
             border-radius: 6px;
             border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .take-transcript:hover {
+            background: #1a1a2e;
+        }
+
+        .take-transcript.active {
+            border-color: #4cc9f0;
         }
 
         .take-transcript.selected {
@@ -369,6 +420,10 @@
         .take-transcript-title {
             font-size: 12px;
             font-weight: 600;
+            color: #4cc9f0;
+        }
+
+        .take-transcript.active .take-transcript-title {
             color: #4cc9f0;
         }
 
@@ -390,19 +445,19 @@
 
         /* Scrollbar */
         .clips-list::-webkit-scrollbar,
-        .video-grid-container::-webkit-scrollbar,
+        .takes-grid-container::-webkit-scrollbar,
         .transcript-list::-webkit-scrollbar {
             width: 8px;
         }
 
         .clips-list::-webkit-scrollbar-track,
-        .video-grid-container::-webkit-scrollbar-track,
+        .takes-grid-container::-webkit-scrollbar-track,
         .transcript-list::-webkit-scrollbar-track {
             background: #1a1a2e;
         }
 
         .clips-list::-webkit-scrollbar-thumb,
-        .video-grid-container::-webkit-scrollbar-thumb,
+        .takes-grid-container::-webkit-scrollbar-thumb,
         .transcript-list::-webkit-scrollbar-thumb {
             background: #3a3a5a;
             border-radius: 4px;
@@ -467,7 +522,14 @@
             <div class="video-panel-header">
                 <h2 class="video-panel-title" id="videoPanelTitle">Select a clip</h2>
             </div>
-            <div class="video-grid-container" id="videoGridContainer">
+            <div class="video-player-section hidden" id="videoPlayerSection">
+                <video id="mainVideo" controls></video>
+                <div class="current-take-info">
+                    <div class="current-take-label" id="currentTakeLabel">Take 1</div>
+                    <div class="current-take-time" id="currentTakeTime">0:00 - 0:00</div>
+                </div>
+            </div>
+            <div class="takes-grid-container" id="takesGridContainer">
                 <div class="no-clip-selected">
                     Select a clip from the left panel to compare takes
                 </div>
@@ -490,11 +552,17 @@
         let project = null;
         let transcript = null;
         let selectedClipId = null;
+        let currentTakeIndex = 0;
+        let currentSegmentData = null;
         let hasUnsavedChanges = false;
 
         const clipsList = document.getElementById('clipsList');
-        const videoGridContainer = document.getElementById('videoGridContainer');
+        const takesGridContainer = document.getElementById('takesGridContainer');
+        const videoPlayerSection = document.getElementById('videoPlayerSection');
+        const mainVideo = document.getElementById('mainVideo');
         const videoPanelTitle = document.getElementById('videoPanelTitle');
+        const currentTakeLabel = document.getElementById('currentTakeLabel');
+        const currentTakeTime = document.getElementById('currentTakeTime');
         const transcriptList = document.getElementById('transcriptList');
         const saveBtn = document.getElementById('saveBtn');
         const saveStatus = document.getElementById('saveStatus');
@@ -635,6 +703,7 @@
 
         function selectClip(clipId) {
             selectedClipId = clipId;
+            currentTakeIndex = 0;
             
             document.querySelectorAll('.clip-item').forEach(el => {
                 el.classList.toggle('active', el.dataset.clipId === clipId);
@@ -644,13 +713,14 @@
             if (!clip) return;
 
             videoPanelTitle.textContent = clip.name;
-            renderVideoGrid(clip);
+            renderTakesGrid(clip);
             renderTranscripts(clip);
+            loadTake(clip, 0);
         }
 
-        function renderVideoGrid(clip) {
+        function renderTakesGrid(clip) {
             if (!clip?.segments?.length) {
-                videoGridContainer.innerHTML = '<div class="no-clip-selected">No segments in this clip</div>';
+                takesGridContainer.innerHTML = '<div class="no-clip-selected">No segments in this clip</div>';
                 return;
             }
 
@@ -663,36 +733,31 @@
                 const end = segment.end;
 
                 return `
-                    <div class="take-card ${isSelected ? 'selected' : ''}" data-segment-index="${segRef.segment_index}">
+                    <div class="take-card ${index === currentTakeIndex ? 'active' : ''} ${isSelected ? 'selected' : ''}" 
+                         data-take-index="${index}">
                         <div class="take-card-header">
                             <span class="take-card-title">Take ${index + 1}</span>
-                            <button class="select-take-btn ${isSelected ? 'selected' : ''}"
-                                    data-segment-index="${segRef.segment_index}">
-                                ${isSelected ? 'Selected' : 'Select'}
-                            </button>
                         </div>
-                        <video controls preload="metadata"
-                               data-start="${start}"
-                               data-end="${end}">
-                            <source src="../../data/video_combined.mp4#t=${start}" type="video/mp4">
-                        </video>
-                        <div class="take-card-footer">
-                            <span class="take-card-time">${formatTime(start)} - ${formatTime(end)}</span>
-                        </div>
+                        <div class="take-card-time">${formatTime(start)} - ${formatTime(end)}</div>
+                        <div class="take-card-text">${segment.text}</div>
+                        <button class="select-take-btn ${isSelected ? 'selected' : ''}"
+                                data-take-index="${index}">
+                            ${isSelected ? 'Selected' : 'Select'}
+                        </button>
                     </div>
                 `;
             }).join('');
 
-            videoGridContainer.innerHTML = `<div class="video-grid">${html}</div>`;
+            takesGridContainer.innerHTML = `<div class="takes-grid">${html}</div>`;
 
-            document.querySelectorAll('.take-card video').forEach(video => {
-                const start = parseFloat(video.dataset.start);
-                const end = parseFloat(video.dataset.end);
-
-                video.addEventListener('timeupdate', () => {
-                    if (video.currentTime >= end) {
-                        video.pause();
-                        video.currentTime = start;
+            document.querySelectorAll('.take-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('select-take-btn')) {
+                        const takeIndex = parseInt(card.dataset.takeIndex);
+                        const clip = getClipById(selectedClipId);
+                        if (clip) {
+                            loadTake(clip, takeIndex);
+                        }
                     }
                 });
             });
@@ -700,10 +765,56 @@
             document.querySelectorAll('.select-take-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    selectTake(clip.id, parseInt(btn.dataset.segmentIndex));
+                    const clip = getClipById(selectedClipId);
+                    if (clip) {
+                        const takeIndex = parseInt(btn.dataset.takeIndex);
+                        const segRef = clip.segments[takeIndex];
+                        selectTake(clip.id, segRef.segment_index);
+                    }
                 });
             });
         }
+
+        function loadTake(clip, takeIndex) {
+            if (!clip?.segments?.[takeIndex]) return;
+
+            currentTakeIndex = takeIndex;
+            const segRef = clip.segments[takeIndex];
+            const segment = getSegmentByIndex(segRef.segment_index);
+            if (!segment) return;
+
+            const start = segment.start;
+            const end = segment.end;
+
+            currentSegmentData = { start, end };
+
+            videoPlayerSection.classList.remove('hidden');
+            mainVideo.src = `../../data/video_combined.mp4#t=${start}`;
+
+            const setStartTime = () => {
+                mainVideo.currentTime = start;
+                mainVideo.removeEventListener('canplay', setStartTime);
+            };
+            mainVideo.addEventListener('canplay', setStartTime);
+
+            currentTakeLabel.textContent = `Take ${takeIndex + 1}`;
+            currentTakeTime.textContent = `${formatTime(start)} - ${formatTime(end)}`;
+
+            document.querySelectorAll('.take-card').forEach((card, i) => {
+                card.classList.toggle('active', i === takeIndex);
+            });
+
+            document.querySelectorAll('.take-transcript').forEach((el, i) => {
+                el.classList.toggle('active', i === takeIndex);
+            });
+        }
+
+        mainVideo.addEventListener('timeupdate', () => {
+            if (currentSegmentData && mainVideo.currentTime >= currentSegmentData.end) {
+                mainVideo.pause();
+                mainVideo.currentTime = currentSegmentData.start;
+            }
+        });
 
         function renderTranscripts(clip) {
             if (!clip?.segments?.length) {
@@ -718,7 +829,8 @@
                 const isSelected = isSegmentSelected(clip, segRef.segment_index);
 
                 return `
-                    <div class="take-transcript ${isSelected ? 'selected' : ''}" data-segment-index="${segRef.segment_index}">
+                    <div class="take-transcript ${index === currentTakeIndex ? 'active' : ''} ${isSelected ? 'selected' : ''}" 
+                         data-take-index="${index}">
                         <div class="take-transcript-header">
                             <span class="take-transcript-title">Take ${index + 1}</span>
                             <span class="take-transcript-time">${formatTime(segment.start)} - ${formatTime(segment.end)}</span>
@@ -732,7 +844,11 @@
 
             document.querySelectorAll('.take-transcript').forEach(el => {
                 el.addEventListener('click', () => {
-                    selectTake(clip.id, parseInt(el.dataset.segmentIndex));
+                    const takeIndex = parseInt(el.dataset.takeIndex);
+                    const clip = getClipById(selectedClipId);
+                    if (clip) {
+                        loadTake(clip, takeIndex);
+                    }
                 });
             });
         }
@@ -755,7 +871,7 @@
             markUnsaved();
             
             renderClips();
-            renderVideoGrid(clip);
+            renderTakesGrid(clip);
             renderTranscripts(clip);
             updateStats();
         }

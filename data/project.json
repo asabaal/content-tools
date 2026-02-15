@@ -19,7 +19,14 @@
           "text": "while a wind from God"
         }
       ],
-      "include": true
+      "include": true,
+      "selected_segment": {
+        "segment_index": 5,
+        "original_video_id": "20251008_150325",
+        "start": 39.4733125,
+        "end": 41.0733125,
+        "text": "While a wind of God,"
+      }
     },
     {
       "id": "clip_mlmz4a81_2",
@@ -40,7 +47,14 @@
           "text": "and I tried to run my race in my strength"
         }
       ],
-      "include": true
+      "include": true,
+      "selected_segment": {
+        "segment_index": 14,
+        "original_video_id": "20251008_150420",
+        "start": 95.5093125,
+        "end": 99.44931249999999,
+        "text": "and I tried to run my race in my strength"
+      }
     },
     {
       "id": "clip_mlmz4kux_3",
@@ -61,7 +75,14 @@
           "text": "This reminds me that nothing is impossible through Christ who gives me strength."
         }
       ],
-      "include": true
+      "include": true,
+      "selected_segment": {
+        "segment_index": 24,
+        "original_video_id": "20251008_150513",
+        "start": 151.2733125,
+        "end": 157.7133125,
+        "text": "This reminds me that nothing is impossible through Christ who gives me strength."
+      }
     },
     {
       "id": "clip_mlmz5wv3_4",
@@ -82,7 +103,14 @@
           "text": "the one who speaks all things into being can transform"
         }
       ],
-      "include": true
+      "include": true,
+      "selected_segment": {
+        "segment_index": 26,
+        "original_video_id": "20251008_150513",
+        "start": 161.0333125,
+        "end": 164.1933125,
+        "text": "the one who speaks all things into being can transform"
+      }
     },
     {
       "id": "clip_mlmz68kh_5",
@@ -117,7 +145,14 @@
           "text": "What death have you experienced"
         }
       ],
-      "include": true
+      "include": true,
+      "selected_segment": {
+        "segment_index": 30,
+        "original_video_id": "20251008_150513",
+        "start": 176.9133125,
+        "end": 180.0933125,
+        "text": "What death have you experienced that he needs?"
+      }
     },
     {
       "id": "clip_mlmz6ncf_6",
@@ -159,7 +194,14 @@
           "text": "And how does he speak you into being and life?"
         }
       ],
-      "include": true
+      "include": true,
+      "selected_segment": {
+        "segment_index": 36,
+        "original_video_id": "20251008_150622",
+        "start": 206.95600000000002,
+        "end": 209.676,
+        "text": "And how does he speak you into being and life?"
+      }
     },
     {
       "id": "clip_mlmz73gu_7",
