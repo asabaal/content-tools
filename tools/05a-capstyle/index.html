@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caption Styler - Content Tools</title>
+    <style>
+        @font-face {
+            font-family: 'Bangers';
+            src: url('/tools/05b-render/fonts/Bangers-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+
+        .app {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #16213e;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4cc9f0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .save-status {
+            font-size: 12px;
+            color: #888;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .save-status.unsaved {
+            color: #f6ad55;
+        }
+
+        .save-status.saved {
+            color: #48bb78;
+        }
+
+        .btn {
+            background: #4cc9f0;
+            color: #0f0f1a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #3aa8d8;
+        }
+
+        .btn-success {
+            background: #48bb78;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-secondary {
+            background: #2a2a4a;
+            color: #eee;
+        }
+
+        .btn-secondary:hover {
+            background: #3a3a5a;
+        }
+
+        .btn-render {
+            background: #cb697f;
+        }
+
+        .btn-render:hover {
+            background: #b5586e;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            background: #0f0f1a;
+            position: relative;
+        }
+
+        .video-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        #mainVideo {
+            max-width: 100%;
+            max-height: calc(100vh - 250px);
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .caption-overlay {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            pointer-events: none;
+            max-width: 80%;
+        }
+
+        .caption-text {
+            font-family: 'Bangers', cursive;
+            font-size: 32px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.7);
+            padding: 8px 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .caption-text .word {
+            display: inline;
+            transition: color 0.15s;
+        }
+
+        .caption-text .word.active {
+            text-decoration: underline;
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: #16213e;
+            border-top: 1px solid #2a2a4a;
+        }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #4cc9f0;
+            border: none;
+            color: #0f0f1a;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-btn:hover {
+            background: #3aa8d8;
+        }
+
+        .timeline-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-display {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 12px;
+            color: #888;
+            min-width: 50px;
+        }
+
+        .timeline-slider {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #2a2a4a;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .timeline-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #4cc9f0;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #2a2a4a;
+            background: #16213e;
+            overflow: hidden;
+        }
+
+        .style-section {
+            padding: 16px;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .style-section h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .style-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .style-row label {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .style-row select {
+            background: #2a2a4a;
+            color: #eee;
+            border: 1px solid #3a3a5a;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            min-width: 120px;
+        }
+
+        .color-picker-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .color-picker-row label {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        input[type="color"] {
+            width: 40px;
+            height: 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .preset-colors {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .preset-btn.selected {
+            border-color: #fff;
+        }
+
+        .words-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .words-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .words-header h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clip-filter {
+            background: #2a2a4a;
+            color: #eee;
+            border: 1px solid #3a3a5a;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .words-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .words-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .words-list::-webkit-scrollbar-track {
+            background: #0f0f1a;
+        }
+
+        .words-list::-webkit-scrollbar-thumb {
+            background: #3a3a5a;
+            border-radius: 3px;
+        }
+
+        .segment-group {
+            margin-bottom: 16px;
+        }
+
+        .segment-header {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 6px;
+            padding: 4px 8px;
+            background: #0f0f1a;
+            border-radius: 4px;
+        }
+
+        .words-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .word-chip {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+            background: #2a2a4a;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .word-chip:hover {
+            background: #3a3a5a;
+        }
+
+        .word-chip.selected {
+            border-color: #4cc9f0;
+            background: #2a3a5a;
+        }
+
+        .word-chip.current {
+            border-color: #cb697f;
+        }
+
+        .selection-actions {
+            padding: 12px 16px;
+            border-top: 1px solid #2a2a4a;
+            background: #0f0f1a;
+        }
+
+        .selection-info {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .selection-color {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .selection-color input[type="color"] {
+            flex-shrink: 0;
+        }
+
+        .selection-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 11px;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 15, 26, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 1000;
+        }
+
+        .loading.hidden {
+            display: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #2a2a4a;
+            border-top-color: #4cc9f0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .render-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #16213e;
+            border: 1px solid #2a2a4a;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+
+        .render-status.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .render-status .spinner {
+            width: 20px;
+            height: 20px;
+            border-width: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>Caption Styler</h1>
+            <div class="header-actions">
+                <span class="save-status" id="saveStatus">Ready</span>
+                <button class="btn btn-secondary" id="saveBtn">Save</button>
+                <button class="btn btn-render" id="renderBtn">Render Video</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video id="mainVideo" src="/data/output/video_combined.mp4"></video>
+                    <div class="caption-overlay" id="captionOverlay">
+                        <div class="caption-text" id="captionText"></div>
+                    </div>
+                </div>
+                <div class="video-controls">
+                    <button class="play-btn" id="playBtn">▶</button>
+                    <div class="timeline-container">
+                        <span class="time-display" id="currentTime">0:00</span>
+                        <input type="range" class="timeline-slider" id="timeline" min="0" max="100" value="0" step="0.1">
+                        <span class="time-display" id="totalTime">0:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="right-panel">
+                <div class="style-section">
+                    <h3>Style</h3>
+                    <div class="style-row">
+                        <label>Font Size</label>
+                        <select id="fontSize">
+                            <option value="small">Small</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+                    <div class="style-row">
+                        <label>Position</label>
+                        <select id="position">
+                            <option value="bottom">Bottom</option>
+                            <option value="lower_third" selected>Lower Third</option>
+                            <option value="middle">Middle</option>
+                        </select>
+                    </div>
+                    <div class="style-row">
+                        <label>Background</label>
+                        <select id="background">
+                            <option value="none">None</option>
+                            <option value="dark_box" selected>Dark Box</option>
+                            <option value="outline">Outline</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="style-section">
+                    <h3>Colors</h3>
+                    <div class="color-picker-row">
+                        <label>Default:</label>
+                        <input type="color" id="defaultColor" value="#ffffff">
+                    </div>
+                    <h4 style="font-size: 11px; color: #666; margin-top: 12px; margin-bottom: 8px;">Presets</h4>
+                    <div class="preset-colors" id="presetColors">
+                        <button class="preset-btn" style="background: #cb697f;" data-color="#cb697f" title="Brand"></button>
+                        <button class="preset-btn" style="background: #4cc9f0;" data-color="#4cc9f0" title="Accent"></button>
+                        <button class="preset-btn" style="background: #ffffff;" data-color="#ffffff" title="White"></button>
+                    </div>
+                </div>
+
+                <div class="words-section">
+                    <div class="words-header">
+                        <h3>Words</h3>
+                        <select class="clip-filter" id="clipFilter">
+                            <option value="all">All Clips</option>
+                        </select>
+                    </div>
+                    <div class="words-list" id="wordsList"></div>
+                    <div class="selection-actions">
+                        <div class="selection-info" id="selectionInfo">No words selected</div>
+                        <div class="selection-color">
+                            <input type="color" id="selectionColor" value="#cb697f">
+                            <button class="btn btn-small" id="applyColorBtn">Apply</button>
+                        </div>
+                        <div class="selection-buttons">
+                            <button class="btn btn-secondary btn-small" id="colorSegmentBtn">Color Segment</button>
+                            <button class="btn btn-secondary btn-small" id="resetColorBtn">Reset</button>
+                            <button class="btn btn-secondary btn-small" id="clearSelectionBtn">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <span id="loadingText">Loading...</span>
+    </div>
+
+    <div class="render-status" id="renderStatus">
+        <div class="spinner"></div>
+        <span>Rendering video...</span>
+    </div>
+
+    <script>
+        let project = null;
+        let segments = [];
+        let wordColors = {};
+        let selectedWords = new Set();
+        let lastSelectedWord = null;
+        let currentSegmentIndex = -1;
+        let captionStyle = {
+            font_family: 'Bangers',
+            font_size: 'medium',
+            position: 'lower_third',
+            background: 'dark_box',
+            default_color: '#ffffff',
+            color_presets: [
+                { name: 'Brand', color: '#cb697f' },
+                { name: 'Accent', color: '#4cc9f0' },
+                { name: 'White', color: '#ffffff' }
+            ]
+        };
+
+        const video = document.getElementById('mainVideo');
+        const captionText = document.getElementById('captionText');
+        const playBtn = document.getElementById('playBtn');
+        const timeline = document.getElementById('timeline');
+        const currentTimeEl = document.getElementById('currentTime');
+        const totalTimeEl = document.getElementById('totalTime');
+        const wordsList = document.getElementById('wordsList');
+        const selectionInfo = document.getElementById('selectionInfo');
+        const selectionColor = document.getElementById('selectionColor');
+        const clipFilter = document.getElementById('clipFilter');
+        const saveStatus = document.getElementById('saveStatus');
+        const loading = document.getElementById('loading');
+        const renderStatus = document.getElementById('renderStatus');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function getWordKey(segmentIndex, wordIndex) {
+            return `${segmentIndex}_${wordIndex}`;
+        }
+
+        function getWordColor(segmentIndex, wordIndex) {
+            const key = getWordKey(segmentIndex, wordIndex);
+            return wordColors[key] || captionStyle.default_color;
+        }
+
+        async function loadProject() {
+            try {
+                const response = await fetch('/api/project');
+                project = await response.json();
+                
+                segments = project.transcript?.segments || [];
+                wordColors = project.word_colors || {};
+                captionStyle = { ...captionStyle, ...project.caption_style };
+                
+                applyStyleSettings();
+                buildWordsList();
+                buildClipFilter();
+                
+                loading.classList.add('hidden');
+            } catch (err) {
+                console.error('Failed to load project:', err);
+                document.getElementById('loadingText').textContent = 'Failed to load project';
+            }
+        }
+
+        function applyStyleSettings() {
+            document.getElementById('fontSize').value = captionStyle.font_size;
+            document.getElementById('position').value = captionStyle.position;
+            document.getElementById('background').value = captionStyle.background;
+            document.getElementById('defaultColor').value = captionStyle.default_color;
+            
+            updateCaptionPosition();
+            updateCaptionStyle();
+        }
+
+        function updateCaptionPosition() {
+            const overlay = document.getElementById('captionOverlay');
+            switch (captionStyle.position) {
+                case 'bottom':
+                    overlay.style.bottom = '60px';
+                    break;
+                case 'lower_third':
+                    overlay.style.bottom = '80px';
+                    break;
+                case 'middle':
+                    overlay.style.bottom = '50%';
+                    overlay.style.transform = 'translateX(-50%) translateY(50%)';
+                    return;
+            }
+            overlay.style.transform = 'translateX(-50%)';
+        }
+
+        function updateCaptionStyle() {
+            const sizes = { small: '24px', medium: '32px', large: '42px' };
+            captionText.style.fontSize = sizes[captionStyle.font_size];
+            
+            switch (captionStyle.background) {
+                case 'none':
+                    captionText.style.background = 'transparent';
+                    captionText.style.textShadow = '2px 2px 4px rgba(0,0,0,0.8)';
+                    break;
+                case 'dark_box':
+                    captionText.style.background = 'rgba(0,0,0,0.7)';
+                    captionText.style.textShadow = 'none';
+                    break;
+                case 'outline':
+                    captionText.style.background = 'transparent';
+                    captionText.style.textShadow = '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000';
+                    break;
+            }
+        }
+
+        function buildClipFilter() {
+            const clips = project.clips?.filter(c => c.enabled && c.in_timeline) || [];
+            clipFilter.innerHTML = '<option value="all">All Clips</option>';
+            clips.forEach((clip, i) => {
+                const opt = document.createElement('option');
+                opt.value = clip.id;
+                opt.textContent = clip.name?.substring(0, 25) || `Clip ${i + 1}`;
+                clipFilter.appendChild(opt);
+            });
+        }
+
+        function buildWordsList() {
+            wordsList.innerHTML = '';
+            const filterValue = clipFilter.value;
+            
+            const filteredSegments = filterValue === 'all' 
+                ? segments 
+                : segments.filter(seg => {
+                    const clip = project.clips?.find(c => 
+                        c.selected_segment?.original_video_id === seg.original_video_id &&
+                        c.id === filterValue
+                    );
+                    return !!clip;
+                });
+            
+            filteredSegments.forEach((segment, segIdx) => {
+                const globalSegIdx = segments.indexOf(segment);
+                const group = document.createElement('div');
+                group.className = 'segment-group';
+                
+                const header = document.createElement('div');
+                header.className = 'segment-header';
+                header.textContent = segment.text?.substring(0, 50) || `Segment ${globalSegIdx}`;
+                group.appendChild(header);
+                
+                const grid = document.createElement('div');
+                grid.className = 'words-grid';
+                
+                segment.words?.forEach((word, wordIdx) => {
+                    const chip = document.createElement('span');
+                    chip.className = 'word-chip';
+                    chip.textContent = word.text?.replace(/[,.!?]/g, '') || word.text;
+                    chip.dataset.segmentIndex = globalSegIdx;
+                    chip.dataset.wordIndex = wordIdx;
+                    chip.dataset.key = getWordKey(globalSegIdx, wordIdx);
+                    
+                    const color = getWordColor(globalSegIdx, wordIdx);
+                    chip.style.color = color;
+                    
+                    chip.addEventListener('click', (e) => handleWordClick(e, globalSegIdx, wordIdx));
+                    chip.addEventListener('contextmenu', (e) => {
+                        e.preventDefault();
+                        seekToWord(globalSegIdx, wordIdx);
+                    });
+                    
+                    grid.appendChild(chip);
+                });
+                
+                group.appendChild(grid);
+                wordsList.appendChild(group);
+            });
+        }
+
+        function handleWordClick(e, segmentIndex, wordIndex) {
+            const key = getWordKey(segmentIndex, wordIndex);
+            
+            if (e.ctrlKey || e.metaKey) {
+                if (selectedWords.has(key)) {
+                    selectedWords.delete(key);
+                } else {
+                    selectedWords.add(key);
+                }
+            } else if (e.shiftKey && lastSelectedWord) {
+                const [lastSeg, lastWord] = lastSelectedWord.split('_').map(Number);
+                const startIdx = Math.min(lastWord, wordIndex);
+                const endIdx = Math.max(lastWord, wordIndex);
+                
+                for (let i = startIdx; i <= endIdx; i++) {
+                    selectedWords.add(getWordKey(segmentIndex, i));
+                }
+            } else {
+                selectedWords.clear();
+                selectedWords.add(key);
+            }
+            
+            lastSelectedWord = key;
+            updateSelectionUI();
+        }
+
+        function updateSelectionUI() {
+            document.querySelectorAll('.word-chip').forEach(chip => {
+                chip.classList.toggle('selected', selectedWords.has(chip.dataset.key));
+            });
+            
+            const count = selectedWords.size;
+            selectionInfo.textContent = count === 0 
+                ? 'No words selected' 
+                : `${count} word${count > 1 ? 's' : ''} selected`;
+        }
+
+        function applyColorToSelection(color) {
+            selectedWords.forEach(key => {
+                wordColors[key] = color;
+            });
+            
+            document.querySelectorAll('.word-chip.selected').forEach(chip => {
+                chip.style.color = color;
+            });
+            
+            updateCaption();
+            markUnsaved();
+        }
+
+        function colorCurrentSegment() {
+            if (currentSegmentIndex < 0) return;
+            
+            const segment = segments[currentSegmentIndex];
+            if (!segment?.words) return;
+            
+            const color = selectionColor.value;
+            segment.words.forEach((_, wordIdx) => {
+                const key = getWordKey(currentSegmentIndex, wordIdx);
+                wordColors[key] = color;
+                selectedWords.add(key);
+            });
+            
+            updateSelectionUI();
+            updateCaption();
+            markUnsaved();
+        }
+
+        function resetSelectedColors() {
+            selectedWords.forEach(key => {
+                delete wordColors[key];
+            });
+            
+            document.querySelectorAll('.word-chip.selected').forEach(chip => {
+                const segIdx = parseInt(chip.dataset.segmentIndex);
+                const wordIdx = parseInt(chip.dataset.wordIndex);
+                chip.style.color = getWordColor(segIdx, wordIdx);
+            });
+            
+            updateCaption();
+            markUnsaved();
+        }
+
+        function clearSelection() {
+            selectedWords.clear();
+            lastSelectedWord = null;
+            updateSelectionUI();
+        }
+
+        function seekToWord(segmentIndex, wordIndex) {
+            const segment = segments[segmentIndex];
+            const word = segment?.words?.[wordIndex];
+            if (word?.start !== undefined) {
+                video.currentTime = word.start;
+                video.play();
+            }
+        }
+
+        function findCurrentSegment(time) {
+            for (let i = 0; i < segments.length; i++) {
+                const seg = segments[i];
+                if (time >= seg.start && time < seg.end) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        function updateCaption() {
+            const time = video.currentTime;
+            const segIdx = findCurrentSegment(time);
+            
+            if (segIdx < 0) {
+                captionText.innerHTML = '';
+                currentSegmentIndex = -1;
+                return;
+            }
+            
+            currentSegmentIndex = segIdx;
+            const segment = segments[segIdx];
+            
+            let html = '';
+            segment.words?.forEach((word, wordIdx) => {
+                const color = getWordColor(segIdx, wordIdx);
+                const isActive = time >= word.start && time < word.end;
+                const activeClass = isActive ? ' active' : '';
+                html += `<span class="word${activeClass}" style="color: ${color}">${word.text}</span> `;
+            });
+            
+            captionText.innerHTML = html.trim();
+            
+            document.querySelectorAll('.word-chip').forEach(chip => {
+                const chipSegIdx = parseInt(chip.dataset.segmentIndex);
+                const chipWordIdx = parseInt(chip.dataset.wordIndex);
+                const word = segments[chipSegIdx]?.words?.[chipWordIdx];
+                
+                chip.classList.toggle('current', 
+                    chipSegIdx === segIdx && 
+                    word && 
+                    time >= word.start && 
+                    time < word.end
+                );
+            });
+        }
+
+        function markUnsaved() {
+            saveStatus.textContent = 'Unsaved';
+            saveStatus.className = 'save-status unsaved';
+        }
+
+        function markSaved() {
+            saveStatus.textContent = 'Saved';
+            saveStatus.className = 'save-status saved';
+        }
+
+        async function saveProject() {
+            try {
+                project.word_colors = wordColors;
+                project.caption_style = captionStyle;
+                
+                const response = await fetch('/api/project', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(project)
+                });
+                
+                if (response.ok) {
+                    markSaved();
+                } else {
+                    console.error('Save failed:', await response.text());
+                }
+            } catch (err) {
+                console.error('Save error:', err);
+            }
+        }
+
+        async function triggerRender() {
+            await saveProject();
+            
+            renderStatus.classList.add('visible');
+            
+            try {
+                const response = await fetch('/api/render', { method: 'POST' });
+                const result = await response.json();
+                
+                if (result.status === 'rendering_started') {
+                    setTimeout(() => {
+                        renderStatus.classList.remove('visible');
+                        alert('Render started! Check console for progress.');
+                    }, 3000);
+                }
+            } catch (err) {
+                console.error('Render error:', err);
+                renderStatus.classList.remove('visible');
+            }
+        }
+
+        video.addEventListener('loadedmetadata', () => {
+            totalTimeEl.textContent = formatTime(video.duration);
+            timeline.max = video.duration;
+        });
+
+        video.addEventListener('timeupdate', () => {
+            currentTimeEl.textContent = formatTime(video.currentTime);
+            timeline.value = video.currentTime;
+            updateCaption();
+        });
+
+        video.addEventListener('play', () => {
+            playBtn.textContent = '⏸';
+        });
+
+        video.addEventListener('pause', () => {
+            playBtn.textContent = '▶';
+        });
+
+        playBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+
+        timeline.addEventListener('input', () => {
+            video.currentTime = parseFloat(timeline.value);
+        });
+
+        document.getElementById('fontSize').addEventListener('change', (e) => {
+            captionStyle.font_size = e.target.value;
+            updateCaptionStyle();
+            markUnsaved();
+        });
+
+        document.getElementById('position').addEventListener('change', (e) => {
+            captionStyle.position = e.target.value;
+            updateCaptionPosition();
+            markUnsaved();
+        });
+
+        document.getElementById('background').addEventListener('change', (e) => {
+            captionStyle.background = e.target.value;
+            updateCaptionStyle();
+            markUnsaved();
+        });
+
+        document.getElementById('defaultColor').addEventListener('input', (e) => {
+            captionStyle.default_color = e.target.value;
+            buildWordsList();
+            updateCaption();
+            markUnsaved();
+        });
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectionColor.value = btn.dataset.color;
+            });
+        });
+
+        document.getElementById('applyColorBtn').addEventListener('click', () => {
+            applyColorToSelection(selectionColor.value);
+        });
+
+        document.getElementById('colorSegmentBtn').addEventListener('click', colorCurrentSegment);
+        document.getElementById('resetColorBtn').addEventListener('click', resetSelectedColors);
+        document.getElementById('clearSelectionBtn').addEventListener('click', clearSelection);
+
+        clipFilter.addEventListener('change', buildWordsList);
+
+        document.getElementById('saveBtn').addEventListener('click', saveProject);
+        document.getElementById('renderBtn').addEventListener('click', triggerRender);
+
+        loadProject();
+    </script>
+</body>
+</html>

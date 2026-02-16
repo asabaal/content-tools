@@ -15,6 +15,8 @@ import os
 import json
 import re
 import urllib.parse
+import subprocess
+import threading
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -118,6 +120,31 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Accept-Ranges', 'bytes')
         self.end_headers()
 
+    def do_GET(self):
+        """Handle GET requests."""
+        if self.path == '/api/project':
+            self.handle_get_project()
+        else:
+            super().do_GET()
+    
+    def handle_get_project(self):
+        """Return project.json content."""
+        project_path = 'data/project.json'
+        if os.path.exists(project_path):
+            with open(project_path, 'r', encoding='utf-8') as f:
+                data = f.read()
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(data.encode('utf-8'))
+        else:
+            self.send_response(404)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(b'{"error": "Project not found"}')
+
     def do_PUT(self):
         """Handle PUT requests for saving files."""
         if self.path.startswith('/data/'):
@@ -149,8 +176,64 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
 
     def do_POST(self):
-        """Handle POST requests (fallback for PUT)."""
-        self.do_PUT()
+        """Handle POST requests."""
+        if self.path == '/api/render':
+            self.handle_render()
+        elif self.path == '/api/project':
+            self.handle_save_project()
+        else:
+            self.do_PUT()
+    
+    def handle_save_project(self):
+        """Save project.json."""
+        content_length = int(self.headers.get('Content-Length', 0))
+        body = self.rfile.read(content_length)
+        
+        try:
+            json.loads(body)
+            os.makedirs('data', exist_ok=True)
+            with open('data/project.json', 'wb') as f:
+                f.write(body)
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(b'{"status": "saved"}')
+        except json.JSONDecodeError:
+            self.send_response(400)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(b'{"error": "Invalid JSON"}')
+    
+    def handle_render(self):
+        """Trigger video rendering in background."""
+        def run_render():
+            try:
+                result = subprocess.run(
+                    [sys.executable, 'tools/05b-render/render.py', '-v'],
+                    capture_output=True,
+                    text=True,
+                    cwd=os.path.dirname(os.path.abspath(__file__))
+                )
+                print(f"Render completed with code {result.returncode}")
+                if result.stdout:
+                    print(result.stdout)
+                if result.stderr:
+                    print(result.stderr, file=sys.stderr)
+            except Exception as e:
+                print(f"Render failed: {e}", file=sys.stderr)
+        
+        thread = threading.Thread(target=run_render)
+        thread.daemon = True
+        thread.start()
+        
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(b'{"status": "rendering_started"}')
 
     def log_message(self, format, *args):
         """Custom log format."""
