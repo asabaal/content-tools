@@ -38,7 +38,7 @@ def main():
     
     root = get_project_root()
     
-    input_video = root / 'data' / 'output' / 'video_combined.mp4'
+    input_video = root / 'data' / 'video_combined.mp4'
     output_dir = Path(args.output) if args.output else root / 'data' / 'output'
     output_video = output_dir / 'final_video.mp4'
     output_srt = output_dir / 'captions.srt'
