@@ -1471,15 +1471,38 @@
 
             const times = getEffectiveTimes(clip);
             console.log('[loadVideoPreview] times.start:', times.start, 'times.end:', times.end);
-            
-            mainVideo.src = '../../data/video_combined.mp4';
-            mainVideo.currentTime = times.start;
+
+            mainVideo.timeStart = times.start;
+            mainVideo.timeEnd = times.end;
 
             videoInfoTitle.textContent = clip.name;
             videoInfoTime.textContent = `${formatTimeShort(times.start)} - ${formatTimeShort(times.end)}`;
 
-            mainVideo.timeStart = times.start;
-            mainVideo.timeEnd = times.end;
+            const targetSrc = '../../data/video_combined.mp4';
+            const srcChanged = !mainVideo.src || !mainVideo.src.includes('video_combined.mp4');
+            console.log('[loadVideoPreview] srcChanged:', srcChanged, 'currentSrc:', mainVideo.src);
+            
+            if (srcChanged) {
+                mainVideo.onloadedmetadata = () => {
+                    console.log('[loadVideoPreview] onloadedmetadata, seeking to:', times.start);
+                    console.log('[loadVideoPreview] seekable ranges:', mainVideo.seekable.length);
+                    for (let i = 0; i < mainVideo.seekable.length; i++) {
+                        console.log('[loadVideoPreview] seekable:', mainVideo.seekable.start(i).toFixed(3), '-', mainVideo.seekable.end(i).toFixed(3));
+                    }
+                    console.log('[loadVideoPreview] duration:', mainVideo.duration);
+                    mainVideo.currentTime = times.start;
+                    mainVideo.onloadedmetadata = null;
+                };
+                mainVideo.src = targetSrc;
+            } else {
+                console.log('[loadVideoPreview] same src, just seeking to:', times.start);
+                console.log('[loadVideoPreview] seekable ranges:', mainVideo.seekable.length);
+                for (let i = 0; i < mainVideo.seekable.length; i++) {
+                    console.log('[loadVideoPreview] seekable:', mainVideo.seekable.start(i).toFixed(3), '-', mainVideo.seekable.end(i).toFixed(3));
+                }
+                console.log('[loadVideoPreview] readyState:', mainVideo.readyState);
+                mainVideo.currentTime = times.start;
+            }
         }
 
         mainVideo.addEventListener('timeupdate', () => {
@@ -1576,6 +1599,7 @@
 
         mainVideo.addEventListener('seeking', () => {
             console.log('[VIDEO EVENT] seeking to:', mainVideo.currentTime.toFixed(3));
+            console.trace('[SEEKING STACK TRACE]');
         });
 
         mainVideo.addEventListener('seeked', () => {
@@ -1734,14 +1758,23 @@
             renderTimelineCards();
             renderEditor();
 
-            mainVideo.src = '../../data/video_combined.mp4';
-            mainVideo.currentTime = times.start;
             mainVideo.timeStart = times.start;
             mainVideo.timeEnd = times.end;
 
-            mainVideo.oncanplay = () => {
+            const targetSrc = '../../data/video_combined.mp4';
+            const srcChanged = !mainVideo.src || !mainVideo.src.includes('video_combined.mp4');
+            
+            if (srcChanged) {
+                mainVideo.onloadedmetadata = () => {
+                    mainVideo.currentTime = times.start;
+                    mainVideo.onloadedmetadata = null;
+                    mainVideo.play();
+                };
+                mainVideo.src = targetSrc;
+            } else {
+                mainVideo.currentTime = times.start;
                 mainVideo.play();
-            };
+            }
 
             mainVideo.onended = () => {
                 previewIndex++;
