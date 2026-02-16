@@ -449,10 +449,97 @@
             position: relative;
             background: #16213e;
             overflow: hidden;
-            cursor: grab;
+            cursor: crosshair;
         }
 
-        .waveform-wrapper.panning {
+        .waveform-wrapper.selecting {
+            cursor: crosshair;
+        }
+
+        #deleteRegionsLayer {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+        }
+
+        #deleteRegionsLayer .delete-region {
+            pointer-events: auto;
+        }
+
+        .selection-overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: rgba(255, 100, 100, 0.3);
+            border-left: 2px solid #ff6464;
+            border-right: 2px solid #ff6464;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .delete-region {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: rgba(255, 100, 100, 0.25);
+            border-left: 1px solid #ff6464;
+            border-right: 1px solid #ff6464;
+            z-index: 5;
+            cursor: pointer;
+        }
+
+        .delete-region:hover {
+            background: rgba(255, 100, 100, 0.4);
+        }
+
+        .delete-region-label {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            font-size: 10px;
+            color: #ff6464;
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .waveform-scrollbar-container {
+            height: 20px;
+            background: #0f0f1a;
+            border-top: 1px solid #2a2a4a;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .waveform-scrollbar-track {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            top: 4px;
+            bottom: 4px;
+            background: #1a1a2e;
+            border-radius: 4px;
+        }
+
+        .waveform-scrollbar-thumb {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: #4a4a6a;
+            border-radius: 4px;
+            cursor: grab;
+            min-width: 30px;
+        }
+
+        .waveform-scrollbar-thumb:hover {
+            background: #5a5a7a;
+        }
+
+        .waveform-scrollbar-thumb.dragging {
+            background: #4cc9f0;
             cursor: grabbing;
         }
 
@@ -583,6 +670,8 @@
             <h1>04 - Assemble Timeline</h1>
             <div class="header-actions">
                 <span class="save-status" id="saveStatus"></span>
+                <button class="btn btn-secondary btn-small" id="deleteSelectionBtn" style="display: none; background: #c53030;">Delete Region</button>
+                <button class="btn btn-secondary btn-small" id="cancelSelectionBtn" style="display: none;">Cancel</button>
                 <button class="btn btn-secondary btn-small" id="previewAllBtn">Preview All</button>
                 <button class="btn btn-secondary btn-small" id="exportBtn">Export EDL</button>
                 <button class="btn btn-success btn-small" id="saveBtn">Save</button>
@@ -601,7 +690,6 @@
             <div class="editor-header">
                 <span class="editor-title" id="editorTitle">Select a clip</span>
                 <div class="editor-actions">
-                    <button class="btn btn-secondary btn-small" id="splitBtn">Split</button>
                     <button class="btn btn-secondary btn-small" id="toggleEnabledBtn">Disable</button>
                 </div>
             </div>
@@ -632,10 +720,17 @@
                     <div class="waveform-canvas-container" id="waveformCanvasContainer">
                         <canvas id="waveformCanvas"></canvas>
                     </div>
+                    <div id="deleteRegionsLayer"></div>
+                    <div class="selection-overlay" id="selectionOverlay" style="display: none;"></div>
                     <div class="trim-handle trim-handle-start" id="trimStart"></div>
                     <div class="trim-handle trim-handle-end" id="trimEnd"></div>
                     <div class="playhead" id="playhead"></div>
                     <div class="waveform-zoom-info" id="waveformZoomInfo">1.0x</div>
+                </div>
+                <div class="waveform-scrollbar-container">
+                    <div class="waveform-scrollbar-track" id="scrollbarTrack">
+                        <div class="waveform-scrollbar-thumb" id="scrollbarThumb"></div>
+                    </div>
                 </div>
                 <div class="editor-info">
                     <div class="editor-transcript" id="editorTranscript">-</div>
@@ -656,11 +751,17 @@
         let selectedClipId = null;
         let hasUnsavedChanges = false;
         let isDraggingTrim = null;
-        let isDraggingWaveform = false;
-        let waveformDragStartX = 0;
-        let waveformDragStartPan = 0;
-        let previewQueue = [];
-        let previewIndex = 0;
+
+        // Scrollbar state
+        let isDraggingScrollbar = false;
+        let scrollbarDragStartX = 0;
+        let scrollbarDragStartPan = 0;
+
+        // Selection state
+        let isSelecting = false;
+        let selectionStartX = 0;
+        let selectionStart = null;
+        let selectionEnd = null;
 
         // Waveform zoom/pan state
         let waveformZoom = 1;
@@ -698,8 +799,13 @@
         const saveBtn = document.getElementById('saveBtn');
         const previewAllBtn = document.getElementById('previewAllBtn');
         const exportBtn = document.getElementById('exportBtn');
-        const splitBtn = document.getElementById('splitBtn');
         const toggleEnabledBtn = document.getElementById('toggleEnabledBtn');
+        const selectionOverlay = document.getElementById('selectionOverlay');
+        const deleteSelectionBtn = document.getElementById('deleteSelectionBtn');
+        const cancelSelectionBtn = document.getElementById('cancelSelectionBtn');
+        const scrollbarTrack = document.getElementById('scrollbarTrack');
+        const scrollbarThumb = document.getElementById('scrollbarThumb');
+        const deleteRegionsLayer = document.getElementById('deleteRegionsLayer');
 
         const ctx = waveformCanvas.getContext('2d');
 
@@ -718,6 +824,31 @@
 
         function formatDuration(seconds) {
             return `${seconds.toFixed(2)}s`;
+        }
+
+        function getDeleteRegions() {
+            return project?.delete_regions || [];
+        }
+
+        function isInDeleteRegion(time) {
+            const regions = getDeleteRegions();
+            for (const region of regions) {
+                if (time >= region.start && time < region.end) {
+                    return region;
+                }
+            }
+            return null;
+        }
+
+        function getNextTimeAfterDeleteRegions(time) {
+            const regions = getDeleteRegions().sort((a, b) => a.start - b.start);
+            let adjustedTime = time;
+            for (const region of regions) {
+                if (adjustedTime >= region.start && adjustedTime < region.end) {
+                    adjustedTime = region.end;
+                }
+            }
+            return adjustedTime;
         }
 
         function markUnsaved() {
@@ -771,6 +902,10 @@
 
         function initializeTimelineData() {
             if (!project.clips) return;
+
+            if (!project.delete_regions) {
+                project.delete_regions = [];
+            }
 
             project.clips.forEach((clip) => {
                 if (clip.in_timeline === undefined) {
@@ -898,11 +1033,18 @@
         function renderWordLayer() {
             if (!transcript?.segments) return;
 
+            const deleteRegions = getDeleteRegions();
+
             let html = '';
             transcript.segments.forEach((seg, segIndex) => {
                 if (!seg.words) return;
                 
                 seg.words.forEach((word, wordIndex) => {
+                    const isDeleted = deleteRegions.some(r => 
+                        word.start >= r.start && word.end <= r.end
+                    );
+                    if (isDeleted) return;
+
                     html += `
                         <div class="word" 
                              data-segment="${segIndex}" 
@@ -1121,9 +1263,53 @@
                 trimEnd.style.left = (endX - 12 - waveformPanX) + 'px';
             }
 
+            renderDeleteRegionsVisual();
+            updateScrollbar();
+
             waveformZoomInfo.textContent = `${waveformZoom.toFixed(1)}x`;
             updatePlayheadPosition();
             positionWords();
+        }
+
+        function renderDeleteRegionsVisual() {
+            const duration = waveformData.duration;
+            const deleteRegions = getDeleteRegions();
+
+            let html = '';
+            deleteRegions.forEach((region, index) => {
+                const startX = (region.start / duration) * waveformWidth;
+                const endX = (region.end / duration) * waveformWidth;
+
+                html += `
+                    <div class="delete-region" 
+                         data-delete-id="${region.id}"
+                         style="left: ${startX}px; width: ${endX - startX}px; transform: translateX(${-waveformPanX}px);">
+                        <span class="delete-region-label">Deleted</span>
+                    </div>
+                `;
+            });
+
+            deleteRegionsLayer.innerHTML = html;
+
+            document.querySelectorAll('.delete-region').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const deleteId = el.dataset.deleteId;
+                    removeDeleteRegion(deleteId);
+                });
+            });
+        }
+
+        function updateScrollbar() {
+            const containerWidth = scrollbarTrack.offsetWidth;
+            const visibleRatio = waveformWrapper.offsetWidth / waveformWidth;
+            const thumbWidth = Math.max(30, containerWidth * visibleRatio);
+            const maxThumbPan = containerWidth - thumbWidth;
+            const maxWaveformPan = waveformWidth - waveformWrapper.offsetWidth;
+            const thumbPan = maxWaveformPan > 0 ? (waveformPanX / maxWaveformPan) * maxThumbPan : 0;
+
+            scrollbarThumb.style.width = thumbWidth + 'px';
+            scrollbarThumb.style.left = thumbPan + 'px';
         }
 
         function updatePlayheadPosition() {
@@ -1172,6 +1358,7 @@
             }
 
             const zoomRatio = waveformZoom / oldZoom;
+            waveformWidth = rect.width * waveformZoom;
             waveformPanX = mouseX - (mouseX - waveformPanX) * zoomRatio;
 
             const maxPan = Math.max(0, waveformWidth - rect.width);
@@ -1184,22 +1371,114 @@
         waveformWrapper.addEventListener('mousedown', (e) => {
             if (e.target.classList.contains('trim-handle')) return;
             if (e.target.closest('.word')) return;
+            if (e.target.closest('.delete-region')) return;
 
-            isDraggingWaveform = true;
-            waveformDragStartX = e.clientX;
-            waveformDragStartPan = waveformPanX;
-            waveformWrapper.classList.add('panning');
+            const rect = waveformWrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left + waveformPanX;
+            const time = (x / waveformWidth) * waveformData.duration;
+
+            isSelecting = true;
+            selectionStartX = e.clientX;
+            selectionStart = time;
+            selectionEnd = time;
+
+            selectionOverlay.style.display = 'block';
+            updateSelectionOverlay();
+        });
+
+        function updateSelectionOverlay() {
+            if (selectionStart === null || selectionEnd === null) return;
+
+            const minTime = Math.min(selectionStart, selectionEnd);
+            const maxTime = Math.max(selectionStart, selectionEnd);
+
+            const startX = (minTime / waveformData.duration) * waveformWidth - waveformPanX;
+            const endX = (maxTime / waveformData.duration) * waveformWidth - waveformPanX;
+
+            selectionOverlay.style.left = startX + 'px';
+            selectionOverlay.style.width = (endX - startX) + 'px';
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (isSelecting) {
+                const rect = waveformWrapper.getBoundingClientRect();
+                const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left)) + waveformPanX;
+                selectionEnd = (x / waveformWidth) * waveformData.duration;
+                updateSelectionOverlay();
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isSelecting) {
+                isSelecting = false;
+
+                if (selectionStart !== null && selectionEnd !== null) {
+                    const duration = Math.abs(selectionEnd - selectionStart);
+                    if (duration > 0.1) {
+                        deleteSelectionBtn.style.display = 'inline-block';
+                        cancelSelectionBtn.style.display = 'inline-block';
+                    } else {
+                        clearSelection();
+                    }
+                }
+            }
+        });
+
+        function clearSelection() {
+            selectionStart = null;
+            selectionEnd = null;
+            selectionOverlay.style.display = 'none';
+            deleteSelectionBtn.style.display = 'none';
+            cancelSelectionBtn.style.display = 'none';
+        }
+
+        cancelSelectionBtn.addEventListener('click', clearSelection);
+
+        deleteSelectionBtn.addEventListener('click', () => {
+            if (selectionStart === null || selectionEnd === null) return;
+
+            const start = Math.min(selectionStart, selectionEnd);
+            const end = Math.max(selectionStart, selectionEnd);
+
+            const region = {
+                id: `del_${Date.now()}`,
+                start: start,
+                end: end
+            };
+
+            project.delete_regions.push(region);
+            markUnsaved();
+            clearSelection();
+            renderDeleteRegionsVisual();
+            renderWordLayer();
+        });
+
+        function removeDeleteRegion(regionId) {
+            project.delete_regions = project.delete_regions.filter(r => r.id !== regionId);
+            markUnsaved();
+            renderDeleteRegionsVisual();
+            renderWordLayer();
+        }
+
+        scrollbarThumb.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            isDraggingScrollbar = true;
+            scrollbarDragStartX = e.clientX;
+            scrollbarDragStartPan = waveformPanX;
+            scrollbarThumb.classList.add('dragging');
         });
 
         document.addEventListener('mousemove', (e) => {
-            if (isDraggingWaveform) {
-                const deltaX = waveformDragStartX - e.clientX;
-                waveformPanX = waveformDragStartPan + deltaX;
+            if (isDraggingScrollbar) {
+                const containerWidth = scrollbarTrack.offsetWidth;
+                const visibleRatio = waveformWrapper.offsetWidth / waveformWidth;
+                const thumbWidth = Math.max(30, containerWidth * visibleRatio);
+                const maxThumbPan = containerWidth - thumbWidth;
+                const maxWaveformPan = waveformWidth - waveformWrapper.offsetWidth;
 
-                const rect = waveformWrapper.getBoundingClientRect();
-                const currentWidth = rect.width * waveformZoom;
-                const maxPan = Math.max(0, currentWidth - rect.width);
-                waveformPanX = Math.max(0, Math.min(maxPan, waveformPanX));
+                const deltaX = e.clientX - scrollbarDragStartX;
+                const thumbDelta = (deltaX / maxThumbPan) * maxWaveformPan;
+                waveformPanX = Math.max(0, Math.min(maxWaveformPan, scrollbarDragStartPan + thumbDelta));
 
                 const clip = selectedClipId ? getClipById(selectedClipId) : null;
                 renderFullWaveform(clip);
@@ -1207,9 +1486,9 @@
         });
 
         document.addEventListener('mouseup', () => {
-            if (isDraggingWaveform) {
-                isDraggingWaveform = false;
-                waveformWrapper.classList.remove('panning');
+            if (isDraggingScrollbar) {
+                isDraggingScrollbar = false;
+                scrollbarThumb.classList.remove('dragging');
             }
         });
 
@@ -1231,6 +1510,17 @@
         mainVideo.addEventListener('timeupdate', () => {
             const start = mainVideo.timeStart;
             const end = mainVideo.timeEnd;
+
+            const deleteRegion = isInDeleteRegion(mainVideo.currentTime);
+            if (deleteRegion) {
+                if (deleteRegion.end >= end) {
+                    mainVideo.pause();
+                    mainVideo.currentTime = start;
+                } else {
+                    mainVideo.currentTime = deleteRegion.end;
+                }
+                return;
+            }
 
             if (mainVideo.currentTime >= end) {
                 mainVideo.pause();
@@ -1293,49 +1583,6 @@
             }
         });
 
-        splitBtn.addEventListener('click', () => {
-            if (!selectedClipId) return;
-
-            const clip = getClipById(selectedClipId);
-            const seg = clip?.selected_segment || clip?.segments?.[0];
-            if (!clip || !seg) return;
-
-            const times = getEffectiveTimes(clip);
-            const splitPoint = mainVideo.currentTime;
-
-            if (splitPoint <= times.start || splitPoint >= times.end) {
-                alert('Position playhead within the clip to split');
-                return;
-            }
-
-            const clip1 = JSON.parse(JSON.stringify(clip));
-            clip1.id = `${clip.id}_split_${Date.now()}_1`;
-            clip1.name = `${clip.name} (1)`;
-            clip1.trim_end = splitPoint;
-            clip1.timeline_position = clip.timeline_position;
-            clip1.split_parent_id = clip.id;
-
-            const clip2 = JSON.parse(JSON.stringify(clip));
-            clip2.id = `${clip.id}_split_${Date.now()}_2`;
-            clip2.name = `${clip.name} (2)`;
-            clip2.trim_start = splitPoint;
-            clip2.timeline_position = clip.timeline_position + 0.5;
-            clip2.split_parent_id = clip.id;
-
-            clip.in_timeline = false;
-            clip.timeline_position = null;
-
-            project.clips.push(clip1, clip2);
-
-            selectedClipId = clip1.id;
-
-            markUnsaved();
-            renderClipPool();
-            renderTimelineCards();
-            renderEditor();
-            loadVideoPreview(clip1.id);
-        });
-
         toggleEnabledBtn.addEventListener('click', () => {
             if (!selectedClipId) return;
 
@@ -1361,6 +1608,9 @@
             previewIndex = 0;
             playNextInQueue();
         });
+
+        let previewQueue = [];
+        let previewIndex = 0;
 
         function playNextInQueue() {
             if (previewIndex >= previewQueue.length) {
@@ -1398,26 +1648,35 @@
                 return;
             }
 
+            const deleteRegions = getDeleteRegions().sort((a, b) => a.start - b.start);
+
             let edl = 'TITLE: Content Tools Export\n';
             edl += 'FCM: NON-DROP FRAME\n\n';
 
             let timelineTime = 0;
+            let clipIndex = 1;
 
-            timelineClips.forEach((clip, i) => {
+            timelineClips.forEach((clip) => {
                 const times = getEffectiveTimes(clip);
-                const duration = times.end - times.start;
                 const seg = clip.selected_segment || clip.segments?.[0];
 
-                const clipIn = formatEDLTime(times.start);
-                const clipOut = formatEDLTime(times.end);
-                const recIn = formatEDLTime(timelineTime);
-                const recOut = formatEDLTime(timelineTime + duration);
+                const segments = getClipSegmentsExcludingDeletes(times.start, times.end, deleteRegions);
 
-                edl += `${String(i + 1).padStart(3, '0')}  AX       AA/V  C        ${clipIn} ${clipOut} ${recIn} ${recOut}\n`;
-                edl += `* FROM CLIP NAME: ${clip.name}\n`;
-                edl += `* COMMENT: ${seg?.text?.substring(0, 60) || ''}\n\n`;
+                segments.forEach((seg_times) => {
+                    const duration = seg_times.end - seg_times.start;
 
-                timelineTime += duration;
+                    const clipIn = formatEDLTime(seg_times.start);
+                    const clipOut = formatEDLTime(seg_times.end);
+                    const recIn = formatEDLTime(timelineTime);
+                    const recOut = formatEDLTime(timelineTime + duration);
+
+                    edl += `${String(clipIndex).padStart(3, '0')}  AX       AA/V  C        ${clipIn} ${clipOut} ${recIn} ${recOut}\n`;
+                    edl += `* FROM CLIP NAME: ${clip.name}\n`;
+                    edl += `* COMMENT: ${seg?.text?.substring(0, 60) || ''}\n\n`;
+
+                    timelineTime += duration;
+                    clipIndex++;
+                });
             });
 
             const blob = new Blob([edl], { type: 'text/plain' });
@@ -1427,6 +1686,32 @@
             a.download = 'assembly.edl';
             a.click();
             URL.revokeObjectURL(url);
+        }
+
+        function getClipSegmentsExcludingDeletes(clipStart, clipEnd, deleteRegions) {
+            const relevantDeletes = deleteRegions.filter(r => 
+                r.start < clipEnd && r.end > clipStart
+            );
+
+            if (relevantDeletes.length === 0) {
+                return [{ start: clipStart, end: clipEnd }];
+            }
+
+            const segments = [];
+            let currentStart = clipStart;
+
+            relevantDeletes.forEach(del => {
+                if (del.start > currentStart) {
+                    segments.push({ start: currentStart, end: Math.min(del.start, clipEnd) });
+                }
+                currentStart = Math.max(currentStart, del.end);
+            });
+
+            if (currentStart < clipEnd) {
+                segments.push({ start: currentStart, end: clipEnd });
+            }
+
+            return segments;
         }
 
         function formatEDLTime(seconds) {
