@@ -730,16 +730,30 @@
         function initializeTimelineData() {
             if (!project.clips) return;
 
-            project.clips.forEach((clip, index) => {
+            project.clips.forEach((clip) => {
                 if (clip.in_timeline === undefined) {
                     clip.in_timeline = true;
-                }
-                if (clip.timeline_position === undefined) {
-                    clip.timeline_position = index;
                 }
                 if (clip.enabled === undefined) {
                     clip.enabled = true;
                 }
+            });
+
+            const getStartTime = (clip) => {
+                if (clip.selected_segment?.start !== undefined) {
+                    return clip.selected_segment.start;
+                }
+                if (clip.segments?.[0]?.start !== undefined) {
+                    return clip.segments[0].start;
+                }
+                return Infinity;
+            };
+
+            const sortedClips = [...project.clips]
+                .sort((a, b) => getStartTime(a) - getStartTime(b));
+
+            sortedClips.forEach((clip, index) => {
+                clip.timeline_position = index;
             });
         }
 
@@ -756,9 +770,9 @@
         }
 
         function getEffectiveTimes(clip) {
-            if (!clip?.selected_segment) return { start: 0, end: 0 };
+            const seg = clip.selected_segment || clip.segments?.[0];
+            if (!seg) return { start: 0, end: 0 };
             
-            const seg = clip.selected_segment;
             return {
                 start: clip.trim_start ?? seg.start,
                 end: clip.trim_end ?? seg.end
@@ -973,7 +987,8 @@
             }
 
             const clip = getClipById(selectedClipId);
-            if (!clip || !clip.selected_segment) {
+            const seg = clip?.selected_segment || clip?.segments?.[0];
+            if (!clip || !seg) {
                 editorSection.classList.add('hidden');
                 noSelection.classList.remove('hidden');
                 return;
@@ -987,7 +1002,7 @@
             const duration = times.end - times.start;
 
             editorTitle.textContent = clip.name;
-            editorTranscript.textContent = clip.selected_segment.text || '-';
+            editorTranscript.textContent = seg.text || '-';
             editorStartTime.textContent = formatTime(times.start);
             editorEndTime.textContent = formatTime(times.end);
             editorDuration.textContent = formatDuration(duration);
@@ -999,9 +1014,10 @@
         }
 
         function renderWaveform(clip) {
-            if (!clip?.selected_segment) return;
+            const seg = clip?.selected_segment || clip?.segments?.[0];
+            if (!seg) return;
 
-            const segmentIndex = clip.selected_segment.segment_index;
+            const segmentIndex = seg.segment_index;
             const wave = getWaveformData(segmentIndex);
 
             const canvas = waveformCanvas;
@@ -1060,7 +1076,8 @@
 
         function loadVideoPreview(clipId) {
             const clip = getClipById(clipId);
-            if (!clip || !clip.selected_segment) return;
+            const seg = clip?.selected_segment || clip?.segments?.[0];
+            if (!clip || !seg) return;
 
             const times = getEffectiveTimes(clip);
             mainVideo.src = `../../data/video_combined.mp4#t=${times.start}`;
@@ -1148,7 +1165,8 @@
             if (!selectedClipId) return;
 
             const clip = getClipById(selectedClipId);
-            if (!clip?.selected_segment) return;
+            const seg = clip?.selected_segment || clip?.segments?.[0];
+            if (!clip || !seg) return;
 
             const times = getEffectiveTimes(clip);
             const splitPoint = mainVideo.currentTime;
@@ -1271,6 +1289,7 @@
             timelineClips.forEach((clip, i) => {
                 const times = getEffectiveTimes(clip);
                 const duration = times.end - times.start;
+                const seg = clip.selected_segment || clip.segments?.[0];
 
                 const clipIn = formatEDLTime(times.start);
                 const clipOut = formatEDLTime(times.end);
@@ -1279,7 +1298,7 @@
 
                 edl += `${String(i + 1).padStart(3, '0')}  AX       AA/V  C        ${clipIn} ${clipOut} ${recIn} ${recOut}\n`;
                 edl += `* FROM CLIP NAME: ${clip.name}\n`;
-                edl += `* COMMENT: ${clip.selected_segment?.text?.substring(0, 60) || ''}\n\n`;
+                edl += `* COMMENT: ${seg?.text?.substring(0, 60) || ''}\n\n`;
 
                 timelineTime += duration;
             });

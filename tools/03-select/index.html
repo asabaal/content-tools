@@ -603,6 +603,12 @@
                     transcript = await transResp.json();
                 }
 
+                project.clips?.forEach(clip => {
+                    if (!clip.selected_segment && clip.segments?.length === 1) {
+                        clip.selected_segment = clip.segments[0];
+                    }
+                });
+
                 console.log('[Select] Loaded', project.clips?.length || 0, 'clips');
                 renderClips();
                 updateStats();
