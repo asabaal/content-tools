@@ -1461,6 +1461,40 @@
             }
         }
 
+        function seekWhenReady(video, targetTime, callback) {
+            console.log('[seekWhenReady] target:', targetTime.toFixed(3), 'seekable.length:', video.seekable.length);
+            
+            const trySeek = () => {
+                if (video.seekable.length > 0) {
+                    const start = video.seekable.start(0);
+                    const end = video.seekable.end(0);
+                    console.log('[seekWhenReady] seekable range:', start.toFixed(3), '-', end.toFixed(3));
+                    if (targetTime >= start && targetTime <= end) {
+                        console.log('[seekWhenReady] target in range, seeking to:', targetTime.toFixed(3));
+                        video.currentTime = targetTime;
+                        if (callback) callback();
+                        return true;
+                    }
+                }
+                return false;
+            };
+
+            if (!trySeek()) {
+                console.log('[seekWhenReady] target not in range yet, waiting for progress...');
+                const checkOnProgress = () => {
+                    if (trySeek()) {
+                        video.removeEventListener('progress', checkOnProgress);
+                    }
+                };
+                video.addEventListener('progress', checkOnProgress);
+                
+                video.addEventListener('canplay', function onCanPlay() {
+                    video.removeEventListener('canplay', onCanPlay);
+                    trySeek();
+                });
+            }
+        }
+
         function loadVideoPreview(clipId) {
             console.log('[loadVideoPreview] called with clipId:', clipId);
             console.trace('[loadVideoPreview] stack trace');
@@ -1484,24 +1518,14 @@
             
             if (srcChanged) {
                 mainVideo.onloadedmetadata = () => {
-                    console.log('[loadVideoPreview] onloadedmetadata, seeking to:', times.start);
-                    console.log('[loadVideoPreview] seekable ranges:', mainVideo.seekable.length);
-                    for (let i = 0; i < mainVideo.seekable.length; i++) {
-                        console.log('[loadVideoPreview] seekable:', mainVideo.seekable.start(i).toFixed(3), '-', mainVideo.seekable.end(i).toFixed(3));
-                    }
-                    console.log('[loadVideoPreview] duration:', mainVideo.duration);
-                    mainVideo.currentTime = times.start;
+                    console.log('[loadVideoPreview] onloadedmetadata, will seek when ready to:', times.start);
+                    seekWhenReady(mainVideo, times.start);
                     mainVideo.onloadedmetadata = null;
                 };
                 mainVideo.src = targetSrc;
             } else {
-                console.log('[loadVideoPreview] same src, just seeking to:', times.start);
-                console.log('[loadVideoPreview] seekable ranges:', mainVideo.seekable.length);
-                for (let i = 0; i < mainVideo.seekable.length; i++) {
-                    console.log('[loadVideoPreview] seekable:', mainVideo.seekable.start(i).toFixed(3), '-', mainVideo.seekable.end(i).toFixed(3));
-                }
-                console.log('[loadVideoPreview] readyState:', mainVideo.readyState);
-                mainVideo.currentTime = times.start;
+                console.log('[loadVideoPreview] same src, seeking when ready to:', times.start);
+                seekWhenReady(mainVideo, times.start);
             }
         }
 
@@ -1766,14 +1790,16 @@
             
             if (srcChanged) {
                 mainVideo.onloadedmetadata = () => {
-                    mainVideo.currentTime = times.start;
+                    seekWhenReady(mainVideo, times.start, () => {
+                        mainVideo.play();
+                    });
                     mainVideo.onloadedmetadata = null;
-                    mainVideo.play();
                 };
                 mainVideo.src = targetSrc;
             } else {
-                mainVideo.currentTime = times.start;
-                mainVideo.play();
+                seekWhenReady(mainVideo, times.start, () => {
+                    mainVideo.play();
+                });
             }
 
             mainVideo.onended = () => {

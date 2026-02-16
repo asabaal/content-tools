@@ -26,7 +26,10 @@
         "start": 39.4733125,
         "end": 41.0733125,
         "text": "While a wind of God,"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 5
     },
     {
       "id": "clip_mlmz4a81_2",
@@ -54,7 +57,10 @@
         "start": 95.5093125,
         "end": 99.44931249999999,
         "text": "and I tried to run my race in my strength"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 12
     },
     {
       "id": "clip_mlmz4kux_3",
@@ -82,7 +88,10 @@
         "start": 151.2733125,
         "end": 157.7133125,
         "text": "This reminds me that nothing is impossible through Christ who gives me strength."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 21
     },
     {
       "id": "clip_mlmz5wv3_4",
@@ -110,7 +119,10 @@
         "start": 161.0333125,
         "end": 164.1933125,
         "text": "the one who speaks all things into being can transform"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 22
     },
     {
       "id": "clip_mlmz68kh_5",
@@ -152,7 +164,10 @@
         "start": 176.9133125,
         "end": 180.0933125,
         "text": "What death have you experienced that he needs?"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 24
     },
     {
       "id": "clip_mlmz6ncf_6",
@@ -201,7 +216,10 @@
         "start": 206.95600000000002,
         "end": 209.676,
         "text": "And how does he speak you into being and life?"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 25
     },
     {
       "id": "clip_mlmz73gu_7",
@@ -223,7 +241,230 @@
         "start": 1.6200000000000014,
         "end": 6.08,
         "text": "Where there was not God's folk, and then there was."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 0,
+      "trim_end": 218.731,
+      "trim_start": 0,
+      "deleted_regions": [
+        {
+          "start": 1.262,
+          "end": 1.721
+        },
+        {
+          "start": 4.293,
+          "end": 5.327
+        },
+        {
+          "start": 6.453,
+          "end": 8.147
+        },
+        {
+          "start": 10.802,
+          "end": 12.332
+        },
+        {
+          "start": 15.331,
+          "end": 16.358
+        },
+        {
+          "start": 18.019,
+          "end": 20.301
+        },
+        {
+          "start": 22.8,
+          "end": 27.52
+        },
+        {
+          "start": 30.005,
+          "end": 31.989
+        },
+        {
+          "start": 37.749,
+          "end": 39.433
+        },
+        {
+          "start": 42.886,
+          "end": 43.914
+        },
+        {
+          "start": 45.7,
+          "end": 47.648
+        },
+        {
+          "start": 50.886,
+          "end": 52.451
+        },
+        {
+          "start": 53.777,
+          "end": 56.322
+        },
+        {
+          "start": 58.11,
+          "end": 59.532
+        },
+        {
+          "start": 62.483,
+          "end": 63.607
+        },
+        {
+          "start": 66.307,
+          "end": 67.275
+        },
+        {
+          "start": 68.493,
+          "end": 69.091
+        },
+        {
+          "start": 70.851,
+          "end": 71.544
+        },
+        {
+          "start": 72.763,
+          "end": 73.731
+        },
+        {
+          "start": 75.523,
+          "end": 79.609
+        },
+        {
+          "start": 80.995,
+          "end": 82.417
+        },
+        {
+          "start": 89.639,
+          "end": 90.463
+        },
+        {
+          "start": 92.387,
+          "end": 93.366
+        },
+        {
+          "start": 95.458,
+          "end": 95.948
+        },
+        {
+          "start": 96.856,
+          "end": 97.286
+        },
+        {
+          "start": 99.341,
+          "end": 100.643
+        },
+        {
+          "start": 102.77,
+          "end": 104.264
+        },
+        {
+          "start": 105.294,
+          "end": 105.748
+        },
+        {
+          "start": 107.158,
+          "end": 108.03
+        },
+        {
+          "start": 109.237,
+          "end": 110.563
+        },
+        {
+          "start": 111.997,
+          "end": 112.857
+        },
+        {
+          "start": 114.709,
+          "end": 115.94
+        },
+        {
+          "start": 118.158,
+          "end": 119.723
+        },
+        {
+          "start": 127.14,
+          "end": 129.434
+        },
+        {
+          "start": 131.692,
+          "end": 132.135
+        },
+        {
+          "start": 134.381,
+          "end": 135.086
+        },
+        {
+          "start": 137.377,
+          "end": 137.747
+        },
+        {
+          "start": 140.854,
+          "end": 142.753
+        },
+        {
+          "start": 143.948,
+          "end": 144.187
+        },
+        {
+          "start": 147.007,
+          "end": 147.712
+        },
+        {
+          "start": 149.222,
+          "end": 151.731
+        },
+        {
+          "start": 156.188,
+          "end": 157.681
+        },
+        {
+          "start": 160.123,
+          "end": 160.314
+        },
+        {
+          "start": 161.115,
+          "end": 161.33
+        },
+        {
+          "start": 165.576,
+          "end": 167.739
+        },
+        {
+          "start": 168.348,
+          "end": 170.236
+        },
+        {
+          "start": 173.871,
+          "end": 184.111
+        },
+        {
+          "start": 186.307,
+          "end": 188.84
+        },
+        {
+          "start": 189.13,
+          "end": 194.077
+        },
+        {
+          "start": 194.165,
+          "end": 204.776
+        },
+        {
+          "start": 204.802,
+          "end": 206.821
+        },
+        {
+          "start": 209.844,
+          "end": 212.497
+        },
+        {
+          "start": 214.453,
+          "end": 215.338
+        },
+        {
+          "start": 216.963,
+          "end": 218.444
+        }
+      ]
     },
     {
       "id": "clip_mlmz73gu_8",
@@ -245,7 +486,10 @@
         "start": 7.860000000000001,
         "end": 10.4,
         "text": "Welcome to Life is your word episode three."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 1
     },
     {
       "id": "clip_mlmz73gu_9",
@@ -267,7 +511,10 @@
         "start": 11.900000000000002,
         "end": 17.74,
         "text": "In this show, we build up our understanding of reality by seeking God's face."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 2
     },
     {
       "id": "clip_mlmz73gu_a",
@@ -289,7 +536,10 @@
         "start": 20.16,
         "end": 22.52,
         "text": "Today's reading is from Genesis chapter one."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 3
     },
     {
       "id": "clip_mlmz73gu_b",
@@ -311,7 +561,10 @@
         "start": 27.3133125,
         "end": 37.553312500000004,
         "text": "When God began to create the heavens and the earth, the earth was in complete chaos and darkness covered the face of the Jeep."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 4
     },
     {
       "id": "clip_mlmz73gu_c",
@@ -333,7 +586,10 @@
         "start": 42.7933125,
         "end": 50.553312500000004,
         "text": "swept over the face of the waters, then God said, let there be light and there was light."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 6
     },
     {
       "id": "clip_mlmz73gu_d",
@@ -355,7 +611,10 @@
         "start": 51.9933125,
         "end": 61.9333125,
         "text": "And God saw that the light was good and God separated the light from the darkness."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 7
     },
     {
       "id": "clip_mlmz73gu_e",
@@ -377,7 +636,10 @@
         "start": 63.513312500000005,
         "end": 75.4133125,
         "text": "God created humans in the image of God. God blessed them, saying be fruitful and fill the earth. I have given you everything."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 8
     },
     {
       "id": "clip_mlmz73gu_f",
@@ -399,7 +661,10 @@
         "start": 79.3493125,
         "end": 88.5293125,
         "text": "In my past death, I lived in complete chaos and the great darkness of depression covered"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 9
     },
     {
       "id": "clip_mlmz73gu_g",
@@ -421,7 +686,10 @@
         "start": 88.5293125,
         "end": 89.4293125,
         "text": "my face."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 10
     },
     {
       "id": "clip_mlmz73gu_h",
@@ -443,7 +711,10 @@
         "start": 90.4893125,
         "end": 92.0693125,
         "text": "I stopped listening to God's voice"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 11
     },
     {
       "id": "clip_mlmz73gu_i",
@@ -465,7 +736,10 @@
         "start": 99.44931249999999,
         "end": 102.9093125,
         "text": "rather than by Christ living in me."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 13
     },
     {
       "id": "clip_mlmz73gu_j",
@@ -487,7 +761,10 @@
         "start": 103.9293125,
         "end": 108.9893125,
         "text": "But God's, but then God spoke and I became."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 14
     },
     {
       "id": "clip_mlmz73gu_k",
@@ -509,7 +786,10 @@
         "start": 110.5093125,
         "end": 114.4893125,
         "text": "Life filled me. Peace beyond human understanding."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 15
     },
     {
       "id": "clip_mlmz73gu_l",
@@ -531,7 +811,10 @@
         "start": 115.9693125,
         "end": 117.88931249999999,
         "text": "Joy that defied world the authorities."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 16
     },
     {
       "id": "clip_mlmz73gu_m",
@@ -553,7 +836,10 @@
         "start": 119.3093125,
         "end": 126.8093125,
         "text": "And I became compelled to shout God's praise from every mountain top and share God's great works with everyone."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 17
     },
     {
       "id": "clip_mlmz73gu_n",
@@ -575,7 +861,10 @@
         "start": 129.2133125,
         "end": 136.01331249999998,
         "text": "So I thank God regularly for my role in partaking in creation as I create these"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 18
     },
     {
       "id": "clip_mlmz73gu_o",
@@ -597,7 +886,10 @@
         "start": 136.01331249999998,
         "end": 142.39331249999998,
         "text": "things for your benefit just as God created all things for our benefit."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 19
     },
     {
       "id": "clip_mlmz73gu_p",
@@ -619,7 +911,10 @@
         "start": 142.39331249999998,
         "end": 143.8733125,
         "text": "This reminds me,"
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 20
     },
     {
       "id": "clip_mlmz73gu_q",
@@ -641,7 +936,10 @@
         "start": 164.1933125,
         "end": 165.2133125,
         "text": "your life too."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 23
     },
     {
       "id": "clip_mlmz73gu_r",
@@ -663,7 +961,10 @@
         "start": 212.3426875,
         "end": 216.6626875,
         "text": "Share your revelations in the comments. In love and unity, Ace of El."
-      }
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 26
     }
   ],
   "version": 1,
@@ -720,7 +1021,7 @@
         "words": [
           {
             "text": "Where",
-            "start": 1.6200000000000014,
+            "start": 1.9258788907536704,
             "end": 2.18
           },
           {
@@ -736,21 +1037,21 @@
           {
             "text": "not",
             "start": 2.58,
-            "end": 2.84
+            "end": 3.3440884119620464
           },
           {
             "text": "God's",
-            "start": 2.84,
-            "end": 3.88
+            "start": 3.3440884119620464,
+            "end": 3.6597671986573586
           },
           {
             "text": "folk,",
-            "start": 3.88,
-            "end": 4.06
+            "start": 3.6597671986573586,
+            "end": 5.23599529142499
           },
           {
             "text": "and",
-            "start": 4.82,
+            "start": 5.23599529142499,
             "end": 5.5
           },
           {
@@ -766,7 +1067,7 @@
           {
             "text": "was.",
             "start": 5.84,
-            "end": 6.08
+            "end": 6.3491734238632285
           }
         ]
       },
@@ -780,7 +1081,7 @@
         "words": [
           {
             "text": "Welcome",
-            "start": 7.860000000000001,
+            "start": 7.994586711931616,
             "end": 8.42
           },
           {
@@ -1079,9 +1380,9 @@
         "id": 5,
         "original_id": 2,
         "original_video_id": "20251008_150325",
-        "text": "While a wind of God,",
+        "text": "While a wind of God, while a wind from God swept over the face of the waters, then God said, let there be light and there was light.",
         "start": 39.4733125,
-        "end": 41.0733125,
+        "end": 50.553312500000004,
         "words": [
           {
             "text": "While",
@@ -1107,17 +1408,7 @@
             "text": "God,",
             "start": 40.553312500000004,
             "end": 40.973312500000006
-          }
-        ]
-      },
-      {
-        "id": "5_split_1771113162877",
-        "original_id": 2,
-        "original_video_id": "20251008_150325",
-        "text": "while a wind from God",
-        "start": 41.0733125,
-        "end": 42.7933125,
-        "words": [
+          },
           {
             "text": "while",
             "start": 41.0733125,
@@ -1142,17 +1433,7 @@
             "text": "God",
             "start": 42.2333125,
             "end": 42.7933125
-          }
-        ]
-      },
-      {
-        "id": "5_split_1771113162877_split_1771113165413",
-        "original_id": 2,
-        "original_video_id": "20251008_150325",
-        "text": "swept over the face of the waters, then God said, let there be light and there was light.",
-        "start": 42.7933125,
-        "end": 50.553312500000004,
-        "words": [
+          },
           {
             "text": "swept",
             "start": 42.7933125,
@@ -1574,9 +1855,9 @@
         "id": 10,
         "original_id": 3,
         "original_video_id": "20251008_150420",
-        "text": "I stopped listening to God's voice",
+        "text": "I stopped listening to God's voice and I tried to run my race in my strength and I tried",
         "start": 90.4893125,
-        "end": 92.0693125,
+        "end": 97.7893125,
         "words": [
           {
             "text": "I",
@@ -1607,17 +1888,7 @@
             "text": "voice",
             "start": 91.8893125,
             "end": 92.0693125
-          }
-        ]
-      },
-      {
-        "id": "10_split_1771113185253",
-        "original_id": 3,
-        "original_video_id": "20251008_150420",
-        "text": "and I tried to run my race in my strength",
-        "start": 92.0693125,
-        "end": 95.5093125,
-        "words": [
+          },
           {
             "text": "and",
             "start": 92.0693125,
@@ -1667,15 +1938,7 @@
             "text": "strength",
             "start": 95.0893125,
             "end": 95.5093125
-          }
-        ]
-      },
-      {
-        "id": "10_split_1771113185253_split_1771113189125",
-        "text": "and I tried to run my race in my strength",
-        "start": 95.5093125,
-        "end": 99.44931249999999,
-        "words": [
+          },
           {
             "text": "and",
             "start": 95.5093125,
@@ -1690,7 +1953,17 @@
             "text": "tried",
             "start": 97.5693125,
             "end": 97.7893125
-          },
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "original_id": 4,
+        "original_video_id": "20251008_150420",
+        "text": "to run my race in my strength rather than by Christ living in me.",
+        "start": 97.7893125,
+        "end": 102.9093125,
+        "words": [
           {
             "text": "to",
             "start": 97.7893125,
@@ -1725,16 +1998,7 @@
             "text": "strength",
             "start": 98.94931249999999,
             "end": 99.44931249999999
-          }
-        ],
-        "original_video_id": "20251008_150420"
-      },
-      {
-        "id": "10_split_1771113185253_split_1771113189125_split_1771113194885",
-        "text": "rather than by Christ living in me.",
-        "start": 99.44931249999999,
-        "end": 102.9093125,
-        "words": [
+          },
           {
             "text": "rather",
             "start": 99.44931249999999,
@@ -1770,8 +2034,7 @@
             "start": 102.5293125,
             "end": 102.9093125
           }
-        ],
-        "original_video_id": "20251008_150420"
+        ]
       },
       {
         "id": 12,
@@ -2110,9 +2373,11 @@
       },
       {
         "id": 17,
-        "text": "things for your benefit just as God created all things for our benefit.",
+        "original_id": 2,
+        "original_video_id": "20251008_150513",
+        "text": "things for your benefit just as God created all things for our benefit. This",
         "start": 136.01331249999998,
-        "end": 142.39331249999998,
+        "end": 142.9933125,
         "words": [
           {
             "text": "things",
@@ -2178,21 +2443,22 @@
             "text": "benefit.",
             "start": 140.2133125,
             "end": 140.6533125
-          }
-        ],
-        "original_video_id": "20251008_150513"
-      },
-      {
-        "id": "17_split_1771113213683",
-        "text": "This reminds me,",
-        "start": 142.39331249999998,
-        "end": 143.8733125,
-        "words": [
+          },
           {
             "text": "This",
             "start": 142.39331249999998,
             "end": 142.9933125
-          },
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "original_id": 3,
+        "original_video_id": "20251008_150513",
+        "text": "reminds me, this reminds me that nothing is impossible through Christ who gives me",
+        "start": 142.9933125,
+        "end": 148.79331249999998,
+        "words": [
           {
             "text": "reminds",
             "start": 142.9933125,
@@ -2202,16 +2468,7 @@
             "text": "me,",
             "start": 143.29331249999998,
             "end": 143.73331249999998
-          }
-        ],
-        "original_video_id": "20251008_150513"
-      },
-      {
-        "id": "18_split_1771113206627",
-        "text": "this reminds me that nothing is impossible through Christ who gives me strength.",
-        "start": 143.8733125,
-        "end": 151.2733125,
-        "words": [
+          },
           {
             "text": "this",
             "start": 143.8733125,
@@ -2271,21 +2528,22 @@
             "text": "me",
             "start": 148.5933125,
             "end": 148.79331249999998
-          },
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "original_id": 4,
+        "original_video_id": "20251008_150513",
+        "text": "strength. This reminds me that nothing is impossible through Christ who gives me",
+        "start": 148.79331249999998,
+        "end": 155.7533125,
+        "words": [
           {
             "text": "strength.",
             "start": 148.79331249999998,
             "end": 149.0533125
-          }
-        ],
-        "original_video_id": "20251008_150513"
-      },
-      {
-        "id": "18_split_1771113206627_split_1771113226476",
-        "text": "This reminds me that nothing is impossible through Christ who gives me strength.",
-        "start": 151.2733125,
-        "end": 157.7133125,
-        "words": [
+          },
           {
             "text": "This",
             "start": 151.2733125,
@@ -2345,21 +2603,22 @@
             "text": "me",
             "start": 155.5733125,
             "end": 155.7533125
-          },
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "original_id": 5,
+        "original_video_id": "20251008_150513",
+        "text": "strength. The one who speaks all things into being can transform the one who",
+        "start": 155.7533125,
+        "end": 161.8533125,
+        "words": [
           {
             "text": "strength.",
             "start": 155.7533125,
             "end": 156.1333125
-          }
-        ],
-        "original_video_id": "20251008_150513"
-      },
-      {
-        "id": "18_split_1771113206627_split_1771113226476_split_1771113233459",
-        "text": "The one who speaks all things into being can transform",
-        "start": 157.7133125,
-        "end": 161.0333125,
-        "words": [
+          },
           {
             "text": "The",
             "start": 157.7133125,
@@ -2409,16 +2668,7 @@
             "text": "transform",
             "start": 160.4933125,
             "end": 161.0333125
-          }
-        ],
-        "original_video_id": "20251008_150513"
-      },
-      {
-        "id": "18_split_1771113206627_split_1771113226476_split_1771113233459_split_1771113318305",
-        "text": "the one who speaks all things into being can transform",
-        "start": 161.0333125,
-        "end": 164.1933125,
-        "words": [
+          },
           {
             "text": "the",
             "start": 161.0333125,
@@ -2433,7 +2683,17 @@
             "text": "who",
             "start": 161.6733125,
             "end": 161.8533125
-          },
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "original_id": 6,
+        "original_video_id": "20251008_150513",
+        "text": "speaks all things into being can transform your life too.",
+        "start": 161.8533125,
+        "end": 165.2133125,
+        "words": [
           {
             "text": "speaks",
             "start": 161.8533125,
@@ -2468,16 +2728,7 @@
             "text": "transform",
             "start": 163.6733125,
             "end": 164.1933125
-          }
-        ],
-        "original_video_id": "20251008_150513"
-      },
-      {
-        "id": "18_split_1771113206627_split_1771113226476_split_1771113233459_split_1771113318305_split_1771113346384",
-        "text": "your life too.",
-        "start": 164.1933125,
-        "end": 165.2133125,
-        "words": [
+          },
           {
             "text": "your",
             "start": 164.1933125,
@@ -2493,16 +2744,15 @@
             "start": 164.8133125,
             "end": 165.2133125
           }
-        ],
-        "original_video_id": "20251008_150513"
+        ]
       },
       {
         "id": 22,
         "original_id": 7,
         "original_video_id": "20251008_150513",
-        "text": "What death have you lived?",
+        "text": "What death have you lived? What death have you lived? What death have you",
         "start": 169.8533125,
-        "end": 174.89331249999998,
+        "end": 178.3533125,
         "words": [
           {
             "text": "What",
@@ -2528,17 +2778,7 @@
             "text": "lived?",
             "start": 171.4733125,
             "end": 171.9333125
-          }
-        ]
-      },
-      {
-        "id": "22_split_1771113242010",
-        "original_id": 7,
-        "original_video_id": "20251008_150513",
-        "text": "What death have you lived?",
-        "start": 174.89331249999998,
-        "end": 176.9133125,
-        "words": [
+          },
           {
             "text": "What",
             "start": 174.89331249999998,
@@ -2563,15 +2803,7 @@
             "text": "lived?",
             "start": 175.5533125,
             "end": 175.5533125
-          }
-        ]
-      },
-      {
-        "id": "22_split_1771113242010_split_1771113248299",
-        "text": "What death have you experienced that he needs?",
-        "start": 176.9133125,
-        "end": 180.0933125,
-        "words": [
+          },
           {
             "text": "What",
             "start": 176.9133125,
@@ -2591,7 +2823,17 @@
             "text": "you",
             "start": 178.1733125,
             "end": 178.3533125
-          },
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "original_id": 8,
+        "original_video_id": "20251008_150513",
+        "text": "experienced that he needs?",
+        "start": 178.3533125,
+        "end": 180.0933125,
+        "words": [
           {
             "text": "experienced",
             "start": 178.3533125,
@@ -2612,16 +2854,15 @@
             "start": 179.79331249999998,
             "end": 180.0933125
           }
-        ],
-        "original_video_id": "20251008_150513"
+        ]
       },
       {
         "id": 24,
         "original_id": 1,
         "original_video_id": "20251008_150622",
-        "text": "What death have you experienced",
+        "text": "What death have you experienced and how has he breathed life into your death?",
         "start": 184.136,
-        "end": 186.056,
+        "end": 188.776,
         "words": [
           {
             "text": "What",
@@ -2647,17 +2888,7 @@
             "text": "experienced",
             "start": 185.376,
             "end": 186.056
-          }
-        ]
-      },
-      {
-        "id": "24_split_1771113255931",
-        "original_id": 1,
-        "original_video_id": "20251008_150622",
-        "text": "and how has he breathed life into your death?",
-        "start": 186.056,
-        "end": 188.776,
-        "words": [
+          },
           {
             "text": "and",
             "start": 186.056,
