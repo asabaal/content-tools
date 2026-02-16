@@ -923,11 +923,17 @@
             const segment = segments[segIdx];
             
             let html = '';
+            let wordCount = 0;
+            const MAX_WORDS = 10;
+            
             segment.words?.forEach((word, wordIdx) => {
-                const color = getWordColor(segIdx, wordIdx);
-                const isActive = time >= word.start && time < word.end;
-                const activeClass = isActive ? ' active' : '';
-                html += `<span class="word${activeClass}" style="color: ${color}">${word.text}</span> `;
+                if (time >= word.start && wordCount < MAX_WORDS) {
+                    const color = getWordColor(segIdx, wordIdx);
+                    const isActive = time >= word.start && time < word.end;
+                    const activeClass = isActive ? ' active' : '';
+                    html += `<span class="word${activeClass}" style="color: ${color}">${word.text}</span> `;
+                    wordCount++;
+                }
             });
             
             captionText.innerHTML = html.trim();
