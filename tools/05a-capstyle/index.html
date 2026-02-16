@@ -419,6 +419,34 @@
             border-color: #cb697f;
         }
 
+        .break-marker {
+            padding: 4px 2px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.15s;
+        }
+
+        .break-marker:hover {
+            color: #4cc9f0;
+        }
+
+        .break-indicator {
+            padding: 4px 6px;
+            font-size: 12px;
+            color: #cb697f;
+            background: rgba(203, 105, 127, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.15s;
+        }
+
+        .break-indicator:hover {
+            background: rgba(203, 105, 127, 0.4);
+        }
+
         .selection-actions {
             padding: 12px 16px;
             border-top: 1px solid #2a2a4a;
@@ -626,6 +654,7 @@
         let project = null;
         let segments = [];
         let wordColors = {};
+        let captionBreaks = {};
         let selectedWords = new Set();
         let lastSelectedWord = null;
         let currentSegmentIndex = -1;
@@ -678,6 +707,7 @@
                 
                 segments = project.transcript?.segments || [];
                 wordColors = project.word_colors || {};
+                captionBreaks = project.caption_breaks || {};
                 captionStyle = { ...captionStyle, ...project.caption_style };
                 
                 applyStyleSettings();
@@ -776,7 +806,31 @@
                 const grid = document.createElement('div');
                 grid.className = 'words-grid';
                 
+                const segBreaks = captionBreaks[globalSegIdx] || [];
+                
                 segment.words?.forEach((word, wordIdx) => {
+                    if (wordIdx > 0 && !segBreaks.includes(wordIdx - 1)) {
+                        const breakMarker = document.createElement('span');
+                        breakMarker.className = 'break-marker';
+                        breakMarker.innerHTML = '│';
+                        breakMarker.title = 'Click to add caption break';
+                        breakMarker.dataset.segmentIndex = globalSegIdx;
+                        breakMarker.dataset.afterWord = wordIdx - 1;
+                        breakMarker.addEventListener('click', () => toggleBreak(globalSegIdx, wordIdx - 1));
+                        grid.appendChild(breakMarker);
+                    }
+                    
+                    if (segBreaks.includes(wordIdx)) {
+                        const breakIndicator = document.createElement('span');
+                        breakIndicator.className = 'break-indicator';
+                        breakIndicator.innerHTML = '↵';
+                        breakIndicator.title = 'Click to remove caption break';
+                        breakIndicator.dataset.segmentIndex = globalSegIdx;
+                        breakIndicator.dataset.afterWord = wordIdx;
+                        breakIndicator.addEventListener('click', () => toggleBreak(globalSegIdx, wordIdx));
+                        grid.appendChild(breakIndicator);
+                    }
+                    
                     const chip = document.createElement('span');
                     chip.className = 'word-chip';
                     chip.textContent = word.text?.replace(/[,.!?]/g, '') || word.text;
@@ -799,6 +853,29 @@
                 group.appendChild(grid);
                 wordsList.appendChild(group);
             });
+        }
+        
+        function toggleBreak(segmentIndex, afterWord) {
+            if (!captionBreaks[segmentIndex]) {
+                captionBreaks[segmentIndex] = [];
+            }
+            
+            const breaks = captionBreaks[segmentIndex];
+            const idx = breaks.indexOf(afterWord);
+            
+            if (idx >= 0) {
+                breaks.splice(idx, 1);
+            } else {
+                breaks.push(afterWord);
+                breaks.sort((a, b) => a - b);
+            }
+            
+            if (breaks.length === 0) {
+                delete captionBreaks[segmentIndex];
+            }
+            
+            buildWordsList();
+            markUnsaved();
         }
 
         function handleWordClick(e, segmentIndex, wordIndex) {
@@ -922,19 +999,38 @@
             currentSegmentIndex = segIdx;
             const segment = segments[segIdx];
             
-            let html = '';
-            let wordCount = 0;
-            const MAX_WORDS = 10;
+            const breaks = captionBreaks[segIdx] || [];
+            const sortedBreaks = [...breaks].sort((a, b) => a - b);
             
-            segment.words?.forEach((word, wordIdx) => {
-                if (time >= word.start && wordCount < MAX_WORDS) {
-                    const color = getWordColor(segIdx, wordIdx);
-                    const isActive = time >= word.start && time < word.end;
-                    const activeClass = isActive ? ' active' : '';
-                    html += `<span class="word${activeClass}" style="color: ${color}">${word.text}</span> `;
-                    wordCount++;
+            let currentGroupStart = 0;
+            for (const breakIdx of sortedBreaks) {
+                const nextWordIdx = breakIdx + 1;
+                if (nextWordIdx < (segment.words?.length || 0)) {
+                    const nextWord = segment.words[nextWordIdx];
+                    if (nextWord && time >= nextWord.start) {
+                        currentGroupStart = nextWordIdx;
+                    }
                 }
-            });
+            }
+            
+            let groupEnd = segment.words?.length || 0;
+            for (const breakIdx of sortedBreaks) {
+                if (breakIdx >= currentGroupStart) {
+                    groupEnd = Math.min(groupEnd, breakIdx + 1);
+                    break;
+                }
+            }
+            
+            let html = '';
+            for (let i = currentGroupStart; i < groupEnd && segment.words; i++) {
+                const word = segment.words[i];
+                const color = getWordColor(segIdx, i);
+                const isActive = time >= word.start && time < word.end;
+                const hasStarted = time >= word.start;
+                const activeClass = isActive ? ' active' : '';
+                const visibility = hasStarted ? '' : 'visibility: hidden;';
+                html += `<span class="word${activeClass}" style="color: ${color}; ${visibility}">${word.text}</span> `;
+            }
             
             captionText.innerHTML = html.trim();
             
@@ -966,6 +1062,7 @@
             try {
                 project.word_colors = wordColors;
                 project.caption_style = captionStyle;
+                project.caption_breaks = captionBreaks;
                 
                 const response = await fetch('/api/project', {
                     method: 'PUT',
