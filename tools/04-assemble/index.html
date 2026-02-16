@@ -265,15 +265,25 @@
 
         .waveform-wrapper {
             position: relative;
-            height: 80px;
+            height: 120px;
             background: #16213e;
             border-radius: 8px;
             overflow: hidden;
+            cursor: grab;
+        }
+
+        .waveform-wrapper.panning {
+            cursor: grabbing;
+        }
+
+        .waveform-canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
         }
 
         #waveformCanvas {
-            width: 100%;
-            height: 100%;
             display: block;
         }
 
@@ -288,24 +298,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 4px;
         }
 
         .trim-handle::after {
             content: '';
             width: 4px;
-            height: 24px;
+            height: 30px;
             background: rgba(255,255,255,0.5);
             border-radius: 2px;
-        }
-
-        .trim-handle-start {
-            left: 0;
-            border-radius: 8px 0 0 8px;
-        }
-
-        .trim-handle-end {
-            right: 0;
-            border-radius: 0 8px 8px 0;
         }
 
         .trim-handle:hover {
@@ -323,6 +324,18 @@
             width: 2px;
             background: #f6ad55;
             z-index: 5;
+            pointer-events: none;
+        }
+
+        .waveform-zoom-info {
+            position: absolute;
+            bottom: 4px;
+            right: 8px;
+            font-size: 10px;
+            color: #666;
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2px 6px;
+            border-radius: 3px;
             pointer-events: none;
         }
 
@@ -374,14 +387,6 @@
             border-left: 1px solid #2a2a4a;
             min-height: 0;
             overflow: hidden;
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            border-bottom: 1px solid #2a2a4a;
         }
 
         .timeline-list {
@@ -557,10 +562,13 @@
                 </div>
                 <div class="waveform-container">
                     <div class="waveform-wrapper" id="waveformWrapper">
-                        <canvas id="waveformCanvas"></canvas>
+                        <div class="waveform-canvas-container" id="waveformCanvasContainer">
+                            <canvas id="waveformCanvas"></canvas>
+                        </div>
                         <div class="trim-handle trim-handle-start" id="trimStart"></div>
                         <div class="trim-handle trim-handle-end" id="trimEnd"></div>
                         <div class="playhead" id="playhead"></div>
+                        <div class="waveform-zoom-info" id="waveformZoomInfo">1.0x</div>
                     </div>
                 </div>
                 <div class="editor-info">
@@ -594,8 +602,16 @@
         let selectedClipId = null;
         let hasUnsavedChanges = false;
         let isDraggingTrim = null;
+        let isDraggingWaveform = false;
+        let waveformDragStartX = 0;
+        let waveformDragStartPan = 0;
         let previewQueue = [];
         let previewIndex = 0;
+
+        // Waveform zoom/pan state
+        let waveformZoom = 1;
+        let waveformPanX = 0;
+        let waveformWidth = 0;
 
         const clipPoolList = document.getElementById('clipPoolList');
         const timelineList = document.getElementById('timelineList');
@@ -611,10 +627,12 @@
         const editorEndTime = document.getElementById('editorEndTime');
         const editorDuration = document.getElementById('editorDuration');
         const waveformWrapper = document.getElementById('waveformWrapper');
+        const waveformCanvasContainer = document.getElementById('waveformCanvasContainer');
         const waveformCanvas = document.getElementById('waveformCanvas');
         const trimStart = document.getElementById('trimStart');
         const trimEnd = document.getElementById('trimEnd');
         const playhead = document.getElementById('playhead');
+        const waveformZoomInfo = document.getElementById('waveformZoomInfo');
         const saveStatus = document.getElementById('saveStatus');
         const saveBtn = document.getElementById('saveBtn');
         const previewAllBtn = document.getElementById('previewAllBtn');
@@ -668,6 +686,8 @@
                 waveformData = await waveformResp.json();
 
                 console.log('[Assemble] Loaded', project.clips?.length || 0, 'clips');
+                console.log('[Assemble] Waveform peaks:', waveformData.total_peaks, 'duration:', waveformData.duration);
+
                 initializeTimelineData();
                 renderClipPool();
                 renderTimeline();
@@ -714,10 +734,6 @@
 
         function getClipById(clipId) {
             return project?.clips?.find(c => c.id === clipId);
-        }
-
-        function getWaveformData(segmentIndex) {
-            return waveformData?.segments?.[segmentIndex];
         }
 
         function getEffectiveTimes(clip) {
@@ -955,81 +971,159 @@
             toggleEnabledBtn.textContent = clip.enabled ? 'Disable' : 'Enable';
             toggleEnabledBtn.classList.toggle('btn-success', !clip.enabled);
 
-            // Use requestAnimationFrame to ensure layout is complete before rendering waveform
             requestAnimationFrame(() => {
-                renderWaveform(clip);
+                renderFullWaveform(clip);
             });
         }
 
-        function renderWaveform(clip) {
-            const seg = clip?.selected_segment || clip?.segments?.[0];
-            if (!seg) return;
-
-            const segmentIndex = seg.segment_index;
-            const wave = getWaveformData(segmentIndex);
-
+        function renderFullWaveform(clip) {
             const rect = waveformWrapper.getBoundingClientRect();
             
             if (rect.width === 0 || rect.height === 0) {
-                // Layout not ready, try again
-                requestAnimationFrame(() => renderWaveform(clip));
+                requestAnimationFrame(() => renderFullWaveform(clip));
                 return;
             }
 
-            const canvas = waveformCanvas;
-            canvas.width = rect.width * window.devicePixelRatio;
-            canvas.height = rect.height * window.devicePixelRatio;
-            canvas.style.width = rect.width + 'px';
-            canvas.style.height = rect.height + 'px';
-            
+            const peaks = waveformData.peaks;
+            const duration = waveformData.duration;
+
+            // Calculate waveform width based on zoom
+            waveformWidth = rect.width * waveformZoom;
+
+            // Set canvas container width
+            waveformCanvasContainer.style.width = waveformWidth + 'px';
+
+            // Set canvas size
+            waveformCanvas.width = waveformWidth * window.devicePixelRatio;
+            waveformCanvas.height = rect.height * window.devicePixelRatio;
+            waveformCanvas.style.width = waveformWidth + 'px';
+            waveformCanvas.style.height = rect.height + 'px';
+
+            // Apply pan transform
+            waveformCanvasContainer.style.transform = `translateX(${-waveformPanX}px)`;
+
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
-            const width = rect.width;
-            const height = rect.height;
-
+            // Draw background
             ctx.fillStyle = '#16213e';
-            ctx.fillRect(0, 0, width, height);
+            ctx.fillRect(0, 0, waveformWidth, rect.height);
 
-            if (!wave || !wave.peaks || wave.peaks.length === 0) {
-                ctx.fillStyle = '#666';
-                ctx.font = '14px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('No waveform data', width / 2, height / 2);
-                return;
+            // Calculate peaks per pixel
+            const peaksPerPixel = peaks.length / waveformWidth;
+            const centerY = rect.height / 2;
+
+            // Draw waveform bars
+            ctx.fillStyle = '#2a4a6a';
+            for (let x = 0; x < waveformWidth; x++) {
+                const peakIndex = Math.floor(x * peaksPerPixel);
+                const peak = peaks[peakIndex] || 0;
+                const barHeight = peak * rect.height * 0.8;
+                ctx.fillRect(x, centerY - barHeight / 2, 1, barHeight);
             }
 
-            const peaks = wave.peaks;
-            const segStart = wave.start;
-            const segEnd = wave.end;
-            const segDuration = segEnd - segStart;
+            // Draw clip highlight if clip is selected
+            if (clip) {
+                const times = getEffectiveTimes(clip);
+                const startX = (times.start / duration) * waveformWidth;
+                const endX = (times.end / duration) * waveformWidth;
 
-            const times = getEffectiveTimes(clip);
-            const trimStartOffset = (times.start - segStart) / segDuration;
-            const trimEndOffset = (times.end - segStart) / segDuration;
+                // Dimmed regions outside clip
+                ctx.fillStyle = 'rgba(15, 15, 26, 0.6)';
+                ctx.fillRect(0, 0, startX, rect.height);
+                ctx.fillRect(endX, 0, waveformWidth - endX, rect.height);
 
-            const barWidth = width / peaks.length;
-            const centerY = height / 2;
+                // Clip border
+                ctx.strokeStyle = '#4cc9f0';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(startX, 0, endX - startX, rect.height);
+            }
 
-            ctx.fillStyle = '#2a4a6a';
-            peaks.forEach((peak, i) => {
-                const x = i * barWidth;
-                const barHeight = peak * height * 0.8;
-                ctx.fillRect(x, centerY - barHeight / 2, barWidth - 1, barHeight);
-            });
+            // Update zoom info
+            waveformZoomInfo.textContent = `${waveformZoom.toFixed(1)}x`;
 
-            const trimStartX = trimStartOffset * width;
-            const trimEndX = trimEndOffset * width;
+            // Position trim handles (accounting for pan)
+            if (clip) {
+                const times = getEffectiveTimes(clip);
+                const startX = (times.start / duration) * waveformWidth;
+                const endX = (times.end / duration) * waveformWidth;
 
-            ctx.fillStyle = 'rgba(76, 201, 240, 0.2)';
-            ctx.fillRect(0, 0, trimStartX, height);
-            ctx.fillRect(trimEndX, 0, width - trimEndX, height);
+                trimStart.style.left = (startX - waveformPanX) + 'px';
+                trimEnd.style.left = (endX - 12 - waveformPanX) + 'px';
+            }
 
-            trimStart.style.left = trimStartX + 'px';
-            trimEnd.style.left = (trimEndX - 12) + 'px';
-
-            playhead.style.left = '-10px';
+            // Update playhead
+            updatePlayheadPosition();
         }
+
+        function updatePlayheadPosition() {
+            if (!mainVideo.timeStart && mainVideo.timeStart !== 0) return;
+
+            const duration = waveformData.duration;
+            const currentTime = mainVideo.currentTime;
+            const x = (currentTime / duration) * waveformWidth;
+
+            playhead.style.left = (x - waveformPanX) + 'px';
+        }
+
+        // Waveform zoom handler
+        waveformWrapper.addEventListener('wheel', (e) => {
+            e.preventDefault();
+
+            const rect = waveformWrapper.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const oldZoom = waveformZoom;
+
+            // Zoom in/out by 25%
+            if (e.deltaY < 0) {
+                waveformZoom = Math.min(50, waveformZoom * 1.25);
+            } else {
+                waveformZoom = Math.max(1, waveformZoom / 1.25);
+            }
+
+            // Adjust pan to keep mouse position stable
+            const zoomRatio = waveformZoom / oldZoom;
+            waveformPanX = mouseX - (mouseX - waveformPanX) * zoomRatio;
+
+            // Clamp pan
+            const maxPan = Math.max(0, waveformWidth - rect.width);
+            waveformPanX = Math.max(0, Math.min(maxPan, waveformPanX));
+
+            const clip = selectedClipId ? getClipById(selectedClipId) : null;
+            renderFullWaveform(clip);
+        }, { passive: false });
+
+        // Waveform pan handlers
+        waveformWrapper.addEventListener('mousedown', (e) => {
+            if (e.target.classList.contains('trim-handle')) return;
+
+            isDraggingWaveform = true;
+            waveformDragStartX = e.clientX;
+            waveformDragStartPan = waveformPanX;
+            waveformWrapper.classList.add('panning');
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDraggingWaveform) return;
+
+            const deltaX = waveformDragStartX - e.clientX;
+            waveformPanX = waveformDragStartPan + deltaX;
+
+            const rect = waveformWrapper.getBoundingClientRect();
+            const currentWidth = rect.width * waveformZoom;
+            const maxPan = Math.max(0, currentWidth - rect.width);
+            waveformPanX = Math.max(0, Math.min(maxPan, waveformPanX));
+
+            const clip = selectedClipId ? getClipById(selectedClipId) : null;
+            renderFullWaveform(clip);
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDraggingWaveform) {
+                isDraggingWaveform = false;
+                waveformWrapper.classList.remove('panning');
+            }
+        });
 
         function loadVideoPreview(clipId) {
             const clip = getClipById(clipId);
@@ -1049,63 +1143,54 @@
         mainVideo.addEventListener('timeupdate', () => {
             const start = mainVideo.timeStart;
             const end = mainVideo.timeEnd;
-            const duration = end - start;
 
             if (mainVideo.currentTime >= end) {
                 mainVideo.pause();
                 mainVideo.currentTime = start;
             }
 
-            const progress = (mainVideo.currentTime - start) / duration;
-            const rect = waveformWrapper.getBoundingClientRect();
-            playhead.style.left = (progress * rect.width) + 'px';
+            updatePlayheadPosition();
         });
 
-        function handleTrimDrag(e) {
-            if (!isDraggingTrim || !selectedClipId) return;
-
-            const clip = getClipById(selectedClipId);
-            const seg = clip?.selected_segment || clip?.segments?.[0];
-            if (!clip || !seg) return;
-
-            const segmentIndex = seg.segment_index;
-            const wave = getWaveformData(segmentIndex);
-            if (!wave) return;
-
-            const rect = waveformWrapper.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const ratio = Math.max(0, Math.min(1, x / rect.width));
-
-            const segStart = wave.start;
-            const segEnd = wave.end;
-            const segDuration = segEnd - segStart;
-
-            const newTime = segStart + (ratio * segDuration);
-            const times = getEffectiveTimes(clip);
-
-            if (isDraggingTrim === 'start') {
-                clip.trim_start = Math.min(newTime, times.end - 0.1);
-            } else {
-                clip.trim_end = Math.max(newTime, times.start + 0.1);
-            }
-
-            markUnsaved();
-            renderEditor();
-        }
-
+        // Trim handle handlers
         trimStart.addEventListener('mousedown', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             isDraggingTrim = 'start';
             trimStart.classList.add('dragging');
         });
 
         trimEnd.addEventListener('mousedown', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             isDraggingTrim = 'end';
             trimEnd.classList.add('dragging');
         });
 
-        document.addEventListener('mousemove', handleTrimDrag);
+        document.addEventListener('mousemove', (e) => {
+            if (!isDraggingTrim || !selectedClipId) return;
+
+            const clip = getClipById(selectedClipId);
+            if (!clip) return;
+
+            const rect = waveformWrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left + waveformPanX;
+
+            const duration = waveformData.duration;
+            const ratio = Math.max(0, Math.min(1, x / waveformWidth));
+            const newTime = ratio * duration;
+
+            const times = getEffectiveTimes(clip);
+
+            if (isDraggingTrim === 'start') {
+                clip.trim_start = Math.max(0, Math.min(newTime, times.end - 0.1));
+            } else {
+                clip.trim_end = Math.min(duration, Math.max(newTime, times.start + 0.1));
+            }
+
+            markUnsaved();
+            renderFullWaveform(clip);
+        });
 
         document.addEventListener('mouseup', () => {
             if (isDraggingTrim) {
@@ -1115,6 +1200,7 @@
 
                 if (selectedClipId) {
                     loadVideoPreview(selectedClipId);
+                    renderEditor();
                 }
             }
         });
@@ -1303,7 +1389,7 @@
             if (selectedClipId) {
                 const clip = getClipById(selectedClipId);
                 if (clip) {
-                    requestAnimationFrame(() => renderWaveform(clip));
+                    requestAnimationFrame(() => renderFullWaveform(clip));
                 }
             }
         });
