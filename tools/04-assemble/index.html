@@ -721,6 +721,11 @@
                 initializeTimelineData();
                 renderClipPool();
                 renderTimeline();
+
+                const timelineClips = getTimelineClips();
+                if (timelineClips.length > 0) {
+                    selectClip(timelineClips[0].id);
+                }
             } catch (error) {
                 console.error('[Assemble] Error loading data:', error);
                 clipPoolList.innerHTML = `<div class="error">Error: ${error.message}</div>`;
