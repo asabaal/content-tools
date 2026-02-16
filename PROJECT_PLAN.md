@@ -159,20 +159,84 @@ python tools/01-transcribe/transcribe.py data/raw/*.mp4
 ---
 
 ### Tool 04: ASSEMBLE
-**Type**: Single HTML file
-**Purpose**: Order selected clips into final timeline
+**Type**: Single HTML file + Python waveform generator
+**Purpose**: Order selected clips into final timeline, trim boundaries, split clips
 
 **Features:**
-- Timeline view of selected clips
-- Drag to reorder clips
-- Toggle clips on/off (include/exclude from final)
-- Preview full assembled timeline
-- Adjust segment boundaries if needed (trim start/end)
-- Export EDL for kdenlive/blender
+- **Clip pool** (left sidebar) - clips not yet in timeline, click [+] to add
+- **Timeline view** - horizontal strip of draggable clip cards
+- **Drag to reorder** - reposition clips in timeline
+- **Add/remove from timeline** - move clips between pool and timeline
+- **Toggle on/off** - include/exclude clips from final output
+- **Video preview** - single player for selected clip or full timeline
+- **Waveform display** - visual audio waveform for trim editing
+- **Trim start/end** - drag handles on waveform, video updates on release
+- **Split clips** - at playhead position, creates two independent clips
+- **Preview all** - seamless playback of all enabled clips in order
+- **Export EDL** - generate EDL file for kdenlive/blender
+- **Manual save** - explicit save button
 
-**Output**: `data/output/assembly.edl`
+**Layout:**
+```
+┌──────────┬────────────────────────────────────────────────────┐
+│          │                                                    │
+│  CLIP    │               MAIN PANEL                           │
+│  POOL    │  ┌──────────────────────────────────────────────┐  │
+│          │  │              VIDEO PREVIEW                    │  │
+│  (220px) │  └──────────────────────────────────────────────┘  │
+│          │                                                    │
+│  ┌─────┐ │  TIMELINE (draggable)                              │
+│  │Clip │ │  ┌────┐ ┌────┐ ┌────┐ ┌────┐                     │
+│  │ [+] │ │  │ 1  │ │ 2  │ │ 3  │ │ 4  │                     │
+│  └─────┘ │  └────┘ └────┘ └────┘ └────┘                     │
+│          │                                                    │
+│  ┌─────┐ │  SELECTED CLIP EDITOR                              │
+│  │Clip │ │  ┌──────────────────────────────────────────────┐  │
+│  │ [+] │ │  │  WAVEFORM with trim handles                  │  │
+│  └─────┘ │  │  [◄─────────────────────────────────────►]   │  │
+│          │  └──────────────────────────────────────────────┘  │
+│          │  "Transcript text..." [Split] [Toggle]             │
+└──────────┴────────────────────────────────────────────────────┘
+```
 
-**Status**: NOT STARTED
+**Input:** 
+- `data/project.json` (with clips and selected_segment per clip)
+- `data/waveforms.json` (pre-generated waveform data)
+- `data/video_combined.mp4`
+
+**Output:** 
+- Updated `data/project.json` with timeline data
+- `data/output/assembly.edl`
+
+**Pre-processing Required:**
+```bash
+python tools/04-assemble/generate_waveforms.py
+```
+Generates `data/waveforms.json` with audio peak data for each segment.
+
+**Data Model Additions:**
+```json
+{
+  "clips": [
+    {
+      "id": "clip_001",
+      "name": "Introduction",
+      "segments": [...],
+      "selected_segment": {...},
+      "include": true,
+      
+      "in_timeline": true,
+      "timeline_position": 0,
+      "trim_start": null,
+      "trim_end": null,
+      "enabled": true,
+      "split_parent_id": null
+    }
+  ]
+}
+```
+
+**Status**: ✅ DONE
 
 ---
 
@@ -234,7 +298,7 @@ Current test project: **Episode 3 - "Life is Your Word"**
 | 3 | `tools/01-transcribe/` | core | ✅ DONE |
 | 4 | `tools/02-review/` | core, transcribe | ✅ DONE |
 | 5 | `tools/03-select/` | review+assign | ✅ DONE |
-| 6 | `tools/04-assemble/` | select | NOT STARTED |
+| 6 | `tools/04-assemble/` | select | ✅ DONE |
 
 ---
 
@@ -255,7 +319,7 @@ Current test project: **Episode 3 - "Life is Your Word"**
 3. ~~Build `tools/01-transcribe/` - Whisper wrapper~~ ✅
 4. ~~Build `tools/02-review/` - Video + transcript + clip assignment~~ ✅
 5. ~~Build `tools/03-select/` - Take comparison and selection~~ ✅
-6. **Build `tools/04-assemble/` - Timeline + EDL export** 🔄
+6. ~~Build `tools/04-assemble/` - Timeline + EDL export~~ ✅
 
 ---
 

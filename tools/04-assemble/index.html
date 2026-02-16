@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assemble Timeline - Content Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+
+        .app {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            background: #16213e;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4cc9f0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .save-status {
+            font-size: 12px;
+            color: #888;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .save-status.unsaved {
+            color: #f6ad55;
+        }
+
+        .save-status.saved {
+            color: #48bb78;
+        }
+
+        .btn {
+            background: #4cc9f0;
+            color: #0f0f1a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #3aa8d8;
+        }
+
+        .btn-success {
+            background: #48bb78;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-secondary {
+            background: #2a2a4a;
+            color: #eee;
+        }
+
+        .btn-secondary:hover {
+            background: #3a3a5a;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+        }
+
+        /* Clip Pool Sidebar */
+        .clip-pool {
+            background: #16213e;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #2a2a4a;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .clip-pool-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .clip-pool-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clip-pool-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .pool-item {
+            background: #0f0f1a;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pool-item:hover {
+            background: #1a2744;
+        }
+
+        .pool-item.selected {
+            border-color: #4cc9f0;
+        }
+
+        .pool-item-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #eee;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .pool-item-add {
+            background: #48bb78;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+
+        .pool-item-add:hover {
+            background: #38a169;
+        }
+
+        .no-clips {
+            color: #666;
+            font-style: italic;
+            font-size: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        /* Main Panel */
+        .main-panel {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+            background: #0f0f1a;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 20px;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-section.hidden {
+            display: none;
+        }
+
+        #mainVideo {
+            max-width: 100%;
+            max-height: 300px;
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .video-info {
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .video-info-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4cc9f0;
+        }
+
+        .video-info-time {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 16px 20px;
+            border-bottom: 1px solid #2a2a4a;
+            background: #16213e;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .timeline-header h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .timeline {
+            display: flex;
+            gap: 8px;
+            padding: 8px;
+            overflow-x: auto;
+            background: #0f0f1a;
+            border-radius: 6px;
+            min-height: 80px;
+        }
+
+        .timeline::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .timeline::-webkit-scrollbar-track {
+            background: #1a1a2e;
+            border-radius: 4px;
+        }
+
+        .timeline::-webkit-scrollbar-thumb {
+            background: #3a3a5a;
+            border-radius: 4px;
+        }
+
+        .timeline-clip {
+            min-width: 120px;
+            max-width: 180px;
+            background: #16213e;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: grab;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .timeline-clip:hover {
+            background: #1a2744;
+        }
+
+        .timeline-clip.selected {
+            border-color: #4cc9f0;
+        }
+
+        .timeline-clip.disabled {
+            opacity: 0.5;
+        }
+
+        .timeline-clip.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .timeline-clip.drag-over {
+            border-color: #48bb78;
+        }
+
+        .timeline-clip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .timeline-clip-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #eee;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .timeline-clip-pos {
+            font-size: 10px;
+            color: #666;
+            background: #2a2a4a;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .timeline-clip-duration {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .timeline-clip-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .timeline-clip-btn {
+            background: #2a2a4a;
+            color: #888;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .timeline-clip-btn:hover {
+            background: #3a3a5a;
+            color: #eee;
+        }
+
+        .timeline-clip-btn.remove:hover {
+            background: #e53e3e;
+            color: #fff;
+        }
+
+        .timeline-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            color: #666;
+            font-style: italic;
+            font-size: 13px;
+            width: 100%;
+        }
+
+        /* Editor Section */
+        .editor-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .editor-section.hidden {
+            display: none;
+        }
+
+        .editor-header {
+            padding: 12px 20px;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #16213e;
+        }
+
+        .editor-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #eee;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .waveform-container {
+            flex: 1;
+            padding: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .waveform-wrapper {
+            position: relative;
+            height: 100px;
+            background: #16213e;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #waveformCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .trim-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 12px;
+            background: #4cc9f0;
+            cursor: ew-resize;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trim-handle::after {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2px;
+        }
+
+        .trim-handle-start {
+            left: 0;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .trim-handle-end {
+            right: 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .trim-handle:hover {
+            background: #3aa8d8;
+        }
+
+        .trim-handle.dragging {
+            background: #48bb78;
+        }
+
+        .playhead {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #f6ad55;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .waveform-disabled {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 15, 26, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .editor-info {
+            padding: 16px 20px;
+            background: #0f0f1a;
+            border-top: 1px solid #2a2a4a;
+        }
+
+        .editor-transcript {
+            font-size: 14px;
+            color: #ddd;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .editor-times {
+            display: flex;
+            gap: 24px;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .editor-times span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .editor-times strong {
+            color: #4cc9f0;
+        }
+
+        .no-selection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #666;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #666;
+        }
+
+        .error {
+            color: #f66;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>04 - Assemble Timeline</h1>
+            <div class="header-actions">
+                <span class="save-status" id="saveStatus"></span>
+                <button class="btn btn-secondary btn-small" id="previewAllBtn">Preview All</button>
+                <button class="btn btn-secondary btn-small" id="exportBtn">Export EDL</button>
+                <button class="btn btn-success btn-small" id="saveBtn">Save</button>
+            </div>
+        </header>
+
+        <section class="clip-pool">
+            <div class="clip-pool-header">
+                <h2>Clip Pool</h2>
+            </div>
+            <div class="clip-pool-list" id="clipPoolList">
+                <div class="loading">Loading...</div>
+            </div>
+        </section>
+
+        <section class="main-panel">
+            <div class="video-section hidden" id="videoSection">
+                <video id="mainVideo" controls></video>
+                <div class="video-info">
+                    <div class="video-info-title" id="videoInfoTitle">No clip selected</div>
+                    <div class="video-info-time" id="videoInfoTime">-</div>
+                </div>
+            </div>
+
+            <div class="timeline-section">
+                <div class="timeline-header">
+                    <h3>Timeline</h3>
+                    <div class="timeline-actions">
+                        <button class="btn btn-secondary btn-small" id="clearTimelineBtn">Clear All</button>
+                    </div>
+                </div>
+                <div class="timeline" id="timeline">
+                    <div class="timeline-empty">Add clips from the pool on the left</div>
+                </div>
+            </div>
+
+            <div class="editor-section hidden" id="editorSection">
+                <div class="editor-header">
+                    <span class="editor-title" id="editorTitle">Select a clip</span>
+                    <div class="editor-actions">
+                        <button class="btn btn-secondary btn-small" id="splitBtn">Split at Playhead</button>
+                        <button class="btn btn-secondary btn-small" id="toggleEnabledBtn">Disable</button>
+                    </div>
+                </div>
+                <div class="waveform-container">
+                    <div class="waveform-wrapper" id="waveformWrapper">
+                        <canvas id="waveformCanvas"></canvas>
+                        <div class="trim-handle trim-handle-start" id="trimStart"></div>
+                        <div class="trim-handle trim-handle-end" id="trimEnd"></div>
+                        <div class="playhead" id="playhead"></div>
+                    </div>
+                </div>
+                <div class="editor-info">
+                    <div class="editor-transcript" id="editorTranscript">-</div>
+                    <div class="editor-times">
+                        <span>Start: <strong id="editorStartTime">0:00.00</strong></span>
+                        <span>End: <strong id="editorEndTime">0:00.00</strong></span>
+                        <span>Duration: <strong id="editorDuration">0.00s</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-selection" id="noSelection">
+                Select a clip from the timeline to edit
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let project = null;
+        let waveformData = null;
+        let selectedClipId = null;
+        let hasUnsavedChanges = false;
+        let isDraggingTrim = null;
+        let previewQueue = [];
+        let previewIndex = 0;
+
+        const clipPoolList = document.getElementById('clipPoolList');
+        const timeline = document.getElementById('timeline');
+        const videoSection = document.getElementById('videoSection');
+        const mainVideo = document.getElementById('mainVideo');
+        const videoInfoTitle = document.getElementById('videoInfoTitle');
+        const videoInfoTime = document.getElementById('videoInfoTime');
+        const editorSection = document.getElementById('editorSection');
+        const noSelection = document.getElementById('noSelection');
+        const editorTitle = document.getElementById('editorTitle');
+        const editorTranscript = document.getElementById('editorTranscript');
+        const editorStartTime = document.getElementById('editorStartTime');
+        const editorEndTime = document.getElementById('editorEndTime');
+        const editorDuration = document.getElementById('editorDuration');
+        const waveformWrapper = document.getElementById('waveformWrapper');
+        const waveformCanvas = document.getElementById('waveformCanvas');
+        const trimStart = document.getElementById('trimStart');
+        const trimEnd = document.getElementById('trimEnd');
+        const playhead = document.getElementById('playhead');
+        const saveStatus = document.getElementById('saveStatus');
+        const saveBtn = document.getElementById('saveBtn');
+        const previewAllBtn = document.getElementById('previewAllBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const splitBtn = document.getElementById('splitBtn');
+        const toggleEnabledBtn = document.getElementById('toggleEnabledBtn');
+        const clearTimelineBtn = document.getElementById('clearTimelineBtn');
+
+        const ctx = waveformCanvas.getContext('2d');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            const ms = Math.floor((seconds % 1) * 100);
+            return `${mins}:${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+        }
+
+        function formatTimeShort(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function formatDuration(seconds) {
+            return `${seconds.toFixed(2)}s`;
+        }
+
+        function markUnsaved() {
+            hasUnsavedChanges = true;
+            saveStatus.textContent = 'Unsaved';
+            saveStatus.className = 'save-status unsaved';
+        }
+
+        function markSaved() {
+            hasUnsavedChanges = false;
+            saveStatus.textContent = 'Saved';
+            saveStatus.className = 'save-status saved';
+            setTimeout(() => {
+                saveStatus.textContent = '';
+                saveStatus.className = 'save-status';
+            }, 2000);
+        }
+
+        async function loadData() {
+            try {
+                const projectResp = await fetch('../../data/project.json');
+                if (!projectResp.ok) throw new Error('No project.json found');
+                project = await projectResp.json();
+
+                const waveformResp = await fetch('../../data/waveforms.json');
+                if (!waveformResp.ok) throw new Error('No waveforms.json found. Run generate_waveforms.py first.');
+                waveformData = await waveformResp.json();
+
+                console.log('[Assemble] Loaded', project.clips?.length || 0, 'clips');
+                initializeTimelineData();
+                renderClipPool();
+                renderTimeline();
+            } catch (error) {
+                console.error('[Assemble] Error loading data:', error);
+                clipPoolList.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+
+        function initializeTimelineData() {
+            if (!project.clips) return;
+
+            project.clips.forEach((clip, index) => {
+                if (clip.in_timeline === undefined) {
+                    clip.in_timeline = true;
+                }
+                if (clip.timeline_position === undefined) {
+                    clip.timeline_position = index;
+                }
+                if (clip.enabled === undefined) {
+                    clip.enabled = true;
+                }
+            });
+        }
+
+        function getClipById(clipId) {
+            return project?.clips?.find(c => c.id === clipId);
+        }
+
+        function getSegmentData(segmentIndex) {
+            return project?.transcript?.segments?.[segmentIndex];
+        }
+
+        function getWaveformData(segmentIndex) {
+            return waveformData?.segments?.[segmentIndex];
+        }
+
+        function getEffectiveTimes(clip) {
+            if (!clip?.selected_segment) return { start: 0, end: 0 };
+            
+            const seg = clip.selected_segment;
+            return {
+                start: clip.trim_start ?? seg.start,
+                end: clip.trim_end ?? seg.end
+            };
+        }
+
+        function getTimelineClips() {
+            return project?.clips
+                ?.filter(c => c.in_timeline)
+                .sort((a, b) => (a.timeline_position || 0) - (b.timeline_position || 0)) || [];
+        }
+
+        function getPoolClips() {
+            return project?.clips?.filter(c => !c.in_timeline) || [];
+        }
+
+        function renderClipPool() {
+            const poolClips = getPoolClips();
+
+            if (poolClips.length === 0) {
+                clipPoolList.innerHTML = '<div class="no-clips">All clips are in the timeline</div>';
+                return;
+            }
+
+            const html = poolClips.map(clip => {
+                const seg = clip.selected_segment;
+                const duration = seg ? (seg.end - seg.start).toFixed(1) : '0';
+
+                return `
+                    <div class="pool-item ${selectedClipId === clip.id ? 'selected' : ''}" 
+                         data-clip-id="${clip.id}">
+                        <span class="pool-item-name">${clip.name}</span>
+                        <button class="pool-item-add" data-clip-id="${clip.id}" title="Add to timeline">+</button>
+                    </div>
+                `;
+            }).join('');
+
+            clipPoolList.innerHTML = html;
+
+            document.querySelectorAll('.pool-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('pool-item-add')) {
+                        selectClip(item.dataset.clipId);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.pool-item-add').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    addToTimeline(btn.dataset.clipId);
+                });
+            });
+        }
+
+        function renderTimeline() {
+            const timelineClips = getTimelineClips();
+
+            if (timelineClips.length === 0) {
+                timeline.innerHTML = '<div class="timeline-empty">Add clips from the pool on the left</div>';
+                return;
+            }
+
+            const html = timelineClips.map((clip, index) => {
+                const times = getEffectiveTimes(clip);
+                const duration = (times.end - times.start).toFixed(1);
+                const isSelected = selectedClipId === clip.id;
+                const isDisabled = !clip.enabled;
+
+                return `
+                    <div class="timeline-clip ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}"
+                         data-clip-id="${clip.id}"
+                         draggable="true">
+                        <div class="timeline-clip-header">
+                            <span class="timeline-clip-name">${clip.name}</span>
+                            <span class="timeline-clip-pos">${index + 1}</span>
+                        </div>
+                        <div class="timeline-clip-duration">${duration}s</div>
+                        <div class="timeline-clip-actions">
+                            <button class="timeline-clip-btn remove" data-clip-id="${clip.id}" title="Remove from timeline">×</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            timeline.innerHTML = html;
+
+            document.querySelectorAll('.timeline-clip').forEach(item => {
+                item.addEventListener('click', () => {
+                    selectClip(item.dataset.clipId);
+                });
+
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('drop', handleDrop);
+
+                const removeBtn = item.querySelector('.timeline-clip-btn.remove');
+                removeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeFromTimeline(removeBtn.dataset.clipId);
+                });
+            });
+        }
+
+        function handleDragStart(e) {
+            e.target.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', e.target.dataset.clipId);
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+            document.querySelectorAll('.timeline-clip').forEach(item => {
+                item.classList.remove('drag-over');
+            });
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            const target = e.target.closest('.timeline-clip');
+            if (target && !target.classList.contains('dragging')) {
+                document.querySelectorAll('.timeline-clip').forEach(item => {
+                    item.classList.remove('drag-over');
+                });
+                target.classList.add('drag-over');
+            }
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const target = e.target.closest('.timeline-clip');
+            if (!target) return;
+
+            const draggedId = e.dataTransfer.getData('text/plain');
+            const targetId = target.dataset.clipId;
+
+            if (draggedId === targetId) return;
+
+            const draggedClip = getClipById(draggedId);
+            const targetClip = getClipById(targetId);
+
+            if (!draggedClip || !targetClip) return;
+
+            const draggedPos = draggedClip.timeline_position;
+            const targetPos = targetClip.timeline_position;
+
+            draggedClip.timeline_position = targetPos;
+
+            project.clips.forEach(clip => {
+                if (clip.id !== draggedId && clip.in_timeline) {
+                    if (draggedPos < targetPos) {
+                        if (clip.timeline_position > draggedPos && clip.timeline_position <= targetPos) {
+                            clip.timeline_position--;
+                        }
+                    } else {
+                        if (clip.timeline_position >= targetPos && clip.timeline_position < draggedPos) {
+                            clip.timeline_position++;
+                        }
+                    }
+                }
+            });
+
+            markUnsaved();
+            renderTimeline();
+        }
+
+        function addToTimeline(clipId) {
+            const clip = getClipById(clipId);
+            if (!clip) return;
+
+            const maxPos = Math.max(0, ...getTimelineClips().map(c => c.timeline_position || 0));
+            clip.in_timeline = true;
+            clip.timeline_position = maxPos + 1;
+
+            markUnsaved();
+            renderClipPool();
+            renderTimeline();
+        }
+
+        function removeFromTimeline(clipId) {
+            const clip = getClipById(clipId);
+            if (!clip) return;
+
+            clip.in_timeline = false;
+            clip.timeline_position = null;
+
+            if (selectedClipId === clipId) {
+                selectedClipId = null;
+                renderEditor();
+            }
+
+            markUnsaved();
+            renderClipPool();
+            renderTimeline();
+        }
+
+        function selectClip(clipId) {
+            selectedClipId = clipId;
+
+            renderClipPool();
+            renderTimeline();
+            renderEditor();
+            loadVideoPreview(clipId);
+        }
+
+        function renderEditor() {
+            if (!selectedClipId) {
+                editorSection.classList.add('hidden');
+                noSelection.classList.remove('hidden');
+                videoSection.classList.add('hidden');
+                return;
+            }
+
+            const clip = getClipById(selectedClipId);
+            if (!clip || !clip.selected_segment) {
+                editorSection.classList.add('hidden');
+                noSelection.classList.remove('hidden');
+                return;
+            }
+
+            editorSection.classList.remove('hidden');
+            noSelection.classList.add('hidden');
+            videoSection.classList.remove('hidden');
+
+            const times = getEffectiveTimes(clip);
+            const duration = times.end - times.start;
+
+            editorTitle.textContent = clip.name;
+            editorTranscript.textContent = clip.selected_segment.text || '-';
+            editorStartTime.textContent = formatTime(times.start);
+            editorEndTime.textContent = formatTime(times.end);
+            editorDuration.textContent = formatDuration(duration);
+
+            toggleEnabledBtn.textContent = clip.enabled ? 'Disable' : 'Enable';
+            toggleEnabledBtn.classList.toggle('btn-success', !clip.enabled);
+
+            renderWaveform(clip);
+        }
+
+        function renderWaveform(clip) {
+            if (!clip?.selected_segment) return;
+
+            const segmentIndex = clip.selected_segment.segment_index;
+            const wave = getWaveformData(segmentIndex);
+
+            const canvas = waveformCanvas;
+            const rect = waveformWrapper.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio;
+            canvas.height = rect.height * window.devicePixelRatio;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+            const width = rect.width;
+            const height = rect.height;
+
+            ctx.fillStyle = '#16213e';
+            ctx.fillRect(0, 0, width, height);
+
+            if (!wave || !wave.peaks || wave.peaks.length === 0) {
+                ctx.fillStyle = '#666';
+                ctx.font = '14px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('No waveform data', width / 2, height / 2);
+                return;
+            }
+
+            const peaks = wave.peaks;
+            const segStart = wave.start;
+            const segEnd = wave.end;
+            const segDuration = segEnd - segStart;
+
+            const times = getEffectiveTimes(clip);
+            const trimStartOffset = (times.start - segStart) / segDuration;
+            const trimEndOffset = (times.end - segStart) / segDuration;
+
+            const barWidth = width / peaks.length;
+            const centerY = height / 2;
+
+            ctx.fillStyle = '#2a4a6a';
+            peaks.forEach((peak, i) => {
+                const x = i * barWidth;
+                const barHeight = peak * height * 0.8;
+                ctx.fillRect(x, centerY - barHeight / 2, barWidth - 1, barHeight);
+            });
+
+            const trimStartX = trimStartOffset * width;
+            const trimEndX = trimEndOffset * width;
+
+            ctx.fillStyle = 'rgba(76, 201, 240, 0.2)';
+            ctx.fillRect(0, 0, trimStartX, height);
+            ctx.fillRect(trimEndX, 0, width - trimEndX, height);
+
+            trimStart.style.left = trimStartX + 'px';
+            trimEnd.style.left = (trimEndX - 12) + 'px';
+
+            playhead.style.left = '-10px';
+        }
+
+        function loadVideoPreview(clipId) {
+            const clip = getClipById(clipId);
+            if (!clip || !clip.selected_segment) return;
+
+            const times = getEffectiveTimes(clip);
+            mainVideo.src = `../../data/video_combined.mp4#t=${times.start}`;
+
+            videoInfoTitle.textContent = clip.name;
+            videoInfoTime.textContent = `${formatTimeShort(times.start)} - ${formatTimeShort(times.end)}`;
+
+            mainVideo.timeStart = times.start;
+            mainVideo.timeEnd = times.end;
+        }
+
+        mainVideo.addEventListener('timeupdate', () => {
+            const start = mainVideo.timeStart;
+            const end = mainVideo.timeEnd;
+            const duration = end - start;
+
+            if (mainVideo.currentTime >= end) {
+                mainVideo.pause();
+                mainVideo.currentTime = start;
+            }
+
+            const progress = (mainVideo.currentTime - start) / duration;
+            const rect = waveformWrapper.getBoundingClientRect();
+            playhead.style.left = (progress * rect.width) + 'px';
+        });
+
+        function handleTrimDrag(e) {
+            if (!isDraggingTrim || !selectedClipId) return;
+
+            const clip = getClipById(selectedClipId);
+            if (!clip?.selected_segment) return;
+
+            const segmentIndex = clip.selected_segment.segment_index;
+            const wave = getWaveformData(segmentIndex);
+            if (!wave) return;
+
+            const rect = waveformWrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const ratio = Math.max(0, Math.min(1, x / rect.width));
+
+            const segStart = wave.start;
+            const segEnd = wave.end;
+            const segDuration = segEnd - segStart;
+
+            const newTime = segStart + (ratio * segDuration);
+            const times = getEffectiveTimes(clip);
+
+            if (isDraggingTrim === 'start') {
+                clip.trim_start = Math.min(newTime, times.end - 0.1);
+            } else {
+                clip.trim_end = Math.max(newTime, times.start + 0.1);
+            }
+
+            markUnsaved();
+            renderEditor();
+        }
+
+        trimStart.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            isDraggingTrim = 'start';
+            trimStart.classList.add('dragging');
+        });
+
+        trimEnd.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            isDraggingTrim = 'end';
+            trimEnd.classList.add('dragging');
+        });
+
+        document.addEventListener('mousemove', handleTrimDrag);
+
+        document.addEventListener('mouseup', () => {
+            if (isDraggingTrim) {
+                isDraggingTrim = null;
+                trimStart.classList.remove('dragging');
+                trimEnd.classList.remove('dragging');
+
+                if (selectedClipId) {
+                    loadVideoPreview(selectedClipId);
+                }
+            }
+        });
+
+        splitBtn.addEventListener('click', () => {
+            if (!selectedClipId) return;
+
+            const clip = getClipById(selectedClipId);
+            if (!clip?.selected_segment) return;
+
+            const times = getEffectiveTimes(clip);
+            const splitPoint = mainVideo.currentTime;
+
+            if (splitPoint <= times.start || splitPoint >= times.end) {
+                alert('Position playhead within the clip to split');
+                return;
+            }
+
+            const clip1 = JSON.parse(JSON.stringify(clip));
+            clip1.id = `${clip.id}_split_${Date.now()}_1`;
+            clip1.name = `${clip.name} (1)`;
+            clip1.trim_end = splitPoint;
+            clip1.timeline_position = clip.timeline_position;
+            clip1.split_parent_id = clip.id;
+
+            const clip2 = JSON.parse(JSON.stringify(clip));
+            clip2.id = `${clip.id}_split_${Date.now()}_2`;
+            clip2.name = `${clip.name} (2)`;
+            clip2.trim_start = splitPoint;
+            clip2.timeline_position = clip.timeline_position + 0.5;
+            clip2.split_parent_id = clip.id;
+
+            clip.in_timeline = false;
+            clip.timeline_position = null;
+
+            project.clips.push(clip1, clip2);
+
+            selectedClipId = clip1.id;
+
+            markUnsaved();
+            renderClipPool();
+            renderTimeline();
+            renderEditor();
+            loadVideoPreview(clip1.id);
+        });
+
+        toggleEnabledBtn.addEventListener('click', () => {
+            if (!selectedClipId) return;
+
+            const clip = getClipById(selectedClipId);
+            if (!clip) return;
+
+            clip.enabled = !clip.enabled;
+
+            markUnsaved();
+            renderTimeline();
+            renderEditor();
+        });
+
+        clearTimelineBtn.addEventListener('click', () => {
+            if (!confirm('Remove all clips from timeline?')) return;
+
+            project.clips.forEach(clip => {
+                clip.in_timeline = false;
+                clip.timeline_position = null;
+            });
+
+            selectedClipId = null;
+
+            markUnsaved();
+            renderClipPool();
+            renderTimeline();
+            renderEditor();
+        });
+
+        previewAllBtn.addEventListener('click', () => {
+            const timelineClips = getTimelineClips().filter(c => c.enabled);
+            if (timelineClips.length === 0) {
+                alert('No clips in timeline to preview');
+                return;
+            }
+
+            previewQueue = timelineClips;
+            previewIndex = 0;
+            playNextInQueue();
+        });
+
+        function playNextInQueue() {
+            if (previewIndex >= previewQueue.length) {
+                previewQueue = [];
+                previewIndex = 0;
+                return;
+            }
+
+            const clip = previewQueue[previewIndex];
+            const times = getEffectiveTimes(clip);
+
+            selectedClipId = clip.id;
+            renderClipPool();
+            renderTimeline();
+            renderEditor();
+
+            mainVideo.src = `../../data/video_combined.mp4#t=${times.start}`;
+            mainVideo.timeStart = times.start;
+            mainVideo.timeEnd = times.end;
+
+            mainVideo.oncanplay = () => {
+                mainVideo.play();
+            };
+
+            mainVideo.onended = () => {
+                previewIndex++;
+                playNextInQueue();
+            };
+        }
+
+        function exportEDL() {
+            const timelineClips = getTimelineClips().filter(c => c.enabled);
+            if (timelineClips.length === 0) {
+                alert('No clips to export');
+                return;
+            }
+
+            let edl = 'TITLE: Content Tools Export\n';
+            edl += 'FCM: NON-DROP FRAME\n\n';
+
+            let timelineTime = 0;
+
+            timelineClips.forEach((clip, i) => {
+                const times = getEffectiveTimes(clip);
+                const duration = times.end - times.start;
+
+                const clipIn = formatEDLTime(times.start);
+                const clipOut = formatEDLTime(times.end);
+                const recIn = formatEDLTime(timelineTime);
+                const recOut = formatEDLTime(timelineTime + duration);
+
+                edl += `${String(i + 1).padStart(3, '0')}  AX       AA/V  C        ${clipIn} ${clipOut} ${recIn} ${recOut}\n`;
+                edl += `* FROM CLIP NAME: ${clip.name}\n`;
+                edl += `* COMMENT: ${clip.selected_segment?.text?.substring(0, 60) || ''}\n\n`;
+
+                timelineTime += duration;
+            });
+
+            const blob = new Blob([edl], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'assembly.edl';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function formatEDLTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+            const f = Math.floor((seconds % 1) * 30);
+            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}:${String(f).padStart(2, '0')}`;
+        }
+
+        exportBtn.addEventListener('click', exportEDL);
+
+        async function saveProject() {
+            try {
+                const response = await fetch('../../data/project.json', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(project, null, 2)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save');
+                }
+
+                markSaved();
+                console.log('[Assemble] Project saved');
+            } catch (e) {
+                const blob = new Blob([JSON.stringify(project, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'project.json';
+                a.click();
+                URL.revokeObjectURL(url);
+                markSaved();
+            }
+        }
+
+        saveBtn.addEventListener('click', saveProject);
+
+        window.addEventListener('beforeunload', (e) => {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (selectedClipId) {
+                const clip = getClipById(selectedClipId);
+                if (clip) renderWaveform(clip);
+            }
+        });
+
+        loadData();
+    </script>
+</body>
+</html>
