@@ -1051,6 +1051,8 @@
         }
 
         const MIN_WORD_DURATION = 0.15;
+        const SAFE_SKIP_OFFSET = 0.05;
+        const END_EPS = 0.03;
 
         function handleWordMouseMove(e) {
             if (!draggingWord) return;
@@ -1460,12 +1462,18 @@
         }
 
         function loadVideoPreview(clipId) {
+            console.log('[loadVideoPreview] called with clipId:', clipId);
+            console.trace('[loadVideoPreview] stack trace');
+            
             const clip = getClipById(clipId);
             const seg = clip?.selected_segment || clip?.segments?.[0];
             if (!clip || !seg) return;
 
             const times = getEffectiveTimes(clip);
-            mainVideo.src = `../../data/video_combined.mp4#t=${times.start}`;
+            console.log('[loadVideoPreview] times.start:', times.start, 'times.end:', times.end);
+            
+            mainVideo.src = '../../data/video_combined.mp4';
+            mainVideo.currentTime = times.start;
 
             videoInfoTitle.textContent = clip.name;
             videoInfoTime.textContent = `${formatTimeShort(times.start)} - ${formatTimeShort(times.end)}`;
@@ -1475,28 +1483,115 @@
         }
 
         mainVideo.addEventListener('timeupdate', () => {
+            const clip = selectedClipId ? getClipById(selectedClipId) : null;
             const start = mainVideo.timeStart;
             const end = mainVideo.timeEnd;
+            const currentTime = mainVideo.currentTime;
+            const lastTime = mainVideo._lastTime || currentTime;
 
-            if (mainVideo.currentTime >= end) {
+            console.log(
+                '[TU]',
+                't', currentTime.toFixed(3),
+                'lt', lastTime.toFixed(3),
+                'start', start.toFixed(3),
+                'end', end.toFixed(3),
+                'deleted', (clip?.deleted_regions?.length || 0),
+                'queue', previewQueue.length
+            );
+
+            if (currentTime >= end - END_EPS) {
+                console.log('[TU] end guard fired');
+                if (previewQueue.length > 0) {
+                    previewIndex++;
+                    playNextInQueue();
+                    return;
+                }
                 mainVideo.pause();
-                mainVideo.currentTime = start;
+                mainVideo.currentTime = end;
+                mainVideo._lastTime = end;
                 return;
             }
 
-            const clip = selectedClipId ? getClipById(selectedClipId) : null;
-            if (clip && clip.deleted_regions) {
-                const currentTime = mainVideo.currentTime;
-                for (const region of clip.deleted_regions) {
-                    if (currentTime >= region.start && currentTime < region.end) {
-                        mainVideo.currentTime = region.end;
-                        return;
+            if (clip && clip.deleted_regions && clip.deleted_regions.length > 0) {
+                const effectiveRegions = clip.deleted_regions
+                    .map(r => ({
+                        start: Math.max(r.start, start),
+                        end: Math.min(r.end, end)
+                    }))
+                    .filter(r => r.end > r.start);
+
+                let t = currentTime;
+                let lt = lastTime;
+                let skipped = false;
+
+                while (true) {
+                    let didSkip = false;
+
+                    for (const region of effectiveRegions) {
+                        const inRegion = t >= region.start && t < region.end;
+                        const enteredRegion = lt < region.start && t >= region.start && t < region.end;
+                        const jumpedPastRegion = lt < region.start && t >= region.end && t < end - END_EPS;
+
+                        if (inRegion || enteredRegion || jumpedPastRegion) {
+                            let skipTarget = Math.min(region.end + SAFE_SKIP_OFFSET, end - SAFE_SKIP_OFFSET);
+                            
+                            console.log('[TU] skip to', skipTarget.toFixed(3), 'region was', region.start.toFixed(3), '-', region.end.toFixed(3));
+                            
+                            if (skipTarget >= end) {
+                                if (previewQueue.length > 0) {
+                                    previewIndex++;
+                                    playNextInQueue();
+                                    return;
+                                }
+                                mainVideo.pause();
+                                mainVideo.currentTime = end;
+                                mainVideo._lastTime = end;
+                                return;
+                            }
+                            
+                            mainVideo.currentTime = skipTarget;
+                            mainVideo._lastTime = skipTarget;
+                            lt = skipTarget;
+                            t = skipTarget;
+                            didSkip = true;
+                            skipped = true;
+                            break;
+                        }
                     }
+
+                    if (!didSkip) break;
+                }
+
+                if (skipped) {
+                    updatePlayheadPosition();
+                    highlightCurrentWord(mainVideo.currentTime);
+                    return;
                 }
             }
 
+            mainVideo._lastTime = currentTime;
             updatePlayheadPosition();
-            highlightCurrentWord(mainVideo.currentTime);
+            highlightCurrentWord(currentTime);
+        });
+
+        mainVideo.addEventListener('seeking', () => {
+            console.log('[VIDEO EVENT] seeking to:', mainVideo.currentTime.toFixed(3));
+        });
+
+        mainVideo.addEventListener('seeked', () => {
+            console.log('[VIDEO EVENT] seeked to:', mainVideo.currentTime.toFixed(3));
+        });
+
+        mainVideo.addEventListener('loadedmetadata', () => {
+            console.log('[VIDEO EVENT] loadedmetadata, currentTime:', mainVideo.currentTime.toFixed(3));
+        });
+
+        mainVideo.addEventListener('canplay', () => {
+            console.log('[VIDEO EVENT] canplay, currentTime:', mainVideo.currentTime.toFixed(3));
+        });
+
+        mainVideo.addEventListener('loadstart', () => {
+            console.log('[VIDEO EVENT] loadstart, src:', mainVideo.src);
         });
 
         trimStart.addEventListener('mousedown', (e) => {
@@ -1528,10 +1623,14 @@
 
             const times = getEffectiveTimes(clip);
 
+            console.log('[TRIM DRAG] isDraggingTrim:', isDraggingTrim, 'newTime:', newTime.toFixed(3), 'x:', x.toFixed(0), 'waveformWidth:', waveformWidth);
+
             if (isDraggingTrim === 'start') {
                 clip.trim_start = Math.max(0, Math.min(newTime, times.end - 0.1));
+                console.log('[TRIM DRAG] set trim_start to:', clip.trim_start.toFixed(3));
             } else {
                 clip.trim_end = Math.min(duration, Math.max(newTime, times.start + 0.1));
+                console.log('[TRIM DRAG] set trim_end to:', clip.trim_end.toFixed(3));
             }
 
             markUnsaved();
@@ -1635,7 +1734,8 @@
             renderTimelineCards();
             renderEditor();
 
-            mainVideo.src = `../../data/video_combined.mp4#t=${times.start}`;
+            mainVideo.src = '../../data/video_combined.mp4';
+            mainVideo.currentTime = times.start;
             mainVideo.timeStart = times.start;
             mainVideo.timeEnd = times.end;
 
