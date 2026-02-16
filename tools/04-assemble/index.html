@@ -20,7 +20,7 @@
 
         .app {
             display: grid;
-            grid-template-columns: 220px 1fr 300px;
+            grid-template-columns: 400px 1fr;
             grid-template-rows: auto 1fr;
             height: 100vh;
             gap: 0;
@@ -102,9 +102,8 @@
             font-size: 11px;
         }
 
-        /* Clip Pool Sidebar (LEFT) */
-        .clip-pool {
-            background: #16213e;
+        /* Left Panel */
+        .left-panel {
             display: flex;
             flex-direction: column;
             border-right: 1px solid #2a2a4a;
@@ -112,90 +111,13 @@
             overflow: hidden;
         }
 
-        .panel-header {
-            padding: 12px 16px;
-            border-bottom: 1px solid #2a2a4a;
-        }
-
-        .panel-header h2 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .clip-pool-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 8px;
-        }
-
-        .pool-item {
-            background: #0f0f1a;
-            border-radius: 6px;
-            padding: 10px 12px;
-            margin-bottom: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .pool-item:hover {
-            background: #1a2744;
-        }
-
-        .pool-item-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: #eee;
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .pool-item-add {
-            background: #48bb78;
-            color: #fff;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-            margin-left: 8px;
-        }
-
-        .pool-item-add:hover {
-            background: #38a169;
-        }
-
-        .no-clips {
-            color: #666;
-            font-style: italic;
-            font-size: 12px;
-            padding: 16px;
-            text-align: center;
-        }
-
-        /* Main Panel (CENTER) */
-        .main-panel {
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-            overflow: hidden;
-            background: #0f0f1a;
-        }
-
         .video-section {
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             border-bottom: 1px solid #2a2a4a;
+            background: #0f0f1a;
         }
 
         .video-section.hidden {
@@ -204,7 +126,7 @@
 
         #mainVideo {
             max-width: 100%;
-            max-height: 450px;
+            max-height: 350px;
             background: #000;
             border-radius: 8px;
         }
@@ -227,7 +149,294 @@
             margin-top: 4px;
         }
 
-        .editor-section {
+        .editor-header {
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #16213e;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .editor-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #eee;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .clip-pool {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+            background: #16213e;
+        }
+
+        .panel-header {
+            padding: 10px 16px;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .panel-header h2 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clip-pool-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .clip-pool-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .clip-pool-list::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        .clip-pool-list::-webkit-scrollbar-thumb {
+            background: #3a3a5a;
+            border-radius: 4px;
+        }
+
+        .pool-item {
+            background: #0f0f1a;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pool-item:hover {
+            background: #1a2744;
+        }
+
+        .pool-item.selected {
+            background: rgba(76, 201, 240, 0.15);
+            border-left: 3px solid #4cc9f0;
+        }
+
+        .pool-item-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #eee;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .pool-item-duration {
+            font-size: 11px;
+            color: #888;
+            margin-left: 8px;
+        }
+
+        .no-clips {
+            color: #666;
+            font-style: italic;
+            font-size: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        /* Right Panel - Transcript Workspace */
+        .transcript-workspace {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+            background: #0f0f1a;
+        }
+
+        /* Timeline Cards (Horizontal) */
+        .timeline-cards {
+            height: 90px;
+            border-bottom: 1px solid #2a2a4a;
+            overflow-x: auto;
+            overflow-y: hidden;
+            background: #16213e;
+            flex-shrink: 0;
+        }
+
+        .timeline-cards-inner {
+            display: flex;
+            gap: 8px;
+            padding: 10px 16px;
+            height: 100%;
+            align-items: center;
+        }
+
+        .timeline-cards::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .timeline-cards::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        .timeline-cards::-webkit-scrollbar-thumb {
+            background: #3a3a5a;
+            border-radius: 3px;
+        }
+
+        .timeline-card {
+            min-width: 120px;
+            max-width: 160px;
+            padding: 10px 12px;
+            background: #0f0f1a;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .timeline-card:hover {
+            background: #1a2744;
+        }
+
+        .timeline-card.selected {
+            border-color: #4cc9f0;
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .timeline-card.disabled {
+            opacity: 0.5;
+        }
+
+        .timeline-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .timeline-card-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: #eee;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .timeline-card-pos {
+            font-size: 10px;
+            color: #888;
+            background: #2a2a4a;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 6px;
+        }
+
+        .timeline-card-duration {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .timeline-empty {
+            color: #666;
+            font-style: italic;
+            font-size: 12px;
+            padding: 16px;
+        }
+
+        /* Word Layer */
+        .word-layer {
+            height: 70px;
+            position: relative;
+            overflow: hidden;
+            background: #0f0f1a;
+            border-bottom: 1px solid #2a2a4a;
+            flex-shrink: 0;
+        }
+
+        .word-layer-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 10px 0;
+        }
+
+        .word {
+            position: absolute;
+            top: 10px;
+            height: 44px;
+            background: #2a4a6a;
+            border-radius: 4px;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            font-size: 13px;
+            color: #fff;
+            white-space: nowrap;
+            transition: background 0.15s;
+        }
+
+        .word:hover {
+            background: #3a5a8a;
+        }
+
+        .word.dragging {
+            cursor: grabbing;
+            background: #4a6a9a;
+            z-index: 100;
+        }
+
+        .word.active {
+            background: #4cc9f0;
+            color: #0f0f1a;
+        }
+
+        .word-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            cursor: ew-resize;
+            z-index: 10;
+        }
+
+        .word-handle-left {
+            left: 0;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .word-handle-left:hover {
+            background: rgba(76, 201, 240, 0.3);
+        }
+
+        .word-handle-right {
+            right: 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .word-handle-right:hover {
+            background: rgba(76, 201, 240, 0.3);
+        }
+
+        /* Waveform Container */
+        .waveform-container {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -235,39 +444,10 @@
             overflow: hidden;
         }
 
-        .editor-section.hidden {
-            display: none;
-        }
-
-        .editor-header {
-            padding: 12px 20px;
-            border-bottom: 1px solid #2a2a4a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #16213e;
-        }
-
-        .editor-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #eee;
-        }
-
-        .editor-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .waveform-container {
-            padding: 16px 20px;
-        }
-
         .waveform-wrapper {
+            flex: 1;
             position: relative;
-            height: 120px;
             background: #16213e;
-            border-radius: 8px;
             overflow: hidden;
             cursor: grab;
         }
@@ -285,6 +465,85 @@
 
         #waveformCanvas {
             display: block;
+        }
+
+        .playhead {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #f6ad55;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .waveform-zoom-info {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 11px;
+            color: #888;
+            background: rgba(22, 33, 62, 0.9);
+            padding: 4px 8px;
+            border-radius: 4px;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        /* Editor Info */
+        .editor-info {
+            padding: 12px 16px;
+            background: #16213e;
+            border-top: 1px solid #2a2a4a;
+        }
+
+        .editor-transcript {
+            font-size: 14px;
+            color: #ddd;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .editor-times {
+            display: flex;
+            gap: 20px;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .editor-times span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .editor-times strong {
+            color: #4cc9f0;
+        }
+
+        .no-selection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            color: #666;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #666;
+        }
+
+        .error {
+            color: #f66;
+            text-align: center;
+            padding: 20px;
         }
 
         .trim-handle {
@@ -316,160 +575,6 @@
         .trim-handle.dragging {
             background: #48bb78;
         }
-
-        .playhead {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #f6ad55;
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        .waveform-zoom-info {
-            position: absolute;
-            bottom: 4px;
-            right: 8px;
-            font-size: 10px;
-            color: #666;
-            background: rgba(22, 33, 62, 0.8);
-            padding: 2px 6px;
-            border-radius: 3px;
-            pointer-events: none;
-        }
-
-        .editor-info {
-            padding: 16px 20px;
-            background: #0f0f1a;
-        }
-
-        .editor-transcript {
-            font-size: 14px;
-            color: #ddd;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .editor-times {
-            display: flex;
-            gap: 24px;
-            font-family: 'SF Mono', 'Monaco', monospace;
-            font-size: 12px;
-            color: #888;
-        }
-
-        .editor-times span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .editor-times strong {
-            color: #4cc9f0;
-        }
-
-        .no-selection {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            color: #666;
-            font-style: italic;
-            font-size: 14px;
-        }
-
-        /* Transcript Panel (RIGHT) */
-        .transcript-panel {
-            background: #16213e;
-            display: flex;
-            flex-direction: column;
-            border-left: 1px solid #2a2a4a;
-            min-height: 0;
-            overflow: hidden;
-        }
-
-        .transcript-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 8px;
-        }
-
-        .transcript-list::-webkit-scrollbar,
-        .clip-pool-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .transcript-list::-webkit-scrollbar-track,
-        .clip-pool-list::-webkit-scrollbar-track {
-            background: #1a1a2e;
-        }
-
-        .transcript-list::-webkit-scrollbar-thumb,
-        .clip-pool-list::-webkit-scrollbar-thumb {
-            background: #3a3a5a;
-            border-radius: 4px;
-        }
-
-        .segment-card {
-            background: #0f0f1a;
-            border-radius: 6px;
-            padding: 10px 12px;
-            margin-bottom: 4px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .segment-card:hover {
-            background: #1a2744;
-        }
-
-        .segment-card.active {
-            border-color: #4cc9f0;
-        }
-
-        .segment-time {
-            font-family: 'SF Mono', 'Monaco', monospace;
-            font-size: 10px;
-            color: #666;
-            margin-bottom: 6px;
-        }
-
-        .segment-text {
-            font-size: 13px;
-            line-height: 1.5;
-            color: #ddd;
-        }
-
-        .word {
-            transition: background-color 0.1s;
-            border-radius: 2px;
-            padding: 0 2px;
-        }
-
-        .word:hover {
-            background: rgba(76, 201, 240, 0.2);
-        }
-
-        .word.active {
-            background: rgba(76, 201, 240, 0.5);
-            color: #fff;
-        }
-
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 200px;
-            color: #666;
-        }
-
-        .error {
-            color: #f66;
-            text-align: center;
-            padding: 20px;
-        }
     </style>
 </head>
 <body>
@@ -484,17 +589,8 @@
             </div>
         </header>
 
-        <section class="clip-pool">
-            <div class="panel-header">
-                <h2>Clip Pool</h2>
-            </div>
-            <div class="clip-pool-list" id="clipPoolList">
-                <div class="loading">Loading...</div>
-            </div>
-        </section>
-
-        <section class="main-panel">
-            <div class="video-section hidden" id="videoSection">
+        <section class="left-panel">
+            <div class="video-section" id="videoSection">
                 <video id="mainVideo" controls></video>
                 <div class="video-info">
                     <div class="video-info-title" id="videoInfoTitle">No clip selected</div>
@@ -502,24 +598,44 @@
                 </div>
             </div>
 
-            <div class="editor-section hidden" id="editorSection">
-                <div class="editor-header">
-                    <span class="editor-title" id="editorTitle">Select a clip</span>
-                    <div class="editor-actions">
-                        <button class="btn btn-secondary btn-small" id="splitBtn">Split at Playhead</button>
-                        <button class="btn btn-secondary btn-small" id="toggleEnabledBtn">Disable</button>
-                    </div>
+            <div class="editor-header">
+                <span class="editor-title" id="editorTitle">Select a clip</span>
+                <div class="editor-actions">
+                    <button class="btn btn-secondary btn-small" id="splitBtn">Split</button>
+                    <button class="btn btn-secondary btn-small" id="toggleEnabledBtn">Disable</button>
                 </div>
-                <div class="waveform-container">
-                    <div class="waveform-wrapper" id="waveformWrapper">
-                        <div class="waveform-canvas-container" id="waveformCanvasContainer">
-                            <canvas id="waveformCanvas"></canvas>
-                        </div>
-                        <div class="trim-handle trim-handle-start" id="trimStart"></div>
-                        <div class="trim-handle trim-handle-end" id="trimEnd"></div>
-                        <div class="playhead" id="playhead"></div>
-                        <div class="waveform-zoom-info" id="waveformZoomInfo">1.0x</div>
+            </div>
+
+            <div class="clip-pool">
+                <div class="panel-header">
+                    <h2>Clip Pool</h2>
+                </div>
+                <div class="clip-pool-list" id="clipPoolList">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="transcript-workspace">
+            <div class="timeline-cards" id="timelineCards">
+                <div class="timeline-cards-inner" id="timelineCardsInner">
+                    <div class="timeline-empty">Loading...</div>
+                </div>
+            </div>
+
+            <div class="word-layer" id="wordLayer">
+                <div class="word-layer-inner" id="wordLayerInner"></div>
+            </div>
+
+            <div class="waveform-container">
+                <div class="waveform-wrapper" id="waveformWrapper">
+                    <div class="waveform-canvas-container" id="waveformCanvasContainer">
+                        <canvas id="waveformCanvas"></canvas>
                     </div>
+                    <div class="trim-handle trim-handle-start" id="trimStart"></div>
+                    <div class="trim-handle trim-handle-end" id="trimEnd"></div>
+                    <div class="playhead" id="playhead"></div>
+                    <div class="waveform-zoom-info" id="waveformZoomInfo">1.0x</div>
                 </div>
                 <div class="editor-info">
                     <div class="editor-transcript" id="editorTranscript">-</div>
@@ -529,19 +645,6 @@
                         <span>Duration: <strong id="editorDuration">0.00s</strong></span>
                     </div>
                 </div>
-            </div>
-
-            <div class="no-selection" id="noSelection">
-                Select a clip from the pool to edit
-            </div>
-        </section>
-
-        <section class="transcript-panel">
-            <div class="panel-header">
-                <h2>Transcript</h2>
-            </div>
-            <div class="transcript-list" id="transcriptList">
-                <div class="loading">Loading...</div>
             </div>
         </section>
     </div>
@@ -558,26 +661,32 @@
         let waveformDragStartPan = 0;
         let previewQueue = [];
         let previewIndex = 0;
-        let activeSegmentIndex = -1;
 
         // Waveform zoom/pan state
         let waveformZoom = 1;
         let waveformPanX = 0;
         let waveformWidth = 0;
 
+        // Word dragging state
+        let draggingWord = null;
+        let dragType = null;
+        let wordDragStartX = 0;
+        let wordDragStartTime = 0;
+        let wordDragEndTime = 0;
+
         const clipPoolList = document.getElementById('clipPoolList');
-        const transcriptList = document.getElementById('transcriptList');
+        const timelineCardsInner = document.getElementById('timelineCardsInner');
         const videoSection = document.getElementById('videoSection');
         const mainVideo = document.getElementById('mainVideo');
         const videoInfoTitle = document.getElementById('videoInfoTitle');
         const videoInfoTime = document.getElementById('videoInfoTime');
-        const editorSection = document.getElementById('editorSection');
-        const noSelection = document.getElementById('noSelection');
         const editorTitle = document.getElementById('editorTitle');
         const editorTranscript = document.getElementById('editorTranscript');
         const editorStartTime = document.getElementById('editorStartTime');
         const editorEndTime = document.getElementById('editorEndTime');
         const editorDuration = document.getElementById('editorDuration');
+        const wordLayer = document.getElementById('wordLayer');
+        const wordLayerInner = document.getElementById('wordLayerInner');
         const waveformWrapper = document.getElementById('waveformWrapper');
         const waveformCanvasContainer = document.getElementById('waveformCanvasContainer');
         const waveformCanvas = document.getElementById('waveformCanvas');
@@ -647,7 +756,8 @@
 
                 initializeTimelineData();
                 renderClipPool();
-                renderTranscript();
+                renderTimelineCards();
+                renderWordLayer();
 
                 const timelineClips = getTimelineClips();
                 if (timelineClips.length > 0) {
@@ -714,172 +824,229 @@
         }
 
         function renderClipPool() {
-            const poolClips = getPoolClips();
+            const timelineClips = getTimelineClips();
 
-            if (poolClips.length === 0) {
-                clipPoolList.innerHTML = '<div class="no-clips">All clips are in the timeline</div>';
+            if (timelineClips.length === 0) {
+                clipPoolList.innerHTML = '<div class="no-clips">No clips in timeline</div>';
                 return;
             }
 
-            const html = poolClips.map(clip => `
-                <div class="pool-item" data-clip-id="${clip.id}">
-                    <span class="pool-item-name">${clip.name}</span>
-                    <button class="pool-item-add" data-clip-id="${clip.id}" title="Add to timeline">+</button>
-                </div>
-            `).join('');
-
-            clipPoolList.innerHTML = html;
-
-            document.querySelectorAll('.pool-item').forEach(item => {
-                item.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('pool-item-add')) {
-                        selectClip(item.dataset.clipId);
-                    }
-                });
-            });
-
-            document.querySelectorAll('.pool-item-add').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    addToTimeline(btn.dataset.clipId);
-                });
-            });
-        }
-
-        function renderTranscript() {
-            if (!transcript?.segments) {
-                transcriptList.innerHTML = '<div class="error">No transcript data</div>';
-                return;
-            }
-
-            const html = transcript.segments.map((seg, index) => {
-                const wordsHtml = seg.words?.map(w => 
-                    `<span class="word" data-start="${w.start}" data-end="${w.end}">${w.text}</span>`
-                ).join(' ') || seg.text;
-                
-                const isActive = index === activeSegmentIndex;
+            const html = timelineClips.map((clip, index) => {
+                const times = getEffectiveTimes(clip);
+                const duration = (times.end - times.start).toFixed(1);
+                const isSelected = selectedClipId === clip.id;
+                const isDisabled = !clip.enabled;
 
                 return `
-                    <div class="segment-card ${isActive ? 'active' : ''}" 
-                         data-index="${index}" data-start="${seg.start}" data-end="${seg.end}">
-                        <div class="segment-time">${formatTime(seg.start)} - ${formatTime(seg.end)}</div>
-                        <div class="segment-text">${wordsHtml}</div>
+                    <div class="pool-item ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}" 
+                         data-clip-id="${clip.id}">
+                        <span class="pool-item-name">${index + 1}. ${clip.name}</span>
+                        <span class="pool-item-duration">${duration}s</span>
                     </div>
                 `;
             }).join('');
 
-            transcriptList.innerHTML = html;
+            clipPoolList.innerHTML = html;
 
-            document.querySelectorAll('.segment-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const start = parseFloat(card.dataset.start);
-                    mainVideo.currentTime = start;
-                    mainVideo.play();
-                });
-            });
-
-            document.querySelectorAll('.word').forEach(word => {
-                word.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const start = parseFloat(word.dataset.start);
-                    mainVideo.currentTime = start;
-                    mainVideo.play();
+            document.querySelectorAll('.pool-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    selectClip(item.dataset.clipId);
                 });
             });
         }
 
-        function updateWordHighlight(time) {
+        function renderTimelineCards() {
+            const timelineClips = getTimelineClips();
+
+            if (timelineClips.length === 0) {
+                timelineCardsInner.innerHTML = '<div class="timeline-empty">No clips in timeline</div>';
+                return;
+            }
+
+            const html = timelineClips.map((clip, index) => {
+                const times = getEffectiveTimes(clip);
+                const duration = (times.end - times.start).toFixed(1);
+                const isSelected = selectedClipId === clip.id;
+                const isDisabled = !clip.enabled;
+
+                return `
+                    <div class="timeline-card ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}"
+                         data-clip-id="${clip.id}">
+                        <div class="timeline-card-header">
+                            <span class="timeline-card-name">${clip.name}</span>
+                            <span class="timeline-card-pos">${index + 1}</span>
+                        </div>
+                        <div class="timeline-card-duration">${duration}s</div>
+                    </div>
+                `;
+            }).join('');
+
+            timelineCardsInner.innerHTML = html;
+
+            document.querySelectorAll('.timeline-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const clip = getClipById(card.dataset.clipId);
+                    if (clip) {
+                        const times = getEffectiveTimes(clip);
+                        mainVideo.currentTime = times.start;
+                        mainVideo.play();
+                    }
+                });
+            });
+        }
+
+        function renderWordLayer() {
             if (!transcript?.segments) return;
 
-            document.querySelectorAll('.word.active').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.segment-card.active').forEach(el => el.classList.remove('active'));
+            let html = '';
+            transcript.segments.forEach((seg, segIndex) => {
+                if (!seg.words) return;
+                
+                seg.words.forEach((word, wordIndex) => {
+                    html += `
+                        <div class="word" 
+                             data-segment="${segIndex}" 
+                             data-word="${wordIndex}"
+                             data-start="${word.start}"
+                             data-end="${word.end}">
+                            <div class="word-handle word-handle-left"></div>
+                            <span>${word.text}</span>
+                            <div class="word-handle word-handle-right"></div>
+                        </div>
+                    `;
+                });
+            });
 
-            let newActiveIndex = -1;
-            for (let i = 0; i < transcript.segments.length; i++) {
-                const seg = transcript.segments[i];
-                if (time >= seg.start && time <= seg.end) {
-                    newActiveIndex = i;
-                    break;
+            wordLayerInner.innerHTML = html;
+            positionWords();
+            attachWordDragHandlers();
+        }
+
+        function positionWords() {
+            if (!waveformData) return;
+
+            const duration = waveformData.duration;
+            const containerWidth = waveformWidth || wordLayer.offsetWidth;
+
+            document.querySelectorAll('.word').forEach(wordEl => {
+                const start = parseFloat(wordEl.dataset.start);
+                const end = parseFloat(wordEl.dataset.end);
+
+                const left = (start / duration) * containerWidth;
+                const width = Math.max(30, ((end - start) / duration) * containerWidth);
+
+                wordEl.style.left = left + 'px';
+                wordEl.style.width = width + 'px';
+            });
+
+            syncWordLayerWithWaveform();
+        }
+
+        function syncWordLayerWithWaveform() {
+            wordLayerInner.style.width = waveformWidth + 'px';
+            wordLayerInner.style.transform = `translateX(${-waveformPanX}px)`;
+        }
+
+        function attachWordDragHandlers() {
+            document.querySelectorAll('.word').forEach(wordEl => {
+                wordEl.addEventListener('mousedown', handleWordMouseDown);
+            });
+        }
+
+        function handleWordMouseDown(e) {
+            const wordEl = e.target.closest('.word');
+            if (!wordEl) return;
+
+            draggingWord = wordEl;
+            wordDragStartX = e.clientX;
+            wordDragStartTime = parseFloat(wordEl.dataset.start);
+            wordDragEndTime = parseFloat(wordEl.dataset.end);
+
+            if (e.target.classList.contains('word-handle-left')) {
+                dragType = 'left';
+            } else if (e.target.classList.contains('word-handle-right')) {
+                dragType = 'right';
+            } else {
+                dragType = 'move';
+            }
+
+            wordEl.classList.add('dragging');
+            e.preventDefault();
+        }
+
+        function handleWordMouseMove(e) {
+            if (!draggingWord) return;
+
+            const deltaX = e.clientX - wordDragStartX;
+            const deltaTime = (deltaX / waveformWidth) * waveformData.duration;
+
+            const segIndex = parseInt(draggingWord.dataset.segment);
+            const wordIndex = parseInt(draggingWord.dataset.word);
+            const seg = transcript.segments[segIndex];
+            const word = seg.words[wordIndex];
+
+            if (dragType === 'move') {
+                const duration = wordDragEndTime - wordDragStartTime;
+                const newStart = Math.max(seg.start, Math.min(seg.end - duration, wordDragStartTime + deltaTime));
+                word.start = newStart;
+                word.end = newStart + duration;
+            } else if (dragType === 'left') {
+                const newStart = Math.max(seg.start, Math.min(word.end - 0.1, wordDragStartTime + deltaTime));
+                if (wordIndex > 0) {
+                    seg.words[wordIndex - 1].end = newStart;
                 }
-            }
-
-            if (newActiveIndex !== activeSegmentIndex) {
-                activeSegmentIndex = newActiveIndex;
-            }
-
-            if (newActiveIndex >= 0) {
-                const activeCard = document.querySelector(`.segment-card[data-index="${newActiveIndex}"]`);
-                if (activeCard) {
-                    activeCard.classList.add('active');
-                    
-                    const words = activeCard.querySelectorAll('.word');
-                    for (const wordEl of words) {
-                        const wordStart = parseFloat(wordEl.dataset.start);
-                        const wordEnd = parseFloat(wordEl.dataset.end);
-                        if (time >= wordStart && time <= wordEnd) {
-                            wordEl.classList.add('active');
-                            wordEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            break;
-                        }
-                    }
+                word.start = newStart;
+            } else if (dragType === 'right') {
+                const newEnd = Math.min(seg.end, Math.max(word.start + 0.1, wordDragEndTime + deltaTime));
+                if (wordIndex < seg.words.length - 1) {
+                    seg.words[wordIndex + 1].start = newEnd;
                 }
+                word.end = newEnd;
+            }
+
+            draggingWord.dataset.start = word.start;
+            draggingWord.dataset.end = word.end;
+            
+            positionWords();
+            markUnsaved();
+        }
+
+        function handleWordMouseUp() {
+            if (draggingWord) {
+                draggingWord.classList.remove('dragging');
+                draggingWord = null;
+                dragType = null;
             }
         }
 
-        function addToTimeline(clipId) {
-            const clip = getClipById(clipId);
-            if (!clip) return;
-
-            const maxPos = Math.max(0, ...getTimelineClips().map(c => c.timeline_position || 0));
-            clip.in_timeline = true;
-            clip.timeline_position = maxPos + 1;
-
-            markUnsaved();
-            renderClipPool();
-        }
-
-        function removeFromTimeline(clipId) {
-            const clip = getClipById(clipId);
-            if (!clip) return;
-
-            clip.in_timeline = false;
-            clip.timeline_position = null;
-
-            if (selectedClipId === clipId) {
-                selectedClipId = null;
-                renderEditor();
-            }
-
-            markUnsaved();
-            renderClipPool();
-        }
+        document.addEventListener('mousemove', handleWordMouseMove);
+        document.addEventListener('mouseup', handleWordMouseUp);
 
         function selectClip(clipId) {
             selectedClipId = clipId;
-
             renderClipPool();
+            renderTimelineCards();
             renderEditor();
             loadVideoPreview(clipId);
         }
 
         function renderEditor() {
             if (!selectedClipId) {
-                editorSection.classList.add('hidden');
-                noSelection.classList.remove('hidden');
                 videoSection.classList.add('hidden');
+                editorTranscript.textContent = '-';
+                editorStartTime.textContent = '-';
+                editorEndTime.textContent = '-';
+                editorDuration.textContent = '-';
                 return;
             }
 
             const clip = getClipById(selectedClipId);
             const seg = clip?.selected_segment || clip?.segments?.[0];
             if (!clip || !seg) {
-                editorSection.classList.add('hidden');
-                noSelection.classList.remove('hidden');
+                videoSection.classList.add('hidden');
                 return;
             }
 
-            editorSection.classList.remove('hidden');
-            noSelection.classList.add('hidden');
             videoSection.classList.remove('hidden');
 
             const times = getEffectiveTimes(clip);
@@ -910,33 +1077,25 @@
             const peaks = waveformData.peaks;
             const duration = waveformData.duration;
 
-            // Calculate waveform width based on zoom
             waveformWidth = rect.width * waveformZoom;
-
-            // Set canvas container width
             waveformCanvasContainer.style.width = waveformWidth + 'px';
 
-            // Set canvas size
             waveformCanvas.width = waveformWidth * window.devicePixelRatio;
             waveformCanvas.height = rect.height * window.devicePixelRatio;
             waveformCanvas.style.width = waveformWidth + 'px';
             waveformCanvas.style.height = rect.height + 'px';
 
-            // Apply pan transform
             waveformCanvasContainer.style.transform = `translateX(${-waveformPanX}px)`;
 
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
-            // Draw background
             ctx.fillStyle = '#16213e';
             ctx.fillRect(0, 0, waveformWidth, rect.height);
 
-            // Calculate peaks per pixel
             const peaksPerPixel = peaks.length / waveformWidth;
             const centerY = rect.height / 2;
 
-            // Draw waveform bars
             ctx.fillStyle = '#2a4a6a';
             for (let x = 0; x < waveformWidth; x++) {
                 const peakIndex = Math.floor(x * peaksPerPixel);
@@ -945,42 +1104,31 @@
                 ctx.fillRect(x, centerY - barHeight / 2, 1, barHeight);
             }
 
-            // Draw clip highlight if clip is selected
             if (clip) {
                 const times = getEffectiveTimes(clip);
                 const startX = (times.start / duration) * waveformWidth;
                 const endX = (times.end / duration) * waveformWidth;
 
-                // Dimmed regions outside clip
                 ctx.fillStyle = 'rgba(15, 15, 26, 0.6)';
                 ctx.fillRect(0, 0, startX, rect.height);
                 ctx.fillRect(endX, 0, waveformWidth - endX, rect.height);
 
-                // Clip border
                 ctx.strokeStyle = '#4cc9f0';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(startX, 0, endX - startX, rect.height);
-            }
-
-            // Update zoom info
-            waveformZoomInfo.textContent = `${waveformZoom.toFixed(1)}x`;
-
-            // Position trim handles (accounting for pan)
-            if (clip) {
-                const times = getEffectiveTimes(clip);
-                const startX = (times.start / duration) * waveformWidth;
-                const endX = (times.end / duration) * waveformWidth;
 
                 trimStart.style.left = (startX - waveformPanX) + 'px';
                 trimEnd.style.left = (endX - 12 - waveformPanX) + 'px';
             }
 
-            // Update playhead
+            waveformZoomInfo.textContent = `${waveformZoom.toFixed(1)}x`;
             updatePlayheadPosition();
+            positionWords();
         }
 
         function updatePlayheadPosition() {
             if (!mainVideo.timeStart && mainVideo.timeStart !== 0) return;
+            if (!waveformData) return;
 
             const duration = waveformData.duration;
             const currentTime = mainVideo.currentTime;
@@ -989,7 +1137,27 @@
             playhead.style.left = (x - waveformPanX) + 'px';
         }
 
-        // Waveform zoom handler
+        function highlightCurrentWord(time) {
+            document.querySelectorAll('.word.active').forEach(el => el.classList.remove('active'));
+
+            if (!transcript?.segments) return;
+
+            for (const seg of transcript.segments) {
+                if (!seg.words) continue;
+                for (const word of seg.words) {
+                    if (time >= word.start && time <= word.end) {
+                        const wordEl = document.querySelector(
+                            `.word[data-segment="${transcript.segments.indexOf(seg)}"][data-word="${seg.words.indexOf(word)}"]`
+                        );
+                        if (wordEl) {
+                            wordEl.classList.add('active');
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+
         waveformWrapper.addEventListener('wheel', (e) => {
             e.preventDefault();
 
@@ -997,18 +1165,15 @@
             const mouseX = e.clientX - rect.left;
             const oldZoom = waveformZoom;
 
-            // Zoom in/out by 25%
             if (e.deltaY < 0) {
                 waveformZoom = Math.min(50, waveformZoom * 1.25);
             } else {
                 waveformZoom = Math.max(1, waveformZoom / 1.25);
             }
 
-            // Adjust pan to keep mouse position stable
             const zoomRatio = waveformZoom / oldZoom;
             waveformPanX = mouseX - (mouseX - waveformPanX) * zoomRatio;
 
-            // Clamp pan
             const maxPan = Math.max(0, waveformWidth - rect.width);
             waveformPanX = Math.max(0, Math.min(maxPan, waveformPanX));
 
@@ -1016,9 +1181,9 @@
             renderFullWaveform(clip);
         }, { passive: false });
 
-        // Waveform pan handlers
         waveformWrapper.addEventListener('mousedown', (e) => {
             if (e.target.classList.contains('trim-handle')) return;
+            if (e.target.closest('.word')) return;
 
             isDraggingWaveform = true;
             waveformDragStartX = e.clientX;
@@ -1027,18 +1192,18 @@
         });
 
         document.addEventListener('mousemove', (e) => {
-            if (!isDraggingWaveform) return;
+            if (isDraggingWaveform) {
+                const deltaX = waveformDragStartX - e.clientX;
+                waveformPanX = waveformDragStartPan + deltaX;
 
-            const deltaX = waveformDragStartX - e.clientX;
-            waveformPanX = waveformDragStartPan + deltaX;
+                const rect = waveformWrapper.getBoundingClientRect();
+                const currentWidth = rect.width * waveformZoom;
+                const maxPan = Math.max(0, currentWidth - rect.width);
+                waveformPanX = Math.max(0, Math.min(maxPan, waveformPanX));
 
-            const rect = waveformWrapper.getBoundingClientRect();
-            const currentWidth = rect.width * waveformZoom;
-            const maxPan = Math.max(0, currentWidth - rect.width);
-            waveformPanX = Math.max(0, Math.min(maxPan, waveformPanX));
-
-            const clip = selectedClipId ? getClipById(selectedClipId) : null;
-            renderFullWaveform(clip);
+                const clip = selectedClipId ? getClipById(selectedClipId) : null;
+                renderFullWaveform(clip);
+            }
         });
 
         document.addEventListener('mouseup', () => {
@@ -1073,10 +1238,9 @@
             }
 
             updatePlayheadPosition();
-            updateWordHighlight(mainVideo.currentTime);
+            highlightCurrentWord(mainVideo.currentTime);
         });
 
-        // Trim handle handlers
         trimStart.addEventListener('mousedown', (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -1167,6 +1331,7 @@
 
             markUnsaved();
             renderClipPool();
+            renderTimelineCards();
             renderEditor();
             loadVideoPreview(clip1.id);
         });
@@ -1180,6 +1345,8 @@
             clip.enabled = !clip.enabled;
 
             markUnsaved();
+            renderClipPool();
+            renderTimelineCards();
             renderEditor();
         });
 
@@ -1207,6 +1374,7 @@
 
             selectedClipId = clip.id;
             renderClipPool();
+            renderTimelineCards();
             renderEditor();
 
             mainVideo.src = `../../data/video_combined.mp4#t=${times.start}`;
@@ -1273,10 +1441,15 @@
 
         async function saveProject() {
             try {
+                const projectData = {
+                    ...project,
+                    transcript: transcript
+                };
+
                 const response = await fetch('../../data/project.json', {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(project, null, 2)
+                    body: JSON.stringify(projectData, null, 2)
                 });
 
                 if (!response.ok) {
@@ -1284,9 +1457,13 @@
                 }
 
                 markSaved();
-                console.log('[Assemble] Project saved');
+                console.log('[Assemble] Project saved with word timings');
             } catch (e) {
-                const blob = new Blob([JSON.stringify(project, null, 2)], { type: 'application/json' });
+                const projectData = {
+                    ...project,
+                    transcript: transcript
+                };
+                const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
@@ -1312,6 +1489,8 @@
                 if (clip) {
                     requestAnimationFrame(() => renderFullWaveform(clip));
                 }
+            } else if (waveformData) {
+                renderFullWaveform(null);
             }
         });
 
