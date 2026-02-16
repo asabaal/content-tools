@@ -681,7 +681,7 @@
                 if (!projectResp.ok) throw new Error('No project.json found');
                 project = await projectResp.json();
 
-                const waveformResp = await fetch('../../data/waveforms.json');
+                const waveformResp = await fetch('../../data/waveforms.json?v=' + Date.now());
                 if (!waveformResp.ok) throw new Error('No waveforms.json found. Run generate_waveforms.py first.');
                 waveformData = await waveformResp.json();
 
@@ -1018,7 +1018,7 @@
             for (let x = 0; x < waveformWidth; x++) {
                 const peakIndex = Math.floor(x * peaksPerPixel);
                 const peak = peaks[peakIndex] || 0;
-                const barHeight = peak * rect.height * 0.8;
+                const barHeight = peak * rect.height * 0.95;
                 ctx.fillRect(x, centerY - barHeight / 2, 1, barHeight);
             }
 

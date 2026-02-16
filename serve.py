@@ -25,6 +25,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=".", **kwargs)
 
+    def copyfile(self, source, outputfile):
+        """Override to suppress connection errors when client disconnects."""
+        import shutil
+        try:
+            shutil.copyfileobj(source, outputfile)
+        except (ConnectionResetError, BrokenPipeError):
+            pass
+
     def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
