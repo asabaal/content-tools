@@ -129,24 +129,31 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+        }
+
+        .video-frame {
             position: relative;
+            display: inline-block;
+            background: #000;
+            border-radius: 8px;
         }
 
         #mainVideo {
+            display: block;
             max-width: 100%;
             max-height: calc(100vh - 250px);
-            background: #000;
             border-radius: 8px;
         }
 
         .caption-overlay {
             position: absolute;
-            bottom: 80px;
+            bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             pointer-events: none;
-            max-width: 80%;
+            max-width: 90%;
+            width: 90%;
         }
 
         .caption-text {
@@ -520,9 +527,11 @@
         <main class="main-content">
             <div class="video-container">
                 <div class="video-wrapper">
-                    <video id="mainVideo" src="/data/video_combined.mp4"></video>
-                    <div class="caption-overlay" id="captionOverlay">
-                        <div class="caption-text" id="captionText"></div>
+                    <div class="video-frame">
+                        <video id="mainVideo" src="/data/video_combined.mp4"></video>
+                        <div class="caption-overlay" id="captionOverlay">
+                            <div class="caption-text" id="captionText"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="video-controls">
@@ -696,10 +705,10 @@
             const overlay = document.getElementById('captionOverlay');
             switch (captionStyle.position) {
                 case 'bottom':
-                    overlay.style.bottom = '60px';
+                    overlay.style.bottom = '8%';
                     break;
                 case 'lower_third':
-                    overlay.style.bottom = '80px';
+                    overlay.style.bottom = '15%';
                     break;
                 case 'middle':
                     overlay.style.bottom = '50%';
