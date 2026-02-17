@@ -20,6 +20,7 @@ DEFAULT_AI_BASE_URL = "http://localhost:11434"
 # AI Request Settings
 AI_TIMEOUT = 300.0  # 5 minutes
 AI_MAX_RETRIES = 2
+AI_TEMPERATURE = 0.2  # Low for precise instruction following
 
 # Calendar Settings
 WEEK_RULE = "monday_determines_month"

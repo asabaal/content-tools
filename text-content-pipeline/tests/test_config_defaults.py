@@ -11,6 +11,7 @@ from src.config.defaults import (
     DEFAULT_AI_BASE_URL,
     AI_TIMEOUT,
     AI_MAX_RETRIES,
+    AI_TEMPERATURE,
     WEEK_RULE,
     VIDEO_WEEK_RULE,
     DEFAULT_IMAGE_WIDTH,
@@ -53,6 +54,7 @@ def test_ai_config_constants() -> None:
     assert DEFAULT_AI_BASE_URL == "http://localhost:11434"
     assert AI_TIMEOUT == 300.0
     assert AI_MAX_RETRIES == 2
+    assert AI_TEMPERATURE == 0.2
 
 
 def test_calendar_settings() -> None:

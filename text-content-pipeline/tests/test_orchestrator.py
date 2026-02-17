@@ -286,7 +286,7 @@ async def test_run_full_pipeline_with_text_generation() -> None:
             with patch("src.pipeline.orchestrator.scheduler.validate_slot_plan"):
                 with patch("src.pipeline.orchestrator.generator.generate_weekly_subtitle", return_value="Short"):
                     with patch("src.pipeline.orchestrator.generator.plan_monthly_slots", return_value={}):
-                        with patch("src.pipeline.orchestrator.generator.generate_daily_text", return_value="Generated text"):
+                        with patch("src.pipeline.orchestrator.generator.generate_daily_text", return_value="Generated text") as mock_gen:
                             with patch("src.pipeline.orchestrator._save_plan"):
                                 result = await orchestrator.run_full_pipeline(
                                     payload,
@@ -296,6 +296,107 @@ async def test_run_full_pipeline_with_text_generation() -> None:
                                 
                                 assert result is not None
                                 assert "2026-02-02" in result["generated_texts"]
+                                # Verify generate_daily_text was called with previously_generated parameter
+                                mock_gen.assert_called_once()
+                                call_kwargs = mock_gen.call_args[1]
+                                assert "previously_generated" in call_kwargs
+
+
+@pytest.mark.asyncio
+async def test_run_full_pipeline_passes_previous_texts_in_order() -> None:
+    """Test pipeline passes previously generated texts in chronological order."""
+    from src.slots.enum import SlotFunction
+    
+    payload = MonthlyPayload(
+        year=2026,
+        month=2,
+        monthly_theme="Test Theme",
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        week_rule=WeekRule.MONDAY_DETERMINES_MONTH,
+        video_week=VideoWeek.LAST_WEEK,
+    )
+    
+    week_info = MagicMock()
+    week_info.week_number = 1
+    week_info.monday_date = "2026-02-02"
+    week_info.sunday_date = "2026-02-08"
+    week_info.subtheme = "W1"
+    week_info.is_video_week = False
+    
+    resolved_calendar = ResolvedCalendar(
+        year=2026,
+        month=2,
+        monthly_theme="Test Theme",
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        weeks=[week_info],
+        week_rule=WeekRule.MONDAY_DETERMINES_MONTH,
+        video_week=VideoWeek.LAST_WEEK,
+    )
+    
+    # Create multiple slots in non-chronological order to test sorting
+    slot1 = MagicMock()
+    slot1.date = "2026-02-03"
+    slot1.weekday = "Tuesday"
+    slot1.slot_type = SlotFunction.EXCERPT
+    slot1.week_number = 1
+    slot1.subtheme = "W1"
+    slot1.is_automated = True
+    
+    slot2 = MagicMock()
+    slot2.date = "2026-02-02"
+    slot2.weekday = "Monday"
+    slot2.slot_type = SlotFunction.DECLARATIVE_STATEMENT
+    slot2.week_number = 1
+    slot2.subtheme = "W1"
+    slot2.is_automated = True
+    
+    slot3 = MagicMock()
+    slot3.date = "2026-02-04"
+    slot3.weekday = "Wednesday"
+    slot3.slot_type = SlotFunction.PROCESS_NOTE
+    slot3.week_number = 1
+    slot3.subtheme = "W1"
+    slot3.is_automated = True
+    
+    schedule = MagicMock()
+    schedule.slots = [slot1, slot2, slot3]  # Intentionally out of order
+    
+    gen_call_args = []
+    
+    async def mock_generate_daily_text(**kwargs):
+        # Deep copy the previously_generated list to capture its state at call time
+        call_kwargs = kwargs.copy()
+        if "previously_generated" in call_kwargs:
+            call_kwargs["previously_generated"] = list(call_kwargs["previously_generated"])
+        gen_call_args.append(call_kwargs)
+        return f"Generated for {kwargs.get('slot_type')}"
+    
+    with patch("src.pipeline.orchestrator.resolve_calendar", return_value=resolved_calendar):
+        with patch("src.pipeline.orchestrator.scheduler.apply_slot_plan", return_value=schedule):
+            with patch("src.pipeline.orchestrator.scheduler.validate_slot_plan"):
+                with patch("src.pipeline.orchestrator.generator.generate_weekly_subtitle", return_value="Short"):
+                    with patch("src.pipeline.orchestrator.generator.plan_monthly_slots", return_value={}):
+                        with patch("src.pipeline.orchestrator.generator.generate_daily_text", side_effect=mock_generate_daily_text):
+                            with patch("src.pipeline.orchestrator._save_plan"):
+                                result = await orchestrator.run_full_pipeline(
+                                    payload,
+                                    skip_rendering=True,
+                                    skip_text_generation=False,
+                                )
+                                
+                                assert result is not None
+                                
+                                # Verify slots were processed in chronological order
+                                assert len(gen_call_args) == 3
+                                
+                                # First call (2026-02-02) should have empty previously_generated
+                                assert gen_call_args[0]["previously_generated"] == []
+                                
+                                # Second call (2026-02-03) should have first text
+                                assert len(gen_call_args[1]["previously_generated"]) == 1
+                                
+                                # Third call (2026-02-04) should have first two texts
+                                assert len(gen_call_args[2]["previously_generated"]) == 2
 
 
 @pytest.mark.asyncio

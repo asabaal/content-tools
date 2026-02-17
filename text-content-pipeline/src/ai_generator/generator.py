@@ -10,6 +10,7 @@ from src.weekly_calendar.resolver import ResolvedCalendar
 from src.config.defaults import (
     AI_MAX_RETRIES,
     AI_TIMEOUT,
+    AI_TEMPERATURE,
     DEFAULT_AI_BASE_URL,
     DEFAULT_AI_MODEL,
     MAX_WORDS_PER_SLOT,
@@ -164,6 +165,7 @@ async def generate_daily_text(
     monthly_theme: str,
     weekly_subtheme: str,
     max_words: int | None = None,
+    previously_generated: list[str] | None = None,
 ) -> str:
     """Generate text for a single daily slot using AI (touchpoint 3).
 
@@ -172,6 +174,7 @@ async def generate_daily_text(
         monthly_theme: Monthly theme context
         weekly_subtheme: Weekly subtheme context
         max_words: Maximum word count (optional, uses defaults if not provided)
+        previously_generated: List of previously generated texts to avoid duplication
 
     Returns:
         Generated plain text
@@ -184,10 +187,18 @@ async def generate_daily_text(
         slot_type_str = slot_type.value if isinstance(slot_type, SlotFunction) else str(slot_type)
         max_words = MAX_WORDS_PER_SLOT.get(slot_type_str, 50)
 
+    # Format previously generated section (empty if no previous posts)
+    if previously_generated and len(previously_generated) > 0:
+        formatted_prev = "\n".join(f"  - \"{text}\"" for text in previously_generated)
+        previously_generated_section = f"Previously generated posts (do NOT repeat these concepts):\n{formatted_prev}\n"
+    else:
+        previously_generated_section = ""
+
     prompt = prompts.TEXT_GENERATION_PROMPTS[slot_type].format(
         monthly_theme=monthly_theme,
         weekly_subtheme=weekly_subtheme,
         max_words=max_words,
+        previously_generated_section=previously_generated_section,
     )
 
     response = await _call_ollama(
@@ -231,7 +242,7 @@ async def _call_ollama(prompt: str, touchpoint: str) -> str:
         "prompt": prompt,
         "stream": False,
         "options": {
-            "temperature": 0.7,  # Moderate creativity
+            "temperature": AI_TEMPERATURE,
             "top_p": 0.9,
         },
     }

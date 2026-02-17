@@ -214,6 +214,12 @@ def test_text_generation_prompts_have_max_words() -> None:
         assert "{max_words}" in prompt, f"Missing max_words in {slot.value} prompt"
 
 
+def test_text_generation_prompts_have_previously_generated() -> None:
+    """Test that all text generation prompts include previously_generated_section placeholder."""
+    for slot, prompt in TEXT_GENERATION_PROMPTS.items():
+        assert "{previously_generated_section}" in prompt, f"Missing previously_generated_section in {slot.value} prompt"
+
+
 def test_text_generation_prompts_format_with_max_words() -> None:
     """Test that text generation prompts can be formatted with max_words."""
     for slot, prompt in TEXT_GENERATION_PROMPTS.items():
@@ -221,7 +227,42 @@ def test_text_generation_prompts_format_with_max_words() -> None:
             monthly_theme="Test Theme",
             weekly_subtheme="Test Subtheme",
             max_words=50,
+            previously_generated_section="This is the first post in the series.",
         )
         assert "50" in formatted
         assert "Test Theme" in formatted
         assert "Test Subtheme" in formatted
+
+
+def test_text_generation_prompts_format_with_previous_posts() -> None:
+    """Test that text generation prompts can show previously generated posts."""
+    for slot, prompt in TEXT_GENERATION_PROMPTS.items():
+        formatted = prompt.format(
+            monthly_theme="Test Theme",
+            weekly_subtheme="Test Subtheme",
+            max_words=50,
+            previously_generated_section="Previously generated posts (do NOT repeat these concepts):\n  - \"First post\"\n  - \"Second post\"\n",
+        )
+        assert "First post" in formatted
+        assert "Second post" in formatted
+
+
+def test_text_generation_prompts_format_without_previous_posts() -> None:
+    """Test that text generation prompts work with empty previously_generated_section."""
+    for slot, prompt in TEXT_GENERATION_PROMPTS.items():
+        formatted = prompt.format(
+            monthly_theme="Test Theme",
+            weekly_subtheme="Test Subtheme",
+            max_words=50,
+            previously_generated_section="",
+        )
+        assert "Test Theme" in formatted
+        assert "Test Subtheme" in formatted
+        # Should not have any "Previously generated" text when section is empty
+        assert "Previously generated" not in formatted
+
+
+def test_text_generation_prompts_previously_generated_placeholder() -> None:
+    """Test that all text generation prompts have the previously_generated_section placeholder."""
+    for slot, prompt in TEXT_GENERATION_PROMPTS.items():
+        assert "{previously_generated_section}" in prompt, f"Missing placeholder in {slot.value} prompt"

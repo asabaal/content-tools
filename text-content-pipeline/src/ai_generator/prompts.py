@@ -98,7 +98,7 @@ Requirements:
 - No explanations or elaborations
 - Plain text only (no markdown, no emojis, no hashtags)
 - Maximum {max_words} words
-
+{previously_generated_section}
 Output: Just the sentence, nothing else.""",
 
     SlotFunction.EXCERPT: """Monthly theme: {monthly_theme}
@@ -112,7 +112,7 @@ Requirements:
 - No commentary added
 - Plain text only (no markdown, no emojis, no hashtags)
 - Maximum {max_words} words
-
+{previously_generated_section}
 Output: Just the excerpt, nothing else.""",
 
     SlotFunction.PROCESS_NOTE: """Monthly theme: {monthly_theme}
@@ -126,7 +126,7 @@ Requirements:
 - No conclusions or finality
 - Plain text only (no markdown, no emojis, no hashtags)
 - Maximum {max_words} words
-
+{previously_generated_section}
 Output: Just the note, nothing else.""",
 
     SlotFunction.UNANSWERED_QUESTION: """Monthly theme: {monthly_theme}
@@ -140,7 +140,7 @@ Requirements:
 - No leading or rhetorical framing
 - Plain text only (no markdown, no emojis, no hashtags)
 - Maximum {max_words} words
-
+{previously_generated_section}
 Output: Just the question, nothing else.""",
 
     SlotFunction.REFRAMING: """Monthly theme: {monthly_theme}
@@ -154,7 +154,7 @@ Requirements:
 - No explanation of why
 - Plain text only (no markdown, no emojis, no hashtags)
 - Maximum {max_words} words
-
+{previously_generated_section}
 Output: Just the reframing, nothing else.""",
 
     SlotFunction.QUIET_OBSERVATION: """Monthly theme: {monthly_theme}
@@ -168,7 +168,7 @@ Requirements:
 - No interpretation or judgment
 - Plain text only (no markdown, no emojis, no hashtags)
 - Maximum {max_words} words
-
+{previously_generated_section}
 Output: Just the observation, nothing else.""",
 }
 

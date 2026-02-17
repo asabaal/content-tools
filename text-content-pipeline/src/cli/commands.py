@@ -25,7 +25,7 @@ from src.renderer import html_renderer
 @click.group()
 def cli() -> None:
     """Text content pipeline - Convert monthly themes into daily images."""
-    pass
+    pass  # pragma: no cover
 
 
 @cli.command()
@@ -279,6 +279,7 @@ def run_all(
         # Summary
         click.echo(f"\n✓ Pipeline completed successfully!")
         click.echo(f"  Plan saved: {results['plan_path']}")
+        click.echo(f"  Texts saved: {results['texts_path']}")
         if not skip_text:
             click.echo(f"  Generated texts: {len(results['generated_texts'])}")
         if not skip_rendering:
@@ -402,5 +403,128 @@ def demo(theme: str | None, subthemes: str | None, year: int, month: int, backgr
         sys.exit(1)
 
 
-if __name__ == "__main__":
+@cli.command()
+@click.option("--plan-dir", required=True, help="Directory containing plans (e.g., 202603)")
+@click.option("--date", "target_date", help="Specific date to re-render (e.g., 2026-03-09)")
+@click.option("--all", "render_all", is_flag=True, help="Re-render all dates")
+@click.option("--background-color", help="Override background color (e.g., #4A90E2)")
+@click.option("--output-dir", "-o", help="Output directory for images (default: same as plan-dir)")
+def rerender(
+    plan_dir: str,
+    target_date: str | None,
+    render_all: bool,
+    background_color: str | None,
+    output_dir: str | None,
+) -> None:
+    """Re-render images from saved plan and texts.
+
+    Example:
+        tcp rerender --plan-dir 202603 --date 2026-03-09
+        tcp rerender --plan-dir 202603 --all
+        tcp rerender --plan-dir 202603 --date 2026-03-09 --background-color "#ff0000"
+    """
+    plan_path = Path(plan_dir) / "plans"
+
+    # Find plan file
+    plan_files = list(plan_path.glob("*_plan.json"))
+    if not plan_files:
+        click.echo(f"✗ No plan file found in {plan_path}", err=True)
+        sys.exit(1)
+    plan_file = plan_files[0]
+
+    # Find texts file
+    texts_files = list(plan_path.glob("*_texts.json"))
+    if not texts_files:
+        click.echo(f"✗ No texts file found in {plan_path}", err=True)
+        sys.exit(1)
+    texts_file = texts_files[0]
+
+    # Load plan
+    with open(plan_file, "r", encoding="utf-8") as f:
+        plan_data = json.load(f)
+
+    # Load texts
+    with open(texts_file, "r", encoding="utf-8") as f:
+        texts_data = json.load(f)
+
+    generated_texts = texts_data.get("texts", {})
+
+    # Determine output directory
+    images_dir = Path(output_dir) / "images" if output_dir else Path(plan_dir) / "images"
+    images_dir.mkdir(parents=True, exist_ok=True)
+
+    # Determine which dates to render
+    if render_all:
+        dates_to_render = [slot["date"] for slot in plan_data["schedule_summary"] if slot["is_automated"]]
+    elif target_date:
+        dates_to_render = [target_date]
+    else:
+        click.echo("✗ Must specify --date or --all", err=True)
+        sys.exit(1)
+
+    # Build slot lookup from schedule_summary
+    slot_lookup = {slot["date"]: slot for slot in plan_data["schedule_summary"]}
+
+    # Get weekly subtitles
+    weekly_subtitles = plan_data.get("weekly_subtitles", {})
+
+    async def do_render():
+        rendered = 0
+        for date in dates_to_render:
+            if date not in slot_lookup:
+                click.echo(f"  Warning: No slot found for {date}")
+                continue
+
+            slot = slot_lookup[date]
+            text = generated_texts.get(date, "")
+
+            if not text:
+                click.echo(f"  Warning: No text for {date}")
+                continue
+
+            year, month, day = map(int, date.split("-"))
+
+            slot_info = {
+                "type": slot["slot_type"],
+                "year": year,
+                "month": month,
+                "day": day,
+                "week_number": str(slot.get("week_number", 1)),
+                "subtheme": slot.get("subtheme", ""),
+                "subtheme_subtitle": weekly_subtitles.get(slot.get("week_number", 1), ""),
+                "monthly_theme": plan_data["monthly_theme"],
+            }
+
+            output_path = html_renderer.get_output_path(
+                year=year,
+                month=month,
+                day=day,
+                monthly_theme=plan_data["monthly_theme"],
+                week_number=slot.get("week_number", 1),
+                subtheme=weekly_subtitles.get(slot.get("week_number", 1), slot.get("subtheme", "")),
+                slot_type=slot["slot_type"],
+                images_dir=images_dir,
+            )
+
+            try:
+                await html_renderer.render_text_to_image(
+                    text=text,
+                    slot_info=slot_info,
+                    output_path=output_path,
+                    style_preset="default",
+                    background_color=background_color,
+                )
+                click.echo(f"  Rendered: {output_path}")
+                rendered += 1
+            except Exception as e:
+                click.echo(f"  Warning: Failed to render {date}: {e}")
+
+        return rendered
+
+    click.echo(f"Re-rendering {len(dates_to_render)} image(s)...")
+    rendered_count = asyncio.run(do_render())
+    click.echo(f"\n✓ Rendered {rendered_count} image(s)")
+
+
+if __name__ == "__main__":  # pragma: no cover
     cli()

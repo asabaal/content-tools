@@ -103,22 +103,36 @@ async def run_full_pipeline(
             print("Stage 4: Generating daily text using AI...")
             generated_texts = {}
 
-            for slot in schedule.slots:
-                if slot.is_automated:
-                    try:
-                        text = await generator.generate_daily_text(
-                            slot_type=slot.slot_type,
-                            monthly_theme=calendar.monthly_theme,
-                            weekly_subtheme=slot.subtheme or "",
-                        )
-                        generated_texts[slot.date] = text
-                        print(f"  Generated text for {slot.date}")
-                    except AIGenerationError as e:
-                        print(f"  Warning: Failed to generate text for {slot.date}: {e}")
-                        generated_texts[slot.date] = ""
+            # Sort slots by date to ensure chronological processing
+            sorted_slots = sorted(
+                [s for s in schedule.slots if s.is_automated],
+                key=lambda s: s.date,
+            )
+
+            # Accumulate generated texts to avoid duplication
+            previous_texts: list[str] = []
+
+            for slot in sorted_slots:
+                try:
+                    text = await generator.generate_daily_text(
+                        slot_type=slot.slot_type,
+                        monthly_theme=calendar.monthly_theme,
+                        weekly_subtheme=slot.subtheme or "",
+                        previously_generated=previous_texts,
+                    )
+                    generated_texts[slot.date] = text
+                    previous_texts.append(text)
+                    print(f"  Generated text for {slot.date}")
+                except AIGenerationError as e:
+                    print(f"  Warning: Failed to generate text for {slot.date}: {e}")
+                    generated_texts[slot.date] = ""
         else:
             print("Stage 4: Skipping text generation")
             generated_texts = {slot.date: "[PLACEHOLDER]" for slot in schedule.slots if slot.is_automated}
+
+        # Save generated texts for re-rendering
+        texts_path = _save_texts(calendar.year, calendar.month, generated_texts, plans_dir)
+        print(f"  Saved texts: {texts_path}")
 
         # Stage 6: Render images
         if not skip_rendering:
@@ -180,6 +194,7 @@ async def run_full_pipeline(
             "generated_texts": generated_texts,
             "rendered_images": rendered_images,
             "plan_path": plan_path,
+            "texts_path": texts_path,
         }
 
     except Exception as e:
@@ -223,6 +238,7 @@ def _save_plan(
             {
                 "date": slot.date,
                 "weekday": slot.weekday,
+                "week_number": slot.week_number,
                 "slot_type": slot.slot_type.value,
                 "subtheme": slot.subtheme,
                 "is_automated": slot.is_automated,
@@ -233,6 +249,39 @@ def _save_plan(
 
     with open(path, "w", encoding="utf-8") as f:
         json.dump(plan_data, f, indent=2, ensure_ascii=False)
+
+    return str(path)
+
+
+def _save_texts(
+    year: int,
+    month: int,
+    generated_texts: dict[str, str],
+    plans_dir: Path | None = None,
+) -> str:
+    """Save generated texts to JSON file.
+
+    Args:
+        year: Year of the content
+        month: Month of the content
+        generated_texts: Dict mapping date strings to generated text
+        plans_dir: Optional custom directory for plans
+
+    Returns:
+        Path to saved texts file
+    """
+    dir_path = plans_dir or PLANS_DIR
+    filename = f"{year}-{month:02d}_texts.json"
+    path = dir_path / filename
+
+    texts_data = {
+        "year": year,
+        "month": month,
+        "texts": generated_texts,
+    }
+
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(texts_data, f, indent=2, ensure_ascii=False)
 
     return str(path)
 

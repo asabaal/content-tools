@@ -92,6 +92,14 @@ def test_generate_daily_text_accepts_max_words() -> None:
     assert "max_words" in params
 
 
+def test_generate_daily_text_accepts_previously_generated() -> None:
+    """Test that generate_daily_text accepts previously_generated parameter."""
+    import inspect
+    sig = inspect.signature(generator.generate_daily_text)
+    params = list(sig.parameters.keys())
+    assert "previously_generated" in params
+
+
 def test_truncation_logic() -> None:
     """Test the word truncation logic in generate_daily_text."""
     text = "This is a sentence with more than five words to test truncation."
@@ -178,6 +186,55 @@ async def test_generate_daily_text_truncates_at_sentence_boundary() -> None:
         )
         # Should be truncated at sentence boundary: "First sentence here."
         assert result == "First sentence here."
+
+
+@pytest.mark.asyncio
+async def test_generate_daily_text_with_previously_generated() -> None:
+    """Test generate_daily_text with previously_generated texts."""
+    with patch("src.ai_generator.generator._call_ollama", new_callable=AsyncMock, return_value="New unique text") as mock_ollama:
+        result = await generator.generate_daily_text(
+            slot_type=SlotFunction.DECLARATIVE_STATEMENT,
+            monthly_theme="Test Theme",
+            weekly_subtheme="Test Subtheme",
+            previously_generated=["First post", "Second post"],
+        )
+        assert result == "New unique text"
+        # Verify the prompt included the previously generated texts
+        call_args = mock_ollama.call_args
+        assert "First post" in call_args[1]["prompt"]
+        assert "Second post" in call_args[1]["prompt"]
+
+
+@pytest.mark.asyncio
+async def test_generate_daily_text_with_empty_previously_generated() -> None:
+    """Test generate_daily_text with empty previously_generated list."""
+    with patch("src.ai_generator.generator._call_ollama", new_callable=AsyncMock, return_value="First post text") as mock_ollama:
+        result = await generator.generate_daily_text(
+            slot_type=SlotFunction.DECLARATIVE_STATEMENT,
+            monthly_theme="Test Theme",
+            weekly_subtheme="Test Subtheme",
+            previously_generated=[],
+        )
+        assert result == "First post text"
+        # Verify the prompt doesn't include previous posts section
+        call_args = mock_ollama.call_args
+        assert "Previously generated" not in call_args[1]["prompt"]
+
+
+@pytest.mark.asyncio
+async def test_generate_daily_text_with_none_previously_generated() -> None:
+    """Test generate_daily_text with None previously_generated."""
+    with patch("src.ai_generator.generator._call_ollama", new_callable=AsyncMock, return_value="First post text") as mock_ollama:
+        result = await generator.generate_daily_text(
+            slot_type=SlotFunction.DECLARATIVE_STATEMENT,
+            monthly_theme="Test Theme",
+            weekly_subtheme="Test Subtheme",
+            previously_generated=None,
+        )
+        assert result == "First post text"
+        # Verify the prompt doesn't include previous posts section
+        call_args = mock_ollama.call_args
+        assert "Previously generated" not in call_args[1]["prompt"]
 
 
 @pytest.mark.asyncio
