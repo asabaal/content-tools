@@ -658,6 +658,9 @@
         let selectedWords = new Set();
         let lastSelectedWord = null;
         let currentSegmentIndex = -1;
+        let playableSegments = [];
+        let isSkipping = false;
+        const SKIP_OFFSET = 0.05;
         let captionStyle = {
             font_family: 'Bangers',
             font_size: 'medium',
@@ -710,6 +713,7 @@
                 captionBreaks = project.caption_breaks || {};
                 captionStyle = { ...captionStyle, ...project.caption_style };
                 
+                buildPlayableSegments();
                 applyStyleSettings();
                 buildWordsList();
                 buildClipFilter();
@@ -719,6 +723,76 @@
                 console.error('Failed to load project:', err);
                 document.getElementById('loadingText').textContent = 'Failed to load project';
             }
+        }
+
+        function buildPlayableSegments() {
+            playableSegments = [];
+            
+            const clips = (project.clips || [])
+                .filter(c => c.enabled !== false && c.in_timeline !== false)
+                .sort((a, b) => (a.timeline_position || 0) - (b.timeline_position || 0));
+            
+            for (const clip of clips) {
+                const sel = clip.selected_segment || {};
+                const trimStart = clip.trim_start ?? sel.start ?? 0;
+                const trimEnd = clip.trim_end ?? sel.end ?? 0;
+                const deleted = (clip.deleted_regions || []).sort((a, b) => a.start - b.start);
+                
+                let segs = [[trimStart, trimEnd]];
+                
+                for (const del of deleted) {
+                    const newSegs = [];
+                    for (const [s, e] of segs) {
+                        if (del.end <= s || del.start >= e) {
+                            newSegs.push([s, e]);
+                        } else if (del.start <= s && del.end >= e) {
+                            // fully deleted
+                        } else {
+                            if (del.start > s) newSegs.push([s, del.start]);
+                            if (del.end < e) newSegs.push([del.end, e]);
+                        }
+                    }
+                    segs = newSegs;
+                }
+                
+                for (const [s, e] of segs) {
+                    playableSegments.push({
+                        start: s,
+                        end: e,
+                        clipId: clip.id
+                    });
+                }
+            }
+            
+            playableSegments.sort((a, b) => a.start - b.start);
+        }
+
+        function isTimePlayable(time) {
+            for (const seg of playableSegments) {
+                if (time >= seg.start && time < seg.end) {
+                    return true;
+                }
+                if (time < seg.start) break;
+            }
+            return false;
+        }
+
+        function getNextPlayableStart(time) {
+            for (const seg of playableSegments) {
+                if (seg.end > time) {
+                    return Math.max(seg.start, time);
+                }
+            }
+            return null;
+        }
+
+        function getCurrentPlayableSegment(time) {
+            for (const seg of playableSegments) {
+                if (time >= seg.start && time < seg.end) {
+                    return seg;
+                }
+            }
+            return null;
         }
 
         function applyStyleSettings() {
@@ -1109,7 +1183,27 @@
         video.addEventListener('timeupdate', () => {
             currentTimeEl.textContent = formatTime(video.currentTime);
             timeline.value = video.currentTime;
+            
+            if (!isSkipping && !isTimePlayable(video.currentTime)) {
+                const nextStart = getNextPlayableStart(video.currentTime);
+                if (nextStart !== null && nextStart > video.currentTime + SKIP_OFFSET) {
+                    isSkipping = true;
+                    video.currentTime = nextStart + SKIP_OFFSET;
+                }
+                captionText.innerHTML = '';
+                return;
+            }
+            
+            isSkipping = false;
             updateCaption();
+        });
+
+        video.addEventListener('seeking', () => {
+            isSkipping = true;
+        });
+
+        video.addEventListener('seeked', () => {
+            setTimeout(() => { isSkipping = false; }, 100);
         });
 
         video.addEventListener('play', () => {
