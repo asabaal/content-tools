@@ -240,7 +240,7 @@ def build_filter_graph(
                 elif background == 'outline':
                     filter_str += f":borderw=2:bordercolor=black"
                 
-                filter_str += f":enable='between(t,{word_output_start:.3f},{word_output_end:.3f})'"
+                filter_str += f":enable='between(t\\,{word_output_start:.3f}\\,{word_output_end:.3f})'"
                 filters.append(filter_str)
                 
                 x_offset += len(text) * char_width + char_width

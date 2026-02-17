@@ -43,6 +43,8 @@ def main():
     output_video = output_dir / 'final_video.mp4'
     output_srt = output_dir / 'captions.srt'
     
+    os.makedirs(output_dir, exist_ok=True)
+    
     font_path = root / 'tools' / '05b-render' / 'fonts' / 'Bangers-Regular.ttf'
     
     if not input_video.exists():

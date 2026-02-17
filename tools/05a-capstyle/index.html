@@ -109,6 +109,31 @@
             background: #b5586e;
         }
 
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            top: 50%;
+            left: 50%;
+            margin-left: -7px;
+            margin-top: -7px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
         .main-content {
             display: grid;
             grid-template-columns: 1fr 320px;
@@ -1133,13 +1158,21 @@
         }
 
         async function saveProject() {
+            const saveBtn = document.getElementById('saveBtn');
+            const originalText = saveBtn.textContent;
+            
+            saveBtn.disabled = true;
+            saveBtn.classList.add('loading');
+            saveStatus.textContent = 'Saving...';
+            saveStatus.className = 'save-status';
+            
             try {
                 project.word_colors = wordColors;
                 project.caption_style = captionStyle;
                 project.caption_breaks = captionBreaks;
                 
                 const response = await fetch('/api/project', {
-                    method: 'PUT',
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(project)
                 });
@@ -1147,31 +1180,50 @@
                 if (response.ok) {
                     markSaved();
                 } else {
-                    console.error('Save failed:', await response.text());
+                    const errorText = await response.text();
+                    console.error('Save failed:', errorText);
+                    saveStatus.textContent = 'Save failed';
+                    saveStatus.className = 'save-status unsaved';
                 }
             } catch (err) {
                 console.error('Save error:', err);
+                saveStatus.textContent = 'Save error';
+                saveStatus.className = 'save-status unsaved';
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.classList.remove('loading');
+                saveBtn.textContent = originalText;
             }
         }
 
         async function triggerRender() {
-            await saveProject();
+            const renderBtn = document.getElementById('renderBtn');
+            const originalText = renderBtn.textContent;
             
+            renderBtn.disabled = true;
+            renderBtn.classList.add('loading');
             renderStatus.classList.add('visible');
             
             try {
+                await saveProject();
+                
                 const response = await fetch('/api/render', { method: 'POST' });
                 const result = await response.json();
                 
                 if (result.status === 'rendering_started') {
                     setTimeout(() => {
                         renderStatus.classList.remove('visible');
-                        alert('Render started! Check console for progress.');
-                    }, 3000);
+                        alert('Render started! Check server console for progress.');
+                    }, 2000);
                 }
             } catch (err) {
                 console.error('Render error:', err);
                 renderStatus.classList.remove('visible');
+                alert('Render failed: ' + err.message);
+            } finally {
+                renderBtn.disabled = false;
+                renderBtn.classList.remove('loading');
+                renderBtn.textContent = originalText;
             }
         }
 
