@@ -6,12 +6,12 @@ from typing import List, Dict, Any, Optional
 
 
 def escape_ffmpeg_text(text: str) -> str:
-    """Escape special characters for ffmpeg drawtext filter."""
-    text = text.replace('\\', '\\\\')
-    text = text.replace("'", "\\'")
-    text = text.replace(':', '\\:')
-    text = text.replace('%', '\\%')
-    text = text.replace(',', '\\,')
+    """Escape special characters for ffmpeg drawtext filter.
+    
+    When text is wrapped in single quotes (text='...'), commas are protected.
+    Only escape single quotes within the text by closing/reopening quotes.
+    """
+    text = text.replace("'", "'\\''")
     return text
 
 
@@ -30,17 +30,21 @@ def get_font_size(size_name: str) -> int:
     return sizes.get(size_name, 36)
 
 
+VIDEO_WIDTH = 1080
+VIDEO_HEIGHT = 1920
+
+
 def get_y_position(position_name: str, font_size: int) -> str:
-    """Get y position expression for drawtext."""
+    """Get y position expression for drawtext (uses explicit video height)."""
     padding = 20
     box_height = font_size + 20
     
     if position_name == 'bottom':
-        return f"h-{padding + box_height}"
+        return f"{VIDEO_HEIGHT - padding - box_height}"
     elif position_name == 'lower_third':
-        return f"h-{padding + box_height + 40}"
+        return f"{VIDEO_HEIGHT - padding - box_height - 40}"
     else:
-        return f"(h-text_h)/2"
+        return f"({VIDEO_HEIGHT}-text_h)/2"
 
 
 def build_drawtext_filter(
@@ -225,7 +229,7 @@ def build_filter_graph(
                 escaped_text = escape_ffmpeg_text(text)
                 ffmpeg_color = hex_to_ffmpeg(color)
                 
-                base_x = f"(w-{total_width:.0f})/2"
+                base_x = f"({VIDEO_WIDTH}-{total_width:.0f})/2"
                 if x_offset > 0:
                     x_expr = f"{base_x}+{x_offset:.0f}"
                 else:
@@ -241,7 +245,7 @@ def build_filter_graph(
                 elif background == 'outline':
                     filter_str += f":borderw=2:bordercolor=black"
                 
-                filter_str += f":enable='between(t\\,{word_output_start:.3f}\\,{word_output_end:.3f})'"
+                filter_str += f":enable=between(t\\,{word_output_start:.3f}\\,{word_output_end:.3f})"
                 filters.append(filter_str)
                 
                 x_offset += len(text) * char_width + char_width

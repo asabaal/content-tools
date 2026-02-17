@@ -20,6 +20,7 @@ from src.config.defaults import (
     IMAGE_FORMAT,
     IMAGE_QUALITY,
     COLORFUL_PRESETS,
+    MAX_WORDS_PER_SLOT,
 )
 
 
@@ -158,3 +159,40 @@ def test_preset_numeric_values() -> None:
         assert isinstance(preset["padding"], int)
         assert preset["font_size"] > 0
         assert preset["padding"] > 0
+
+
+def test_max_words_per_slot_exists() -> None:
+    """Test that MAX_WORDS_PER_SLOT config exists."""
+    assert isinstance(MAX_WORDS_PER_SLOT, dict)
+    assert len(MAX_WORDS_PER_SLOT) > 0
+
+
+def test_max_words_per_slot_has_all_slot_types() -> None:
+    """Test that all slot types have max word limits."""
+    required_slots = [
+        "declarative_statement",
+        "excerpt",
+        "process_note",
+        "unanswered_question",
+        "reframing",
+        "quiet_observation",
+    ]
+    for slot in required_slots:
+        assert slot in MAX_WORDS_PER_SLOT
+
+
+def test_max_words_per_slot_values_are_integers() -> None:
+    """Test that all max words values are positive integers."""
+    for slot_type, max_words in MAX_WORDS_PER_SLOT.items():
+        assert isinstance(max_words, int), f"{slot_type} max_words is not int"
+        assert max_words > 0, f"{slot_type} max_words must be positive"
+
+
+def test_max_words_per_slot_reasonable_values() -> None:
+    """Test that max words values are reasonable for each slot type."""
+    # Declarative statements should be short
+    assert MAX_WORDS_PER_SLOT["declarative_statement"] <= 30
+    # Process notes can be longer
+    assert MAX_WORDS_PER_SLOT["process_note"] >= 50
+    # Questions should be short
+    assert MAX_WORDS_PER_SLOT["unanswered_question"] <= 30

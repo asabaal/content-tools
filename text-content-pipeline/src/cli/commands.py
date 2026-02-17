@@ -199,6 +199,7 @@ def resolve_calendar_cmd(payload_path: str, output: str | None) -> None:
 @click.option("--skip-text", is_flag=True, help="Skip AI text generation")
 @click.option("--model", help="Override AI model (e.g., gpt-oss:20b)")
 @click.option("--background-color", help="Override background color (e.g., #4A90E2)")
+@click.option("--output-dir", "-o", help="Output directory for plans and images (default: outputs)")
 def run_all(
     payload: str | None,
     theme: str | None,
@@ -209,6 +210,7 @@ def run_all(
     skip_text: bool,
     model: str | None,
     background_color: str | None,
+    output_dir: str | None,
 ) -> None:
     """Run full pipeline end-to-end.
 
@@ -270,6 +272,7 @@ def run_all(
                 background_color=background_color,
                 skip_rendering=skip_rendering,
                 skip_text_generation=skip_text,
+                output_dir=output_dir,
             )
         )
 

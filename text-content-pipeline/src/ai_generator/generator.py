@@ -12,9 +12,34 @@ from src.config.defaults import (
     AI_TIMEOUT,
     DEFAULT_AI_BASE_URL,
     DEFAULT_AI_MODEL,
+    MAX_WORDS_PER_SLOT,
 )
 from src.errors.exceptions import AIGenerationError, ModelUnavailableError
 from src.slots.enum import SlotFunction
+
+
+async def generate_weekly_subtitle(weekly_subtheme: str) -> str:
+    """Generate a short subtitle from a weekly subtheme.
+
+    Args:
+        weekly_subtheme: The full weekly subtheme text
+
+    Returns:
+        Short subtitle (3-6 words)
+
+    Raises:
+        AIGenerationError: If generation fails
+    """
+    prompt = prompts.WEEKLY_SUBTITLE_PROMPT.format(
+        weekly_subtheme=weekly_subtheme,
+    )
+
+    response = await _call_ollama(
+        prompt=prompt,
+        touchpoint="weekly_subtitle_generation",
+    )
+
+    return response.strip()
 
 
 async def generate_weekly_subthemes(monthly_theme: str, num_weeks: int) -> list[str]:
@@ -138,6 +163,7 @@ async def generate_daily_text(
     slot_type: SlotFunction,
     monthly_theme: str,
     weekly_subtheme: str,
+    max_words: int | None = None,
 ) -> str:
     """Generate text for a single daily slot using AI (touchpoint 3).
 
@@ -145,6 +171,7 @@ async def generate_daily_text(
         slot_type: The type of slot to generate
         monthly_theme: Monthly theme context
         weekly_subtheme: Weekly subtheme context
+        max_words: Maximum word count (optional, uses defaults if not provided)
 
     Returns:
         Generated plain text
@@ -152,9 +179,15 @@ async def generate_daily_text(
     Raises:
         AIGenerationError: If generation fails
     """
+    # Get max words from config if not provided
+    if max_words is None:
+        slot_type_str = slot_type.value if isinstance(slot_type, SlotFunction) else str(slot_type)
+        max_words = MAX_WORDS_PER_SLOT.get(slot_type_str, 50)
+
     prompt = prompts.TEXT_GENERATION_PROMPTS[slot_type].format(
         monthly_theme=monthly_theme,
         weekly_subtheme=weekly_subtheme,
+        max_words=max_words,
     )
 
     response = await _call_ollama(
@@ -163,7 +196,18 @@ async def generate_daily_text(
     )
 
     # Clean up response
-    return response.strip()
+    text = response.strip()
+
+    # Enforce max words (truncate if needed)
+    words = text.split()
+    if len(words) > max_words:
+        text = " ".join(words[:max_words])
+        # Try to end at a sentence boundary
+        last_punct = max(text.rfind("."), text.rfind("!"), text.rfind("?"))
+        if last_punct > max_words // 2:
+            text = text[: last_punct + 1]
+
+    return text
 
 
 async def _call_ollama(prompt: str, touchpoint: str) -> str:
@@ -232,8 +276,7 @@ async def _call_ollama(prompt: str, touchpoint: str) -> str:
                     touchpoint=touchpoint,
                 )
 
-    # This should never be reached, but mypy needs it
-    raise AIGenerationError(
+    raise AIGenerationError(  # pragma: no cover
         "Unexpected error in AI generation",
         touchpoint=touchpoint,
     )

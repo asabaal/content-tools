@@ -1,8 +1,14 @@
 {
   "year": 2026,
-  "month": 15,
-  "monthly_theme": "Test",
-  "weekly_subthemes": null,
+  "month": 3,
+  "monthly_theme": "This Far by Faith",
+  "weekly_subthemes": [
+    "Week 1 Evidence of the walk. I chose faith before clarity. I kept moving in obedience. God met me after I moved. This week names specific ways I was carried and sustained. Week 1 stays literal and testimonial not generic.",
+    "Week 2 Stabilizing the ground. Life and business are becoming steadier. I am learning to breathe and build rhythms. Stability is a gift that must be protected and maintained. Week 2 stays grounded in daily stewardship not hype.",
+    "Week 3 Trusting forward without full visibility. I still do not see the full future. Faith continues with quiet courage not urgency. I take the next right step with peace and patience. Week 3 avoids hustle language and stays calm.",
+    "Week 4 Stewarding what I have reached. I prayed for ground like this. Now I tend it with responsibility. I guard peace and maintain systems and stay humble. Everything is entrusted not owned. Week 4 emphasizes responsibility and gratitude.",
+    "Week 5 Continuing the walk. Faith carried me this far and will carry me forward. I honor the progress made while remaining committed to ongoing obedience. This week bridges March into April with humility and resolve."
+  ],
   "week_rule": "monday_determines_month",
   "video_week": "last_week",
   "style_preset": "default",

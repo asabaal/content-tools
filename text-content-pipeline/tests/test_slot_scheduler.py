@@ -147,6 +147,30 @@ def test_apply_slot_plan_date_not_in_plan(sample_calendar: ResolvedCalendar) -> 
         "2026-02-13": "reframing",
         "2026-02-14": "quiet_observation",
     }
+
+
+def test_validate_weekly_constraints_skips_missing_date(sample_calendar: ResolvedCalendar) -> None:
+    """Test _validate_weekly_constraints skips dates not in slot_plan."""
+    from src.slots.scheduler import _validate_weekly_constraints
+    
+    # Create a plan that is missing one date but still valid for constraint checking
+    # The function should skip the missing date without error
+    incomplete_plan = {
+        "2026-02-02": "declarative_statement",
+        "2026-02-03": "excerpt",
+        "2026-02-04": "process_note",
+        "2026-02-05": "unanswered_question",
+        # Missing 2026-02-06 and 2026-02-07 (Saturday)
+        "2026-02-09": "excerpt",
+        "2026-02-10": "declarative_statement",
+        "2026-02-11": "process_note",
+        "2026-02-12": "unanswered_question",
+        "2026-02-13": "reframing",
+        "2026-02-14": "quiet_observation",
+    }
+    
+    # This should not raise - it just skips missing dates
+    _validate_weekly_constraints(sample_calendar, incomplete_plan)
     
     with pytest.raises(SlotAssignmentError) as exc_info:
         apply_slot_plan(sample_calendar, incomplete_plan)

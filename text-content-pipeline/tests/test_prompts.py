@@ -5,6 +5,7 @@ from src.ai_generator.prompts import (
     format_weekly_subthemes,
     format_calendar_structure,
     WEEKLY_SUBTHEME_PROMPT,
+    WEEKLY_SUBTITLE_PROMPT,
     MONTHLY_SLOT_PLANNING_PROMPT,
     TEXT_GENERATION_PROMPTS,
 )
@@ -190,3 +191,37 @@ def test_format_weekly_subthemes_long_subtheme() -> None:
     result = format_weekly_subthemes(subthemes)
     
     assert "Week 1: This is a very long subtheme name for testing" in result
+
+
+def test_weekly_subtitle_prompt_exists() -> None:
+    """Test that weekly subtitle prompt template exists."""
+    assert WEEKLY_SUBTITLE_PROMPT is not None
+    assert "weekly_subtheme" in WEEKLY_SUBTITLE_PROMPT
+    assert "3-6 words" in WEEKLY_SUBTITLE_PROMPT
+
+
+def test_weekly_subtitle_prompt_formatting() -> None:
+    """Test that weekly subtitle prompt can be formatted."""
+    formatted = WEEKLY_SUBTITLE_PROMPT.format(
+        weekly_subtheme="Week 1 Evidence of the walk"
+    )
+    assert "Week 1 Evidence of the walk" in formatted
+
+
+def test_text_generation_prompts_have_max_words() -> None:
+    """Test that all text generation prompts include max_words placeholder."""
+    for slot, prompt in TEXT_GENERATION_PROMPTS.items():
+        assert "{max_words}" in prompt, f"Missing max_words in {slot.value} prompt"
+
+
+def test_text_generation_prompts_format_with_max_words() -> None:
+    """Test that text generation prompts can be formatted with max_words."""
+    for slot, prompt in TEXT_GENERATION_PROMPTS.items():
+        formatted = prompt.format(
+            monthly_theme="Test Theme",
+            weekly_subtheme="Test Subtheme",
+            max_words=50,
+        )
+        assert "50" in formatted
+        assert "Test Theme" in formatted
+        assert "Test Subtheme" in formatted

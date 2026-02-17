@@ -37,6 +37,16 @@ PORTRAIT_HEIGHT = 1350
 IMAGE_FORMAT = "png"
 IMAGE_QUALITY = 100
 
+# Max words per slot type
+MAX_WORDS_PER_SLOT = {
+    "declarative_statement": 25,
+    "excerpt": 60,
+    "process_note": 90,
+    "unanswered_question": 20,
+    "reframing": 25,
+    "quiet_observation": 30,
+}
+
 # Colorful Background Presets
 COLORFUL_PRESETS = {
     "default": {

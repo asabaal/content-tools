@@ -36,7 +36,11 @@ def build_html(
     day = int(slot_info.get("day", datetime.now().day))
     week_number = int(slot_info.get("week_number", 1))
     subtheme = slot_info.get("subtheme", "")
+    subtheme_subtitle = slot_info.get("subtheme_subtitle", "")
     monthly_theme = slot_info.get("monthly_theme", "Theme")
+
+    # Use subtitle for display if available, otherwise fallback to subtheme
+    display_subtheme = subtheme_subtitle if subtheme_subtitle else subtheme
 
     # Metadata settings
     metadata_font_size = font_size // 2
@@ -50,9 +54,9 @@ def build_html(
 
     # Build week/subtheme metadata (stylized)
     week_metadata_html = ""
-    if subtheme:
+    if display_subtheme:
         week_metadata_html = f"""        <div class="week-metadata">
-            <div class="subtheme-pill">{subtheme}</div>
+            <div class="subtheme-pill">{display_subtheme}</div>
         </div>"""
 
     # Build complete HTML

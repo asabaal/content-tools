@@ -260,3 +260,81 @@ def test_build_html_content_structure() -> None:
     assert "</body>" in html
     assert "<style>" in html
     assert "</style>" in html
+
+
+def test_build_html_with_subtheme_subtitle() -> None:
+    """Test that subtheme_subtitle is used for display when provided."""
+    text = "Test content"
+    slot_info = {
+        "year": "2026",
+        "month": "2",
+        "day": "2",
+        "week_number": "1",
+        "subtheme": "This is a very long subtheme that should not be displayed",
+        "subtheme_subtitle": "Short Title",
+        "monthly_theme": "Theme",
+        "type": "post",
+    }
+    preset = {
+        "background": "#4A90E2",
+        "text_color": "#FFFFFF",
+        "font_size": 48,
+        "padding": 80,
+        "max_width": 1080,
+    }
+    
+    html = build_html(text, slot_info, preset, 1080, 1080)
+    
+    assert "Short Title" in html
+    assert "very long subtheme" not in html
+
+
+def test_build_html_falls_back_to_subtheme_when_no_subtitle() -> None:
+    """Test that subtheme is used when subtitle is not provided."""
+    text = "Test content"
+    slot_info = {
+        "year": "2026",
+        "month": "2",
+        "day": "2",
+        "week_number": "1",
+        "subtheme": "Fallback Subtheme",
+        "monthly_theme": "Theme",
+        "type": "post",
+    }
+    preset = {
+        "background": "#4A90E2",
+        "text_color": "#FFFFFF",
+        "font_size": 48,
+        "padding": 80,
+        "max_width": 1080,
+    }
+    
+    html = build_html(text, slot_info, preset, 1080, 1080)
+    
+    assert "Fallback Subtheme" in html
+
+
+def test_build_html_empty_subtitle_uses_subtheme() -> None:
+    """Test that empty subtitle falls back to subtheme."""
+    text = "Test content"
+    slot_info = {
+        "year": "2026",
+        "month": "2",
+        "day": "2",
+        "week_number": "1",
+        "subtheme": "The Subtheme",
+        "subtheme_subtitle": "",
+        "monthly_theme": "Theme",
+        "type": "post",
+    }
+    preset = {
+        "background": "#4A90E2",
+        "text_color": "#FFFFFF",
+        "font_size": 48,
+        "padding": 80,
+        "max_width": 1080,
+    }
+    
+    html = build_html(text, slot_info, preset, 1080, 1080)
+    
+    assert "The Subtheme" in html

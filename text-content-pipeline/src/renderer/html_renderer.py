@@ -29,7 +29,7 @@ async def render_text_to_image(
 
     Args:
         text: The text content to render
-        slot_info: Dictionary with slot information (type, date, week_number, subtheme, monthly_theme)
+        slot_info: Dictionary with slot information (type, date, week_number, subtheme, subtheme_subtitle, monthly_theme)
         output_path: Path where image should be saved (or None to let function generate)
         style_preset: Name of colorful style preset
         background_color: Optional override color
@@ -133,6 +133,7 @@ def get_output_path(
     week_number: int,
     subtheme: str,
     slot_type: str,
+    images_dir: Path | None = None,
 ) -> str:
     """Generate output path for a daily post image.
 
@@ -144,6 +145,7 @@ def get_output_path(
         week_number: Week number
         subtheme: Subtheme text
         slot_type: Slot type identifier
+        images_dir: Optional custom directory for images
 
     Returns:
         Full path for image file
@@ -160,4 +162,5 @@ def get_output_path(
     type_part = sanitize(slot_type)
     
     filename = f"{year:04d}{month:02d}{day:02d}_{theme_part}_week{week_number:02d}_{subtheme_part}_{type_part}.{IMAGE_FORMAT}"
-    return str(IMAGES_DIR / filename)
+    dir_path = images_dir or IMAGES_DIR
+    return str(dir_path / filename)

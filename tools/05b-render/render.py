@@ -6,6 +6,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 from segments import compute_timeline_clips, get_total_duration
@@ -89,14 +90,27 @@ def main():
     )
     
     if args.verbose:
-        print(f"Filter graph ({len(filter_graph)} chars):")
-        print(filter_graph[:500] + "..." if len(filter_graph) > 500 else filter_graph)
+        print(f"Filter graph ({len(filter_graph)} chars)")
     
-    cmd = build_ffmpeg_command(
-        str(input_video),
-        str(output_video),
-        filter_graph
-    )
+    # Write filter to temp file to avoid command line length/escaping issues
+    filter_file = output_dir / 'filter.txt'
+    with open(filter_file, 'w') as f:
+        f.write(filter_graph)
+    
+    print(f"Filter written to: {filter_file}")
+    
+    # Build command using filter script file
+    cmd = [
+        'ffmpeg',
+        '-y',
+        '-i', str(input_video),
+        '-filter_complex_script', str(filter_file),
+        '-c:a', 'copy',
+        '-c:v', 'libx264',
+        '-preset', 'medium',
+        '-crf', '23',
+        str(output_video)
+    ]
     
     if args.dry_run or args.verbose:
         print("\nffmpeg command:")

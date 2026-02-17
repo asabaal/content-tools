@@ -2,6 +2,20 @@
 
 from src.slots.enum import SlotFunction
 
+# Touchpoint 0: Weekly Subtitle Generation Prompt
+WEEKLY_SUBTITLE_PROMPT = """Generate a short subtitle that captures the essence of this weekly theme.
+
+Full weekly theme: {weekly_subtheme}
+
+Requirements:
+- 3-6 words maximum
+- Captures the core message
+- Suitable for display as a subheader
+- Plain text only (no quotes, no punctuation at the end)
+
+Output: Just the subtitle, nothing else."""
+
+
 # Touchpoint 1: Weekly Subtheme Derivation Prompt
 WEEKLY_SUBTHEME_PROMPT = """You are assisting in breaking down a monthly theme into weekly subthemes.
 
@@ -83,6 +97,7 @@ Requirements:
 - No question marks
 - No explanations or elaborations
 - Plain text only (no markdown, no emojis, no hashtags)
+- Maximum {max_words} words
 
 Output: Just the sentence, nothing else.""",
 
@@ -96,6 +111,7 @@ Requirements:
 - Could be from notes, scripture, past writing, or reflection
 - No commentary added
 - Plain text only (no markdown, no emojis, no hashtags)
+- Maximum {max_words} words
 
 Output: Just the excerpt, nothing else.""",
 
@@ -109,6 +125,7 @@ Requirements:
 - Acknowledges effort or stillness
 - No conclusions or finality
 - Plain text only (no markdown, no emojis, no hashtags)
+- Maximum {max_words} words
 
 Output: Just the note, nothing else.""",
 
@@ -122,6 +139,7 @@ Requirements:
 - No answer provided
 - No leading or rhetorical framing
 - Plain text only (no markdown, no emojis, no hashtags)
+- Maximum {max_words} words
 
 Output: Just the question, nothing else.""",
 
@@ -135,6 +153,7 @@ Requirements:
 - Uses "not X, but Y" structure or similar
 - No explanation of why
 - Plain text only (no markdown, no emojis, no hashtags)
+- Maximum {max_words} words
 
 Output: Just the reframing, nothing else.""",
 
@@ -148,6 +167,7 @@ Requirements:
 - Describes something noticed, not concluded
 - No interpretation or judgment
 - Plain text only (no markdown, no emojis, no hashtags)
+- Maximum {max_words} words
 
 Output: Just the observation, nothing else.""",
 }

@@ -29,6 +29,7 @@ async def run_full_pipeline(
     background_color: str | None = None,
     skip_rendering: bool = False,
     skip_text_generation: bool = False,
+    output_dir: str | None = None,
 ) -> dict:
     """Run the complete pipeline from payload to images.
 
@@ -37,6 +38,7 @@ async def run_full_pipeline(
         model: Optional AI model override
         skip_rendering: If True, skip image rendering
         skip_text_generation: If True, skip AI text generation
+        output_dir: Optional custom output directory (default: outputs)
 
     Returns:
         Dictionary with pipeline results and outputs
@@ -44,7 +46,12 @@ async def run_full_pipeline(
     Raises:
         PipelineError: If any stage fails
     """
-    # Override model if specified
+    plans_dir = Path(output_dir) / "plans" if output_dir else PLANS_DIR
+    images_dir = Path(output_dir) / "images" if output_dir else IMAGES_DIR
+    if output_dir:
+        plans_dir.mkdir(parents=True, exist_ok=True)
+        images_dir.mkdir(parents=True, exist_ok=True)
+
     if model:
         from src.config import defaults
         old_model = defaults.DEFAULT_AI_MODEL
@@ -67,8 +74,17 @@ async def run_full_pipeline(
         else:
             print("Stage 2a: Using provided weekly subthemes (skipping AI derivation)")
 
+        # Stage 2b: Generate weekly subtitles for display
+        print("Stage 2b: Generating weekly subtitles...")
+        weekly_subtitles = {}
+        if calendar.weekly_subthemes:
+            for i, subtheme in enumerate(calendar.weekly_subthemes, 1):
+                subtitle = await generator.generate_weekly_subtitle(subtheme)
+                weekly_subtitles[i] = subtitle
+                print(f"  Week {i}: {subtitle}")
+
         # Stage 3: AI Monthly Slot Planning
-        print("Stage 2b: Planning monthly slots using AI...")
+        print("Stage 2c: Planning monthly slots using AI...")
         slot_plan = await generator.plan_monthly_slots(calendar)
         print(f"  Generated slot plan for {len(slot_plan)} dates")
 
@@ -79,7 +95,7 @@ async def run_full_pipeline(
         print(f"  Created schedule with {len(schedule.slots)} total slots")
 
         # Save slot plan for inspection
-        plan_path = _save_plan(calendar, slot_plan, schedule)
+        plan_path = _save_plan(calendar, slot_plan, schedule, plans_dir, weekly_subtitles)
         print(f"  Saved slot plan: {plan_path}")
 
         # Stage 5: AI Monthly Text Generation
@@ -124,6 +140,7 @@ async def run_full_pipeline(
                                 "day": day,
                                 "week_number": str(slot.week_number),
                                 "subtheme": slot.subtheme or "",
+                                "subtheme_subtitle": weekly_subtitles.get(slot.week_number, ""),
                                 "monthly_theme": calendar.monthly_theme,
                             }
 
@@ -133,8 +150,9 @@ async def run_full_pipeline(
                                 day=day,
                                 monthly_theme=calendar.monthly_theme,
                                 week_number=slot.week_number,
-                                subtheme=slot.subtheme or "",
+                                subtheme=weekly_subtitles.get(slot.week_number, slot.subtheme or ""),
                                 slot_type=slot.slot_type.value,
+                                images_dir=images_dir,
                             )
 
                             await html_renderer.render_text_to_image(
@@ -174,6 +192,8 @@ def _save_plan(
     calendar,  # ResolvedCalendar
     slot_plan: dict[str, str],
     schedule,  # scheduler.DailySlotSchedule
+    plans_dir: Path | None = None,
+    weekly_subtitles: dict[int, str] | None = None,
 ) -> str:
     """Save slot plan to JSON file.
 
@@ -181,18 +201,22 @@ def _save_plan(
         calendar: Resolved calendar
         slot_plan: Date to slot type mapping
         schedule: Complete daily slot schedule
+        plans_dir: Optional custom directory for plans
+        weekly_subtitles: Optional dict of week number to subtitle
 
     Returns:
         Path to saved plan file
     """
+    dir_path = plans_dir or PLANS_DIR
     filename = f"{calendar.year}-{calendar.month:02d}_plan.json"
-    path = PLANS_DIR / filename
+    path = dir_path / filename
 
     plan_data = {
         "year": calendar.year,
         "month": calendar.month,
         "monthly_theme": calendar.monthly_theme,
         "weekly_subthemes": calendar.weekly_subthemes,
+        "weekly_subtitles": weekly_subtitles,
         "weekly_subthemes_source": schedule.weekly_subthemes_source,
         "slot_plan": slot_plan,
         "schedule_summary": [
@@ -213,12 +237,13 @@ def _save_plan(
     return str(path)
 
 
-async def validate_and_run(payload_path: str, background_color: str | None = None, **kwargs) -> dict:
+async def validate_and_run(payload_path: str, background_color: str | None = None, output_dir: str | None = None, **kwargs) -> dict:
     """Validate payload and run pipeline.
 
     Args:
         payload_path: Path to payload JSON file
         background_color: Optional background color override
+        output_dir: Optional custom output directory
         **kwargs: Additional arguments for run_full_pipeline
 
     Returns:
@@ -235,4 +260,4 @@ async def validate_and_run(payload_path: str, background_color: str | None = Non
     print(f"Validated payload for {payload.year}-{payload.month:02d}: {payload.monthly_theme}")
 
     # Run pipeline
-    return await run_full_pipeline(payload, background_color=background_color, **kwargs)
+    return await run_full_pipeline(payload, background_color=background_color, output_dir=output_dir, **kwargs)
