@@ -11,6 +11,7 @@ def escape_ffmpeg_text(text: str) -> str:
     text = text.replace("'", "\\'")
     text = text.replace(':', '\\:')
     text = text.replace('%', '\\%')
+    text = text.replace(',', '\\,')
     return text
 
 
@@ -233,7 +234,7 @@ def build_filter_graph(
                 y_base = get_y_position(position, font_size)
                 y_expr = f"{y_base}-{line_y_offset}"
                 
-                filter_str = f"drawtext=text='{escaped_text}':fontfile='{font_path}':fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
+                filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
                 
                 if background == 'dark_box':
                     filter_str += f":box=1:boxcolor=black@0.7:boxborderw=8"
