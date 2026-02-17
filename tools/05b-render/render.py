@@ -6,7 +6,6 @@ import json
 import os
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 from segments import compute_timeline_clips, get_total_duration
@@ -27,6 +26,23 @@ def load_project(project_path: str = None) -> dict:
     
     with open(project_path, 'r', encoding='utf-8') as f:
         return json.load(f)
+
+
+def merge_segments(segments):
+    """Merge overlapping segments into non-overlapping ranges."""
+    if not segments:
+        return []
+    
+    segments = sorted(segments, key=lambda x: x[0])
+    merged = [segments[0]]
+    
+    for start, end in segments[1:]:
+        if start <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], end))
+        else:
+            merged.append((start, end))
+    
+    return merged
 
 
 def main():
@@ -68,11 +84,17 @@ def main():
         print("Error: No clips in timeline", file=sys.stderr)
         sys.exit(1)
     
-    total_duration = get_total_duration(timeline_clips)
-    print(f"Total duration: {total_duration:.2f}s")
+    all_segments = []
+    for item in timeline_clips:
+        all_segments.extend(item['playable_segments'])
+    
+    playable_segments = merge_segments(all_segments)
+    total_duration = sum(end - start for start, end in playable_segments)
+    print(f"Playable segments: {len(all_segments)} -> {len(playable_segments)} merged")
+    print(f"Output duration: {total_duration:.2f}s")
     
     print("Building caption events...")
-    caption_events = build_caption_events(project, timeline_clips)
+    caption_events = build_caption_events(project, timeline_clips, playable_segments)
     
     print(f"Generated {len(caption_events)} caption events")
     
@@ -85,32 +107,28 @@ def main():
         caption_events,
         caption_style,
         str(font_path),
-        str(input_video),
-        str(output_video)
+        playable_segments
     )
     
     if args.verbose:
         print(f"Filter graph ({len(filter_graph)} chars)")
+        lines = filter_graph.split(';\n')
+        for i, line in enumerate(lines[:5]):
+            print(f"  [{i}]: {line[:100]}...")
+        if len(lines) > 5:
+            print(f"  ... and {len(lines) - 5} more filter chains")
     
-    # Write filter to temp file to avoid command line length/escaping issues
-    filter_file = output_dir / 'filter.txt'
-    with open(filter_file, 'w') as f:
+    cmd, filter_file = build_ffmpeg_command(
+        str(input_video),
+        str(output_video),
+        filter_graph,
+        use_filter_script=True
+    )
+    
+    filter_file_path = output_dir / 'filter.txt'
+    with open(filter_file_path, 'w') as f:
         f.write(filter_graph)
-    
-    print(f"Filter written to: {filter_file}")
-    
-    # Build command using filter script file
-    cmd = [
-        'ffmpeg',
-        '-y',
-        '-i', str(input_video),
-        '-filter_complex_script', str(filter_file),
-        '-c:a', 'copy',
-        '-c:v', 'libx264',
-        '-preset', 'medium',
-        '-crf', '23',
-        str(output_video)
-    ]
+    print(f"Filter written to: {filter_file_path}")
     
     if args.dry_run or args.verbose:
         print("\nffmpeg command:")
@@ -137,6 +155,9 @@ def main():
     except FileNotFoundError:
         print("Error: ffmpeg not found. Please install ffmpeg.", file=sys.stderr)
         sys.exit(1)
+    finally:
+        if filter_file and os.path.exists(filter_file):
+            os.remove(filter_file)
 
 
 if __name__ == '__main__':
