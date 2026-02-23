@@ -35,11 +35,11 @@ def get_words_in_range(
         word_start = word.get('start', 0)
         word_end = word.get('end', 0)
         
-        if word_end > start_time and word_start < end_time:
+        if start_time <= word_start < end_time:
             result.append({
                 'text': word.get('text', ''),
-                'start': word_start,
-                'end': word_end,
+                'start': max(word_start, start_time),
+                'end': min(word_end, end_time),
                 'word_index': idx
             })
     

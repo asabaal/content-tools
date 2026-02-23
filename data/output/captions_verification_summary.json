@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-02-23T15:25:47.294325",
+  "project_path": "/mnt/storage/repos/content-tools/data/project.json",
+  "checks": {
+    "coverage": {
+      "passed": true,
+      "expected_word_count": 305,
+      "captioned_word_count": 300,
+      "unique_expected": 143,
+      "unique_captioned": 143,
+      "coverage_percentage": 98.36,
+      "missing_words": [],
+      "missing_count": 0,
+      "extra_words": [],
+      "duplicated_words": []
+    },
+    "timing_monotonicity": {
+      "passed": true,
+      "total_issues": 0,
+      "hard_failures": 0,
+      "issues": []
+    },
+    "segment_mapping": {
+      "passed": true,
+      "timeline_clip_count": 81,
+      "event_count": 32,
+      "reorderings": []
+    },
+    "line_completeness": {
+      "passed": true,
+      "total_events": 32,
+      "events_with_words": 32,
+      "events_without_words": 0,
+      "srt_block_count": 42,
+      "issues": [],
+      "words_missing_in_srt": [
+        "thisshowwebuildupourunderstandingofrealityby",
+        "sweptoverthefaceofthewatersthengodsaidlettherebelightandtherewaslight",
+        "myface",
+        "whileawindofgod",
+        "seekinggod'sface",
+        "yourlifetoo",
+        "soithankgodregularlyformyroleinpartakingincreationasicreatethese",
+        "andibecamecompelledtoshoutgod'spraisefromeverymountaintopandsharegod'sgreatworkswitheveryone",
+        "andhowdoeshespeakyouintobeingandlife",
+        "whatdeathhaveyou",
+        "thingsforyourbenefitjustasgodcreatedallthingsforourbenefit",
+        "shareyourrevelationsinthecommentsinloveandunityaceofel",
+        "andgodsawthatthelightwasgoodandgodseparatedthelightfromthedarkness",
+        "istoppedlisteningtogod'svoice",
+        "butgod'sbutthengodspokeandibecame",
+        "godcreatedhumansintheimageofgodgodblessedthemsayingbefruitfulandfilltheearthihavegivenyoueverything",
+        "whengodbegantocreatetheheavensandtheearththeearthwasincompletechaosanddarknesscoveredthefaceofthejeep",
+        "lifefilledmepeacebeyondhumanunderstanding",
+        "readingisfromgenesischapterone",
+        "wheretherewasnotgod'sfolk"
+      ],
+      "words_extra_in_srt": [
+        "partakingincreationasicreatethesethingsforyour",
+        "ilivedincompletechaosand",
+        "ofthewaters",
+        "thengodsaidlettherebelightandtherewas",
+        "butgod'sbutthengodspoke",
+        "peacebeyondhumanunderstandingjoythatdefiedworldtheauthorities",
+        "andhowdoeshespeakyouintobeingandlifeshareyourrevelationsin",
+        "darknessgodcreatedhumansintheimageofgod",
+        "andgodseparatedthelightfromthe",
+        "thisremindsmethatnothingisimpossiblethroughchrist",
+        "thelightwasgood",
+        "wheretherewasnotgod'sfolkthentherewas",
+        "yourlifetoowhatdeathhaveyou",
+        "earththeearthwasincomplete",
+        "inloveandunityaceofel",
+        "thecomments",
+        "readingisfromgenesischapteronewelcometolifeisyourword",
+        "face",
+        "sayingbefruitfulandfilltheearth",
+        "readingisfromgenesischapteronewhengodbegantocreatetheheavensandthe"
+      ]
+    }
+  },
+  "passed": true
+}
