@@ -35,10 +35,12 @@ def get_words_in_range(
         word_start = word.get('start', 0)
         word_end = word.get('end', 0)
         
+        # Only include word if it STARTS within this playable segment
+        # This prevents duplication when a word spans a gap between segments
         if start_time <= word_start < end_time:
             result.append({
                 'text': word.get('text', ''),
-                'start': max(word_start, start_time),
+                'start': max(word_start, start_time),  # Clamp to playable bounds
                 'end': min(word_end, end_time),
                 'word_index': idx
             })

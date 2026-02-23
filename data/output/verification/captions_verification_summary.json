@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-02-23T16:38:37.790613",
+  "project_path": "/mnt/storage/repos/content-tools/data/project.json",
+  "text_coverage_percent": 100.0,
+  "total_authoritative_words": 300,
+  "total_rendered_words": 300,
+  "timing_mean_drift_ms": 0.4,
+  "timing_max_drift_ms": 1.0,
+  "first_mismatch_index": -1,
+  "first_drift_index": -1,
+  "verification_exit_code": 0,
+  "text_passed": true,
+  "timing_passed": true,
+  "passed": true,
+  "report_path": "/mnt/storage/repos/content-tools/data/output/verification/captions_full_verification_report.html"
+}

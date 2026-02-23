@@ -19,13 +19,32 @@ def get_project_root():
     return Path(__file__).parent.parent.parent
 
 
-def load_project(project_path: str = None) -> dict:
+def load_project(project_path: str | Path | None = None) -> dict:
     """Load project.json."""
     if project_path is None:
         project_path = get_project_root() / 'data' / 'project.json'
+    else:
+        project_path = Path(project_path)
+        if project_path.is_dir():
+            project_path = project_path / 'data' / 'project.json'
     
-    with open(project_path, 'r', encoding='utf-8') as f:
+    with open(str(project_path), 'r', encoding='utf-8') as f:
         return json.load(f)
+
+
+def run_verification(root: Path, verbose: bool = False) -> dict:
+    """Run post-render verification."""
+    try:
+        sys.path.insert(0, str(Path(__file__).parent))
+        from post_render import run_post_render_verification, print_verification_summary
+        
+        result = run_post_render_verification(root, verbose=verbose)
+        print_verification_summary(result)
+        return result
+    except Exception as e:
+        print(f"\nVerification execution failed: {e}", file=sys.stderr)
+        print("Verification execution failed but render completed successfully.")
+        return {'success': False, 'error': str(e)}
 
 
 def main():
@@ -34,6 +53,7 @@ def main():
     parser.add_argument('--dry-run', action='store_true', help='Show command without running')
     parser.add_argument('--output', '-o', type=str, help='Output directory')
     parser.add_argument('--project', '-p', type=str, help='Path to project.json')
+    parser.add_argument('--skip-verification', action='store_true', help='Skip post-render verification')
     args = parser.parse_args()
     
     root = get_project_root()
@@ -107,6 +127,7 @@ def main():
             return
     
     print("\nRendering video...")
+    render_success = False
     try:
         result = subprocess.run(
             cmd,
@@ -116,15 +137,23 @@ def main():
         
         if result.returncode != 0:
             print(f"ffmpeg error: {result.stderr}", file=sys.stderr)
+            print("\nVerification skipped due to render failure.")
             sys.exit(1)
         
+        render_success = True
         print(f"\nDone! Output saved to:")
         print(f"  Video: {output_video}")
         print(f"  SRT:   {output_srt}")
         
     except FileNotFoundError:
         print("Error: ffmpeg not found. Please install ffmpeg.", file=sys.stderr)
+        print("\nVerification skipped due to render failure.")
         sys.exit(1)
+    
+    # Run post-render verification
+    if render_success and not args.skip_verification:
+        print("\nRunning post-render verification...")
+        run_verification(root, verbose=args.verbose)
 
 
 if __name__ == '__main__':

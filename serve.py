@@ -124,6 +124,8 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
         """Handle GET requests."""
         if self.path == '/api/project':
             self.handle_get_project()
+        elif self.path == '/api/verification':
+            self.handle_get_verification()
         else:
             super().do_GET()
     
@@ -144,6 +146,24 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(b'{"error": "Project not found"}')
+    
+    def handle_get_verification(self):
+        """Return verification summary if available."""
+        summary_path = 'data/output/verification/captions_verification_summary.json'
+        if os.path.exists(summary_path):
+            with open(summary_path, 'r', encoding='utf-8') as f:
+                data = f.read()
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(data.encode('utf-8'))
+        else:
+            self.send_response(404)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(b'{"error": "Verification not found. Run render first."}')
 
     def do_PUT(self):
         """Handle PUT requests for saving files."""

@@ -1,0 +1,15 @@
+Caption Verification Log - 2026-02-23T16:38:37.790710
+==================================================
+Text Coverage: 100.00%
+Expected Words: 300
+Rendered Words: 300
+Mean Timing Drift: 0.4ms
+Max Timing Drift: 1.0ms
+First Mismatch Index: -1
+First Drift Index: -1
+Exit Code: 0
+
+Text Fidelity: PASS
+Timing Projection: PASS
+
+Report: /mnt/storage/repos/content-tools/data/output/verification/captions_full_verification_report.html
