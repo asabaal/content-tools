@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
 """Generate ffmpeg filter graph for captions."""
 
-from typing import List, Dict, Any, Optional, Tuple
-
-
-VIDEO_WIDTH = 1080
-VIDEO_HEIGHT = 1920
+import os
+from typing import List, Dict, Any, Optional
 
 
 def escape_ffmpeg_text(text: str) -> str:
-    """Escape special characters for ffmpeg drawtext filter.
-    
-    When text is in single quotes, most chars are safe.
-    Only escape single quotes by closing/reopening.
-    """
-    text = text.replace("'", "'\\''")
+    """Escape special characters for ffmpeg drawtext filter."""
+    text = text.replace('\\', '\\\\')
+    text = text.replace('"', '\\"')
+    text = text.replace(':', '\\:')
+    text = text.replace('%', '\\%')
     return text
+
+
+def escape_filter_value(value: str) -> str:
+    """Escape special characters for filter option values in script mode."""
+    return value.replace(',', '\\,')
 
 
 def hex_to_ffmpeg(hex_color: str) -> str:
@@ -34,42 +35,161 @@ def get_font_size(size_name: str) -> int:
 
 
 def get_y_position(position_name: str, font_size: int) -> str:
-    """Get y position for drawtext (explicit pixel value for vertical video)."""
+    """Get y position expression for drawtext."""
     padding = 20
     box_height = font_size + 20
     
     if position_name == 'bottom':
-        return str(VIDEO_HEIGHT - padding - box_height)
+        return f"h-{padding + box_height}"
     elif position_name == 'lower_third':
-        return str(VIDEO_HEIGHT - padding - box_height - 40)
+        return f"h-{padding + box_height + 40}"
     else:
-        return f"({VIDEO_HEIGHT}-text_h)/2"
+        return f"(h-text_h)/2"
 
 
-def build_segment_filter_chain(
-    segment_idx: int,
-    source_start: float,
-    source_end: float,
-    caption_event: Dict[str, Any],
+def build_drawtext_filter(
+    text: str,
+    start_time: float,
+    end_time: float,
+    output_start: float,
     font_path: str,
-    caption_style: dict
-) -> Tuple[str, str]:
-    """Build filter chain for one segment: trim -> setpts -> drawtext(s).
+    font_size: int,
+    color: str,
+    position: str,
+    background: str,
+    index: int
+) -> str:
+    """Build a single drawtext filter string."""
+    escaped_text = escape_ffmpeg_text(text)
+    ffmpeg_color = hex_to_ffmpeg(color)
+    y_pos = get_y_position(position, font_size)
     
-    Returns (video_chain, audio_chain) strings.
+    enable_expr = f"between(t\\,{output_start:.3f}\\,{end_time:.3f})"
+    
+    filter_str = f"drawtext=text=\"{escaped_text}\":fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x=(w-text_w)/2:y={y_pos}"
+    
+    if background == 'dark_box':
+        filter_str += f":box=1:boxcolor=black@0.7:boxborderw=10"
+    elif background == 'outline':
+        filter_str += f":borderw=2:bordercolor=black"
+    
+    filter_str += f":enable={enable_expr}"
+    
+    return filter_str
+
+
+def build_colored_word_filters(
+    words: List[Dict[str, Any]],
+    output_start: float,
+    font_path: str,
+    font_size: int,
+    position: str,
+    background: str,
+    base_index: int
+) -> List[str]:
+    """Build drawtext filters for words with individual colors.
+    
+    This creates filters that show all words in a line, each with its own color.
     """
+    filters = []
+    
+    if not words:
+        return filters
+    
+    char_width = font_size * 0.5
+    words_with_offsets = []
+    x_offset = 0
+    
+    for word in words:
+        words_with_offsets.append({
+            **word,
+            'x_offset': x_offset
+        })
+        x_offset += len(word.get('text', '')) * char_width + char_width
+    
+    total_width = max(0, x_offset - char_width)
+    start_x = f"(w-{total_width})/2"
+    
+    y_pos = get_y_position(position, font_size)
+    
+    for i, word in enumerate(words_with_offsets):
+        text = word.get('text', '')
+        color = word.get('color', '#ffffff')
+        word_start = word.get('start', 0)
+        word_end = word.get('end', 0)
+        
+        escaped_text = escape_ffmpeg_text(text)
+        ffmpeg_color = hex_to_ffmpeg(color)
+        
+        x_expr = f"{start_x}+{word['x_offset']:.0f}"
+        
+        enable_expr = f"between(t\\,{output_start:.3f}\\,{output_start + (word_end - word_start):.3f})"
+        
+        filter_str = f"drawtext=text=\"{escaped_text}\":fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_pos}"
+        
+        if background == 'dark_box':
+            filter_str += f":box=1:boxcolor=black@0.7:boxborderw=5"
+        elif background == 'outline':
+            filter_str += f":borderw=2:bordercolor=black"
+        
+        filter_str += f":enable={enable_expr}"
+        
+        filters.append(filter_str)
+    
+    return filters
+
+
+def build_segment_caption_filter(
+    event: Dict[str, Any],
+    font_path: str,
+    caption_style: dict,
+    index: int
+) -> Optional[str]:
+    """Build caption filter for a segment event."""
+    words = event.get('words', [])
+    if not words:
+        return None
+    
+    font_size = get_font_size(caption_style.get('font_size', 'medium'))
+    position = caption_style.get('position', 'lower_third')
+    background = caption_style.get('background', 'dark_box')
+    
+    output_start = event['output_start']
+    output_end = event['output_end']
+    
+    filter_str = f"drawtext=text=\"\":fontfile={font_path}:fontsize={font_size}:fontcolor=white:x=(w-text_w)/2:y={get_y_position(position, font_size)}"
+    filter_str += f":enable=between(t\\,{output_start:.3f}\\,{output_end:.3f})"
+    
+    return filter_str
+
+
+def build_filter_graph(
+    caption_events: List[Dict[str, Any]],
+    caption_style: dict,
+    font_path: str,
+    input_video: str,
+    output_video: str
+) -> str:
+    """Build complete ffmpeg filter graph string.
+    
+    For now, this builds a simple approach:
+    - One drawtext per word that shows during its time
+    - Words are positioned to form lines
+    """
+    filters = []
+    
     font_size = get_font_size(caption_style.get('font_size', 'medium'))
     position = caption_style.get('position', 'lower_third')
     background = caption_style.get('background', 'dark_box')
     default_color = caption_style.get('default_color', '#ffffff')
     
-    video_label = f"v{segment_idx}"
-    audio_label = f"a{segment_idx}"
-    
-    video_parts = [f"[0:v]trim=start={source_start:.3f}:end={source_end:.3f},setpts=PTS-STARTPTS"]
-    
-    words = caption_event.get('words', [])
-    if words:
+    for event in caption_events:
+        words = event.get('words', [])
+        output_start = event['output_start']
+        
+        if not words:
+            continue
+        
         words_sorted = sorted(words, key=lambda w: w['start'])
         
         lines = []
@@ -90,8 +210,6 @@ def build_segment_filter_chain(
         if current_line:
             lines.append(current_line)
         
-        original_start = caption_event['original_start']
-        
         for line_idx, line in enumerate(lines):
             line_y_offset = line_idx * (font_size + 10)
             
@@ -102,14 +220,16 @@ def build_segment_filter_chain(
             for word in line:
                 text = word.get('text', '')
                 color = word.get('color', default_color)
+                word_rel_start = word['start'] - event['original_start']
+                word_rel_end = word['end'] - event['original_start']
                 
-                word_local_start = word['start'] - original_start
-                word_local_end = word['end'] - original_start
+                word_output_start = output_start + word_rel_start
+                word_output_end = output_start + word_rel_end
                 
                 escaped_text = escape_ffmpeg_text(text)
                 ffmpeg_color = hex_to_ffmpeg(color)
                 
-                base_x = f"({VIDEO_WIDTH}-{total_width:.0f})/2"
+                base_x = f"(w-{total_width:.0f})/2"
                 if x_offset > 0:
                     x_expr = f"{base_x}+{x_offset:.0f}"
                 else:
@@ -118,119 +238,46 @@ def build_segment_filter_chain(
                 y_base = get_y_position(position, font_size)
                 y_expr = f"{y_base}-{line_y_offset}"
                 
-                drawtext = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
+                filter_str = f"drawtext=text=\"{escaped_text}\":fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
                 
                 if background == 'dark_box':
-                    drawtext += f":box=1:boxcolor=black@0.7:boxborderw=8"
+                    filter_str += f":box=1:boxcolor=black@0.7:boxborderw=8"
                 elif background == 'outline':
-                    drawtext += f":borderw=2:bordercolor=black"
+                    filter_str += f":borderw=2:bordercolor=black"
                 
-                drawtext += f":enable='between(t\\,{word_local_start:.3f}\\,{word_local_end:.3f})'"
-                video_parts.append(drawtext)
+                filter_str += f":enable=between(t\\,{word_output_start:.3f}\\,{word_output_end:.3f})"
+                filters.append(filter_str)
                 
                 x_offset += len(text) * char_width + char_width
     
-    video_chain = ",".join(video_parts) + f"[{video_label}]"
-    
-    audio_chain = f"[0:a]atrim=start={source_start:.3f}:end={source_end:.3f},asetpts=PTS-STARTPTS[{audio_label}]"
-    
-    return video_chain, audio_chain
-
-
-def build_filter_graph(
-    caption_events: List[Dict[str, Any]],
-    caption_style: dict,
-    font_path: str,
-    playable_segments: List[Tuple[float, float]]
-) -> str:
-    """Build complete ffmpeg filter graph with trim/setpts/drawtext/concat.
-    
-    Structure:
-    [0:v]trim=start:end,setpts,drawtext=...[v0];
-    [0:a]atrim=start:end,asetpts[a0];
-    [0:v]trim=start:end,setpts,drawtext=...[v1];
-    [0:a]atrim=start:end,asetpts[a1];
-    ...[v0][a0][v1][a1]...concat=n=N:v=1:a=1[outv][outa]
-    """
-    if not playable_segments:
+    if not filters:
         return "copy"
     
-    if len(playable_segments) != len(caption_events):
-        pass
-    
-    video_chains = []
-    audio_chains = []
-    video_labels = []
-    audio_labels = []
-    
-    for idx, (seg_start, seg_end) in enumerate(playable_segments):
-        caption_event = caption_events[idx] if idx < len(caption_events) else {'words': [], 'original_start': seg_start}
-        
-        video_chain, audio_chain = build_segment_filter_chain(
-            idx,
-            seg_start,
-            seg_end,
-            caption_event,
-            font_path,
-            caption_style
-        )
-        
-        video_chains.append(video_chain)
-        audio_chains.append(audio_chain)
-        video_labels.append(f"v{idx}")
-        audio_labels.append(f"a{idx}")
-    
-    all_chains = video_chains + audio_chains
-    filter_parts = [chain.rstrip(']').replace('[0:v]', '[0:v]', 1).replace('[0:a]', '[0:a]', 1) for chain in all_chains]
-    
-    filter_parts = []
-    for i, (vc, ac) in enumerate(zip(video_chains, audio_chains)):
-        filter_parts.append(vc)
-        filter_parts.append(ac)
-    
-    num_segments = len(playable_segments)
-    concat_input_labels = "".join(f"[{v}][{a}]" for v, a in zip(video_labels, audio_labels))
-    concat_filter = f"{concat_input_labels}concat=n={num_segments}:v=1:a=1[outv][outa]"
-    filter_parts.append(concat_filter)
-    
-    return ";\n".join(filter_parts)
+    return ",".join(filters)
 
 
 def build_ffmpeg_command(
     input_video: str,
     output_video: str,
-    filter_graph: str,
-    use_filter_script: bool = True
-) -> Tuple[List[str], Optional[str]]:
-    """Build ffmpeg command with filter_complex.
-    
-    Returns (command, filter_file_path) - filter_file_path is set if use_filter_script is True.
-    """
+    filter_script_path: str,
+    copy_audio: bool = True
+) -> List[str]:
+    """Build complete ffmpeg command."""
     cmd = [
         'ffmpeg',
         '-y',
         '-i', input_video,
+        '-filter_complex_script', filter_script_path,
     ]
     
-    filter_file = None
-    if use_filter_script:
-        import tempfile
-        import os
-        filter_file = tempfile.mktemp(suffix='.txt', prefix='ffmpeg_filter_')
-        with open(filter_file, 'w') as f:
-            f.write(filter_graph)
-        cmd.extend(['-filter_complex_script', filter_file])
-    else:
-        cmd.extend(['-filter_complex', filter_graph])
+    if copy_audio:
+        cmd.extend(['-c:a', 'copy'])
     
     cmd.extend([
-        '-map', '[outv]',
-        '-map', '[outa]',
         '-c:v', 'libx264',
         '-preset', 'medium',
         '-crf', '23',
-        '-c:a', 'aac',
         output_video
     ])
     
-    return cmd, filter_file
+    return cmd

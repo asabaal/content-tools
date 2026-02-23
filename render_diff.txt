@@ -1,0 +1,888 @@
+diff --git a/tools/05b-render/__pycache__/captions.cpython-312.pyc b/tools/05b-render/__pycache__/captions.cpython-312.pyc
+index 2d7ed67..b19a319 100644
+Binary files a/tools/05b-render/__pycache__/captions.cpython-312.pyc and b/tools/05b-render/__pycache__/captions.cpython-312.pyc differ
+diff --git a/tools/05b-render/__pycache__/ffmpeg_builder.cpython-312.pyc b/tools/05b-render/__pycache__/ffmpeg_builder.cpython-312.pyc
+index 9d5b4be..3482496 100644
+Binary files a/tools/05b-render/__pycache__/ffmpeg_builder.cpython-312.pyc and b/tools/05b-render/__pycache__/ffmpeg_builder.cpython-312.pyc differ
+diff --git a/tools/05b-render/__pycache__/segments.cpython-312.pyc b/tools/05b-render/__pycache__/segments.cpython-312.pyc
+index 1a26f54..3df2c08 100644
+Binary files a/tools/05b-render/__pycache__/segments.cpython-312.pyc and b/tools/05b-render/__pycache__/segments.cpython-312.pyc differ
+diff --git a/tools/05b-render/__pycache__/srt.cpython-312.pyc b/tools/05b-render/__pycache__/srt.cpython-312.pyc
+index 3804820..0f6ddd8 100644
+Binary files a/tools/05b-render/__pycache__/srt.cpython-312.pyc and b/tools/05b-render/__pycache__/srt.cpython-312.pyc differ
+diff --git a/tools/05b-render/captions.py b/tools/05b-render/captions.py
+index 8a82a0c..37a4835 100644
+--- a/tools/05b-render/captions.py
++++ b/tools/05b-render/captions.py
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env python3
+ """Extract caption data with colors for rendering."""
+ 
+-from typing import List, Dict, Any, Optional
++from typing import List, Dict, Any, Optional, Tuple
+ 
+ 
+ def get_word_color(
+@@ -15,6 +15,24 @@ def get_word_color(
+     return word_colors.get(key, default_color)
+ 
+ 
++def find_overlapping_segments(
++    segments: List[dict],
++    play_start: float,
++    play_end: float
++) -> List[Tuple[int, dict]]:
++    """Find all transcript segments that overlap with playable segment.
++    
++    Returns list of (segment_index, segment_data) tuples sorted by segment start time.
++    """
++    overlapping = []
++    for idx, seg in enumerate(segments):
++        seg_start = seg.get('start', 0)
++        seg_end = seg.get('end', 0)
++        if seg_end > play_start and seg_start < play_end:
++            overlapping.append((idx, seg))
++    return overlapping
++
++
+ def get_words_in_range(
+     segment: dict,
+     start_time: float,
+@@ -24,8 +42,8 @@ def get_words_in_range(
+     
+     Returns list of dicts with:
+     - text: word text
+-    - start: word start time
+-    - end: word end time
++    - start: word start time (source)
++    - end: word end time (source)
+     - word_index: index in segment
+     """
+     words = segment.get('words', [])
+@@ -48,18 +66,20 @@ def get_words_in_range(
+ 
+ def build_caption_events(
+     project: dict,
+-    timeline_clips: List[dict]
++    timeline_clips: List[dict],
++    playable_segments: Optional[List[Tuple[float, float]]] = None
+ ) -> List[Dict[str, Any]]:
+     """Build list of caption events for rendering.
+     
+-    Each event contains:
++    Each event corresponds to a playable segment and contains:
+     - segment_index: transcript segment index
+     - clip_id: clip this belongs to
+-    - original_start: start in original video
+-    - original_end: end in original video
+-    - output_start: start in output video (computed later)
+-    - output_end: end in output video (computed later)
+-    - words: list of word data with colors
++    - original_start: start in source video
++    - original_end: end in source video
++    - output_start: start in final output video (cumulative)
++    - output_end: end in final output video (cumulative)
++    - words: list of word data with colors (timestamps are source times)
++    - text: full segment text
+     """
+     segments = project.get('transcript', {}).get('segments', [])
+     word_colors = project.get('word_colors', {})
+@@ -69,86 +89,53 @@ def build_caption_events(
+     events = []
+     output_time = 0.0
+     
+-    for item in timeline_clips:
+-        clip = item['clip']
+-        clip_id = clip.get('id', '')
+-        selected = clip.get('selected_segment', {})
+-        original_video_id = selected.get('original_video_id', '')
++    for seg_start, seg_end in playable_segments or []:
++        seg_duration = seg_end - seg_start
+         
+-        for seg_start, seg_end in item['playable_segments']:
+-            seg_duration = seg_end - seg_start
+-            
+-            matching_segment = None
+-            segment_index = -1
+-            for idx, seg in enumerate(segments):
+-                if (seg.get('original_video_id') == original_video_id and
+-                    seg.get('start') <= seg_start < seg.get('end')):
+-                    matching_segment = seg
+-                    segment_index = idx
+-                    break
+-            
+-            if not matching_segment:
+-                continue
+-            
+-            words = get_words_in_range(matching_segment, seg_start, seg_end)
+-            
+-            for word in words:
+-                word['color'] = get_word_color(
+-                    segment_index,
+-                    word['word_index'],
+-                    word_colors,
+-                    default_color
+-                )
+-            
++        overlapping = find_overlapping_segments(segments, seg_start, seg_end)
++        
++        if not overlapping:
+             events.append({
+-                'segment_index': segment_index,
+-                'clip_id': clip_id,
++                'segment_index': -1,
++                'clip_id': '',
+                 'original_start': seg_start,
+                 'original_end': seg_end,
+                 'output_start': output_time,
+                 'output_end': output_time + seg_duration,
+-                'words': words,
+-                'text': matching_segment.get('text', '')
++                'words': [],
++                'text': ''
+             })
+-            
+             output_time += seg_duration
++            continue
++        
++        all_words = []
++        for seg_idx, matching_segment in overlapping:
++            words = get_words_in_range(matching_segment, seg_start, seg_end)
++            for word in words:
++                word['color'] = get_word_color(
++                    seg_idx,
++                    word['word_index'],
++                    word_colors,
++                    default_color
++                )
++            all_words.extend(words)
++        
++        all_words.sort(key=lambda w: w['start'])
++        
++        primary_segment_index = overlapping[0][0]
++        primary_segment = overlapping[0][1]
++        
++        events.append({
++            'segment_index': primary_segment_index,
++            'clip_id': '',
++            'original_start': seg_start,
++            'original_end': seg_end,
++            'output_start': output_time,
++            'output_end': output_time + seg_duration,
++            'words': all_words,
++            'text': primary_segment.get('text', '')
++        })
++        
++        output_time += seg_duration
+     
+     return events
+-
+-
+-def group_words_by_time(
+-    words: List[Dict[str, Any]],
+-    min_gap: float = 0.3
+-) -> List[Dict[str, Any]]:
+-    """Group words that appear together on screen.
+-    
+-    Returns list of groups, each with:
+-    - words: list of word data
+-    - start: group start time
+-    - end: group end time
+-    """
+-    if not words:
+-        return []
+-    
+-    words = sorted(words, key=lambda w: w['start'])
+-    groups = []
+-    current_group = {
+-        'words': [words[0]],
+-        'start': words[0]['start'],
+-        'end': words[0]['end']
+-    }
+-    
+-    for word in words[1:]:
+-        if word['start'] - current_group['end'] < min_gap:
+-            current_group['words'].append(word)
+-            current_group['end'] = max(current_group['end'], word['end'])
+-        else:
+-            groups.append(current_group)
+-            current_group = {
+-                'words': [word],
+-                'start': word['start'],
+-                'end': word['end']
+-            }
+-    
+-    groups.append(current_group)
+-    return groups
+diff --git a/tools/05b-render/ffmpeg_builder.py b/tools/05b-render/ffmpeg_builder.py
+index e93ad30..a38b46b 100644
+--- a/tools/05b-render/ffmpeg_builder.py
++++ b/tools/05b-render/ffmpeg_builder.py
+@@ -1,16 +1,20 @@
+ #!/usr/bin/env python3
+ """Generate ffmpeg filter graph for captions."""
+ 
+-import os
+-from typing import List, Dict, Any, Optional
++from typing import List, Dict, Any, Optional, Tuple
++
++
++VIDEO_WIDTH = 1080
++VIDEO_HEIGHT = 1920
+ 
+ 
+ def escape_ffmpeg_text(text: str) -> str:
+-    """Escape special characters for ffmpeg drawtext filter."""
+-    text = text.replace('\\', '\\\\')
+-    text = text.replace("'", "\\'")
+-    text = text.replace(':', '\\:')
+-    text = text.replace('%', '\\%')
++    """Escape special characters for ffmpeg drawtext filter.
++    
++    When text is in single quotes, most chars are safe.
++    Only escape single quotes by closing/reopening.
++    """
++    text = text.replace("'", "'\\''")
+     return text
+ 
+ 
+@@ -30,161 +34,42 @@ def get_font_size(size_name: str) -> int:
+ 
+ 
+ def get_y_position(position_name: str, font_size: int) -> str:
+-    """Get y position expression for drawtext."""
++    """Get y position for drawtext (explicit pixel value for vertical video)."""
+     padding = 20
+     box_height = font_size + 20
+     
+     if position_name == 'bottom':
+-        return f"h-{padding + box_height}"
++        return str(VIDEO_HEIGHT - padding - box_height)
+     elif position_name == 'lower_third':
+-        return f"h-{padding + box_height + 40}"
++        return str(VIDEO_HEIGHT - padding - box_height - 40)
+     else:
+-        return f"(h-text_h)/2"
++        return f"({VIDEO_HEIGHT}-text_h)/2"
+ 
+ 
+-def build_drawtext_filter(
+-    text: str,
+-    start_time: float,
+-    end_time: float,
+-    output_start: float,
++def build_segment_filter_chain(
++    segment_idx: int,
++    source_start: float,
++    source_end: float,
++    caption_event: Dict[str, Any],
+     font_path: str,
+-    font_size: int,
+-    color: str,
+-    position: str,
+-    background: str,
+-    index: int
+-) -> str:
+-    """Build a single drawtext filter string."""
+-    escaped_text = escape_ffmpeg_text(text)
+-    ffmpeg_color = hex_to_ffmpeg(color)
+-    y_pos = get_y_position(position, font_size)
++    caption_style: dict
++) -> Tuple[str, str]:
++    """Build filter chain for one segment: trim -> setpts -> drawtext(s).
+     
+-    enable_expr = f"between(t,{output_start:.3f},{end_time:.3f})"
+-    
+-    filter_str = f"drawtext=text='{escaped_text}':fontfile='{font_path}':fontsize={font_size}:fontcolor={ffmpeg_color}:x=(w-text_w)/2:y={y_pos}"
+-    
+-    if background == 'dark_box':
+-        filter_str += f":box=1:boxcolor=black@0.7:boxborderw=10"
+-    elif background == 'outline':
+-        filter_str += f":borderw=2:bordercolor=black"
+-    
+-    filter_str += f":enable='{enable_expr}'"
+-    
+-    return filter_str
+-
+-
+-def build_colored_word_filters(
+-    words: List[Dict[str, Any]],
+-    output_start: float,
+-    font_path: str,
+-    font_size: int,
+-    position: str,
+-    background: str,
+-    base_index: int
+-) -> List[str]:
+-    """Build drawtext filters for words with individual colors.
+-    
+-    This creates filters that show all words in a line, each with its own color.
++    Returns (video_chain, audio_chain) strings.
+     """
+-    filters = []
+-    
+-    if not words:
+-        return filters
+-    
+-    char_width = font_size * 0.5
+-    words_with_offsets = []
+-    x_offset = 0
+-    
+-    for word in words:
+-        words_with_offsets.append({
+-            **word,
+-            'x_offset': x_offset
+-        })
+-        x_offset += len(word.get('text', '')) * char_width + char_width
+-    
+-    total_width = max(0, x_offset - char_width)
+-    start_x = f"(w-{total_width})/2"
+-    
+-    y_pos = get_y_position(position, font_size)
+-    
+-    for i, word in enumerate(words_with_offsets):
+-        text = word.get('text', '')
+-        color = word.get('color', '#ffffff')
+-        word_start = word.get('start', 0)
+-        word_end = word.get('end', 0)
+-        
+-        escaped_text = escape_ffmpeg_text(text)
+-        ffmpeg_color = hex_to_ffmpeg(color)
+-        
+-        x_expr = f"{start_x}+{word['x_offset']:.0f}"
+-        
+-        enable_expr = f"between(t,{output_start:.3f},{output_start + (word_end - word_start):.3f})"
+-        
+-        filter_str = f"drawtext=text='{escaped_text}':fontfile='{font_path}':fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_pos}"
+-        
+-        if background == 'dark_box':
+-            filter_str += f":box=1:boxcolor=black@0.7:boxborderw=5"
+-        elif background == 'outline':
+-            filter_str += f":borderw=2:bordercolor=black"
+-        
+-        filter_str += f":enable='{enable_expr}'"
+-        
+-        filters.append(filter_str)
+-    
+-    return filters
+-
+-
+-def build_segment_caption_filter(
+-    event: Dict[str, Any],
+-    font_path: str,
+-    caption_style: dict,
+-    index: int
+-) -> Optional[str]:
+-    """Build caption filter for a segment event."""
+-    words = event.get('words', [])
+-    if not words:
+-        return None
+-    
+     font_size = get_font_size(caption_style.get('font_size', 'medium'))
+     position = caption_style.get('position', 'lower_third')
+     background = caption_style.get('background', 'dark_box')
++    default_color = caption_style.get('default_color', '#ffffff')
+     
+-    output_start = event['output_start']
+-    output_end = event['output_end']
+-    
+-    filter_str = f"drawtext=text='':fontfile='{font_path}':fontsize={font_size}:fontcolor=white:x=(w-text_w)/2:y={get_y_position(position, font_size)}"
+-    filter_str += f":enable='between(t,{output_start:.3f},{output_end:.3f})'"
+-    
+-    return filter_str
+-
+-
+-def build_filter_graph(
+-    caption_events: List[Dict[str, Any]],
+-    caption_style: dict,
+-    font_path: str,
+-    input_video: str,
+-    output_video: str
+-) -> str:
+-    """Build complete ffmpeg filter graph string.
+-    
+-    For now, this builds a simple approach:
+-    - One drawtext per word that shows during its time
+-    - Words are positioned to form lines
+-    """
+-    filters = []
++    video_label = f"v{segment_idx}"
++    audio_label = f"a{segment_idx}"
+     
+-    font_size = get_font_size(caption_style.get('font_size', 'medium'))
+-    position = caption_style.get('position', 'lower_third')
+-    background = caption_style.get('background', 'dark_box')
+-    default_color = caption_style.get('default_color', '#ffffff')
++    video_parts = [f"[0:v]trim=start={source_start:.3f}:end={source_end:.3f},setpts=PTS-STARTPTS"]
+     
+-    for event in caption_events:
+-        words = event.get('words', [])
+-        output_start = event['output_start']
+-        
+-        if not words:
+-            continue
+-        
++    words = caption_event.get('words', [])
++    if words:
+         words_sorted = sorted(words, key=lambda w: w['start'])
+         
+         lines = []
+@@ -205,6 +90,8 @@ def build_filter_graph(
+         if current_line:
+             lines.append(current_line)
+         
++        original_start = caption_event['original_start']
++        
+         for line_idx, line in enumerate(lines):
+             line_y_offset = line_idx * (font_size + 10)
+             
+@@ -215,16 +102,14 @@ def build_filter_graph(
+             for word in line:
+                 text = word.get('text', '')
+                 color = word.get('color', default_color)
+-                word_rel_start = word['start'] - event['original_start']
+-                word_rel_end = word['end'] - event['original_start']
+                 
+-                word_output_start = output_start + word_rel_start
+-                word_output_end = output_start + word_rel_end
++                word_local_start = word['start'] - original_start
++                word_local_end = word['end'] - original_start
+                 
+                 escaped_text = escape_ffmpeg_text(text)
+                 ffmpeg_color = hex_to_ffmpeg(color)
+                 
+-                base_x = f"(w-{total_width:.0f})/2"
++                base_x = f"({VIDEO_WIDTH}-{total_width:.0f})/2"
+                 if x_offset > 0:
+                     x_expr = f"{base_x}+{x_offset:.0f}"
+                 else:
+@@ -233,46 +118,119 @@ def build_filter_graph(
+                 y_base = get_y_position(position, font_size)
+                 y_expr = f"{y_base}-{line_y_offset}"
+                 
+-                filter_str = f"drawtext=text='{escaped_text}':fontfile='{font_path}':fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
++                drawtext = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
+                 
+                 if background == 'dark_box':
+-                    filter_str += f":box=1:boxcolor=black@0.7:boxborderw=8"
++                    drawtext += f":box=1:boxcolor=black@0.7:boxborderw=8"
+                 elif background == 'outline':
+-                    filter_str += f":borderw=2:bordercolor=black"
++                    drawtext += f":borderw=2:bordercolor=black"
+                 
+-                filter_str += f":enable='between(t,{word_output_start:.3f},{word_output_end:.3f})'"
+-                filters.append(filter_str)
++                drawtext += f":enable='between(t\\,{word_local_start:.3f}\\,{word_local_end:.3f})'"
++                video_parts.append(drawtext)
+                 
+                 x_offset += len(text) * char_width + char_width
+     
+-    if not filters:
++    video_chain = ",".join(video_parts) + f"[{video_label}]"
++    
++    audio_chain = f"[0:a]atrim=start={source_start:.3f}:end={source_end:.3f},asetpts=PTS-STARTPTS[{audio_label}]"
++    
++    return video_chain, audio_chain
++
++
++def build_filter_graph(
++    caption_events: List[Dict[str, Any]],
++    caption_style: dict,
++    font_path: str,
++    playable_segments: List[Tuple[float, float]]
++) -> str:
++    """Build complete ffmpeg filter graph with trim/setpts/drawtext/concat.
++    
++    Structure:
++    [0:v]trim=start:end,setpts,drawtext=...[v0];
++    [0:a]atrim=start:end,asetpts[a0];
++    [0:v]trim=start:end,setpts,drawtext=...[v1];
++    [0:a]atrim=start:end,asetpts[a1];
++    ...[v0][a0][v1][a1]...concat=n=N:v=1:a=1[outv][outa]
++    """
++    if not playable_segments:
+         return "copy"
+     
+-    return ",".join(filters)
++    if len(playable_segments) != len(caption_events):
++        pass
++    
++    video_chains = []
++    audio_chains = []
++    video_labels = []
++    audio_labels = []
++    
++    for idx, (seg_start, seg_end) in enumerate(playable_segments):
++        caption_event = caption_events[idx] if idx < len(caption_events) else {'words': [], 'original_start': seg_start}
++        
++        video_chain, audio_chain = build_segment_filter_chain(
++            idx,
++            seg_start,
++            seg_end,
++            caption_event,
++            font_path,
++            caption_style
++        )
++        
++        video_chains.append(video_chain)
++        audio_chains.append(audio_chain)
++        video_labels.append(f"v{idx}")
++        audio_labels.append(f"a{idx}")
++    
++    all_chains = video_chains + audio_chains
++    filter_parts = [chain.rstrip(']').replace('[0:v]', '[0:v]', 1).replace('[0:a]', '[0:a]', 1) for chain in all_chains]
++    
++    filter_parts = []
++    for i, (vc, ac) in enumerate(zip(video_chains, audio_chains)):
++        filter_parts.append(vc)
++        filter_parts.append(ac)
++    
++    num_segments = len(playable_segments)
++    concat_input_labels = "".join(f"[{v}][{a}]" for v, a in zip(video_labels, audio_labels))
++    concat_filter = f"{concat_input_labels}concat=n={num_segments}:v=1:a=1[outv][outa]"
++    filter_parts.append(concat_filter)
++    
++    return ";\n".join(filter_parts)
+ 
+ 
+ def build_ffmpeg_command(
+     input_video: str,
+     output_video: str,
+     filter_graph: str,
+-    copy_audio: bool = True
+-) -> List[str]:
+-    """Build complete ffmpeg command."""
++    use_filter_script: bool = True
++) -> Tuple[List[str], Optional[str]]:
++    """Build ffmpeg command with filter_complex.
++    
++    Returns (command, filter_file_path) - filter_file_path is set if use_filter_script is True.
++    """
+     cmd = [
+         'ffmpeg',
+         '-y',
+         '-i', input_video,
+-        '-vf', filter_graph,
+     ]
+     
+-    if copy_audio:
+-        cmd.extend(['-c:a', 'copy'])
++    filter_file = None
++    if use_filter_script:
++        import tempfile
++        import os
++        filter_file = tempfile.mktemp(suffix='.txt', prefix='ffmpeg_filter_')
++        with open(filter_file, 'w') as f:
++            f.write(filter_graph)
++        cmd.extend(['-filter_complex_script', filter_file])
++    else:
++        cmd.extend(['-filter_complex', filter_graph])
+     
+     cmd.extend([
++        '-map', '[outv]',
++        '-map', '[outa]',
+         '-c:v', 'libx264',
+         '-preset', 'medium',
+         '-crf', '23',
++        '-c:a', 'aac',
+         output_video
+     ])
+     
+-    return cmd
++    return cmd, filter_file
+diff --git a/tools/05b-render/render.py b/tools/05b-render/render.py
+index 2f21340..fa58164 100644
+--- a/tools/05b-render/render.py
++++ b/tools/05b-render/render.py
+@@ -28,6 +28,23 @@ def load_project(project_path: str = None) -> dict:
+         return json.load(f)
+ 
+ 
++def merge_segments(segments):
++    """Merge overlapping segments into non-overlapping ranges."""
++    if not segments:
++        return []
++    
++    segments = sorted(segments, key=lambda x: x[0])
++    merged = [segments[0]]
++    
++    for start, end in segments[1:]:
++        if start <= merged[-1][1]:
++            merged[-1] = (merged[-1][0], max(merged[-1][1], end))
++        else:
++            merged.append((start, end))
++    
++    return merged
++
++
+ def main():
+     parser = argparse.ArgumentParser(description='Render video with captions')
+     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
+@@ -38,11 +55,13 @@ def main():
+     
+     root = get_project_root()
+     
+-    input_video = root / 'data' / 'output' / 'video_combined.mp4'
++    input_video = root / 'data' / 'video_combined.mp4'
+     output_dir = Path(args.output) if args.output else root / 'data' / 'output'
+     output_video = output_dir / 'final_video.mp4'
+     output_srt = output_dir / 'captions.srt'
+     
++    os.makedirs(output_dir, exist_ok=True)
++    
+     font_path = root / 'tools' / '05b-render' / 'fonts' / 'Bangers-Regular.ttf'
+     
+     if not input_video.exists():
+@@ -65,11 +84,17 @@ def main():
+         print("Error: No clips in timeline", file=sys.stderr)
+         sys.exit(1)
+     
+-    total_duration = get_total_duration(timeline_clips)
+-    print(f"Total duration: {total_duration:.2f}s")
++    all_segments = []
++    for item in timeline_clips:
++        all_segments.extend(item['playable_segments'])
++    
++    playable_segments = merge_segments(all_segments)
++    total_duration = sum(end - start for start, end in playable_segments)
++    print(f"Playable segments: {len(all_segments)} -> {len(playable_segments)} merged")
++    print(f"Output duration: {total_duration:.2f}s")
+     
+     print("Building caption events...")
+-    caption_events = build_caption_events(project, timeline_clips)
++    caption_events = build_caption_events(project, timeline_clips, playable_segments)
+     
+     print(f"Generated {len(caption_events)} caption events")
+     
+@@ -82,20 +107,29 @@ def main():
+         caption_events,
+         caption_style,
+         str(font_path),
+-        str(input_video),
+-        str(output_video)
++        playable_segments
+     )
+     
+     if args.verbose:
+-        print(f"Filter graph ({len(filter_graph)} chars):")
+-        print(filter_graph[:500] + "..." if len(filter_graph) > 500 else filter_graph)
+-    
+-    cmd = build_ffmpeg_command(
++        print(f"Filter graph ({len(filter_graph)} chars)")
++        lines = filter_graph.split(';\n')
++        for i, line in enumerate(lines[:5]):
++            print(f"  [{i}]: {line[:100]}...")
++        if len(lines) > 5:
++            print(f"  ... and {len(lines) - 5} more filter chains")
++    
++    cmd, filter_file = build_ffmpeg_command(
+         str(input_video),
+         str(output_video),
+-        filter_graph
++        filter_graph,
++        use_filter_script=True
+     )
+     
++    filter_file_path = output_dir / 'filter.txt'
++    with open(filter_file_path, 'w') as f:
++        f.write(filter_graph)
++    print(f"Filter written to: {filter_file_path}")
++    
+     if args.dry_run or args.verbose:
+         print("\nffmpeg command:")
+         print(' '.join(cmd))
+@@ -121,6 +155,9 @@ def main():
+     except FileNotFoundError:
+         print("Error: ffmpeg not found. Please install ffmpeg.", file=sys.stderr)
+         sys.exit(1)
++    finally:
++        if filter_file and os.path.exists(filter_file):
++            os.remove(filter_file)
+ 
+ 
+ if __name__ == '__main__':
+diff --git a/tools/05b-render/verify_captions.py b/tools/05b-render/verify_captions.py
+new file mode 100644
+index 0000000..095c63e
+--- /dev/null
++++ b/tools/05b-render/verify_captions.py
+@@ -0,0 +1,179 @@
++#!/usr/bin/env python3
++"""Verify rendered captions by extracting frames at caption appearance times."""
++
++import argparse
++import json
++import os
++import subprocess
++import sys
++from pathlib import Path
++from typing import List, Dict, Any, Tuple
++
++from segments import compute_timeline_clips
++from captions import build_caption_events
++
++
++def get_project_root():
++    return Path(__file__).parent.parent.parent
++
++
++def merge_segments(segments):
++    if not segments:
++        return []
++    segments = sorted(segments, key=lambda x: x[0])
++    merged = [segments[0]]
++    for start, end in segments[1:]:
++        if start <= merged[-1][1]:
++            merged[-1] = (merged[-1][0], max(merged[-1][1], end))
++        else:
++            merged.append((start, end))
++    return merged
++
++
++def load_project(project_path: str = None) -> dict:
++    if project_path is None:
++        project_path = get_project_root() / 'data' / 'project.json'
++    with open(project_path, 'r', encoding='utf-8') as f:
++        return json.load(f)
++
++
++def extract_frame(video_path: str, timestamp: float, output_path: str) -> bool:
++    cmd = [
++        'ffmpeg', '-y',
++        '-ss', str(timestamp),
++        '-i', video_path,
++        '-frames:v', '1',
++        '-q:v', '2',
++        output_path
++    ]
++    result = subprocess.run(cmd, capture_output=True, text=True)
++    return result.returncode == 0
++
++
++def build_checkpoints(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
++    checkpoints = []
++    previously_failed_ranges = [
++        (39.43, 50.89),
++        (90.46, 92.39),
++        (115.94, 118.16),
++        (184.11, 186.31),
++        (206.82, 209.84),
++    ]
++    
++    for i, event in enumerate(events):
++        if not event['words']:
++            continue
++        
++        first_word = event['words'][0]
++        output_time = event['output_start'] + (first_word['start'] - event['original_start'])
++        
++        expected_words = [w['text'] for w in event['words'][:3]]
++        
++        src_start = event['original_start']
++        src_end = event['original_end']
++        previously_failed = any(
++            abs(src_start - fs) < 0.1 for fs, fe in previously_failed_ranges
++        )
++        
++        checkpoints.append({
++            'event_index': i,
++            'output_time': round(output_time, 3),
++            'expected_first_word': first_word['text'],
++            'expected_words': expected_words,
++            'source_range': [round(src_start, 2), round(src_end, 2)],
++            'output_range': [round(event['output_start'], 2), round(event['output_end'], 2)],
++            'previously_failed': previously_failed,
++            'word_count': len(event['words']),
++        })
++    
++    return checkpoints
++
++
++def main():
++    parser = argparse.ArgumentParser(description='Verify captions in rendered video')
++    parser.add_argument('--project', '-p', type=str, help='Path to project.json')
++    parser.add_argument('--video', '-v', type=str, help='Path to rendered video')
++    parser.add_argument('--output', '-o', type=str, help='Output directory')
++    parser.add_argument('--verbose', action='store_true', help='Verbose output')
++    args = parser.parse_args()
++    
++    root = get_project_root()
++    
++    project_path = Path(args.project) if args.project else root / 'data' / 'project.json'
++    video_path = Path(args.video) if args.video else root / 'data' / 'output' / 'final_video.mp4'
++    output_dir = Path(args.output) if args.output else root / 'data' / 'output' / 'verification'
++    
++    if not video_path.exists():
++        print(f"Error: Video not found: {video_path}", file=sys.stderr)
++        sys.exit(1)
++    
++    os.makedirs(output_dir, exist_ok=True)
++    
++    print("Loading project...")
++    project = load_project(str(project_path))
++    
++    print("Computing timeline clips...")
++    timeline_clips = compute_timeline_clips(project)
++    
++    all_segments = []
++    for item in timeline_clips:
++        all_segments.extend(item['playable_segments'])
++    
++    playable_segments = merge_segments(all_segments)
++    
++    print("Building caption events...")
++    events = build_caption_events(project, timeline_clips, playable_segments)
++    
++    print(f"Found {len(events)} events, {sum(1 for e in events if e['words'])} with words")
++    
++    print("Building checkpoints...")
++    checkpoints = build_checkpoints(events)
++    print(f"Created {len(checkpoints)} verification checkpoints")
++    
++    previously_failed = [cp for cp in checkpoints if cp['previously_failed']]
++    print(f"  - {len(previously_failed)} previously failed segments")
++    
++    print("\nExtracting frames...")
++    for i, cp in enumerate(checkpoints):
++        frame_name = f"frame_{i:03d}_{cp['output_time']:.2f}s.png"
++        frame_path = output_dir / frame_name
++        
++        if args.verbose:
++            print(f"  [{i+1}/{len(checkpoints)}] {cp['output_time']:.2f}s -> {frame_name}")
++        
++        success = extract_frame(str(video_path), cp['output_time'], str(frame_path))
++        
++        if success:
++            cp['frame_path'] = str(frame_path.relative_to(root / 'data' / 'output'))
++            cp['frame_exists'] = True
++        else:
++            cp['frame_path'] = None
++            cp['frame_exists'] = False
++            print(f"    Warning: Failed to extract frame", file=sys.stderr)
++    
++    manifest_path = output_dir / 'manifest.json'
++    manifest = {
++        'video_path': str(video_path.relative_to(root)),
++        'total_checkpoints': len(checkpoints),
++        'previously_failed_count': len(previously_failed),
++        'checkpoints': checkpoints,
++    }
++    
++    with open(manifest_path, 'w', encoding='utf-8') as f:
++        json.dump(manifest, f, indent=2)
++    
++    print(f"\nManifest saved to: {manifest_path}")
++    print(f"Frames saved to: {output_dir}")
++    
++    print("\n=== Summary ===")
++    print(f"Total checkpoints: {len(checkpoints)}")
++    print(f"Frames extracted: {sum(1 for cp in checkpoints if cp['frame_exists'])}")
++    
++    if previously_failed:
++        print(f"\nPreviously failed segments (now fixed):")
++        for cp in previously_failed:
++            print(f"  Event {cp['event_index']}: output {cp['output_time']:.2f}s, expected '{cp['expected_first_word']}'")
++
++
++if __name__ == '__main__':
++    main()
