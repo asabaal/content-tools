@@ -19,7 +19,10 @@ def get_project_root() -> Path:
 
 def run_post_render_verification(
     project_root: Path,
-    verbose: bool = False
+    verbose: bool = False,
+    enable_vision: bool = True,
+    vision_model: str = "qwen3-vl:32b",
+    max_vision_frames: int = 50
 ) -> Dict[str, Any]:
     """
     Run verification after successful render.
@@ -36,6 +39,9 @@ def run_post_render_verification(
             project_path,
             data_dir,
             extract_frames=True,
+            enable_vision=enable_vision,
+            vision_model=vision_model,
+            max_vision_frames=max_vision_frames,
             verbose=verbose
         )
         
@@ -72,8 +78,14 @@ def print_verification_summary(result: Dict[str, Any]) -> None:
     drift = summary.get('first_drift_index', -1)
     print(f"First drift index: {drift if drift >= 0 else 'None'}")
     
+    # Vision verification summary
+    if 'vision_coverage_percent' in summary:
+        print(f"\nVisibility coverage: {summary['vision_coverage_percent']:.2f}%")
+        print(f"Vision failed frames: {summary.get('vision_failed_frames', 0)}")
+        print(f"Vision mean confidence: {summary.get('vision_mean_confidence', 0):.2f}")
+    
     exit_code = summary.get('verification_exit_code', 3)
-    print(f"Verification exit code: {exit_code}")
+    print(f"\nVerification exit code: {exit_code}")
     
     print()
     if exit_code == 0:
@@ -93,11 +105,20 @@ def main():
     parser = argparse.ArgumentParser(description='Post-render verification')
     parser.add_argument('--project', '-p', type=str, help='Project root path')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
+    parser.add_argument('--no-vision', action='store_true', help='Skip vision verification')
+    parser.add_argument('--vision-model', type=str, default='qwen3-vl:32b', help='Vision model')
+    parser.add_argument('--max-vision-frames', type=int, default=200, help='Max frames for vision')
     args = parser.parse_args()
     
     project_root = Path(args.project) if args.project else get_project_root()
     
-    result = run_post_render_verification(project_root, verbose=args.verbose)
+    result = run_post_render_verification(
+        project_root,
+        verbose=args.verbose,
+        enable_vision=not args.no_vision,
+        vision_model=args.vision_model,
+        max_vision_frames=args.max_vision_frames
+    )
     print_verification_summary(result)
     
     return result.get('summary', {}).get('verification_exit_code', 3)

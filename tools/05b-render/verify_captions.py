@@ -22,11 +22,20 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, Tuple
 
 from segments import compute_timeline_clips
 from captions import build_caption_events
 from srt import generate_srt_content, compress_timestamps
+
+try:
+    from vision_verify import run_vision_verification, check_ollama_available, print_vision_summary
+    VISION_AVAILABLE = True
+except ImportError:
+    VISION_AVAILABLE = False
+    run_vision_verification = None  # type: ignore
+    check_ollama_available = None  # type: ignore
+    print_vision_summary = None  # type: ignore
 
 
 TIMING_TOLERANCE_MS = 40
@@ -446,13 +455,17 @@ def generate_html_report(
     frames: List[Dict],
     caption_events: List[Dict],
     output_path: Path,
-    frames_dir: Path
+    frames_dir: Path,
+    vision_result: Optional[Dict] = None
 ) -> None:
     """Generate HTML verification report with frame images."""
     
     all_passed = text_result['passed'] and timing_result['passed']
-    status_class = 'pass' if all_passed else 'fail'
-    status_text = 'ALL CHECKS PASSED' if all_passed else 'VERIFICATION ISSUES DETECTED'
+    vision_passed = vision_result.get('success', False) and vision_result.get('visibility_coverage_percent', 100) >= 95.0 if vision_result else True
+    overall_passed = all_passed and vision_passed
+    
+    status_class = 'pass' if overall_passed else 'fail'
+    status_text = 'ALL CHECKS PASSED' if overall_passed else 'VERIFICATION ISSUES DETECTED'
     
     html_parts = [
         '<!DOCTYPE html>',
@@ -482,6 +495,10 @@ def generate_html_report(
         '.frame-preview { max-width: 200px; border: 1px solid #ddd; border-radius: 4px; }',
         '.flag { background: #fff3cd; padding: 2px 6px; border-radius: 3px; font-size: 11px; }',
         '.drift { color: #dc3545; font-weight: bold; }',
+        '.vision-pass { background: #d4edda; }',
+        '.vision-fail { background: #f8d7da; }',
+        '.vision-low { background: #fff3cd; }',
+        '.frame-thumb { max-width: 150px; border: 1px solid #ddd; border-radius: 4px; }',
         '</style>',
         '</head>',
         '<body>',
@@ -554,6 +571,50 @@ def generate_html_report(
         
         html_parts.append('</table></div>')
     
+    # Vision verification section
+    if vision_result and not vision_result.get('skipped'):
+        html_parts.append('<h2>Vision Caption Verification</h2>')
+        
+        vision_class = 'pass' if vision_result.get('visibility_coverage_percent', 0) >= 95.0 else 'fail'
+        html_parts.append(f'<div class="stat {vision_class}"><div class="stat-value">{vision_result.get("visibility_coverage_percent", 0):.1f}%</div><div class="stat-label">Visibility Coverage</div></div>')
+        html_parts.append(f'<p>Model: {vision_result.get("model", "unknown")}</p>')
+        html_parts.append(f'<p>Visible frames: {vision_result.get("visible_frames", 0)}/{vision_result.get("total_frames", 0)}</p>')
+        html_parts.append(f'<p>Mean confidence: {vision_result.get("mean_confidence", 0):.2f}</p>')
+        
+        if vision_result.get('first_failed_index') is not None:
+            html_parts.append(f'<p>First failed frame: {vision_result["first_failed_index"]}</p>')
+        
+        # Vision results table
+        if vision_result.get('results'):
+            html_parts.append('<div class="table-container">')
+            html_parts.append('<table><tr><th>Frame</th><th>Timestamp</th><th>Expected Text</th><th>Visible</th><th>Confidence</th><th>Preview</th></tr>')
+            
+            for vr in vision_result['results'][:100]:
+                status = vr.get('status', 'unknown')
+                row_class = 'vision-pass' if status == 'visible' else ('vision-low' if status == 'low_confidence' else 'vision-fail')
+                
+                visible_text = 'Yes' if vr.get('visible') else 'No'
+                confidence = vr.get('confidence', 0)
+                
+                frame_thumb = ''
+                if vr.get('frame_path'):
+                    frame_thumb = f'<img src="{vr["frame_path"]}" class="frame-thumb">'
+                
+                html_parts.append(f'<tr class="{row_class}">')
+                html_parts.append(f'<td>{vr.get("frame_index", "-")}</td>')
+                html_parts.append(f'<td>{vr.get("timestamp", 0):.2f}s</td>')
+                html_parts.append(f'<td>{vr.get("expected_text", "")[:40]}</td>')
+                html_parts.append(f'<td>{visible_text}</td>')
+                html_parts.append(f'<td>{confidence:.2f}</td>')
+                html_parts.append(f'<td>{frame_thumb}</td>')
+                html_parts.append('</tr>')
+            
+            html_parts.append('</table></div>')
+    
+    elif vision_result and vision_result.get('skipped'):
+        html_parts.append('<h2>Vision Caption Verification</h2>')
+        html_parts.append(f'<p>Vision verification skipped: {vision_result.get("error", "Unknown reason")}</p>')
+    
     # Word timing table
     html_parts.append('<h2>Word Timing Comparison</h2>')
     html_parts.append('<div class="table-container">')
@@ -584,6 +645,9 @@ def run_verification(
     project_path: Path,
     data_dir: Path,
     extract_frames: bool = True,
+    enable_vision: bool = True,
+    vision_model: str = "qwen3-vl:32b",
+    max_vision_frames: int = 200,
     verbose: bool = False
 ) -> Dict[str, Any]:
     """
@@ -634,15 +698,44 @@ def run_verification(
                 video_path, caption_events, verification_dir
             )
     
+    # Run vision verification
+    vision_result = None
+    if enable_vision and frames and VISION_AVAILABLE and run_vision_verification is not None:
+        frames_dir = verification_dir / 'frames'
+        try:
+            vision_result = run_vision_verification(
+                frames_dir,
+                caption_events,
+                frames,
+                model=vision_model,
+                max_frames=max_vision_frames,
+                verbose=verbose
+            )
+        except Exception as e:
+            vision_result = {
+                'success': False,
+                'skipped': True,
+                'error': str(e),
+                'results': []
+            }
+            if verbose:
+                print(f"Vision verification error: {e}")
+    
     # Generate report
     report_path = verification_dir / 'captions_full_verification_report.html'
     generate_html_report(
         text_result, timing_result, frames, caption_events,
-        report_path, verification_dir / 'frames'
+        report_path, verification_dir / 'frames', vision_result
     )
     
     # Generate summary JSON
     passed = text_result['passed'] and timing_result['passed']
+    
+    # Include vision in pass/fail
+    vision_passed = True
+    if vision_result and not vision_result.get('skipped'):
+        vision_passed = vision_result.get('visibility_coverage_percent', 100) >= 95.0
+    passed = passed and vision_passed
     
     # Determine exit code
     if passed:
@@ -671,6 +764,14 @@ def run_verification(
         'report_path': str(report_path)
     }
     
+    # Add vision metrics if available
+    if vision_result and not vision_result.get('skipped'):
+        summary['vision_coverage_percent'] = vision_result.get('visibility_coverage_percent', 0)
+        summary['vision_mean_confidence'] = vision_result.get('mean_confidence', 0)
+        summary['vision_failed_frames'] = vision_result.get('failed_frames', 0)
+        summary['vision_first_failed_index'] = vision_result.get('first_failed_index')
+        summary['vision_passed'] = vision_passed
+    
     summary_path = verification_dir / 'captions_verification_summary.json'
     with open(summary_path, 'w', encoding='utf-8') as f:
         json.dump(summary, f, indent=2)
@@ -690,13 +791,41 @@ def run_verification(
         "",
         f"Text Fidelity: {'PASS' if text_result['passed'] else 'FAIL'}",
         f"Timing Projection: {'PASS' if timing_result['passed'] else 'FAIL'}",
+    ]
+    
+    # Add vision log lines
+    if vision_result:
+        if vision_result.get('skipped'):
+            log_lines.extend([
+                "",
+                "Vision Verification: SKIPPED",
+                f"Reason: {vision_result.get('error', 'Unknown')}"
+            ])
+        else:
+            log_lines.extend([
+                "",
+                "Vision Verification:",
+                f"  Visibility Coverage: {vision_result.get('visibility_coverage_percent', 0):.2f}%",
+                f"  Visible Frames: {vision_result.get('visible_frames', 0)}/{vision_result.get('total_frames', 0)}",
+                f"  Mean Confidence: {vision_result.get('mean_confidence', 0):.2f}",
+                f"  Model: {vision_result.get('model', 'unknown')}",
+                f"  Status: {'PASS' if vision_passed else 'FAIL'}"
+            ])
+    
+    log_lines.extend([
         "",
         f"Report: {report_path}",
-    ]
+    ])
     
     log_path = verification_dir / 'captions_verification_log.txt'
     with open(log_path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(log_lines))
+    
+    # Save vision summary separately
+    if vision_result and not vision_result.get('skipped'):
+        vision_summary_path = verification_dir / 'vision_summary.json'
+        with open(vision_summary_path, 'w', encoding='utf-8') as f:
+            json.dump(vision_result, f, indent=2)
     
     return {
         'success': True,
@@ -704,6 +833,7 @@ def run_verification(
         'summary': summary,
         'text_result': text_result,
         'timing_result': timing_result,
+        'vision_result': vision_result,
         'frames_extracted': len(frames),
         'report_path': str(report_path),
         'log_path': str(log_path)
@@ -719,6 +849,9 @@ def main():
     parser.add_argument('--tolerance', '-t', type=int, default=TIMING_TOLERANCE_MS,
                         help=f'Timing tolerance in ms (default: {TIMING_TOLERANCE_MS})')
     parser.add_argument('--no-frames', action='store_true', help='Skip frame extraction')
+    parser.add_argument('--no-vision', action='store_true', help='Skip vision verification')
+    parser.add_argument('--vision-model', type=str, default='qwen3-vl:32b', help='Vision model for Ollama')
+    parser.add_argument('--max-vision-frames', type=int, default=200, help='Max frames for vision verification')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
     args = parser.parse_args()
     
@@ -751,6 +884,9 @@ def main():
         project_path,
         data_dir,
         extract_frames=not args.no_frames,
+        enable_vision=not args.no_vision,
+        vision_model=args.vision_model,
+        max_vision_frames=args.max_vision_frames,
         verbose=args.verbose
     )
     
@@ -765,6 +901,14 @@ def main():
     print(f"Max timing drift: {summary['timing_max_drift_ms']:.1f}ms")
     print(f"First mismatch index: {summary['first_mismatch_index']}")
     print(f"Verification exit code: {summary['verification_exit_code']}")
+    
+    # Print vision summary if available
+    vision_result = result.get('vision_result')
+    if vision_result and not vision_result.get('skipped') and print_vision_summary:
+        print_vision_summary(vision_result)
+    elif vision_result and vision_result.get('skipped'):
+        print(f"\nVision verification skipped: {vision_result.get('error', 'Unknown')}")
+    
     print(f"\nReport: {result['report_path']}")
     
     print("\n" + "=" * 60)

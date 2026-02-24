@@ -1,4 +1,4 @@
-Caption Verification Log - 2026-02-23T16:38:37.790710
+Caption Verification Log - 2026-02-23T21:01:17.058654
 ==================================================
 Text Coverage: 100.00%
 Expected Words: 300
@@ -7,9 +7,16 @@ Mean Timing Drift: 0.4ms
 Max Timing Drift: 1.0ms
 First Mismatch Index: -1
 First Drift Index: -1
-Exit Code: 0
+Exit Code: 3
 
 Text Fidelity: PASS
 Timing Projection: PASS
+
+Vision Verification:
+  Visibility Coverage: 0.00%
+  Visible Frames: 0/32
+  Mean Confidence: 1.00
+  Model: qwen3-vl:32b
+  Status: FAIL
 
 Report: /mnt/storage/repos/content-tools/data/output/verification/captions_full_verification_report.html
