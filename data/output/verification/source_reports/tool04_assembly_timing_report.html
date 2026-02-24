@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tool 04 - Assembly Timing Authority</title>
+
+    <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 20px; background: #f5f5f5; }
+    .container { max-width: 1400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    h1 { color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+    h2 { color: #555; margin-top: 30px; }
+    .meta { color: #666; font-size: 14px; margin-bottom: 20px; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+    .stat { background: #e9ecef; padding: 15px; border-radius: 4px; text-align: center; }
+    .stat-value { font-size: 24px; font-weight: bold; color: #333; }
+    .stat-label { font-size: 11px; color: #666; text-transform: uppercase; margin-top: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+    th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #ddd; }
+    th { background: #4CAF50; color: white; position: sticky; top: 0; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    tr:hover { background: #f0f0f0; }
+    .table-container { max-height: 600px; overflow-y: auto; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; background: #e9ecef; }
+    .badge.assigned { background: #d4edda; color: #155724; }
+    .badge.unassigned { background: #fff3cd; color: #856404; }
+    .nav { margin-bottom: 20px; padding: 10px; background: #f8f9fa; border-radius: 4px; }
+    .nav a { margin-right: 15px; text-decoration: none; color: #4CAF50; }
+    .nav a:hover { text-decoration: underline; }
+    </style>
+    
+</head>
+<body>
+<div class="container">
+<h1>Tool 04 - Assembly Timing Authority Report</h1>
+<div class="meta">Generated: 2026-02-24 15:38:57</div>
+<div class="nav">
+<a href="authoritative_sources_summary.html">Summary</a>
+<a href="tool02_review_text_report.html">Tool 02 - Text Authority</a>
+<a href="tool03_take_selection_report.html">Tool 03 - Clip Selection</a>
+</div>
+<h2>Summary Metrics</h2>
+<div class="summary">
+<div class="stat"><div class="stat-value">300</div><div class="stat-label">Total Words</div></div>
+<div class="stat"><div class="stat-value">81</div><div class="stat-label">Clip Segments</div></div>
+<div class="stat"><div class="stat-value">391ms</div><div class="stat-label">Mean Word Duration</div></div>
+<div class="stat"><div class="stat-value">2800ms</div><div class="stat-label">Max Word Duration</div></div>
+</div>
+<h2>Word Timing Table</h2>
+<div class="table-container">
+<table>
+<tr><th>Word Index</th><th>Text</th><th>Clip ID</th><th>Segment Index</th><th>Assembly Start</th><th>Assembly End</th><th>Duration</th></tr>
+<tr><td>0</td><td><strong>Where</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>0.205s</td><td>0.459s</td><td>254ms</td></tr>
+<tr><td>1</td><td><strong>there</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>0.459s</td><td>0.679s</td><td>220ms</td></tr>
+<tr><td>2</td><td><strong>was</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>0.679s</td><td>0.859s</td><td>180ms</td></tr>
+<tr><td>3</td><td><strong>not</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>0.859s</td><td>1.623s</td><td>764ms</td></tr>
+<tr><td>4</td><td><strong>God's</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>1.623s</td><td>1.939s</td><td>316ms</td></tr>
+<tr><td>5</td><td><strong>folk,</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>1.939s</td><td>2.572s</td><td>633ms</td></tr>
+<tr><td>6</td><td><strong>then</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>2.745s</td><td>2.905s</td><td>160ms</td></tr>
+<tr><td>7</td><td><strong>there</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>2.905s</td><td>3.085s</td><td>180ms</td></tr>
+<tr><td>8</td><td><strong>was.</strong></td><td><code>clip_mlmz73gu_7</code></td><td>0</td><td>3.085s</td><td>3.594s</td><td>509ms</td></tr>
+<tr><td>9</td><td><strong>to</strong></td><td><code>clip_mlmz73gu_7</code></td><td>1</td><td>3.971s</td><td>4.251s</td><td>280ms</td></tr>
+<tr><td>10</td><td><strong>Life</strong></td><td><code>clip_mlmz73gu_7</code></td><td>1</td><td>4.251s</td><td>4.431s</td><td>180ms</td></tr>
+<tr><td>11</td><td><strong>is</strong></td><td><code>clip_mlmz73gu_7</code></td><td>1</td><td>4.431s</td><td>4.671s</td><td>240ms</td></tr>
+<tr><td>12</td><td><strong>your</strong></td><td><code>clip_mlmz73gu_7</code></td><td>1</td><td>4.671s</td><td>4.811s</td><td>140ms</td></tr>
+<tr><td>13</td><td><strong>word</strong></td><td><code>clip_mlmz73gu_7</code></td><td>1</td><td>4.811s</td><td>5.071s</td><td>260ms</td></tr>
+<tr><td>14</td><td><strong>episode</strong></td><td><code>clip_mlmz73gu_7</code></td><td>1</td><td>5.071s</td><td>5.511s</td><td>440ms</td></tr>
+<tr><td>15</td><td><strong>three.</strong></td><td><code>clip_mlmz73gu_7</code></td><td>1</td><td>5.511s</td><td>5.951s</td><td>440ms</td></tr>
+<tr><td>16</td><td><strong>this</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>6.481s</td><td>6.641s</td><td>160ms</td></tr>
+<tr><td>17</td><td><strong>show,</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>6.641s</td><td>6.941s</td><td>300ms</td></tr>
+<tr><td>18</td><td><strong>we</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>7.121s</td><td>7.181s</td><td>60ms</td></tr>
+<tr><td>19</td><td><strong>build</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>7.181s</td><td>7.401s</td><td>220ms</td></tr>
+<tr><td>20</td><td><strong>up</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>7.401s</td><td>7.561s</td><td>160ms</td></tr>
+<tr><td>21</td><td><strong>our</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>7.561s</td><td>7.761s</td><td>200ms</td></tr>
+<tr><td>22</td><td><strong>understanding</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>7.761s</td><td>8.241s</td><td>480ms</td></tr>
+<tr><td>23</td><td><strong>of</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>8.241s</td><td>8.601s</td><td>360ms</td></tr>
+<tr><td>24</td><td><strong>reality</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>8.601s</td><td>9.141s</td><td>540ms</td></tr>
+<tr><td>25</td><td><strong>by</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>9.141s</td><td>9.352s</td><td>211ms</td></tr>
+<tr><td>26</td><td><strong>seeking</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>9.494s</td><td>9.894s</td><td>400ms</td></tr>
+<tr><td>27</td><td><strong>God's</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>9.894s</td><td>10.474s</td><td>580ms</td></tr>
+<tr><td>28</td><td><strong>face.</strong></td><td><code>clip_mlmz73gu_7</code></td><td>2</td><td>10.474s</td><td>10.734s</td><td>260ms</td></tr>
+<tr><td>29</td><td><strong>reading</strong></td><td><code>clip_mlmz73gu_7</code></td><td>3</td><td>11.532s</td><td>11.772s</td><td>240ms</td></tr>
+<tr><td>30</td><td><strong>is</strong></td><td><code>clip_mlmz73gu_7</code></td><td>3</td><td>11.772s</td><td>11.992s</td><td>220ms</td></tr>
+<tr><td>31</td><td><strong>from</strong></td><td><code>clip_mlmz73gu_7</code></td><td>3</td><td>11.992s</td><td>12.152s</td><td>160ms</td></tr>
+<tr><td>32</td><td><strong>Genesis</strong></td><td><code>clip_mlmz73gu_7</code></td><td>3</td><td>12.152s</td><td>12.492s</td><td>340ms</td></tr>
+<tr><td>33</td><td><strong>chapter</strong></td><td><code>clip_mlmz73gu_7</code></td><td>3</td><td>12.492s</td><td>12.912s</td><td>420ms</td></tr>
+<tr><td>34</td><td><strong>one.</strong></td><td><code>clip_mlmz73gu_7</code></td><td>3</td><td>12.912s</td><td>13.232s</td><td>320ms</td></tr>
+<tr><td>35</td><td><strong>Welcome</strong></td><td><code>clip_mlmz73gu_8</code></td><td>1</td><td>13.647s</td><td>14.072s</td><td>425ms</td></tr>
+<tr><td>36</td><td><strong>to</strong></td><td><code>clip_mlmz73gu_8</code></td><td>1</td><td>14.072s</td><td>14.352s</td><td>280ms</td></tr>
+<tr><td>37</td><td><strong>Life</strong></td><td><code>clip_mlmz73gu_8</code></td><td>1</td><td>14.352s</td><td>14.532s</td><td>180ms</td></tr>
+<tr><td>38</td><td><strong>is</strong></td><td><code>clip_mlmz73gu_8</code></td><td>1</td><td>14.532s</td><td>14.772s</td><td>240ms</td></tr>
+<tr><td>39</td><td><strong>your</strong></td><td><code>clip_mlmz73gu_8</code></td><td>1</td><td>14.772s</td><td>14.912s</td><td>140ms</td></tr>
+<tr><td>40</td><td><strong>word</strong></td><td><code>clip_mlmz73gu_8</code></td><td>1</td><td>14.912s</td><td>15.172s</td><td>260ms</td></tr>
+<tr><td>41</td><td><strong>episode</strong></td><td><code>clip_mlmz73gu_8</code></td><td>1</td><td>15.172s</td><td>15.612s</td><td>440ms</td></tr>
+<tr><td>42</td><td><strong>three.</strong></td><td><code>clip_mlmz73gu_8</code></td><td>1</td><td>15.612s</td><td>16.052s</td><td>440ms</td></tr>
+<tr><td>43</td><td><strong>In</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>16.052s</td><td>16.612s</td><td>560ms</td></tr>
+<tr><td>44</td><td><strong>this</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>16.612s</td><td>16.772s</td><td>160ms</td></tr>
+<tr><td>45</td><td><strong>show,</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>16.772s</td><td>17.072s</td><td>300ms</td></tr>
+<tr><td>46</td><td><strong>we</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>17.252s</td><td>17.312s</td><td>60ms</td></tr>
+<tr><td>47</td><td><strong>build</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>17.312s</td><td>17.532s</td><td>220ms</td></tr>
+<tr><td>48</td><td><strong>up</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>17.532s</td><td>17.692s</td><td>160ms</td></tr>
+<tr><td>49</td><td><strong>our</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>17.692s</td><td>17.892s</td><td>200ms</td></tr>
+<tr><td>50</td><td><strong>understanding</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>17.892s</td><td>18.372s</td><td>480ms</td></tr>
+<tr><td>51</td><td><strong>of</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>18.372s</td><td>18.732s</td><td>360ms</td></tr>
+<tr><td>52</td><td><strong>reality</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>18.732s</td><td>19.272s</td><td>540ms</td></tr>
+<tr><td>53</td><td><strong>by</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>19.272s</td><td>20.652s</td><td>1380ms</td></tr>
+<tr><td>54</td><td><strong>seeking</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>20.652s</td><td>21.052s</td><td>400ms</td></tr>
+<tr><td>55</td><td><strong>God's</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>21.052s</td><td>21.632s</td><td>580ms</td></tr>
+<tr><td>56</td><td><strong>face.</strong></td><td><code>clip_mlmz73gu_9</code></td><td>2</td><td>21.632s</td><td>21.892s</td><td>260ms</td></tr>
+<tr><td>57</td><td><strong>Today's</strong></td><td><code>clip_mlmz73gu_a</code></td><td>3</td><td>21.892s</td><td>22.552s</td><td>660ms</td></tr>
+<tr><td>58</td><td><strong>reading</strong></td><td><code>clip_mlmz73gu_a</code></td><td>3</td><td>22.552s</td><td>22.792s</td><td>240ms</td></tr>
+<tr><td>59</td><td><strong>is</strong></td><td><code>clip_mlmz73gu_a</code></td><td>3</td><td>22.792s</td><td>23.012s</td><td>220ms</td></tr>
+<tr><td>60</td><td><strong>from</strong></td><td><code>clip_mlmz73gu_a</code></td><td>3</td><td>23.012s</td><td>23.172s</td><td>160ms</td></tr>
+<tr><td>61</td><td><strong>Genesis</strong></td><td><code>clip_mlmz73gu_a</code></td><td>3</td><td>23.172s</td><td>23.512s</td><td>340ms</td></tr>
+<tr><td>62</td><td><strong>chapter</strong></td><td><code>clip_mlmz73gu_a</code></td><td>3</td><td>23.512s</td><td>23.932s</td><td>420ms</td></tr>
+<tr><td>63</td><td><strong>one.</strong></td><td><code>clip_mlmz73gu_a</code></td><td>3</td><td>23.932s</td><td>24.252s</td><td>320ms</td></tr>
+<tr><td>64</td><td><strong>When</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>24.252s</td><td>24.692s</td><td>440ms</td></tr>
+<tr><td>65</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>24.692s</td><td>24.912s</td><td>220ms</td></tr>
+<tr><td>66</td><td><strong>began</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>24.912s</td><td>25.292s</td><td>380ms</td></tr>
+<tr><td>67</td><td><strong>to</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>25.292s</td><td>25.472s</td><td>180ms</td></tr>
+<tr><td>68</td><td><strong>create</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>25.472s</td><td>25.752s</td><td>280ms</td></tr>
+<tr><td>69</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>25.752s</td><td>25.952s</td><td>200ms</td></tr>
+<tr><td>70</td><td><strong>heavens</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>25.952s</td><td>26.172s</td><td>220ms</td></tr>
+<tr><td>71</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>26.172s</td><td>26.392s</td><td>220ms</td></tr>
+<tr><td>72</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>26.392s</td><td>26.492s</td><td>100ms</td></tr>
+<tr><td>73</td><td><strong>earth,</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>26.492s</td><td>26.792s</td><td>300ms</td></tr>
+<tr><td>74</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>27.252s</td><td>29.252s</td><td>2000ms</td></tr>
+<tr><td>75</td><td><strong>earth</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>29.252s</td><td>29.632s</td><td>380ms</td></tr>
+<tr><td>76</td><td><strong>was</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>29.632s</td><td>29.812s</td><td>180ms</td></tr>
+<tr><td>77</td><td><strong>in</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>29.812s</td><td>29.932s</td><td>120ms</td></tr>
+<tr><td>78</td><td><strong>complete</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>29.932s</td><td>30.332s</td><td>400ms</td></tr>
+<tr><td>79</td><td><strong>chaos</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>30.332s</td><td>30.732s</td><td>400ms</td></tr>
+<tr><td>80</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>30.732s</td><td>31.892s</td><td>1160ms</td></tr>
+<tr><td>81</td><td><strong>darkness</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>31.892s</td><td>32.392s</td><td>500ms</td></tr>
+<tr><td>82</td><td><strong>covered</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>32.392s</td><td>33.592s</td><td>1200ms</td></tr>
+<tr><td>83</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>33.592s</td><td>33.792s</td><td>200ms</td></tr>
+<tr><td>84</td><td><strong>face</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>33.792s</td><td>33.992s</td><td>200ms</td></tr>
+<tr><td>85</td><td><strong>of</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>33.992s</td><td>34.152s</td><td>160ms</td></tr>
+<tr><td>86</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>34.152s</td><td>34.252s</td><td>100ms</td></tr>
+<tr><td>87</td><td><strong>Jeep.</strong></td><td><code>clip_mlmz73gu_b</code></td><td>4</td><td>34.252s</td><td>34.492s</td><td>240ms</td></tr>
+<tr><td>88</td><td><strong>While</strong></td><td><code>clip_mlmz40lf_1</code></td><td>5</td><td>34.492s</td><td>34.932s</td><td>440ms</td></tr>
+<tr><td>89</td><td><strong>a</strong></td><td><code>clip_mlmz40lf_1</code></td><td>5</td><td>34.932s</td><td>35.092s</td><td>160ms</td></tr>
+<tr><td>90</td><td><strong>wind</strong></td><td><code>clip_mlmz40lf_1</code></td><td>5</td><td>35.092s</td><td>35.392s</td><td>300ms</td></tr>
+<tr><td>91</td><td><strong>of</strong></td><td><code>clip_mlmz40lf_1</code></td><td>5</td><td>35.392s</td><td>35.572s</td><td>180ms</td></tr>
+<tr><td>92</td><td><strong>God,</strong></td><td><code>clip_mlmz40lf_1</code></td><td>5</td><td>35.572s</td><td>35.992s</td><td>420ms</td></tr>
+<tr><td>93</td><td><strong>swept</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>36.092s</td><td>37.552s</td><td>1460ms</td></tr>
+<tr><td>94</td><td><strong>over</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>37.552s</td><td>37.772s</td><td>220ms</td></tr>
+<tr><td>95</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>37.772s</td><td>37.952s</td><td>180ms</td></tr>
+<tr><td>96</td><td><strong>face</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>37.952s</td><td>38.132s</td><td>180ms</td></tr>
+<tr><td>97</td><td><strong>of</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>38.132s</td><td>38.272s</td><td>140ms</td></tr>
+<tr><td>98</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>38.272s</td><td>38.372s</td><td>100ms</td></tr>
+<tr><td>99</td><td><strong>waters,</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>38.372s</td><td>38.572s</td><td>200ms</td></tr>
+<tr><td>100</td><td><strong>then</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>39.672s</td><td>41.252s</td><td>1580ms</td></tr>
+<tr><td>101</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>41.252s</td><td>41.492s</td><td>240ms</td></tr>
+<tr><td>102</td><td><strong>said,</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>41.492s</td><td>41.772s</td><td>280ms</td></tr>
+<tr><td>103</td><td><strong>let</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>42.032s</td><td>42.212s</td><td>180ms</td></tr>
+<tr><td>104</td><td><strong>there</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>42.212s</td><td>42.372s</td><td>160ms</td></tr>
+<tr><td>105</td><td><strong>be</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>42.372s</td><td>42.512s</td><td>140ms</td></tr>
+<tr><td>106</td><td><strong>light</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>42.512s</td><td>42.712s</td><td>200ms</td></tr>
+<tr><td>107</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>42.712s</td><td>43.312s</td><td>600ms</td></tr>
+<tr><td>108</td><td><strong>there</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>43.312s</td><td>43.452s</td><td>140ms</td></tr>
+<tr><td>109</td><td><strong>was</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>43.452s</td><td>43.612s</td><td>160ms</td></tr>
+<tr><td>110</td><td><strong>light.</strong></td><td><code>clip_mlmz73gu_c</code></td><td>5</td><td>43.612s</td><td>43.852s</td><td>240ms</td></tr>
+<tr><td>111</td><td><strong>And</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>43.852s</td><td>44.512s</td><td>660ms</td></tr>
+<tr><td>112</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>44.512s</td><td>44.692s</td><td>180ms</td></tr>
+<tr><td>113</td><td><strong>saw</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>44.692s</td><td>45.032s</td><td>340ms</td></tr>
+<tr><td>114</td><td><strong>that</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>45.032s</td><td>46.352s</td><td>1320ms</td></tr>
+<tr><td>115</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>46.352s</td><td>49.152s</td><td>2800ms</td></tr>
+<tr><td>116</td><td><strong>light</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>49.152s</td><td>49.312s</td><td>160ms</td></tr>
+<tr><td>117</td><td><strong>was</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>49.312s</td><td>49.512s</td><td>200ms</td></tr>
+<tr><td>118</td><td><strong>good</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>49.512s</td><td>49.712s</td><td>200ms</td></tr>
+<tr><td>119</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>49.712s</td><td>51.692s</td><td>1980ms</td></tr>
+<tr><td>120</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>51.692s</td><td>51.912s</td><td>220ms</td></tr>
+<tr><td>121</td><td><strong>separated</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>51.912s</td><td>52.492s</td><td>580ms</td></tr>
+<tr><td>122</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>52.492s</td><td>52.812s</td><td>320ms</td></tr>
+<tr><td>123</td><td><strong>light</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>52.812s</td><td>53.012s</td><td>200ms</td></tr>
+<tr><td>124</td><td><strong>from</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>53.012s</td><td>53.332s</td><td>320ms</td></tr>
+<tr><td>125</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>53.332s</td><td>53.472s</td><td>140ms</td></tr>
+<tr><td>126</td><td><strong>darkness.</strong></td><td><code>clip_mlmz73gu_d</code></td><td>6</td><td>53.472s</td><td>53.792s</td><td>320ms</td></tr>
+<tr><td>127</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>53.792s</td><td>54.452s</td><td>660ms</td></tr>
+<tr><td>128</td><td><strong>created</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>54.452s</td><td>54.872s</td><td>420ms</td></tr>
+<tr><td>129</td><td><strong>humans</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>54.872s</td><td>55.212s</td><td>340ms</td></tr>
+<tr><td>130</td><td><strong>in</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>55.212s</td><td>55.532s</td><td>320ms</td></tr>
+<tr><td>131</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>55.532s</td><td>55.652s</td><td>120ms</td></tr>
+<tr><td>132</td><td><strong>image</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>55.652s</td><td>55.852s</td><td>200ms</td></tr>
+<tr><td>133</td><td><strong>of</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>55.852s</td><td>56.012s</td><td>160ms</td></tr>
+<tr><td>134</td><td><strong>God.</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>56.012s</td><td>56.272s</td><td>260ms</td></tr>
+<tr><td>135</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>57.232s</td><td>57.892s</td><td>660ms</td></tr>
+<tr><td>136</td><td><strong>blessed</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>57.892s</td><td>58.192s</td><td>300ms</td></tr>
+<tr><td>137</td><td><strong>them,</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>58.192s</td><td>58.532s</td><td>340ms</td></tr>
+<tr><td>138</td><td><strong>saying</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>59.472s</td><td>59.872s</td><td>400ms</td></tr>
+<tr><td>139</td><td><strong>be</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>59.872s</td><td>60.472s</td><td>600ms</td></tr>
+<tr><td>140</td><td><strong>fruitful</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>60.472s</td><td>60.892s</td><td>420ms</td></tr>
+<tr><td>141</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>60.892s</td><td>62.012s</td><td>1120ms</td></tr>
+<tr><td>142</td><td><strong>fill</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>62.012s</td><td>62.332s</td><td>320ms</td></tr>
+<tr><td>143</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>62.332s</td><td>62.532s</td><td>200ms</td></tr>
+<tr><td>144</td><td><strong>earth.</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>62.532s</td><td>62.812s</td><td>280ms</td></tr>
+<tr><td>145</td><td><strong>I</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>63.992s</td><td>64.432s</td><td>440ms</td></tr>
+<tr><td>146</td><td><strong>have</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>64.432s</td><td>64.592s</td><td>160ms</td></tr>
+<tr><td>147</td><td><strong>given</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>64.592s</td><td>64.872s</td><td>280ms</td></tr>
+<tr><td>148</td><td><strong>you</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>64.872s</td><td>65.112s</td><td>240ms</td></tr>
+<tr><td>149</td><td><strong>everything.</strong></td><td><code>clip_mlmz73gu_e</code></td><td>7</td><td>65.112s</td><td>65.692s</td><td>580ms</td></tr>
+<tr><td>150</td><td><strong>In</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>65.692s</td><td>66.272s</td><td>580ms</td></tr>
+<tr><td>151</td><td><strong>my</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>66.272s</td><td>66.412s</td><td>140ms</td></tr>
+<tr><td>152</td><td><strong>past</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>66.412s</td><td>66.732s</td><td>320ms</td></tr>
+<tr><td>153</td><td><strong>death,</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>66.732s</td><td>67.232s</td><td>500ms</td></tr>
+<tr><td>154</td><td><strong>I</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>67.712s</td><td>68.952s</td><td>1240ms</td></tr>
+<tr><td>155</td><td><strong>lived</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>68.952s</td><td>69.152s</td><td>200ms</td></tr>
+<tr><td>156</td><td><strong>in</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>69.152s</td><td>69.372s</td><td>220ms</td></tr>
+<tr><td>157</td><td><strong>complete</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>69.372s</td><td>69.692s</td><td>320ms</td></tr>
+<tr><td>158</td><td><strong>chaos</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>69.692s</td><td>70.152s</td><td>460ms</td></tr>
+<tr><td>159</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>70.152s</td><td>71.172s</td><td>1020ms</td></tr>
+<tr><td>160</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>71.172s</td><td>72.412s</td><td>1240ms</td></tr>
+<tr><td>161</td><td><strong>great</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>72.412s</td><td>72.652s</td><td>240ms</td></tr>
+<tr><td>162</td><td><strong>darkness</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>72.652s</td><td>73.072s</td><td>420ms</td></tr>
+<tr><td>163</td><td><strong>of</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>73.072s</td><td>73.352s</td><td>280ms</td></tr>
+<tr><td>164</td><td><strong>depression</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>73.352s</td><td>73.952s</td><td>600ms</td></tr>
+<tr><td>165</td><td><strong>covered</strong></td><td><code>clip_mlmz73gu_f</code></td><td>8</td><td>73.952s</td><td>74.872s</td><td>920ms</td></tr>
+<tr><td>166</td><td><strong>my</strong></td><td><code>clip_mlmz73gu_g</code></td><td>9</td><td>74.872s</td><td>75.292s</td><td>420ms</td></tr>
+<tr><td>167</td><td><strong>face.</strong></td><td><code>clip_mlmz73gu_g</code></td><td>9</td><td>75.292s</td><td>75.772s</td><td>480ms</td></tr>
+<tr><td>168</td><td><strong>I</strong></td><td><code>clip_mlmz73gu_h</code></td><td>10</td><td>75.772s</td><td>76.072s</td><td>300ms</td></tr>
+<tr><td>169</td><td><strong>stopped</strong></td><td><code>clip_mlmz73gu_h</code></td><td>10</td><td>76.072s</td><td>76.272s</td><td>200ms</td></tr>
+<tr><td>170</td><td><strong>listening</strong></td><td><code>clip_mlmz73gu_h</code></td><td>10</td><td>76.272s</td><td>76.692s</td><td>420ms</td></tr>
+<tr><td>171</td><td><strong>to</strong></td><td><code>clip_mlmz73gu_h</code></td><td>10</td><td>76.692s</td><td>76.832s</td><td>140ms</td></tr>
+<tr><td>172</td><td><strong>God's</strong></td><td><code>clip_mlmz73gu_h</code></td><td>10</td><td>76.832s</td><td>77.172s</td><td>340ms</td></tr>
+<tr><td>173</td><td><strong>voice</strong></td><td><code>clip_mlmz73gu_h</code></td><td>10</td><td>77.172s</td><td>77.352s</td><td>180ms</td></tr>
+<tr><td>174</td><td><strong>and</strong></td><td><code>clip_mlmz4a81_2</code></td><td>10</td><td>77.352s</td><td>79.272s</td><td>1920ms</td></tr>
+<tr><td>175</td><td><strong>I</strong></td><td><code>clip_mlmz4a81_2</code></td><td>10</td><td>79.272s</td><td>79.412s</td><td>140ms</td></tr>
+<tr><td>176</td><td><strong>tried</strong></td><td><code>clip_mlmz4a81_2</code></td><td>10</td><td>79.412s</td><td>79.632s</td><td>220ms</td></tr>
+<tr><td>177</td><td><strong>rather</strong></td><td><code>clip_mlmz73gu_i</code></td><td>11</td><td>81.292s</td><td>82.732s</td><td>1440ms</td></tr>
+<tr><td>178</td><td><strong>than</strong></td><td><code>clip_mlmz73gu_i</code></td><td>11</td><td>82.732s</td><td>83.292s</td><td>560ms</td></tr>
+<tr><td>179</td><td><strong>by</strong></td><td><code>clip_mlmz73gu_i</code></td><td>11</td><td>83.292s</td><td>83.472s</td><td>180ms</td></tr>
+<tr><td>180</td><td><strong>Christ</strong></td><td><code>clip_mlmz73gu_i</code></td><td>11</td><td>83.472s</td><td>83.732s</td><td>260ms</td></tr>
+<tr><td>181</td><td><strong>living</strong></td><td><code>clip_mlmz73gu_i</code></td><td>11</td><td>83.732s</td><td>84.092s</td><td>360ms</td></tr>
+<tr><td>182</td><td><strong>in</strong></td><td><code>clip_mlmz73gu_i</code></td><td>11</td><td>84.092s</td><td>84.372s</td><td>280ms</td></tr>
+<tr><td>183</td><td><strong>me.</strong></td><td><code>clip_mlmz73gu_i</code></td><td>11</td><td>84.372s</td><td>84.752s</td><td>380ms</td></tr>
+<tr><td>184</td><td><strong>But</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>84.752s</td><td>85.592s</td><td>840ms</td></tr>
+<tr><td>185</td><td><strong>God's,</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>85.592s</td><td>86.072s</td><td>480ms</td></tr>
+<tr><td>186</td><td><strong>but</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>86.392s</td><td>86.692s</td><td>300ms</td></tr>
+<tr><td>187</td><td><strong>then</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>86.692s</td><td>86.972s</td><td>280ms</td></tr>
+<tr><td>188</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>86.972s</td><td>87.392s</td><td>420ms</td></tr>
+<tr><td>189</td><td><strong>spoke</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>87.392s</td><td>87.692s</td><td>300ms</td></tr>
+<tr><td>190</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>87.692s</td><td>89.072s</td><td>1380ms</td></tr>
+<tr><td>191</td><td><strong>I</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>89.072s</td><td>89.352s</td><td>280ms</td></tr>
+<tr><td>192</td><td><strong>became.</strong></td><td><code>clip_mlmz73gu_j</code></td><td>12</td><td>89.352s</td><td>89.812s</td><td>460ms</td></tr>
+<tr><td>193</td><td><strong>Life</strong></td><td><code>clip_mlmz73gu_k</code></td><td>13</td><td>89.812s</td><td>90.392s</td><td>580ms</td></tr>
+<tr><td>194</td><td><strong>filled</strong></td><td><code>clip_mlmz73gu_k</code></td><td>13</td><td>90.392s</td><td>90.852s</td><td>460ms</td></tr>
+<tr><td>195</td><td><strong>me.</strong></td><td><code>clip_mlmz73gu_k</code></td><td>13</td><td>90.852s</td><td>91.132s</td><td>280ms</td></tr>
+<tr><td>196</td><td><strong>Peace</strong></td><td><code>clip_mlmz73gu_k</code></td><td>13</td><td>92.292s</td><td>92.532s</td><td>240ms</td></tr>
+<tr><td>197</td><td><strong>beyond</strong></td><td><code>clip_mlmz73gu_k</code></td><td>13</td><td>92.532s</td><td>92.912s</td><td>380ms</td></tr>
+<tr><td>198</td><td><strong>human</strong></td><td><code>clip_mlmz73gu_k</code></td><td>13</td><td>92.912s</td><td>93.192s</td><td>280ms</td></tr>
+<tr><td>199</td><td><strong>understanding.</strong></td><td><code>clip_mlmz73gu_k</code></td><td>13</td><td>93.192s</td><td>93.792s</td><td>600ms</td></tr>
+<tr><td>200</td><td><strong>Joy</strong></td><td><code>clip_mlmz73gu_l</code></td><td>14</td><td>93.792s</td><td>94.152s</td><td>360ms</td></tr>
+<tr><td>201</td><td><strong>that</strong></td><td><code>clip_mlmz73gu_l</code></td><td>14</td><td>94.152s</td><td>94.432s</td><td>280ms</td></tr>
+<tr><td>202</td><td><strong>defied</strong></td><td><code>clip_mlmz73gu_l</code></td><td>14</td><td>94.432s</td><td>94.872s</td><td>440ms</td></tr>
+<tr><td>203</td><td><strong>world</strong></td><td><code>clip_mlmz73gu_l</code></td><td>14</td><td>94.872s</td><td>95.152s</td><td>280ms</td></tr>
+<tr><td>204</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_l</code></td><td>14</td><td>95.152s</td><td>95.332s</td><td>180ms</td></tr>
+<tr><td>205</td><td><strong>authorities.</strong></td><td><code>clip_mlmz73gu_l</code></td><td>14</td><td>95.332s</td><td>95.712s</td><td>380ms</td></tr>
+<tr><td>206</td><td><strong>And</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>95.712s</td><td>96.352s</td><td>640ms</td></tr>
+<tr><td>207</td><td><strong>I</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>96.352s</td><td>96.492s</td><td>140ms</td></tr>
+<tr><td>208</td><td><strong>became</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>96.492s</td><td>96.792s</td><td>300ms</td></tr>
+<tr><td>209</td><td><strong>compelled</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>96.792s</td><td>97.252s</td><td>460ms</td></tr>
+<tr><td>210</td><td><strong>to</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>97.252s</td><td>97.592s</td><td>340ms</td></tr>
+<tr><td>211</td><td><strong>shout</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>97.592s</td><td>97.772s</td><td>180ms</td></tr>
+<tr><td>212</td><td><strong>God's</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>97.772s</td><td>98.272s</td><td>500ms</td></tr>
+<tr><td>213</td><td><strong>praise</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>98.272s</td><td>98.592s</td><td>320ms</td></tr>
+<tr><td>214</td><td><strong>from</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>98.592s</td><td>99.052s</td><td>460ms</td></tr>
+<tr><td>215</td><td><strong>every</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>99.052s</td><td>99.512s</td><td>460ms</td></tr>
+<tr><td>216</td><td><strong>mountain</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>99.512s</td><td>99.752s</td><td>240ms</td></tr>
+<tr><td>217</td><td><strong>top</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>99.752s</td><td>100.112s</td><td>360ms</td></tr>
+<tr><td>218</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>100.112s</td><td>100.632s</td><td>520ms</td></tr>
+<tr><td>219</td><td><strong>share</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>100.632s</td><td>101.092s</td><td>460ms</td></tr>
+<tr><td>220</td><td><strong>God's</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>101.092s</td><td>101.552s</td><td>460ms</td></tr>
+<tr><td>221</td><td><strong>great</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>101.552s</td><td>101.792s</td><td>240ms</td></tr>
+<tr><td>222</td><td><strong>works</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>101.792s</td><td>102.292s</td><td>500ms</td></tr>
+<tr><td>223</td><td><strong>with</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>102.292s</td><td>102.632s</td><td>340ms</td></tr>
+<tr><td>224</td><td><strong>everyone.</strong></td><td><code>clip_mlmz73gu_m</code></td><td>15</td><td>102.632s</td><td>103.212s</td><td>580ms</td></tr>
+<tr><td>225</td><td><strong>So</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>103.212s</td><td>103.812s</td><td>600ms</td></tr>
+<tr><td>226</td><td><strong>I</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>103.812s</td><td>104.032s</td><td>220ms</td></tr>
+<tr><td>227</td><td><strong>thank</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>104.032s</td><td>104.252s</td><td>220ms</td></tr>
+<tr><td>228</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>104.252s</td><td>104.512s</td><td>260ms</td></tr>
+<tr><td>229</td><td><strong>regularly</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>104.512s</td><td>105.172s</td><td>660ms</td></tr>
+<tr><td>230</td><td><strong>for</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>105.172s</td><td>106.272s</td><td>1100ms</td></tr>
+<tr><td>231</td><td><strong>my</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>106.272s</td><td>106.532s</td><td>260ms</td></tr>
+<tr><td>232</td><td><strong>role</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>106.532s</td><td>106.832s</td><td>300ms</td></tr>
+<tr><td>233</td><td><strong>in</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>106.832s</td><td>107.032s</td><td>200ms</td></tr>
+<tr><td>234</td><td><strong>partaking</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>107.032s</td><td>107.472s</td><td>440ms</td></tr>
+<tr><td>235</td><td><strong>in</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>107.472s</td><td>107.632s</td><td>160ms</td></tr>
+<tr><td>236</td><td><strong>creation</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>107.632s</td><td>108.032s</td><td>400ms</td></tr>
+<tr><td>237</td><td><strong>as</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>108.032s</td><td>109.292s</td><td>1260ms</td></tr>
+<tr><td>238</td><td><strong>I</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>109.292s</td><td>109.512s</td><td>220ms</td></tr>
+<tr><td>239</td><td><strong>create</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>109.512s</td><td>109.792s</td><td>280ms</td></tr>
+<tr><td>240</td><td><strong>these</strong></td><td><code>clip_mlmz73gu_n</code></td><td>16</td><td>109.792s</td><td>110.012s</td><td>220ms</td></tr>
+<tr><td>241</td><td><strong>things</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>110.012s</td><td>110.212s</td><td>200ms</td></tr>
+<tr><td>242</td><td><strong>for</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>110.212s</td><td>110.472s</td><td>260ms</td></tr>
+<tr><td>243</td><td><strong>your</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>110.472s</td><td>110.632s</td><td>160ms</td></tr>
+<tr><td>244</td><td><strong>benefit</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>110.632s</td><td>111.072s</td><td>440ms</td></tr>
+<tr><td>245</td><td><strong>just</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>111.072s</td><td>111.972s</td><td>900ms</td></tr>
+<tr><td>246</td><td><strong>as</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>111.972s</td><td>112.252s</td><td>280ms</td></tr>
+<tr><td>247</td><td><strong>God</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>112.252s</td><td>112.532s</td><td>280ms</td></tr>
+<tr><td>248</td><td><strong>created</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>112.532s</td><td>113.032s</td><td>500ms</td></tr>
+<tr><td>249</td><td><strong>all</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>113.032s</td><td>113.352s</td><td>320ms</td></tr>
+<tr><td>250</td><td><strong>things</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>113.352s</td><td>113.652s</td><td>300ms</td></tr>
+<tr><td>251</td><td><strong>for</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>113.652s</td><td>114.072s</td><td>420ms</td></tr>
+<tr><td>252</td><td><strong>our</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>114.072s</td><td>114.212s</td><td>140ms</td></tr>
+<tr><td>253</td><td><strong>benefit.</strong></td><td><code>clip_mlmz73gu_o</code></td><td>17</td><td>114.212s</td><td>114.652s</td><td>440ms</td></tr>
+<tr><td>254</td><td><strong>This</strong></td><td><code>clip_mlmz73gu_p</code></td><td>17</td><td>116.392s</td><td>116.992s</td><td>600ms</td></tr>
+<tr><td>255</td><td><strong>This</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>117.872s</td><td>118.472s</td><td>600ms</td></tr>
+<tr><td>256</td><td><strong>reminds</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>118.472s</td><td>118.752s</td><td>280ms</td></tr>
+<tr><td>257</td><td><strong>me</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>118.752s</td><td>119.032s</td><td>280ms</td></tr>
+<tr><td>258</td><td><strong>that</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>119.032s</td><td>119.252s</td><td>220ms</td></tr>
+<tr><td>259</td><td><strong>nothing</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>119.252s</td><td>119.852s</td><td>600ms</td></tr>
+<tr><td>260</td><td><strong>is</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>119.852s</td><td>120.432s</td><td>580ms</td></tr>
+<tr><td>261</td><td><strong>impossible</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>120.432s</td><td>120.992s</td><td>560ms</td></tr>
+<tr><td>262</td><td><strong>through</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>120.992s</td><td>121.472s</td><td>480ms</td></tr>
+<tr><td>263</td><td><strong>Christ</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>121.472s</td><td>121.732s</td><td>260ms</td></tr>
+<tr><td>264</td><td><strong>who</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>121.732s</td><td>121.992s</td><td>260ms</td></tr>
+<tr><td>265</td><td><strong>gives</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>121.992s</td><td>122.172s</td><td>180ms</td></tr>
+<tr><td>266</td><td><strong>me</strong></td><td><code>clip_mlmz4kux_3</code></td><td>19</td><td>122.172s</td><td>122.352s</td><td>180ms</td></tr>
+<tr><td>267</td><td><strong>the</strong></td><td><code>clip_mlmz5wv3_4</code></td><td>20</td><td>124.312s</td><td>124.752s</td><td>440ms</td></tr>
+<tr><td>268</td><td><strong>one</strong></td><td><code>clip_mlmz5wv3_4</code></td><td>20</td><td>124.752s</td><td>124.952s</td><td>200ms</td></tr>
+<tr><td>269</td><td><strong>who</strong></td><td><code>clip_mlmz5wv3_4</code></td><td>20</td><td>124.952s</td><td>125.132s</td><td>180ms</td></tr>
+<tr><td>270</td><td><strong>your</strong></td><td><code>clip_mlmz73gu_q</code></td><td>21</td><td>127.472s</td><td>127.792s</td><td>320ms</td></tr>
+<tr><td>271</td><td><strong>life</strong></td><td><code>clip_mlmz73gu_q</code></td><td>21</td><td>127.792s</td><td>128.092s</td><td>300ms</td></tr>
+<tr><td>272</td><td><strong>too.</strong></td><td><code>clip_mlmz73gu_q</code></td><td>21</td><td>128.092s</td><td>128.492s</td><td>400ms</td></tr>
+<tr><td>273</td><td><strong>What</strong></td><td><code>clip_mlmz68kh_5</code></td><td>22</td><td>128.492s</td><td>129.152s</td><td>660ms</td></tr>
+<tr><td>274</td><td><strong>death</strong></td><td><code>clip_mlmz68kh_5</code></td><td>22</td><td>129.152s</td><td>129.472s</td><td>320ms</td></tr>
+<tr><td>275</td><td><strong>have</strong></td><td><code>clip_mlmz68kh_5</code></td><td>22</td><td>129.472s</td><td>129.752s</td><td>280ms</td></tr>
+<tr><td>276</td><td><strong>you</strong></td><td><code>clip_mlmz68kh_5</code></td><td>22</td><td>129.752s</td><td>129.932s</td><td>180ms</td></tr>
+<tr><td>277</td><td><strong>And</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>131.672s</td><td>132.232s</td><td>560ms</td></tr>
+<tr><td>278</td><td><strong>how</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>132.232s</td><td>132.432s</td><td>200ms</td></tr>
+<tr><td>279</td><td><strong>does</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>132.432s</td><td>132.592s</td><td>160ms</td></tr>
+<tr><td>280</td><td><strong>he</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>132.592s</td><td>132.752s</td><td>160ms</td></tr>
+<tr><td>281</td><td><strong>speak</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>132.752s</td><td>133.032s</td><td>280ms</td></tr>
+<tr><td>282</td><td><strong>you</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>133.032s</td><td>133.292s</td><td>260ms</td></tr>
+<tr><td>283</td><td><strong>into</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>133.292s</td><td>133.572s</td><td>280ms</td></tr>
+<tr><td>284</td><td><strong>being</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>133.572s</td><td>133.872s</td><td>300ms</td></tr>
+<tr><td>285</td><td><strong>and</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>133.872s</td><td>134.172s</td><td>300ms</td></tr>
+<tr><td>286</td><td><strong>life?</strong></td><td><code>clip_mlmz6ncf_6</code></td><td>28</td><td>134.172s</td><td>134.392s</td><td>220ms</td></tr>
+<tr><td>287</td><td><strong>Share</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>134.392s</td><td>134.812s</td><td>420ms</td></tr>
+<tr><td>288</td><td><strong>your</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>134.812s</td><td>134.972s</td><td>160ms</td></tr>
+<tr><td>289</td><td><strong>revelations</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>134.972s</td><td>135.432s</td><td>460ms</td></tr>
+<tr><td>290</td><td><strong>in</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>135.432s</td><td>135.632s</td><td>200ms</td></tr>
+<tr><td>291</td><td><strong>the</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>135.632s</td><td>135.712s</td><td>80ms</td></tr>
+<tr><td>292</td><td><strong>comments.</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>135.712s</td><td>136.212s</td><td>500ms</td></tr>
+<tr><td>293</td><td><strong>In</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>137.132s</td><td>137.552s</td><td>420ms</td></tr>
+<tr><td>294</td><td><strong>love</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>137.552s</td><td>137.692s</td><td>140ms</td></tr>
+<tr><td>295</td><td><strong>and</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>137.692s</td><td>137.852s</td><td>160ms</td></tr>
+<tr><td>296</td><td><strong>unity,</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>137.852s</td><td>138.132s</td><td>280ms</td></tr>
+<tr><td>297</td><td><strong>Ace</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>138.352s</td><td>138.472s</td><td>120ms</td></tr>
+<tr><td>298</td><td><strong>of</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>138.472s</td><td>138.612s</td><td>140ms</td></tr>
+<tr><td>299</td><td><strong>El.</strong></td><td><code>clip_mlmz73gu_r</code></td><td>29</td><td>138.612s</td><td>138.712s</td><td>100ms</td></tr>
+</table></div>
+<h2>Clip Boundary Table</h2>
+<div class="table-container">
+<table>
+<tr><th>Clip ID</th><th>Clip Name</th><th>Assembly Start</th><th>Assembly End</th><th>Duration</th></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>0.000s</td><td>1.262s</td><td>1.262s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>1.721s</td><td>4.293s</td><td>2.572s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>5.327s</td><td>6.453s</td><td>1.126s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>8.147s</td><td>10.802s</td><td>2.655s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>12.332s</td><td>15.331s</td><td>2.999s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>16.358s</td><td>18.019s</td><td>1.661s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>20.301s</td><td>22.800s</td><td>2.499s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>27.520s</td><td>30.005s</td><td>2.485s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>31.989s</td><td>37.749s</td><td>5.760s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>39.433s</td><td>42.886s</td><td>3.453s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>43.914s</td><td>45.700s</td><td>1.786s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>47.648s</td><td>50.886s</td><td>3.238s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>52.451s</td><td>53.777s</td><td>1.326s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>56.322s</td><td>58.110s</td><td>1.788s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>59.532s</td><td>62.483s</td><td>2.951s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>63.607s</td><td>66.307s</td><td>2.700s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>67.275s</td><td>68.493s</td><td>1.218s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>69.091s</td><td>70.851s</td><td>1.760s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>71.544s</td><td>72.763s</td><td>1.219s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>73.731s</td><td>75.523s</td><td>1.792s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>79.609s</td><td>80.995s</td><td>1.386s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>82.417s</td><td>89.639s</td><td>7.222s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>90.463s</td><td>92.387s</td><td>1.924s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>93.366s</td><td>95.458s</td><td>2.092s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>95.948s</td><td>96.856s</td><td>0.908s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>97.286s</td><td>99.341s</td><td>2.055s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>100.643s</td><td>102.770s</td><td>2.127s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>104.264s</td><td>105.294s</td><td>1.030s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>105.748s</td><td>107.158s</td><td>1.410s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>108.030s</td><td>109.237s</td><td>1.207s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>110.563s</td><td>111.997s</td><td>1.434s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>112.857s</td><td>114.709s</td><td>1.852s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>115.940s</td><td>118.158s</td><td>2.218s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>119.723s</td><td>127.140s</td><td>7.417s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>129.434s</td><td>131.692s</td><td>2.258s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>132.135s</td><td>134.381s</td><td>2.246s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>135.086s</td><td>137.377s</td><td>2.291s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>137.747s</td><td>140.854s</td><td>3.107s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>142.753s</td><td>143.948s</td><td>1.195s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>144.187s</td><td>147.007s</td><td>2.820s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>147.712s</td><td>149.222s</td><td>1.510s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>151.731s</td><td>156.188s</td><td>4.457s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>157.681s</td><td>160.123s</td><td>2.442s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>160.314s</td><td>161.115s</td><td>0.801s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>161.330s</td><td>165.576s</td><td>4.246s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>167.739s</td><td>168.348s</td><td>0.609s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>170.236s</td><td>173.871s</td><td>3.635s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>184.111s</td><td>186.307s</td><td>2.196s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>188.840s</td><td>189.130s</td><td>0.290s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>194.077s</td><td>194.165s</td><td>0.088s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>204.776s</td><td>204.802s</td><td>0.026s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>206.821s</td><td>209.844s</td><td>3.023s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>212.497s</td><td>214.453s</td><td>1.956s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>215.338s</td><td>216.963s</td><td>1.625s</td></tr>
+<tr><td><code>clip_mlmz73gu_7</code></td><td>Where there was not God's folk, and...</td><td>218.444s</td><td>218.731s</td><td>0.287s</td></tr>
+<tr><td><code>clip_mlmz73gu_8</code></td><td>Welcome to Life is your word episod...</td><td>7.860s</td><td>10.400s</td><td>2.540s</td></tr>
+<tr><td><code>clip_mlmz73gu_9</code></td><td>In this show, we build up our under...</td><td>11.900s</td><td>17.740s</td><td>5.840s</td></tr>
+<tr><td><code>clip_mlmz73gu_a</code></td><td>Today's reading is from Genesis cha...</td><td>20.160s</td><td>22.520s</td><td>2.360s</td></tr>
+<tr><td><code>clip_mlmz73gu_b</code></td><td>When God began to create the heaven...</td><td>27.313s</td><td>37.553s</td><td>10.240s</td></tr>
+<tr><td><code>clip_mlmz40lf_1</code></td><td>wind</td><td>39.473s</td><td>41.073s</td><td>1.600s</td></tr>
+<tr><td><code>clip_mlmz73gu_c</code></td><td>swept over the face of the waters,...</td><td>42.793s</td><td>50.553s</td><td>7.760s</td></tr>
+<tr><td><code>clip_mlmz73gu_d</code></td><td>And God saw that the light was good...</td><td>51.993s</td><td>61.933s</td><td>9.940s</td></tr>
+<tr><td><code>clip_mlmz73gu_e</code></td><td>God created humans in the image of...</td><td>63.513s</td><td>75.413s</td><td>11.900s</td></tr>
+<tr><td><code>clip_mlmz73gu_f</code></td><td>In my past death, I lived in comple...</td><td>79.349s</td><td>88.529s</td><td>9.180s</td></tr>
+<tr><td><code>clip_mlmz73gu_g</code></td><td>my face.</td><td>88.529s</td><td>89.429s</td><td>0.900s</td></tr>
+<tr><td><code>clip_mlmz73gu_h</code></td><td>I stopped listening to God's voice</td><td>90.489s</td><td>92.069s</td><td>1.580s</td></tr>
+<tr><td><code>clip_mlmz4a81_2</code></td><td>race</td><td>95.509s</td><td>99.449s</td><td>3.940s</td></tr>
+<tr><td><code>clip_mlmz73gu_i</code></td><td>rather than by Christ living in me.</td><td>99.449s</td><td>102.909s</td><td>3.460s</td></tr>
+<tr><td><code>clip_mlmz73gu_j</code></td><td>But God's, but then God spoke and I...</td><td>103.929s</td><td>108.989s</td><td>5.060s</td></tr>
+<tr><td><code>clip_mlmz73gu_k</code></td><td>Life filled me. Peace beyond human...</td><td>110.509s</td><td>114.489s</td><td>3.980s</td></tr>
+<tr><td><code>clip_mlmz73gu_l</code></td><td>Joy that defied world the authoriti...</td><td>115.969s</td><td>117.889s</td><td>1.920s</td></tr>
+<tr><td><code>clip_mlmz73gu_m</code></td><td>And I became compelled to shout God...</td><td>119.309s</td><td>126.809s</td><td>7.500s</td></tr>
+<tr><td><code>clip_mlmz73gu_n</code></td><td>So I thank God regularly for my rol...</td><td>129.213s</td><td>136.013s</td><td>6.800s</td></tr>
+<tr><td><code>clip_mlmz73gu_o</code></td><td>things for your benefit just as God...</td><td>136.013s</td><td>142.393s</td><td>6.380s</td></tr>
+<tr><td><code>clip_mlmz73gu_p</code></td><td>This reminds me,</td><td>142.393s</td><td>143.873s</td><td>1.480s</td></tr>
+<tr><td><code>clip_mlmz4kux_3</code></td><td>nothing is impossible</td><td>151.273s</td><td>157.713s</td><td>6.440s</td></tr>
+<tr><td><code>clip_mlmz5wv3_4</code></td><td>transform</td><td>161.033s</td><td>164.193s</td><td>3.160s</td></tr>
+<tr><td><code>clip_mlmz73gu_q</code></td><td>your life too.</td><td>164.193s</td><td>165.213s</td><td>1.020s</td></tr>
+<tr><td><code>clip_mlmz68kh_5</code></td><td>death lived</td><td>176.913s</td><td>180.093s</td><td>3.180s</td></tr>
+<tr><td><code>clip_mlmz6ncf_6</code></td><td>life and being</td><td>206.956s</td><td>209.676s</td><td>2.720s</td></tr>
+<tr><td><code>clip_mlmz73gu_r</code></td><td>Share your revelations in the comme...</td><td>212.343s</td><td>216.663s</td><td>4.320s</td></tr>
+</table></div>
+</div>
+</body>
+</html>

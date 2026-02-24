@@ -860,6 +860,10 @@ def main():
     parser.add_argument('--vision-model', type=str, default='qwen3-vl:32b', help='Vision model for Ollama')
     parser.add_argument('--max-vision-frames', type=int, default=200, help='Max frames for vision verification')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
+    parser.add_argument('--source-reports', action='store_true', 
+                        help='Generate authoritative source reports only')
+    parser.add_argument('--phase-evolution', action='store_true',
+                        help='Generate phase evolution visualization only')
     args = parser.parse_args()
     
     TIMING_TOLERANCE_MS = args.tolerance
@@ -882,6 +886,18 @@ def main():
     
     if args.data_dir:
         data_dir = Path(args.data_dir)
+    
+    if args.source_reports:
+        from source_reports import run_source_reports, print_source_report_summary
+        result = run_source_reports(root)
+        print_source_report_summary(result)
+        sys.exit(0 if result['success'] else 1)
+    
+    if args.phase_evolution:
+        from phase_evolution import run_phase_evolution, print_phase_summary
+        result = run_phase_evolution(root)
+        print_phase_summary(result)
+        sys.exit(0 if result['success'] else 1)
     
     print("=" * 60)
     print("CAPTION FIDELITY VERIFICATION")
