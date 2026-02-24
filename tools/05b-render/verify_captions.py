@@ -131,13 +131,20 @@ def extract_verification_frames(
     
     frames = []
     
-    # Sample at first word of each event
+    # Sample at point when ALL words are visible (last word start + small buffer)
     for i, event in enumerate(caption_events[:max_frames]):
         if not event.get('words'):
             continue
         
         first_word = event['words'][0]
-        output_time = event['output_start'] + (first_word['start'] - event['original_start'])
+        last_word = event['words'][-1]
+        
+        # Calculate when last word appears (progressive reveal complete)
+        last_word_appears = event['output_start'] + (last_word['start'] - event['original_start'])
+        line_ends = event['output_start'] + (last_word['end'] - event['original_start'])
+        
+        # Extract just after last word appears (when full line is visible)
+        output_time = last_word_appears + 0.05  # 50ms buffer
         
         frame_name = f"frame_{i:04d}_{output_time:.2f}s.png"
         frame_path = frames_dir / frame_name

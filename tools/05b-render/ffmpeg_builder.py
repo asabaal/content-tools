@@ -6,9 +6,17 @@ from typing import List, Dict, Any, Optional
 
 
 def escape_ffmpeg_text(text: str) -> str:
-    """Escape special characters for ffmpeg drawtext filter."""
+    """Escape special characters for ffmpeg drawtext filter.
+    
+    For filter_complex_script mode:
+    - Single quotes inside single-quoted strings need special handling
+    - Use '\'' to break out of quote, add literal quote, resume quote
+    """
+    # First, escape backslashes
     text = text.replace('\\', '\\\\')
-    text = text.replace('"', '\\"')
+    # Escape single quotes using '\'' technique
+    text = text.replace("'", "'\\''")
+    # Escape other special chars
     text = text.replace(':', '\\:')
     text = text.replace('%', '\\%')
     text = text.replace(',', '\\,')
@@ -67,7 +75,7 @@ def build_drawtext_filter(
     
     enable_expr = f"between(t\\,{output_start:.3f}\\,{end_time:.3f})"
     
-    filter_str = f"drawtext=text=\"{escaped_text}\":fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x=(w-text_w)/2:y={y_pos}"
+    filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x=(w-text_w)/2:y={y_pos}"
     
     if background == 'dark_box':
         filter_str += f":box=1:boxcolor=black@0.7:boxborderw=10"
@@ -126,7 +134,7 @@ def build_colored_word_filters(
         
         enable_expr = f"between(t\\,{output_start:.3f}\\,{output_start + (word_end - word_start):.3f})"
         
-        filter_str = f"drawtext=text=\"{escaped_text}\":fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_pos}"
+        filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_pos}"
         
         if background == 'dark_box':
             filter_str += f":box=1:boxcolor=black@0.7:boxborderw=5"
@@ -158,7 +166,7 @@ def build_segment_caption_filter(
     output_start = event['output_start']
     output_end = event['output_end']
     
-    filter_str = f"drawtext=text=\"\":fontfile={font_path}:fontsize={font_size}:fontcolor=white:x=(w-text_w)/2:y={get_y_position(position, font_size)}"
+    filter_str = f"drawtext=text='':fontfile={font_path}:fontsize={font_size}:fontcolor=white:x=(w-text_w)/2:y={get_y_position(position, font_size)}"
     filter_str += f":enable=between(t\\,{output_start:.3f}\\,{output_end:.3f})"
     
     return filter_str
@@ -214,18 +222,41 @@ def build_filter_graph(
         for line_idx, line in enumerate(lines):
             line_y_offset = line_idx * (font_size + 10)
             
+            # Calculate line timing
+            line_start = min(output_start + (w['start'] - event['original_start']) for w in line)
+            line_end = max(output_start + (w['end'] - event['original_start']) for w in line)
+            
             x_offset = 0
             line_text = ' '.join(w.get('text', '') for w in line)
             total_width = len(line_text) * char_width
             
+            # Add single background box for entire line (if dark_box mode)
+            if background == 'dark_box':
+                box_padding = 8
+                box_w = int(total_width + box_padding * 2)
+                box_h = font_size + box_padding * 2
+                
+                # Calculate box position to center it
+                box_x_expr = f"(w-{box_w})/2"
+                
+                y_base = get_y_position(position, font_size)
+                if line_y_offset > 0:
+                    box_y_expr = f"{y_base}-{line_y_offset}-{box_padding}"
+                else:
+                    box_y_expr = f"{y_base}-{box_padding}"
+                
+                # Use width= and height= to avoid ambiguity with w variable in expressions
+                # Use quotes around enable expression for filter_complex_script compatibility
+                box_filter = f"drawbox=x={box_x_expr}:y={box_y_expr}:width={box_w}:height={box_h}:color=black@0.7:t=fill:enable='between(t,{line_start:.3f},{line_end:.3f})'"
+                filters.append(box_filter)
+            
+            # Add word text on top of box
             for word in line:
                 text = word.get('text', '')
                 color = word.get('color', default_color)
-                word_rel_start = word['start'] - event['original_start']
-                word_rel_end = word['end'] - event['original_start']
                 
-                word_output_start = output_start + word_rel_start
-                word_output_end = output_start + word_rel_end
+                # Each word appears at its own start time (progressive reveal)
+                word_output_start = output_start + (word['start'] - event['original_start'])
                 
                 escaped_text = escape_ffmpeg_text(text)
                 ffmpeg_color = hex_to_ffmpeg(color)
@@ -239,14 +270,14 @@ def build_filter_graph(
                 y_base = get_y_position(position, font_size)
                 y_expr = f"{y_base}-{line_y_offset}"
                 
-                filter_str = f"drawtext=text=\"{escaped_text}\":fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
+                filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
                 
-                if background == 'dark_box':
-                    filter_str += f":box=1:boxcolor=black@0.7:boxborderw=8"
-                elif background == 'outline':
+                # No individual box - using single line box instead
+                if background == 'outline':
                     filter_str += f":borderw=2:bordercolor=black"
                 
-                filter_str += f":enable=between(t\\,{word_output_start:.3f}\\,{word_output_end:.3f})"
+                # Word appears at its start, disappears at line end (progressive reveal)
+                filter_str += f":enable='between(t,{word_output_start:.3f},{line_end:.3f})'"
                 filters.append(filter_str)
                 
                 x_offset += len(text) * char_width + char_width
