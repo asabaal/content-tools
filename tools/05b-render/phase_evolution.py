@@ -167,6 +167,77 @@ def load_styling_data(project: Dict) -> Dict[str, Any]:
     }
 
 
+# === Word Survival Computation ===
+
+def compute_word_survival(project: Dict) -> Dict[str, Any]:
+    """
+    Compute word counts at each pipeline stage using the same logic as render.
+    
+    Returns accurate word counts after each tool's filtering:
+    - Phase 0: Raw transcript words
+    - Phase 1: Reviewed transcript words
+    - Phase 2: Words in selected segments only
+    - Phase 3: Words in playable segments after deletions
+    - Phase 4: Styled words from Phase 3 survivors
+    """
+    from segments import compute_timeline_clips
+    from captions import build_caption_events
+    
+    transcript = project.get('transcript', {})
+    segments = transcript.get('segments', [])
+    
+    # Phase 0: Raw transcript words (same as Phase 1 for combined transcript)
+    phase_1_count = sum(len(seg.get('words', [])) for seg in segments)
+    
+    # Phase 2: Words in selected segments only
+    clips = project.get('clips', [])
+    selected_indices = set()
+    for clip in clips:
+        if clip.get('enabled', True) and clip.get('in_timeline', True):
+            sel = clip.get('selected_segment', {})
+            seg_idx = sel.get('segment_index')
+            if seg_idx is not None:
+                selected_indices.add(seg_idx)
+    
+    phase_2_count = 0
+    for i, seg in enumerate(segments):
+        if i in selected_indices:
+            phase_2_count += len(seg.get('words', []))
+    
+    # Phase 3: Words surviving after deletions (using render pipeline logic)
+    timeline_clips = compute_timeline_clips(project)
+    caption_events = build_caption_events(project, timeline_clips)
+    phase_3_count = sum(len(event.get('words', [])) for event in caption_events)
+    
+    # Phase 4: Styled words that exist in Phase 3 survivors
+    word_colors = project.get('word_colors', {})
+    
+    # Build set of surviving word keys from caption_events
+    surviving_keys = set()
+    for event in caption_events:
+        seg_idx = event.get('segment_index', -1)
+        for word in event.get('words', []):
+            word_idx = word.get('word_index', -1)
+            if seg_idx >= 0 and word_idx >= 0:
+                surviving_keys.add(f"{seg_idx}_{word_idx}")
+    
+    # Count styled words that are in survivors
+    phase_4_styled = sum(1 for key in word_colors.keys() if key in surviving_keys)
+    
+    return {
+        'phase_0': phase_1_count,  # Raw = reviewed for combined transcript
+        'phase_1': phase_1_count,
+        'phase_2': phase_2_count,
+        'phase_3': phase_3_count,
+        'phase_4_styled': phase_4_styled,
+        'loss_phase_01': 0,  # No loss between raw and reviewed
+        'loss_phase_12': phase_1_count - phase_2_count,
+        'loss_phase_23': phase_2_count - phase_3_count,
+        'total_loss': phase_1_count - phase_3_count,
+        'surviving_keys': surviving_keys
+    }
+
+
 # === Diff Computation ===
 
 def compute_phase01_diff(raw: Dict, reviewed: Dict) -> Dict[str, Any]:
@@ -232,7 +303,7 @@ def extract_all_words(segments: List[Dict]) -> List[Dict]:
     return words
 
 
-def compute_phase12_selection(reviewed: Dict, clips: List[Dict]) -> Dict[str, Any]:
+def compute_phase12_selection(reviewed: Dict, clips: List[Dict], word_survival: Dict) -> Dict[str, Any]:
     """Compute Phase 1 to Phase 2 - segment selection changes."""
     segments = reviewed.get('segments', [])
     total_segments = len(segments)
@@ -245,16 +316,24 @@ def compute_phase12_selection(reviewed: Dict, clips: List[Dict]) -> Dict[str, An
     
     excluded_indices = set(range(total_segments)) - selected_indices
     
+    # Count words in excluded segments for reporting
+    excluded_word_count = 0
+    for i in excluded_indices:
+        if i < len(segments):
+            excluded_word_count += len(segments[i].get('words', []))
+    
     return {
         'total_segments': total_segments,
         'segments_included': len(selected_indices),
         'segments_excluded': len(excluded_indices),
         'included_indices': sorted(selected_indices),
-        'excluded_indices': sorted(excluded_indices)
+        'excluded_indices': sorted(excluded_indices),
+        'phase_2_word_count': word_survival.get('phase_2', 0),
+        'words_lost_from_phase_1': word_survival.get('loss_phase_12', 0)
     }
 
 
-def compute_phase23_timing(reviewed: Dict, assembly: Dict) -> Dict[str, Any]:
+def compute_phase23_timing(reviewed: Dict, assembly: Dict, word_survival: Dict) -> Dict[str, Any]:
     """Compute Phase 2 to Phase 3 - timing shifts from assembly edits."""
     clips = assembly.get('clips', [])
     
@@ -282,12 +361,14 @@ def compute_phase23_timing(reviewed: Dict, assembly: Dict) -> Dict[str, Any]:
         'clips_with_deletions': clips_with_deletions,
         'total_deleted_regions': total_deleted_regions,
         'total_deleted_duration': total_deleted_duration,
-        'shifts': all_shifts[:100]
+        'shifts': all_shifts[:100],
+        'phase_3_word_count': word_survival.get('phase_3', 0),
+        'words_lost_from_phase_2': word_survival.get('loss_phase_23', 0)
     }
 
 
-def compute_phase34_styling(project: Dict) -> Dict[str, Any]:
-    """Compute Phase 3 to Phase 4 - styling application."""
+def compute_phase34_styling(project: Dict, word_survival: Dict) -> Dict[str, Any]:
+    """Compute Phase 3 to Phase 4 - styling application with validation."""
     word_colors = project.get('word_colors', {})
     caption_breaks = project.get('caption_breaks', {})
     caption_style = project.get('caption_style', {})
@@ -295,12 +376,33 @@ def compute_phase34_styling(project: Dict) -> Dict[str, Any]:
     total_breaks = sum(len(breaks) for breaks in caption_breaks.values())
     segments_with_breaks = len(caption_breaks)
     
+    # Get counts from word_survival
+    phase_3_count = word_survival.get('phase_3', 0)
+    surviving_keys = word_survival.get('surviving_keys', set())
+    
+    # Count styled words that are in survivors
+    surviving_styled_count = sum(1 for key in word_colors.keys() if key in surviving_keys)
+    
+    # Check for mismatch
+    total_styled_in_project = len(word_colors)
+    mismatch_warning = None
+    
+    if surviving_styled_count != phase_3_count:
+        mismatch_warning = (
+            f"STYLED WORD COUNT MISMATCH: {surviving_styled_count} styled words "
+            f"vs {phase_3_count} surviving words. "
+            f"Total styled entries in project: {total_styled_in_project}"
+        )
+    
     return {
-        'styled_word_count': len(word_colors),
+        'styled_word_count': total_styled_in_project,
+        'surviving_styled_count': surviving_styled_count,
+        'phase_3_surviving_count': phase_3_count,
         'caption_break_count': total_breaks,
         'segments_with_breaks': segments_with_breaks,
         'caption_style': caption_style,
-        'word_colors_sample': dict(list(word_colors.items())[:20])
+        'word_colors_sample': dict(list(word_colors.items())[:20]),
+        'mismatch_warning': mismatch_warning
     }
 
 
@@ -886,6 +988,7 @@ def generate_metrics_html(diffs: Dict) -> str:
     p12 = diffs.get('phase12', {})
     p23 = diffs.get('phase23', {})
     p34 = diffs.get('phase34', {})
+    ws = diffs.get('word_survival', {})
     
     timing_shifts = p01.get('timing_modified', [])
     mean_shift = 0
@@ -895,7 +998,50 @@ def generate_metrics_html(diffs: Dict) -> str:
         mean_shift = sum(shifts) / len(shifts)
         max_shift = max(shifts)
     
+    # Generate warning banner if mismatch
+    warning_html = ''
+    if p34.get('mismatch_warning'):
+        warning_html = f'''
+        <div class="warning-banner" style="background:#f56565;color:white;padding:15px;border-radius:6px;margin-bottom:20px;">
+            <strong>WARNING:</strong> {p34['mismatch_warning']}
+        </div>
+        '''
+    
     return f'''
+        {warning_html}
+        
+        <div class="survival-section" style="background:#0f0f1a;padding:15px;border-radius:6px;margin-bottom:15px;">
+            <h3 style="color:#4cc9f0;margin-bottom:10px;font-size:14px;">Word Survival Summary</h3>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;">
+                <span style="background:#16213e;padding:8px 12px;border-radius:4px;">
+                    <strong>Phase 0:</strong> {ws.get('phase_0', 0)}
+                </span>
+                <span style="color:#888;">→</span>
+                <span style="background:#16213e;padding:8px 12px;border-radius:4px;">
+                    <strong>Phase 1:</strong> {ws.get('phase_1', 0)}
+                    <span style="color:#888;font-size:11px;">({ws.get('loss_phase_01', 0)} lost)</span>
+                </span>
+                <span style="color:#888;">→</span>
+                <span style="background:#16213e;padding:8px 12px;border-radius:4px;">
+                    <strong>Phase 2:</strong> {ws.get('phase_2', 0)}
+                    <span style="color:#f56565;font-size:11px;">(-{ws.get('loss_phase_12', 0)})</span>
+                </span>
+                <span style="color:#888;">→</span>
+                <span style="background:#16213e;padding:8px 12px;border-radius:4px;">
+                    <strong>Phase 3:</strong> {ws.get('phase_3', 0)}
+                    <span style="color:#f56565;font-size:11px;">(-{ws.get('loss_phase_23', 0)})</span>
+                </span>
+                <span style="color:#888;">→</span>
+                <span style="background:#cb697f;color:#0f0f1a;padding:8px 12px;border-radius:4px;">
+                    <strong>Final:</strong> {ws.get('phase_3', 0)} rendered
+                </span>
+            </div>
+            <p style="margin-top:10px;color:#888;font-size:12px;">
+                Total attrition: <strong style="color:#f56565;">-{ws.get('total_loss', 0)} words</strong> 
+                ({(ws.get('total_loss', 0) / max(1, ws.get('phase_0', 1)) * 100):.1f}% of original)
+            </p>
+        </div>
+        
         <div class="metric-card">
             <h3>Raw Words (Phase 0)</h3>
             <div class="metric-value">{p01.get('total_raw_words', 0)}</div>
@@ -904,25 +1050,25 @@ def generate_metrics_html(diffs: Dict) -> str:
             <h3>Reviewed Words (Phase 1)</h3>
             <div class="metric-value">{p01.get('total_reviewed_words', 0)}</div>
         </div>
-        <div class="metric-card added">
-            <h3>Words Added</h3>
-            <div class="metric-value">{p01.get('words_added', 0)}</div>
+        <div class="metric-card">
+            <h3>After Selection (Phase 2)</h3>
+            <div class="metric-value">{ws.get('phase_2', 0)}</div>
+        </div>
+        <div class="metric-card">
+            <h3>After Deletions (Phase 3)</h3>
+            <div class="metric-value" style="color:#48bb78;">{ws.get('phase_3', 0)}</div>
         </div>
         <div class="metric-card deleted">
-            <h3>Words Deleted</h3>
-            <div class="metric-value">{p01.get('words_deleted', 0)}</div>
+            <h3>Lost to Selection</h3>
+            <div class="metric-value">-{ws.get('loss_phase_12', 0)}</div>
+        </div>
+        <div class="metric-card deleted">
+            <h3>Lost to Deletions</h3>
+            <div class="metric-value">-{ws.get('loss_phase_23', 0)}</div>
         </div>
         <div class="metric-card modified">
             <h3>Timing Modified</h3>
             <div class="metric-value">{p01.get('timing_modified_count', 0)}</div>
-        </div>
-        <div class="metric-card">
-            <h3>Segments Included</h3>
-            <div class="metric-value">{p12.get('segments_included', 0)}/{p12.get('total_segments', 0)}</div>
-        </div>
-        <div class="metric-card">
-            <h3>Deleted Regions</h3>
-            <div class="metric-value">{p23.get('total_deleted_regions', 0)}</div>
         </div>
         <div class="metric-card">
             <h3>Mean Timing Shift</h3>
@@ -934,7 +1080,7 @@ def generate_metrics_html(diffs: Dict) -> str:
         </div>
         <div class="metric-card styled">
             <h3>Styled Words</h3>
-            <div class="metric-value">{p34.get('styled_word_count', 0)}</div>
+            <div class="metric-value">{p34.get('surviving_styled_count', p34.get('styled_word_count', 0))}</div>
         </div>
         <div class="metric-card styled">
             <h3>Caption Breaks</h3>
@@ -1088,6 +1234,7 @@ def generate_diff_html(diffs: Dict, unified: Dict) -> str:
     p12 = diffs.get('phase12', {})
     p23 = diffs.get('phase23', {})
     p34 = diffs.get('phase34', {})
+    ws = diffs.get('word_survival', {})
     
     timing_rows = []
     for tm in p01.get('timing_modified', [])[:20]:
@@ -1111,10 +1258,19 @@ def generate_diff_html(diffs: Dict, unified: Dict) -> str:
             </tr>
         ''')
     
+    mismatch_alert = ''
+    if p34.get('mismatch_warning'):
+        mismatch_alert = f'''
+        <div style="background:#f56565;color:white;padding:10px;border-radius:4px;margin-top:10px;">
+            <strong>WARNING:</strong> {p34['mismatch_warning']}
+        </div>
+        '''
+    
     return f'''
         <div class="diff-phase">
             <h3>Phase 0 → Phase 1: Text & Timing Changes</h3>
-            <p>Words added: {p01.get('words_added', 0)} | Words deleted: {p01.get('words_deleted', 0)} | Timing modified: {p01.get('timing_modified_count', 0)}</p>
+            <p>Words: {ws.get('phase_0', 0)} → {ws.get('phase_1', 0)} ({ws.get('loss_phase_01', 0)} lost)</p>
+            <p>Text changes - Added: {p01.get('words_added', 0)} | Deleted: {p01.get('words_deleted', 0)} | Timing modified: {p01.get('timing_modified_count', 0)}</p>
             
             <h4 style="margin-top:15px;color:#ecc94b">Timing Modifications (first 20)</h4>
             <table class="diff-table">
@@ -1124,20 +1280,24 @@ def generate_diff_html(diffs: Dict, unified: Dict) -> str:
         </div>
         
         <div class="diff-phase">
-            <h3>Phase 1 → Phase 2: Segment Selection</h3>
+            <h3>Phase 1 → Phase 2: Segment Selection (Tool 03)</h3>
+            <p><strong>Word count: {ws.get('phase_1', 0)} → {ws.get('phase_2', 0)} (lost {ws.get('loss_phase_12', 0)} words)</strong></p>
             <p>Segments included: {p12.get('segments_included', 0)} | Segments excluded: {p12.get('segments_excluded', 0)}</p>
             <p>Excluded segment indices: {", ".join(map(str, p12.get('excluded_indices', [])[:20]))}</p>
         </div>
         
         <div class="diff-phase">
-            <h3>Phase 2 → Phase 3: Assembly Timing</h3>
+            <h3>Phase 2 → Phase 3: Assembly Timing (Tool 04)</h3>
+            <p><strong>Word count: {ws.get('phase_2', 0)} → {ws.get('phase_3', 0)} (lost {ws.get('loss_phase_23', 0)} words)</strong></p>
             <p>Clips with trim: {p23.get('clips_with_trim', 0)} | Clips with deletions: {p23.get('clips_with_deletions', 0)} | Total deleted regions: {p23.get('total_deleted_regions', 0)}</p>
             <p>Total deleted duration: {p23.get('total_deleted_duration', 0):.2f}s</p>
         </div>
         
         <div class="diff-phase">
-            <h3>Phase 3 → Phase 4: Styling Applied</h3>
-            <p>Styled words: {p34.get('styled_word_count', 0)} | Caption breaks: {p34.get('caption_break_count', 0)} | Segments with breaks: {p34.get('segments_with_breaks', 0)}</p>
+            <h3>Phase 3 → Phase 4: Styling Applied (Tool 05)</h3>
+            <p><strong>Surviving words to render: {ws.get('phase_3', 0)} | Styled: {p34.get('surviving_styled_count', 0)}</strong></p>
+            <p>Caption breaks: {p34.get('caption_break_count', 0)} | Segments with breaks: {p34.get('segments_with_breaks', 0)}</p>
+            {mismatch_alert}
             
             <h4 style="margin-top:15px;color:#cb697f">Word Color Assignments</h4>
             <table class="diff-table">
@@ -1150,6 +1310,9 @@ def generate_diff_html(diffs: Dict, unified: Dict) -> str:
 
 def generate_json_export(unified: Dict, diffs: Dict) -> Dict[str, Any]:
     """Generate JSON export of all phase data."""
+    ws = diffs.get('word_survival', {})
+    p34 = diffs.get('phase34', {})
+    
     return {
         'metadata': {
             'generated_at': datetime.now().isoformat(),
@@ -1157,25 +1320,45 @@ def generate_json_export(unified: Dict, diffs: Dict) -> Dict[str, Any]:
         },
         'phases': {
             'phase_0_raw': {
-                'word_count': len(unified.get('phase_0', {}).get('words', [])),
+                'word_count': ws.get('phase_0', 0),
                 'words': unified.get('phase_0', {}).get('words', [])[:100]
             },
             'phase_1_reviewed': {
-                'word_count': len(unified.get('phase_1', {}).get('words', [])),
+                'word_count': ws.get('phase_1', 0),
                 'words': unified.get('phase_1', {}).get('words', [])[:100]
             },
-            'phase_2_selection': unified.get('phase_2', {}),
-            'phase_3_assembly': unified.get('phase_3', {}),
-            'phase_4_styling': unified.get('phase_4', {})
+            'phase_2_selection': {
+                'word_count': ws.get('phase_2', 0),
+                'segments': unified.get('phase_2', {}).get('segments', [])
+            },
+            'phase_3_assembly': {
+                'word_count': ws.get('phase_3', 0),
+                'regions': unified.get('phase_3', {}).get('regions', [])
+            },
+            'phase_4_styling': {
+                'styled_count': p34.get('surviving_styled_count', 0),
+                'styling': unified.get('phase_4', {}).get('styling', [])[:100]
+            }
         },
         'diffs': diffs,
+        'word_survival': ws,
         'summary': {
+            'phase_0_words': ws.get('phase_0', 0),
+            'phase_1_words': ws.get('phase_1', 0),
+            'phase_2_words': ws.get('phase_2', 0),
+            'phase_3_words': ws.get('phase_3', 0),
+            'final_rendered_words': ws.get('phase_3', 0),
+            'loss_phase_01': ws.get('loss_phase_01', 0),
+            'loss_phase_12': ws.get('loss_phase_12', 0),
+            'loss_phase_23': ws.get('loss_phase_23', 0),
+            'total_loss': ws.get('total_loss', 0),
             'words_added': diffs.get('phase01', {}).get('words_added', 0),
             'words_deleted': diffs.get('phase01', {}).get('words_deleted', 0),
             'segments_excluded': diffs.get('phase12', {}).get('segments_excluded', 0),
             'timing_modified_count': diffs.get('phase01', {}).get('timing_modified_count', 0),
-            'styled_word_count': diffs.get('phase34', {}).get('styled_word_count', 0),
-            'caption_break_count': diffs.get('phase34', {}).get('caption_break_count', 0)
+            'styled_word_count': p34.get('surviving_styled_count', 0),
+            'caption_break_count': p34.get('caption_break_count', 0),
+            'mismatch_warning': p34.get('mismatch_warning')
         }
     }
 
@@ -1212,13 +1395,31 @@ def run_phase_evolution(root: Path) -> Dict[str, Any]:
     print("Loading Phase 4 - Styling...")
     styling = load_styling_data(project)
     
+    print("Computing word survival across phases...")
+    word_survival = compute_word_survival(project)
+    
     print("Computing diffs...")
     diffs = {
         'phase01': compute_phase01_diff(raw, reviewed),
-        'phase12': compute_phase12_selection(reviewed, selection),
-        'phase23': compute_phase23_timing(reviewed, assembly),
-        'phase34': compute_phase34_styling(project)
+        'phase12': compute_phase12_selection(reviewed, selection, word_survival),
+        'phase23': compute_phase23_timing(reviewed, assembly, word_survival),
+        'phase34': compute_phase34_styling(project, word_survival),
+        'word_survival': {
+            'phase_0': word_survival['phase_0'],
+            'phase_1': word_survival['phase_1'],
+            'phase_2': word_survival['phase_2'],
+            'phase_3': word_survival['phase_3'],
+            'phase_4_styled': word_survival['phase_4_styled'],
+            'loss_phase_01': word_survival['loss_phase_01'],
+            'loss_phase_12': word_survival['loss_phase_12'],
+            'loss_phase_23': word_survival['loss_phase_23'],
+            'total_loss': word_survival['total_loss']
+        }
     }
+    
+    # Check for mismatch warning
+    if diffs['phase34'].get('mismatch_warning'):
+        print(f"WARNING: {diffs['phase34']['mismatch_warning']}")
     
     print("Building unified timeline...")
     unified = build_unified_timeline(raw, reviewed, selection, assembly, 
@@ -1260,13 +1461,26 @@ def print_phase_summary(result: Dict[str, Any]) -> None:
     print(f"JSON export: {result['json_path']}")
     
     summary = result.get('summary', {})
-    print("\nSummary:")
-    print(f"  Words added (review): {summary.get('words_added', 0)}")
-    print(f"  Words deleted (review): {summary.get('words_deleted', 0)}")
+    
+    print("\n" + "-" * 40)
+    print("WORD SURVIVAL ACROSS PHASES:")
+    print("-" * 40)
+    print(f"  Phase 0 (Raw):           {summary.get('phase_0_words', 0)} words")
+    print(f"  Phase 1 (Reviewed):      {summary.get('phase_1_words', 0)} words ({summary.get('loss_phase_01', 0)} lost)")
+    print(f"  Phase 2 (Selection):     {summary.get('phase_2_words', 0)} words (-{summary.get('loss_phase_12', 0)})")
+    print(f"  Phase 3 (Deletions):     {summary.get('phase_3_words', 0)} words (-{summary.get('loss_phase_23', 0)})")
+    print(f"  Final Rendered:          {summary.get('final_rendered_words', 0)} words")
+    print(f"\n  Total attrition:         -{summary.get('total_loss', 0)} words")
+    
+    print("\n" + "-" * 40)
+    print("OTHER METRICS:")
+    print("-" * 40)
     print(f"  Timing modified: {summary.get('timing_modified_count', 0)}")
-    print(f"  Segments excluded: {summary.get('segments_excluded', 0)}")
     print(f"  Styled words: {summary.get('styled_word_count', 0)}")
     print(f"  Caption breaks: {summary.get('caption_break_count', 0)}")
+    
+    if summary.get('mismatch_warning'):
+        print(f"\n  WARNING: {summary['mismatch_warning']}")
     
     print("\n" + "=" * 60)
 
