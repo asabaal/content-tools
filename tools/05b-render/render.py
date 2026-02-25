@@ -104,7 +104,8 @@ def main():
         caption_style,
         str(font_path),
         str(input_video),
-        str(output_video)
+        str(output_video),
+        timeline_clips=timeline_clips
     )
     
     if args.verbose:
@@ -117,7 +118,8 @@ def main():
     cmd = build_ffmpeg_command(
         str(input_video),
         str(output_video),
-        str(filter_script)
+        str(filter_script),
+        timeline_clips=timeline_clips
     )
     
     if args.dry_run or args.verbose:

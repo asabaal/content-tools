@@ -864,6 +864,8 @@ def main():
                         help='Generate authoritative source reports only')
     parser.add_argument('--phase-evolution', action='store_true',
                         help='Generate phase evolution visualization only')
+    parser.add_argument('--media-alignment', action='store_true',
+                        help='Generate media alignment visualization only')
     args = parser.parse_args()
     
     TIMING_TOLERANCE_MS = args.tolerance
@@ -897,6 +899,12 @@ def main():
         from phase_evolution import run_phase_evolution, print_phase_summary
         result = run_phase_evolution(root)
         print_phase_summary(result)
+        sys.exit(0 if result['success'] else 1)
+    
+    if args.media_alignment:
+        from media_alignment import run_media_alignment, print_alignment_summary
+        result = run_media_alignment(root)
+        print_alignment_summary(result)
         sys.exit(0 if result['success'] else 1)
     
     print("=" * 60)
