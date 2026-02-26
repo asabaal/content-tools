@@ -611,6 +611,7 @@ def build_pass2_command(input_video: str, output_video: str, filter_script_path:
         '-i', input_video,
         '-filter_complex_script', filter_script_path,
         '-map', '[vout]',
+        '-map', '0:a',
         '-c:v', 'libx264',
         '-preset', 'medium',
         '-crf', '23',
