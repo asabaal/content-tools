@@ -74,8 +74,6 @@ def build_caption_events(
     for item in timeline_clips:
         clip = item['clip']
         clip_id = clip.get('id', '')
-        selected = clip.get('selected_segment', {})
-        original_video_id = selected.get('original_video_id', '')
         
         for seg_start, seg_end in item['playable_segments']:
             seg_duration = seg_end - seg_start
@@ -83,13 +81,13 @@ def build_caption_events(
             matching_segment = None
             segment_index = -1
             for idx, seg in enumerate(segments):
-                if (seg.get('original_video_id') == original_video_id and
-                    seg.get('start') <= seg_start < seg.get('end')):
+                if seg.get('start') <= seg_start < seg.get('end'):
                     matching_segment = seg
                     segment_index = idx
                     break
             
             if not matching_segment:
+                output_time += seg_duration
                 continue
             
             words = get_words_in_range(matching_segment, seg_start, seg_end)
