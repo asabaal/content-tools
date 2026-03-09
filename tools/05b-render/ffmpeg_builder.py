@@ -48,17 +48,22 @@ def get_font_size(size_name: str) -> int:
     return sizes.get(size_name, 120)
 
 
-def get_y_position(position_name: str, font_size: int) -> str:
-    """Get y position expression for drawtext."""
+def get_y_position(position_name: str, font_size: int) -> int:
+    """Get y position in pixels for drawtext.
+    
+    Returns actual pixel value instead of expression,
+    since drawbox doesn't properly evaluate expressions in filter_complex_script mode.
+    """
+    VIDEO_HEIGHT = 1920
     padding = 20
     box_height = font_size + 20
     
     if position_name == 'bottom':
-        return f"h-{padding + box_height}"
+        return VIDEO_HEIGHT - (padding + box_height)
     elif position_name == 'lower_third':
-        return f"h-{padding + box_height + 40}"
+        return VIDEO_HEIGHT - (padding + box_height + 40)
     else:
-        return f"(h-text_h)/2"
+        return VIDEO_HEIGHT // 2
 
 
 def build_timeline_assembly_filter(
@@ -208,6 +213,9 @@ def build_caption_filters(
         caption_breaks: Dict mapping segment_index to list of word indices where lines break
                        e.g., {"0": [3, 5]} means segment 0 breaks after word indices 3 and 5
     """
+    VIDEO_WIDTH = 1080
+    VIDEO_HEIGHT = 1920
+    
     filters = []
     
     font_size = get_font_size(caption_style.get('font_size', 'medium'))
@@ -265,11 +273,11 @@ def build_caption_filters(
         for line_idx, line in enumerate(lines):
             line_y_offset = line_idx * (font_size + 10)
             
-            line_start = min(output_start + (w['start'] - event['original_start']) for w in line)
-            line_end = max(output_start + (w['end'] - event['original_start']) for w in line)
+            line_start = min(output_start + (word['start'] - event['original_start']) for word in line)
+            line_end = max(output_start + (word['end'] - event['original_start']) for word in line)
             
             x_offset = 0
-            line_text = ' '.join(w.get('text', '') for w in line)
+            line_text = ' '.join(word.get('text', '') for word in line)
             total_width = len(line_text) * char_width
             
             if background == 'dark_box':
@@ -277,15 +285,16 @@ def build_caption_filters(
                 box_w = int(total_width + box_padding * 2)
                 box_h = font_size + box_padding * 2
                 
-                box_x_expr = f"(w-{box_w})/2"
+                # Use fixed pixel value instead of expression
+                box_x = (VIDEO_WIDTH - box_w) // 2
                 
                 y_base = get_y_position(position, font_size)
                 if line_y_offset > 0:
-                    box_y_expr = f"{y_base}-{line_y_offset}-{box_padding}"
+                    box_y = y_base - line_y_offset - box_padding
                 else:
-                    box_y_expr = f"{y_base}-{box_padding}"
+                    box_y = y_base - box_padding
                 
-                box_filter = f"drawbox=x={box_x_expr}:y={box_y_expr}:width={box_w}:height={box_h}:color=black@0.7:t=fill:enable='between(t,{line_start:.3f},{line_end:.3f})'"
+                box_filter = f"drawbox=x={box_x}:y={box_y}:width={box_w}:height={box_h}:color=black@0.7:t=fill:enable='between(t,{line_start:.3f},{line_end:.3f})'"
                 filters.append(box_filter)
             
             for word in line:
@@ -297,16 +306,17 @@ def build_caption_filters(
                 escaped_text = escape_ffmpeg_text(text)
                 ffmpeg_color = hex_to_ffmpeg(color)
                 
-                base_x = f"(w-{total_width:.0f})/2"
+                # Use fixed pixel value instead of expression
+                base_x = (VIDEO_WIDTH - int(total_width)) // 2
                 if x_offset > 0:
-                    x_expr = f"{base_x}+{x_offset:.0f}"
+                    x_pixel = base_x + int(x_offset)
                 else:
-                    x_expr = base_x
+                    x_pixel = base_x
                 
                 y_base = get_y_position(position, font_size)
-                y_expr = f"{y_base}-{line_y_offset}"
+                y_pixel = y_base - line_y_offset
                 
-                filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
+                filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_pixel}:y={y_pixel}"
                 
                 if background == 'outline':
                     filter_str += f":borderw=2:bordercolor=black"
@@ -534,6 +544,9 @@ def build_pass2_caption_filter(
         font_path: Path to font file
         caption_breaks: Dict mapping segment_index to list of word indices where lines break
     """
+    VIDEO_WIDTH = 1080
+    VIDEO_HEIGHT = 1920
+    
     filters = []
     
     font_size = get_font_size(caption_style.get('font_size', 'medium'))
@@ -552,21 +565,25 @@ def build_pass2_caption_filter(
         words_sorted = sorted(words, key=lambda w: w['start'])
         char_width = font_size * 0.4  # Empirically determined for Bangers font
         
+        # Check if we have explicit line breaks for this segment
         seg_breaks = []
         if caption_breaks:
             seg_breaks = caption_breaks.get(str(segment_index), [])
         
         if seg_breaks:
+            # Use explicit caption_breaks for line grouping
             lines = []
             current_line = []
             for i, word in enumerate(words_sorted):
                 current_line.append(word)
+                # Break AFTER this word if its index is in seg_breaks
                 if i in seg_breaks:
                     lines.append(current_line)
                     current_line = []
             if current_line:
                 lines.append(current_line)
         else:
+            # Fall back to width-based grouping
             lines = []
             current_line = []
             line_width = 0
@@ -587,11 +604,11 @@ def build_pass2_caption_filter(
         for line_idx, line in enumerate(lines):
             line_y_offset = line_idx * (font_size + 10)
             
-            line_start = min(output_start + (w['start'] - event['original_start']) for w in line)
-            line_end = max(output_start + (w['end'] - event['original_start']) for w in line)
+            line_start = min(output_start + (word['start'] - event['original_start']) for word in line)
+            line_end = max(output_start + (word['end'] - event['original_start']) for word in line)
             
             x_offset = 0
-            line_text = ' '.join(w.get('text', '') for w in line)
+            line_text = ' '.join(word.get('text', '') for word in line)
             total_width = len(line_text) * char_width
             
             if background == 'dark_box':
@@ -599,15 +616,16 @@ def build_pass2_caption_filter(
                 box_w = int(total_width + box_padding * 2)
                 box_h = font_size + box_padding * 2
                 
-                box_x_expr = f"(w-{box_w})/2"
+                # Use fixed pixel value instead of expression
+                box_x = (VIDEO_WIDTH - box_w) // 2
                 
                 y_base = get_y_position(position, font_size)
                 if line_y_offset > 0:
-                    box_y_expr = f"{y_base}-{line_y_offset}-{box_padding}"
+                    box_y = y_base - line_y_offset - box_padding
                 else:
-                    box_y_expr = f"{y_base}-{box_padding}"
+                    box_y = y_base - box_padding
                 
-                box_filter = f"drawbox=x={box_x_expr}:y={box_y_expr}:width={box_w}:height={box_h}:color=black@0.7:t=fill:enable='between(t,{line_start:.3f},{line_end:.3f})'"
+                box_filter = f"drawbox=x={box_x}:y={box_y}:width={box_w}:height={box_h}:color=black@0.7:t=fill:enable='between(t,{line_start:.3f},{line_end:.3f})'"
                 filters.append(box_filter)
             
             for word in line:
@@ -619,16 +637,17 @@ def build_pass2_caption_filter(
                 escaped_text = escape_ffmpeg_text(text)
                 ffmpeg_color = hex_to_ffmpeg(color)
                 
-                base_x = f"(w-{total_width:.0f})/2"
+                # Use fixed pixel value instead of expression
+                base_x = (VIDEO_WIDTH - int(total_width)) // 2
                 if x_offset > 0:
-                    x_expr = f"{base_x}+{x_offset:.0f}"
+                    x_pixel = base_x + int(x_offset)
                 else:
-                    x_expr = base_x
+                    x_pixel = base_x
                 
                 y_base = get_y_position(position, font_size)
-                y_expr = f"{y_base}-{line_y_offset}"
+                y_pixel = y_base - line_y_offset
                 
-                filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_expr}:y={y_expr}"
+                filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_pixel}:y={y_pixel}"
                 
                 if background == 'outline':
                     filter_str += f":borderw=2:bordercolor=black"
