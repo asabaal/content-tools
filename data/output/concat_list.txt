@@ -1,6 +1,6 @@
-file 'data/video_combined.mp4'
+file '/mnt/storage/repos/content-tools/data/video_combined.mp4'
 inpoint 1.721000
 outpoint 4.293000
-file 'data/video_combined.mp4'
+file '/mnt/storage/repos/content-tools/data/video_combined.mp4'
 inpoint 5.327000
 outpoint 6.080000

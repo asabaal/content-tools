@@ -30,15 +30,22 @@ def hex_to_ffmpeg(hex_color: str) -> str:
 def get_font_size(size_name: str) -> int:
     """Get pixel size for font size name.
     
-    Matches web app values from 05a-capstyle/index.html:
-    { small: 24, medium: 32, large: 42 }
+    Scales web app CSS sizes to match visual appearance at full render resolution.
+    
+    Analysis from reference screenshot (in-app-screenshot-line1.png):
+    - Reference is 398x715 showing web app preview
+    - Web app shows 1080x1920 video scaled down to preview
+    - Visual analysis: font height is ~8.3% of frame (160px in 1920px frame)
+    - This requires approximately 120pt at full 1080p resolution
+    
+    Correct scaling to match web app visual appearance:
     """
     sizes = {
-        'small': 24,
-        'medium': 32,
-        'large': 42
+        'small': 90,    # CSS 24px -> scaled to match visual appearance
+        'medium': 120,  # CSS 32px -> scaled to match visual appearance
+        'large': 150    # CSS 42px -> scaled to match visual appearance
     }
-    return sizes.get(size_name, 32)
+    return sizes.get(size_name, 120)
 
 
 def get_y_position(position_name: str, font_size: int) -> str:
@@ -217,7 +224,7 @@ def build_caption_filters(
             continue
         
         words_sorted = sorted(words, key=lambda w: w['start'])
-        char_width = font_size * 0.5  # Define once, used for both explicit breaks and width-based grouping
+        char_width = font_size * 0.4  # Empirically determined for Bangers font
         
         # Check if we have explicit line breaks for this segment
         seg_breaks = []
@@ -543,7 +550,7 @@ def build_pass2_caption_filter(
             continue
         
         words_sorted = sorted(words, key=lambda w: w['start'])
-        char_width = font_size * 0.5
+        char_width = font_size * 0.4  # Empirically determined for Bangers font
         
         seg_breaks = []
         if caption_breaks:
