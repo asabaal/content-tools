@@ -8,15 +8,12 @@ from typing import List, Dict, Any, Optional, Tuple
 def escape_ffmpeg_text(text: str) -> str:
     """Escape special characters for ffmpeg drawtext filter.
     
-    For filter_complex_script mode:
-    - Single quotes inside single-quoted strings need triple backslash escaping
-    - Use \\\\\\\'' to properly escape the apostrophe in filter_complex_script files
+    For filter_complex_script mode with single-quoted text values,
+    we use a workaround for apostrophes: replace straight quote (U+0027)
+    with right single quotation mark (U+2019) which looks identical but
+    doesn't conflict with the quote delimiter.
     """
-    text = text.replace('\\', '\\\\')
-    text = text.replace("'", "'\\\\\\''")
-    text = text.replace(':', '\\:')
-    text = text.replace('%', '\\%')
-    text = text.replace(',', '\\,')
+    text = text.replace("'", "’")  # Straight quote (U+0027) -> curly quote (U+2019)
     return text
 
 
@@ -31,13 +28,17 @@ def hex_to_ffmpeg(hex_color: str) -> str:
 
 
 def get_font_size(size_name: str) -> int:
-    """Get pixel size for font size name."""
+    """Get pixel size for font size name.
+    
+    Matches web app values from 05a-capstyle/index.html:
+    { small: 24, medium: 32, large: 42 }
+    """
     sizes = {
-        'small': 28,
-        'medium': 36,
-        'large': 48
+        'small': 24,
+        'medium': 32,
+        'large': 42
     }
-    return sizes.get(size_name, 36)
+    return sizes.get(size_name, 32)
 
 
 def get_y_position(position_name: str, font_size: int) -> str:
@@ -184,13 +185,21 @@ def build_timeline_assembly_filter(
 def build_caption_filters(
     caption_events: List[Dict[str, Any]],
     caption_style: dict,
-    font_path: str
+    font_path: str,
+    caption_breaks: Optional[Dict[str, List[int]]] = None
 ) -> str:
     """Build caption overlay filters (drawbox + drawtext).
     
     These filters are applied AFTER timeline assembly.
     Input: [v_base]
     Output: filters that modify [v_base] and output to [vout]
+    
+    Args:
+        caption_events: List of caption events with words
+        caption_style: Style settings (font_size, position, etc.)
+        font_path: Path to font file
+        caption_breaks: Dict mapping segment_index to list of word indices where lines break
+                       e.g., {"0": [3, 5]} means segment 0 breaks after word indices 3 and 5
     """
     filters = []
     
@@ -202,29 +211,49 @@ def build_caption_filters(
     for event in caption_events:
         words = event.get('words', [])
         output_start = event['output_start']
+        segment_index = event.get('segment_index', -1)
         
         if not words:
             continue
         
         words_sorted = sorted(words, key=lambda w: w['start'])
+        char_width = font_size * 0.5  # Define once, used for both explicit breaks and width-based grouping
         
-        lines = []
-        current_line = []
-        line_width = 0
-        max_width = 800
-        char_width = font_size * 0.5
+        # Check if we have explicit line breaks for this segment
+        seg_breaks = []
+        if caption_breaks:
+            seg_breaks = caption_breaks.get(str(segment_index), [])
         
-        for word in words_sorted:
-            word_width = len(word.get('text', '')) * char_width + char_width
-            if line_width + word_width > max_width and current_line:
+        if seg_breaks:
+            # Use explicit caption_breaks for line grouping
+            lines = []
+            current_line = []
+            for i, word in enumerate(words_sorted):
+                current_line.append(word)
+                # Break AFTER this word if its index is in seg_breaks
+                if i in seg_breaks:
+                    lines.append(current_line)
+                    current_line = []
+            if current_line:
                 lines.append(current_line)
-                current_line = []
-                line_width = 0
-            current_line.append(word)
-            line_width += word_width
-        
-        if current_line:
-            lines.append(current_line)
+        else:
+            # Fall back to width-based grouping
+            lines = []
+            current_line = []
+            line_width = 0
+            max_width = 800
+            
+            for word in words_sorted:
+                word_width = len(word.get('text', '')) * char_width + char_width
+                if line_width + word_width > max_width and current_line:
+                    lines.append(current_line)
+                    current_line = []
+                    line_width = 0
+                current_line.append(word)
+                line_width += word_width
+            
+            if current_line:
+                lines.append(current_line)
         
         for line_idx, line in enumerate(lines):
             line_y_offset = line_idx * (font_size + 10)
@@ -292,7 +321,8 @@ def build_filter_graph(
     font_path: str,
     input_video: str,
     output_video: str,
-    timeline_clips: Optional[List[Dict[str, Any]]] = None
+    timeline_clips: Optional[List[Dict[str, Any]]] = None,
+    caption_breaks: Optional[Dict[str, List[int]]] = None
 ) -> str:
     """Build complete ffmpeg filter graph string.
     
@@ -302,11 +332,14 @@ def build_filter_graph(
     
     If timeline_clips is None (legacy mode), builds:
       [0:v] -> captions -> output (no timeline assembly)
+    
+    Args:
+        caption_breaks: Dict mapping segment_index to list of word indices where lines break
     """
     if timeline_clips:
         v_assembly, a_assembly, n_segs = build_timeline_assembly_filter(timeline_clips)
         
-        caption_filters = build_caption_filters(caption_events, caption_style, font_path)
+        caption_filters = build_caption_filters(caption_events, caption_style, font_path, caption_breaks)
         
         if caption_filters:
             filter_complex = f"{v_assembly};\n[v_base]{caption_filters}[vout];\n{a_assembly}"
@@ -315,7 +348,7 @@ def build_filter_graph(
         
         return filter_complex
     
-    caption_filters = build_caption_filters(caption_events, caption_style, font_path)
+    caption_filters = build_caption_filters(caption_events, caption_style, font_path, caption_breaks)
     
     if not caption_filters:
         return "copy"
@@ -480,12 +513,19 @@ def build_pass1_assembly_filter(timeline_clips: List[Dict[str, Any]]) -> Tuple[s
 def build_pass2_caption_filter(
     caption_events: List[Dict[str, Any]],
     caption_style: dict,
-    font_path: str
+    font_path: str,
+    caption_breaks: Optional[Dict[str, List[int]]] = None
 ) -> str:
     """Build caption-only filter for Pass 2 (assumes already-assembled video).
     
     Input: [0:v] (assembled video from Pass 1)
     Output: filter chain that outputs to [vout]
+    
+    Args:
+        caption_events: List of caption events with words
+        caption_style: Style settings (font_size, position, etc.)
+        font_path: Path to font file
+        caption_breaks: Dict mapping segment_index to list of word indices where lines break
     """
     filters = []
     
@@ -497,29 +537,45 @@ def build_pass2_caption_filter(
     for event in caption_events:
         words = event.get('words', [])
         output_start = event['output_start']
+        segment_index = event.get('segment_index', -1)
         
         if not words:
             continue
         
         words_sorted = sorted(words, key=lambda w: w['start'])
-        
-        lines = []
-        current_line = []
-        line_width = 0
-        max_width = 800
         char_width = font_size * 0.5
         
-        for word in words_sorted:
-            word_width = len(word.get('text', '')) * char_width + char_width
-            if line_width + word_width > max_width and current_line:
-                lines.append(current_line)
-                current_line = []
-                line_width = 0
-            current_line.append(word)
-            line_width += word_width
+        seg_breaks = []
+        if caption_breaks:
+            seg_breaks = caption_breaks.get(str(segment_index), [])
         
-        if current_line:
-            lines.append(current_line)
+        if seg_breaks:
+            lines = []
+            current_line = []
+            for i, word in enumerate(words_sorted):
+                current_line.append(word)
+                if i in seg_breaks:
+                    lines.append(current_line)
+                    current_line = []
+            if current_line:
+                lines.append(current_line)
+        else:
+            lines = []
+            current_line = []
+            line_width = 0
+            max_width = 800
+            
+            for word in words_sorted:
+                word_width = len(word.get('text', '')) * char_width + char_width
+                if line_width + word_width > max_width and current_line:
+                    lines.append(current_line)
+                    current_line = []
+                    line_width = 0
+                current_line.append(word)
+                line_width += word_width
+            
+            if current_line:
+                lines.append(current_line)
         
         for line_idx, line in enumerate(lines):
             line_y_offset = line_idx * (font_size + 10)

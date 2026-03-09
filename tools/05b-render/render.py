@@ -60,6 +60,7 @@ def render_two_pass(
     caption_events: list,
     caption_style: dict,
     font_path: Path,
+    caption_breaks: dict | None = None,
     verbose: bool = False,
     dry_run: bool = False
 ) -> bool:
@@ -94,7 +95,7 @@ def render_two_pass(
     print(f"Pass 1 complete: {assembled_video}")
     
     print("\n=== PASS 2: Caption Overlay ===")
-    caption_filter = build_pass2_caption_filter(caption_events, caption_style, str(font_path))
+    caption_filter = build_pass2_caption_filter(caption_events, caption_style, str(font_path), caption_breaks)
     
     if not caption_filter:
         print("No captions to render, copying assembled video...")
@@ -167,6 +168,7 @@ def main():
     project = load_project(args.project)
     
     caption_style = project.get('caption_style', {})
+    caption_breaks = project.get('caption_breaks', {})
     
     print("Computing timeline clips...")
     timeline_clips = compute_timeline_clips(project)
@@ -216,6 +218,7 @@ def main():
             caption_events=caption_events,
             caption_style=caption_style,
             font_path=font_path,
+            caption_breaks=caption_breaks,
             verbose=args.verbose,
             dry_run=args.dry_run
         )
@@ -244,7 +247,8 @@ def main():
         str(font_path),
         str(input_video),
         str(output_video),
-        timeline_clips=timeline_clips
+        timeline_clips=timeline_clips,
+        caption_breaks=caption_breaks
     )
     
     if args.verbose:
