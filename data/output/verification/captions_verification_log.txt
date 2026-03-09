@@ -1,9 +1,9 @@
-Caption Verification Log - 2026-02-24T15:18:42.564394
+Caption Verification Log - 2026-03-05T10:03:21.518589
 ==================================================
 Text Coverage: 100.00%
-Expected Words: 300
-Rendered Words: 300
-Mean Timing Drift: 0.4ms
+Expected Words: 95
+Rendered Words: 95
+Mean Timing Drift: 0.9ms
 Max Timing Drift: 1.0ms
 First Mismatch Index: -1
 First Drift Index: -1
@@ -13,9 +13,9 @@ Text Fidelity: PASS
 Timing Projection: PASS
 
 Vision Verification:
-  Visibility Coverage: 0.00%
-  Visible Frames: 0/5
-  Mean Confidence: 0.76
+  Visibility Coverage: 30.00%
+  Visible Frames: 3/10
+  Mean Confidence: 0.86
   Model: qwen3-vl:32b
   Status: FAIL
 

@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-02-24T15:18:42.564051",
+  "timestamp": "2026-03-05T10:03:21.518364",
   "project_path": "/mnt/storage/repos/content-tools/data/project.json",
   "text_coverage_percent": 100.0,
-  "total_authoritative_words": 300,
-  "total_rendered_words": 300,
-  "timing_mean_drift_ms": 0.4,
+  "total_authoritative_words": 95,
+  "total_rendered_words": 95,
+  "timing_mean_drift_ms": 0.9,
   "timing_max_drift_ms": 1.0,
   "first_mismatch_index": -1,
   "first_drift_index": -1,
@@ -13,9 +13,9 @@
   "timing_passed": true,
   "passed": false,
   "report_path": "/mnt/storage/repos/content-tools/data/output/verification/captions_full_verification_report.html",
-  "vision_coverage_percent": 0.0,
-  "vision_mean_confidence": 0.76,
-  "vision_failed_frames": 5,
+  "vision_coverage_percent": 30.0,
+  "vision_mean_confidence": 0.86,
+  "vision_failed_frames": 7,
   "vision_first_failed_index": 0,
   "vision_passed": false
 }

@@ -9,11 +9,11 @@ def escape_ffmpeg_text(text: str) -> str:
     """Escape special characters for ffmpeg drawtext filter.
     
     For filter_complex_script mode:
-    - Single quotes inside single-quoted strings need special handling
-    - Use '\'' to break out of quote, add literal quote, resume quote
+    - Single quotes inside single-quoted strings need triple backslash escaping
+    - Use \\\\\\\'' to properly escape the apostrophe in filter_complex_script files
     """
     text = text.replace('\\', '\\\\')
-    text = text.replace("'", "'\\''")
+    text = text.replace("'", "'\\\\\\''")
     text = text.replace(':', '\\:')
     text = text.replace('%', '\\%')
     text = text.replace(',', '\\,')
@@ -309,15 +309,9 @@ def build_filter_graph(
         caption_filters = build_caption_filters(caption_events, caption_style, font_path)
         
         if caption_filters:
-            if n_segs == 1:
-                filter_complex = f"{v_assembly},\n{caption_filters}[vout];\n{a_assembly}"
-            else:
-                filter_complex = f"{v_assembly};\n[v_base]{caption_filters}[vout];\n{a_assembly}"
+            filter_complex = f"{v_assembly};\n[v_base]{caption_filters}[vout];\n{a_assembly}"
         else:
-            if n_segs == 1:
-                filter_complex = f"{v_assembly};\n{a_assembly}"
-            else:
-                filter_complex = f"{v_assembly};\n{a_assembly}"
+            filter_complex = f"{v_assembly};\n{a_assembly}"
         
         return filter_complex
     

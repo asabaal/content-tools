@@ -1,16 +1,49 @@
 #!/usr/bin/env python3
 """Compute playable segments from trim + deleted_regions."""
 
+import logging
 from typing import List, Tuple
+
+logger = logging.getLogger(__name__)
 
 
 def get_playable_segments(clip: dict) -> List[Tuple[float, float]]:
     """Return list of (start, end) tuples for playable video.
     
     Takes trim points and subtracts deleted regions to get final playable segments.
+    
+    INVARIANT: playable trim range must never exceed selected_segment bounds.
+    If trim_start/trim_end exceed bounds, they are clamped and a warning is logged.
     """
-    trim_start = clip.get('trim_start', clip.get('selected_segment', {}).get('start', 0))
-    trim_end = clip.get('trim_end', clip.get('selected_segment', {}).get('end', 0))
+    selected = clip.get('selected_segment', {})
+    sel_start = selected.get('start', 0)
+    sel_end = selected.get('end', 0)
+    
+    raw_trim_start = clip.get('trim_start')
+    raw_trim_end = clip.get('trim_end')
+    
+    if raw_trim_start is not None:
+        if raw_trim_start < sel_start or raw_trim_start > sel_end:
+            logger.warning(
+                f"Clip '{clip.get('id', '?')}' trim_start ({raw_trim_start:.3f}) "
+                f"exceeds selected_segment bounds ({sel_start:.3f}-{sel_end:.3f}). "
+                f"Clamping to {sel_start:.3f}."
+            )
+        trim_start = max(min(raw_trim_start, sel_end), sel_start)
+    else:
+        trim_start = sel_start
+    
+    if raw_trim_end is not None:
+        if raw_trim_end < sel_start or raw_trim_end > sel_end:
+            logger.warning(
+                f"Clip '{clip.get('id', '?')}' trim_end ({raw_trim_end:.3f}) "
+                f"exceeds selected_segment bounds ({sel_start:.3f}-{sel_end:.3f}). "
+                f"Clamping to {sel_end:.3f}."
+            )
+        trim_end = min(max(raw_trim_end, sel_start), sel_end)
+    else:
+        trim_end = sel_end
+    
     deleted = sorted(clip.get('deleted_regions', []), key=lambda r: r['start'])
     
     segments = [(trim_start, trim_end)]

@@ -22,10 +22,15 @@ def get_words_in_range(
 ) -> List[Dict[str, Any]]:
     """Get words that overlap with the given time range.
     
+    Uses overlap logic: word is included if ANY portion is visible.
+    This preserves words that span deletion boundaries.
+    
     Returns list of dicts with:
     - text: word text
-    - start: word start time
-    - end: word end time
+    - start: visible start time (clamped to playable bounds)
+    - end: visible end time (clamped to playable bounds)
+    - original_start: authoritative transcript start time
+    - original_end: authoritative transcript end time
     - word_index: index in segment
     """
     words = segment.get('words', [])
@@ -35,13 +40,17 @@ def get_words_in_range(
         word_start = word.get('start', 0)
         word_end = word.get('end', 0)
         
-        # Only include word if it STARTS within this playable segment
-        # This prevents duplication when a word spans a gap between segments
-        if start_time <= word_start < end_time:
+        # Overlap check: word must overlap with playable window
+        if word_start < end_time and word_end > start_time:
+            visible_start = max(word_start, start_time)
+            visible_end = min(word_end, end_time)
+            
             result.append({
                 'text': word.get('text', ''),
-                'start': max(word_start, start_time),  # Clamp to playable bounds
-                'end': min(word_end, end_time),
+                'start': visible_start,
+                'end': visible_end,
+                'original_start': word_start,
+                'original_end': word_end,
                 'word_index': idx
             })
     
@@ -55,7 +64,7 @@ def build_caption_events(
     """Build list of caption events for rendering.
     
     Each event contains:
-    - segment_index: transcript segment index
+    - segment_index: transcript segment index (from authoritative Tool 03 binding)
     - clip_id: clip this belongs to
     - original_start: start in original video
     - original_end: end in original video
@@ -74,17 +83,32 @@ def build_caption_events(
     for item in timeline_clips:
         clip = item['clip']
         clip_id = clip.get('id', '')
+        selected = clip.get('selected_segment', {})
+        
+        # Use authoritative segment_index from Tool 03 selection
+        authoritative_segment_index = selected.get('segment_index')
         
         for seg_start, seg_end in item['playable_segments']:
             seg_duration = seg_end - seg_start
             
             matching_segment = None
             segment_index = -1
-            for idx, seg in enumerate(segments):
-                if seg.get('start') <= seg_start < seg.get('end'):
-                    matching_segment = seg
-                    segment_index = idx
-                    break
+            
+            # Try authoritative segment_index first, but validate it overlaps
+            if authoritative_segment_index is not None and 0 <= authoritative_segment_index < len(segments):
+                candidate = segments[authoritative_segment_index]
+                # Verify segment overlaps with playable region
+                if candidate.get('start') < seg_end and candidate.get('end') > seg_start:
+                    matching_segment = candidate
+                    segment_index = authoritative_segment_index
+            
+            # Fallback to time-based search if authoritative doesn't overlap
+            if not matching_segment:
+                for idx, seg in enumerate(segments):
+                    if seg.get('start') <= seg_start < seg.get('end'):
+                        matching_segment = seg
+                        segment_index = idx
+                        break
             
             if not matching_segment:
                 output_time += seg_duration

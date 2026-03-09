@@ -141,6 +141,8 @@ def main():
     parser.add_argument('--skip-verification', action='store_true', help='Skip post-render verification')
     parser.add_argument('--two-pass', action='store_true', 
                         help='Use two-pass rendering (assembly then captions) - recommended for many segments')
+    parser.add_argument('--segment', type=str, 
+                        help='Render only this segment (index number or clip_id)')
     args = parser.parse_args()
     
     root = get_project_root()
@@ -172,6 +174,21 @@ def main():
     if not timeline_clips:
         print("Error: No clips in timeline", file=sys.stderr)
         sys.exit(1)
+    
+    if args.segment:
+        if args.segment.isdigit():
+            target_idx = int(args.segment)
+            timeline_clips = [tc for tc in timeline_clips 
+                            if tc['clip'].get('timeline_position') == target_idx]
+        else:
+            timeline_clips = [tc for tc in timeline_clips 
+                            if tc['clip'].get('id') == args.segment]
+        
+        if not timeline_clips:
+            print(f"Error: Segment '{args.segment}' not found", file=sys.stderr)
+            sys.exit(1)
+        
+        print(f"Filtered to segment: {args.segment}")
     
     total_duration = get_total_duration(timeline_clips)
     print(f"Total duration: {total_duration:.2f}s")
