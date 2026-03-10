@@ -59,9 +59,9 @@ def get_y_position(position_name: str, font_size: int) -> int:
     box_height = font_size + 20
     
     if position_name == 'bottom':
-        return VIDEO_HEIGHT - (padding + box_height)
+        return int(VIDEO_HEIGHT * 0.92)  # 8% from bottom
     elif position_name == 'lower_third':
-        return VIDEO_HEIGHT - (padding + box_height + 40)
+        return int(VIDEO_HEIGHT * 0.85)  # 15% from bottom (matches web app)
     else:
         return VIDEO_HEIGHT // 2
 
@@ -271,7 +271,7 @@ def build_caption_filters(
                 lines.append(current_line)
         
         for line_idx, line in enumerate(lines):
-            line_y_offset = line_idx * (font_size + 10)
+            line_y_offset = 0
             
             line_start = min(output_start + (word['start'] - event['original_start']) for word in line)
             line_end = max(output_start + (word['end'] - event['original_start']) for word in line)
@@ -285,14 +285,10 @@ def build_caption_filters(
                 box_w = int(total_width + box_padding * 2)
                 box_h = font_size + box_padding * 2
                 
-                # Use fixed pixel value instead of expression
                 box_x = (VIDEO_WIDTH - box_w) // 2
                 
                 y_base = get_y_position(position, font_size)
-                if line_y_offset > 0:
-                    box_y = y_base - line_y_offset - box_padding
-                else:
-                    box_y = y_base - box_padding
+                box_y = y_base - box_padding
                 
                 box_filter = f"drawbox=x={box_x}:y={box_y}:width={box_w}:height={box_h}:color=black@0.7:t=fill:enable='between(t,{line_start:.3f},{line_end:.3f})'"
                 filters.append(box_filter)
@@ -306,7 +302,6 @@ def build_caption_filters(
                 escaped_text = escape_ffmpeg_text(text)
                 ffmpeg_color = hex_to_ffmpeg(color)
                 
-                # Use fixed pixel value instead of expression
                 base_x = (VIDEO_WIDTH - int(total_width)) // 2
                 if x_offset > 0:
                     x_pixel = base_x + int(x_offset)
@@ -314,7 +309,7 @@ def build_caption_filters(
                     x_pixel = base_x
                 
                 y_base = get_y_position(position, font_size)
-                y_pixel = y_base - line_y_offset
+                y_pixel = y_base
                 
                 filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_pixel}:y={y_pixel}"
                 
@@ -602,7 +597,7 @@ def build_pass2_caption_filter(
                 lines.append(current_line)
         
         for line_idx, line in enumerate(lines):
-            line_y_offset = line_idx * (font_size + 10)
+            line_y_offset = 0
             
             line_start = min(output_start + (word['start'] - event['original_start']) for word in line)
             line_end = max(output_start + (word['end'] - event['original_start']) for word in line)
@@ -616,14 +611,10 @@ def build_pass2_caption_filter(
                 box_w = int(total_width + box_padding * 2)
                 box_h = font_size + box_padding * 2
                 
-                # Use fixed pixel value instead of expression
                 box_x = (VIDEO_WIDTH - box_w) // 2
                 
                 y_base = get_y_position(position, font_size)
-                if line_y_offset > 0:
-                    box_y = y_base - line_y_offset - box_padding
-                else:
-                    box_y = y_base - box_padding
+                box_y = y_base - box_padding
                 
                 box_filter = f"drawbox=x={box_x}:y={box_y}:width={box_w}:height={box_h}:color=black@0.7:t=fill:enable='between(t,{line_start:.3f},{line_end:.3f})'"
                 filters.append(box_filter)
@@ -637,7 +628,6 @@ def build_pass2_caption_filter(
                 escaped_text = escape_ffmpeg_text(text)
                 ffmpeg_color = hex_to_ffmpeg(color)
                 
-                # Use fixed pixel value instead of expression
                 base_x = (VIDEO_WIDTH - int(total_width)) // 2
                 if x_offset > 0:
                     x_pixel = base_x + int(x_offset)
@@ -645,7 +635,7 @@ def build_pass2_caption_filter(
                     x_pixel = base_x
                 
                 y_base = get_y_position(position, font_size)
-                y_pixel = y_base - line_y_offset
+                y_pixel = y_base
                 
                 filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_pixel}:y={y_pixel}"
                 
