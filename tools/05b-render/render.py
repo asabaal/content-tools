@@ -13,8 +13,7 @@ from captions import build_caption_events
 from ffmpeg_builder import (
     build_filter_graph, build_ffmpeg_command,
     build_pass1_assembly_filter, build_pass2_caption_filter,
-    build_pass1_command, build_pass2_command,
-    generate_concat_demuxer_list, build_concat_demuxer_command
+    build_pass1_command, build_pass2_command
 )
 from srt import generate_srt
 
@@ -67,16 +66,20 @@ def render_two_pass(
     """Two-pass render: 1) assemble timeline, 2) add captions."""
     
     assembled_video = output_dir / 'assembled.mp4'
-    concat_list_path = output_dir / 'concat_list.txt'
+    pass1_filter_path = output_dir / 'pass1_filter.txt'
     pass2_filter_path = output_dir / 'pass2_filter.txt'
     
-    print("\n=== PASS 1: Timeline Assembly (concat demuxer) ===")
-    concat_list, n_segs = generate_concat_demuxer_list(
-        timeline_clips, str(input_video), output_dir
-    )
-    print(f"Pass 1: {n_segs} segments -> {concat_list}")
+    print("\n=== PASS 1: Timeline Assembly (filter-based) ===")
     
-    cmd1 = build_concat_demuxer_command(str(concat_list), str(assembled_video), str(input_video))
+    v_filter, a_filter, n_segs = build_pass1_assembly_filter(timeline_clips)
+    print(f"Pass 1: {n_segs} segments")
+    
+    pass1_filter = f"{v_filter};\n{a_filter}"
+    with open(pass1_filter_path, 'w') as f:
+        f.write(pass1_filter)
+    print(f"Pass 1 filter saved to: {pass1_filter_path}")
+    
+    cmd1 = build_pass1_command(str(input_video), str(assembled_video), str(pass1_filter_path))
     
     if verbose or dry_run:
         print(f"\nPass 1 command:")

@@ -41,9 +41,9 @@ def get_font_size(size_name: str) -> int:
     Correct scaling to match web app visual appearance:
     """
     sizes = {
-        'small': 90,    # CSS 24px -> scaled to match visual appearance
-        'medium': 120,  # CSS 32px -> scaled to match visual appearance
-        'large': 150    # CSS 42px -> scaled to match visual appearance
+        'small': 81,    # 10% reduced from 90
+        'medium': 108,  # 10% reduced from 120
+        'large': 135    # 10% reduced from 150
     }
     return sizes.get(size_name, 120)
 

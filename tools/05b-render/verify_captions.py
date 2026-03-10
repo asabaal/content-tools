@@ -20,9 +20,10 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Tuple, Tuple
+from typing import List, Dict, Any, Optional, Tuple
 
 from segments import compute_timeline_clips
 from captions import build_caption_events
@@ -648,6 +649,175 @@ def generate_html_report(
         f.write('\n'.join(html_parts))
 
 
+def extract_audio_from_video(video_path: Path, audio_path: Path) -> bool:
+    """Extract audio from video file to WAV."""
+    cmd = [
+        'ffmpeg', '-y', '-i', str(video_path),
+        '-vn', '-acodec', 'pcm_s16le', '-ar', '16000', '-ac', '1',
+        str(audio_path)
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    return result.returncode == 0
+
+
+def transcribe_for_sync(audio_path: Path, model_size: str = "base") -> List[Dict]:
+    """Transcribe audio with word-level timestamps using faster-whisper."""
+    try:
+        from faster_whisper import WhisperModel
+    except ImportError:
+        return []
+    
+    model = WhisperModel(model_size, device="cpu", compute_type="int8")
+    segments, info = model.transcribe(str(audio_path), word_timestamps=True)
+    
+    words = []
+    for seg in segments:
+        if seg.words:
+            for w in seg.words:
+                words.append({
+                    'text': w.word.strip(),
+                    'start': w.start,
+                    'end': w.end
+                })
+    
+    return words
+
+
+def normalize_for_matching(text: str) -> str:
+    """Normalize word for matching (lowercase, strip punctuation)."""
+    text = text.lower().strip()
+    text = re.sub(r"[^\w']", '', text)
+    return text
+
+
+def verify_render_audio_sync(
+    video_path: Path,
+    caption_events: List[Dict],
+    model_size: str = "base",
+    verbose: bool = False
+) -> Dict[str, Any]:
+    """
+    Verify rendered video audio sync by re-transcribing and comparing word timing.
+    
+    Returns dict with:
+    - success: bool
+    - error: str (if failed)
+    - words: list of word drift data
+    - mean_drift_ms: float
+    - max_drift_ms: float
+    - min_drift_ms: float
+    """
+    if not video_path.exists():
+        return {
+            'success': False,
+            'error': f'Video not found: {video_path}',
+            'skipped': True
+        }
+    
+    if verbose:
+        print(f"Extracting audio from: {video_path}")
+    
+    with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as tmp:
+        audio_path = Path(tmp.name)
+    
+    try:
+        if not extract_audio_from_video(video_path, audio_path):
+            return {
+                'success': False,
+                'error': 'Failed to extract audio',
+                'skipped': True
+            }
+        
+        if verbose:
+            print(f"Transcribing with faster-whisper ({model_size})...")
+        
+        actual_words = transcribe_for_sync(audio_path, model_size)
+        
+        if not actual_words:
+            return {
+                'success': False,
+                'error': 'Transcription returned no words',
+                'skipped': True
+            }
+        
+        if verbose:
+            print(f"Transcribed {len(actual_words)} words")
+        
+        # Build expected words from caption events
+        expected_words = []
+        for event in caption_events:
+            output_start = event['output_start']
+            original_start = event['original_start']
+            
+            for word in event.get('words', []):
+                word_orig_start = word.get('start', 0)
+                word_output_start = output_start + (word_orig_start - original_start)
+                
+                expected_words.append({
+                    'text': word.get('text', ''),
+                    'normalized': normalize_for_matching(word.get('text', '')),
+                    'output_start': word_output_start
+                })
+        
+        # Align actual words to expected words and calculate drift
+        word_drifts = []
+        expected_idx = 0
+        
+        for actual in actual_words:
+            actual_norm = normalize_for_matching(actual['text'])
+            actual_time = actual['start']
+            
+            best_match_idx = -1
+            best_drift = float('inf')
+            
+            for i in range(expected_idx, min(expected_idx + 10, len(expected_words))):
+                exp = expected_words[i]
+                if exp['normalized'] == actual_norm:
+                    drift = actual_time - exp['output_start']
+                    if abs(drift) < abs(best_drift):
+                        best_drift = drift
+                        best_match_idx = i
+                    break
+            
+            if best_match_idx >= 0:
+                exp = expected_words[best_match_idx]
+                word_drifts.append({
+                    'text': actual['text'],
+                    'expected_start': exp['output_start'],
+                    'actual_start': actual_time,
+                    'drift_ms': round(best_drift * 1000, 1)
+                })
+                expected_idx = best_match_idx + 1
+        
+        if not word_drifts:
+            return {
+                'success': False,
+                'error': 'No words matched between transcript and expected',
+                'skipped': True
+            }
+        
+        drifts = [w['drift_ms'] for w in word_drifts]
+        mean_drift = sum(drifts) / len(drifts)
+        max_drift = max(drifts, key=abs)
+        
+        return {
+            'success': True,
+            'video_path': str(video_path),
+            'model': model_size,
+            'words_matched': len(word_drifts),
+            'words_expected': len(expected_words),
+            'words_transcribed': len(actual_words),
+            'mean_drift_ms': round(mean_drift, 1),
+            'max_drift_ms': round(max_drift, 1),
+            'min_drift_ms': round(min(drifts), 1),
+            'word_drifts': word_drifts[:100]
+        }
+        
+    finally:
+        if audio_path.exists():
+            audio_path.unlink()
+
+
 def run_verification(
     project_path: Path,
     data_dir: Path,
@@ -655,6 +825,9 @@ def run_verification(
     enable_vision: bool = True,
     vision_model: str = "qwen3-vl:32b",
     max_vision_frames: int = 200,
+    render_sync: bool = True,
+    render_video: str = "final_video.mp4",
+    whisper_model: str = "base",
     verbose: bool = False
 ) -> Dict[str, Any]:
     """
@@ -728,6 +901,29 @@ def run_verification(
             if verbose:
                 print(f"Vision verification error: {e}")
     
+    # Run render audio sync verification
+    render_sync_result = None
+    if render_sync:
+        video_path = output_dir / render_video
+        if video_path.exists():
+            if verbose:
+                print(f"\nVerifying render audio sync: {video_path}")
+            try:
+                render_sync_result = verify_render_audio_sync(
+                    video_path,
+                    caption_events,
+                    model_size=whisper_model,
+                    verbose=verbose
+                )
+            except Exception as e:
+                render_sync_result = {
+                    'success': False,
+                    'skipped': True,
+                    'error': str(e)
+                }
+                if verbose:
+                    print(f"Render sync verification error: {e}")
+    
     # Generate report
     report_path = verification_dir / 'captions_full_verification_report.html'
     generate_html_report(
@@ -779,6 +975,14 @@ def run_verification(
         summary['vision_first_failed_index'] = vision_result.get('first_failed_index')
         summary['vision_passed'] = vision_passed
     
+    # Add render sync metrics if available
+    if render_sync_result and render_sync_result.get('success'):
+        summary['render_sync_mean_drift_ms'] = render_sync_result.get('mean_drift_ms', 0)
+        summary['render_sync_max_drift_ms'] = render_sync_result.get('max_drift_ms', 0)
+        summary['render_sync_min_drift_ms'] = render_sync_result.get('min_drift_ms', 0)
+        summary['render_sync_words_matched'] = render_sync_result.get('words_matched', 0)
+        summary['render_sync_words_expected'] = render_sync_result.get('words_expected', 0)
+    
     summary_path = verification_dir / 'captions_verification_summary.json'
     with open(summary_path, 'w', encoding='utf-8') as f:
         json.dump(summary, f, indent=2)
@@ -819,6 +1023,39 @@ def run_verification(
                 f"  Status: {'PASS' if vision_passed else 'FAIL'}"
             ])
     
+    # Add render sync log lines
+    if render_sync_result:
+        if render_sync_result.get('skipped'):
+            log_lines.extend([
+                "",
+                "Render Audio Sync: SKIPPED",
+                f"Reason: {render_sync_result.get('error', 'Unknown')}"
+            ])
+        elif render_sync_result.get('success'):
+            log_lines.extend([
+                "",
+                "Render Audio Sync:",
+                f"  Words Matched: {render_sync_result.get('words_matched', 0)}/{render_sync_result.get('words_expected', 0)}",
+                f"  Mean Drift: {render_sync_result.get('mean_drift_ms', 0):.1f}ms",
+                f"  Max Drift: {render_sync_result.get('max_drift_ms', 0):.1f}ms",
+                f"  Min Drift: {render_sync_result.get('min_drift_ms', 0):.1f}ms",
+                f"  Model: {render_sync_result.get('model', 'unknown')}"
+            ])
+            # Add word-by-word drift for first 20 words
+            word_drifts = render_sync_result.get('word_drifts', [])
+            if word_drifts:
+                log_lines.append("  Word-by-word drift:")
+                for wd in word_drifts[:20]:
+                    log_lines.append(f"    {wd['text']:15} expected={wd['expected_start']:.3f}s actual={wd['actual_start']:.3f}s drift={wd['drift_ms']:+.1f}ms")
+                if len(word_drifts) > 20:
+                    log_lines.append(f"    ... and {len(word_drifts) - 20} more words")
+        else:
+            log_lines.extend([
+                "",
+                "Render Audio Sync: FAILED",
+                f"Error: {render_sync_result.get('error', 'Unknown')}"
+            ])
+    
     log_lines.extend([
         "",
         f"Report: {report_path}",
@@ -857,6 +1094,11 @@ def main():
                         help=f'Timing tolerance in ms (default: {TIMING_TOLERANCE_MS})')
     parser.add_argument('--no-frames', action='store_true', help='Skip frame extraction')
     parser.add_argument('--no-vision', action='store_true', help='Skip vision verification')
+    parser.add_argument('--no-render-sync', action='store_true', help='Skip render audio sync verification')
+    parser.add_argument('--render-video', type=str, default='final_video.mp4',
+                        help='Rendered video to verify (default: final_video.mp4)')
+    parser.add_argument('--whisper-model', type=str, default='base',
+                        help='Whisper model for audio sync (default: base)')
     parser.add_argument('--vision-model', type=str, default='qwen3-vl:32b', help='Vision model for Ollama')
     parser.add_argument('--max-vision-frames', type=int, default=200, help='Max frames for vision verification')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
@@ -918,6 +1160,9 @@ def main():
         enable_vision=not args.no_vision,
         vision_model=args.vision_model,
         max_vision_frames=args.max_vision_frames,
+        render_sync=not args.no_render_sync,
+        render_video=args.render_video,
+        whisper_model=args.whisper_model,
         verbose=args.verbose
     )
     
