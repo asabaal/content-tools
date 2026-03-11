@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
-"""Render final video with burned-in captions."""
+"""Render final video with burned-in captions using segmented approach."""
 
 import argparse
 import json
-import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 from segments import compute_timeline_clips, get_total_duration
 from captions import build_caption_events
-from ffmpeg_builder import (
-    build_filter_graph, build_ffmpeg_command,
-    build_pass1_assembly_filter, build_pass2_caption_filter,
-    build_pass1_command, build_pass2_command
-)
+from ffmpeg_builder import build_segment_render_command, build_concat_command
 from srt import generate_srt
 
 
@@ -51,7 +47,7 @@ def run_verification(root: Path, verbose: bool = False) -> dict:
         return {'success': False, 'error': str(e)}
 
 
-def render_two_pass(
+def render_segmented(
     input_video: Path,
     output_video: Path,
     output_dir: Path,
@@ -61,77 +57,139 @@ def render_two_pass(
     font_path: Path,
     caption_breaks: dict | None = None,
     verbose: bool = False,
+    keep_segments: bool = False,
     dry_run: bool = False
 ) -> bool:
-    """Two-pass render: 1) assemble timeline, 2) add captions."""
+    """Render video using segmented approach.
     
-    assembled_video = output_dir / 'assembled.mp4'
-    pass1_filter_path = output_dir / 'pass1_filter.txt'
-    pass2_filter_path = output_dir / 'pass2_filter.txt'
+    For each playable segment:
+    1. Extract from source video with fast seek (-ss before -i)
+    2. Apply captions for that segment only
+    3. Save to temporary segment file
     
-    print("\n=== PASS 1: Timeline Assembly (filter-based) ===")
+    Then concatenate all segments with re-encode for clean joins.
     
-    v_filter, a_filter, n_segs = build_pass1_assembly_filter(timeline_clips)
-    print(f"Pass 1: {n_segs} segments")
+    Args:
+        input_video: Source video path
+        output_video: Final output path
+        output_dir: Directory for intermediate files
+        timeline_clips: Timeline clips with playable_segments
+        caption_events: All caption events
+        caption_style: Style settings
+        font_path: Font file path
+        caption_breaks: Line break mappings
+        verbose: Show ffmpeg output
+        keep_segments: Keep temporary segment files
+        dry_run: Show commands without executing
     
-    pass1_filter = f"{v_filter};\n{a_filter}"
-    with open(pass1_filter_path, 'w') as f:
-        f.write(pass1_filter)
-    print(f"Pass 1 filter saved to: {pass1_filter_path}")
+    Returns:
+        True if successful, False otherwise
+    """
+    temp_dir = output_dir / 'segments'
     
-    cmd1 = build_pass1_command(str(input_video), str(assembled_video), str(pass1_filter_path))
+    output_dir.mkdir(exist_ok=True, parents=True)
+    temp_dir.mkdir(exist_ok=True)
     
-    if verbose or dry_run:
-        print(f"\nPass 1 command:")
-        print(' '.join(cmd1))
-        if dry_run:
-            print("\n(Dry run - stopping here)")
-            return False
+    if dry_run:
+        print(f"Dry run: would render to {temp_dir}")
     
-    print(f"Assembling {n_segs} segments...")
-    result = subprocess.run(cmd1, capture_output=not verbose, text=True)
+    segment_files = []
+    total_segments = sum(len(tc.get('playable_segments', [])) for tc in timeline_clips)
+    current_segment = 0
     
-    if result.returncode != 0:
-        print(f"Pass 1 failed: {result.stderr}", file=sys.stderr)
+    print(f"\nRendering {total_segments} segments...")
+    
+    for clip_item in timeline_clips:
+        for seg_start, seg_end in clip_item['playable_segments']:
+            current_segment += 1
+            seg_duration = seg_end - seg_start
+            
+            print(f"  Segment {current_segment}/{total_segments} ({seg_duration:.2f}s)...")
+            
+            seg_captions = [
+                e for e in caption_events 
+                if abs(e['original_start'] - seg_start) < 0.001 
+                and abs(e['original_end'] - seg_end) < 0.001
+            ]
+            
+            for event in seg_captions:
+                # Convert word times from original timeline to output-relative
+                for word in event['words']:
+                    word['start'] = word['start'] - seg_start
+                    word['end'] = word['end'] - seg_start
+                # Mark this as output-relative with 0 offset
+                event['output_start'] = 0.0
+                event['original_start'] = 0.0
+            
+            seg_file = temp_dir / f'seg_{current_segment:03d}.mp4'
+            segment_files.append(seg_file)
+            
+            filter_script_path = temp_dir / f'seg_{current_segment:03d}_filter.txt'
+            
+            cmd = build_segment_render_command(
+                str(input_video),
+                str(seg_file),
+                seg_start,
+                seg_end,
+                seg_captions,
+                caption_style,
+                str(font_path),
+                caption_breaks,
+                filter_script_path=str(filter_script_path)
+            )
+            
+            if verbose or dry_run:
+                print(f"\n    Command for segment {current_segment}:")
+                print(' '.join(cmd))
+                if dry_run:
+                    continue
+            
+            result = subprocess.run(cmd, capture_output=not verbose, text=True)
+            
+            if result.returncode != 0:
+                print(f"Segment {current_segment} failed: {result.stderr}", file=sys.stderr)
+                return False
+            
+            if not seg_file.exists():
+                print(f"Segment {current_segment} file not created: {seg_file}", file=sys.stderr)
+                return False
+    
+    if dry_run:
+        print("\n(Dry run - stopping before concat)")
         return False
     
-    print(f"Pass 1 complete: {assembled_video}")
-    
-    print("\n=== PASS 2: Caption Overlay ===")
-    caption_filter = build_pass2_caption_filter(caption_events, caption_style, str(font_path), caption_breaks)
-    
-    if not caption_filter:
-        print("No captions to render, copying assembled video...")
-        import shutil
-        shutil.copy(str(assembled_video), str(output_video))
+    if len(segment_files) == 1:
+        print("\nSingle segment - moving to output...")
+        shutil.move(str(segment_files[0]), str(output_video))
+        
+        if not keep_segments:
+            shutil.rmtree(temp_dir)
+            print(f"Cleaned up temporary directory: {temp_dir}")
+        
         return True
     
-    pass2_filter = f"[0:v]{caption_filter}[vout]"
+    concat_list_path = temp_dir / 'concat_list.txt'
+    with open(concat_list_path, 'w') as f:
+        for seg_file in segment_files:
+            f.write(f"file '{seg_file}'\n")
     
-    with open(pass2_filter_path, 'w') as f:
-        f.write(pass2_filter)
-    print(f"Pass 2 filter saved to: {pass2_filter_path}")
+    print(f"\nConcatenating {len(segment_files)} segments...")
     
-    cmd2 = build_pass2_command(str(assembled_video), str(output_video), str(pass2_filter_path))
+    cmd = build_concat_command(str(concat_list_path), str(output_video))
     
     if verbose:
-        print(f"\nPass 2 command:")
-        print(' '.join(cmd2))
+        print(f"\nConcat command:")
+        print(' '.join(cmd))
     
-    print("Adding captions...")
-    result = subprocess.run(cmd2, capture_output=not verbose, text=True)
+    result = subprocess.run(cmd, capture_output=not verbose, text=True)
     
     if result.returncode != 0:
-        print(f"Pass 2 failed: {result.stderr}", file=sys.stderr)
+        print(f"Concat failed: {result.stderr}", file=sys.stderr)
         return False
     
-    print(f"Pass 2 complete: {output_video}")
-    
-    try:
-        assembled_video.unlink()
-        print(f"Cleaned up intermediate file: {assembled_video}")
-    except:
-        pass
+    if not keep_segments:
+        shutil.rmtree(temp_dir)
+        print(f"Cleaned up temporary directory: {temp_dir}")
     
     return True
 
@@ -139,12 +197,12 @@ def render_two_pass(
 def main():
     parser = argparse.ArgumentParser(description='Render video with captions')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
-    parser.add_argument('--dry-run', action='store_true', help='Show command without running')
+    parser.add_argument('--dry-run', action='store_true', help='Show commands without running')
     parser.add_argument('--output', '-o', type=str, help='Output directory')
     parser.add_argument('--project', '-p', type=str, help='Path to project.json')
     parser.add_argument('--skip-verification', action='store_true', help='Skip post-render verification')
-    parser.add_argument('--two-pass', action='store_true', 
-                        help='Use two-pass rendering (assembly then captions) - recommended for many segments')
+    parser.add_argument('--keep-segments', action='store_true', 
+                        help='Keep temporary segment files for debugging')
     parser.add_argument('--segment', type=str, 
                         help='Render only this segment (index number or clip_id)')
     args = parser.parse_args()
@@ -155,7 +213,6 @@ def main():
     output_dir = Path(args.output) if args.output else root / 'data' / 'output'
     output_video = output_dir / 'final_video.mp4'
     output_srt = output_dir / 'captions.srt'
-    filter_script = output_dir / 'filter.txt'
     
     font_path = root / 'tools' / '05b-render' / 'fonts' / 'Bangers-Regular.ttf'
     
@@ -207,98 +264,32 @@ def main():
     generate_srt(caption_events, str(output_srt))
     print(f"SRT saved to: {output_srt}")
     
-    total_segments = sum(len(tc.get('playable_segments', [])) for tc in timeline_clips)
+    render_success = render_segmented(
+        input_video=input_video,
+        output_video=output_video,
+        output_dir=output_dir,
+        timeline_clips=timeline_clips,
+        caption_events=caption_events,
+        caption_style=caption_style,
+        font_path=font_path,
+        caption_breaks=caption_breaks,
+        verbose=args.verbose,
+        keep_segments=args.keep_segments,
+        dry_run=args.dry_run
+    )
     
-    if args.two_pass or total_segments > 20:
-        if total_segments > 20 and not args.two_pass:
-            print(f"\nNote: Using two-pass rendering for {total_segments} segments (use --two-pass to force)")
-        
-        render_success = render_two_pass(
-            input_video=input_video,
-            output_video=output_video,
-            output_dir=output_dir,
-            timeline_clips=timeline_clips,
-            caption_events=caption_events,
-            caption_style=caption_style,
-            font_path=font_path,
-            caption_breaks=caption_breaks,
-            verbose=args.verbose,
-            dry_run=args.dry_run
-        )
-        
-        if args.dry_run:
-            return
-        
-        if not render_success:
-            print("\nVerification skipped due to render failure.")
-            sys.exit(1)
-        
-        print(f"\nDone! Output saved to:")
-        print(f"  Video: {output_video}")
-        print(f"  SRT:   {output_srt}")
-        
-        if not args.skip_verification:
-            print("\nRunning post-render verification...")
-            run_verification(root, verbose=args.verbose)
-        
+    if args.dry_run:
         return
     
-    print("Building ffmpeg filter graph...")
-    filter_graph = build_filter_graph(
-        caption_events,
-        caption_style,
-        str(font_path),
-        str(input_video),
-        str(output_video),
-        timeline_clips=timeline_clips,
-        caption_breaks=caption_breaks
-    )
-    
-    if args.verbose:
-        print(f"Filter graph ({len(filter_graph)} chars)")
-    
-    with open(filter_script, 'w') as f:
-        f.write(filter_graph)
-    print(f"Filter script saved to: {filter_script}")
-    
-    cmd = build_ffmpeg_command(
-        str(input_video),
-        str(output_video),
-        str(filter_script),
-        timeline_clips=timeline_clips
-    )
-    
-    if args.dry_run or args.verbose:
-        print("\nffmpeg command:")
-        print(' '.join(cmd))
-        if args.dry_run:
-            return
-    
-    print("\nRendering video...")
-    render_success = False
-    try:
-        result = subprocess.run(
-            cmd,
-            capture_output=not args.verbose,
-            text=True
-        )
-        
-        if result.returncode != 0:
-            print(f"ffmpeg error: {result.stderr}", file=sys.stderr)
-            print("\nVerification skipped due to render failure.")
-            sys.exit(1)
-        
-        render_success = True
-        print(f"\nDone! Output saved to:")
-        print(f"  Video: {output_video}")
-        print(f"  SRT:   {output_srt}")
-        
-    except FileNotFoundError:
-        print("Error: ffmpeg not found. Please install ffmpeg.", file=sys.stderr)
+    if not render_success:
         print("\nVerification skipped due to render failure.")
         sys.exit(1)
     
-    if render_success and not args.skip_verification:
+    print(f"\nDone! Output saved to:")
+    print(f"  Video: {output_video}")
+    print(f"  SRT:   {output_srt}")
+    
+    if not args.skip_verification:
         print("\nRunning post-render verification...")
         run_verification(root, verbose=args.verbose)
 

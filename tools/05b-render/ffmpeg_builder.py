@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate ffmpeg filter graph for captions with timeline assembly."""
+"""Generate ffmpeg commands for segmented caption rendering."""
 
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional
 
 
 def escape_ffmpeg_text(text: str) -> str:
@@ -13,7 +13,7 @@ def escape_ffmpeg_text(text: str) -> str:
     with right single quotation mark (U+2019) which looks identical but
     doesn't conflict with the quote delimiter.
     """
-    text = text.replace("'", "’")  # Straight quote (U+0027) -> curly quote (U+2019)
+    text = text.replace("'", "\u2019")
     return text
 
 
@@ -41,9 +41,9 @@ def get_font_size(size_name: str) -> int:
     Correct scaling to match web app visual appearance:
     """
     sizes = {
-        'small': 81,    # 10% reduced from 90
-        'medium': 108,  # 10% reduced from 120
-        'large': 135    # 10% reduced from 150
+        'small': 81,
+        'medium': 108,
+        'large': 135
     }
     return sizes.get(size_name, 120)
 
@@ -59,139 +59,11 @@ def get_y_position(position_name: str, font_size: int) -> int:
     box_height = font_size + 20
     
     if position_name == 'bottom':
-        return int(VIDEO_HEIGHT * 0.92)  # 8% from bottom
+        return int(VIDEO_HEIGHT * 0.92)
     elif position_name == 'lower_third':
-        return int(VIDEO_HEIGHT * 0.85)  # 15% from bottom (matches web app)
+        return int(VIDEO_HEIGHT * 0.85)
     else:
         return VIDEO_HEIGHT // 2
-
-
-def build_timeline_assembly_filter(
-    timeline_clips: List[Dict[str, Any]],
-    chunk_size: int = 10
-) -> Tuple[str, str, int]:
-    """
-    Build trim/concat filters to assemble video from playable segments.
-    
-    This transforms the raw video into the assembled timeline that matches
-    the caption timing projection.
-    
-    Uses chunked concat to avoid memory exhaustion with many segments.
-    FFmpeg buffers all segments for concat, so we concat in batches.
-    
-    Args:
-        timeline_clips: Output from compute_timeline_clips(), sorted by timeline_position
-        chunk_size: Max segments per concat operation (default 10 to limit memory)
-        
-    Returns:
-        (video_filter_chain, audio_filter_chain, segment_count)
-        video_filter_chain ends with [v_base]
-        audio_filter_chain ends with [a_base]
-    """
-    all_segments = []
-    for item in timeline_clips:
-        for start, end in item['playable_segments']:
-            all_segments.append((start, end))
-    
-    if not all_segments:
-        return "[0:v]null[v_base]", "[0:a]anull[a_base]", 0
-    
-    if len(all_segments) == 1:
-        start, end = all_segments[0]
-        v_filter = f"[0:v]trim=start={start:.3f}:end={end:.3f},setpts=PTS-STARTPTS[v_base]"
-        a_filter = f"[0:a]atrim=start={start:.3f}:end={end:.3f},asetpts=PTS-STARTPTS[a_base]"
-        return v_filter, a_filter, 1
-    
-    n = len(all_segments)
-    
-    if n <= chunk_size:
-        v_filters = []
-        a_filters = []
-        v_labels = []
-        a_labels = []
-        
-        for i, (start, end) in enumerate(all_segments):
-            v_label = f"v{i}"
-            a_label = f"a{i}"
-            v_labels.append(f"[{v_label}]")
-            a_labels.append(f"[{a_label}]")
-            
-            v_filters.append(
-                f"[0:v]trim=start={start:.3f}:end={end:.3f},setpts=PTS-STARTPTS[{v_label}]"
-            )
-            a_filters.append(
-                f"[0:a]atrim=start={start:.3f}:end={end:.3f},asetpts=PTS-STARTPTS[{a_label}]"
-            )
-        
-        v_concat = f"{''.join(v_labels)}concat=n={n}:v=1:a=0[v_base]"
-        a_concat = f"{''.join(a_labels)}concat=n={n}:v=0:a=1[a_base]"
-        
-        v_chain = ';\n'.join(v_filters + [v_concat])
-        a_chain = ';\n'.join(a_filters + [a_concat])
-        
-        return v_chain, a_chain, n
-    
-    v_filters = []
-    a_filters = []
-    v_chunk_concats = []
-    a_chunk_concats = []
-    v_chunk_labels = []
-    a_chunk_labels = []
-    
-    seg_idx = 0
-    chunk_idx = 0
-    
-    while seg_idx < n:
-        chunk_end = min(seg_idx + chunk_size, n)
-        chunk_count = chunk_end - seg_idx
-        
-        v_labels = []
-        a_labels = []
-        
-        for i in range(seg_idx, chunk_end):
-            start, end = all_segments[i]
-            local_idx = i - seg_idx
-            v_label = f"v{chunk_idx}_{local_idx}"
-            a_label = f"a{chunk_idx}_{local_idx}"
-            v_labels.append(f"[{v_label}]")
-            a_labels.append(f"[{a_label}]")
-            
-            v_filters.append(
-                f"[0:v]trim=start={start:.3f}:end={end:.3f},setpts=PTS-STARTPTS[{v_label}]"
-            )
-            a_filters.append(
-                f"[0:a]atrim=start={start:.3f}:end={end:.3f},asetpts=PTS-STARTPTS[{a_label}]"
-            )
-        
-        v_chunk_label = f"[vc{chunk_idx}]"
-        a_chunk_label = f"[ac{chunk_idx}]"
-        v_chunk_labels.append(v_chunk_label)
-        a_chunk_labels.append(a_chunk_label)
-        
-        v_chunk_concats.append(
-            f"{''.join(v_labels)}concat=n={chunk_count}:v=1:a=0{v_chunk_label}"
-        )
-        a_chunk_concats.append(
-            f"{''.join(a_labels)}concat=n={chunk_count}:v=0:a=1{a_chunk_label}"
-        )
-        
-        seg_idx = chunk_end
-        chunk_idx += 1
-    
-    num_chunks = chunk_idx
-    
-    if num_chunks == 1:
-        v_chain = ';\n'.join(v_filters + v_chunk_concats)
-        a_chain = ';\n'.join(a_filters + a_chunk_concats)
-        return v_chain, a_chain, n
-    
-    v_final_concat = f"{''.join(v_chunk_labels)}concat=n={num_chunks}:v=1:a=0[v_base]"
-    a_final_concat = f"{''.join(a_chunk_labels)}concat=n={num_chunks}:v=0:a=1[a_base]"
-    
-    v_chain = ';\n'.join(v_filters + v_chunk_concats + [v_final_concat])
-    a_chain = ';\n'.join(a_filters + a_chunk_concats + [a_final_concat])
-    
-    return v_chain, a_chain, n
 
 
 def build_caption_filters(
@@ -202,16 +74,15 @@ def build_caption_filters(
 ) -> str:
     """Build caption overlay filters (drawbox + drawtext).
     
-    These filters are applied AFTER timeline assembly.
-    Input: [v_base]
-    Output: filters that modify [v_base] and output to [vout]
-    
     Args:
         caption_events: List of caption events with words
         caption_style: Style settings (font_size, position, etc.)
         font_path: Path to font file
         caption_breaks: Dict mapping segment_index to list of word indices where lines break
                        e.g., {"0": [3, 5]} means segment 0 breaks after word indices 3 and 5
+    
+    Returns:
+        Comma-separated filter string, or empty string if no captions
     """
     VIDEO_WIDTH = 1080
     VIDEO_HEIGHT = 1920
@@ -232,27 +103,23 @@ def build_caption_filters(
             continue
         
         words_sorted = sorted(words, key=lambda w: w['start'])
-        char_width = font_size * 0.4  # Empirically determined for Bangers font
+        char_width = font_size * 0.4
         
-        # Check if we have explicit line breaks for this segment
         seg_breaks = []
         if caption_breaks:
             seg_breaks = caption_breaks.get(str(segment_index), [])
         
         if seg_breaks:
-            # Use explicit caption_breaks for line grouping
             lines = []
             current_line = []
             for i, word in enumerate(words_sorted):
                 current_line.append(word)
-                # Break AFTER this word if its index is in seg_breaks
                 if i in seg_breaks:
                     lines.append(current_line)
                     current_line = []
             if current_line:
                 lines.append(current_line)
         else:
-            # Fall back to width-based grouping
             lines = []
             current_line = []
             line_width = 0
@@ -327,414 +194,97 @@ def build_caption_filters(
     return ",".join(filters)
 
 
-def build_filter_graph(
+def build_segment_render_command(
+    input_video: str,
+    output_video: str,
+    seg_start: float,
+    seg_end: float,
     caption_events: List[Dict[str, Any]],
     caption_style: dict,
     font_path: str,
-    input_video: str,
-    output_video: str,
-    timeline_clips: Optional[List[Dict[str, Any]]] = None,
-    caption_breaks: Optional[Dict[str, List[int]]] = None
-) -> str:
-    """Build complete ffmpeg filter graph string.
+    caption_breaks: Optional[Dict[str, List[int]]] = None,
+    filter_script_path: Optional[str] = None
+) -> List[str]:
+    """Build ffmpeg command for rendering a single segment with captions.
     
-    If timeline_clips is provided, builds:
-      [0:v] -> trim/concat -> [v_base] -> captions -> [vout]
-      [0:a] -> atrim/concat -> [a_base]
-    
-    If timeline_clips is None (legacy mode), builds:
-      [0:v] -> captions -> output (no timeline assembly)
+    Uses -ss before -i for fast seeking, then applies captions to trimmed segment.
+    Always uses -filter_complex_script to avoid quote escaping issues.
     
     Args:
-        caption_breaks: Dict mapping segment_index to list of word indices where lines break
+        input_video: Path to source video
+        output_video: Path for output segment file
+        seg_start: Start time in source video (seconds)
+        seg_end: End time in source video (seconds)
+        caption_events: Caption events for THIS segment only (with output_start=0)
+        caption_style: Style settings
+        font_path: Path to font file
+        caption_breaks: Line break mappings
+        filter_script_path: Path to save filter script (REQUIRED if captions exist)
+    
+    Returns:
+        List of command arguments for subprocess
     """
-    if timeline_clips:
-        v_assembly, a_assembly, n_segs = build_timeline_assembly_filter(timeline_clips)
-        
-        caption_filters = build_caption_filters(caption_events, caption_style, font_path, caption_breaks)
-        
-        if caption_filters:
-            filter_complex = f"{v_assembly};\n[v_base]{caption_filters}[vout];\n{a_assembly}"
-        else:
-            filter_complex = f"{v_assembly};\n{a_assembly}"
-        
-        return filter_complex
+    caption_filters = build_caption_filters(
+        caption_events, caption_style, font_path, caption_breaks
+    )
     
-    caption_filters = build_caption_filters(caption_events, caption_style, font_path, caption_breaks)
+    duration = seg_end - seg_start
     
-    if not caption_filters:
-        return "copy"
-    
-    return caption_filters
-
-
-def build_ffmpeg_command(
-    input_video: str,
-    output_video: str,
-    filter_script_path: str,
-    timeline_clips: Optional[List[Dict[str, Any]]] = None
-) -> List[str]:
-    """Build complete ffmpeg command.
-    
-    If timeline_clips is provided, uses assembled output with explicit maps.
-    If timeline_clips is None (legacy mode), uses simple output.
-    """
     cmd = [
-        'ffmpeg',
-        '-y',
+        'ffmpeg', '-y',
+        '-ss', str(seg_start),
         '-i', input_video,
-        '-filter_complex_script', filter_script_path,
+        '-t', str(duration),
     ]
     
-    if timeline_clips:
+    if caption_filters:
+        if not filter_script_path:
+            raise ValueError("filter_script_path is required when caption_filters exist")
+        
+        filter_graph = f"[0:v]setpts=PTS-STARTPTS,{caption_filters}[vout];[0:a]asetpts=PTS-STARTPTS[aout]"
+        
+        with open(filter_script_path, 'w') as f:
+            f.write(filter_graph)
+        
         cmd.extend([
+            '-filter_complex_script', filter_script_path,
             '-map', '[vout]',
-            '-map', '[a_base]',
-            '-c:v', 'libx264',
-            '-preset', 'medium',
-            '-crf', '23',
-            '-c:a', 'aac',
-            '-b:a', '128k',
-            output_video
-        ])
-    else:
-        cmd.extend([
-            '-c:a', 'copy',
-            '-c:v', 'libx264',
-            '-preset', 'medium',
-            '-crf', '23',
-            output_video
+            '-map', '[aout]',
         ])
     
-    return cmd
-
-
-def build_pass1_assembly_filter(timeline_clips: List[Dict[str, Any]]) -> Tuple[str, str, int]:
-    """Build trim/concat filter for Pass 1 assembly only.
-    
-    Returns video filter ending with [vout] and audio filter ending with [aout].
-    Uses stream output labels suitable for direct output (not chaining).
-    """
-    all_segments = []
-    for item in timeline_clips:
-        for start, end in item['playable_segments']:
-            all_segments.append((start, end))
-    
-    if not all_segments:
-        return "[0:v]null[vout]", "[0:a]anull[aout]", 0
-    
-    if len(all_segments) == 1:
-        start, end = all_segments[0]
-        v_filter = f"[0:v]trim=start={start:.3f}:end={end:.3f},setpts=PTS-STARTPTS[vout]"
-        a_filter = f"[0:a]atrim=start={start:.3f}:end={end:.3f},asetpts=PTS-STARTPTS[aout]"
-        return v_filter, a_filter, 1
-    
-    chunk_size = 10
-    n = len(all_segments)
-    
-    if n <= chunk_size:
-        v_filters = []
-        a_filters = []
-        v_labels = []
-        a_labels = []
-        
-        for i, (start, end) in enumerate(all_segments):
-            v_label = f"v{i}"
-            a_label = f"a{i}"
-            v_labels.append(f"[{v_label}]")
-            a_labels.append(f"[{a_label}]")
-            
-            v_filters.append(
-                f"[0:v]trim=start={start:.3f}:end={end:.3f},setpts=PTS-STARTPTS[{v_label}]"
-            )
-            a_filters.append(
-                f"[0:a]atrim=start={start:.3f}:end={end:.3f},asetpts=PTS-STARTPTS[{a_label}]"
-            )
-        
-        v_concat = f"{''.join(v_labels)}concat=n={n}:v=1:a=0[vout]"
-        a_concat = f"{''.join(a_labels)}concat=n={n}:v=0:a=1[aout]"
-        
-        v_chain = ';\n'.join(v_filters + [v_concat])
-        a_chain = ';\n'.join(a_filters + [a_concat])
-        
-        return v_chain, a_chain, n
-    
-    v_filters = []
-    a_filters = []
-    v_chunk_concats = []
-    a_chunk_concats = []
-    v_chunk_labels = []
-    a_chunk_labels = []
-    
-    seg_idx = 0
-    chunk_idx = 0
-    
-    while seg_idx < n:
-        chunk_end = min(seg_idx + chunk_size, n)
-        chunk_count = chunk_end - seg_idx
-        
-        v_labels = []
-        a_labels = []
-        
-        for i in range(seg_idx, chunk_end):
-            start, end = all_segments[i]
-            local_idx = i - seg_idx
-            v_label = f"v{chunk_idx}_{local_idx}"
-            a_label = f"a{chunk_idx}_{local_idx}"
-            v_labels.append(f"[{v_label}]")
-            a_labels.append(f"[{a_label}]")
-            
-            v_filters.append(
-                f"[0:v]trim=start={start:.3f}:end={end:.3f},setpts=PTS-STARTPTS[{v_label}]"
-            )
-            a_filters.append(
-                f"[0:a]atrim=start={start:.3f}:end={end:.3f},asetpts=PTS-STARTPTS[{a_label}]"
-            )
-        
-        v_chunk_label = f"[vc{chunk_idx}]"
-        a_chunk_label = f"[ac{chunk_idx}]"
-        v_chunk_labels.append(v_chunk_label)
-        a_chunk_labels.append(a_chunk_label)
-        
-        v_chunk_concats.append(
-            f"{''.join(v_labels)}concat=n={chunk_count}:v=1:a=0{v_chunk_label}"
-        )
-        a_chunk_concats.append(
-            f"{''.join(a_labels)}concat=n={chunk_count}:v=0:a=1{a_chunk_label}"
-        )
-        
-        seg_idx = chunk_end
-        chunk_idx += 1
-    
-    num_chunks = chunk_idx
-    
-    if num_chunks == 1:
-        v_chain = ';\n'.join(v_filters + v_chunk_concats).replace('[vc0]', '[vout]')
-        a_chain = ';\n'.join(a_filters + a_chunk_concats).replace('[ac0]', '[aout]')
-        return v_chain, a_chain, n
-    
-    v_final_concat = f"{''.join(v_chunk_labels)}concat=n={num_chunks}:v=1:a=0[vout]"
-    a_final_concat = f"{''.join(a_chunk_labels)}concat=n={num_chunks}:v=0:a=1[aout]"
-    
-    v_chain = ';\n'.join(v_filters + v_chunk_concats + [v_final_concat])
-    a_chain = ';\n'.join(a_filters + a_chunk_concats + [a_final_concat])
-    
-    return v_chain, a_chain, n
-
-
-def build_pass2_caption_filter(
-    caption_events: List[Dict[str, Any]],
-    caption_style: dict,
-    font_path: str,
-    caption_breaks: Optional[Dict[str, List[int]]] = None
-) -> str:
-    """Build caption-only filter for Pass 2 (assumes already-assembled video).
-    
-    Input: [0:v] (assembled video from Pass 1)
-    Output: filter chain that outputs to [vout]
-    
-    Args:
-        caption_events: List of caption events with words
-        caption_style: Style settings (font_size, position, etc.)
-        font_path: Path to font file
-        caption_breaks: Dict mapping segment_index to list of word indices where lines break
-    """
-    VIDEO_WIDTH = 1080
-    VIDEO_HEIGHT = 1920
-    
-    filters = []
-    
-    font_size = get_font_size(caption_style.get('font_size', 'medium'))
-    position = caption_style.get('position', 'lower_third')
-    background = caption_style.get('background', 'dark_box')
-    default_color = caption_style.get('default_color', '#ffffff')
-    
-    for event in caption_events:
-        words = event.get('words', [])
-        output_start = event['output_start']
-        segment_index = event.get('segment_index', -1)
-        
-        if not words:
-            continue
-        
-        words_sorted = sorted(words, key=lambda w: w['start'])
-        char_width = font_size * 0.4  # Empirically determined for Bangers font
-        
-        # Check if we have explicit line breaks for this segment
-        seg_breaks = []
-        if caption_breaks:
-            seg_breaks = caption_breaks.get(str(segment_index), [])
-        
-        if seg_breaks:
-            # Use explicit caption_breaks for line grouping
-            lines = []
-            current_line = []
-            for i, word in enumerate(words_sorted):
-                current_line.append(word)
-                # Break AFTER this word if its index is in seg_breaks
-                if i in seg_breaks:
-                    lines.append(current_line)
-                    current_line = []
-            if current_line:
-                lines.append(current_line)
-        else:
-            # Fall back to width-based grouping
-            lines = []
-            current_line = []
-            line_width = 0
-            max_width = 800
-            
-            for word in words_sorted:
-                word_width = len(word.get('text', '')) * char_width + char_width
-                if line_width + word_width > max_width and current_line:
-                    lines.append(current_line)
-                    current_line = []
-                    line_width = 0
-                current_line.append(word)
-                line_width += word_width
-            
-            if current_line:
-                lines.append(current_line)
-        
-        for line_idx, line in enumerate(lines):
-            line_y_offset = 0
-            
-            line_start = min(output_start + (word['start'] - event['original_start']) for word in line)
-            line_end = max(output_start + (word['end'] - event['original_start']) for word in line)
-            
-            x_offset = 0
-            line_text = ' '.join(word.get('text', '') for word in line)
-            total_width = len(line_text) * char_width
-            
-            if background == 'dark_box':
-                box_padding = 8
-                box_w = int(total_width + box_padding * 2)
-                box_h = font_size + box_padding * 2
-                
-                box_x = (VIDEO_WIDTH - box_w) // 2
-                
-                y_base = get_y_position(position, font_size)
-                box_y = y_base - box_padding
-                
-                box_filter = f"drawbox=x={box_x}:y={box_y}:width={box_w}:height={box_h}:color=black@0.7:t=fill:enable='between(t,{line_start:.3f},{line_end:.3f})'"
-                filters.append(box_filter)
-            
-            for word in line:
-                text = word.get('text', '')
-                color = word.get('color', default_color)
-                
-                word_output_start = output_start + (word['start'] - event['original_start'])
-                
-                escaped_text = escape_ffmpeg_text(text)
-                ffmpeg_color = hex_to_ffmpeg(color)
-                
-                base_x = (VIDEO_WIDTH - int(total_width)) // 2
-                if x_offset > 0:
-                    x_pixel = base_x + int(x_offset)
-                else:
-                    x_pixel = base_x
-                
-                y_base = get_y_position(position, font_size)
-                y_pixel = y_base
-                
-                filter_str = f"drawtext=text='{escaped_text}':fontfile={font_path}:fontsize={font_size}:fontcolor={ffmpeg_color}:x={x_pixel}:y={y_pixel}"
-                
-                if background == 'outline':
-                    filter_str += f":borderw=2:bordercolor=black"
-                
-                filter_str += f":enable='between(t,{word_output_start:.3f},{line_end:.3f})'"
-                filters.append(filter_str)
-                
-                x_offset += len(text) * char_width + char_width
-    
-    if not filters:
-        return ""
-    
-    return ",".join(filters)
-
-
-def build_pass1_command(input_video: str, output_video: str, filter_script_path: str) -> List[str]:
-    """Build ffmpeg command for Pass 1 (assembly only)."""
-    return [
-        'ffmpeg', '-y',
-        '-i', input_video,
-        '-filter_complex_script', filter_script_path,
-        '-map', '[vout]',
-        '-map', '[aout]',
+    cmd.extend([
         '-c:v', 'libx264',
         '-preset', 'fast',
         '-crf', '18',
         '-c:a', 'aac',
         '-b:a', '128k',
         output_video
-    ]
-
-
-def build_pass2_command(input_video: str, output_video: str, filter_script_path: str) -> List[str]:
-    """Build ffmpeg command for Pass 2 (captions only)."""
-    return [
-        'ffmpeg', '-y',
-        '-i', input_video,
-        '-filter_complex_script', filter_script_path,
-        '-map', '[vout]',
-        '-map', '0:a',
-        '-c:v', 'libx264',
-        '-preset', 'medium',
-        '-crf', '23',
-        '-c:a', 'copy',
-        output_video
-    ]
-
-
-def generate_concat_demuxer_list(
-    timeline_clips: List[Dict[str, Any]],
-    input_video: str,
-    output_dir: Path
-) -> Tuple[Path, int]:
-    """
-    Generate a concat demuxer file list for segment assembly.
+    ])
     
-    This uses FFmpeg's concat demuxer which streams segments sequentially
-    instead of buffering them all in memory like filter concat.
-    
-    Returns: (list_file_path, segment_count)
-    """
-    all_segments = []
-    for item in timeline_clips:
-        for start, end in item['playable_segments']:
-            all_segments.append((start, end))
-    
-    if not all_segments:
-        list_path = output_dir / 'concat_list.txt'
-        with open(list_path, 'w') as f:
-            f.write("")
-        return list_path, 0
-    
-    list_path = output_dir / 'concat_list.txt'
-    with open(list_path, 'w') as f:
-        for start, end in all_segments:
-            duration = end - start
-            f.write(f"file '{input_video}'\n")
-            f.write(f"inpoint {start:.6f}\n")
-            f.write(f"outpoint {end:.6f}\n")
-    
-    return list_path, len(all_segments)
+    return cmd
 
 
-def build_concat_demuxer_command(
-    list_path: str,
-    output_video: str,
-    input_video: str
+def build_concat_command(
+    concat_list_path: str,
+    output_video: str
 ) -> List[str]:
-    """Build ffmpeg command using concat demuxer for assembly."""
+    """Build ffmpeg command to concatenate segments with re-encode.
+    
+    Args:
+        concat_list_path: Path to concat list file
+        output_video: Path for final output video
+    
+    Returns:
+        List of command arguments for subprocess
+    """
     return [
         'ffmpeg', '-y',
         '-f', 'concat',
         '-safe', '0',
-        '-i', list_path,
+        '-i', concat_list_path,
         '-c:v', 'libx264',
-        '-preset', 'fast',
-        '-crf', '18',
+        '-preset', 'medium',
+        '-crf', '23',
         '-c:a', 'aac',
         '-b:a', '128k',
         output_video

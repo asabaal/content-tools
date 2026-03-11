@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render first 2 caption lines (segment 0) using two-pass method."""
+"""Render first 2 caption lines (segment 0) using segmented approach."""
 
 import subprocess
 import sys
@@ -7,12 +7,7 @@ from pathlib import Path
 
 from segments import compute_timeline_clips, get_total_duration
 from captions import build_caption_events
-from ffmpeg_builder import (
-    build_pass2_caption_filter,
-    build_pass1_assembly_filter,
-    build_pass1_command,
-    build_pass2_command
-)
+from ffmpeg_builder import build_segment_render_command
 from srt import generate_srt
 from render import load_project, get_project_root
 
@@ -21,8 +16,7 @@ def main():
     root = get_project_root()
     input_video = root / 'data' / 'video_combined.mp4'
     output_dir = root / 'data' / 'output'
-    assembled_video = output_dir / 'assembled.mp4'
-    output_video = output_dir / 'first_2_lines_manual.mp4'
+    output_video = output_dir / 'first_2_lines.mp4'
     output_srt = output_dir / 'captions.srt'
     font_path = root / 'tools' / '05b-render' / 'fonts' / 'Bangers-Regular.ttf'
     
@@ -58,49 +52,45 @@ def main():
     print("Generating SRT file...")
     generate_srt(caption_events, str(output_srt))
     
-    print("\n=== PASS 1: Timeline Assembly (filter-based) ===")
-    v_filter, a_filter, n_segs = build_pass1_assembly_filter(timeline_clips)
-    print(f"Assembling {n_segs} segments...")
+    for clip_item in timeline_clips:
+        for seg_start, seg_end in clip_item['playable_segments']:
+            seg_captions = [
+                e for e in caption_events 
+                if abs(e['original_start'] - seg_start) < 0.001 
+                and abs(e['original_end'] - seg_end) < 0.001
+            ]
+            
+            for event in seg_captions:
+                event['output_start'] = 0.0
+            
+            print(f"\nRendering segment {seg_start:.3f}-{seg_end:.3f}...")
+            
+            filter_script_path = output_dir / 'first_2_lines_filter.txt'
+            
+            cmd = build_segment_render_command(
+                str(input_video),
+                str(output_video),
+                seg_start,
+                seg_end,
+                seg_captions,
+                caption_style,
+                str(font_path),
+                caption_breaks,
+                filter_script_path=str(filter_script_path)
+            )
+            
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            
+            if result.returncode != 0:
+                print(f"Render failed: {result.stderr}", file=sys.stderr)
+                sys.exit(1)
+            
+            print(f"Render complete: {output_video}")
+            print(f"SRT: {output_srt}")
+            return
     
-    pass1_filter_path = output_dir / 'pass1_filter.txt'
-    with open(pass1_filter_path, 'w') as f:
-        f.write(f"{v_filter};\n{a_filter}")
-    
-    cmd1 = build_pass1_command(str(input_video), str(assembled_video), str(pass1_filter_path))
-    result = subprocess.run(cmd1, capture_output=True, text=True)
-    
-    if result.returncode != 0:
-        print(f"Pass 1 failed: {result.stderr}", file=sys.stderr)
-        sys.exit(1)
-    
-    print(f"Pass 1 complete: {assembled_video}")
-    
-    print("\n=== PASS 2: Caption Overlay ===")
-    caption_filter = build_pass2_caption_filter(
-        caption_events, caption_style, str(font_path), caption_breaks
-    )
-    
-    if not caption_filter:
-        print("No caption filter generated", file=sys.stderr)
-        sys.exit(1)
-    
-    pass2_filter_path = output_dir / 'pass2_filter.txt'
-    with open(pass2_filter_path, 'w') as f:
-        f.write(f"[0:v]{caption_filter}[vout]")
-    print(f"Filter saved: {pass2_filter_path}")
-    
-    cmd2 = build_pass2_command(str(assembled_video), str(output_video), str(pass2_filter_path))
-    result = subprocess.run(cmd2, capture_output=True, text=True)
-    
-    if result.returncode != 0:
-        print(f"Pass 2 failed: {result.stderr}", file=sys.stderr)
-        sys.exit(1)
-    
-    print(f"Pass 2 complete: {output_video}")
-    
-    print(f"\n=== Done ===")
-    print(f"Output: {output_video}")
-    print(f"SRT: {output_srt}")
+    print("No playable segments found", file=sys.stderr)
+    sys.exit(1)
 
 
 if __name__ == '__main__':
