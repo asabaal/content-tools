@@ -3,7 +3,7 @@
   "project": {
     "name": "Life is your Word S0E10 TEST",
     "created": "2026-03-11",
-    "modified": "2026-03-11"
+    "modified": "2026-03-12"
   },
   "paths": {
     "raw": "raw",
@@ -12,5 +12,3524 @@
     "combined_transcript": "transcript_combined.json",
     "waveforms": "waveforms.json",
     "output": "output"
+  },
+  "videos": [],
+  "clips": [
+    {
+      "id": "clip_mmnrvbrx_0",
+      "name": "For a long time, I thought my probl...",
+      "segments": [
+        {
+          "segment_index": 0,
+          "original_video_id": "20251212_105046",
+          "start": 0.7600000000000013,
+          "end": 5.54,
+          "text": "For a long time, I thought my problem with faith was simply not believing good enough."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 0,
+        "original_video_id": "20251212_105046",
+        "start": 0.7600000000000013,
+        "end": 5.54,
+        "text": "For a long time, I thought my problem with faith was simply not believing good enough."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 0,
+      "auto_created": true,
+      "trim_end": 255.7828112937813,
+      "trim_start": 0,
+      "deleted_regions": [
+        {
+          "start": 0.151,
+          "end": 1.188
+        },
+        {
+          "start": 5.737,
+          "end": 6.925
+        },
+        {
+          "start": 11.022,
+          "end": 12.2
+        },
+        {
+          "start": 19.247,
+          "end": 20.207
+        },
+        {
+          "start": 25.822,
+          "end": 27.742
+        },
+        {
+          "start": 31.006,
+          "end": 38.782
+        }
+      ]
+    },
+    {
+      "id": "clip_mmnrvbrx_1",
+      "name": "Now I understand it was the conditi...",
+      "segments": [
+        {
+          "segment_index": 1,
+          "original_video_id": "20251212_105046",
+          "start": 6.86,
+          "end": 10.84,
+          "text": "Now I understand it was the conditions that I allowed myself to live in."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 1,
+        "original_video_id": "20251212_105046",
+        "start": 6.86,
+        "end": 10.84,
+        "text": "Now I understand it was the conditions that I allowed myself to live in."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 1,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_2",
+      "name": "Welcome to Life is Your Word, in th...",
+      "segments": [
+        {
+          "segment_index": 2,
+          "original_video_id": "20251212_105046",
+          "start": 12.66,
+          "end": 19,
+          "text": "Welcome to Life is Your Word, in this show we understand reality by seeking God first."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 2,
+        "original_video_id": "20251212_105046",
+        "start": 12.66,
+        "end": 19,
+        "text": "Welcome to Life is Your Word, in this show we understand reality by seeking God first."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 2,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_3",
+      "name": "We're currently going through a min...",
+      "segments": [
+        {
+          "segment_index": 3,
+          "original_video_id": "20251212_105046",
+          "start": 20.22,
+          "end": 25,
+          "text": "We're currently going through a mini-series on the fruit of the Spirit, and today's fruit patience."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 3,
+        "original_video_id": "20251212_105046",
+        "start": 20.22,
+        "end": 25,
+        "text": "We're currently going through a mini-series on the fruit of the Spirit, and today's fruit patience."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 3,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_4",
+      "name": "Today's reading will be from Luke 8...",
+      "segments": [
+        {
+          "segment_index": 4,
+          "original_video_id": "20251212_105120",
+          "start": 28.296,
+          "end": 30.476,
+          "text": "Today's reading will be from Luke 8."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 4,
+        "original_video_id": "20251212_105120",
+        "start": 28.296,
+        "end": 30.476,
+        "text": "Today's reading will be from Luke 8."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 4,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_5",
+      "name": "Jesus said a parable. A sower went...",
+      "segments": [
+        {
+          "segment_index": 5,
+          "original_video_id": "20251212_105140",
+          "start": 38.9773125,
+          "end": 45.7773125,
+          "text": "Jesus said a parable. A sower went out to sow the seed. Some fell on the path"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 5,
+        "original_video_id": "20251212_105140",
+        "start": 38.9773125,
+        "end": 45.7773125,
+        "text": "Jesus said a parable. A sower went out to sow the seed. Some fell on the path"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 5,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_6",
+      "name": "and was trampled on. Some fell on r...",
+      "segments": [
+        {
+          "segment_index": 6,
+          "original_video_id": "20251212_105140",
+          "start": 45.7773125,
+          "end": 54.5973125,
+          "text": "and was trampled on. Some fell on rock and it grew up and withered for lack of"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 6,
+        "original_video_id": "20251212_105140",
+        "start": 45.7773125,
+        "end": 54.5973125,
+        "text": "and was trampled on. Some fell on rock and it grew up and withered for lack of"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 6,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_7",
+      "name": "whisper. Some among thorns and the...",
+      "segments": [
+        {
+          "segment_index": 7,
+          "original_video_id": "20251212_105140",
+          "start": 54.5973125,
+          "end": 63.7973125,
+          "text": "whisper. Some among thorns and the thorns choked it and yet some fell on good"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 7,
+        "original_video_id": "20251212_105140",
+        "start": 54.5973125,
+        "end": 63.7973125,
+        "text": "whisper. Some among thorns and the thorns choked it and yet some fell on good"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 7,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_8",
+      "name": "soil. And when it grew, it produced...",
+      "segments": [
+        {
+          "segment_index": 8,
+          "original_video_id": "20251212_105140",
+          "start": 63.7973125,
+          "end": 75.93731249999999,
+          "text": "soil. And when it grew, it produced a hundredfold. The parable means this. The seed is God's"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 8,
+        "original_video_id": "20251212_105140",
+        "start": 63.7973125,
+        "end": 75.93731249999999,
+        "text": "soil. And when it grew, it produced a hundredfold. The parable means this. The seed is God's"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 8,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_9",
+      "name": "word. Those on the path have heard....",
+      "segments": [
+        {
+          "segment_index": 9,
+          "original_video_id": "20251212_105140",
+          "start": 75.93731249999999,
+          "end": 86.0173125,
+          "text": "word. Those on the path have heard. Those on the path have heard the word but the devil"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 9,
+        "original_video_id": "20251212_105140",
+        "start": 75.93731249999999,
+        "end": 86.0173125,
+        "text": "word. Those on the path have heard. Those on the path have heard the word but the devil"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 9,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_a",
+      "name": "takes it away. But the devil takes...",
+      "segments": [
+        {
+          "segment_index": 10,
+          "original_video_id": "20251212_105140",
+          "start": 86.0173125,
+          "end": 95.15731249999999,
+          "text": "takes it away. But the devil takes it away from their hearts so they don't believe. The ones in the rocks"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 10,
+        "original_video_id": "20251212_105140",
+        "start": 86.0173125,
+        "end": 95.15731249999999,
+        "text": "takes it away. But the devil takes it away from their hearts so they don't believe. The ones in the rocks"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 10,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_b",
+      "name": "hear the word, receive it with joy,...",
+      "segments": [
+        {
+          "segment_index": 11,
+          "original_video_id": "20251212_105140",
+          "start": 96.1573125,
+          "end": 111.0173125,
+          "text": "hear the word, receive it with joy, but have no root. They've in testing, they fall away. Those in"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 11,
+        "original_video_id": "20251212_105140",
+        "start": 96.1573125,
+        "end": 111.0173125,
+        "text": "hear the word, receive it with joy, but have no root. They've in testing, they fall away. Those in"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 11,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_c",
+      "name": "the thorns are choked by the cares...",
+      "segments": [
+        {
+          "segment_index": 12,
+          "original_video_id": "20251212_105140",
+          "start": 111.0173125,
+          "end": 121.5573125,
+          "text": "the thorns are choked by the cares and riches of life and their fruit does not mature. But for the good"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 12,
+        "original_video_id": "20251212_105140",
+        "start": 111.0173125,
+        "end": 121.5573125,
+        "text": "the thorns are choked by the cares and riches of life and their fruit does not mature. But for the good"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 12,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_d",
+      "name": "soil, these are the ones when they...",
+      "segments": [
+        {
+          "segment_index": 13,
+          "original_video_id": "20251212_105140",
+          "start": 121.5573125,
+          "end": 132.5973125,
+          "text": "soil, these are the ones when they hear the word, hold it fast in an honest and good heart and bear fruit"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 13,
+        "original_video_id": "20251212_105140",
+        "start": 121.5573125,
+        "end": 132.5973125,
+        "text": "soil, these are the ones when they hear the word, hold it fast in an honest and good heart and bear fruit"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 13,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_e",
+      "name": "with endurance.",
+      "segments": [
+        {
+          "segment_index": 14,
+          "original_video_id": "20251212_105140",
+          "start": 132.5973125,
+          "end": 133.3773125,
+          "text": "with endurance."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 14,
+        "original_video_id": "20251212_105140",
+        "start": 132.5973125,
+        "end": 133.3773125,
+        "text": "with endurance."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 14,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_f",
+      "name": "I grew up in the church and I heard...",
+      "segments": [
+        {
+          "segment_index": 15,
+          "original_video_id": "20251212_105328",
+          "start": 136.746625,
+          "end": 152.146625,
+          "text": "I grew up in the church and I heard all about God's word, and I knew it well. I read the Bible multiple times in high school, but my life was crowded, trying to pursue things that I thought were good, but in reality were selfish desires."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 15,
+        "original_video_id": "20251212_105328",
+        "start": 136.746625,
+        "end": 152.146625,
+        "text": "I grew up in the church and I heard all about God's word, and I knew it well. I read the Bible multiple times in high school, but my life was crowded, trying to pursue things that I thought were good, but in reality were selfish desires."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 15,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_g",
+      "name": "I felt pressure, I felt fear, I was...",
+      "segments": [
+        {
+          "segment_index": 16,
+          "original_video_id": "20251212_105328",
+          "start": 154.666625,
+          "end": 161.046625,
+          "text": "I felt pressure, I felt fear, I was trying to survive instead of being formed by God."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 16,
+        "original_video_id": "20251212_105328",
+        "start": 154.666625,
+        "end": 161.046625,
+        "text": "I felt pressure, I felt fear, I was trying to survive instead of being formed by God."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 16,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_h",
+      "name": "So the word kept getting choked out...",
+      "segments": [
+        {
+          "segment_index": 17,
+          "original_video_id": "20251212_105328",
+          "start": 162.246625,
+          "end": 171.986625,
+          "text": "So the word kept getting choked out, so my fruit couldn't mature, so the word couldn't take root and my fruit couldn't mature."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 17,
+        "original_video_id": "20251212_105328",
+        "start": 162.246625,
+        "end": 171.986625,
+        "text": "So the word kept getting choked out, so my fruit couldn't mature, so the word couldn't take root and my fruit couldn't mature."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 17,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_i",
+      "name": "But Jesus never blames the seed. Th...",
+      "segments": [
+        {
+          "segment_index": 18,
+          "original_video_id": "20251212_105328",
+          "start": 176.44662499999998,
+          "end": 187.746625,
+          "text": "But Jesus never blames the seed. There doesn't mean there's anything wrong with the seed itself. The word is still good. He points to the soil and soil can change."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 18,
+        "original_video_id": "20251212_105328",
+        "start": 176.44662499999998,
+        "end": 187.746625,
+        "text": "But Jesus never blames the seed. There doesn't mean there's anything wrong with the seed itself. The word is still good. He points to the soil and soil can change."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 18,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_j",
+      "name": "Patience only came not because I wa...",
+      "segments": [
+        {
+          "segment_index": 19,
+          "original_video_id": "20251212_105435",
+          "start": 191.5199375,
+          "end": 196.37993749999998,
+          "text": "Patience only came not because I was trying not because I learned how to wait"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 19,
+        "original_video_id": "20251212_105435",
+        "start": 191.5199375,
+        "end": 196.37993749999998,
+        "text": "Patience only came not because I was trying not because I learned how to wait"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 19,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_k",
+      "name": "better but because I started tendin...",
+      "segments": [
+        {
+          "segment_index": 20,
+          "original_video_id": "20251212_105435",
+          "start": 196.37993749999998,
+          "end": 204.7399375,
+          "text": "better but because I started tending to my own life making space letting"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 20,
+        "original_video_id": "20251212_105435",
+        "start": 196.37993749999998,
+        "end": 204.7399375,
+        "text": "better but because I started tending to my own life making space letting"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 20,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_l",
+      "name": "God work deeper than my urgency all...",
+      "segments": [
+        {
+          "segment_index": 21,
+          "original_video_id": "20251212_105435",
+          "start": 204.7399375,
+          "end": 213.09993749999998,
+          "text": "God work deeper than my urgency allowing growth to take time instead of"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 21,
+        "original_video_id": "20251212_105435",
+        "start": 204.7399375,
+        "end": 213.09993749999998,
+        "text": "God work deeper than my urgency allowing growth to take time instead of"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 21,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_m",
+      "name": "forcing results. Patience was not t...",
+      "segments": [
+        {
+          "segment_index": 22,
+          "original_video_id": "20251212_105435",
+          "start": 213.09993749999998,
+          "end": 220.1999375,
+          "text": "forcing results. Patience was not the goal. Patience was the fruit. It showed"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 22,
+        "original_video_id": "20251212_105435",
+        "start": 213.09993749999998,
+        "end": 220.1999375,
+        "text": "forcing results. Patience was not the goal. Patience was the fruit. It showed"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 22,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_n",
+      "name": "up when the word was finally allowe...",
+      "segments": [
+        {
+          "segment_index": 23,
+          "original_video_id": "20251212_105435",
+          "start": 220.1999375,
+          "end": 227.4199375,
+          "text": "up when the word was finally allowed to stay long enough to grow and produce"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 23,
+        "original_video_id": "20251212_105435",
+        "start": 220.1999375,
+        "end": 227.4199375,
+        "text": "up when the word was finally allowed to stay long enough to grow and produce"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 23,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_o",
+      "name": "good fruit. The seed was always ali...",
+      "segments": [
+        {
+          "segment_index": 24,
+          "original_video_id": "20251212_105435",
+          "start": 227.4199375,
+          "end": 234.15993749999998,
+          "text": "good fruit. The seed was always alive what changed was my life the soil that"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 24,
+        "original_video_id": "20251212_105435",
+        "start": 227.4199375,
+        "end": 234.15993749999998,
+        "text": "good fruit. The seed was always alive what changed was my life the soil that"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 24,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_p",
+      "name": "it grew in. Patience has never been...",
+      "segments": [
+        {
+          "segment_index": 25,
+          "original_video_id": "20251212_105435",
+          "start": 234.15993749999998,
+          "end": 240.0599375,
+          "text": "it grew in. Patience has never been about waiting but about becoming a place"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 25,
+        "original_video_id": "20251212_105435",
+        "start": 234.15993749999998,
+        "end": 240.0599375,
+        "text": "it grew in. Patience has never been about waiting but about becoming a place"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 25,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_q",
+      "name": "where life can fully form.",
+      "segments": [
+        {
+          "segment_index": 26,
+          "original_video_id": "20251212_105435",
+          "start": 240.0599375,
+          "end": 242.3399375,
+          "text": "where life can fully form."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 26,
+        "original_video_id": "20251212_105435",
+        "start": 240.0599375,
+        "end": 242.3399375,
+        "text": "where life can fully form."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 26,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_r",
+      "name": "How has God taught you about patien...",
+      "segments": [
+        {
+          "segment_index": 27,
+          "original_video_id": "20251212_105534",
+          "start": 248.50925,
+          "end": 250.30925000000002,
+          "text": "How has God taught you about patience?"
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 27,
+        "original_video_id": "20251212_105534",
+        "start": 248.50925,
+        "end": 250.30925000000002,
+        "text": "How has God taught you about patience?"
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 27,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_s",
+      "name": "Share your revelations in the comme...",
+      "segments": [
+        {
+          "segment_index": 28,
+          "original_video_id": "20251212_105534",
+          "start": 250.92925,
+          "end": 252.44925,
+          "text": "Share your revelations in the comments."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 28,
+        "original_video_id": "20251212_105534",
+        "start": 250.92925,
+        "end": 252.44925,
+        "text": "Share your revelations in the comments."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 28,
+      "auto_created": true
+    },
+    {
+      "id": "clip_mmnrvbrx_t",
+      "name": "In love and unity, Acebele.",
+      "segments": [
+        {
+          "segment_index": 29,
+          "original_video_id": "20251212_105534",
+          "start": 252.94925,
+          "end": 254.32925,
+          "text": "In love and unity, Acebele."
+        }
+      ],
+      "selected_segment": {
+        "segment_index": 29,
+        "original_video_id": "20251212_105534",
+        "start": 252.94925,
+        "end": 254.32925,
+        "text": "In love and unity, Acebele."
+      },
+      "in_timeline": true,
+      "enabled": true,
+      "timeline_position": 29,
+      "auto_created": true
+    }
+  ],
+  "caption_style": {
+    "font_family": "Bangers",
+    "font_size": "medium",
+    "position": "lower_third",
+    "background": "dark_box",
+    "default_color": "#ffffff",
+    "color_presets": [
+      {
+        "name": "Brand",
+        "color": "#cb697f"
+      },
+      {
+        "name": "Accent",
+        "color": "#4cc9f0"
+      },
+      {
+        "name": "White",
+        "color": "#ffffff"
+      }
+    ]
+  },
+  "word_colors": {
+    "0_0": "#cb697f",
+    "0_1": "#cb697f",
+    "0_2": "#cb697f",
+    "0_3": "#cb697f",
+    "0_4": "#4cc9f0",
+    "0_5": "#4cc9f0",
+    "0_6": "#4cc9f0",
+    "0_7": "#4cc9f0"
+  },
+  "caption_breaks": {
+    "0": [
+      3,
+      7,
+      11
+    ]
+  },
+  "transcript": {
+    "video_id": "combined",
+    "language": "en",
+    "duration": 256.14925,
+    "sources": [
+      {
+        "video_id": "20251212_105046",
+        "start": 0,
+        "end": 26.816,
+        "duration": 26.816
+      },
+      {
+        "video_id": "20251212_105120",
+        "start": 26.816,
+        "end": 37.7173125,
+        "duration": 10.9013125
+      },
+      {
+        "video_id": "20251212_105140",
+        "start": 37.7173125,
+        "end": 135.146625,
+        "duration": 97.4293125
+      },
+      {
+        "video_id": "20251212_105328",
+        "start": 135.146625,
+        "end": 190.3999375,
+        "duration": 55.2533125
+      },
+      {
+        "video_id": "20251212_105435",
+        "start": 190.3999375,
+        "end": 247.50925,
+        "duration": 57.1093125
+      },
+      {
+        "video_id": "20251212_105534",
+        "start": 247.50925,
+        "end": 256.14925,
+        "duration": 8.64
+      }
+    ],
+    "segments": [
+      {
+        "id": 0,
+        "original_id": 1,
+        "original_video_id": "20251212_105046",
+        "text": "For a long time, I thought my problem with faith was simply not believing good enough.",
+        "start": 0.7600000000000013,
+        "end": 5.54,
+        "words": [
+          {
+            "text": "For",
+            "start": 0.7600000000000013,
+            "end": 1.36
+          },
+          {
+            "text": "a",
+            "start": 1.36,
+            "end": 1.48
+          },
+          {
+            "text": "long",
+            "start": 1.48,
+            "end": 1.68
+          },
+          {
+            "text": "time,",
+            "start": 1.68,
+            "end": 2.08
+          },
+          {
+            "text": "I",
+            "start": 2.38,
+            "end": 2.5
+          },
+          {
+            "text": "thought",
+            "start": 2.5,
+            "end": 2.66
+          },
+          {
+            "text": "my",
+            "start": 2.66,
+            "end": 2.84
+          },
+          {
+            "text": "problem",
+            "start": 2.84,
+            "end": 3.18
+          },
+          {
+            "text": "with",
+            "start": 3.18,
+            "end": 3.36
+          },
+          {
+            "text": "faith",
+            "start": 3.36,
+            "end": 3.58
+          },
+          {
+            "text": "was",
+            "start": 3.58,
+            "end": 3.98
+          },
+          {
+            "text": "simply",
+            "start": 3.98,
+            "end": 4.32
+          },
+          {
+            "text": "not",
+            "start": 4.32,
+            "end": 4.58
+          },
+          {
+            "text": "believing",
+            "start": 4.58,
+            "end": 4.96
+          },
+          {
+            "text": "good",
+            "start": 4.96,
+            "end": 5.24
+          },
+          {
+            "text": "enough.",
+            "start": 5.24,
+            "end": 5.54
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "original_id": 2,
+        "original_video_id": "20251212_105046",
+        "text": "Now I understand it was the conditions that I allowed myself to live in.",
+        "start": 6.86,
+        "end": 10.84,
+        "words": [
+          {
+            "text": "Now",
+            "start": 6.86,
+            "end": 7.26
+          },
+          {
+            "text": "I",
+            "start": 7.26,
+            "end": 7.6
+          },
+          {
+            "text": "understand",
+            "start": 7.6,
+            "end": 8.06
+          },
+          {
+            "text": "it",
+            "start": 8.06,
+            "end": 8.36
+          },
+          {
+            "text": "was",
+            "start": 8.36,
+            "end": 8.52
+          },
+          {
+            "text": "the",
+            "start": 8.52,
+            "end": 8.66
+          },
+          {
+            "text": "conditions",
+            "start": 8.66,
+            "end": 9.04
+          },
+          {
+            "text": "that",
+            "start": 9.04,
+            "end": 9.34
+          },
+          {
+            "text": "I",
+            "start": 9.34,
+            "end": 9.44
+          },
+          {
+            "text": "allowed",
+            "start": 9.44,
+            "end": 9.72
+          },
+          {
+            "text": "myself",
+            "start": 9.72,
+            "end": 10.16
+          },
+          {
+            "text": "to",
+            "start": 10.16,
+            "end": 10.4
+          },
+          {
+            "text": "live",
+            "start": 10.4,
+            "end": 10.6
+          },
+          {
+            "text": "in.",
+            "start": 10.6,
+            "end": 10.84
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "original_id": 3,
+        "original_video_id": "20251212_105046",
+        "text": "Welcome to Life is Your Word, in this show we understand reality by seeking God first.",
+        "start": 12.66,
+        "end": 19,
+        "words": [
+          {
+            "text": "Welcome",
+            "start": 12.66,
+            "end": 13.26
+          },
+          {
+            "text": "to",
+            "start": 13.26,
+            "end": 13.56
+          },
+          {
+            "text": "Life",
+            "start": 13.56,
+            "end": 13.74
+          },
+          {
+            "text": "is",
+            "start": 13.74,
+            "end": 13.96
+          },
+          {
+            "text": "Your",
+            "start": 13.96,
+            "end": 14.08
+          },
+          {
+            "text": "Word,",
+            "start": 14.08,
+            "end": 14.38
+          },
+          {
+            "text": "in",
+            "start": 14.82,
+            "end": 14.92
+          },
+          {
+            "text": "this",
+            "start": 14.92,
+            "end": 15.08
+          },
+          {
+            "text": "show",
+            "start": 15.08,
+            "end": 15.4
+          },
+          {
+            "text": "we",
+            "start": 15.4,
+            "end": 15.98
+          },
+          {
+            "text": "understand",
+            "start": 15.98,
+            "end": 17
+          },
+          {
+            "text": "reality",
+            "start": 17,
+            "end": 17.56
+          },
+          {
+            "text": "by",
+            "start": 17.56,
+            "end": 18
+          },
+          {
+            "text": "seeking",
+            "start": 18,
+            "end": 18.32
+          },
+          {
+            "text": "God",
+            "start": 18.32,
+            "end": 18.62
+          },
+          {
+            "text": "first.",
+            "start": 18.62,
+            "end": 19
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "original_id": 4,
+        "original_video_id": "20251212_105046",
+        "text": "We're currently going through a mini-series on the fruit of the Spirit, and today's fruit patience.",
+        "start": 20.22,
+        "end": 25,
+        "words": [
+          {
+            "text": "We're",
+            "start": 20.22,
+            "end": 20.36
+          },
+          {
+            "text": "currently",
+            "start": 20.36,
+            "end": 20.64
+          },
+          {
+            "text": "going",
+            "start": 20.64,
+            "end": 20.92
+          },
+          {
+            "text": "through",
+            "start": 20.92,
+            "end": 21.14
+          },
+          {
+            "text": "a",
+            "start": 21.14,
+            "end": 21.24
+          },
+          {
+            "text": "mini",
+            "start": 21.24,
+            "end": 21.4
+          },
+          {
+            "text": "-series",
+            "start": 21.4,
+            "end": 21.8
+          },
+          {
+            "text": "on",
+            "start": 21.8,
+            "end": 21.96
+          },
+          {
+            "text": "the",
+            "start": 21.96,
+            "end": 22.06
+          },
+          {
+            "text": "fruit",
+            "start": 22.06,
+            "end": 22.24
+          },
+          {
+            "text": "of",
+            "start": 22.24,
+            "end": 22.42
+          },
+          {
+            "text": "the",
+            "start": 22.42,
+            "end": 22.5
+          },
+          {
+            "text": "Spirit,",
+            "start": 22.5,
+            "end": 22.8
+          },
+          {
+            "text": "and",
+            "start": 23.14,
+            "end": 23.3
+          },
+          {
+            "text": "today's",
+            "start": 23.3,
+            "end": 23.76
+          },
+          {
+            "text": "fruit",
+            "start": 23.76,
+            "end": 24
+          },
+          {
+            "text": "patience.",
+            "start": 24,
+            "end": 25
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "original_id": 1,
+        "original_video_id": "20251212_105120",
+        "text": "Today's reading will be from Luke 8.",
+        "start": 28.296,
+        "end": 30.476,
+        "words": [
+          {
+            "text": "Today's",
+            "start": 28.296,
+            "end": 28.875999999999998
+          },
+          {
+            "text": "reading",
+            "start": 28.875999999999998,
+            "end": 29.076
+          },
+          {
+            "text": "will",
+            "start": 29.076,
+            "end": 29.416
+          },
+          {
+            "text": "be",
+            "start": 29.416,
+            "end": 29.616
+          },
+          {
+            "text": "from",
+            "start": 29.616,
+            "end": 29.855999999999998
+          },
+          {
+            "text": "Luke",
+            "start": 29.855999999999998,
+            "end": 30.035999999999998
+          },
+          {
+            "text": "8.",
+            "start": 30.035999999999998,
+            "end": 30.476
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "original_id": 1,
+        "original_video_id": "20251212_105140",
+        "text": "Jesus said a parable. A sower went out to sow the seed. Some fell on the path",
+        "start": 38.9773125,
+        "end": 45.7773125,
+        "words": [
+          {
+            "text": "Jesus",
+            "start": 38.9773125,
+            "end": 39.41887094155844
+          },
+          {
+            "text": "said",
+            "start": 39.41887094155844,
+            "end": 39.77211769480519
+          },
+          {
+            "text": "a",
+            "start": 39.77211769480519,
+            "end": 39.86042938311688
+          },
+          {
+            "text": "parable.",
+            "start": 39.86042938311688,
+            "end": 40.56692288961039
+          },
+          {
+            "text": "A",
+            "start": 40.56692288961039,
+            "end": 40.65523457792208
+          },
+          {
+            "text": "sower",
+            "start": 40.65523457792208,
+            "end": 41.09679301948052
+          },
+          {
+            "text": "went",
+            "start": 41.09679301948052,
+            "end": 41.45003977272727
+          },
+          {
+            "text": "out",
+            "start": 41.45003977272727,
+            "end": 41.71497483766234
+          },
+          {
+            "text": "to",
+            "start": 41.71497483766234,
+            "end": 41.891598214285715
+          },
+          {
+            "text": "sow",
+            "start": 41.891598214285715,
+            "end": 42.15653327922078
+          },
+          {
+            "text": "the",
+            "start": 42.15653327922078,
+            "end": 42.42146834415585
+          },
+          {
+            "text": "seed.",
+            "start": 42.42146834415585,
+            "end": 42.86302678571429
+          },
+          {
+            "text": "Some",
+            "start": 42.86302678571429,
+            "end": 43.21627353896104
+          },
+          {
+            "text": "fell",
+            "start": 43.21627353896104,
+            "end": 43.56952029220779
+          },
+          {
+            "text": "on",
+            "start": 43.56952029220779,
+            "end": 43.74614366883117
+          },
+          {
+            "text": "the",
+            "start": 43.74614366883117,
+            "end": 44.01107873376623
+          },
+          {
+            "text": "path",
+            "start": 44.01107873376623,
+            "end": 44.364325487012984
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "original_id": 2,
+        "original_video_id": "20251212_105140",
+        "text": "and was trampled on. Some fell on rock and it grew up and withered for lack of",
+        "start": 45.7773125,
+        "end": 54.5973125,
+        "words": [
+          {
+            "text": "and",
+            "start": 45.7773125,
+            "end": 45.9973125
+          },
+          {
+            "text": "was",
+            "start": 45.9973125,
+            "end": 46.0973125
+          },
+          {
+            "text": "trampled",
+            "start": 46.0973125,
+            "end": 46.4373125
+          },
+          {
+            "text": "on.",
+            "start": 46.4373125,
+            "end": 46.5773125
+          },
+          {
+            "text": "Some",
+            "start": 48.5973125,
+            "end": 49.1173125
+          },
+          {
+            "text": "fell",
+            "start": 49.1173125,
+            "end": 49.3173125
+          },
+          {
+            "text": "on",
+            "start": 49.3173125,
+            "end": 49.417312499999994
+          },
+          {
+            "text": "rock",
+            "start": 49.417312499999994,
+            "end": 49.5973125
+          },
+          {
+            "text": "and",
+            "start": 49.5973125,
+            "end": 51.7173125
+          },
+          {
+            "text": "it",
+            "start": 51.7173125,
+            "end": 51.837312499999996
+          },
+          {
+            "text": "grew",
+            "start": 51.837312499999996,
+            "end": 52.0773125
+          },
+          {
+            "text": "up",
+            "start": 52.0773125,
+            "end": 52.3173125
+          },
+          {
+            "text": "and",
+            "start": 52.3173125,
+            "end": 52.5773125
+          },
+          {
+            "text": "withered",
+            "start": 52.5773125,
+            "end": 52.9573125
+          },
+          {
+            "text": "for",
+            "start": 52.9573125,
+            "end": 54.277312499999994
+          },
+          {
+            "text": "lack",
+            "start": 54.277312499999994,
+            "end": 54.4573125
+          },
+          {
+            "text": "of",
+            "start": 54.4573125,
+            "end": 54.5973125
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "original_id": 3,
+        "original_video_id": "20251212_105140",
+        "text": "whisper. Some among thorns and the thorns choked it and yet some fell on good",
+        "start": 54.5973125,
+        "end": 63.7973125,
+        "words": [
+          {
+            "text": "whisper.",
+            "start": 54.5973125,
+            "end": 54.8773125
+          },
+          {
+            "text": "Some",
+            "start": 56.5973125,
+            "end": 56.9373125
+          },
+          {
+            "text": "among",
+            "start": 56.9373125,
+            "end": 57.3773125
+          },
+          {
+            "text": "thorns",
+            "start": 57.3773125,
+            "end": 57.7373125
+          },
+          {
+            "text": "and",
+            "start": 57.7373125,
+            "end": 59.3173125
+          },
+          {
+            "text": "the",
+            "start": 59.3173125,
+            "end": 59.4373125
+          },
+          {
+            "text": "thorns",
+            "start": 59.4373125,
+            "end": 59.8173125
+          },
+          {
+            "text": "choked",
+            "start": 59.8173125,
+            "end": 60.2373125
+          },
+          {
+            "text": "it",
+            "start": 60.2373125,
+            "end": 60.4773125
+          },
+          {
+            "text": "and",
+            "start": 60.4773125,
+            "end": 62.5373125
+          },
+          {
+            "text": "yet",
+            "start": 62.5373125,
+            "end": 62.7173125
+          },
+          {
+            "text": "some",
+            "start": 62.7173125,
+            "end": 63.0973125
+          },
+          {
+            "text": "fell",
+            "start": 63.0973125,
+            "end": 63.4773125
+          },
+          {
+            "text": "on",
+            "start": 63.4773125,
+            "end": 63.6573125
+          },
+          {
+            "text": "good",
+            "start": 63.6573125,
+            "end": 63.7973125
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "original_id": 4,
+        "original_video_id": "20251212_105140",
+        "text": "soil. And when it grew, it produced a hundredfold. The parable means this. The seed is God's",
+        "start": 63.7973125,
+        "end": 75.93731249999999,
+        "words": [
+          {
+            "text": "soil.",
+            "start": 63.7973125,
+            "end": 64.1573125
+          },
+          {
+            "text": "And",
+            "start": 65.4173125,
+            "end": 66.0973125
+          },
+          {
+            "text": "when",
+            "start": 66.0973125,
+            "end": 66.2373125
+          },
+          {
+            "text": "it",
+            "start": 66.2373125,
+            "end": 66.3573125
+          },
+          {
+            "text": "grew,",
+            "start": 66.3573125,
+            "end": 66.5573125
+          },
+          {
+            "text": "it",
+            "start": 66.8373125,
+            "end": 67.0773125
+          },
+          {
+            "text": "produced",
+            "start": 67.0773125,
+            "end": 67.43731249999999
+          },
+          {
+            "text": "a",
+            "start": 67.43731249999999,
+            "end": 67.6773125
+          },
+          {
+            "text": "hundredfold.",
+            "start": 67.6773125,
+            "end": 68.1573125
+          },
+          {
+            "text": "The",
+            "start": 71.21731249999999,
+            "end": 71.8973125
+          },
+          {
+            "text": "parable",
+            "start": 71.8973125,
+            "end": 72.2573125
+          },
+          {
+            "text": "means",
+            "start": 72.2573125,
+            "end": 72.65731249999999
+          },
+          {
+            "text": "this.",
+            "start": 72.65731249999999,
+            "end": 72.93731249999999
+          },
+          {
+            "text": "The",
+            "start": 73.91731250000001,
+            "end": 74.5973125
+          },
+          {
+            "text": "seed",
+            "start": 74.5973125,
+            "end": 74.9573125
+          },
+          {
+            "text": "is",
+            "start": 74.9573125,
+            "end": 75.5373125
+          },
+          {
+            "text": "God's",
+            "start": 75.5373125,
+            "end": 75.93731249999999
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "original_id": 5,
+        "original_video_id": "20251212_105140",
+        "text": "word. Those on the path have heard. Those on the path have heard the word but the devil",
+        "start": 75.93731249999999,
+        "end": 86.0173125,
+        "words": [
+          {
+            "text": "word.",
+            "start": 75.93731249999999,
+            "end": 76.0573125
+          },
+          {
+            "text": "Those",
+            "start": 78.41731250000001,
+            "end": 78.63731250000001
+          },
+          {
+            "text": "on",
+            "start": 78.63731250000001,
+            "end": 78.8173125
+          },
+          {
+            "text": "the",
+            "start": 78.8173125,
+            "end": 78.91731250000001
+          },
+          {
+            "text": "path",
+            "start": 78.91731250000001,
+            "end": 79.3373125
+          },
+          {
+            "text": "have",
+            "start": 79.3373125,
+            "end": 81.0773125
+          },
+          {
+            "text": "heard.",
+            "start": 81.0773125,
+            "end": 81.41731250000001
+          },
+          {
+            "text": "Those",
+            "start": 82.8373125,
+            "end": 83.5173125
+          },
+          {
+            "text": "on",
+            "start": 83.5173125,
+            "end": 83.6773125
+          },
+          {
+            "text": "the",
+            "start": 83.6773125,
+            "end": 83.7573125
+          },
+          {
+            "text": "path",
+            "start": 83.7573125,
+            "end": 83.9773125
+          },
+          {
+            "text": "have",
+            "start": 83.9773125,
+            "end": 84.1773125
+          },
+          {
+            "text": "heard",
+            "start": 84.1773125,
+            "end": 84.3573125
+          },
+          {
+            "text": "the",
+            "start": 84.3573125,
+            "end": 84.5173125
+          },
+          {
+            "text": "word",
+            "start": 84.5173125,
+            "end": 84.6973125
+          },
+          {
+            "text": "but",
+            "start": 84.6973125,
+            "end": 85.5973125
+          },
+          {
+            "text": "the",
+            "start": 85.5973125,
+            "end": 85.7373125
+          },
+          {
+            "text": "devil",
+            "start": 85.7373125,
+            "end": 86.0173125
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "original_id": 6,
+        "original_video_id": "20251212_105140",
+        "text": "takes it away. But the devil takes it away from their hearts so they don't believe. The ones in the rocks",
+        "start": 86.0173125,
+        "end": 95.15731249999999,
+        "words": [
+          {
+            "text": "takes",
+            "start": 86.0173125,
+            "end": 86.49731249999999
+          },
+          {
+            "text": "it",
+            "start": 86.49731249999999,
+            "end": 86.6973125
+          },
+          {
+            "text": "away.",
+            "start": 86.6973125,
+            "end": 86.8973125
+          },
+          {
+            "text": "But",
+            "start": 88.43731249999999,
+            "end": 88.91731250000001
+          },
+          {
+            "text": "the",
+            "start": 88.91731250000001,
+            "end": 89.0573125
+          },
+          {
+            "text": "devil",
+            "start": 89.0573125,
+            "end": 89.2773125
+          },
+          {
+            "text": "takes",
+            "start": 89.2773125,
+            "end": 89.5573125
+          },
+          {
+            "text": "it",
+            "start": 89.5573125,
+            "end": 89.71731249999999
+          },
+          {
+            "text": "away",
+            "start": 89.71731249999999,
+            "end": 89.8973125
+          },
+          {
+            "text": "from",
+            "start": 89.8973125,
+            "end": 90.0773125
+          },
+          {
+            "text": "their",
+            "start": 90.0773125,
+            "end": 90.21731249999999
+          },
+          {
+            "text": "hearts",
+            "start": 90.21731249999999,
+            "end": 90.4573125
+          },
+          {
+            "text": "so",
+            "start": 90.4573125,
+            "end": 90.6973125
+          },
+          {
+            "text": "they",
+            "start": 90.6973125,
+            "end": 90.7973125
+          },
+          {
+            "text": "don't",
+            "start": 90.7973125,
+            "end": 91.0173125
+          },
+          {
+            "text": "believe.",
+            "start": 91.0173125,
+            "end": 91.2573125
+          },
+          {
+            "text": "The",
+            "start": 93.9773125,
+            "end": 94.4573125
+          },
+          {
+            "text": "ones",
+            "start": 94.4573125,
+            "end": 94.5973125
+          },
+          {
+            "text": "in",
+            "start": 94.5973125,
+            "end": 94.7773125
+          },
+          {
+            "text": "the",
+            "start": 94.7773125,
+            "end": 94.87731249999999
+          },
+          {
+            "text": "rocks",
+            "start": 94.87731249999999,
+            "end": 95.15731249999999
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "original_id": 7,
+        "original_video_id": "20251212_105140",
+        "text": "hear the word, receive it with joy, but have no root. They've in testing, they fall away. Those in",
+        "start": 96.1573125,
+        "end": 111.0173125,
+        "words": [
+          {
+            "text": "hear",
+            "start": 96.1573125,
+            "end": 96.63731250000001
+          },
+          {
+            "text": "the",
+            "start": 96.63731250000001,
+            "end": 96.8373125
+          },
+          {
+            "text": "word,",
+            "start": 96.8373125,
+            "end": 97.13731250000001
+          },
+          {
+            "text": "receive",
+            "start": 97.5773125,
+            "end": 99.0773125
+          },
+          {
+            "text": "it",
+            "start": 99.0773125,
+            "end": 99.2573125
+          },
+          {
+            "text": "with",
+            "start": 99.2573125,
+            "end": 99.3573125
+          },
+          {
+            "text": "joy,",
+            "start": 99.3573125,
+            "end": 99.6773125
+          },
+          {
+            "text": "but",
+            "start": 100.5373125,
+            "end": 100.71731249999999
+          },
+          {
+            "text": "have",
+            "start": 100.71731249999999,
+            "end": 100.8573125
+          },
+          {
+            "text": "no",
+            "start": 100.8573125,
+            "end": 101.1173125
+          },
+          {
+            "text": "root.",
+            "start": 101.1173125,
+            "end": 101.3173125
+          },
+          {
+            "text": "They've",
+            "start": 105.47731250000001,
+            "end": 105.9573125
+          },
+          {
+            "text": "in",
+            "start": 105.9573125,
+            "end": 107.4573125
+          },
+          {
+            "text": "testing,",
+            "start": 107.4573125,
+            "end": 107.8373125
+          },
+          {
+            "text": "they",
+            "start": 108.03731249999998,
+            "end": 108.15731249999999
+          },
+          {
+            "text": "fall",
+            "start": 108.15731249999999,
+            "end": 108.37731249999999
+          },
+          {
+            "text": "away.",
+            "start": 108.37731249999999,
+            "end": 108.6773125
+          },
+          {
+            "text": "Those",
+            "start": 110.37731249999999,
+            "end": 110.8573125
+          },
+          {
+            "text": "in",
+            "start": 110.8573125,
+            "end": 111.0173125
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "original_id": 8,
+        "original_video_id": "20251212_105140",
+        "text": "the thorns are choked by the cares and riches of life and their fruit does not mature. But for the good",
+        "start": 111.0173125,
+        "end": 121.5573125,
+        "words": [
+          {
+            "text": "the",
+            "start": 111.0173125,
+            "end": 111.09731249999999
+          },
+          {
+            "text": "thorns",
+            "start": 111.09731249999999,
+            "end": 111.47731250000001
+          },
+          {
+            "text": "are",
+            "start": 111.47731250000001,
+            "end": 113.71731249999999
+          },
+          {
+            "text": "choked",
+            "start": 113.71731249999999,
+            "end": 114.09731249999999
+          },
+          {
+            "text": "by",
+            "start": 114.09731249999999,
+            "end": 114.65731249999999
+          },
+          {
+            "text": "the",
+            "start": 114.65731249999999,
+            "end": 114.81731249999999
+          },
+          {
+            "text": "cares",
+            "start": 114.81731249999999,
+            "end": 115.0173125
+          },
+          {
+            "text": "and",
+            "start": 115.0173125,
+            "end": 115.2373125
+          },
+          {
+            "text": "riches",
+            "start": 115.2373125,
+            "end": 115.47731250000001
+          },
+          {
+            "text": "of",
+            "start": 115.47731250000001,
+            "end": 116.03731249999998
+          },
+          {
+            "text": "life",
+            "start": 116.03731249999998,
+            "end": 116.3373125
+          },
+          {
+            "text": "and",
+            "start": 116.3373125,
+            "end": 117.81731249999999
+          },
+          {
+            "text": "their",
+            "start": 117.81731249999999,
+            "end": 117.9573125
+          },
+          {
+            "text": "fruit",
+            "start": 117.9573125,
+            "end": 118.19731250000001
+          },
+          {
+            "text": "does",
+            "start": 118.19731250000001,
+            "end": 118.3973125
+          },
+          {
+            "text": "not",
+            "start": 118.3973125,
+            "end": 118.5573125
+          },
+          {
+            "text": "mature.",
+            "start": 118.5573125,
+            "end": 118.8573125
+          },
+          {
+            "text": "But",
+            "start": 120.2373125,
+            "end": 120.6173125
+          },
+          {
+            "text": "for",
+            "start": 120.6173125,
+            "end": 121.2373125
+          },
+          {
+            "text": "the",
+            "start": 121.2373125,
+            "end": 121.3573125
+          },
+          {
+            "text": "good",
+            "start": 121.3573125,
+            "end": 121.5573125
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "original_id": 9,
+        "original_video_id": "20251212_105140",
+        "text": "soil, these are the ones when they hear the word, hold it fast in an honest and good heart and bear fruit",
+        "start": 121.5573125,
+        "end": 132.5973125,
+        "words": [
+          {
+            "text": "soil,",
+            "start": 121.5573125,
+            "end": 121.8573125
+          },
+          {
+            "text": "these",
+            "start": 122.8373125,
+            "end": 123.3573125
+          },
+          {
+            "text": "are",
+            "start": 123.3573125,
+            "end": 123.5173125
+          },
+          {
+            "text": "the",
+            "start": 123.5173125,
+            "end": 123.6173125
+          },
+          {
+            "text": "ones",
+            "start": 123.6173125,
+            "end": 123.87731249999999
+          },
+          {
+            "text": "when",
+            "start": 123.87731249999999,
+            "end": 124.69731250000001
+          },
+          {
+            "text": "they",
+            "start": 124.69731250000001,
+            "end": 124.8573125
+          },
+          {
+            "text": "hear",
+            "start": 124.8573125,
+            "end": 125.0573125
+          },
+          {
+            "text": "the",
+            "start": 125.0573125,
+            "end": 125.2373125
+          },
+          {
+            "text": "word,",
+            "start": 125.2373125,
+            "end": 125.5173125
+          },
+          {
+            "text": "hold",
+            "start": 125.93731249999999,
+            "end": 126.8973125
+          },
+          {
+            "text": "it",
+            "start": 126.8973125,
+            "end": 127.0573125
+          },
+          {
+            "text": "fast",
+            "start": 127.0573125,
+            "end": 127.41731250000001
+          },
+          {
+            "text": "in",
+            "start": 127.41731250000001,
+            "end": 128.4973125
+          },
+          {
+            "text": "an",
+            "start": 128.4973125,
+            "end": 128.6573125
+          },
+          {
+            "text": "honest",
+            "start": 128.6573125,
+            "end": 128.9773125
+          },
+          {
+            "text": "and",
+            "start": 128.9773125,
+            "end": 130.1373125
+          },
+          {
+            "text": "good",
+            "start": 130.1373125,
+            "end": 130.3373125
+          },
+          {
+            "text": "heart",
+            "start": 130.3373125,
+            "end": 130.6373125
+          },
+          {
+            "text": "and",
+            "start": 130.6373125,
+            "end": 131.9573125
+          },
+          {
+            "text": "bear",
+            "start": 131.9573125,
+            "end": 132.1973125
+          },
+          {
+            "text": "fruit",
+            "start": 132.1973125,
+            "end": 132.5973125
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "original_id": 10,
+        "original_video_id": "20251212_105140",
+        "text": "with endurance.",
+        "start": 132.5973125,
+        "end": 133.3773125,
+        "words": [
+          {
+            "text": "with",
+            "start": 132.5973125,
+            "end": 132.9173125
+          },
+          {
+            "text": "endurance.",
+            "start": 132.9173125,
+            "end": 133.3773125
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "original_id": 1,
+        "original_video_id": "20251212_105328",
+        "text": "I grew up in the church and I heard all about God's word, and I knew it well. I read the Bible multiple times in high school, but my life was crowded, trying to pursue things that I thought were good, but in reality were selfish desires.",
+        "start": 136.746625,
+        "end": 152.146625,
+        "words": [
+          {
+            "text": "I",
+            "start": 136.746625,
+            "end": 137.266625
+          },
+          {
+            "text": "grew",
+            "start": 137.266625,
+            "end": 137.466625
+          },
+          {
+            "text": "up",
+            "start": 137.466625,
+            "end": 137.686625
+          },
+          {
+            "text": "in",
+            "start": 137.686625,
+            "end": 137.806625
+          },
+          {
+            "text": "the",
+            "start": 137.806625,
+            "end": 137.906625
+          },
+          {
+            "text": "church",
+            "start": 137.906625,
+            "end": 138.166625
+          },
+          {
+            "text": "and",
+            "start": 138.166625,
+            "end": 138.706625
+          },
+          {
+            "text": "I",
+            "start": 138.706625,
+            "end": 138.866625
+          },
+          {
+            "text": "heard",
+            "start": 138.866625,
+            "end": 139.186625
+          },
+          {
+            "text": "all",
+            "start": 139.186625,
+            "end": 139.526625
+          },
+          {
+            "text": "about",
+            "start": 139.526625,
+            "end": 139.726625
+          },
+          {
+            "text": "God's",
+            "start": 139.726625,
+            "end": 140.186625
+          },
+          {
+            "text": "word,",
+            "start": 140.186625,
+            "end": 140.346625
+          },
+          {
+            "text": "and",
+            "start": 140.646625,
+            "end": 140.746625
+          },
+          {
+            "text": "I",
+            "start": 140.746625,
+            "end": 140.866625
+          },
+          {
+            "text": "knew",
+            "start": 140.866625,
+            "end": 141.086625
+          },
+          {
+            "text": "it",
+            "start": 141.086625,
+            "end": 141.226625
+          },
+          {
+            "text": "well.",
+            "start": 141.226625,
+            "end": 141.486625
+          },
+          {
+            "text": "I",
+            "start": 141.706625,
+            "end": 141.786625
+          },
+          {
+            "text": "read",
+            "start": 141.786625,
+            "end": 141.986625
+          },
+          {
+            "text": "the",
+            "start": 141.986625,
+            "end": 142.126625
+          },
+          {
+            "text": "Bible",
+            "start": 142.126625,
+            "end": 142.326625
+          },
+          {
+            "text": "multiple",
+            "start": 142.326625,
+            "end": 142.606625
+          },
+          {
+            "text": "times",
+            "start": 142.606625,
+            "end": 143.146625
+          },
+          {
+            "text": "in",
+            "start": 143.146625,
+            "end": 143.526625
+          },
+          {
+            "text": "high",
+            "start": 143.526625,
+            "end": 143.686625
+          },
+          {
+            "text": "school,",
+            "start": 143.686625,
+            "end": 143.986625
+          },
+          {
+            "text": "but",
+            "start": 143.986625,
+            "end": 145.206625
+          },
+          {
+            "text": "my",
+            "start": 145.206625,
+            "end": 145.386625
+          },
+          {
+            "text": "life",
+            "start": 145.386625,
+            "end": 145.766625
+          },
+          {
+            "text": "was",
+            "start": 145.766625,
+            "end": 145.986625
+          },
+          {
+            "text": "crowded,",
+            "start": 145.986625,
+            "end": 146.426625
+          },
+          {
+            "text": "trying",
+            "start": 146.806625,
+            "end": 147.186625
+          },
+          {
+            "text": "to",
+            "start": 147.186625,
+            "end": 147.426625
+          },
+          {
+            "text": "pursue",
+            "start": 147.426625,
+            "end": 147.886625
+          },
+          {
+            "text": "things",
+            "start": 147.886625,
+            "end": 148.50662499999999
+          },
+          {
+            "text": "that",
+            "start": 148.50662499999999,
+            "end": 148.846625
+          },
+          {
+            "text": "I",
+            "start": 148.846625,
+            "end": 149.046625
+          },
+          {
+            "text": "thought",
+            "start": 149.046625,
+            "end": 149.366625
+          },
+          {
+            "text": "were",
+            "start": 149.366625,
+            "end": 149.606625
+          },
+          {
+            "text": "good,",
+            "start": 149.606625,
+            "end": 149.906625
+          },
+          {
+            "text": "but",
+            "start": 150.166625,
+            "end": 150.366625
+          },
+          {
+            "text": "in",
+            "start": 150.366625,
+            "end": 150.486625
+          },
+          {
+            "text": "reality",
+            "start": 150.486625,
+            "end": 150.906625
+          },
+          {
+            "text": "were",
+            "start": 150.906625,
+            "end": 151.386625
+          },
+          {
+            "text": "selfish",
+            "start": 151.386625,
+            "end": 151.746625
+          },
+          {
+            "text": "desires.",
+            "start": 151.746625,
+            "end": 152.146625
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "original_id": 2,
+        "original_video_id": "20251212_105328",
+        "text": "I felt pressure, I felt fear, I was trying to survive instead of being formed by God.",
+        "start": 154.666625,
+        "end": 161.046625,
+        "words": [
+          {
+            "text": "I",
+            "start": 154.666625,
+            "end": 155.186625
+          },
+          {
+            "text": "felt",
+            "start": 155.186625,
+            "end": 155.366625
+          },
+          {
+            "text": "pressure,",
+            "start": 155.366625,
+            "end": 155.826625
+          },
+          {
+            "text": "I",
+            "start": 156.086625,
+            "end": 156.186625
+          },
+          {
+            "text": "felt",
+            "start": 156.186625,
+            "end": 156.426625
+          },
+          {
+            "text": "fear,",
+            "start": 156.426625,
+            "end": 156.78662500000002
+          },
+          {
+            "text": "I",
+            "start": 157.666625,
+            "end": 157.906625
+          },
+          {
+            "text": "was",
+            "start": 157.906625,
+            "end": 158.046625
+          },
+          {
+            "text": "trying",
+            "start": 158.046625,
+            "end": 158.28662500000002
+          },
+          {
+            "text": "to",
+            "start": 158.28662500000002,
+            "end": 158.526625
+          },
+          {
+            "text": "survive",
+            "start": 158.526625,
+            "end": 158.926625
+          },
+          {
+            "text": "instead",
+            "start": 158.926625,
+            "end": 159.746625
+          },
+          {
+            "text": "of",
+            "start": 159.746625,
+            "end": 159.906625
+          },
+          {
+            "text": "being",
+            "start": 159.906625,
+            "end": 160.086625
+          },
+          {
+            "text": "formed",
+            "start": 160.086625,
+            "end": 160.566625
+          },
+          {
+            "text": "by",
+            "start": 160.566625,
+            "end": 160.766625
+          },
+          {
+            "text": "God.",
+            "start": 160.766625,
+            "end": 161.046625
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "original_id": 3,
+        "original_video_id": "20251212_105328",
+        "text": "So the word kept getting choked out, so my fruit couldn't mature, so the word couldn't take root and my fruit couldn't mature.",
+        "start": 162.246625,
+        "end": 171.986625,
+        "words": [
+          {
+            "text": "So",
+            "start": 162.246625,
+            "end": 162.846625
+          },
+          {
+            "text": "the",
+            "start": 162.846625,
+            "end": 162.986625
+          },
+          {
+            "text": "word",
+            "start": 162.986625,
+            "end": 163.166625
+          },
+          {
+            "text": "kept",
+            "start": 163.166625,
+            "end": 163.426625
+          },
+          {
+            "text": "getting",
+            "start": 163.426625,
+            "end": 163.726625
+          },
+          {
+            "text": "choked",
+            "start": 163.726625,
+            "end": 164.066625
+          },
+          {
+            "text": "out,",
+            "start": 164.066625,
+            "end": 164.546625
+          },
+          {
+            "text": "so",
+            "start": 165.086625,
+            "end": 165.666625
+          },
+          {
+            "text": "my",
+            "start": 165.666625,
+            "end": 166.046625
+          },
+          {
+            "text": "fruit",
+            "start": 166.046625,
+            "end": 166.466625
+          },
+          {
+            "text": "couldn't",
+            "start": 166.466625,
+            "end": 167.486625
+          },
+          {
+            "text": "mature,",
+            "start": 167.486625,
+            "end": 167.966625
+          },
+          {
+            "text": "so",
+            "start": 168.626625,
+            "end": 169.686625
+          },
+          {
+            "text": "the",
+            "start": 169.686625,
+            "end": 169.826625
+          },
+          {
+            "text": "word",
+            "start": 169.826625,
+            "end": 170.00662499999999
+          },
+          {
+            "text": "couldn't",
+            "start": 170.00662499999999,
+            "end": 170.306625
+          },
+          {
+            "text": "take",
+            "start": 170.306625,
+            "end": 170.526625
+          },
+          {
+            "text": "root",
+            "start": 170.526625,
+            "end": 170.806625
+          },
+          {
+            "text": "and",
+            "start": 170.806625,
+            "end": 171.00662499999999
+          },
+          {
+            "text": "my",
+            "start": 171.00662499999999,
+            "end": 171.126625
+          },
+          {
+            "text": "fruit",
+            "start": 171.126625,
+            "end": 171.386625
+          },
+          {
+            "text": "couldn't",
+            "start": 171.386625,
+            "end": 171.706625
+          },
+          {
+            "text": "mature.",
+            "start": 171.706625,
+            "end": 171.986625
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "original_id": 4,
+        "original_video_id": "20251212_105328",
+        "text": "But Jesus never blames the seed. There doesn't mean there's anything wrong with the seed itself. The word is still good. He points to the soil and soil can change.",
+        "start": 176.44662499999998,
+        "end": 187.746625,
+        "words": [
+          {
+            "text": "But",
+            "start": 176.44662499999998,
+            "end": 177.046625
+          },
+          {
+            "text": "Jesus",
+            "start": 177.046625,
+            "end": 177.28662500000002
+          },
+          {
+            "text": "never",
+            "start": 177.28662500000002,
+            "end": 177.626625
+          },
+          {
+            "text": "blames",
+            "start": 177.626625,
+            "end": 178.026625
+          },
+          {
+            "text": "the",
+            "start": 178.026625,
+            "end": 178.226625
+          },
+          {
+            "text": "seed.",
+            "start": 178.226625,
+            "end": 178.50662499999999
+          },
+          {
+            "text": "There",
+            "start": 178.866625,
+            "end": 179.066625
+          },
+          {
+            "text": "doesn't",
+            "start": 179.066625,
+            "end": 179.366625
+          },
+          {
+            "text": "mean",
+            "start": 179.366625,
+            "end": 179.566625
+          },
+          {
+            "text": "there's",
+            "start": 179.566625,
+            "end": 179.826625
+          },
+          {
+            "text": "anything",
+            "start": 179.826625,
+            "end": 180.206625
+          },
+          {
+            "text": "wrong",
+            "start": 180.206625,
+            "end": 180.50662499999999
+          },
+          {
+            "text": "with",
+            "start": 180.50662499999999,
+            "end": 180.726625
+          },
+          {
+            "text": "the",
+            "start": 180.726625,
+            "end": 180.826625
+          },
+          {
+            "text": "seed",
+            "start": 180.826625,
+            "end": 181.086625
+          },
+          {
+            "text": "itself.",
+            "start": 181.086625,
+            "end": 181.386625
+          },
+          {
+            "text": "The",
+            "start": 181.606625,
+            "end": 181.686625
+          },
+          {
+            "text": "word",
+            "start": 181.686625,
+            "end": 181.886625
+          },
+          {
+            "text": "is",
+            "start": 181.886625,
+            "end": 182.086625
+          },
+          {
+            "text": "still",
+            "start": 182.086625,
+            "end": 182.426625
+          },
+          {
+            "text": "good.",
+            "start": 182.426625,
+            "end": 182.84662500000002
+          },
+          {
+            "text": "He",
+            "start": 184.246625,
+            "end": 184.586625
+          },
+          {
+            "text": "points",
+            "start": 184.586625,
+            "end": 184.866625
+          },
+          {
+            "text": "to",
+            "start": 184.866625,
+            "end": 185.086625
+          },
+          {
+            "text": "the",
+            "start": 185.086625,
+            "end": 185.226625
+          },
+          {
+            "text": "soil",
+            "start": 185.226625,
+            "end": 185.546625
+          },
+          {
+            "text": "and",
+            "start": 185.546625,
+            "end": 186.606625
+          },
+          {
+            "text": "soil",
+            "start": 186.606625,
+            "end": 187.00662499999999
+          },
+          {
+            "text": "can",
+            "start": 187.00662499999999,
+            "end": 187.366625
+          },
+          {
+            "text": "change.",
+            "start": 187.366625,
+            "end": 187.746625
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "original_id": 1,
+        "original_video_id": "20251212_105435",
+        "text": "Patience only came not because I was trying not because I learned how to wait",
+        "start": 191.5199375,
+        "end": 196.37993749999998,
+        "words": [
+          {
+            "text": "Patience",
+            "start": 191.5199375,
+            "end": 192.15993749999998
+          },
+          {
+            "text": "only",
+            "start": 192.15993749999998,
+            "end": 192.6399375
+          },
+          {
+            "text": "came",
+            "start": 192.6399375,
+            "end": 192.9799375
+          },
+          {
+            "text": "not",
+            "start": 192.9799375,
+            "end": 193.4799375
+          },
+          {
+            "text": "because",
+            "start": 193.4799375,
+            "end": 193.7799375
+          },
+          {
+            "text": "I",
+            "start": 193.7799375,
+            "end": 194.03993749999998
+          },
+          {
+            "text": "was",
+            "start": 194.03993749999998,
+            "end": 194.1999375
+          },
+          {
+            "text": "trying",
+            "start": 194.1999375,
+            "end": 194.4799375
+          },
+          {
+            "text": "not",
+            "start": 194.4799375,
+            "end": 195.2199375
+          },
+          {
+            "text": "because",
+            "start": 195.2199375,
+            "end": 195.4799375
+          },
+          {
+            "text": "I",
+            "start": 195.4799375,
+            "end": 195.6399375
+          },
+          {
+            "text": "learned",
+            "start": 195.6399375,
+            "end": 195.8599375
+          },
+          {
+            "text": "how",
+            "start": 195.8599375,
+            "end": 196.0799375
+          },
+          {
+            "text": "to",
+            "start": 196.0799375,
+            "end": 196.1799375
+          },
+          {
+            "text": "wait",
+            "start": 196.1799375,
+            "end": 196.37993749999998
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "original_id": 2,
+        "original_video_id": "20251212_105435",
+        "text": "better but because I started tending to my own life making space letting",
+        "start": 196.37993749999998,
+        "end": 204.7399375,
+        "words": [
+          {
+            "text": "better",
+            "start": 196.37993749999998,
+            "end": 196.7599375
+          },
+          {
+            "text": "but",
+            "start": 196.7599375,
+            "end": 198.4199375
+          },
+          {
+            "text": "because",
+            "start": 198.4199375,
+            "end": 198.6999375
+          },
+          {
+            "text": "I",
+            "start": 198.6999375,
+            "end": 198.9199375
+          },
+          {
+            "text": "started",
+            "start": 198.9199375,
+            "end": 199.31993749999998
+          },
+          {
+            "text": "tending",
+            "start": 199.31993749999998,
+            "end": 199.8999375
+          },
+          {
+            "text": "to",
+            "start": 199.8999375,
+            "end": 200.2999375
+          },
+          {
+            "text": "my",
+            "start": 200.2999375,
+            "end": 200.43993749999998
+          },
+          {
+            "text": "own",
+            "start": 200.43993749999998,
+            "end": 200.65993749999998
+          },
+          {
+            "text": "life",
+            "start": 200.65993749999998,
+            "end": 201.1199375
+          },
+          {
+            "text": "making",
+            "start": 201.1199375,
+            "end": 203.1399375
+          },
+          {
+            "text": "space",
+            "start": 203.1399375,
+            "end": 203.87993749999998
+          },
+          {
+            "text": "letting",
+            "start": 203.87993749999998,
+            "end": 204.7399375
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "original_id": 3,
+        "original_video_id": "20251212_105435",
+        "text": "God work deeper than my urgency allowing growth to take time instead of",
+        "start": 204.7399375,
+        "end": 213.09993749999998,
+        "words": [
+          {
+            "text": "God",
+            "start": 204.7399375,
+            "end": 205.1999375
+          },
+          {
+            "text": "work",
+            "start": 205.1999375,
+            "end": 206.7399375
+          },
+          {
+            "text": "deeper",
+            "start": 206.7399375,
+            "end": 207.2199375
+          },
+          {
+            "text": "than",
+            "start": 207.2199375,
+            "end": 207.5199375
+          },
+          {
+            "text": "my",
+            "start": 207.5199375,
+            "end": 207.7399375
+          },
+          {
+            "text": "urgency",
+            "start": 207.7399375,
+            "end": 208.25993749999998
+          },
+          {
+            "text": "allowing",
+            "start": 208.25993749999998,
+            "end": 210.5599375
+          },
+          {
+            "text": "growth",
+            "start": 210.5599375,
+            "end": 211.0599375
+          },
+          {
+            "text": "to",
+            "start": 211.0599375,
+            "end": 211.2399375
+          },
+          {
+            "text": "take",
+            "start": 211.2399375,
+            "end": 211.37993749999998
+          },
+          {
+            "text": "time",
+            "start": 211.37993749999998,
+            "end": 211.7999375
+          },
+          {
+            "text": "instead",
+            "start": 211.7999375,
+            "end": 212.93993749999998
+          },
+          {
+            "text": "of",
+            "start": 212.93993749999998,
+            "end": 213.09993749999998
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "original_id": 4,
+        "original_video_id": "20251212_105435",
+        "text": "forcing results. Patience was not the goal. Patience was the fruit. It showed",
+        "start": 213.09993749999998,
+        "end": 220.1999375,
+        "words": [
+          {
+            "text": "forcing",
+            "start": 213.09993749999998,
+            "end": 213.4199375
+          },
+          {
+            "text": "results.",
+            "start": 213.4199375,
+            "end": 214.1399375
+          },
+          {
+            "text": "Patience",
+            "start": 215.6999375,
+            "end": 216.0199375
+          },
+          {
+            "text": "was",
+            "start": 216.0199375,
+            "end": 216.1999375
+          },
+          {
+            "text": "not",
+            "start": 216.1999375,
+            "end": 216.37993749999998
+          },
+          {
+            "text": "the",
+            "start": 216.37993749999998,
+            "end": 216.5599375
+          },
+          {
+            "text": "goal.",
+            "start": 216.5599375,
+            "end": 216.7799375
+          },
+          {
+            "text": "Patience",
+            "start": 217.2399375,
+            "end": 217.5399375
+          },
+          {
+            "text": "was",
+            "start": 217.5399375,
+            "end": 217.8999375
+          },
+          {
+            "text": "the",
+            "start": 217.8999375,
+            "end": 218.09993749999998
+          },
+          {
+            "text": "fruit.",
+            "start": 218.09993749999998,
+            "end": 218.3399375
+          },
+          {
+            "text": "It",
+            "start": 219.2799375,
+            "end": 219.9199375
+          },
+          {
+            "text": "showed",
+            "start": 219.9199375,
+            "end": 220.1999375
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "original_id": 5,
+        "original_video_id": "20251212_105435",
+        "text": "up when the word was finally allowed to stay long enough to grow and produce",
+        "start": 220.1999375,
+        "end": 227.4199375,
+        "words": [
+          {
+            "text": "up",
+            "start": 220.1999375,
+            "end": 220.4799375
+          },
+          {
+            "text": "when",
+            "start": 220.4799375,
+            "end": 222.65993749999998
+          },
+          {
+            "text": "the",
+            "start": 222.65993749999998,
+            "end": 222.7999375
+          },
+          {
+            "text": "word",
+            "start": 222.7999375,
+            "end": 223.0199375
+          },
+          {
+            "text": "was",
+            "start": 223.0199375,
+            "end": 223.2799375
+          },
+          {
+            "text": "finally",
+            "start": 223.2799375,
+            "end": 223.7199375
+          },
+          {
+            "text": "allowed",
+            "start": 223.7199375,
+            "end": 224.31993749999998
+          },
+          {
+            "text": "to",
+            "start": 224.31993749999998,
+            "end": 224.9599375
+          },
+          {
+            "text": "stay",
+            "start": 224.9599375,
+            "end": 225.2799375
+          },
+          {
+            "text": "long",
+            "start": 225.2799375,
+            "end": 225.5799375
+          },
+          {
+            "text": "enough",
+            "start": 225.5799375,
+            "end": 225.7999375
+          },
+          {
+            "text": "to",
+            "start": 225.7999375,
+            "end": 226.2799375
+          },
+          {
+            "text": "grow",
+            "start": 226.2799375,
+            "end": 226.5199375
+          },
+          {
+            "text": "and",
+            "start": 226.5199375,
+            "end": 227.0599375
+          },
+          {
+            "text": "produce",
+            "start": 227.0599375,
+            "end": 227.4199375
+          }
+        ]
+      },
+      {
+        "id": 24,
+        "original_id": 6,
+        "original_video_id": "20251212_105435",
+        "text": "good fruit. The seed was always alive what changed was my life the soil that",
+        "start": 227.4199375,
+        "end": 234.15993749999998,
+        "words": [
+          {
+            "text": "good",
+            "start": 227.4199375,
+            "end": 227.7399375
+          },
+          {
+            "text": "fruit.",
+            "start": 227.7399375,
+            "end": 227.9999375
+          },
+          {
+            "text": "The",
+            "start": 228.9199375,
+            "end": 229.19993749999998
+          },
+          {
+            "text": "seed",
+            "start": 229.19993749999998,
+            "end": 229.4799375
+          },
+          {
+            "text": "was",
+            "start": 229.4799375,
+            "end": 229.6799375
+          },
+          {
+            "text": "always",
+            "start": 229.6799375,
+            "end": 230.0799375
+          },
+          {
+            "text": "alive",
+            "start": 230.0799375,
+            "end": 230.4199375
+          },
+          {
+            "text": "what",
+            "start": 230.4199375,
+            "end": 231.1799375
+          },
+          {
+            "text": "changed",
+            "start": 231.1799375,
+            "end": 231.4999375
+          },
+          {
+            "text": "was",
+            "start": 231.4999375,
+            "end": 232.3399375
+          },
+          {
+            "text": "my",
+            "start": 232.3399375,
+            "end": 232.5999375
+          },
+          {
+            "text": "life",
+            "start": 232.5999375,
+            "end": 233.0599375
+          },
+          {
+            "text": "the",
+            "start": 233.0599375,
+            "end": 233.25993749999998
+          },
+          {
+            "text": "soil",
+            "start": 233.25993749999998,
+            "end": 233.5599375
+          },
+          {
+            "text": "that",
+            "start": 233.5599375,
+            "end": 234.15993749999998
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "original_id": 7,
+        "original_video_id": "20251212_105435",
+        "text": "it grew in. Patience has never been about waiting but about becoming a place",
+        "start": 234.15993749999998,
+        "end": 240.0599375,
+        "words": [
+          {
+            "text": "it",
+            "start": 234.15993749999998,
+            "end": 234.2799375
+          },
+          {
+            "text": "grew",
+            "start": 234.2799375,
+            "end": 234.4999375
+          },
+          {
+            "text": "in.",
+            "start": 234.4999375,
+            "end": 234.7799375
+          },
+          {
+            "text": "Patience",
+            "start": 236.3399375,
+            "end": 236.7199375
+          },
+          {
+            "text": "has",
+            "start": 236.7199375,
+            "end": 236.9199375
+          },
+          {
+            "text": "never",
+            "start": 236.9199375,
+            "end": 237.1799375
+          },
+          {
+            "text": "been",
+            "start": 237.1799375,
+            "end": 237.31993749999998
+          },
+          {
+            "text": "about",
+            "start": 237.31993749999998,
+            "end": 237.4999375
+          },
+          {
+            "text": "waiting",
+            "start": 237.4999375,
+            "end": 237.8399375
+          },
+          {
+            "text": "but",
+            "start": 237.8399375,
+            "end": 238.9999375
+          },
+          {
+            "text": "about",
+            "start": 238.9999375,
+            "end": 239.2399375
+          },
+          {
+            "text": "becoming",
+            "start": 239.2399375,
+            "end": 239.5599375
+          },
+          {
+            "text": "a",
+            "start": 239.5599375,
+            "end": 239.7799375
+          },
+          {
+            "text": "place",
+            "start": 239.7799375,
+            "end": 240.0599375
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "original_id": 8,
+        "original_video_id": "20251212_105435",
+        "text": "where life can fully form.",
+        "start": 240.0599375,
+        "end": 242.3399375,
+        "words": [
+          {
+            "text": "where",
+            "start": 240.0599375,
+            "end": 240.6799375
+          },
+          {
+            "text": "life",
+            "start": 240.6799375,
+            "end": 240.9999375
+          },
+          {
+            "text": "can",
+            "start": 240.9999375,
+            "end": 241.65993749999998
+          },
+          {
+            "text": "fully",
+            "start": 241.65993749999998,
+            "end": 241.9799375
+          },
+          {
+            "text": "form.",
+            "start": 241.9799375,
+            "end": 242.3399375
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "original_id": 1,
+        "original_video_id": "20251212_105534",
+        "text": "How has God taught you about patience?",
+        "start": 248.50925,
+        "end": 250.30925000000002,
+        "words": [
+          {
+            "text": "How",
+            "start": 248.50925,
+            "end": 248.94925
+          },
+          {
+            "text": "has",
+            "start": 248.94925,
+            "end": 249.12925
+          },
+          {
+            "text": "God",
+            "start": 249.12925,
+            "end": 249.28925
+          },
+          {
+            "text": "taught",
+            "start": 249.28925,
+            "end": 249.50925
+          },
+          {
+            "text": "you",
+            "start": 249.50925,
+            "end": 249.70925
+          },
+          {
+            "text": "about",
+            "start": 249.70925,
+            "end": 249.90925000000001
+          },
+          {
+            "text": "patience?",
+            "start": 249.90925000000001,
+            "end": 250.30925000000002
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "original_id": 2,
+        "original_video_id": "20251212_105534",
+        "text": "Share your revelations in the comments.",
+        "start": 250.92925,
+        "end": 252.44925,
+        "words": [
+          {
+            "text": "Share",
+            "start": 250.92925,
+            "end": 251.14925
+          },
+          {
+            "text": "your",
+            "start": 251.14925,
+            "end": 251.28925
+          },
+          {
+            "text": "revelations",
+            "start": 251.28925,
+            "end": 251.74925000000002
+          },
+          {
+            "text": "in",
+            "start": 251.74925000000002,
+            "end": 251.94925
+          },
+          {
+            "text": "the",
+            "start": 251.94925,
+            "end": 252.02925000000002
+          },
+          {
+            "text": "comments.",
+            "start": 252.02925000000002,
+            "end": 252.44925
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "original_id": 3,
+        "original_video_id": "20251212_105534",
+        "text": "In love and unity, Acebele.",
+        "start": 252.94925,
+        "end": 254.32925,
+        "words": [
+          {
+            "text": "In",
+            "start": 252.94925,
+            "end": 253.02925000000002
+          },
+          {
+            "text": "love",
+            "start": 253.02925000000002,
+            "end": 253.18925000000002
+          },
+          {
+            "text": "and",
+            "start": 253.18925000000002,
+            "end": 253.34925
+          },
+          {
+            "text": "unity,",
+            "start": 253.34925,
+            "end": 253.66925
+          },
+          {
+            "text": "Acebele.",
+            "start": 253.96925000000002,
+            "end": 254.32925
+          }
+        ]
+      }
+    ]
   }
 }

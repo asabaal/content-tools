@@ -814,7 +814,7 @@
 
         async function loadData() {
             try {
-                const projectResp = await fetch('/api/project');
+                const projectResp = await fetch('/api/project?v=' + Date.now());
                 if (!projectResp.ok) throw new Error('No project.json found');
                 project = await projectResp.json();
 
@@ -823,14 +823,21 @@
                 if (!waveformResp.ok) throw new Error('No waveforms.json found. Run generate_waveforms.py first.');
                 waveformData = await waveformResp.json();
 
-                const transcriptPath = CONFIG ? CONFIG.paths.combined_transcript : '/data/transcript_combined.json';
-                const transcriptResp = await fetch(transcriptPath + '?v=' + Date.now());
-                if (!transcriptResp.ok) throw new Error('No transcript_combined.json found.');
-                transcript = await transcriptResp.json();
+                if (!project.transcript) {
+                    throw new Error('No transcript in project.json. Complete Tool 2 (Review) to save the edited transcript first.');
+                }
+                transcript = project.transcript;
+                console.log('[Assemble] Using transcript from project.json');
 
                 console.log('[Assemble] Loaded', project.clips?.length || 0, 'clips');
                 console.log('[Assemble] Waveform peaks:', waveformData.total_peaks, 'duration:', waveformData.duration);
                 console.log('[Assemble] Transcript segments:', transcript?.segments?.length || 0);
+
+                if (!project.clips || project.clips.length === 0) {
+                    console.log('[Assemble] No clips found, auto-generating from transcript segments');
+                    autoGenerateClips();
+                    markUnsaved();
+                }
 
                 initializeTimelineData();
                 renderClipPool();
@@ -875,6 +882,42 @@
             sortedClips.forEach((clip, index) => {
                 clip.timeline_position = index;
             });
+        }
+
+        function autoGenerateClips() {
+            if (!transcript || !transcript.segments) return;
+            
+            let idCounter = 0;
+            project.clips = transcript.segments.map((seg, index) => {
+                const clipName = seg.text.length > 35 
+                    ? seg.text.substring(0, 35).trim() + '...' 
+                    : seg.text;
+                
+                return {
+                    id: 'clip_' + Date.now().toString(36) + '_' + (idCounter++).toString(36),
+                    name: clipName,
+                    segments: [{
+                        segment_index: index,
+                        original_video_id: seg.original_video_id,
+                        start: seg.start,
+                        end: seg.end,
+                        text: seg.text
+                    }],
+                    selected_segment: {
+                        segment_index: index,
+                        original_video_id: seg.original_video_id,
+                        start: seg.start,
+                        end: seg.end,
+                        text: seg.text
+                    },
+                    in_timeline: true,
+                    enabled: true,
+                    timeline_position: index,
+                    auto_created: true
+                };
+            });
+            
+            console.log('[Assemble] Auto-generated', project.clips.length, 'clips from transcript segments');
         }
 
         function getClipById(clipId) {
@@ -1879,18 +1922,8 @@
                 markSaved();
                 console.log('[Assemble] Project saved with word timings');
             } catch (e) {
-                const projectData = {
-                    ...project,
-                    transcript: transcript
-                };
-                const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'project.json';
-                a.click();
-                URL.revokeObjectURL(url);
-                markSaved();
+                console.error('[Assemble] Failed to save project:', e);
+                alert('Failed to save project: ' + e.message);
             }
         }
 
@@ -1916,7 +1949,7 @@
 
         async function init() {
             try {
-                const configResponse = await fetch('/api/config');
+                const configResponse = await fetch('/api/config?v=' + Date.now());
                 if (configResponse.ok) {
                     CONFIG = await configResponse.json();
                     console.log('[Assemble] Loaded config:', CONFIG.project?.name);

@@ -792,7 +792,7 @@
         // Project management
         async function loadProject() {
             try {
-                const response = await fetch('/api/project');
+                const response = await fetch('/api/project?v=' + Date.now());
                 if (response.ok) {
                     project = await response.json();
                     console.log('[Review] Loaded project with', project.clips?.length || 0, 'clips');
@@ -1241,22 +1241,43 @@
         // Transcript rendering
         async function loadTranscript() {
             console.log('[Review] Loading transcript...');
+            
+            let data = null;
+            
             try {
-                const transcriptPath = CONFIG ? CONFIG.paths.combined_transcript : '/data/transcript_combined.json';
-                const response = await fetch(transcriptPath);
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                const projectResponse = await fetch('/api/project?v=' + Date.now());
+                if (projectResponse.ok) {
+                    const projectData = await projectResponse.json();
+                    if (projectData.transcript && projectData.transcript.segments) {
+                        data = projectData.transcript;
+                        console.log('[Review] Loaded edited transcript from project.json');
+                    }
                 }
-                const data = await response.json();
-                console.log('[Review] Loaded', data.segments.length, 'segments from', data.sources?.length || 0, 'sources');
-                transcript = data;
-                sources = data.sources || [];
-                renderTranscript();
-                videoInfo.textContent = `${data.segments.length} segments | ${sources.length} videos | ${formatTime(data.duration)}`;
-            } catch (error) {
-                console.error('[Review] Error loading transcript:', error);
-                transcriptList.innerHTML = `<div class="error">Error loading transcript: ${error.message}</div>`;
+            } catch (e) {
+                console.log('[Review] No edited transcript in project, loading fresh...');
             }
+            
+            if (!data) {
+                try {
+                    const transcriptPath = CONFIG ? CONFIG.paths.combined_transcript : '/data/transcript_combined.json';
+                    const response = await fetch(transcriptPath + '?v=' + Date.now());
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    data = await response.json();
+                    console.log('[Review] Loaded fresh transcript from transcript_combined.json');
+                } catch (error) {
+                    console.error('[Review] Error loading transcript:', error);
+                    transcriptList.innerHTML = `<div class="error">Error loading transcript: ${error.message}</div>`;
+                    return;
+                }
+            }
+            
+            console.log('[Review] Loaded', data.segments.length, 'segments from', data.sources?.length || 0, 'sources');
+            transcript = data;
+            sources = data.sources || [];
+            renderTranscript();
+            videoInfo.textContent = `${data.segments.length} segments | ${sources.length} videos | ${formatTime(data.duration)}`;
         }
 
         function renderTranscript() {
@@ -1643,7 +1664,7 @@
         // Initialize
         async function init() {
             try {
-                const configResponse = await fetch('/api/config');
+                const configResponse = await fetch('/api/config?v=' + Date.now());
                 if (configResponse.ok) {
                     CONFIG = await configResponse.json();
                     console.log('[Review] Loaded config:', CONFIG.project?.name);

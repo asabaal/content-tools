@@ -86,6 +86,7 @@ def render_segmented(
                     word['start'] = word['start'] - seg_start
                     word['end'] = word['end'] - seg_start
                 event['output_start'] = 0.0
+                event['original_start'] = 0.0
             
             seg_file = temp_dir / f'seg_{current_segment:03d}.mp4'
             segment_files.append(seg_file)
@@ -137,7 +138,7 @@ def render_segmented(
     concat_list_path = temp_dir / 'concat_list.txt'
     with open(concat_list_path, 'w') as f:
         for seg_file in segment_files:
-            f.write(f"file '{seg_file}'\n")
+            f.write(f"file '{seg_file.name}'\n")
     
     print(f"\nConcatenating {len(segment_files)} segments...")
     
@@ -248,6 +249,7 @@ def main():
     print(f"Generated {len(caption_events)} caption events")
     
     print("Generating SRT file...")
+    output_dir.mkdir(exist_ok=True, parents=True)
     generate_srt(caption_events, str(output_srt))
     print(f"SRT saved to: {output_srt}")
     
@@ -269,7 +271,8 @@ def main():
         return
     
     if not render_success:
-        print("\nVerification skipped due to render failure.")
+        if not args.skip_verification:
+            print("\nVerification skipped due to render failure.")
         sys.exit(1)
     
     print(f"\nDone! Output saved to:")

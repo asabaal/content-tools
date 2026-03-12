@@ -85,6 +85,20 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(response)
 
+    def translate_path(self, path):
+        """Map /data/* to project directory, everything else to repo root."""
+        parsed = urllib.parse.urlparse(path)
+        rel_path = parsed.path
+        
+        if rel_path.startswith('/data/'):
+            project_rel = rel_path[6:]
+            if PROJECT_CONFIG:
+                return str(PROJECT_CONFIG.data_dir / project_rel)
+            else:
+                return str(REPO_ROOT / 'data' / project_rel)
+        else:
+            return str(REPO_ROOT / rel_path.lstrip('/'))
+
     def send_head(self):
         """Common code for GET and HEAD commands, with Range support."""
         path = self.translate_path(self.path)
@@ -179,11 +193,12 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         """Handle GET requests."""
-        if self.path == '/api/project':
+        path = urllib.parse.urlparse(self.path).path
+        if path == '/api/project':
             self.handle_get_project()
-        elif self.path == '/api/config':
+        elif path == '/api/config':
             self.handle_get_config()
-        elif self.path == '/api/verification':
+        elif path == '/api/verification':
             self.handle_get_verification()
         else:
             super().do_GET()
@@ -254,9 +269,10 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         """Handle POST requests."""
-        if self.path == '/api/render':
+        path = urllib.parse.urlparse(self.path).path
+        if path == '/api/render':
             self.handle_render()
-        elif self.path == '/api/project':
+        elif path == '/api/project':
             self.handle_save_project()
         else:
             self.do_PUT()

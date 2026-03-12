@@ -593,7 +593,7 @@
 
         async function loadData() {
             try {
-                const projectResp = await fetch('/api/project');
+                const projectResp = await fetch('/api/project?v=' + Date.now());
                 if (!projectResp.ok) throw new Error('No project.json found');
                 project = await projectResp.json();
 
@@ -601,7 +601,7 @@
                     transcript = project.transcript;
                 } else {
                     const transcriptPath = CONFIG ? CONFIG.paths.combined_transcript : '/data/transcript_combined.json';
-                    const transResp = await fetch(transcriptPath);
+                    const transResp = await fetch(transcriptPath + '?v=' + Date.now());
                     transcript = await transResp.json();
                 }
 
@@ -922,7 +922,7 @@
 
         async function init() {
             try {
-                const configResponse = await fetch('/api/config');
+                const configResponse = await fetch('/api/config?v=' + Date.now());
                 if (configResponse.ok) {
                     CONFIG = await configResponse.json();
                     console.log('[Select] Loaded config:', CONFIG.project?.name);

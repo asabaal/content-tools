@@ -88,7 +88,7 @@ class ProjectConfig:
             result["project"]["description"] = self.description
         
         for key in ["videos", "clips", "timeline_order", "caption_style", 
-                    "word_colors", "caption_breaks"]:
+                    "word_colors", "caption_breaks", "transcript"]:
             if key in self._raw_data:
                 result[key] = self._raw_data[key]
         
@@ -211,7 +211,10 @@ class ProjectConfig:
             description=description,
             created=now,
             modified=now,
-            _raw_data={}
+            _raw_data={
+                "clips": [],
+                "videos": []
+            }
         )
         
         for subdir in ["raw", "transcripts", "output"]:

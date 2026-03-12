@@ -7,7 +7,6 @@ Usage:
 Examples:
     python transcribe.py                          # Process all videos, auto-combine
     python transcribe.py video1.mp4               # Process specific video
-    python transcribe.py --no-combine             # Don't combine after transcription
     python transcribe.py --project /path/to/dir   # Use specific project directory
     python transcribe.py --model large --lang en  # Use larger model
 
@@ -15,6 +14,7 @@ Output:
     Individual transcripts: {project}/transcripts/{video_name}.json
     Combined transcript: {project}/transcript_combined.json
     Combined video: {project}/video_combined.mp4
+    Waveforms: {project}/waveforms.json
 """
 
 import argparse
@@ -95,8 +95,7 @@ def process_video(
     video_path: Path,
     output_dir: Path,
     model_size: str = "base",
-    language: Optional[str] = None,
-    keep_audio: bool = False
+    language: Optional[str] = None
 ) -> Optional[dict]:
     """Process a single video file. Returns transcript data dict."""
     video_id = video_path.stem
@@ -135,8 +134,44 @@ def process_video(
         return transcript_data
     
     finally:
-        if not keep_audio and audio_path.exists():
+        if audio_path.exists():
             audio_path.unlink()
+
+
+def copy_single_video(
+    video_path: Path,
+    output_path: Path
+) -> bool:
+    """Copy single video to combined location."""
+    import shutil
+    
+    print(f"\nCopying single video...")
+    try:
+        shutil.copy2(video_path, output_path)
+        size_mb = output_path.stat().st_size / (1024 * 1024)
+        print(f"  Saved: {output_path} ({size_mb:.1f} MB)")
+        return True
+    except Exception as e:
+        print(f"  ERROR: {e}")
+        return False
+
+
+def generate_waveforms(config) -> bool:
+    """Generate waveform data for combined video."""
+    print(f"\nGenerating waveforms...")
+    
+    cmd = [sys.executable, str(PROJECT_ROOT / "tools/04-assemble/generate_waveforms.py")]
+    if config.path:
+        cmd.extend(["--project", str(config.data_dir)])
+    
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    
+    if result.returncode == 0:
+        print(result.stdout)
+        return True
+    else:
+        print(f"  ERROR: {result.stderr}")
+        return False
 
 
 def combine_videos(
@@ -279,19 +314,9 @@ def main():
         help="Path to project directory (default: data)"
     )
     parser.add_argument(
-        "--keep-audio",
-        action="store_true",
-        help="Keep temporary audio files"
-    )
-    parser.add_argument(
         "--list",
         action="store_true",
         help="List available videos and exit"
-    )
-    parser.add_argument(
-        "--no-combine",
-        action="store_true",
-        help="Don't combine videos and transcripts after transcription"
     )
     parser.add_argument(
         "--combined-name",
@@ -343,7 +368,6 @@ def main():
     print(f"Found {len(videos)} video(s) to process")
     print(f"Model: {args.model}")
     print(f"Output: {output_dir}")
-    print(f"Combine: {'No' if args.no_combine else 'Yes'}")
     
     transcripts = []
     success_count = 0
@@ -357,8 +381,7 @@ def main():
             video_path,
             output_dir,
             model_size=args.model,
-            language=args.lang,
-            keep_audio=args.keep_audio
+            language=args.lang
         )
         
         if result:
@@ -371,12 +394,12 @@ def main():
     if success_count < len(videos):
         sys.exit(1)
     
-    if not args.no_combine and len(transcripts) > 1:
+    combined_video_path = DATA_DIR / f"video_{args.combined_name}.mp4"
+    combined_transcript_path = DATA_DIR / f"transcript_{args.combined_name}.json"
+    
+    if len(transcripts) > 1:
         print(f"\n{'='*50}")
         print("Combining...")
-        
-        combined_video_path = DATA_DIR / f"video_{args.combined_name}.mp4"
-        combined_transcript_path = DATA_DIR / f"transcript_{args.combined_name}.json"
         
         video_ok = combine_videos(videos, combined_video_path)
         transcript_ok = combine_transcripts(transcripts, videos, combined_transcript_path)
@@ -389,6 +412,52 @@ def main():
         else:
             print("\nCombine failed!")
             sys.exit(1)
+    elif len(transcripts) == 1:
+        print(f"\n{'='*50}")
+        print("Single video - setting up combined files...")
+        
+        video_ok = copy_single_video(videos[0], combined_video_path)
+        
+        single_transcript = transcripts[0]
+        combined = {
+            "video_id": "combined",
+            "language": single_transcript.get("language", "en"),
+            "duration": single_transcript["duration"],
+            "sources": [{
+                "video_id": single_transcript["video_id"],
+                "start": 0.0,
+                "end": single_transcript["duration"],
+                "duration": single_transcript["duration"]
+            }],
+            "segments": [
+                {
+                    "id": i,
+                    "original_id": seg["id"],
+                    "original_video_id": single_transcript["video_id"],
+                    "text": seg["text"],
+                    "start": seg["start"],
+                    "end": seg["end"],
+                    "words": seg.get("words", [])
+                }
+                for i, seg in enumerate(single_transcript["segments"])
+            ]
+        }
+        
+        with open(combined_transcript_path, "w", encoding="utf-8") as f:
+            json.dump(combined, f, indent=2, ensure_ascii=False)
+        
+        print(f"  Video: {combined_video_path}")
+        print(f"  Transcript: {combined_transcript_path}")
+        
+        if not video_ok:
+            print("\nFailed to set up combined video!")
+            sys.exit(1)
+    
+    if combined_video_path.exists():
+        if not generate_waveforms(config):
+            print("\nWaveform generation failed!")
+            sys.exit(1)
+        print(f"  Waveforms: {config.waveforms}")
 
 
 if __name__ == "__main__":

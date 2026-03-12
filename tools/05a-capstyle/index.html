@@ -731,7 +731,7 @@
 
         async function loadProject() {
             try {
-                const response = await fetch('/api/project');
+                const response = await fetch('/api/project?v=' + Date.now());
                 project = await response.json();
                 
                 segments = project.transcript?.segments || [];
@@ -753,7 +753,7 @@
         
         async function init() {
             try {
-                const configResponse = await fetch('/api/config');
+                const configResponse = await fetch('/api/config?v=' + Date.now());
                 if (configResponse.ok) {
                     CONFIG = await configResponse.json();
                     console.log('[CapStyle] Loaded config:', CONFIG.project?.name);
@@ -935,14 +935,14 @@
                         grid.appendChild(breakMarker);
                     }
                     
-                    if (segBreaks.includes(wordIdx)) {
+                    if (wordIdx > 0 && segBreaks.includes(wordIdx - 1)) {
                         const breakIndicator = document.createElement('span');
                         breakIndicator.className = 'break-indicator';
                         breakIndicator.innerHTML = '↵';
                         breakIndicator.title = 'Click to remove caption break';
                         breakIndicator.dataset.segmentIndex = globalSegIdx;
-                        breakIndicator.dataset.afterWord = wordIdx;
-                        breakIndicator.addEventListener('click', () => toggleBreak(globalSegIdx, wordIdx));
+                        breakIndicator.dataset.afterWord = wordIdx - 1;
+                        breakIndicator.addEventListener('click', () => toggleBreak(globalSegIdx, wordIdx - 1));
                         grid.appendChild(breakIndicator);
                     }
                     
