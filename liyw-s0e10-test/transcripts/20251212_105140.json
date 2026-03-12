@@ -1,0 +1,932 @@
+{
+  "video_id": "20251212_105140",
+  "language": "en",
+  "duration": 97.4293125,
+  "segments": [
+    {
+      "id": 1,
+      "text": "Jesus set a parable. A sower went out to sow the seed. Some fell on the path",
+      "start": 1.2600000000000005,
+      "end": 8.06,
+      "words": [
+        {
+          "text": "Jesus",
+          "start": 1.2600000000000005,
+          "end": 1.78
+        },
+        {
+          "text": "set",
+          "start": 1.78,
+          "end": 2.08
+        },
+        {
+          "text": "a",
+          "start": 2.08,
+          "end": 2.16
+        },
+        {
+          "text": "parable.",
+          "start": 2.16,
+          "end": 2.52
+        },
+        {
+          "text": "A",
+          "start": 3.5,
+          "end": 4.02
+        },
+        {
+          "text": "sower",
+          "start": 4.02,
+          "end": 4.34
+        },
+        {
+          "text": "went",
+          "start": 4.34,
+          "end": 4.54
+        },
+        {
+          "text": "out",
+          "start": 4.54,
+          "end": 4.74
+        },
+        {
+          "text": "to",
+          "start": 4.74,
+          "end": 5.08
+        },
+        {
+          "text": "sow",
+          "start": 5.08,
+          "end": 5.28
+        },
+        {
+          "text": "the",
+          "start": 5.28,
+          "end": 5.4
+        },
+        {
+          "text": "seed.",
+          "start": 5.4,
+          "end": 5.66
+        },
+        {
+          "text": "Some",
+          "start": 7.3,
+          "end": 7.42
+        },
+        {
+          "text": "fell",
+          "start": 7.42,
+          "end": 7.64
+        },
+        {
+          "text": "on",
+          "start": 7.64,
+          "end": 7.78
+        },
+        {
+          "text": "the",
+          "start": 7.78,
+          "end": 7.86
+        },
+        {
+          "text": "path",
+          "start": 7.86,
+          "end": 8.06
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "and was trampled on. Some fell on rock and it grew up and withered for lack of",
+      "start": 8.06,
+      "end": 16.88,
+      "words": [
+        {
+          "text": "and",
+          "start": 8.06,
+          "end": 8.28
+        },
+        {
+          "text": "was",
+          "start": 8.28,
+          "end": 8.38
+        },
+        {
+          "text": "trampled",
+          "start": 8.38,
+          "end": 8.72
+        },
+        {
+          "text": "on.",
+          "start": 8.72,
+          "end": 8.86
+        },
+        {
+          "text": "Some",
+          "start": 10.88,
+          "end": 11.4
+        },
+        {
+          "text": "fell",
+          "start": 11.4,
+          "end": 11.6
+        },
+        {
+          "text": "on",
+          "start": 11.6,
+          "end": 11.7
+        },
+        {
+          "text": "rock",
+          "start": 11.7,
+          "end": 11.88
+        },
+        {
+          "text": "and",
+          "start": 11.88,
+          "end": 14.0
+        },
+        {
+          "text": "it",
+          "start": 14.0,
+          "end": 14.12
+        },
+        {
+          "text": "grew",
+          "start": 14.12,
+          "end": 14.36
+        },
+        {
+          "text": "up",
+          "start": 14.36,
+          "end": 14.6
+        },
+        {
+          "text": "and",
+          "start": 14.6,
+          "end": 14.86
+        },
+        {
+          "text": "withered",
+          "start": 14.86,
+          "end": 15.24
+        },
+        {
+          "text": "for",
+          "start": 15.24,
+          "end": 16.56
+        },
+        {
+          "text": "lack",
+          "start": 16.56,
+          "end": 16.74
+        },
+        {
+          "text": "of",
+          "start": 16.74,
+          "end": 16.88
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "whisper. Some among thorns and the thorns choked it and yet some fell on good",
+      "start": 16.88,
+      "end": 26.08,
+      "words": [
+        {
+          "text": "whisper.",
+          "start": 16.88,
+          "end": 17.16
+        },
+        {
+          "text": "Some",
+          "start": 18.88,
+          "end": 19.22
+        },
+        {
+          "text": "among",
+          "start": 19.22,
+          "end": 19.66
+        },
+        {
+          "text": "thorns",
+          "start": 19.66,
+          "end": 20.02
+        },
+        {
+          "text": "and",
+          "start": 20.02,
+          "end": 21.6
+        },
+        {
+          "text": "the",
+          "start": 21.6,
+          "end": 21.72
+        },
+        {
+          "text": "thorns",
+          "start": 21.72,
+          "end": 22.1
+        },
+        {
+          "text": "choked",
+          "start": 22.1,
+          "end": 22.52
+        },
+        {
+          "text": "it",
+          "start": 22.52,
+          "end": 22.76
+        },
+        {
+          "text": "and",
+          "start": 22.76,
+          "end": 24.82
+        },
+        {
+          "text": "yet",
+          "start": 24.82,
+          "end": 25.0
+        },
+        {
+          "text": "some",
+          "start": 25.0,
+          "end": 25.38
+        },
+        {
+          "text": "fell",
+          "start": 25.38,
+          "end": 25.76
+        },
+        {
+          "text": "on",
+          "start": 25.76,
+          "end": 25.94
+        },
+        {
+          "text": "good",
+          "start": 25.94,
+          "end": 26.08
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "soil. And when it grew, it produced a hundredfold. The parable means this. The seed is God's",
+      "start": 26.08,
+      "end": 38.22,
+      "words": [
+        {
+          "text": "soil.",
+          "start": 26.08,
+          "end": 26.44
+        },
+        {
+          "text": "And",
+          "start": 27.7,
+          "end": 28.38
+        },
+        {
+          "text": "when",
+          "start": 28.38,
+          "end": 28.52
+        },
+        {
+          "text": "it",
+          "start": 28.52,
+          "end": 28.64
+        },
+        {
+          "text": "grew,",
+          "start": 28.64,
+          "end": 28.84
+        },
+        {
+          "text": "it",
+          "start": 29.12,
+          "end": 29.36
+        },
+        {
+          "text": "produced",
+          "start": 29.36,
+          "end": 29.72
+        },
+        {
+          "text": "a",
+          "start": 29.72,
+          "end": 29.96
+        },
+        {
+          "text": "hundredfold.",
+          "start": 29.96,
+          "end": 30.44
+        },
+        {
+          "text": "The",
+          "start": 33.5,
+          "end": 34.18
+        },
+        {
+          "text": "parable",
+          "start": 34.18,
+          "end": 34.54
+        },
+        {
+          "text": "means",
+          "start": 34.54,
+          "end": 34.94
+        },
+        {
+          "text": "this.",
+          "start": 34.94,
+          "end": 35.22
+        },
+        {
+          "text": "The",
+          "start": 36.2,
+          "end": 36.88
+        },
+        {
+          "text": "seed",
+          "start": 36.88,
+          "end": 37.24
+        },
+        {
+          "text": "is",
+          "start": 37.24,
+          "end": 37.82
+        },
+        {
+          "text": "God's",
+          "start": 37.82,
+          "end": 38.22
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "word. Those on the path have heard. Those on the path have heard the word but the devil",
+      "start": 38.22,
+      "end": 48.3,
+      "words": [
+        {
+          "text": "word.",
+          "start": 38.22,
+          "end": 38.34
+        },
+        {
+          "text": "Those",
+          "start": 40.7,
+          "end": 40.92
+        },
+        {
+          "text": "on",
+          "start": 40.92,
+          "end": 41.1
+        },
+        {
+          "text": "the",
+          "start": 41.1,
+          "end": 41.2
+        },
+        {
+          "text": "path",
+          "start": 41.2,
+          "end": 41.62
+        },
+        {
+          "text": "have",
+          "start": 41.62,
+          "end": 43.36
+        },
+        {
+          "text": "heard.",
+          "start": 43.36,
+          "end": 43.7
+        },
+        {
+          "text": "Those",
+          "start": 45.12,
+          "end": 45.8
+        },
+        {
+          "text": "on",
+          "start": 45.8,
+          "end": 45.96
+        },
+        {
+          "text": "the",
+          "start": 45.96,
+          "end": 46.04
+        },
+        {
+          "text": "path",
+          "start": 46.04,
+          "end": 46.26
+        },
+        {
+          "text": "have",
+          "start": 46.26,
+          "end": 46.46
+        },
+        {
+          "text": "heard",
+          "start": 46.46,
+          "end": 46.64
+        },
+        {
+          "text": "the",
+          "start": 46.64,
+          "end": 46.8
+        },
+        {
+          "text": "word",
+          "start": 46.8,
+          "end": 46.98
+        },
+        {
+          "text": "but",
+          "start": 46.98,
+          "end": 47.88
+        },
+        {
+          "text": "the",
+          "start": 47.88,
+          "end": 48.02
+        },
+        {
+          "text": "devil",
+          "start": 48.02,
+          "end": 48.3
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "text": "takes it away. But the devil takes it away from their hearts so they don't believe. The ones in the rocks",
+      "start": 48.3,
+      "end": 57.44,
+      "words": [
+        {
+          "text": "takes",
+          "start": 48.3,
+          "end": 48.78
+        },
+        {
+          "text": "it",
+          "start": 48.78,
+          "end": 48.98
+        },
+        {
+          "text": "away.",
+          "start": 48.98,
+          "end": 49.18
+        },
+        {
+          "text": "But",
+          "start": 50.72,
+          "end": 51.2
+        },
+        {
+          "text": "the",
+          "start": 51.2,
+          "end": 51.34
+        },
+        {
+          "text": "devil",
+          "start": 51.34,
+          "end": 51.56
+        },
+        {
+          "text": "takes",
+          "start": 51.56,
+          "end": 51.84
+        },
+        {
+          "text": "it",
+          "start": 51.84,
+          "end": 52.0
+        },
+        {
+          "text": "away",
+          "start": 52.0,
+          "end": 52.18
+        },
+        {
+          "text": "from",
+          "start": 52.18,
+          "end": 52.36
+        },
+        {
+          "text": "their",
+          "start": 52.36,
+          "end": 52.5
+        },
+        {
+          "text": "hearts",
+          "start": 52.5,
+          "end": 52.74
+        },
+        {
+          "text": "so",
+          "start": 52.74,
+          "end": 52.98
+        },
+        {
+          "text": "they",
+          "start": 52.98,
+          "end": 53.08
+        },
+        {
+          "text": "don't",
+          "start": 53.08,
+          "end": 53.3
+        },
+        {
+          "text": "believe.",
+          "start": 53.3,
+          "end": 53.54
+        },
+        {
+          "text": "The",
+          "start": 56.26,
+          "end": 56.74
+        },
+        {
+          "text": "ones",
+          "start": 56.74,
+          "end": 56.88
+        },
+        {
+          "text": "in",
+          "start": 56.88,
+          "end": 57.06
+        },
+        {
+          "text": "the",
+          "start": 57.06,
+          "end": 57.16
+        },
+        {
+          "text": "rocks",
+          "start": 57.16,
+          "end": 57.44
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "text": "hear the word, receive it with joy, but have no root. They've in testing, they fall away. Those in",
+      "start": 58.440000000000005,
+      "end": 73.3,
+      "words": [
+        {
+          "text": "hear",
+          "start": 58.440000000000005,
+          "end": 58.92
+        },
+        {
+          "text": "the",
+          "start": 58.92,
+          "end": 59.12
+        },
+        {
+          "text": "word,",
+          "start": 59.12,
+          "end": 59.42
+        },
+        {
+          "text": "receive",
+          "start": 59.86,
+          "end": 61.36
+        },
+        {
+          "text": "it",
+          "start": 61.36,
+          "end": 61.54
+        },
+        {
+          "text": "with",
+          "start": 61.54,
+          "end": 61.64
+        },
+        {
+          "text": "joy,",
+          "start": 61.64,
+          "end": 61.96
+        },
+        {
+          "text": "but",
+          "start": 62.82,
+          "end": 63.0
+        },
+        {
+          "text": "have",
+          "start": 63.0,
+          "end": 63.14
+        },
+        {
+          "text": "no",
+          "start": 63.14,
+          "end": 63.4
+        },
+        {
+          "text": "root.",
+          "start": 63.4,
+          "end": 63.6
+        },
+        {
+          "text": "They've",
+          "start": 67.76,
+          "end": 68.24
+        },
+        {
+          "text": "in",
+          "start": 68.24,
+          "end": 69.74
+        },
+        {
+          "text": "testing,",
+          "start": 69.74,
+          "end": 70.12
+        },
+        {
+          "text": "they",
+          "start": 70.32,
+          "end": 70.44
+        },
+        {
+          "text": "fall",
+          "start": 70.44,
+          "end": 70.66
+        },
+        {
+          "text": "away.",
+          "start": 70.66,
+          "end": 70.96
+        },
+        {
+          "text": "Those",
+          "start": 72.66,
+          "end": 73.14
+        },
+        {
+          "text": "in",
+          "start": 73.14,
+          "end": 73.3
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "text": "the thorns are choked by the cares and riches of life and their fruit does not mature. But for the good",
+      "start": 73.3,
+      "end": 83.84,
+      "words": [
+        {
+          "text": "the",
+          "start": 73.3,
+          "end": 73.38
+        },
+        {
+          "text": "thorns",
+          "start": 73.38,
+          "end": 73.76
+        },
+        {
+          "text": "are",
+          "start": 73.76,
+          "end": 76.0
+        },
+        {
+          "text": "choked",
+          "start": 76.0,
+          "end": 76.38
+        },
+        {
+          "text": "by",
+          "start": 76.38,
+          "end": 76.94
+        },
+        {
+          "text": "the",
+          "start": 76.94,
+          "end": 77.1
+        },
+        {
+          "text": "cares",
+          "start": 77.1,
+          "end": 77.3
+        },
+        {
+          "text": "and",
+          "start": 77.3,
+          "end": 77.52
+        },
+        {
+          "text": "riches",
+          "start": 77.52,
+          "end": 77.76
+        },
+        {
+          "text": "of",
+          "start": 77.76,
+          "end": 78.32
+        },
+        {
+          "text": "life",
+          "start": 78.32,
+          "end": 78.62
+        },
+        {
+          "text": "and",
+          "start": 78.62,
+          "end": 80.1
+        },
+        {
+          "text": "their",
+          "start": 80.1,
+          "end": 80.24
+        },
+        {
+          "text": "fruit",
+          "start": 80.24,
+          "end": 80.48
+        },
+        {
+          "text": "does",
+          "start": 80.48,
+          "end": 80.68
+        },
+        {
+          "text": "not",
+          "start": 80.68,
+          "end": 80.84
+        },
+        {
+          "text": "mature.",
+          "start": 80.84,
+          "end": 81.14
+        },
+        {
+          "text": "But",
+          "start": 82.52,
+          "end": 82.9
+        },
+        {
+          "text": "for",
+          "start": 82.9,
+          "end": 83.52
+        },
+        {
+          "text": "the",
+          "start": 83.52,
+          "end": 83.64
+        },
+        {
+          "text": "good",
+          "start": 83.64,
+          "end": 83.84
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "text": "soil, these are the ones when they hear the word, hold it fast in an honest and good heart and bear fruit",
+      "start": 83.84,
+      "end": 94.88,
+      "words": [
+        {
+          "text": "soil,",
+          "start": 83.84,
+          "end": 84.14
+        },
+        {
+          "text": "these",
+          "start": 85.12,
+          "end": 85.64
+        },
+        {
+          "text": "are",
+          "start": 85.64,
+          "end": 85.8
+        },
+        {
+          "text": "the",
+          "start": 85.8,
+          "end": 85.9
+        },
+        {
+          "text": "ones",
+          "start": 85.9,
+          "end": 86.16
+        },
+        {
+          "text": "when",
+          "start": 86.16,
+          "end": 86.98
+        },
+        {
+          "text": "they",
+          "start": 86.98,
+          "end": 87.14
+        },
+        {
+          "text": "hear",
+          "start": 87.14,
+          "end": 87.34
+        },
+        {
+          "text": "the",
+          "start": 87.34,
+          "end": 87.52
+        },
+        {
+          "text": "word,",
+          "start": 87.52,
+          "end": 87.8
+        },
+        {
+          "text": "hold",
+          "start": 88.22,
+          "end": 89.18
+        },
+        {
+          "text": "it",
+          "start": 89.18,
+          "end": 89.34
+        },
+        {
+          "text": "fast",
+          "start": 89.34,
+          "end": 89.7
+        },
+        {
+          "text": "in",
+          "start": 89.7,
+          "end": 90.78
+        },
+        {
+          "text": "an",
+          "start": 90.78,
+          "end": 90.94
+        },
+        {
+          "text": "honest",
+          "start": 90.94,
+          "end": 91.26
+        },
+        {
+          "text": "and",
+          "start": 91.26,
+          "end": 92.42
+        },
+        {
+          "text": "good",
+          "start": 92.42,
+          "end": 92.62
+        },
+        {
+          "text": "heart",
+          "start": 92.62,
+          "end": 92.92
+        },
+        {
+          "text": "and",
+          "start": 92.92,
+          "end": 94.24
+        },
+        {
+          "text": "bear",
+          "start": 94.24,
+          "end": 94.48
+        },
+        {
+          "text": "fruit",
+          "start": 94.48,
+          "end": 94.88
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "with endurance.",
+      "start": 94.88,
+      "end": 95.66,
+      "words": [
+        {
+          "text": "with",
+          "start": 94.88,
+          "end": 95.2
+        },
+        {
+          "text": "endurance.",
+          "start": 95.2,
+          "end": 95.66
+        }
+      ]
+    }
+  ]
+}

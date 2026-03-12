@@ -549,6 +549,7 @@
     </div>
 
     <script>
+        let CONFIG = null;
         let project = null;
         let transcript = null;
         let selectedClipId = null;
@@ -592,14 +593,15 @@
 
         async function loadData() {
             try {
-                const projectResp = await fetch('../../data/project.json');
+                const projectResp = await fetch('/api/project');
                 if (!projectResp.ok) throw new Error('No project.json found');
                 project = await projectResp.json();
 
                 if (project.transcript) {
                     transcript = project.transcript;
                 } else {
-                    const transResp = await fetch('../../data/transcript_combined.json');
+                    const transcriptPath = CONFIG ? CONFIG.paths.combined_transcript : '/data/transcript_combined.json';
+                    const transResp = await fetch(transcriptPath);
                     transcript = await transResp.json();
                 }
 
@@ -795,7 +797,8 @@
             currentSegmentData = { start, end };
 
             videoPlayerSection.classList.remove('hidden');
-            mainVideo.src = `../../data/video_combined.mp4#t=${start}`;
+            const videoPath = CONFIG ? CONFIG.paths.combined_video : '/data/video_combined.mp4';
+            mainVideo.src = `${videoPath}#t=${start}`;
 
             const setStartTime = () => {
                 mainVideo.currentTime = start;
@@ -884,8 +887,8 @@
 
         async function saveProject() {
             try {
-                const response = await fetch('../../data/project.json', {
-                    method: 'PUT',
+                const response = await fetch('/api/project', {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(project, null, 2)
                 });
@@ -917,7 +920,20 @@
             }
         });
 
-        loadData();
+        async function init() {
+            try {
+                const configResponse = await fetch('/api/config');
+                if (configResponse.ok) {
+                    CONFIG = await configResponse.json();
+                    console.log('[Select] Loaded config:', CONFIG.project?.name);
+                }
+            } catch (e) {
+                console.log('[Select] Could not load config, using defaults');
+            }
+            await loadData();
+        }
+
+        init();
     </script>
 </body>
 </html>

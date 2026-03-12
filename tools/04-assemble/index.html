@@ -714,6 +714,7 @@
     </div>
 
     <script>
+        let CONFIG = null;
         let project = null;
         let waveformData = null;
         let transcript = null;
@@ -813,15 +814,17 @@
 
         async function loadData() {
             try {
-                const projectResp = await fetch('../../data/project.json');
+                const projectResp = await fetch('/api/project');
                 if (!projectResp.ok) throw new Error('No project.json found');
                 project = await projectResp.json();
 
-                const waveformResp = await fetch('../../data/waveforms.json?v=' + Date.now());
+                const waveformPath = CONFIG ? `/data/${CONFIG.paths.waveforms?.split('/').pop() || 'waveforms.json'}` : '/data/waveforms.json';
+                const waveformResp = await fetch(waveformPath + '?v=' + Date.now());
                 if (!waveformResp.ok) throw new Error('No waveforms.json found. Run generate_waveforms.py first.');
                 waveformData = await waveformResp.json();
 
-                const transcriptResp = await fetch('../../data/transcript_combined.json?v=' + Date.now());
+                const transcriptPath = CONFIG ? CONFIG.paths.combined_transcript : '/data/transcript_combined.json';
+                const transcriptResp = await fetch(transcriptPath + '?v=' + Date.now());
                 if (!transcriptResp.ok) throw new Error('No transcript_combined.json found.');
                 transcript = await transcriptResp.json();
 
@@ -1512,7 +1515,7 @@
             videoInfoTitle.textContent = clip.name;
             videoInfoTime.textContent = `${formatTimeShort(times.start)} - ${formatTimeShort(times.end)}`;
 
-            const targetSrc = '../../data/video_combined.mp4';
+            const targetSrc = CONFIG ? CONFIG.paths.combined_video : '/data/video_combined.mp4';
             const srcChanged = !mainVideo.src || !mainVideo.src.includes('video_combined.mp4');
             console.log('[loadVideoPreview] srcChanged:', srcChanged, 'currentSrc:', mainVideo.src);
             
@@ -1863,8 +1866,8 @@
                     transcript: transcript
                 };
 
-                const response = await fetch('../../data/project.json', {
-                    method: 'PUT',
+                const response = await fetch('/api/project', {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(projectData, null, 2)
                 });
@@ -1911,7 +1914,20 @@
             }
         });
 
-        loadData();
+        async function init() {
+            try {
+                const configResponse = await fetch('/api/config');
+                if (configResponse.ok) {
+                    CONFIG = await configResponse.json();
+                    console.log('[Assemble] Loaded config:', CONFIG.project?.name);
+                }
+            } catch (e) {
+                console.log('[Assemble] Could not load config, using defaults');
+            }
+            await loadData();
+        }
+
+        init();
     </script>
 </body>
 </html>

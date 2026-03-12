@@ -8,13 +8,13 @@ Examples:
     python transcribe.py                          # Process all videos, auto-combine
     python transcribe.py video1.mp4               # Process specific video
     python transcribe.py --no-combine             # Don't combine after transcription
-    python transcribe.py --combined-name episode_3  # Name combined output
+    python transcribe.py --project /path/to/dir   # Use specific project directory
     python transcribe.py --model large --lang en  # Use larger model
 
 Output:
-    Individual transcripts: data/transcripts/{video_name}.json
-    Combined transcript: data/transcript_combined.json
-    Combined video: data/video_combined.mp4
+    Individual transcripts: {project}/transcripts/{video_name}.json
+    Combined transcript: {project}/transcript_combined.json
+    Combined video: {project}/video_combined.mp4
 """
 
 import argparse
@@ -29,10 +29,9 @@ from typing import Optional
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from core.models import Transcript, Segment, Word
+from core.project_config import ProjectConfig, get_default_project_path
 
-DATA_DIR = Path(__file__).parent.parent.parent / "data"
-RAW_DIR = DATA_DIR / "raw"
-TRANSCRIPTS_DIR = DATA_DIR / "transcripts"
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 
 
 def extract_audio(video_path: Path, audio_path: Path) -> bool:
@@ -256,7 +255,7 @@ def main():
     parser.add_argument(
         "videos",
         nargs="*",
-        help="Video files to transcribe (default: all in data/raw/)"
+        help="Video files to transcribe (default: all in project/raw/)"
     )
     parser.add_argument(
         "--model", "-m",
@@ -272,7 +271,12 @@ def main():
     parser.add_argument(
         "--output", "-o",
         default=None,
-        help="Output directory for individual transcripts (default: data/transcripts/)"
+        help="Output directory for individual transcripts (default: project/transcripts/)"
+    )
+    parser.add_argument(
+        "--project", "-p",
+        default=None,
+        help="Path to project directory (default: data)"
     )
     parser.add_argument(
         "--keep-audio",
@@ -297,6 +301,24 @@ def main():
     
     args = parser.parse_args()
     
+    # Load project config
+    if args.project:
+        project_path = Path(args.project)
+        if project_path.is_file() and project_path.name == 'project.json':
+            config_path = project_path
+        else:
+            config_path = project_path / 'project.json'
+        config = ProjectConfig.load(config_path)
+    else:
+        config = ProjectConfig.load(get_default_project_path())
+    
+    DATA_DIR = config.data_dir
+    RAW_DIR = config.raw_dir
+    TRANSCRIPTS_DIR = config.transcripts_dir
+    
+    print(f"Project: {config.name}")
+    print(f"Data directory: {DATA_DIR}")
+    
     output_dir = Path(args.output) if args.output else TRANSCRIPTS_DIR
     
     if args.list:
@@ -315,7 +337,7 @@ def main():
     
     if not videos:
         print(f"No videos found in {RAW_DIR}")
-        print("Add video files to data/raw/ or specify files on the command line")
+        print("Add video files to project's raw/ directory or specify files on the command line")
         sys.exit(1)
     
     print(f"Found {len(videos)} video(s) to process")

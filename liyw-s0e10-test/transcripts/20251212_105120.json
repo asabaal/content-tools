@@ -1,0 +1,50 @@
+{
+  "video_id": "20251212_105120",
+  "language": "en",
+  "duration": 10.9013125,
+  "segments": [
+    {
+      "id": 1,
+      "text": "Today's reading will be from Luke 8.",
+      "start": 1.4799999999999995,
+      "end": 3.66,
+      "words": [
+        {
+          "text": "Today's",
+          "start": 1.4799999999999995,
+          "end": 2.06
+        },
+        {
+          "text": "reading",
+          "start": 2.06,
+          "end": 2.26
+        },
+        {
+          "text": "will",
+          "start": 2.26,
+          "end": 2.6
+        },
+        {
+          "text": "be",
+          "start": 2.6,
+          "end": 2.8
+        },
+        {
+          "text": "from",
+          "start": 2.8,
+          "end": 3.04
+        },
+        {
+          "text": "Luke",
+          "start": 3.04,
+          "end": 3.22
+        },
+        {
+          "text": "8.",
+          "start": 3.22,
+          "end": 3.66
+        }
+      ]
+    }
+  ]
+}

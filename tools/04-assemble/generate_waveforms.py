@@ -6,13 +6,15 @@ Reads video_combined.mp4 to generate waveform peak data for the entire video.
 
 Usage:
     python tools/04-assemble/generate_waveforms.py
+    python tools/04-assemble/generate_waveforms.py --project /path/to/project
 
 Output:
-    data/waveforms.json
+    waveforms.json in project directory
 
 Requires: ffmpeg (for audio extraction)
 """
 
+import argparse
 import json
 import os
 import subprocess
@@ -22,27 +24,40 @@ import struct
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
-DATA_DIR = PROJECT_ROOT / "data"
-VIDEO_PATH = DATA_DIR / "video_combined.mp4"
-OUTPUT_PATH = DATA_DIR / "waveforms.json"
-TEMP_AUDIO_PATH = DATA_DIR / ".temp_audio.wav"
 
 PEAKS_PER_SECOND = 100
 
 
-def extract_audio():
+def get_project_config(project_arg: str | None = None):
+    """Load project config from path or use default."""
+    sys.path.insert(0, str(PROJECT_ROOT))
+    from core.project_config import ProjectConfig
+    
+    if project_arg:
+        project_path = Path(project_arg)
+        if project_path.is_file() and project_path.name == 'project.json':
+            config_path = project_path
+        else:
+            config_path = project_path / 'project.json'
+        return ProjectConfig.load(config_path)
+    else:
+        from core.project_config import get_default_project_path
+        return ProjectConfig.load(get_default_project_path())
+
+
+def extract_audio(video_path: Path, temp_audio_path: Path):
     """Extract audio from video file as WAV using ffmpeg."""
-    print(f"Extracting audio from {VIDEO_PATH}...")
+    print(f"Extracting audio from {video_path}...")
     
     cmd = [
         "ffmpeg",
         "-y",
-        "-i", str(VIDEO_PATH),
+        "-i", str(video_path),
         "-vn",
         "-acodec", "pcm_s16le",
         "-ar", "44100",
         "-ac", "1",
-        str(TEMP_AUDIO_PATH)
+        str(temp_audio_path)
     ]
     
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -94,16 +109,20 @@ def read_full_audio_peaks(audio_path, sample_rate=44100):
         return peaks, duration
 
 
-def generate_waveforms():
+def generate_waveforms(config):
     """Generate waveform data for entire video."""
     
-    if not VIDEO_PATH.exists():
-        print(f"Error: {VIDEO_PATH} not found")
+    video_path = config.combined_video
+    output_path = config.waveforms
+    temp_audio_path = config.data_dir / ".temp_audio.wav"
+    
+    if not video_path.exists():
+        print(f"Error: {video_path} not found")
         sys.exit(1)
     
-    extract_audio()
+    extract_audio(video_path, temp_audio_path)
     
-    peaks, duration = read_full_audio_peaks(TEMP_AUDIO_PATH)
+    peaks, duration = read_full_audio_peaks(temp_audio_path)
     
     output = {
         'video_id': 'combined',
@@ -114,16 +133,31 @@ def generate_waveforms():
         'total_peaks': len(peaks)
     }
     
-    with open(OUTPUT_PATH, 'w') as f:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, 'w') as f:
         json.dump(output, f, indent=2)
     
-    if TEMP_AUDIO_PATH.exists():
-        os.remove(TEMP_AUDIO_PATH)
+    if temp_audio_path.exists():
+        os.remove(temp_audio_path)
     
-    print(f"Waveform data saved to {OUTPUT_PATH}")
+    print(f"Waveform data saved to {output_path}")
     print(f"Total peaks: {len(peaks)}")
     print(f"Duration: {duration:.2f}s")
 
 
+def main():
+    parser = argparse.ArgumentParser(description='Generate waveform data for video')
+    parser.add_argument('--project', '-p', type=str,
+                        default=None,
+                        help='Path to project directory (default: data)')
+    args = parser.parse_args()
+    
+    config = get_project_config(args.project)
+    print(f"Project: {config.name}")
+    print(f"Data directory: {config.data_dir}")
+    
+    generate_waveforms(config)
+
+
 if __name__ == '__main__':
-    generate_waveforms()
+    main()

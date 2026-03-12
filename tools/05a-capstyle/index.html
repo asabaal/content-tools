@@ -581,7 +581,7 @@
             <div class="video-container">
                 <div class="video-wrapper">
                     <div class="video-frame">
-                        <video id="mainVideo" src="/data/video_combined.mp4"></video>
+                        <video id="mainVideo" src=""></video>
                         <div class="caption-overlay" id="captionOverlay">
                             <div class="caption-text" id="captionText"></div>
                         </div>
@@ -676,6 +676,7 @@
     </div>
 
     <script>
+        let CONFIG = null;
         let project = null;
         let segments = [];
         let wordColors = {};
@@ -748,6 +749,21 @@
                 console.error('Failed to load project:', err);
                 document.getElementById('loadingText').textContent = 'Failed to load project';
             }
+        }
+        
+        async function init() {
+            try {
+                const configResponse = await fetch('/api/config');
+                if (configResponse.ok) {
+                    CONFIG = await configResponse.json();
+                    console.log('[CapStyle] Loaded config:', CONFIG.project?.name);
+                    video.src = CONFIG.paths.combined_video;
+                }
+            } catch (e) {
+                console.log('[CapStyle] Could not load config, using defaults');
+                video.src = '/data/video_combined.mp4';
+            }
+            await loadProject();
         }
 
         function buildPlayableSegments() {
@@ -1322,7 +1338,7 @@
         document.getElementById('saveBtn').addEventListener('click', saveProject);
         document.getElementById('renderBtn').addEventListener('click', triggerRender);
 
-        loadProject();
+        init();
     </script>
 </body>
 </html>

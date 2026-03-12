@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """
-Simple HTTP server for testing content tools.
+HTTP server for content tools.
 
 Usage:
-    python serve.py [port]
+    python serve.py                              # Use default data/ directory
+    python serve.py --project /path/to/project   # Specify project directory
+    python serve.py --port 9000                  # Custom port
 
 Default port is 8000. Open http://localhost:8000/tools/02-review/ in your browser.
 """
 
 import http.server
 import socketserver
+import argparse
 import sys
 import os
 import json
@@ -17,16 +20,70 @@ import re
 import urllib.parse
 import subprocess
 import threading
+from pathlib import Path
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+REPO_ROOT = Path(__file__).parent
 
-PORT = int(os.environ.get('PORT', sys.argv[1] if len(sys.argv) > 1 else 8000))
+os.chdir(REPO_ROOT)
 
-socketserver.TCPServer.allow_reuse_address = True
+from core.project_config import ProjectConfig, get_default_project_path
+
+PROJECT_CONFIG: ProjectConfig | None = None
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="HTTP server for content tools",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+    python serve.py
+    python serve.py --project ./my-project
+    python serve.py --project /path/to/project --port 9000
+        """
+    )
+    parser.add_argument(
+        '--port', '-p',
+        type=int,
+        default=int(os.environ.get('PORT', 8000)),
+        help='Port to serve on (default: 8000)'
+    )
+    parser.add_argument(
+        '--project',
+        type=str,
+        default='data',
+        help='Path to project directory containing project.json (default: data)'
+    )
+    return parser.parse_args()
+
+
+def load_project_config(project_dir: str) -> ProjectConfig:
+    """Load ProjectConfig from project directory."""
+    project_path = Path(project_dir)
+    
+    if project_path.is_file() and project_path.name == 'project.json':
+        config_path = project_path
+    else:
+        config_path = project_path / 'project.json'
+    
+    if not config_path.exists():
+        raise FileNotFoundError(f"Project file not found: {config_path}")
+    
+    return ProjectConfig.load(config_path)
 
 
 class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
     """Handler that supports HTTP Range requests for video seeking."""
+
+    def send_json(self, data: dict, status: int = 200):
+        """Helper to send JSON response."""
+        response = json.dumps(data).encode('utf-8')
+        self.send_response(status)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Content-Length', len(response))
+        self.end_headers()
+        self.wfile.write(response)
 
     def send_head(self):
         """Common code for GET and HEAD commands, with Range support."""
@@ -124,6 +181,8 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
         """Handle GET requests."""
         if self.path == '/api/project':
             self.handle_get_project()
+        elif self.path == '/api/config':
+            self.handle_get_config()
         elif self.path == '/api/verification':
             self.handle_get_verification()
         else:
@@ -131,9 +190,9 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
     
     def handle_get_project(self):
         """Return project.json content."""
-        project_path = 'data/project.json'
-        if os.path.exists(project_path):
-            with open(project_path, 'r', encoding='utf-8') as f:
+        global PROJECT_CONFIG
+        if PROJECT_CONFIG and PROJECT_CONFIG.path.exists():
+            with open(PROJECT_CONFIG.path, 'r', encoding='utf-8') as f:
                 data = f.read()
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
@@ -141,16 +200,25 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(data.encode('utf-8'))
         else:
-            self.send_response(404)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.end_headers()
-            self.wfile.write(b'{"error": "Project not found"}')
+            self.send_json({"error": "Project not found"}, 404)
+    
+    def handle_get_config(self):
+        """Return resolved project paths for HTML tools."""
+        global PROJECT_CONFIG
+        if PROJECT_CONFIG:
+            self.send_json(PROJECT_CONFIG.to_api_dict())
+        else:
+            self.send_json({"error": "No project loaded"}, 404)
     
     def handle_get_verification(self):
         """Return verification summary if available."""
-        summary_path = 'data/output/verification/captions_verification_summary.json'
-        if os.path.exists(summary_path):
+        global PROJECT_CONFIG
+        if PROJECT_CONFIG:
+            summary_path = PROJECT_CONFIG.output_dir / 'verification' / 'captions_verification_summary.json'
+        else:
+            summary_path = REPO_ROOT / 'data' / 'output' / 'verification' / 'captions_verification_summary.json'
+        
+        if summary_path.exists():
             with open(summary_path, 'r', encoding='utf-8') as f:
                 data = f.read()
             self.send_response(200)
@@ -159,11 +227,7 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(data.encode('utf-8'))
         else:
-            self.send_response(404)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.end_headers()
-            self.wfile.write(b'{"error": "Verification not found. Run render first."}')
+            self.send_json({"error": "Verification not found. Run render first."}, 404)
 
     def do_PUT(self):
         """Handle PUT requests for saving files."""
@@ -180,16 +244,9 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
                 with open(filepath, 'wb') as f:
                     f.write(body)
                 
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json')
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.end_headers()
-                self.wfile.write(b'{"status": "saved"}')
+                self.send_json({"status": "saved"})
             except json.JSONDecodeError:
-                self.send_response(400)
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.end_headers()
-                self.wfile.write(b'{"error": "Invalid JSON"}')
+                self.send_json({"error": "Invalid JSON"}, 400)
         else:
             self.send_response(403)
             self.send_header('Access-Control-Allow-Origin', '*')
@@ -206,36 +263,40 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
     
     def handle_save_project(self):
         """Save project.json."""
+        global PROJECT_CONFIG
         content_length = int(self.headers.get('Content-Length', 0))
         body = self.rfile.read(content_length)
         
         try:
-            json.loads(body)
-            os.makedirs('data', exist_ok=True)
-            with open('data/project.json', 'wb') as f:
-                f.write(body)
+            data = json.loads(body)
             
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.end_headers()
-            self.wfile.write(b'{"status": "saved"}')
+            if PROJECT_CONFIG:
+                PROJECT_CONFIG._raw_data = data
+                PROJECT_CONFIG.save()
+            else:
+                os.makedirs('data', exist_ok=True)
+                with open('data/project.json', 'wb') as f:
+                    f.write(body)
+            
+            self.send_json({"status": "saved"})
         except json.JSONDecodeError:
-            self.send_response(400)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.end_headers()
-            self.wfile.write(b'{"error": "Invalid JSON"}')
+            self.send_json({"error": "Invalid JSON"}, 400)
     
     def handle_render(self):
         """Trigger video rendering in background."""
+        global PROJECT_CONFIG
+        
         def run_render():
             try:
+                cmd = [sys.executable, 'tools/05b-render/render.py', '-v']
+                if PROJECT_CONFIG:
+                    cmd.extend(['--project', str(PROJECT_CONFIG.data_dir)])
+                
                 result = subprocess.run(
-                    [sys.executable, 'tools/05b-render/render.py', '-v'],
+                    cmd,
                     capture_output=True,
                     text=True,
-                    cwd=os.path.dirname(os.path.abspath(__file__))
+                    cwd=str(REPO_ROOT)
                 )
                 print(f"Render completed with code {result.returncode}")
                 if result.stdout:
@@ -249,23 +310,42 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
         thread.daemon = True
         thread.start()
         
-        self.send_response(200)
-        self.send_header('Content-Type', 'application/json')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
-        self.wfile.write(b'{"status": "rendering_started"}')
+        self.send_json({"status": "rendering_started"})
 
     def log_message(self, format, *args):
         """Custom log format."""
         print(f"{self.address_string()} - {args[0]}")
 
 
-print(f"Serving at http://localhost:{PORT}/")
-print(f"Review & Assign: http://localhost:{PORT}/tools/02-review/")
-print("Press Ctrl+C to stop")
-
-with socketserver.TCPServer(("", PORT), RangeRequestHandler) as httpd:
+def main():
+    global PROJECT_CONFIG
+    
+    args = parse_args()
+    
     try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("\nServer stopped")
+        PROJECT_CONFIG = load_project_config(args.project)
+        print(f"Loaded project: {PROJECT_CONFIG.name}")
+        print(f"Project path: {PROJECT_CONFIG.data_dir}")
+    except FileNotFoundError as e:
+        print(f"Warning: {e}")
+        print("Server will start but project features may not work.")
+        PROJECT_CONFIG = None
+    
+    socketserver.TCPServer.allow_reuse_address = True
+    
+    print(f"\nServing at http://localhost:{args.port}/")
+    print(f"Review & Assign: http://localhost:{args.port}/tools/02-review/")
+    print(f"Select:          http://localhost:{args.port}/tools/03-select/")
+    print(f"Assemble:        http://localhost:{args.port}/tools/04-assemble/")
+    print(f"Caption Style:   http://localhost:{args.port}/tools/05a-capstyle/")
+    print("Press Ctrl+C to stop\n")
+    
+    with socketserver.TCPServer(("", args.port), RangeRequestHandler) as httpd:
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nServer stopped")
+
+
+if __name__ == '__main__':
+    main()

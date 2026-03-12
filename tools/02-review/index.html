@@ -677,7 +677,7 @@
         <section class="video-section">
             <div class="video-container">
                 <video id="video" preload="metadata">
-                    <source src="../../data/video_combined.mp4" type="video/mp4">
+                    <source id="videoSource" src="" type="video/mp4">
                     Your browser does not support video playback.
                 </video>
                 <div class="video-controls">
@@ -727,6 +727,7 @@
 
     <script>
         // State
+        let CONFIG = null;
         let transcript = null;
         let sources = null;
         let project = { clips: [], version: 1 };
@@ -739,6 +740,7 @@
 
         // DOM elements
         const video = document.getElementById('video');
+        const videoSource = document.getElementById('videoSource');
         const playBtn = document.getElementById('playBtn');
         const skipBackBtn = document.getElementById('skipBackBtn');
         const skipFwdBtn = document.getElementById('skipFwdBtn');
@@ -790,7 +792,7 @@
         // Project management
         async function loadProject() {
             try {
-                const response = await fetch('../../data/project.json');
+                const response = await fetch('/api/project');
                 if (response.ok) {
                     project = await response.json();
                     console.log('[Review] Loaded project with', project.clips?.length || 0, 'clips');
@@ -807,8 +809,8 @@
                     transcript: transcript
                 };
                 
-                const response = await fetch('../../data/project.json', {
-                    method: 'PUT',
+                const response = await fetch('/api/project', {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(projectData, null, 2)
                 });
@@ -1240,7 +1242,8 @@
         async function loadTranscript() {
             console.log('[Review] Loading transcript...');
             try {
-                const response = await fetch('../../data/transcript_combined.json');
+                const transcriptPath = CONFIG ? CONFIG.paths.combined_transcript : '/data/transcript_combined.json';
+                const response = await fetch(transcriptPath);
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
@@ -1639,6 +1642,19 @@
 
         // Initialize
         async function init() {
+            try {
+                const configResponse = await fetch('/api/config');
+                if (configResponse.ok) {
+                    CONFIG = await configResponse.json();
+                    console.log('[Review] Loaded config:', CONFIG.project?.name);
+                    videoSource.src = CONFIG.paths.combined_video;
+                    video.load();
+                }
+            } catch (e) {
+                console.log('[Review] Could not load config, using defaults');
+                videoSource.src = '/data/video_combined.mp4';
+                video.load();
+            }
             await loadProject();
             await loadTranscript();
             renderClips();

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-10T14:25:05.065902",
+  "timestamp": "2026-03-11T18:28:36.753861",
   "project_path": "/mnt/storage/repos/content-tools/data/project.json",
   "text_coverage_percent": 13.09,
   "total_authoritative_words": 275,
@@ -13,9 +13,9 @@
   "timing_passed": false,
   "passed": false,
   "report_path": "/mnt/storage/repos/content-tools/data/output/verification/captions_full_verification_report.html",
-  "render_sync_mean_drift_ms": 622.9,
-  "render_sync_max_drift_ms": 855.0,
-  "render_sync_min_drift_ms": 176.9,
-  "render_sync_words_matched": 10,
+  "render_sync_mean_drift_ms": -67.3,
+  "render_sync_max_drift_ms": -443.1,
+  "render_sync_min_drift_ms": -443.1,
+  "render_sync_words_matched": 6,
   "render_sync_words_expected": 275
 }

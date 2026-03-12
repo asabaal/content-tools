@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.0",
+  "project": {
+    "name": "Life is your Word S0E10 TEST",
+    "created": "2026-03-11",
+    "modified": "2026-03-11"
+  },
+  "paths": {
+    "raw": "raw",
+    "transcripts": "transcripts",
+    "combined_video": "video_combined.mp4",
+    "combined_transcript": "transcript_combined.json",
+    "waveforms": "waveforms.json",
+    "output": "output"
+  }
+}

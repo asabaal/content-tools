@@ -1,4 +1,4 @@
-Caption Verification Log - 2026-03-10T14:25:05.066014
+Caption Verification Log - 2026-03-11T18:28:36.753962
 ==================================================
 Text Coverage: 13.09%
 Expected Words: 275
@@ -13,21 +13,17 @@ Text Fidelity: FAIL
 Timing Projection: FAIL
 
 Render Audio Sync:
-  Words Matched: 10/275
-  Mean Drift: 622.9ms
-  Max Drift: 855.0ms
-  Min Drift: 176.9ms
+  Words Matched: 6/275
+  Mean Drift: -67.3ms
+  Max Drift: -443.1ms
+  Min Drift: -443.1ms
   Model: base
   Word-by-word drift:
-    Where           expected=0.205s actual=0.680s drift=+475.1ms
-    there           expected=0.459s actual=1.080s drift=+621.0ms
-    was             expected=0.679s actual=1.320s drift=+641.0ms
-    not             expected=0.859s actual=1.500s drift=+641.0ms
-    God's           expected=1.623s actual=1.800s drift=+176.9ms
-    folk            expected=1.939s actual=2.740s drift=+801.2ms
-    and             expected=2.572s actual=2.920s drift=+348.0ms
-    then            expected=2.745s actual=3.580s drift=+835.0ms
-    there           expected=2.905s actual=3.740s drift=+835.0ms
-    was.            expected=3.085s actual=3.940s drift=+855.0ms
+    Where           expected=0.205s actual=0.000s drift=-204.9ms
+    there           expected=0.459s actual=0.480s drift=+21.0ms
+    was             expected=0.679s actual=0.700s drift=+21.0ms
+    not             expected=0.859s actual=0.880s drift=+21.0ms
+    God's           expected=1.623s actual=1.180s drift=-443.1ms
+    folk.           expected=1.939s actual=2.120s drift=+181.2ms
 
 Report: /mnt/storage/repos/content-tools/data/output/verification/captions_full_verification_report.html

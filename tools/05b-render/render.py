@@ -19,16 +19,9 @@ def get_project_root():
     return Path(__file__).parent.parent.parent
 
 
-def load_project(project_path: str | Path | None = None) -> dict:
-    """Load project.json."""
-    if project_path is None:
-        project_path = get_project_root() / 'data' / 'project.json'
-    else:
-        project_path = Path(project_path)
-        if project_path.is_dir():
-            project_path = project_path / 'data' / 'project.json'
-    
-    with open(str(project_path), 'r', encoding='utf-8') as f:
+def load_project_from_config(config) -> dict:
+    """Load project.json using ProjectConfig."""
+    with open(config.path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 
@@ -60,31 +53,7 @@ def render_segmented(
     keep_segments: bool = False,
     dry_run: bool = False
 ) -> bool:
-    """Render video using segmented approach.
-    
-    For each playable segment:
-    1. Extract from source video with fast seek (-ss before -i)
-    2. Apply captions for that segment only
-    3. Save to temporary segment file
-    
-    Then concatenate all segments with re-encode for clean joins.
-    
-    Args:
-        input_video: Source video path
-        output_video: Final output path
-        output_dir: Directory for intermediate files
-        timeline_clips: Timeline clips with playable_segments
-        caption_events: All caption events
-        caption_style: Style settings
-        font_path: Font file path
-        caption_breaks: Line break mappings
-        verbose: Show ffmpeg output
-        keep_segments: Keep temporary segment files
-        dry_run: Show commands without executing
-    
-    Returns:
-        True if successful, False otherwise
-    """
+    """Render video using segmented approach."""
     temp_dir = output_dir / 'segments'
     
     output_dir.mkdir(exist_ok=True, parents=True)
@@ -108,18 +77,15 @@ def render_segmented(
             
             seg_captions = [
                 e for e in caption_events 
-                if abs(e['original_start'] - seg_start) < 0.001 
-                and abs(e['original_end'] - seg_end) < 0.001
+                if abs(e.get('original_start', -1) - seg_start) < 0.001 
+                and abs(e.get('original_end', -1) - seg_end) < 0.001
             ]
             
             for event in seg_captions:
-                # Convert word times from original timeline to output-relative
-                for word in event['words']:
+                for word in event.get('words', []):
                     word['start'] = word['start'] - seg_start
                     word['end'] = word['end'] - seg_start
-                # Mark this as output-relative with 0 offset
                 event['output_start'] = 0.0
-                event['original_start'] = 0.0
             
             seg_file = temp_dir / f'seg_{current_segment:03d}.mp4'
             segment_files.append(seg_file)
@@ -199,8 +165,11 @@ def main():
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
     parser.add_argument('--dry-run', action='store_true', help='Show commands without running')
     parser.add_argument('--output', '-o', type=str, help='Output directory')
-    parser.add_argument('--project', '-p', type=str, help='Path to project.json')
-    parser.add_argument('--skip-verification', action='store_true', help='Skip post-render verification')
+    parser.add_argument('--project', '-p', type=str, 
+                        default='data',
+                        help='Path to project directory (default: data)')
+    parser.add_argument('--skip-verification', action='store_true', 
+                        help='Skip post-render verification')
     parser.add_argument('--keep-segments', action='store_true', 
                         help='Keep temporary segment files for debugging')
     parser.add_argument('--segment', type=str, 
@@ -209,8 +178,26 @@ def main():
     
     root = get_project_root()
     
-    input_video = root / 'data' / 'video_combined.mp4'
-    output_dir = Path(args.output) if args.output else root / 'data' / 'output'
+    sys.path.insert(0, str(root))
+    from core.project_config import ProjectConfig
+    
+    project_path = Path(args.project)
+    if project_path.is_file() and project_path.name == 'project.json':
+        config_path = project_path
+    else:
+        config_path = project_path / 'project.json'
+    
+    if not config_path.exists():
+        print(f"Error: Project not found: {config_path}", file=sys.stderr)
+        sys.exit(1)
+    
+    config = ProjectConfig.load(config_path)
+    
+    print(f"Project: {config.name}")
+    print(f"Data directory: {config.data_dir}")
+    
+    input_video = config.combined_video
+    output_dir = Path(args.output) if args.output else config.output_dir
     output_video = output_dir / 'final_video.mp4'
     output_srt = output_dir / 'captions.srt'
     
@@ -225,7 +212,7 @@ def main():
         sys.exit(1)
     
     print("Loading project...")
-    project = load_project(args.project)
+    project = load_project_from_config(config)
     
     caption_style = project.get('caption_style', {})
     caption_breaks = project.get('caption_breaks', {})
