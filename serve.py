@@ -288,7 +288,9 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
             
             if PROJECT_CONFIG:
                 PROJECT_CONFIG._raw_data = data
-                PROJECT_CONFIG.save()
+                PROJECT_CONFIG.path.parent.mkdir(parents=True, exist_ok=True)
+                with open(PROJECT_CONFIG.path, 'wb') as f:
+                    f.write(body)
             else:
                 os.makedirs('data', exist_ok=True)
                 with open('data/project.json', 'wb') as f:
@@ -297,6 +299,8 @@ class RangeRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json({"status": "saved"})
         except json.JSONDecodeError:
             self.send_json({"error": "Invalid JSON"}, 400)
+        except Exception as e:
+            self.send_json({"error": str(e)}, 500)
     
     def handle_render(self):
         """Trigger video rendering in background."""
