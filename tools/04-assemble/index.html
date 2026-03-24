@@ -717,6 +717,7 @@
         let CONFIG = null;
         let project = null;
         let waveformData = null;
+        let waveformClipMapping = null;
         let transcript = null;
         let selectedClipId = null;
         let hasUnsavedChanges = false;
@@ -812,6 +813,49 @@
             }, 2000);
         }
 
+        function buildSelectedTimeline(fullWaveform, timelineClips) {
+            const peaksPerSecond = fullWaveform.peaks_per_second || 100;
+            let slicedPeaks = [];
+            let clipMapping = [];
+            let outputTime = 0.0;
+            
+            for (const clip of timelineClips) {
+                if (!clip.enabled || !clip.in_timeline) continue;
+                const seg = clip.selected_segment;
+                if (!seg) continue;
+                
+                const start = clip.trim_start ?? seg.start;
+                const end = clip.trim_end ?? seg.end;
+                const duration = end - start;
+                
+                if (duration <= 0) continue;
+                
+                const startIdx = Math.floor(start * peaksPerSecond);
+                const endIdx = Math.floor(end * peaksPerSecond);
+                
+                const segmentPeaks = fullWaveform.peaks.slice(startIdx, endIdx);
+                slicedPeaks.push(...segmentPeaks);
+                
+                clipMapping.push({
+                    clip_id: clip.id,
+                    output_start: outputTime,
+                    output_end: outputTime + duration,
+                    original_start: start,
+                    original_end: end
+                });
+                
+                outputTime += duration;
+            }
+            
+            return {
+                peaks: slicedPeaks,
+                duration: outputTime,
+                total_peaks: slicedPeaks.length,
+                peaks_per_second: peaksPerSecond,
+                clipMapping: clipMapping
+            };
+        }
+
         async function loadData() {
             try {
                 const projectResp = await fetch('/api/project?v=' + Date.now());
@@ -820,8 +864,30 @@
 
                 const waveformPath = CONFIG ? `/data/${CONFIG.paths.waveforms?.split('/').pop() || 'waveforms.json'}` : '/data/waveforms.json';
                 const waveformResp = await fetch(waveformPath + '?v=' + Date.now());
-                if (!waveformResp.ok) throw new Error('No waveforms.json found. Run generate_waveforms.py first.');
-                waveformData = await waveformResp.json();
+                if (!waveformResp.ok) throw new Error('No waveforms found. Run generate_waveforms.py first.');
+                const fullWaveformData = await waveformResp.json();
+                
+                initializeTimelineData();
+                
+                const timelineClips = getTimelineClips();
+                const hasSelections = timelineClips.some(c => c.selected_segment);
+                
+                if (hasSelections) {
+                    const selected = buildSelectedTimeline(fullWaveformData, timelineClips);
+                    waveformData = {
+                        video_id: 'selected_timeline',
+                        peaks: selected.peaks,
+                        duration: selected.duration,
+                        total_peaks: selected.total_peaks,
+                        peaks_per_second: selected.peaks_per_second
+                    };
+                    waveformClipMapping = selected.clipMapping;
+                    console.log('[Assemble] Built selected timeline:', waveformClipMapping.length, 'clips,', selected.duration.toFixed(2) + 's');
+                } else {
+                    waveformData = fullWaveformData;
+                    waveformClipMapping = null;
+                    console.log('[Assemble] Using full waveform:', waveformData.duration.toFixed(2) + 's');
+                }
 
                 if (!project.transcript) {
                     throw new Error('No transcript in project.json. Complete Tool 2 (Review) to save the edited transcript first.');
@@ -837,16 +903,16 @@
                     console.log('[Assemble] No clips found, auto-generating from transcript segments');
                     autoGenerateClips();
                     markUnsaved();
+                    initializeTimelineData();
                 }
 
-                initializeTimelineData();
                 renderClipPool();
                 renderTimelineCards();
                 renderWordLayer();
 
-                const timelineClips = getTimelineClips();
-                if (timelineClips.length > 0) {
-                    selectClip(timelineClips[0].id);
+                const clips = getTimelineClips();
+                if (clips.length > 0) {
+                    selectClip(clips[0].id);
                 }
             } catch (error) {
                 console.error('[Assemble] Error loading data:', error);
@@ -1016,11 +1082,25 @@
             });
         }
 
+        function getSelectedSegmentIndices() {
+            const indices = new Set();
+            project?.clips?.forEach(clip => {
+                if (clip.selected_segment?.segment_index !== undefined) {
+                    indices.add(clip.selected_segment.segment_index);
+                }
+            });
+            return indices;
+        }
+
         function renderWordLayer() {
             if (!transcript?.segments) return;
 
+            const selectedIndices = getSelectedSegmentIndices();
+            const hasSelections = selectedIndices.size > 0;
+
             let html = '';
             transcript.segments.forEach((seg, segIndex) => {
+                if (hasSelections && !selectedIndices.has(segIndex)) return;
                 if (!seg.words) return;
                 
                 seg.words.forEach((word, wordIndex) => {
@@ -1050,11 +1130,27 @@
             const containerWidth = waveformWidth || wordLayer.offsetWidth;
 
             document.querySelectorAll('.word').forEach(wordEl => {
-                const start = parseFloat(wordEl.dataset.start);
-                const end = parseFloat(wordEl.dataset.end);
+                const originalStart = parseFloat(wordEl.dataset.start);
+                const originalEnd = parseFloat(wordEl.dataset.end);
+                const segmentIndex = parseInt(wordEl.dataset.segment);
 
-                const left = (start / duration) * containerWidth;
-                const width = Math.max(30, ((end - start) / duration) * containerWidth);
+                let outputStart = originalStart;
+                let outputEnd = originalEnd;
+
+                if (waveformClipMapping) {
+                    const clipMapping = waveformClipMapping.find(m => {
+                        const clip = project?.clips?.find(c => c.id === m.clip_id);
+                        return clip?.selected_segment?.segment_index === segmentIndex;
+                    });
+                    
+                    if (clipMapping) {
+                        outputStart = (originalStart - clipMapping.original_start) + clipMapping.output_start;
+                        outputEnd = (originalEnd - clipMapping.original_start) + clipMapping.output_start;
+                    }
+                }
+
+                const left = (outputStart / duration) * containerWidth;
+                const width = Math.max(30, ((outputEnd - outputStart) / duration) * containerWidth);
 
                 wordEl.style.left = left + 'px';
                 wordEl.style.width = width + 'px';
@@ -1260,9 +1356,26 @@
             }
 
             if (clip) {
-                const times = getEffectiveTimes(clip);
-                const startX = (times.start / duration) * waveformWidth;
-                const endX = (times.end / duration) * waveformWidth;
+                let clipStart, clipEnd;
+                
+                if (waveformClipMapping) {
+                    const mapping = waveformClipMapping.find(m => m.clip_id === clip.id);
+                    if (mapping) {
+                        clipStart = mapping.output_start;
+                        clipEnd = mapping.output_end;
+                    } else {
+                        const times = getEffectiveTimes(clip);
+                        clipStart = times.start;
+                        clipEnd = times.end;
+                    }
+                } else {
+                    const times = getEffectiveTimes(clip);
+                    clipStart = times.start;
+                    clipEnd = times.end;
+                }
+
+                const startX = (clipStart / duration) * waveformWidth;
+                const endX = (clipEnd / duration) * waveformWidth;
 
                 ctx.fillStyle = 'rgba(15, 15, 26, 0.6)';
                 ctx.fillRect(0, 0, startX, rect.height);
@@ -1278,8 +1391,22 @@
                 if (clip.deleted_regions && clip.deleted_regions.length > 0) {
                     ctx.fillStyle = 'rgba(240, 80, 80, 0.4)';
                     clip.deleted_regions.forEach(region => {
-                        const regionStartX = (region.start / duration) * waveformWidth;
-                        const regionEndX = (region.end / duration) * waveformWidth;
+                        let regionStart, regionEnd;
+                        if (waveformClipMapping) {
+                            const mapping = waveformClipMapping.find(m => m.clip_id === clip.id);
+                            if (mapping) {
+                                regionStart = (region.start - mapping.original_start) + mapping.output_start;
+                                regionEnd = (region.end - mapping.original_start) + mapping.output_start;
+                            } else {
+                                regionStart = region.start;
+                                regionEnd = region.end;
+                            }
+                        } else {
+                            regionStart = region.start;
+                            regionEnd = region.end;
+                        }
+                        const regionStartX = (regionStart / duration) * waveformWidth;
+                        const regionEndX = (regionEnd / duration) * waveformWidth;
                         ctx.fillRect(regionStartX, 0, regionEndX - regionStartX, rect.height);
                     });
                 }
@@ -1304,8 +1431,23 @@
                 el.className = 'deleted-region';
                 el.dataset.regionIndex = index;
                 
-                const startX = (region.start / duration) * waveformWidth - waveformPanX;
-                const endX = (region.end / duration) * waveformWidth - waveformPanX;
+                let regionStart, regionEnd;
+                if (waveformClipMapping) {
+                    const mapping = waveformClipMapping.find(m => m.clip_id === clip.id);
+                    if (mapping) {
+                        regionStart = (region.start - mapping.original_start) + mapping.output_start;
+                        regionEnd = (region.end - mapping.original_start) + mapping.output_start;
+                    } else {
+                        regionStart = region.start;
+                        regionEnd = region.end;
+                    }
+                } else {
+                    regionStart = region.start;
+                    regionEnd = region.end;
+                }
+                
+                const startX = (regionStart / duration) * waveformWidth - waveformPanX;
+                const endX = (regionEnd / duration) * waveformWidth - waveformPanX;
                 
                 el.style.left = startX + 'px';
                 el.style.width = (endX - startX) + 'px';

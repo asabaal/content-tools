@@ -729,12 +729,25 @@
             return wordColors[key] || captionStyle.default_color;
         }
 
+        function getSelectedSegmentIndices() {
+            const indices = new Set();
+            project?.clips?.forEach(clip => {
+                if (clip.selected_segment?.segment_index !== undefined) {
+                    indices.add(clip.selected_segment.segment_index);
+                }
+            });
+            return indices;
+        }
+
         async function loadProject() {
             try {
                 const response = await fetch('/api/project?v=' + Date.now());
                 project = await response.json();
                 
-                segments = project.transcript?.segments || [];
+                const allSegments = project.transcript?.segments || [];
+                const selectedIndices = getSelectedSegmentIndices();
+                segments = allSegments.filter((seg, i) => selectedIndices.has(i));
+                
                 wordColors = project.word_colors || {};
                 captionBreaks = project.caption_breaks || {};
                 captionStyle = { ...captionStyle, ...project.caption_style };
