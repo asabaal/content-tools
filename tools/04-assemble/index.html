@@ -641,6 +641,7 @@
             <h1>04 - Assemble Timeline</h1>
             <div class="header-actions">
                 <span class="save-status" id="saveStatus"></span>
+                <button class="btn btn-secondary btn-small" id="playbackModeBtn">Mode: Clip</button>
                 <button class="btn btn-secondary btn-small" id="previewAllBtn">Preview All</button>
                 <button class="btn btn-secondary btn-small" id="exportBtn">Export EDL</button>
                 <button class="btn btn-success btn-small" id="saveBtn">Save</button>
@@ -724,6 +725,7 @@
         let isDraggingTrim = null;
         let previewQueue = [];
         let previewIndex = 0;
+        let playbackMode = 'clip';
 
         // Waveform zoom/pan state
         let waveformZoom = 1;
@@ -773,6 +775,7 @@
         const waveformSelection = document.getElementById('waveformSelection');
         const saveStatus = document.getElementById('saveStatus');
         const saveBtn = document.getElementById('saveBtn');
+        const playbackModeBtn = document.getElementById('playbackModeBtn');
         const previewAllBtn = document.getElementById('previewAllBtn');
         const exportBtn = document.getElementById('exportBtn');
         const splitBtn = document.getElementById('splitBtn');
@@ -906,6 +909,8 @@
                     initializeTimelineData();
                 }
 
+                applySelectedSegmentDeletions();
+
                 renderClipPool();
                 renderTimelineCards();
                 renderWordLayer();
@@ -984,6 +989,30 @@
             });
             
             console.log('[Assemble] Auto-generated', project.clips.length, 'clips from transcript segments');
+        }
+
+        function applySelectedSegmentDeletions() {
+            if (!project.clips) return;
+
+            for (const clip of project.clips) {
+                if (!clip.selected_segment) continue;
+
+                const segStart = clip.selected_segment.start;
+                const segEnd = clip.selected_segment.end;
+
+                const effectiveStart = clip.trim_start ?? segStart;
+                const effectiveEnd = clip.trim_end ?? segEnd;
+
+                clip.deleted_regions = [];
+
+                if (effectiveStart < segStart) {
+                    clip.deleted_regions.push({ start: effectiveStart, end: segStart });
+                }
+
+                if (effectiveEnd > segEnd) {
+                    clip.deleted_regions.push({ start: segEnd, end: effectiveEnd });
+                }
+            }
         }
 
         function getClipById(clipId) {
@@ -1288,6 +1317,8 @@
                 editorStartTime.textContent = '-';
                 editorEndTime.textContent = '-';
                 editorDuration.textContent = '-';
+                trimStart.style.display = 'none';
+                trimEnd.style.display = 'none';
                 return;
             }
 
@@ -1311,6 +1342,9 @@
 
             toggleEnabledBtn.textContent = clip.enabled ? 'Disable' : 'Enable';
             toggleEnabledBtn.classList.toggle('btn-success', !clip.enabled);
+
+            trimStart.style.display = playbackMode === 'clip' ? '' : 'none';
+            trimEnd.style.display = playbackMode === 'clip' ? '' : 'none';
 
             requestAnimationFrame(() => {
                 renderFullWaveform(clip);
@@ -1682,8 +1716,13 @@
             const times = getEffectiveTimes(clip);
             console.log('[loadVideoPreview] times.start:', times.start, 'times.end:', times.end);
 
-            mainVideo.timeStart = times.start;
-            mainVideo.timeEnd = times.end;
+            if (playbackMode === 'timeline') {
+                mainVideo.timeStart = 0;
+                mainVideo.timeEnd = mainVideo.duration || 999999;
+            } else {
+                mainVideo.timeStart = times.start;
+                mainVideo.timeEnd = times.end;
+            }
 
             videoInfoTitle.textContent = clip.name;
             videoInfoTime.textContent = `${formatTimeShort(times.start)} - ${formatTimeShort(times.end)}`;
@@ -1722,7 +1761,7 @@
                 'queue', previewQueue.length
             );
 
-            if (currentTime >= end - END_EPS) {
+            if (playbackMode === 'clip' && currentTime >= end - END_EPS) {
                 console.log('[TU] end guard fired');
                 if (previewQueue.length > 0) {
                     previewIndex++;
@@ -1929,6 +1968,13 @@
             renderClipPool();
             renderTimelineCards();
             renderEditor();
+        });
+
+        playbackModeBtn.addEventListener('click', () => {
+            playbackMode = playbackMode === 'clip' ? 'timeline' : 'clip';
+            playbackModeBtn.textContent = 'Mode: ' + (playbackMode === 'clip' ? 'Clip' : 'Timeline');
+            trimStart.style.display = playbackMode === 'clip' ? '' : 'none';
+            trimEnd.style.display = playbackMode === 'clip' ? '' : 'none';
         });
 
         previewAllBtn.addEventListener('click', () => {
