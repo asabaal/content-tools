@@ -1358,21 +1358,9 @@
             if (clip) {
                 let clipStart, clipEnd;
                 
-                if (waveformClipMapping) {
-                    const mapping = waveformClipMapping.find(m => m.clip_id === clip.id);
-                    if (mapping) {
-                        clipStart = mapping.output_start;
-                        clipEnd = mapping.output_end;
-                    } else {
-                        const times = getEffectiveTimes(clip);
-                        clipStart = times.start;
-                        clipEnd = times.end;
-                    }
-                } else {
-                    const times = getEffectiveTimes(clip);
-                    clipStart = times.start;
-                    clipEnd = times.end;
-                }
+                const times = getEffectiveTimes(clip);
+                clipStart = times.start;
+                clipEnd = times.end;
 
                 const startX = (clipStart / duration) * waveformWidth;
                 const endX = (clipEnd / duration) * waveformWidth;
