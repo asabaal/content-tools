@@ -486,6 +486,29 @@
             z-index: 15;
         }
 
+        .seek-bar {
+            height: 24px;
+            background: #0f0f1a;
+            border-top: 1px solid #2a2a4a;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .seek-bar:hover {
+            background: #12121f;
+        }
+
+        .seek-bar-playhead {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #f6ad55;
+            pointer-events: none;
+            z-index: 5;
+        }
+
         .waveform-scrollbar {
             height: 16px;
             background: #0f0f1a;
@@ -697,6 +720,9 @@
                     <div class="waveform-zoom-info" id="waveformZoomInfo">1.0x</div>
                     <div class="waveform-selection" id="waveformSelection"></div>
                 </div>
+                <div class="seek-bar" id="seekBar">
+                    <div class="seek-bar-playhead" id="seekBarPlayhead"></div>
+                </div>
                 <div class="waveform-scrollbar" id="waveformScrollbar">
                     <div class="waveform-scrollbar-track">
                         <div class="waveform-scrollbar-thumb" id="waveformScrollbarThumb"></div>
@@ -726,6 +752,7 @@
         let previewQueue = [];
         let previewIndex = 0;
         let playbackMode = 'clip';
+        let isDraggingSeekBar = false;
 
         // Waveform zoom/pan state
         let waveformZoom = 1;
@@ -769,6 +796,8 @@
         const trimStart = document.getElementById('trimStart');
         const trimEnd = document.getElementById('trimEnd');
         const playhead = document.getElementById('playhead');
+        const seekBar = document.getElementById('seekBar');
+        const seekBarPlayhead = document.getElementById('seekBarPlayhead');
         const waveformZoomInfo = document.getElementById('waveformZoomInfo');
         const waveformScrollbar = document.getElementById('waveformScrollbar');
         const waveformScrollbarThumb = document.getElementById('waveformScrollbarThumb');
@@ -1493,6 +1522,10 @@
             const x = (currentTime / duration) * waveformWidth;
 
             playhead.style.left = (x - waveformPanX) + 'px';
+
+            const seekBarWidth = seekBar.offsetWidth;
+            const seekX = (currentTime / duration) * seekBarWidth;
+            seekBarPlayhead.style.left = seekX + 'px';
         }
 
         function highlightCurrentWord(time) {
@@ -1652,7 +1685,30 @@
                 isDraggingScrollbar = false;
                 waveformScrollbarThumb.classList.remove('dragging');
             }
+            if (isDraggingSeekBar) {
+                isDraggingSeekBar = false;
+            }
         });
+
+        seekBar.addEventListener('mousedown', (e) => {
+            isDraggingSeekBar = true;
+            seekToPosition(e);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDraggingSeekBar) {
+                seekToPosition(e);
+            }
+        });
+
+        function seekToPosition(e) {
+            if (!waveformData) return;
+            const rect = seekBar.getBoundingClientRect();
+            const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+            const time = (x / rect.width) * waveformData.duration;
+            mainVideo.currentTime = time;
+            updatePlayheadPosition();
+        }
 
         function updateScrollbar() {
             const rect = waveformWrapper.getBoundingClientRect();
