@@ -1,0 +1,3605 @@
+{
+  "video_id": "combined",
+  "language": "en",
+  "duration": 294.01599999999996,
+  "sources": [
+    {
+      "video_id": "20251029_091342",
+      "start": 0.0,
+      "end": 27.5626875,
+      "duration": 27.5626875
+    },
+    {
+      "video_id": "20251029_091417",
+      "start": 27.5626875,
+      "end": 71.72268749999999,
+      "duration": 44.16
+    },
+    {
+      "video_id": "20251029_091510",
+      "start": 71.72268749999999,
+      "end": 174.784,
+      "duration": 103.0613125
+    },
+    {
+      "video_id": "20251029_091659",
+      "start": 174.784,
+      "end": 186.6666875,
+      "duration": 11.8826875
+    },
+    {
+      "video_id": "20251029_091745",
+      "start": 186.6666875,
+      "end": 285.4186875,
+      "duration": 98.752
+    },
+    {
+      "video_id": "20251029_093827",
+      "start": 285.4186875,
+      "end": 294.01599999999996,
+      "duration": 8.5973125
+    }
+  ],
+  "segments": [
+    {
+      "id": 0,
+      "original_id": 1,
+      "original_video_id": "20251029_091342",
+      "text": "Jesus made a promise that I think much of the church has forgotten. Jesus said,",
+      "start": 0.8199999999999996,
+      "end": 5.96,
+      "words": [
+        {
+          "text": "Jesus",
+          "start": 0.8199999999999996,
+          "end": 1.3
+        },
+        {
+          "text": "made",
+          "start": 1.3,
+          "end": 1.68
+        },
+        {
+          "text": "a",
+          "start": 1.68,
+          "end": 1.8
+        },
+        {
+          "text": "promise",
+          "start": 1.8,
+          "end": 2.12
+        },
+        {
+          "text": "that",
+          "start": 2.12,
+          "end": 2.54
+        },
+        {
+          "text": "I",
+          "start": 2.54,
+          "end": 2.74
+        },
+        {
+          "text": "think",
+          "start": 2.74,
+          "end": 2.96
+        },
+        {
+          "text": "much",
+          "start": 2.96,
+          "end": 3.46
+        },
+        {
+          "text": "of",
+          "start": 3.46,
+          "end": 3.62
+        },
+        {
+          "text": "the",
+          "start": 3.62,
+          "end": 3.72
+        },
+        {
+          "text": "church",
+          "start": 3.72,
+          "end": 3.98
+        },
+        {
+          "text": "has",
+          "start": 3.98,
+          "end": 4.32
+        },
+        {
+          "text": "forgotten.",
+          "start": 4.32,
+          "end": 4.74
+        },
+        {
+          "text": "Jesus",
+          "start": 5.38,
+          "end": 5.62
+        },
+        {
+          "text": "said,",
+          "start": 5.62,
+          "end": 5.96
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "original_id": 2,
+      "original_video_id": "20251029_091342",
+      "text": "you will not see me again until Jesus said, you will not see me again until you say,",
+      "start": 6.54,
+      "end": 13.44,
+      "words": [
+        {
+          "text": "you",
+          "start": 6.54,
+          "end": 6.62
+        },
+        {
+          "text": "will",
+          "start": 6.62,
+          "end": 6.78
+        },
+        {
+          "text": "not",
+          "start": 6.78,
+          "end": 6.98
+        },
+        {
+          "text": "see",
+          "start": 6.98,
+          "end": 7.2
+        },
+        {
+          "text": "me",
+          "start": 7.2,
+          "end": 7.34
+        },
+        {
+          "text": "again",
+          "start": 7.34,
+          "end": 7.62
+        },
+        {
+          "text": "until",
+          "start": 7.62,
+          "end": 8.46
+        },
+        {
+          "text": "Jesus",
+          "start": 8.46,
+          "end": 10.96
+        },
+        {
+          "text": "said,",
+          "start": 10.96,
+          "end": 11.34
+        },
+        {
+          "text": "you",
+          "start": 11.66,
+          "end": 11.66
+        },
+        {
+          "text": "will",
+          "start": 11.66,
+          "end": 11.78
+        },
+        {
+          "text": "not",
+          "start": 11.78,
+          "end": 11.94
+        },
+        {
+          "text": "see",
+          "start": 11.94,
+          "end": 12.18
+        },
+        {
+          "text": "me",
+          "start": 12.18,
+          "end": 12.32
+        },
+        {
+          "text": "again",
+          "start": 12.32,
+          "end": 12.56
+        },
+        {
+          "text": "until",
+          "start": 12.56,
+          "end": 12.9
+        },
+        {
+          "text": "you",
+          "start": 12.9,
+          "end": 13.08
+        },
+        {
+          "text": "say,",
+          "start": 13.08,
+          "end": 13.44
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "original_id": 3,
+      "original_video_id": "20251029_091342",
+      "text": "blessed is the one who comes in the name of the Lord. Welcome to Life is your word",
+      "start": 13.74,
+      "end": 18.06,
+      "words": [
+        {
+          "text": "blessed",
+          "start": 13.74,
+          "end": 13.96
+        },
+        {
+          "text": "is",
+          "start": 13.96,
+          "end": 14.34
+        },
+        {
+          "text": "the",
+          "start": 14.34,
+          "end": 14.48
+        },
+        {
+          "text": "one",
+          "start": 14.48,
+          "end": 14.66
+        },
+        {
+          "text": "who",
+          "start": 14.66,
+          "end": 14.84
+        },
+        {
+          "text": "comes",
+          "start": 14.84,
+          "end": 15.12
+        },
+        {
+          "text": "in",
+          "start": 15.12,
+          "end": 15.36
+        },
+        {
+          "text": "the",
+          "start": 15.36,
+          "end": 15.46
+        },
+        {
+          "text": "name",
+          "start": 15.46,
+          "end": 15.66
+        },
+        {
+          "text": "of",
+          "start": 15.66,
+          "end": 15.88
+        },
+        {
+          "text": "the",
+          "start": 15.88,
+          "end": 15.96
+        },
+        {
+          "text": "Lord.",
+          "start": 15.96,
+          "end": 16.16
+        },
+        {
+          "text": "Welcome",
+          "start": 16.92,
+          "end": 17.06
+        },
+        {
+          "text": "to",
+          "start": 17.06,
+          "end": 17.36
+        },
+        {
+          "text": "Life",
+          "start": 17.36,
+          "end": 17.52
+        },
+        {
+          "text": "is",
+          "start": 17.52,
+          "end": 17.72
+        },
+        {
+          "text": "your",
+          "start": 17.72,
+          "end": 17.84
+        },
+        {
+          "text": "word",
+          "start": 17.84,
+          "end": 18.06
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "original_id": 4,
+      "original_video_id": "20251029_091342",
+      "text": "episode five. In this show, we build our in this show, we build out our",
+      "start": 18.06,
+      "end": 23.38,
+      "words": [
+        {
+          "text": "episode",
+          "start": 18.06,
+          "end": 18.46
+        },
+        {
+          "text": "five.",
+          "start": 18.46,
+          "end": 18.92
+        },
+        {
+          "text": "In",
+          "start": 19.74,
+          "end": 20.22
+        },
+        {
+          "text": "this",
+          "start": 20.22,
+          "end": 20.42
+        },
+        {
+          "text": "show,",
+          "start": 20.42,
+          "end": 20.72
+        },
+        {
+          "text": "we",
+          "start": 21.08,
+          "end": 21.14
+        },
+        {
+          "text": "build",
+          "start": 21.14,
+          "end": 21.32
+        },
+        {
+          "text": "our",
+          "start": 21.32,
+          "end": 21.58
+        },
+        {
+          "text": "in",
+          "start": 21.58,
+          "end": 22.14
+        },
+        {
+          "text": "this",
+          "start": 22.14,
+          "end": 22.3
+        },
+        {
+          "text": "show,",
+          "start": 22.3,
+          "end": 22.54
+        },
+        {
+          "text": "we",
+          "start": 22.58,
+          "end": 22.74
+        },
+        {
+          "text": "build",
+          "start": 22.74,
+          "end": 22.94
+        },
+        {
+          "text": "out",
+          "start": 22.94,
+          "end": 23.1
+        },
+        {
+          "text": "our",
+          "start": 23.1,
+          "end": 23.38
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "original_id": 5,
+      "original_video_id": "20251029_091342",
+      "text": "understanding of reality by seeking God's face first.",
+      "start": 23.38,
+      "end": 25.9,
+      "words": [
+        {
+          "text": "understanding",
+          "start": 23.38,
+          "end": 23.82
+        },
+        {
+          "text": "of",
+          "start": 23.82,
+          "end": 24.08
+        },
+        {
+          "text": "reality",
+          "start": 24.08,
+          "end": 24.48
+        },
+        {
+          "text": "by",
+          "start": 24.48,
+          "end": 24.74
+        },
+        {
+          "text": "seeking",
+          "start": 24.74,
+          "end": 25.02
+        },
+        {
+          "text": "God's",
+          "start": 25.02,
+          "end": 25.42
+        },
+        {
+          "text": "face",
+          "start": 25.42,
+          "end": 25.58
+        },
+        {
+          "text": "first.",
+          "start": 25.58,
+          "end": 25.9
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "original_id": 1,
+      "original_video_id": "20251029_091417",
+      "text": "Today's reading is from Luke chapter 13.",
+      "start": 28.442687499999998,
+      "end": 30.7026875,
+      "words": [
+        {
+          "text": "Today's",
+          "start": 28.442687499999998,
+          "end": 29.0226875
+        },
+        {
+          "text": "reading",
+          "start": 29.0226875,
+          "end": 29.2426875
+        },
+        {
+          "text": "is",
+          "start": 29.2426875,
+          "end": 29.5626875
+        },
+        {
+          "text": "from",
+          "start": 29.5626875,
+          "end": 29.7226875
+        },
+        {
+          "text": "Luke",
+          "start": 29.7226875,
+          "end": 29.9026875
+        },
+        {
+          "text": "chapter",
+          "start": 29.9026875,
+          "end": 30.2426875
+        },
+        {
+          "text": "13.",
+          "start": 30.2426875,
+          "end": 30.7026875
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "original_id": 2,
+      "original_video_id": "20251029_091417",
+      "text": "Jesus went through.",
+      "start": 33.4626875,
+      "end": 34.6426875,
+      "words": [
+        {
+          "text": "Jesus",
+          "start": 33.4626875,
+          "end": 34.0426875
+        },
+        {
+          "text": "went",
+          "start": 34.0426875,
+          "end": 34.3426875
+        },
+        {
+          "text": "through.",
+          "start": 34.3426875,
+          "end": 34.6426875
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "original_id": 3,
+      "original_video_id": "20251029_091417",
+      "text": "Jesus went through, teaching.",
+      "start": 37.6226875,
+      "end": 39.202687499999996,
+      "words": [
+        {
+          "text": "Jesus",
+          "start": 37.6226875,
+          "end": 38.202687499999996
+        },
+        {
+          "text": "went",
+          "start": 38.202687499999996,
+          "end": 38.5026875
+        },
+        {
+          "text": "through,",
+          "start": 38.5026875,
+          "end": 38.7226875
+        },
+        {
+          "text": "teaching.",
+          "start": 38.8826875,
+          "end": 39.202687499999996
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "original_id": 4,
+      "original_video_id": "20251029_091417",
+      "text": "Jesus went through one town and village.",
+      "start": 39.8826875,
+      "end": 41.4426875,
+      "words": [
+        {
+          "text": "Jesus",
+          "start": 39.8826875,
+          "end": 40.0826875
+        },
+        {
+          "text": "went",
+          "start": 40.0826875,
+          "end": 40.3026875
+        },
+        {
+          "text": "through",
+          "start": 40.3026875,
+          "end": 40.5026875
+        },
+        {
+          "text": "one",
+          "start": 40.5026875,
+          "end": 40.702687499999996
+        },
+        {
+          "text": "town",
+          "start": 40.702687499999996,
+          "end": 40.9426875
+        },
+        {
+          "text": "and",
+          "start": 40.9426875,
+          "end": 41.1226875
+        },
+        {
+          "text": "village.",
+          "start": 41.1226875,
+          "end": 41.4426875
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "original_id": 5,
+      "original_video_id": "20251029_091417",
+      "text": "Jesus went through town and village after another teaching on his way to Jerusalem.",
+      "start": 43.1226875,
+      "end": 47.5826875,
+      "words": [
+        {
+          "text": "Jesus",
+          "start": 43.1226875,
+          "end": 43.702687499999996
+        },
+        {
+          "text": "went",
+          "start": 43.702687499999996,
+          "end": 43.9626875
+        },
+        {
+          "text": "through",
+          "start": 43.9626875,
+          "end": 44.1826875
+        },
+        {
+          "text": "town",
+          "start": 44.1826875,
+          "end": 44.422687499999995
+        },
+        {
+          "text": "and",
+          "start": 44.422687499999995,
+          "end": 44.702687499999996
+        },
+        {
+          "text": "village",
+          "start": 44.702687499999996,
+          "end": 45.0026875
+        },
+        {
+          "text": "after",
+          "start": 45.0026875,
+          "end": 45.422687499999995
+        },
+        {
+          "text": "another",
+          "start": 45.422687499999995,
+          "end": 45.7226875
+        },
+        {
+          "text": "teaching",
+          "start": 45.7226875,
+          "end": 46.4626875
+        },
+        {
+          "text": "on",
+          "start": 46.4626875,
+          "end": 46.702687499999996
+        },
+        {
+          "text": "his",
+          "start": 46.702687499999996,
+          "end": 46.8426875
+        },
+        {
+          "text": "way",
+          "start": 46.8426875,
+          "end": 47.0026875
+        },
+        {
+          "text": "to",
+          "start": 47.0026875,
+          "end": 47.2426875
+        },
+        {
+          "text": "Jerusalem.",
+          "start": 47.2426875,
+          "end": 47.5826875
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "original_id": 6,
+      "original_video_id": "20251029_091417",
+      "text": "Someone asked him, Lord, will only a few be saved?",
+      "start": 50.3626875,
+      "end": 53.3626875,
+      "words": [
+        {
+          "text": "Someone",
+          "start": 50.3626875,
+          "end": 50.9426875
+        },
+        {
+          "text": "asked",
+          "start": 50.9426875,
+          "end": 51.2426875
+        },
+        {
+          "text": "him,",
+          "start": 51.2426875,
+          "end": 51.422687499999995
+        },
+        {
+          "text": "Lord,",
+          "start": 51.7626875,
+          "end": 51.9026875
+        },
+        {
+          "text": "will",
+          "start": 52.3626875,
+          "end": 52.422687499999995
+        },
+        {
+          "text": "only",
+          "start": 52.422687499999995,
+          "end": 52.6826875
+        },
+        {
+          "text": "a",
+          "start": 52.6826875,
+          "end": 52.8226875
+        },
+        {
+          "text": "few",
+          "start": 52.8226875,
+          "end": 52.9626875
+        },
+        {
+          "text": "be",
+          "start": 52.9626875,
+          "end": 53.1026875
+        },
+        {
+          "text": "saved?",
+          "start": 53.1026875,
+          "end": 53.3626875
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "original_id": 7,
+      "original_video_id": "20251029_091417",
+      "text": "He said to them, strive to enter through the narrow door.",
+      "start": 53.3626875,
+      "end": 60.782687499999994,
+      "words": [
+        {
+          "text": "He",
+          "start": 53.3626875,
+          "end": 54.282687499999994
+        },
+        {
+          "text": "said",
+          "start": 54.282687499999994,
+          "end": 57.0426875
+        },
+        {
+          "text": "to",
+          "start": 57.0426875,
+          "end": 57.2226875
+        },
+        {
+          "text": "them,",
+          "start": 57.2226875,
+          "end": 57.4626875
+        },
+        {
+          "text": "strive",
+          "start": 57.8426875,
+          "end": 59.4426875
+        },
+        {
+          "text": "to",
+          "start": 59.4426875,
+          "end": 59.662687500000004
+        },
+        {
+          "text": "enter",
+          "start": 59.662687500000004,
+          "end": 59.8426875
+        },
+        {
+          "text": "through",
+          "start": 59.8426875,
+          "end": 60.1026875
+        },
+        {
+          "text": "the",
+          "start": 60.1026875,
+          "end": 60.202687499999996
+        },
+        {
+          "text": "narrow",
+          "start": 60.202687499999996,
+          "end": 60.442687500000005
+        },
+        {
+          "text": "door.",
+          "start": 60.442687500000005,
+          "end": 60.782687499999994
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "original_id": 8,
+      "original_video_id": "20251029_091417",
+      "text": "For many I tell you, we'll try to enter and we'll not be able.",
+      "start": 62.00268749999999,
+      "end": 67.4226875,
+      "words": [
+        {
+          "text": "For",
+          "start": 62.00268749999999,
+          "end": 62.282687499999994
+        },
+        {
+          "text": "many",
+          "start": 62.282687499999994,
+          "end": 62.6226875
+        },
+        {
+          "text": "I",
+          "start": 62.6226875,
+          "end": 62.8426875
+        },
+        {
+          "text": "tell",
+          "start": 62.8426875,
+          "end": 63.0426875
+        },
+        {
+          "text": "you,",
+          "start": 63.0426875,
+          "end": 63.4826875
+        },
+        {
+          "text": "we'll",
+          "start": 63.922687499999995,
+          "end": 64.8426875
+        },
+        {
+          "text": "try",
+          "start": 64.8426875,
+          "end": 65.0626875
+        },
+        {
+          "text": "to",
+          "start": 65.0626875,
+          "end": 65.2026875
+        },
+        {
+          "text": "enter",
+          "start": 65.2026875,
+          "end": 65.4626875
+        },
+        {
+          "text": "and",
+          "start": 65.4626875,
+          "end": 66.6226875
+        },
+        {
+          "text": "we'll",
+          "start": 66.6226875,
+          "end": 66.8226875
+        },
+        {
+          "text": "not",
+          "start": 66.8226875,
+          "end": 67.0026875
+        },
+        {
+          "text": "be",
+          "start": 67.0026875,
+          "end": 67.1826875
+        },
+        {
+          "text": "able.",
+          "start": 67.1826875,
+          "end": 67.4226875
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "original_id": 1,
+      "original_video_id": "20251029_091510",
+      "text": "There will be weeping and gnashing of teeth, when you see Abraham and Isaac and Jacob and all the prophets in the kingdom of God, and you yourselves thrown out, then people from north and south, east and west,",
+      "start": 73.1426875,
+      "end": 96.16268749999999,
+      "words": [
+        {
+          "text": "There",
+          "start": 73.1426875,
+          "end": 73.7626875
+        },
+        {
+          "text": "will",
+          "start": 73.7626875,
+          "end": 73.9226875
+        },
+        {
+          "text": "be",
+          "start": 73.9226875,
+          "end": 74.04268749999999
+        },
+        {
+          "text": "weeping",
+          "start": 74.04268749999999,
+          "end": 74.36268749999999
+        },
+        {
+          "text": "and",
+          "start": 74.36268749999999,
+          "end": 74.60268749999999
+        },
+        {
+          "text": "gnashing",
+          "start": 74.60268749999999,
+          "end": 74.9026875
+        },
+        {
+          "text": "of",
+          "start": 74.9026875,
+          "end": 75.10268749999999
+        },
+        {
+          "text": "teeth,",
+          "start": 75.10268749999999,
+          "end": 75.36268749999999
+        },
+        {
+          "text": "when",
+          "start": 76.22268749999999,
+          "end": 77.58268749999999
+        },
+        {
+          "text": "you",
+          "start": 77.58268749999999,
+          "end": 77.7626875
+        },
+        {
+          "text": "see",
+          "start": 77.7626875,
+          "end": 77.96268749999999
+        },
+        {
+          "text": "Abraham",
+          "start": 77.96268749999999,
+          "end": 78.32268749999999
+        },
+        {
+          "text": "and",
+          "start": 78.32268749999999,
+          "end": 78.66268749999999
+        },
+        {
+          "text": "Isaac",
+          "start": 78.66268749999999,
+          "end": 79.0026875
+        },
+        {
+          "text": "and",
+          "start": 79.0026875,
+          "end": 79.2826875
+        },
+        {
+          "text": "Jacob",
+          "start": 79.2826875,
+          "end": 79.5626875
+        },
+        {
+          "text": "and",
+          "start": 79.5626875,
+          "end": 80.5626875
+        },
+        {
+          "text": "all",
+          "start": 80.5626875,
+          "end": 80.8426875
+        },
+        {
+          "text": "the",
+          "start": 80.8426875,
+          "end": 81.02268749999999
+        },
+        {
+          "text": "prophets",
+          "start": 81.02268749999999,
+          "end": 81.36268749999999
+        },
+        {
+          "text": "in",
+          "start": 81.36268749999999,
+          "end": 81.90268749999998
+        },
+        {
+          "text": "the",
+          "start": 81.90268749999998,
+          "end": 82.0026875
+        },
+        {
+          "text": "kingdom",
+          "start": 82.0026875,
+          "end": 82.22268749999999
+        },
+        {
+          "text": "of",
+          "start": 82.22268749999999,
+          "end": 82.40268749999998
+        },
+        {
+          "text": "God,",
+          "start": 82.40268749999998,
+          "end": 82.7026875
+        },
+        {
+          "text": "and",
+          "start": 83.2826875,
+          "end": 84.72268749999999
+        },
+        {
+          "text": "you",
+          "start": 84.72268749999999,
+          "end": 84.9226875
+        },
+        {
+          "text": "yourselves",
+          "start": 84.9226875,
+          "end": 85.32268749999999
+        },
+        {
+          "text": "thrown",
+          "start": 85.32268749999999,
+          "end": 85.7026875
+        },
+        {
+          "text": "out,",
+          "start": 85.7026875,
+          "end": 86.0426875
+        },
+        {
+          "text": "then",
+          "start": 87.10268749999999,
+          "end": 88.1426875
+        },
+        {
+          "text": "people",
+          "start": 88.1426875,
+          "end": 88.52268749999999
+        },
+        {
+          "text": "from",
+          "start": 88.52268749999999,
+          "end": 90.8426875
+        },
+        {
+          "text": "north",
+          "start": 90.8426875,
+          "end": 94.7826875
+        },
+        {
+          "text": "and",
+          "start": 94.7826875,
+          "end": 94.94268749999999
+        },
+        {
+          "text": "south,",
+          "start": 94.94268749999999,
+          "end": 95.2826875
+        },
+        {
+          "text": "east",
+          "start": 95.5626875,
+          "end": 95.72268749999999
+        },
+        {
+          "text": "and",
+          "start": 95.72268749999999,
+          "end": 95.86268749999999
+        },
+        {
+          "text": "west,",
+          "start": 95.86268749999999,
+          "end": 96.16268749999999
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "original_id": 2,
+      "original_video_id": "20251029_091510",
+      "text": "then people from east and west, north and south, will take their places at the banquet in the kingdom of God.",
+      "start": 97.5626875,
+      "end": 103.3426875,
+      "words": [
+        {
+          "text": "then",
+          "start": 97.5626875,
+          "end": 98.08268749999999
+        },
+        {
+          "text": "people",
+          "start": 98.08268749999999,
+          "end": 98.36268749999999
+        },
+        {
+          "text": "from",
+          "start": 98.36268749999999,
+          "end": 98.6426875
+        },
+        {
+          "text": "east",
+          "start": 98.6426875,
+          "end": 98.8226875
+        },
+        {
+          "text": "and",
+          "start": 98.8226875,
+          "end": 99.02268749999999
+        },
+        {
+          "text": "west,",
+          "start": 99.02268749999999,
+          "end": 99.2626875
+        },
+        {
+          "text": "north",
+          "start": 99.5426875,
+          "end": 99.66268749999999
+        },
+        {
+          "text": "and",
+          "start": 99.66268749999999,
+          "end": 99.8426875
+        },
+        {
+          "text": "south,",
+          "start": 99.8426875,
+          "end": 100.2026875
+        },
+        {
+          "text": "will",
+          "start": 100.5626875,
+          "end": 100.90268749999998
+        },
+        {
+          "text": "take",
+          "start": 100.90268749999998,
+          "end": 101.16268749999999
+        },
+        {
+          "text": "their",
+          "start": 101.16268749999999,
+          "end": 101.40268749999998
+        },
+        {
+          "text": "places",
+          "start": 101.40268749999998,
+          "end": 101.7626875
+        },
+        {
+          "text": "at",
+          "start": 101.7626875,
+          "end": 101.96268749999999
+        },
+        {
+          "text": "the",
+          "start": 101.96268749999999,
+          "end": 102.08268749999999
+        },
+        {
+          "text": "banquet",
+          "start": 102.08268749999999,
+          "end": 102.36268749999999
+        },
+        {
+          "text": "in",
+          "start": 102.36268749999999,
+          "end": 102.60268749999999
+        },
+        {
+          "text": "the",
+          "start": 102.60268749999999,
+          "end": 102.68268749999999
+        },
+        {
+          "text": "kingdom",
+          "start": 102.68268749999999,
+          "end": 102.88268749999999
+        },
+        {
+          "text": "of",
+          "start": 102.88268749999999,
+          "end": 103.0626875
+        },
+        {
+          "text": "God.",
+          "start": 103.0626875,
+          "end": 103.3426875
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "original_id": 3,
+      "original_video_id": "20251029_091510",
+      "text": "Indeed, some more first will be last. Indeed, some, indeed, some, forget that verse.",
+      "start": 104.4826875,
+      "end": 113.1026875,
+      "words": [
+        {
+          "text": "Indeed,",
+          "start": 104.4826875,
+          "end": 105.0026875
+        },
+        {
+          "text": "some",
+          "start": 105.38268749999999,
+          "end": 105.4826875
+        },
+        {
+          "text": "more",
+          "start": 105.4826875,
+          "end": 105.74268749999999
+        },
+        {
+          "text": "first",
+          "start": 105.74268749999999,
+          "end": 106.02268749999999
+        },
+        {
+          "text": "will",
+          "start": 106.02268749999999,
+          "end": 106.22268749999999
+        },
+        {
+          "text": "be",
+          "start": 106.22268749999999,
+          "end": 106.34268749999998
+        },
+        {
+          "text": "last.",
+          "start": 106.34268749999998,
+          "end": 106.5626875
+        },
+        {
+          "text": "Indeed,",
+          "start": 107.2626875,
+          "end": 107.40268749999998
+        },
+        {
+          "text": "some,",
+          "start": 107.6026875,
+          "end": 107.7626875
+        },
+        {
+          "text": "indeed,",
+          "start": 108.02268749999999,
+          "end": 109.36268749999999
+        },
+        {
+          "text": "some,",
+          "start": 109.5626875,
+          "end": 109.72268749999999
+        },
+        {
+          "text": "forget",
+          "start": 109.9826875,
+          "end": 112.6426875
+        },
+        {
+          "text": "that",
+          "start": 112.6426875,
+          "end": 112.8226875
+        },
+        {
+          "text": "verse.",
+          "start": 112.8226875,
+          "end": 113.1026875
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "original_id": 4,
+      "original_video_id": "20251029_091510",
+      "text": "At that very hour, some Pharisees came out and said to him, get away from here, for Herod wants to kill you.",
+      "start": 118.6426875,
+      "end": 128.06268749999998,
+      "words": [
+        {
+          "text": "At",
+          "start": 118.6426875,
+          "end": 119.2626875
+        },
+        {
+          "text": "that",
+          "start": 119.2626875,
+          "end": 119.88268749999999
+        },
+        {
+          "text": "very",
+          "start": 119.88268749999999,
+          "end": 120.1426875
+        },
+        {
+          "text": "hour,",
+          "start": 120.1426875,
+          "end": 120.4826875
+        },
+        {
+          "text": "some",
+          "start": 120.84268749999998,
+          "end": 122.52268749999999
+        },
+        {
+          "text": "Pharisees",
+          "start": 122.52268749999999,
+          "end": 123.1426875
+        },
+        {
+          "text": "came",
+          "start": 123.1426875,
+          "end": 123.3226875
+        },
+        {
+          "text": "out",
+          "start": 123.3226875,
+          "end": 123.62268749999998
+        },
+        {
+          "text": "and",
+          "start": 123.62268749999998,
+          "end": 124.02268749999999
+        },
+        {
+          "text": "said",
+          "start": 124.02268749999999,
+          "end": 124.2026875
+        },
+        {
+          "text": "to",
+          "start": 124.2026875,
+          "end": 124.38268749999999
+        },
+        {
+          "text": "him,",
+          "start": 124.38268749999999,
+          "end": 124.58268749999999
+        },
+        {
+          "text": "get",
+          "start": 124.9226875,
+          "end": 125.40268749999998
+        },
+        {
+          "text": "away",
+          "start": 125.40268749999998,
+          "end": 125.6026875
+        },
+        {
+          "text": "from",
+          "start": 125.6026875,
+          "end": 125.84268749999998
+        },
+        {
+          "text": "here,",
+          "start": 125.84268749999998,
+          "end": 126.12268749999998
+        },
+        {
+          "text": "for",
+          "start": 126.7826875,
+          "end": 126.88268749999999
+        },
+        {
+          "text": "Herod",
+          "start": 126.88268749999999,
+          "end": 127.2026875
+        },
+        {
+          "text": "wants",
+          "start": 127.2026875,
+          "end": 127.38268749999999
+        },
+        {
+          "text": "to",
+          "start": 127.38268749999999,
+          "end": 127.52268749999999
+        },
+        {
+          "text": "kill",
+          "start": 127.52268749999999,
+          "end": 127.7026875
+        },
+        {
+          "text": "you.",
+          "start": 127.7026875,
+          "end": 128.06268749999998
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "original_id": 5,
+      "original_video_id": "20251029_091510",
+      "text": "Jesus wheat, saying Jerusalem, the city that kills the prophets, and stones those who are sent to it.",
+      "start": 132.2826875,
+      "end": 141.8426875,
+      "words": [
+        {
+          "text": "Jesus",
+          "start": 132.2826875,
+          "end": 133.1026875
+        },
+        {
+          "text": "wheat,",
+          "start": 133.1026875,
+          "end": 133.5226875
+        },
+        {
+          "text": "saying",
+          "start": 134.2426875,
+          "end": 134.7826875
+        },
+        {
+          "text": "Jerusalem,",
+          "start": 134.7826875,
+          "end": 135.40268749999998
+        },
+        {
+          "text": "the",
+          "start": 136.5826875,
+          "end": 136.6626875
+        },
+        {
+          "text": "city",
+          "start": 136.6626875,
+          "end": 136.94268749999998
+        },
+        {
+          "text": "that",
+          "start": 136.94268749999998,
+          "end": 137.1626875
+        },
+        {
+          "text": "kills",
+          "start": 137.1626875,
+          "end": 137.44268749999998
+        },
+        {
+          "text": "the",
+          "start": 137.44268749999998,
+          "end": 137.62268749999998
+        },
+        {
+          "text": "prophets,",
+          "start": 137.62268749999998,
+          "end": 138.0826875
+        },
+        {
+          "text": "and",
+          "start": 139.1026875,
+          "end": 140.0226875
+        },
+        {
+          "text": "stones",
+          "start": 140.0226875,
+          "end": 140.4626875
+        },
+        {
+          "text": "those",
+          "start": 140.4626875,
+          "end": 140.8626875
+        },
+        {
+          "text": "who",
+          "start": 140.8626875,
+          "end": 141.0826875
+        },
+        {
+          "text": "are",
+          "start": 141.0826875,
+          "end": 141.1626875
+        },
+        {
+          "text": "sent",
+          "start": 141.1626875,
+          "end": 141.3626875
+        },
+        {
+          "text": "to",
+          "start": 141.3626875,
+          "end": 141.56268749999998
+        },
+        {
+          "text": "it.",
+          "start": 141.56268749999998,
+          "end": 141.8426875
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "original_id": 6,
+      "original_video_id": "20251029_091510",
+      "text": "How often I have desired to gather your children together as a hen her brood under her wings, and you were not willing.",
+      "start": 147.2226875,
+      "end": 158.8026875,
+      "words": [
+        {
+          "text": "How",
+          "start": 147.2226875,
+          "end": 147.9826875
+        },
+        {
+          "text": "often",
+          "start": 147.9826875,
+          "end": 148.50268749999998
+        },
+        {
+          "text": "I",
+          "start": 148.50268749999998,
+          "end": 148.7626875
+        },
+        {
+          "text": "have",
+          "start": 148.7626875,
+          "end": 148.94268749999998
+        },
+        {
+          "text": "desired",
+          "start": 148.94268749999998,
+          "end": 149.56268749999998
+        },
+        {
+          "text": "to",
+          "start": 149.56268749999998,
+          "end": 150.6626875
+        },
+        {
+          "text": "gather",
+          "start": 150.6626875,
+          "end": 151.0426875
+        },
+        {
+          "text": "your",
+          "start": 151.0426875,
+          "end": 151.3026875
+        },
+        {
+          "text": "children",
+          "start": 151.3026875,
+          "end": 151.7226875
+        },
+        {
+          "text": "together",
+          "start": 151.7226875,
+          "end": 152.1826875
+        },
+        {
+          "text": "as",
+          "start": 152.1826875,
+          "end": 153.44268749999998
+        },
+        {
+          "text": "a",
+          "start": 153.44268749999998,
+          "end": 153.6826875
+        },
+        {
+          "text": "hen",
+          "start": 153.6826875,
+          "end": 153.9026875
+        },
+        {
+          "text": "her",
+          "start": 153.9026875,
+          "end": 154.2226875
+        },
+        {
+          "text": "brood",
+          "start": 154.2226875,
+          "end": 154.7626875
+        },
+        {
+          "text": "under",
+          "start": 154.7626875,
+          "end": 155.6826875
+        },
+        {
+          "text": "her",
+          "start": 155.6826875,
+          "end": 155.9026875
+        },
+        {
+          "text": "wings,",
+          "start": 155.9026875,
+          "end": 156.2426875
+        },
+        {
+          "text": "and",
+          "start": 156.6626875,
+          "end": 157.9026875
+        },
+        {
+          "text": "you",
+          "start": 157.9026875,
+          "end": 158.1026875
+        },
+        {
+          "text": "were",
+          "start": 158.1026875,
+          "end": 158.2426875
+        },
+        {
+          "text": "not",
+          "start": 158.2426875,
+          "end": 158.44268749999998
+        },
+        {
+          "text": "willing.",
+          "start": 158.44268749999998,
+          "end": 158.8026875
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "original_id": 7,
+      "original_video_id": "20251029_091510",
+      "text": "And I tell you, see, your house is left to you, and I tell you, you will not see me again until you say, blessed is the one who comes in the name of the Lord.",
+      "start": 160.1826875,
+      "end": 173.0226875,
+      "words": [
+        {
+          "text": "And",
+          "start": 160.1826875,
+          "end": 160.6626875
+        },
+        {
+          "text": "I",
+          "start": 160.6626875,
+          "end": 160.8026875
+        },
+        {
+          "text": "tell",
+          "start": 160.8026875,
+          "end": 161.0826875
+        },
+        {
+          "text": "you,",
+          "start": 161.0826875,
+          "end": 161.4026875
+        },
+        {
+          "text": "see,",
+          "start": 161.4026875,
+          "end": 162.94268749999998
+        },
+        {
+          "text": "your",
+          "start": 163.2226875,
+          "end": 163.32268749999997
+        },
+        {
+          "text": "house",
+          "start": 163.32268749999997,
+          "end": 163.5826875
+        },
+        {
+          "text": "is",
+          "start": 163.5826875,
+          "end": 163.7626875
+        },
+        {
+          "text": "left",
+          "start": 163.7626875,
+          "end": 163.9026875
+        },
+        {
+          "text": "to",
+          "start": 163.9026875,
+          "end": 164.1026875
+        },
+        {
+          "text": "you,",
+          "start": 164.1026875,
+          "end": 164.2826875
+        },
+        {
+          "text": "and",
+          "start": 164.7426875,
+          "end": 165.9826875
+        },
+        {
+          "text": "I",
+          "start": 165.9826875,
+          "end": 166.1026875
+        },
+        {
+          "text": "tell",
+          "start": 166.1026875,
+          "end": 166.32268749999997
+        },
+        {
+          "text": "you,",
+          "start": 166.32268749999997,
+          "end": 166.62268749999998
+        },
+        {
+          "text": "you",
+          "start": 166.9826875,
+          "end": 167.3426875
+        },
+        {
+          "text": "will",
+          "start": 167.3426875,
+          "end": 167.4626875
+        },
+        {
+          "text": "not",
+          "start": 167.4626875,
+          "end": 167.6026875
+        },
+        {
+          "text": "see",
+          "start": 167.6026875,
+          "end": 167.82268749999997
+        },
+        {
+          "text": "me",
+          "start": 167.82268749999997,
+          "end": 167.9626875
+        },
+        {
+          "text": "again",
+          "start": 167.9626875,
+          "end": 168.2226875
+        },
+        {
+          "text": "until",
+          "start": 168.2226875,
+          "end": 169.0426875
+        },
+        {
+          "text": "you",
+          "start": 169.0426875,
+          "end": 169.2826875
+        },
+        {
+          "text": "say,",
+          "start": 169.2826875,
+          "end": 169.7226875
+        },
+        {
+          "text": "blessed",
+          "start": 170.2026875,
+          "end": 170.5226875
+        },
+        {
+          "text": "is",
+          "start": 170.5226875,
+          "end": 171.1426875
+        },
+        {
+          "text": "the",
+          "start": 171.1426875,
+          "end": 171.2826875
+        },
+        {
+          "text": "one",
+          "start": 171.2826875,
+          "end": 171.50268749999998
+        },
+        {
+          "text": "who",
+          "start": 171.50268749999998,
+          "end": 171.6626875
+        },
+        {
+          "text": "comes",
+          "start": 171.6626875,
+          "end": 171.9026875
+        },
+        {
+          "text": "in",
+          "start": 171.9026875,
+          "end": 172.2226875
+        },
+        {
+          "text": "the",
+          "start": 172.2226875,
+          "end": 172.32268749999997
+        },
+        {
+          "text": "name",
+          "start": 172.32268749999997,
+          "end": 172.4826875
+        },
+        {
+          "text": "of",
+          "start": 172.4826875,
+          "end": 172.7026875
+        },
+        {
+          "text": "the",
+          "start": 172.7026875,
+          "end": 172.82268749999997
+        },
+        {
+          "text": "Lord.",
+          "start": 172.82268749999997,
+          "end": 173.0226875
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "original_id": 1,
+      "original_video_id": "20251029_091659",
+      "text": "When we learn how to say,",
+      "start": 178.86399999999998,
+      "end": 180.404,
+      "words": [
+        {
+          "text": "When",
+          "start": 178.86399999999998,
+          "end": 179.304
+        },
+        {
+          "text": "we",
+          "start": 179.304,
+          "end": 179.464
+        },
+        {
+          "text": "learn",
+          "start": 179.464,
+          "end": 179.70399999999998
+        },
+        {
+          "text": "how",
+          "start": 179.70399999999998,
+          "end": 179.944
+        },
+        {
+          "text": "to",
+          "start": 179.944,
+          "end": 180.10399999999998
+        },
+        {
+          "text": "say,",
+          "start": 180.10399999999998,
+          "end": 180.404
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "original_id": 2,
+      "original_video_id": "20251029_091659",
+      "text": "Blessed is the one who comes in the name of the Lord,",
+      "start": 180.724,
+      "end": 182.70399999999998,
+      "words": [
+        {
+          "text": "Blessed",
+          "start": 180.724,
+          "end": 180.964
+        },
+        {
+          "text": "is",
+          "start": 180.964,
+          "end": 181.184
+        },
+        {
+          "text": "the",
+          "start": 181.184,
+          "end": 181.284
+        },
+        {
+          "text": "one",
+          "start": 181.284,
+          "end": 181.444
+        },
+        {
+          "text": "who",
+          "start": 181.444,
+          "end": 181.60399999999998
+        },
+        {
+          "text": "comes",
+          "start": 181.60399999999998,
+          "end": 181.804
+        },
+        {
+          "text": "in",
+          "start": 181.804,
+          "end": 182.024
+        },
+        {
+          "text": "the",
+          "start": 182.024,
+          "end": 182.144
+        },
+        {
+          "text": "name",
+          "start": 182.144,
+          "end": 182.284
+        },
+        {
+          "text": "of",
+          "start": 182.284,
+          "end": 182.404
+        },
+        {
+          "text": "the",
+          "start": 182.404,
+          "end": 182.504
+        },
+        {
+          "text": "Lord,",
+          "start": 182.504,
+          "end": 182.70399999999998
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "original_id": 3,
+      "original_video_id": "20251029_091659",
+      "text": "rather than to bicker about what.",
+      "start": 183.284,
+      "end": 185.244,
+      "words": [
+        {
+          "text": "rather",
+          "start": 183.284,
+          "end": 183.42399999999998
+        },
+        {
+          "text": "than",
+          "start": 183.42399999999998,
+          "end": 183.664
+        },
+        {
+          "text": "to",
+          "start": 183.664,
+          "end": 183.76399999999998
+        },
+        {
+          "text": "bicker",
+          "start": 183.76399999999998,
+          "end": 184.04399999999998
+        },
+        {
+          "text": "about",
+          "start": 184.04399999999998,
+          "end": 184.76399999999998
+        },
+        {
+          "text": "what.",
+          "start": 184.76399999999998,
+          "end": 185.244
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "original_id": 1,
+      "original_video_id": "20251029_091745",
+      "text": "If you want to know whether or not you follow the true God, ask yourself the",
+      "start": 187.1666875,
+      "end": 191.6666875,
+      "words": [
+        {
+          "text": "If",
+          "start": 187.1666875,
+          "end": 187.6066875
+        },
+        {
+          "text": "you",
+          "start": 187.6066875,
+          "end": 187.7466875
+        },
+        {
+          "text": "want",
+          "start": 187.7466875,
+          "end": 187.8866875
+        },
+        {
+          "text": "to",
+          "start": 187.8866875,
+          "end": 188.0066875
+        },
+        {
+          "text": "know",
+          "start": 188.0066875,
+          "end": 188.2066875
+        },
+        {
+          "text": "whether",
+          "start": 188.2066875,
+          "end": 188.6866875
+        },
+        {
+          "text": "or",
+          "start": 188.6866875,
+          "end": 188.9066875
+        },
+        {
+          "text": "not",
+          "start": 188.9066875,
+          "end": 189.0066875
+        },
+        {
+          "text": "you",
+          "start": 189.0066875,
+          "end": 189.2266875
+        },
+        {
+          "text": "follow",
+          "start": 189.2266875,
+          "end": 189.6066875
+        },
+        {
+          "text": "the",
+          "start": 189.6066875,
+          "end": 189.8266875
+        },
+        {
+          "text": "true",
+          "start": 189.8266875,
+          "end": 190.08668749999998
+        },
+        {
+          "text": "God,",
+          "start": 190.08668749999998,
+          "end": 190.4866875
+        },
+        {
+          "text": "ask",
+          "start": 190.80668749999998,
+          "end": 191.1266875
+        },
+        {
+          "text": "yourself",
+          "start": 191.1266875,
+          "end": 191.4866875
+        },
+        {
+          "text": "the",
+          "start": 191.4866875,
+          "end": 191.6666875
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "original_id": 2,
+      "original_video_id": "20251029_091745",
+      "text": "following question. When you look at somebody like me, will you be able to say,",
+      "start": 191.6666875,
+      "end": 196.1866875,
+      "words": [
+        {
+          "text": "following",
+          "start": 191.6666875,
+          "end": 191.9666875
+        },
+        {
+          "text": "question.",
+          "start": 191.9666875,
+          "end": 192.4666875
+        },
+        {
+          "text": "When",
+          "start": 192.7666875,
+          "end": 192.92668749999999
+        },
+        {
+          "text": "you",
+          "start": 192.92668749999999,
+          "end": 193.08668749999998
+        },
+        {
+          "text": "look",
+          "start": 193.08668749999998,
+          "end": 193.3266875
+        },
+        {
+          "text": "at",
+          "start": 193.3266875,
+          "end": 193.4666875
+        },
+        {
+          "text": "somebody",
+          "start": 193.4666875,
+          "end": 193.7866875
+        },
+        {
+          "text": "like",
+          "start": 193.7866875,
+          "end": 194.1666875
+        },
+        {
+          "text": "me,",
+          "start": 194.1666875,
+          "end": 194.5266875
+        },
+        {
+          "text": "will",
+          "start": 194.9866875,
+          "end": 195.2266875
+        },
+        {
+          "text": "you",
+          "start": 195.2266875,
+          "end": 195.4066875
+        },
+        {
+          "text": "be",
+          "start": 195.4066875,
+          "end": 195.5466875
+        },
+        {
+          "text": "able",
+          "start": 195.5466875,
+          "end": 195.7466875
+        },
+        {
+          "text": "to",
+          "start": 195.7466875,
+          "end": 195.9066875
+        },
+        {
+          "text": "say,",
+          "start": 195.9066875,
+          "end": 196.1866875
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "original_id": 3,
+      "original_video_id": "20251029_091745",
+      "text": "blessed is the one who comes in the name of the Lord to me or not? That will tell you",
+      "start": 196.4866875,
+      "end": 200.7266875,
+      "words": [
+        {
+          "text": "blessed",
+          "start": 196.4866875,
+          "end": 196.8466875
+        },
+        {
+          "text": "is",
+          "start": 196.8466875,
+          "end": 197.0666875
+        },
+        {
+          "text": "the",
+          "start": 197.0666875,
+          "end": 197.2066875
+        },
+        {
+          "text": "one",
+          "start": 197.2066875,
+          "end": 197.3866875
+        },
+        {
+          "text": "who",
+          "start": 197.3866875,
+          "end": 197.52668749999998
+        },
+        {
+          "text": "comes",
+          "start": 197.52668749999998,
+          "end": 197.7466875
+        },
+        {
+          "text": "in",
+          "start": 197.7466875,
+          "end": 197.92668749999999
+        },
+        {
+          "text": "the",
+          "start": 197.92668749999999,
+          "end": 198.0466875
+        },
+        {
+          "text": "name",
+          "start": 198.0466875,
+          "end": 198.1866875
+        },
+        {
+          "text": "of",
+          "start": 198.1866875,
+          "end": 198.3466875
+        },
+        {
+          "text": "the",
+          "start": 198.3466875,
+          "end": 198.4066875
+        },
+        {
+          "text": "Lord",
+          "start": 198.4066875,
+          "end": 198.6066875
+        },
+        {
+          "text": "to",
+          "start": 198.6066875,
+          "end": 198.8266875
+        },
+        {
+          "text": "me",
+          "start": 198.8266875,
+          "end": 198.9866875
+        },
+        {
+          "text": "or",
+          "start": 198.9866875,
+          "end": 199.3866875
+        },
+        {
+          "text": "not?",
+          "start": 199.3866875,
+          "end": 199.58668749999998
+        },
+        {
+          "text": "That",
+          "start": 200.0466875,
+          "end": 200.2666875
+        },
+        {
+          "text": "will",
+          "start": 200.2666875,
+          "end": 200.3866875
+        },
+        {
+          "text": "tell",
+          "start": 200.3866875,
+          "end": 200.5666875
+        },
+        {
+          "text": "you",
+          "start": 200.5666875,
+          "end": 200.7266875
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "original_id": 4,
+      "original_video_id": "20251029_091745",
+      "text": "a whole lot about the kind of person that you are and whether or not the Holy",
+      "start": 200.7266875,
+      "end": 204.9066875,
+      "words": [
+        {
+          "text": "a",
+          "start": 200.7266875,
+          "end": 200.86668749999998
+        },
+        {
+          "text": "whole",
+          "start": 200.86668749999998,
+          "end": 201.02668749999998
+        },
+        {
+          "text": "lot",
+          "start": 201.02668749999998,
+          "end": 201.2666875
+        },
+        {
+          "text": "about",
+          "start": 201.2666875,
+          "end": 201.7466875
+        },
+        {
+          "text": "the",
+          "start": 201.7466875,
+          "end": 201.92668749999999
+        },
+        {
+          "text": "kind",
+          "start": 201.92668749999999,
+          "end": 202.0666875
+        },
+        {
+          "text": "of",
+          "start": 202.0666875,
+          "end": 202.1866875
+        },
+        {
+          "text": "person",
+          "start": 202.1866875,
+          "end": 202.5066875
+        },
+        {
+          "text": "that",
+          "start": 202.5066875,
+          "end": 202.86668749999998
+        },
+        {
+          "text": "you",
+          "start": 202.86668749999998,
+          "end": 203.1266875
+        },
+        {
+          "text": "are",
+          "start": 203.1266875,
+          "end": 203.4466875
+        },
+        {
+          "text": "and",
+          "start": 203.4466875,
+          "end": 203.9066875
+        },
+        {
+          "text": "whether",
+          "start": 203.9066875,
+          "end": 204.1866875
+        },
+        {
+          "text": "or",
+          "start": 204.1866875,
+          "end": 204.3466875
+        },
+        {
+          "text": "not",
+          "start": 204.3466875,
+          "end": 204.5066875
+        },
+        {
+          "text": "the",
+          "start": 204.5066875,
+          "end": 204.7066875
+        },
+        {
+          "text": "Holy",
+          "start": 204.7066875,
+          "end": 204.9066875
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "original_id": 5,
+      "original_video_id": "20251029_091745",
+      "text": "Spirit truly lives in you. There are many who have made it their effort, who",
+      "start": 204.9066875,
+      "end": 209.5666875,
+      "words": [
+        {
+          "text": "Spirit",
+          "start": 204.9066875,
+          "end": 205.2466875
+        },
+        {
+          "text": "truly",
+          "start": 205.2466875,
+          "end": 205.6666875
+        },
+        {
+          "text": "lives",
+          "start": 205.6666875,
+          "end": 205.9666875
+        },
+        {
+          "text": "in",
+          "start": 205.9666875,
+          "end": 206.2266875
+        },
+        {
+          "text": "you.",
+          "start": 206.2266875,
+          "end": 206.4466875
+        },
+        {
+          "text": "There",
+          "start": 206.86668749999998,
+          "end": 206.9666875
+        },
+        {
+          "text": "are",
+          "start": 206.9666875,
+          "end": 207.08668749999998
+        },
+        {
+          "text": "many",
+          "start": 207.08668749999998,
+          "end": 207.36668749999998
+        },
+        {
+          "text": "who",
+          "start": 207.36668749999998,
+          "end": 207.8466875
+        },
+        {
+          "text": "have",
+          "start": 207.8466875,
+          "end": 208.0066875
+        },
+        {
+          "text": "made",
+          "start": 208.0066875,
+          "end": 208.1866875
+        },
+        {
+          "text": "it",
+          "start": 208.1866875,
+          "end": 208.3866875
+        },
+        {
+          "text": "their",
+          "start": 208.3866875,
+          "end": 208.64668749999998
+        },
+        {
+          "text": "effort,",
+          "start": 208.64668749999998,
+          "end": 209.1266875
+        },
+        {
+          "text": "who",
+          "start": 209.4866875,
+          "end": 209.5666875
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "original_id": 6,
+      "original_video_id": "20251029_091745",
+      "text": "there are many who have gone out of their way to hate on me. There are those who",
+      "start": 209.5666875,
+      "end": 215.1666875,
+      "words": [
+        {
+          "text": "there",
+          "start": 209.5666875,
+          "end": 209.7066875
+        },
+        {
+          "text": "are",
+          "start": 209.7066875,
+          "end": 209.8266875
+        },
+        {
+          "text": "many",
+          "start": 209.8266875,
+          "end": 210.0666875
+        },
+        {
+          "text": "who",
+          "start": 210.0666875,
+          "end": 210.52668749999998
+        },
+        {
+          "text": "have",
+          "start": 210.52668749999998,
+          "end": 210.6866875
+        },
+        {
+          "text": "gone",
+          "start": 210.6866875,
+          "end": 210.8466875
+        },
+        {
+          "text": "out",
+          "start": 210.8466875,
+          "end": 211.1866875
+        },
+        {
+          "text": "of",
+          "start": 211.1866875,
+          "end": 211.3266875
+        },
+        {
+          "text": "their",
+          "start": 211.3266875,
+          "end": 211.5466875
+        },
+        {
+          "text": "way",
+          "start": 211.5466875,
+          "end": 211.86668749999998
+        },
+        {
+          "text": "to",
+          "start": 211.86668749999998,
+          "end": 212.4466875
+        },
+        {
+          "text": "hate",
+          "start": 212.4466875,
+          "end": 212.7666875
+        },
+        {
+          "text": "on",
+          "start": 212.7666875,
+          "end": 213.08668749999998
+        },
+        {
+          "text": "me.",
+          "start": 213.08668749999998,
+          "end": 213.3866875
+        },
+        {
+          "text": "There",
+          "start": 214.0066875,
+          "end": 214.2266875
+        },
+        {
+          "text": "are",
+          "start": 214.2266875,
+          "end": 214.4066875
+        },
+        {
+          "text": "those",
+          "start": 214.4066875,
+          "end": 214.7466875
+        },
+        {
+          "text": "who",
+          "start": 214.7466875,
+          "end": 215.1666875
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "original_id": 7,
+      "original_video_id": "20251029_091745",
+      "text": "have actually kicked me out of churches simply because I'm different. That's not",
+      "start": 215.1666875,
+      "end": 220.7866875,
+      "words": [
+        {
+          "text": "have",
+          "start": 215.1666875,
+          "end": 215.3466875
+        },
+        {
+          "text": "actually",
+          "start": 215.3466875,
+          "end": 215.8066875
+        },
+        {
+          "text": "kicked",
+          "start": 215.8066875,
+          "end": 216.08668749999998
+        },
+        {
+          "text": "me",
+          "start": 216.08668749999998,
+          "end": 216.3066875
+        },
+        {
+          "text": "out",
+          "start": 216.3066875,
+          "end": 216.5466875
+        },
+        {
+          "text": "of",
+          "start": 216.5466875,
+          "end": 216.8066875
+        },
+        {
+          "text": "churches",
+          "start": 216.8066875,
+          "end": 217.2266875
+        },
+        {
+          "text": "simply",
+          "start": 217.2266875,
+          "end": 218.02668749999998
+        },
+        {
+          "text": "because",
+          "start": 218.02668749999998,
+          "end": 218.6066875
+        },
+        {
+          "text": "I'm",
+          "start": 218.6066875,
+          "end": 219.02668749999998
+        },
+        {
+          "text": "different.",
+          "start": 219.02668749999998,
+          "end": 219.3266875
+        },
+        {
+          "text": "That's",
+          "start": 220.1266875,
+          "end": 220.58668749999998
+        },
+        {
+          "text": "not",
+          "start": 220.58668749999998,
+          "end": 220.7866875
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "original_id": 8,
+      "original_video_id": "20251029_091745",
+      "text": "God. Jesus has asked us to grow as His people into something new to evolve",
+      "start": 220.7866875,
+      "end": 234.6066875,
+      "words": [
+        {
+          "text": "God.",
+          "start": 220.7866875,
+          "end": 221.2266875
+        },
+        {
+          "text": "Jesus",
+          "start": 228.2266875,
+          "end": 228.9466875
+        },
+        {
+          "text": "has",
+          "start": 228.9466875,
+          "end": 229.1866875
+        },
+        {
+          "text": "asked",
+          "start": 229.1866875,
+          "end": 229.5066875
+        },
+        {
+          "text": "us",
+          "start": 229.5066875,
+          "end": 229.8666875
+        },
+        {
+          "text": "to",
+          "start": 229.8666875,
+          "end": 230.3066875
+        },
+        {
+          "text": "grow",
+          "start": 230.3066875,
+          "end": 230.7466875
+        },
+        {
+          "text": "as",
+          "start": 230.7466875,
+          "end": 231.5666875
+        },
+        {
+          "text": "His",
+          "start": 231.5666875,
+          "end": 231.8066875
+        },
+        {
+          "text": "people",
+          "start": 231.8066875,
+          "end": 232.2266875
+        },
+        {
+          "text": "into",
+          "start": 232.2266875,
+          "end": 232.7866875
+        },
+        {
+          "text": "something",
+          "start": 232.7866875,
+          "end": 233.2066875
+        },
+        {
+          "text": "new",
+          "start": 233.2066875,
+          "end": 233.5466875
+        },
+        {
+          "text": "to",
+          "start": 233.5466875,
+          "end": 234.08668749999998
+        },
+        {
+          "text": "evolve",
+          "start": 234.08668749999998,
+          "end": 234.6066875
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "original_id": 9,
+      "original_video_id": "20251029_091745",
+      "text": "into what He has truly called us to be. Those who instead of looking on the",
+      "start": 234.6066875,
+      "end": 240.9866875,
+      "words": [
+        {
+          "text": "into",
+          "start": 234.6066875,
+          "end": 235.5066875
+        },
+        {
+          "text": "what",
+          "start": 235.5066875,
+          "end": 235.7866875
+        },
+        {
+          "text": "He",
+          "start": 235.7866875,
+          "end": 236.0066875
+        },
+        {
+          "text": "has",
+          "start": 236.0066875,
+          "end": 236.2066875
+        },
+        {
+          "text": "truly",
+          "start": 236.2066875,
+          "end": 236.7666875
+        },
+        {
+          "text": "called",
+          "start": 236.7666875,
+          "end": 237.1866875
+        },
+        {
+          "text": "us",
+          "start": 237.1866875,
+          "end": 237.52668749999998
+        },
+        {
+          "text": "to",
+          "start": 237.52668749999998,
+          "end": 237.6666875
+        },
+        {
+          "text": "be.",
+          "start": 237.6666875,
+          "end": 237.8666875
+        },
+        {
+          "text": "Those",
+          "start": 238.3866875,
+          "end": 238.58668749999998
+        },
+        {
+          "text": "who",
+          "start": 238.58668749999998,
+          "end": 238.92668749999999
+        },
+        {
+          "text": "instead",
+          "start": 238.92668749999999,
+          "end": 240.1266875
+        },
+        {
+          "text": "of",
+          "start": 240.1266875,
+          "end": 240.3266875
+        },
+        {
+          "text": "looking",
+          "start": 240.3266875,
+          "end": 240.6266875
+        },
+        {
+          "text": "on",
+          "start": 240.6266875,
+          "end": 240.8466875
+        },
+        {
+          "text": "the",
+          "start": 240.8466875,
+          "end": 240.9866875
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "original_id": 10,
+      "original_video_id": "20251029_091745",
+      "text": "outside as humans do, look at the inside to the heart and say, is the Lord with",
+      "start": 240.9866875,
+      "end": 246.4866875,
+      "words": [
+        {
+          "text": "outside",
+          "start": 240.9866875,
+          "end": 241.5466875
+        },
+        {
+          "text": "as",
+          "start": 241.5466875,
+          "end": 241.9466875
+        },
+        {
+          "text": "humans",
+          "start": 241.9466875,
+          "end": 242.2066875
+        },
+        {
+          "text": "do,",
+          "start": 242.2066875,
+          "end": 242.52668749999998
+        },
+        {
+          "text": "look",
+          "start": 242.8466875,
+          "end": 243.0466875
+        },
+        {
+          "text": "at",
+          "start": 243.0466875,
+          "end": 243.14668749999998
+        },
+        {
+          "text": "the",
+          "start": 243.14668749999998,
+          "end": 243.2666875
+        },
+        {
+          "text": "inside",
+          "start": 243.2666875,
+          "end": 243.7666875
+        },
+        {
+          "text": "to",
+          "start": 243.7666875,
+          "end": 244.2066875
+        },
+        {
+          "text": "the",
+          "start": 244.2066875,
+          "end": 244.3266875
+        },
+        {
+          "text": "heart",
+          "start": 244.3266875,
+          "end": 244.58668749999998
+        },
+        {
+          "text": "and",
+          "start": 244.58668749999998,
+          "end": 244.9466875
+        },
+        {
+          "text": "say,",
+          "start": 244.9466875,
+          "end": 245.2066875
+        },
+        {
+          "text": "is",
+          "start": 245.5066875,
+          "end": 245.8866875
+        },
+        {
+          "text": "the",
+          "start": 245.8866875,
+          "end": 246.02668749999998
+        },
+        {
+          "text": "Lord",
+          "start": 246.02668749999998,
+          "end": 246.2266875
+        },
+        {
+          "text": "with",
+          "start": 246.2266875,
+          "end": 246.4866875
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "original_id": 11,
+      "original_video_id": "20251029_091745",
+      "text": "this person? Does this person come in the name of the Lord? Because if they do, I",
+      "start": 246.4866875,
+      "end": 252.08668749999998,
+      "words": [
+        {
+          "text": "this",
+          "start": 246.4866875,
+          "end": 246.6666875
+        },
+        {
+          "text": "person?",
+          "start": 246.6666875,
+          "end": 247.08668749999998
+        },
+        {
+          "text": "Does",
+          "start": 247.2666875,
+          "end": 247.5066875
+        },
+        {
+          "text": "this",
+          "start": 247.5066875,
+          "end": 248.42668749999999
+        },
+        {
+          "text": "person",
+          "start": 248.42668749999999,
+          "end": 248.7466875
+        },
+        {
+          "text": "come",
+          "start": 248.7466875,
+          "end": 249.1066875
+        },
+        {
+          "text": "in",
+          "start": 249.1066875,
+          "end": 249.6866875
+        },
+        {
+          "text": "the",
+          "start": 249.6866875,
+          "end": 249.8266875
+        },
+        {
+          "text": "name",
+          "start": 249.8266875,
+          "end": 249.9866875
+        },
+        {
+          "text": "of",
+          "start": 249.9866875,
+          "end": 250.1266875
+        },
+        {
+          "text": "the",
+          "start": 250.1266875,
+          "end": 250.2266875
+        },
+        {
+          "text": "Lord?",
+          "start": 250.2266875,
+          "end": 250.4466875
+        },
+        {
+          "text": "Because",
+          "start": 250.90668749999998,
+          "end": 251.08668749999998
+        },
+        {
+          "text": "if",
+          "start": 251.08668749999998,
+          "end": 251.2666875
+        },
+        {
+          "text": "they",
+          "start": 251.2666875,
+          "end": 251.3866875
+        },
+        {
+          "text": "do,",
+          "start": 251.3866875,
+          "end": 251.6266875
+        },
+        {
+          "text": "I",
+          "start": 251.8666875,
+          "end": 252.08668749999998
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "original_id": 12,
+      "original_video_id": "20251029_091745",
+      "text": "want to make sure that I bless them. Now that is what Christ's likeness is. Now",
+      "start": 252.08668749999998,
+      "end": 258.4666875,
+      "words": [
+        {
+          "text": "want",
+          "start": 252.08668749999998,
+          "end": 252.2266875
+        },
+        {
+          "text": "to",
+          "start": 252.2266875,
+          "end": 252.3066875
+        },
+        {
+          "text": "make",
+          "start": 252.3066875,
+          "end": 252.4266875
+        },
+        {
+          "text": "sure",
+          "start": 252.4266875,
+          "end": 252.6866875
+        },
+        {
+          "text": "that",
+          "start": 252.6866875,
+          "end": 252.96668749999998
+        },
+        {
+          "text": "I",
+          "start": 252.96668749999998,
+          "end": 253.1666875
+        },
+        {
+          "text": "bless",
+          "start": 253.1666875,
+          "end": 253.52668749999998
+        },
+        {
+          "text": "them.",
+          "start": 253.52668749999998,
+          "end": 253.9266875
+        },
+        {
+          "text": "Now",
+          "start": 255.4266875,
+          "end": 255.64668749999998
+        },
+        {
+          "text": "that",
+          "start": 255.64668749999998,
+          "end": 255.96668749999998
+        },
+        {
+          "text": "is",
+          "start": 255.96668749999998,
+          "end": 256.7266875
+        },
+        {
+          "text": "what",
+          "start": 256.7266875,
+          "end": 256.8866875
+        },
+        {
+          "text": "Christ's",
+          "start": 256.8866875,
+          "end": 257.3266875
+        },
+        {
+          "text": "likeness",
+          "start": 257.3266875,
+          "end": 257.5866875
+        },
+        {
+          "text": "is.",
+          "start": 257.5866875,
+          "end": 257.9466875
+        },
+        {
+          "text": "Now",
+          "start": 258.2666875,
+          "end": 258.4666875
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "original_id": 13,
+      "original_video_id": "20251029_091745",
+      "text": "that is what Christ's likeness is. And Jesus promised that we won't see Him again",
+      "start": 258.4666875,
+      "end": 262.84668750000003,
+      "words": [
+        {
+          "text": "that",
+          "start": 258.4666875,
+          "end": 258.6866875
+        },
+        {
+          "text": "is",
+          "start": 258.6866875,
+          "end": 259.16668749999997
+        },
+        {
+          "text": "what",
+          "start": 259.16668749999997,
+          "end": 259.3066875
+        },
+        {
+          "text": "Christ's",
+          "start": 259.3066875,
+          "end": 259.9066875
+        },
+        {
+          "text": "likeness",
+          "start": 259.9066875,
+          "end": 259.9866875
+        },
+        {
+          "text": "is.",
+          "start": 259.9866875,
+          "end": 260.2466875
+        },
+        {
+          "text": "And",
+          "start": 260.6066875,
+          "end": 260.8066875
+        },
+        {
+          "text": "Jesus",
+          "start": 260.8066875,
+          "end": 261.0666875
+        },
+        {
+          "text": "promised",
+          "start": 261.0666875,
+          "end": 261.4266875
+        },
+        {
+          "text": "that",
+          "start": 261.4266875,
+          "end": 261.6466875
+        },
+        {
+          "text": "we",
+          "start": 261.6466875,
+          "end": 261.8066875
+        },
+        {
+          "text": "won't",
+          "start": 261.8066875,
+          "end": 262.0866875
+        },
+        {
+          "text": "see",
+          "start": 262.0866875,
+          "end": 262.3266875
+        },
+        {
+          "text": "Him",
+          "start": 262.3266875,
+          "end": 262.54668749999996
+        },
+        {
+          "text": "again",
+          "start": 262.54668749999996,
+          "end": 262.84668750000003
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "original_id": 14,
+      "original_video_id": "20251029_091745",
+      "text": "until we all start saying that. So that is my ask today. Instead of asking why",
+      "start": 262.84668750000003,
+      "end": 270.9666875,
+      "words": [
+        {
+          "text": "until",
+          "start": 262.84668750000003,
+          "end": 263.66668749999997
+        },
+        {
+          "text": "we",
+          "start": 263.66668749999997,
+          "end": 264.16668749999997
+        },
+        {
+          "text": "all",
+          "start": 264.16668749999997,
+          "end": 264.4666875
+        },
+        {
+          "text": "start",
+          "start": 264.4666875,
+          "end": 264.7466875
+        },
+        {
+          "text": "saying",
+          "start": 264.7466875,
+          "end": 265.1466875
+        },
+        {
+          "text": "that.",
+          "start": 265.1466875,
+          "end": 265.5666875
+        },
+        {
+          "text": "So",
+          "start": 266.1466875,
+          "end": 266.66668749999997
+        },
+        {
+          "text": "that",
+          "start": 266.66668749999997,
+          "end": 266.8666875
+        },
+        {
+          "text": "is",
+          "start": 266.8666875,
+          "end": 267.0066875
+        },
+        {
+          "text": "my",
+          "start": 267.0066875,
+          "end": 267.2466875
+        },
+        {
+          "text": "ask",
+          "start": 267.2466875,
+          "end": 267.5866875
+        },
+        {
+          "text": "today.",
+          "start": 267.5866875,
+          "end": 267.9866875
+        },
+        {
+          "text": "Instead",
+          "start": 268.6066875,
+          "end": 269.0066875
+        },
+        {
+          "text": "of",
+          "start": 269.0066875,
+          "end": 269.3866875
+        },
+        {
+          "text": "asking",
+          "start": 269.3866875,
+          "end": 269.8066875
+        },
+        {
+          "text": "why",
+          "start": 269.8066875,
+          "end": 270.9666875
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "original_id": 15,
+      "original_video_id": "20251029_091745",
+      "text": "is somebody doing that I might want to call a sin or not? You ask yourself the",
+      "start": 270.9666875,
+      "end": 275.8266875,
+      "words": [
+        {
+          "text": "is",
+          "start": 270.9666875,
+          "end": 271.2266875
+        },
+        {
+          "text": "somebody",
+          "start": 271.2266875,
+          "end": 271.5866875
+        },
+        {
+          "text": "doing",
+          "start": 271.5866875,
+          "end": 271.9666875
+        },
+        {
+          "text": "that",
+          "start": 271.9666875,
+          "end": 272.4466875
+        },
+        {
+          "text": "I",
+          "start": 272.4466875,
+          "end": 272.66668749999997
+        },
+        {
+          "text": "might",
+          "start": 272.66668749999997,
+          "end": 272.8666875
+        },
+        {
+          "text": "want",
+          "start": 272.8666875,
+          "end": 273.0666875
+        },
+        {
+          "text": "to",
+          "start": 273.0666875,
+          "end": 273.2066875
+        },
+        {
+          "text": "call",
+          "start": 273.2066875,
+          "end": 273.4466875
+        },
+        {
+          "text": "a",
+          "start": 273.4466875,
+          "end": 273.6066875
+        },
+        {
+          "text": "sin",
+          "start": 273.6066875,
+          "end": 273.8666875
+        },
+        {
+          "text": "or",
+          "start": 273.8666875,
+          "end": 274.1266875
+        },
+        {
+          "text": "not?",
+          "start": 274.1266875,
+          "end": 274.3266875
+        },
+        {
+          "text": "You",
+          "start": 274.8266875,
+          "end": 274.9866875
+        },
+        {
+          "text": "ask",
+          "start": 274.9866875,
+          "end": 275.2066875
+        },
+        {
+          "text": "yourself",
+          "start": 275.2066875,
+          "end": 275.6266875
+        },
+        {
+          "text": "the",
+          "start": 275.6266875,
+          "end": 275.8266875
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "original_id": 16,
+      "original_video_id": "20251029_091745",
+      "text": "question, how can I bless those who say that they come in the name of the Lord?",
+      "start": 275.8266875,
+      "end": 281.34668750000003,
+      "words": [
+        {
+          "text": "question,",
+          "start": 275.8266875,
+          "end": 276.1466875
+        },
+        {
+          "text": "how",
+          "start": 276.7266875,
+          "end": 276.9866875
+        },
+        {
+          "text": "can",
+          "start": 276.9866875,
+          "end": 277.1866875
+        },
+        {
+          "text": "I",
+          "start": 277.1866875,
+          "end": 277.34668750000003
+        },
+        {
+          "text": "bless",
+          "start": 277.34668750000003,
+          "end": 277.6266875
+        },
+        {
+          "text": "those",
+          "start": 277.6266875,
+          "end": 278.3666875
+        },
+        {
+          "text": "who",
+          "start": 278.3666875,
+          "end": 278.66668749999997
+        },
+        {
+          "text": "say",
+          "start": 278.66668749999997,
+          "end": 278.9266875
+        },
+        {
+          "text": "that",
+          "start": 278.9266875,
+          "end": 279.28668749999997
+        },
+        {
+          "text": "they",
+          "start": 279.28668749999997,
+          "end": 279.5066875
+        },
+        {
+          "text": "come",
+          "start": 279.5066875,
+          "end": 279.78668749999997
+        },
+        {
+          "text": "in",
+          "start": 279.78668749999997,
+          "end": 280.4266875
+        },
+        {
+          "text": "the",
+          "start": 280.4266875,
+          "end": 280.5266875
+        },
+        {
+          "text": "name",
+          "start": 280.5266875,
+          "end": 280.7266875
+        },
+        {
+          "text": "of",
+          "start": 280.7266875,
+          "end": 281.0066875
+        },
+        {
+          "text": "the",
+          "start": 281.0066875,
+          "end": 281.1266875
+        },
+        {
+          "text": "Lord?",
+          "start": 281.1266875,
+          "end": 281.34668750000003
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "original_id": 17,
+      "original_video_id": "20251029_091745",
+      "text": "In love and unity is a bill.",
+      "start": 282.2466875,
+      "end": 283.78668749999997,
+      "words": [
+        {
+          "text": "In",
+          "start": 282.2466875,
+          "end": 282.34668750000003
+        },
+        {
+          "text": "love",
+          "start": 282.34668750000003,
+          "end": 282.5266875
+        },
+        {
+          "text": "and",
+          "start": 282.5266875,
+          "end": 282.6866875
+        },
+        {
+          "text": "unity",
+          "start": 282.6866875,
+          "end": 283.0066875
+        },
+        {
+          "text": "is",
+          "start": 283.0066875,
+          "end": 283.5666875
+        },
+        {
+          "text": "a",
+          "start": 283.5666875,
+          "end": 283.6866875
+        },
+        {
+          "text": "bill.",
+          "start": 283.6866875,
+          "end": 283.78668749999997
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "original_id": 1,
+      "original_video_id": "20251029_093827",
+      "text": "How has God taught you to bless those that come in His name?",
+      "start": 286.25868749999995,
+      "end": 290.1386875,
+      "words": [
+        {
+          "text": "How",
+          "start": 286.25868749999995,
+          "end": 286.75868749999995
+        },
+        {
+          "text": "has",
+          "start": 286.75868749999995,
+          "end": 286.99868749999996
+        },
+        {
+          "text": "God",
+          "start": 286.99868749999996,
+          "end": 287.2186875
+        },
+        {
+          "text": "taught",
+          "start": 287.2186875,
+          "end": 287.5786875
+        },
+        {
+          "text": "you",
+          "start": 287.5786875,
+          "end": 287.9586875
+        },
+        {
+          "text": "to",
+          "start": 287.9586875,
+          "end": 288.37868749999996
+        },
+        {
+          "text": "bless",
+          "start": 288.37868749999996,
+          "end": 288.5986875
+        },
+        {
+          "text": "those",
+          "start": 288.5986875,
+          "end": 288.9786875
+        },
+        {
+          "text": "that",
+          "start": 288.9786875,
+          "end": 289.17868749999997
+        },
+        {
+          "text": "come",
+          "start": 289.17868749999997,
+          "end": 289.37868749999996
+        },
+        {
+          "text": "in",
+          "start": 289.37868749999996,
+          "end": 289.5386875
+        },
+        {
+          "text": "His",
+          "start": 289.5386875,
+          "end": 289.7786875
+        },
+        {
+          "text": "name?",
+          "start": 289.7786875,
+          "end": 290.1386875
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "original_id": 2,
+      "original_video_id": "20251029_093827",
+      "text": "Share your revelations in the comments below.",
+      "start": 290.6386875,
+      "end": 292.29868749999997,
+      "words": [
+        {
+          "text": "Share",
+          "start": 290.6386875,
+          "end": 290.8386875
+        },
+        {
+          "text": "your",
+          "start": 290.8386875,
+          "end": 291.0186875
+        },
+        {
+          "text": "revelations",
+          "start": 291.0186875,
+          "end": 291.4586875
+        },
+        {
+          "text": "in",
+          "start": 291.4586875,
+          "end": 291.6586875
+        },
+        {
+          "text": "the",
+          "start": 291.6586875,
+          "end": 291.73868749999997
+        },
+        {
+          "text": "comments",
+          "start": 291.73868749999997,
+          "end": 291.99868749999996
+        },
+        {
+          "text": "below.",
+          "start": 291.99868749999996,
+          "end": 292.29868749999997
+        }
+      ]
+    }
+  ]
+}

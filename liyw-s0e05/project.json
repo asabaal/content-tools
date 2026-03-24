@@ -1,0 +1,20 @@
+{
+  "schema_version": "2.0",
+  "project": {
+    "name": "Life is Your Word S0E05",
+    "created": "2026-03-24",
+    "modified": "2026-03-24",
+    "season": 0,
+    "episode": 5
+  },
+  "paths": {
+    "raw": "raw",
+    "transcripts": "transcripts",
+    "combined_video": "video_combined.mp4",
+    "combined_transcript": "transcript_combined.json",
+    "waveforms": "waveforms.json",
+    "output": "output"
+  },
+  "videos": [],
+  "clips": []
+}
