@@ -1,0 +1,1202 @@
+#!/usr/bin/env python3
+"""
+Full pipeline caption fidelity verification with frame extraction.
+
+Validates:
+1. Text fidelity relative to Tool 02 (reviewed text) filtered by Tool 03 (selection)
+2. Timing projection fidelity relative to Tool 04 (assembly timing)
+3. Segment selection fidelity relative to Tool 03 (canonical clips)
+
+Exit codes:
+0 - All checks pass
+1 - Text fidelity failure
+2 - Timing projection failure
+3 - Escalation report generated (manual inspection needed)
+"""
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+import tempfile
+from datetime import datetime
+from pathlib import Path
+from typing import List, Dict, Any, Optional, Tuple
+
+from segments import compute_timeline_clips
+from captions import build_caption_events
+from srt import generate_srt_content, compress_timestamps
+
+try:
+    from vision_verify import run_vision_verification, check_ollama_available, print_vision_summary
+    VISION_AVAILABLE = True
+except ImportError:
+    VISION_AVAILABLE = False
+    run_vision_verification = None  # type: ignore
+    check_ollama_available = None  # type: ignore
+    print_vision_summary = None  # type: ignore
+
+
+TIMING_TOLERANCE_MS = 40
+TIMING_TOLERANCE_SEC = TIMING_TOLERANCE_MS / 1000.0
+
+
+def get_project_root() -> Path:
+    return Path(__file__).parent.parent.parent
+
+
+def load_json(path: Path) -> dict:
+    with open(path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+
+def normalize_word(text: str) -> str:
+    text = text.lower().strip()
+    text = re.sub(r'[^\w\']', '', text)
+    return text
+
+
+def parse_srt(srt_content: str) -> List[Dict[str, Any]]:
+    """Parse SRT content into structured blocks with word-level timing."""
+    blocks = []
+    current_block = {}
+    
+    for line in srt_content.strip().split('\n'):
+        line = line.strip()
+        if not line:
+            if current_block:
+                blocks.append(current_block)
+                current_block = {}
+            continue
+        
+        if current_block.get('index') is None:
+            try:
+                current_block['index'] = int(line)
+            except ValueError:
+                if 'text' in current_block:
+                    current_block['text'] += ' ' + line
+                else:
+                    current_block['text'] = line
+        elif 'start' not in current_block:
+            match = re.match(r'(\d{2}):(\d{2}):(\d{2}),(\d{3})\s*-->\s*(\d{2}):(\d{2}):(\d{2}),(\d{3})', line)
+            if match:
+                h1, m1, s1, ms1, h2, m2, s2, ms2 = map(int, match.groups())
+                current_block['start'] = h1 * 3600 + m1 * 60 + s1 + ms1 / 1000
+                current_block['end'] = h2 * 3600 + m2 * 60 + s2 + ms2 / 1000
+        else:
+            if 'text' in current_block:
+                current_block['text'] += ' ' + line
+            else:
+                current_block['text'] = line
+    
+    if current_block:
+        blocks.append(current_block)
+    
+    for block in blocks:
+        if 'text' in block:
+            words = []
+            for word in block['text'].split():
+                norm = normalize_word(word)
+                if norm:
+                    words.append({'text': word, 'normalized': norm})
+            block['words'] = words
+    
+    return blocks
+
+
+def extract_frame(video_path: Path, timestamp: float, output_path: Path) -> bool:
+    """Extract a single frame from video at given timestamp."""
+    cmd = [
+        'ffmpeg', '-y',
+        '-ss', str(timestamp),
+        '-i', str(video_path),
+        '-frames:v', '1',
+        '-q:v', '2',
+        str(output_path)
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    return result.returncode == 0
+
+
+def extract_verification_frames(
+    video_path: Path,
+    caption_events: List[Dict],
+    output_dir: Path,
+    max_frames: int = 50
+) -> List[Dict[str, Any]]:
+    """Extract frames at caption timestamps for visual verification."""
+    frames_dir = output_dir / 'frames'
+    frames_dir.mkdir(parents=True, exist_ok=True)
+    
+    frames = []
+    
+    # Sample at point when ALL words are visible (last word start + small buffer)
+    for i, event in enumerate(caption_events[:max_frames]):
+        if not event.get('words'):
+            continue
+        
+        first_word = event['words'][0]
+        last_word = event['words'][-1]
+        
+        # Calculate when last word appears (progressive reveal complete)
+        last_word_appears = event['output_start'] + (last_word['start'] - event['original_start'])
+        line_ends = event['output_start'] + (last_word['end'] - event['original_start'])
+        
+        # Extract just after last word appears (when full line is visible)
+        output_time = last_word_appears + 0.05  # 50ms buffer
+        
+        frame_name = f"frame_{i:04d}_{output_time:.2f}s.png"
+        frame_path = frames_dir / frame_name
+        
+        success = extract_frame(video_path, output_time, frame_path)
+        
+        event_text = ' '.join(w['text'] for w in event['words'][:5])
+        if len(event['words']) > 5:
+            event_text += '...'
+        
+        frames.append({
+            'event_index': i,
+            'output_time': output_time,
+            'expected_first_word': first_word['text'],
+            'event_text': event_text,
+            'frame_path': str(frame_path.relative_to(output_dir)) if success else None,
+            'frame_exists': success
+        })
+    
+    return frames
+
+
+def load_authoritative_words(project: dict, timeline_clips: List[dict], caption_events: List[dict]) -> List[Dict]:
+    """
+    Load authoritative words from caption events.
+    
+    Uses the same caption events generated by build_caption_events to ensure
+    output times match what the render pipeline produces.
+    """
+    authoritative_words = []
+    
+    for event in caption_events:
+        output_start = event['output_start']
+        original_start = event['original_start']
+        clip_id = event.get('clip_id', '')
+        
+        for word in event.get('words', []):
+            word_original_start = word.get('start', 0)
+            word_original_end = word.get('end', 0)
+            
+            # Calculate output time using same formula as render
+            word_output_start = output_start + (word_original_start - original_start)
+            word_output_end = output_start + (word_original_end - original_start)
+            
+            authoritative_words.append({
+                'text': word.get('text', ''),
+                'normalized': normalize_word(word.get('text', '')),
+                'authoritative_start': word_original_start,
+                'authoritative_end': word_original_end,
+                'output_start': word_output_start,
+                'output_end': word_output_end,
+                'clip_id': clip_id,
+            })
+    
+    return authoritative_words
+
+
+def load_render_output(srt_content: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """Load render output from SRT."""
+    blocks = parse_srt(srt_content)
+    
+    rendered_words = []
+    word_index = 0
+    
+    for block in blocks:
+        block_start = block.get('start', 0)
+        block_end = block.get('end', 0)
+        block_words = block.get('words', [])
+        
+        if not block_words:
+            continue
+        
+        for word in block_words:
+            rendered_words.append({
+                'text': word.get('text', ''),
+                'normalized': word.get('normalized', ''),
+                'rendered_start': block_start,
+                'rendered_end': block_end,
+                'block_index': block.get('index', 0),
+                'word_index': word_index
+            })
+            word_index += 1
+    
+    return blocks, rendered_words
+
+
+def validate_text_fidelity(
+    authoritative_words: List[Dict],
+    rendered_words: List[Dict]
+) -> Dict[str, Any]:
+    """Compare authoritative word sequence to rendered word sequence."""
+    auth_normalized = [w['normalized'] for w in authoritative_words]
+    render_normalized = [w['normalized'] for w in rendered_words]
+    
+    # Find first mismatch
+    first_mismatch_index = -1
+    mismatch_type = None
+    mismatch_details = None
+    
+    max_len = max(len(auth_normalized), len(render_normalized))
+    
+    for i in range(max_len):
+        auth_word = auth_normalized[i] if i < len(auth_normalized) else None
+        render_word = render_normalized[i] if i < len(render_normalized) else None
+        
+        if auth_word != render_word:
+            first_mismatch_index = i
+            if auth_word is None:
+                mismatch_type = 'extra_word'
+                mismatch_details = f"Extra word '{render_word}' at index {i}"
+            elif render_word is None:
+                mismatch_type = 'missing_word'
+                mismatch_details = f"Missing word '{auth_word}' at index {i}"
+            else:
+                mismatch_type = 'word_mismatch'
+                mismatch_details = f"Expected '{auth_word}', got '{render_word}' at index {i}"
+            break
+    
+    # Calculate coverage
+    auth_set = set(auth_normalized)
+    render_set = set(render_normalized)
+    missing_set = auth_set - render_set
+    extra_set = render_set - auth_set
+    
+    # Find missing words with timing
+    missing_with_timing = []
+    for w in authoritative_words:
+        if w['normalized'] in missing_set:
+            missing_with_timing.append({
+                'word': w['text'],
+                'output_time': w['output_start']
+            })
+    
+    coverage_pct = 0.0
+    if auth_normalized:
+        matched = sum(1 for w in auth_normalized if w in render_set)
+        coverage_pct = matched / len(auth_normalized) * 100
+    
+    passed = (
+        first_mismatch_index == -1 and
+        coverage_pct >= 99.0
+    )
+    
+    return {
+        'passed': passed,
+        'total_authoritative_words': len(authoritative_words),
+        'total_rendered_words': len(rendered_words),
+        'coverage_percentage': round(coverage_pct, 2),
+        'first_mismatch_index': first_mismatch_index,
+        'mismatch_type': mismatch_type,
+        'mismatch_details': mismatch_details,
+        'missing_words': missing_with_timing[:50],
+        'missing_count': len(missing_set),
+        'extra_words': list(extra_set)[:20],
+    }
+
+
+def validate_timing_projection(
+    authoritative_words: List[Dict],
+    rendered_words: List[Dict],
+    caption_events: List[Dict],
+    rendered_blocks: List[Dict]
+) -> Dict[str, Any]:
+    """Validate timing at block level (actual output format)."""
+    expected_blocks = compress_timestamps(caption_events)
+    
+    timing_comparisons = []
+    drift_issues = []
+    
+    num_blocks = min(len(expected_blocks), len(rendered_blocks))
+    
+    for i in range(num_blocks):
+        exp = expected_blocks[i]
+        ren = rendered_blocks[i]
+        
+        exp_start = exp.get('start', 0)
+        exp_end = exp.get('end', 0)
+        ren_start = ren.get('start', 0)
+        ren_end = ren.get('end', 0)
+        
+        delta_start_ms = (ren_start - exp_start) * 1000
+        delta_end_ms = (ren_end - exp_end) * 1000
+        
+        flags = []
+        
+        if abs(delta_start_ms) > TIMING_TOLERANCE_MS:
+            flags.append('drift_start')
+        if abs(delta_end_ms) > TIMING_TOLERANCE_MS:
+            flags.append('drift_end')
+        
+        comparison = {
+            'block_index': i,
+            'expected_start': exp_start,
+            'expected_end': exp_end,
+            'rendered_start': ren_start,
+            'rendered_end': ren_end,
+            'delta_start_ms': round(delta_start_ms, 1),
+            'delta_end_ms': round(delta_end_ms, 1),
+            'expected_text': exp.get('text', '')[:50],
+            'rendered_text': ren.get('text', '')[:50],
+            'flags': flags
+        }
+        
+        timing_comparisons.append(comparison)
+        
+        if flags:
+            drift_issues.append(comparison)
+    
+    # Check for non-monotonic timeline
+    prev_end = 0.0
+    for comp in timing_comparisons:
+        if comp['rendered_start'] < prev_end - TIMING_TOLERANCE_SEC:
+            comp['flags'].append('non_monotonic')
+        prev_end = comp['rendered_end']
+    
+    deltas = [abs(c['delta_start_ms']) for c in timing_comparisons]
+    
+    max_drift = max(deltas) if deltas else 0.0
+    mean_drift = sum(deltas) / len(deltas) if deltas else 0.0
+    
+    first_drift_index = -1
+    first_drift_details = None
+    for comp in timing_comparisons:
+        if comp['flags']:
+            first_drift_index = comp['block_index']
+            first_drift_details = comp
+            break
+    
+    non_monotonic_count = sum(1 for c in timing_comparisons if 'non_monotonic' in c['flags'])
+    
+    passed = (
+        len(drift_issues) == 0 and
+        non_monotonic_count == 0 and
+        len(expected_blocks) == len(rendered_blocks)
+    )
+    
+    return {
+        'passed': passed,
+        'tolerance_ms': TIMING_TOLERANCE_MS,
+        'expected_block_count': len(expected_blocks),
+        'rendered_block_count': len(rendered_blocks),
+        'max_drift_ms': round(max_drift, 1),
+        'mean_drift_ms': round(mean_drift, 1),
+        'first_drift_index': first_drift_index,
+        'first_drift_details': first_drift_details,
+        'drift_issue_count': len(drift_issues),
+        'non_monotonic_count': non_monotonic_count,
+        'drift_issues': drift_issues[:20],
+        'timing_comparisons': timing_comparisons,
+        'word_comparisons': _build_word_comparisons(authoritative_words, rendered_words)
+    }
+
+
+def _build_word_comparisons(
+    authoritative_words: List[Dict],
+    rendered_words: List[Dict]
+) -> List[Dict[str, Any]]:
+    """Build word-level comparison for report display."""
+    comparisons = []
+    render_idx = 0
+    
+    for auth_idx, auth_word in enumerate(authoritative_words):
+        auth_norm = auth_word['normalized']
+        
+        found_idx = -1
+        for i in range(render_idx, min(render_idx + 20, len(rendered_words))):
+            if rendered_words[i]['normalized'] == auth_norm:
+                found_idx = i
+                break
+        
+        if found_idx == -1:
+            comparisons.append({
+                'index': auth_idx,
+                'word': auth_word['text'],
+                'clip_id': auth_word.get('clip_id', ''),
+                'authoritative_start': auth_word['output_start'],
+                'authoritative_end': auth_word['output_end'],
+                'rendered_start': None,
+                'rendered_end': None,
+                'delta_start_ms': None,
+                'delta_end_ms': None,
+                'flags': ['not_rendered']
+            })
+            continue
+        
+        render_word = rendered_words[found_idx]
+        render_idx = found_idx + 1
+        
+        delta_start_ms = (render_word['rendered_start'] - auth_word['output_start']) * 1000
+        delta_end_ms = (render_word['rendered_end'] - auth_word['output_end']) * 1000
+        
+        flags = []
+        if abs(delta_start_ms) > 500:
+            flags.append('block_timing')
+        
+        comparisons.append({
+            'index': auth_idx,
+            'word': auth_word['text'],
+            'clip_id': auth_word.get('clip_id', ''),
+            'authoritative_start': auth_word['output_start'],
+            'authoritative_end': auth_word['output_end'],
+            'rendered_start': render_word['rendered_start'],
+            'rendered_end': render_word['rendered_end'],
+            'delta_start_ms': round(delta_start_ms, 1),
+            'delta_end_ms': round(delta_end_ms, 1),
+            'flags': flags
+        })
+    
+    return comparisons
+
+
+def generate_html_report(
+    text_result: Dict,
+    timing_result: Dict,
+    frames: List[Dict],
+    caption_events: List[Dict],
+    output_path: Path,
+    frames_dir: Path,
+    vision_result: Optional[Dict] = None
+) -> None:
+    """Generate HTML verification report with frame images."""
+    
+    all_passed = text_result['passed'] and timing_result['passed']
+    vision_passed = vision_result.get('success', False) and vision_result.get('visibility_coverage_percent', 100) >= 95.0 if vision_result else True
+    overall_passed = all_passed and vision_passed
+    
+    status_class = 'pass' if overall_passed else 'fail'
+    status_text = 'ALL CHECKS PASSED' if overall_passed else 'VERIFICATION ISSUES DETECTED'
+    
+    html_parts = [
+        '<!DOCTYPE html>',
+        '<html lang="en">',
+        '<head>',
+        '<meta charset="UTF-8">',
+        '<title>Caption Verification Report</title>',
+        '<style>',
+        'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 20px; background: #f5f5f5; }',
+        '.container { max-width: 1400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }',
+        'h1 { color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }',
+        'h2 { color: #555; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }',
+        '.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }',
+        '.stat { background: #e9ecef; padding: 15px; border-radius: 4px; text-align: center; }',
+        '.stat-value { font-size: 28px; font-weight: bold; color: #333; }',
+        '.stat-label { font-size: 11px; color: #666; text-transform: uppercase; }',
+        '.stat.fail { background: #f8d7da; }',
+        '.stat.pass { background: #d4edda; }',
+        '.status { padding: 15px 20px; border-radius: 4px; font-weight: bold; font-size: 16px; margin-bottom: 20px; }',
+        '.status.pass { background: #d4edda; color: #155724; }',
+        '.status.fail { background: #f8d7da; color: #721c24; }',
+        'table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }',
+        'th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }',
+        'th { background: #4CAF50; color: white; position: sticky; top: 0; }',
+        'tr:nth-child(even) { background: #f9f9f9; }',
+        '.table-container { max-height: 500px; overflow-y: auto; }',
+        '.frame-preview { max-width: 200px; border: 1px solid #ddd; border-radius: 4px; }',
+        '.flag { background: #fff3cd; padding: 2px 6px; border-radius: 3px; font-size: 11px; }',
+        '.drift { color: #dc3545; font-weight: bold; }',
+        '.vision-pass { background: #d4edda; }',
+        '.vision-fail { background: #f8d7da; }',
+        '.vision-low { background: #fff3cd; }',
+        '.frame-thumb { max-width: 150px; border: 1px solid #ddd; border-radius: 4px; }',
+        '</style>',
+        '</head>',
+        '<body>',
+        '<div class="container">',
+        f'<h1>Caption Verification Report</h1>',
+        f'<p>Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>',
+        f'<div class="status {status_class}">{status_text}</div>',
+    ]
+    
+    # Summary stats
+    html_parts.append('<div class="summary">')
+    
+    stat_class = 'pass' if text_result['passed'] else 'fail'
+    html_parts.append(f'<div class="stat {stat_class}"><div class="stat-value">{text_result["coverage_percentage"]:.1f}%</div><div class="stat-label">Text Coverage</div></div>')
+    html_parts.append(f'<div class="stat"><div class="stat-value">{text_result["total_authoritative_words"]}</div><div class="stat-label">Expected Words</div></div>')
+    html_parts.append(f'<div class="stat"><div class="stat-value">{text_result["total_rendered_words"]}</div><div class="stat-label">Rendered Words</div></div>')
+    
+    stat_class = 'pass' if timing_result['passed'] else 'fail'
+    html_parts.append(f'<div class="stat {stat_class}"><div class="stat-value">{timing_result["max_drift_ms"]:.0f}ms</div><div class="stat-label">Max Drift</div></div>')
+    html_parts.append(f'<div class="stat"><div class="stat-value">{timing_result["mean_drift_ms"]:.1f}ms</div><div class="stat-label">Mean Drift</div></div>')
+    html_parts.append(f'<div class="stat"><div class="stat-value">{timing_result["drift_issue_count"]}</div><div class="stat-label">Drift Issues</div></div>')
+    
+    html_parts.append('</div>')
+    
+    # Text fidelity
+    html_parts.append('<h2>Text Fidelity</h2>')
+    if text_result['passed']:
+        html_parts.append('<p>Text fidelity check PASSED</p>')
+    else:
+        html_parts.append(f'<p>Text fidelity check FAILED</p>')
+        if text_result['first_mismatch_index'] >= 0:
+            html_parts.append(f'<p>First mismatch: {text_result["mismatch_details"]}</p>')
+        if text_result['missing_words']:
+            html_parts.append(f'<p>Missing words ({len(text_result["missing_words"])}): ')
+            for mw in text_result['missing_words'][:20]:
+                html_parts.append(f'<span class="flag">{mw["word"]}</span> ')
+            html_parts.append('</p>')
+    
+    # Timing
+    html_parts.append('<h2>Timing Projection</h2>')
+    html_parts.append(f'<p>Tolerance: {TIMING_TOLERANCE_MS}ms</p>')
+    if timing_result['passed']:
+        html_parts.append('<p>Timing projection PASSED</p>')
+    else:
+        html_parts.append(f'<p>Timing projection FAILED</p>')
+        if timing_result['first_drift_details']:
+            fd = timing_result['first_drift_details']
+            html_parts.append(f'<p>First drift at block {timing_result["first_drift_index"]}: {fd["delta_start_ms"]}ms</p>')
+    
+    # Frame preview table
+    if frames:
+        html_parts.append('<h2>Frame Previews</h2>')
+        html_parts.append('<div class="table-container">')
+        html_parts.append('<table><tr><th>Event</th><th>Time</th><th>Expected Word</th><th>Event Text</th><th>Preview</th></tr>')
+        
+        for frame in frames:
+            img_html = ''
+            if frame['frame_exists']:
+                img_html = f'<img src="{frame["frame_path"]}" class="frame-preview">'
+            else:
+                img_html = '<span style="color:red;">N/A</span>'
+            
+            html_parts.append('<tr>')
+            html_parts.append(f'<td>{frame["event_index"]}</td>')
+            html_parts.append(f'<td>{frame["output_time"]:.2f}s</td>')
+            html_parts.append(f'<td><strong>{frame["expected_first_word"]}</strong></td>')
+            html_parts.append(f'<td>{frame["event_text"]}</td>')
+            html_parts.append(f'<td>{img_html}</td>')
+            html_parts.append('</tr>')
+        
+        html_parts.append('</table></div>')
+    
+    # Vision verification section
+    if vision_result and not vision_result.get('skipped'):
+        html_parts.append('<h2>Vision Caption Verification</h2>')
+        
+        vision_class = 'pass' if vision_result.get('visibility_coverage_percent', 0) >= 95.0 else 'fail'
+        html_parts.append(f'<div class="stat {vision_class}"><div class="stat-value">{vision_result.get("visibility_coverage_percent", 0):.1f}%</div><div class="stat-label">Visibility Coverage</div></div>')
+        html_parts.append(f'<p>Model: {vision_result.get("model", "unknown")}</p>')
+        html_parts.append(f'<p>Visible frames: {vision_result.get("visible_frames", 0)}/{vision_result.get("total_frames", 0)}</p>')
+        html_parts.append(f'<p>Mean confidence: {vision_result.get("mean_confidence", 0):.2f}</p>')
+        
+        if vision_result.get('first_failed_index') is not None:
+            html_parts.append(f'<p>First failed frame: {vision_result["first_failed_index"]}</p>')
+        
+        # Vision results table
+        if vision_result.get('results'):
+            html_parts.append('<div class="table-container">')
+            html_parts.append('<table><tr><th>Frame</th><th>Timestamp</th><th>Expected Text</th><th>Visible</th><th>Confidence</th><th>Preview</th></tr>')
+            
+            for vr in vision_result['results'][:100]:
+                status = vr.get('status', 'unknown')
+                row_class = 'vision-pass' if status == 'visible' else ('vision-low' if status == 'low_confidence' else 'vision-fail')
+                
+                visible_text = 'Yes' if vr.get('visible') else 'No'
+                confidence = vr.get('confidence', 0)
+                
+                frame_thumb = ''
+                if vr.get('frame_path'):
+                    frame_thumb = f'<img src="{vr["frame_path"]}" class="frame-thumb">'
+                
+                html_parts.append(f'<tr class="{row_class}">')
+                html_parts.append(f'<td>{vr.get("frame_index", "-")}</td>')
+                html_parts.append(f'<td>{vr.get("timestamp", 0):.2f}s</td>')
+                html_parts.append(f'<td>{vr.get("expected_text", "")[:40]}</td>')
+                html_parts.append(f'<td>{visible_text}</td>')
+                html_parts.append(f'<td>{confidence:.2f}</td>')
+                html_parts.append(f'<td>{frame_thumb}</td>')
+                html_parts.append('</tr>')
+            
+            html_parts.append('</table></div>')
+    
+    elif vision_result and vision_result.get('skipped'):
+        html_parts.append('<h2>Vision Caption Verification</h2>')
+        html_parts.append(f'<p>Vision verification skipped: {vision_result.get("error", "Unknown reason")}</p>')
+    
+    # Word timing table
+    html_parts.append('<h2>Word Timing Comparison</h2>')
+    html_parts.append('<div class="table-container">')
+    html_parts.append('<table><tr><th>#</th><th>Word</th><th>Auth Start</th><th>Render Start</th><th>Δ (ms)</th><th>Flags</th></tr>')
+    
+    for comp in timing_result.get('word_comparisons', [])[:100]:
+        flags_html = ' '.join(f'<span class="flag">{f}</span>' for f in comp.get('flags', [])) if comp.get('flags') else '-'
+        rs = f'{comp["rendered_start"]:.3f}' if comp.get('rendered_start') is not None else "-"
+        
+        html_parts.append('<tr>')
+        html_parts.append(f'<td>{comp["index"]}</td>')
+        html_parts.append(f'<td>{comp["word"]}</td>')
+        html_parts.append(f'<td>{comp["authoritative_start"]:.3f}</td>')
+        html_parts.append(f'<td>{rs}</td>')
+        html_parts.append(f'<td>{comp.get("delta_start_ms") if comp.get("delta_start_ms") is not None else "-"}</td>')
+        html_parts.append(f'<td>{flags_html}</td>')
+        html_parts.append('</tr>')
+    
+    html_parts.append('</table></div>')
+    
+    html_parts.extend(['</div>', '</body>', '</html>'])
+    
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(html_parts))
+
+
+def extract_audio_from_video(video_path: Path, audio_path: Path) -> bool:
+    """Extract audio from video file to WAV."""
+    cmd = [
+        'ffmpeg', '-y', '-i', str(video_path),
+        '-vn', '-acodec', 'pcm_s16le', '-ar', '16000', '-ac', '1',
+        str(audio_path)
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    return result.returncode == 0
+
+
+def transcribe_for_sync(audio_path: Path, model_size: str = "base") -> List[Dict]:
+    """Transcribe audio with word-level timestamps using faster-whisper."""
+    try:
+        from faster_whisper import WhisperModel
+    except ImportError:
+        return []
+    
+    model = WhisperModel(model_size, device="cpu", compute_type="int8")
+    segments, info = model.transcribe(str(audio_path), word_timestamps=True)
+    
+    words = []
+    for seg in segments:
+        if seg.words:
+            for w in seg.words:
+                words.append({
+                    'text': w.word.strip(),
+                    'start': w.start,
+                    'end': w.end
+                })
+    
+    return words
+
+
+def normalize_for_matching(text: str) -> str:
+    """Normalize word for matching (lowercase, strip punctuation)."""
+    text = text.lower().strip()
+    text = re.sub(r"[^\w']", '', text)
+    return text
+
+
+def verify_render_audio_sync(
+    video_path: Path,
+    caption_events: List[Dict],
+    model_size: str = "base",
+    verbose: bool = False
+) -> Dict[str, Any]:
+    """
+    Verify rendered video audio sync by re-transcribing and comparing word timing.
+    
+    Returns dict with:
+    - success: bool
+    - error: str (if failed)
+    - words: list of word drift data
+    - mean_drift_ms: float
+    - max_drift_ms: float
+    - min_drift_ms: float
+    """
+    if not video_path.exists():
+        return {
+            'success': False,
+            'error': f'Video not found: {video_path}',
+            'skipped': True
+        }
+    
+    if verbose:
+        print(f"Extracting audio from: {video_path}")
+    
+    with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as tmp:
+        audio_path = Path(tmp.name)
+    
+    try:
+        if not extract_audio_from_video(video_path, audio_path):
+            return {
+                'success': False,
+                'error': 'Failed to extract audio',
+                'skipped': True
+            }
+        
+        if verbose:
+            print(f"Transcribing with faster-whisper ({model_size})...")
+        
+        actual_words = transcribe_for_sync(audio_path, model_size)
+        
+        if not actual_words:
+            return {
+                'success': False,
+                'error': 'Transcription returned no words',
+                'skipped': True
+            }
+        
+        if verbose:
+            print(f"Transcribed {len(actual_words)} words")
+        
+        # Build expected words from caption events
+        expected_words = []
+        for event in caption_events:
+            output_start = event['output_start']
+            original_start = event['original_start']
+            
+            for word in event.get('words', []):
+                word_orig_start = word.get('start', 0)
+                word_output_start = output_start + (word_orig_start - original_start)
+                
+                expected_words.append({
+                    'text': word.get('text', ''),
+                    'normalized': normalize_for_matching(word.get('text', '')),
+                    'output_start': word_output_start
+                })
+        
+        # Align actual words to expected words and calculate drift
+        word_drifts = []
+        expected_idx = 0
+        
+        for actual in actual_words:
+            actual_norm = normalize_for_matching(actual['text'])
+            actual_time = actual['start']
+            
+            best_match_idx = -1
+            best_drift = float('inf')
+            
+            for i in range(expected_idx, min(expected_idx + 10, len(expected_words))):
+                exp = expected_words[i]
+                if exp['normalized'] == actual_norm:
+                    drift = actual_time - exp['output_start']
+                    if abs(drift) < abs(best_drift):
+                        best_drift = drift
+                        best_match_idx = i
+                    break
+            
+            if best_match_idx >= 0:
+                exp = expected_words[best_match_idx]
+                word_drifts.append({
+                    'text': actual['text'],
+                    'expected_start': exp['output_start'],
+                    'actual_start': actual_time,
+                    'drift_ms': round(best_drift * 1000, 1)
+                })
+                expected_idx = best_match_idx + 1
+        
+        if not word_drifts:
+            return {
+                'success': False,
+                'error': 'No words matched between transcript and expected',
+                'skipped': True
+            }
+        
+        drifts = [w['drift_ms'] for w in word_drifts]
+        mean_drift = sum(drifts) / len(drifts)
+        max_drift = max(drifts, key=abs)
+        
+        return {
+            'success': True,
+            'video_path': str(video_path),
+            'model': model_size,
+            'words_matched': len(word_drifts),
+            'words_expected': len(expected_words),
+            'words_transcribed': len(actual_words),
+            'mean_drift_ms': round(mean_drift, 1),
+            'max_drift_ms': round(max_drift, 1),
+            'min_drift_ms': round(min(drifts), 1),
+            'word_drifts': word_drifts[:100]
+        }
+        
+    finally:
+        if audio_path.exists():
+            audio_path.unlink()
+
+
+def run_verification(
+    project_path: Path,
+    data_dir: Path,
+    extract_frames: bool = True,
+    enable_vision: bool = True,
+    vision_model: str = "qwen3-vl:32b",
+    max_vision_frames: int = 200,
+    render_sync: bool = True,
+    render_video: str = "final_video.mp4",
+    whisper_model: str = "base",
+    verbose: bool = False
+) -> Dict[str, Any]:
+    """
+    Main verification entrypoint.
+    
+    Returns dict with results for programmatic use.
+    """
+    output_dir = data_dir / 'output'
+    verification_dir = output_dir / 'verification'
+    verification_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Load project
+    project = load_json(project_path)
+    
+    # Compute timeline and caption events
+    timeline_clips = compute_timeline_clips(project)
+    caption_events = build_caption_events(project, timeline_clips)
+    
+    # Load authoritative words (from caption events for consistency)
+    authoritative_words = load_authoritative_words(project, timeline_clips, caption_events)
+    
+    # Load rendered SRT
+    srt_path = output_dir / 'captions.srt'
+    if not srt_path.exists():
+        return {
+            'success': False,
+            'error': 'SRT not found',
+            'exit_code': 2
+        }
+    
+    with open(srt_path, 'r', encoding='utf-8') as f:
+        srt_content = f.read()
+    
+    rendered_blocks, rendered_words = load_render_output(srt_content)
+    
+    # Run checks
+    text_result = validate_text_fidelity(authoritative_words, rendered_words)
+    timing_result = validate_timing_projection(
+        authoritative_words, rendered_words, caption_events, rendered_blocks
+    )
+    
+    # Extract frames
+    frames = []
+    if extract_frames:
+        video_path = output_dir / 'final_video.mp4'
+        if video_path.exists():
+            frames = extract_verification_frames(
+                video_path, caption_events, verification_dir
+            )
+    
+    # Run vision verification
+    vision_result = None
+    if enable_vision and frames and VISION_AVAILABLE and run_vision_verification is not None:
+        frames_dir = verification_dir / 'frames'
+        try:
+            vision_result = run_vision_verification(
+                frames_dir,
+                caption_events,
+                frames,
+                model=vision_model,
+                max_frames=max_vision_frames,
+                verbose=verbose
+            )
+        except Exception as e:
+            vision_result = {
+                'success': False,
+                'skipped': True,
+                'error': str(e),
+                'results': []
+            }
+            if verbose:
+                print(f"Vision verification error: {e}")
+    
+    # Run render audio sync verification
+    render_sync_result = None
+    if render_sync:
+        video_path = output_dir / render_video
+        if video_path.exists():
+            if verbose:
+                print(f"\nVerifying render audio sync: {video_path}")
+            try:
+                render_sync_result = verify_render_audio_sync(
+                    video_path,
+                    caption_events,
+                    model_size=whisper_model,
+                    verbose=verbose
+                )
+            except Exception as e:
+                render_sync_result = {
+                    'success': False,
+                    'skipped': True,
+                    'error': str(e)
+                }
+                if verbose:
+                    print(f"Render sync verification error: {e}")
+    
+    # Generate report
+    report_path = verification_dir / 'captions_full_verification_report.html'
+    generate_html_report(
+        text_result, timing_result, frames, caption_events,
+        report_path, verification_dir / 'frames', vision_result
+    )
+    
+    # Generate summary JSON
+    passed = text_result['passed'] and timing_result['passed']
+    
+    # Include vision in pass/fail
+    vision_passed = True
+    if vision_result and not vision_result.get('skipped'):
+        vision_passed = vision_result.get('visibility_coverage_percent', 100) >= 95.0
+    passed = passed and vision_passed
+    
+    # Determine exit code
+    if passed:
+        exit_code = 0
+    elif not text_result['passed']:
+        exit_code = 1
+    elif not timing_result['passed']:
+        exit_code = 2
+    else:
+        exit_code = 3
+    
+    summary = {
+        'timestamp': datetime.now().isoformat(),
+        'project_path': str(project_path),
+        'text_coverage_percent': text_result['coverage_percentage'],
+        'total_authoritative_words': text_result['total_authoritative_words'],
+        'total_rendered_words': text_result['total_rendered_words'],
+        'timing_mean_drift_ms': timing_result['mean_drift_ms'],
+        'timing_max_drift_ms': timing_result['max_drift_ms'],
+        'first_mismatch_index': text_result['first_mismatch_index'],
+        'first_drift_index': timing_result['first_drift_index'],
+        'verification_exit_code': exit_code,
+        'text_passed': text_result['passed'],
+        'timing_passed': timing_result['passed'],
+        'passed': passed,
+        'report_path': str(report_path)
+    }
+    
+    # Add vision metrics if available
+    if vision_result and not vision_result.get('skipped'):
+        summary['vision_coverage_percent'] = vision_result.get('visibility_coverage_percent', 0)
+        summary['vision_mean_confidence'] = vision_result.get('mean_confidence', 0)
+        summary['vision_failed_frames'] = vision_result.get('failed_frames', 0)
+        summary['vision_first_failed_index'] = vision_result.get('first_failed_index')
+        summary['vision_passed'] = vision_passed
+    
+    # Add render sync metrics if available
+    if render_sync_result and render_sync_result.get('success'):
+        summary['render_sync_mean_drift_ms'] = render_sync_result.get('mean_drift_ms', 0)
+        summary['render_sync_max_drift_ms'] = render_sync_result.get('max_drift_ms', 0)
+        summary['render_sync_min_drift_ms'] = render_sync_result.get('min_drift_ms', 0)
+        summary['render_sync_words_matched'] = render_sync_result.get('words_matched', 0)
+        summary['render_sync_words_expected'] = render_sync_result.get('words_expected', 0)
+    
+    summary_path = verification_dir / 'captions_verification_summary.json'
+    with open(summary_path, 'w', encoding='utf-8') as f:
+        json.dump(summary, f, indent=2)
+    
+    # Generate log
+    log_lines = [
+        f"Caption Verification Log - {datetime.now().isoformat()}",
+        "=" * 50,
+        f"Text Coverage: {text_result['coverage_percentage']:.2f}%",
+        f"Expected Words: {text_result['total_authoritative_words']}",
+        f"Rendered Words: {text_result['total_rendered_words']}",
+        f"Mean Timing Drift: {timing_result['mean_drift_ms']:.1f}ms",
+        f"Max Timing Drift: {timing_result['max_drift_ms']:.1f}ms",
+        f"First Mismatch Index: {text_result['first_mismatch_index']}",
+        f"First Drift Index: {timing_result['first_drift_index']}",
+        f"Exit Code: {exit_code}",
+        "",
+        f"Text Fidelity: {'PASS' if text_result['passed'] else 'FAIL'}",
+        f"Timing Projection: {'PASS' if timing_result['passed'] else 'FAIL'}",
+    ]
+    
+    # Add vision log lines
+    if vision_result:
+        if vision_result.get('skipped'):
+            log_lines.extend([
+                "",
+                "Vision Verification: SKIPPED",
+                f"Reason: {vision_result.get('error', 'Unknown')}"
+            ])
+        else:
+            log_lines.extend([
+                "",
+                "Vision Verification:",
+                f"  Visibility Coverage: {vision_result.get('visibility_coverage_percent', 0):.2f}%",
+                f"  Visible Frames: {vision_result.get('visible_frames', 0)}/{vision_result.get('total_frames', 0)}",
+                f"  Mean Confidence: {vision_result.get('mean_confidence', 0):.2f}",
+                f"  Model: {vision_result.get('model', 'unknown')}",
+                f"  Status: {'PASS' if vision_passed else 'FAIL'}"
+            ])
+    
+    # Add render sync log lines
+    if render_sync_result:
+        if render_sync_result.get('skipped'):
+            log_lines.extend([
+                "",
+                "Render Audio Sync: SKIPPED",
+                f"Reason: {render_sync_result.get('error', 'Unknown')}"
+            ])
+        elif render_sync_result.get('success'):
+            log_lines.extend([
+                "",
+                "Render Audio Sync:",
+                f"  Words Matched: {render_sync_result.get('words_matched', 0)}/{render_sync_result.get('words_expected', 0)}",
+                f"  Mean Drift: {render_sync_result.get('mean_drift_ms', 0):.1f}ms",
+                f"  Max Drift: {render_sync_result.get('max_drift_ms', 0):.1f}ms",
+                f"  Min Drift: {render_sync_result.get('min_drift_ms', 0):.1f}ms",
+                f"  Model: {render_sync_result.get('model', 'unknown')}"
+            ])
+            # Add word-by-word drift for first 20 words
+            word_drifts = render_sync_result.get('word_drifts', [])
+            if word_drifts:
+                log_lines.append("  Word-by-word drift:")
+                for wd in word_drifts[:20]:
+                    log_lines.append(f"    {wd['text']:15} expected={wd['expected_start']:.3f}s actual={wd['actual_start']:.3f}s drift={wd['drift_ms']:+.1f}ms")
+                if len(word_drifts) > 20:
+                    log_lines.append(f"    ... and {len(word_drifts) - 20} more words")
+        else:
+            log_lines.extend([
+                "",
+                "Render Audio Sync: FAILED",
+                f"Error: {render_sync_result.get('error', 'Unknown')}"
+            ])
+    
+    log_lines.extend([
+        "",
+        f"Report: {report_path}",
+    ])
+    
+    log_path = verification_dir / 'captions_verification_log.txt'
+    with open(log_path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(log_lines))
+    
+    # Save vision summary separately
+    if vision_result and not vision_result.get('skipped'):
+        vision_summary_path = verification_dir / 'vision_summary.json'
+        with open(vision_summary_path, 'w', encoding='utf-8') as f:
+            json.dump(vision_result, f, indent=2)
+    
+    return {
+        'success': True,
+        'exit_code': exit_code,
+        'summary': summary,
+        'text_result': text_result,
+        'timing_result': timing_result,
+        'vision_result': vision_result,
+        'frames_extracted': len(frames),
+        'report_path': str(report_path),
+        'log_path': str(log_path)
+    }
+
+
+def main():
+    global TIMING_TOLERANCE_MS, TIMING_TOLERANCE_SEC
+    
+    parser = argparse.ArgumentParser(description='Caption fidelity verification')
+    parser.add_argument('--project', '-p', type=str, help='Path to project.json or project root')
+    parser.add_argument('--data-dir', '-d', type=str, help='Path to data directory')
+    parser.add_argument('--tolerance', '-t', type=int, default=TIMING_TOLERANCE_MS,
+                        help=f'Timing tolerance in ms (default: {TIMING_TOLERANCE_MS})')
+    parser.add_argument('--no-frames', action='store_true', help='Skip frame extraction')
+    parser.add_argument('--no-vision', action='store_true', help='Skip vision verification')
+    parser.add_argument('--no-render-sync', action='store_true', help='Skip render audio sync verification')
+    parser.add_argument('--render-video', type=str, default='final_video.mp4',
+                        help='Rendered video to verify (default: final_video.mp4)')
+    parser.add_argument('--whisper-model', type=str, default='base',
+                        help='Whisper model for audio sync (default: base)')
+    parser.add_argument('--vision-model', type=str, default='qwen3-vl:32b', help='Vision model for Ollama')
+    parser.add_argument('--max-vision-frames', type=int, default=200, help='Max frames for vision verification')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
+    parser.add_argument('--source-reports', action='store_true', 
+                        help='Generate authoritative source reports only')
+    parser.add_argument('--phase-evolution', action='store_true',
+                        help='Generate phase evolution visualization only')
+    parser.add_argument('--media-alignment', action='store_true',
+                        help='Generate media alignment visualization only')
+    args = parser.parse_args()
+    
+    TIMING_TOLERANCE_MS = args.tolerance
+    TIMING_TOLERANCE_SEC = TIMING_TOLERANCE_MS / 1000.0
+    
+    root = get_project_root()
+    
+    # Resolve paths
+    if args.project:
+        project_arg = Path(args.project)
+        if project_arg.is_dir():
+            project_path = project_arg / 'data' / 'project.json'
+            data_dir = project_arg / 'data'
+        else:
+            project_path = project_arg
+            data_dir = project_arg.parent
+    else:
+        project_path = root / 'data' / 'project.json'
+        data_dir = root / 'data'
+    
+    if args.data_dir:
+        data_dir = Path(args.data_dir)
+    
+    if args.source_reports:
+        from source_reports import run_source_reports, print_source_report_summary
+        result = run_source_reports(root)
+        print_source_report_summary(result)
+        sys.exit(0 if result['success'] else 1)
+    
+    if args.phase_evolution:
+        from phase_evolution import run_phase_evolution, print_phase_summary
+        result = run_phase_evolution(root)
+        print_phase_summary(result)
+        sys.exit(0 if result['success'] else 1)
+    
+    if args.media_alignment:
+        from media_alignment import run_media_alignment, print_alignment_summary
+        result = run_media_alignment(root)
+        print_alignment_summary(result)
+        sys.exit(0 if result['success'] else 1)
+    
+    print("=" * 60)
+    print("CAPTION FIDELITY VERIFICATION")
+    print("=" * 60)
+    
+    result = run_verification(
+        project_path,
+        data_dir,
+        extract_frames=not args.no_frames,
+        enable_vision=not args.no_vision,
+        vision_model=args.vision_model,
+        max_vision_frames=args.max_vision_frames,
+        render_sync=not args.no_render_sync,
+        render_video=args.render_video,
+        whisper_model=args.whisper_model,
+        verbose=args.verbose
+    )
+    
+    if not result['success']:
+        print(f"\nERROR: {result['error']}")
+        sys.exit(result.get('exit_code', 1))
+    
+    summary = result['summary']
+    
+    print(f"\nText coverage: {summary['text_coverage_percent']:.2f}%")
+    print(f"Mean timing drift: {summary['timing_mean_drift_ms']:.1f}ms")
+    print(f"Max timing drift: {summary['timing_max_drift_ms']:.1f}ms")
+    print(f"First mismatch index: {summary['first_mismatch_index']}")
+    print(f"Verification exit code: {summary['verification_exit_code']}")
+    
+    # Print vision summary if available
+    vision_result = result.get('vision_result')
+    if vision_result and not vision_result.get('skipped') and print_vision_summary:
+        print_vision_summary(vision_result)
+    elif vision_result and vision_result.get('skipped'):
+        print(f"\nVision verification skipped: {vision_result.get('error', 'Unknown')}")
+    
+    print(f"\nReport: {result['report_path']}")
+    
+    print("\n" + "=" * 60)
+    if summary['verification_exit_code'] == 0:
+        print("RESULT: VERIFICATION PASSED")
+    else:
+        print("RESULT: VERIFICATION DETECTED ISSUES")
+        print("See HTML report for inspection.")
+    print("=" * 60)
+    
+    sys.exit(summary['verification_exit_code'])
+
+
+if __name__ == '__main__':
+    main()

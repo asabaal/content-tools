@@ -1,1 +1,40 @@
 *.mp4
+*.png
+outputs/*
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+.coverage
+htmlcov/
+*.egg-info/
+.eggs/
+
+# Node
+node_modules/
+
+# Generated data files
+data/waveforms.json
+demo-data/waveforms.json
+liyw-s0e05/waveforms.json
+liyw-s0e10-test/waveforms.json
+
+# Binary files
+*.wav
+*.yuv
+*.ttf
+
+# Temp/debug files
+error.txt
+render_diff.txt
+plan.conv
+coverage/tmp/
+*.lock
+package-lock.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+_archived/

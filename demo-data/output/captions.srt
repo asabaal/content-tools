@@ -1,0 +1,15 @@
+1
+00:00:00,000 --> 00:00:02,240
+Hello everyone.
+
+2
+00:00:02,759 --> 00:00:04,500
+This editing pipeline should work.
+
+3
+00:00:05,479 --> 00:00:08,900
+Now we continue. Captions should render correctly.
+
+4
+00:00:08,900 --> 00:00:10,339
+Thanks for watching!

@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review & Assign - Content Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+
+        .app {
+            display: grid;
+            grid-template-columns: 1fr 400px 250px;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            background: #16213e;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4cc9f0;
+        }
+
+        .header-info {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .edit-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: #2a2a4a;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #888;
+            transition: all 0.2s;
+        }
+
+        .edit-mode-toggle:hover {
+            background: #3a3a5a;
+        }
+
+        .edit-mode-toggle.active {
+            background: #f6ad55;
+            color: #0f0f1a;
+        }
+
+        .edit-mode-toggle .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #666;
+        }
+
+        .edit-mode-toggle.active .indicator {
+            background: #0f0f1a;
+        }
+
+        .save-status {
+            font-size: 12px;
+            color: #888;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .save-status.unsaved {
+            color: #f6ad55;
+        }
+
+        .save-status.saved {
+            color: #48bb78;
+        }
+
+        .video-section {
+            background: #0f0f1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            padding-top: 40px;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 640px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        video {
+            width: 100%;
+            max-height: 360px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #1a1a2e;
+        }
+
+        .btn {
+            background: #4cc9f0;
+            color: #0f0f1a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #3aa8d8;
+        }
+
+        .btn-secondary {
+            background: #2a2a4a;
+            color: #eee;
+        }
+
+        .btn-secondary:hover {
+            background: #3a3a5a;
+        }
+
+        .btn-success {
+            background: #48bb78;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-danger {
+            background: #f66;
+        }
+
+        .btn-danger:hover {
+            background: #e55;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+
+        .btn-tiny {
+            padding: 2px 6px;
+            font-size: 10px;
+        }
+
+        .time-display {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 13px;
+            color: #888;
+            min-width: 100px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #2a2a4a;
+            border-radius: 3px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4cc9f0;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .transcript-section {
+            background: #16213e;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #2a2a4a;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .transcript-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transcript-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .segment-count {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .transcript-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .source-marker {
+            padding: 8px 12px;
+            margin: 8px 0 4px 0;
+            background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .source-marker .source-name {
+            opacity: 0.9;
+        }
+
+        .source-marker .source-time {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            opacity: 0.7;
+        }
+
+        .segment {
+            padding: 12px;
+            margin-bottom: 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .segment:hover {
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .segment.active {
+            background: rgba(76, 201, 240, 0.2);
+            border-color: #4cc9f0;
+        }
+
+        .segment.assigned {
+            border-left: 3px solid #48bb78;
+        }
+
+        .segment.edit-mode {
+            background: rgba(246, 173, 85, 0.1);
+            border-color: #f6ad55;
+        }
+
+        .segment-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .segment-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .segment-time {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .segment-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #ddd;
+            outline: none;
+        }
+
+        .segment-text:focus {
+            background: rgba(76, 201, 240, 0.1);
+            border-radius: 4px;
+        }
+
+        .segment.active .segment-text {
+            color: #fff;
+        }
+
+        .segment-assign-btn {
+            background: #2a2a4a;
+            color: #888;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .segment-assign-btn:hover {
+            background: #4cc9f0;
+            color: #0f0f1a;
+        }
+
+        .segment-assign-btn.assigned {
+            background: #48bb78;
+            color: #fff;
+        }
+
+        .segment-actions {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .segment-actions button {
+            opacity: 0.7;
+        }
+
+        .segment:hover .segment-actions button {
+            opacity: 1;
+        }
+
+        .word {
+            transition: background-color 0.1s;
+            border-radius: 2px;
+            padding: 0 1px;
+            cursor: default;
+        }
+
+        .word.active {
+            background: rgba(76, 201, 240, 0.5);
+            color: #fff;
+        }
+
+        .word.split-selected {
+            background: rgba(246, 173, 85, 0.6);
+            color: #0f0f1a;
+            border-radius: 2px;
+        }
+
+        .word.editable:hover {
+            background: rgba(246, 173, 85, 0.3);
+            cursor: pointer;
+        }
+
+        .word.editable.split-selected {
+            background: rgba(246, 173, 85, 0.6);
+        }
+
+        .add-segment-btn {
+            display: block;
+            width: 100%;
+            padding: 6px;
+            margin: 4px 0;
+            background: transparent;
+            border: 1px dashed #3a3a5a;
+            border-radius: 4px;
+            color: #666;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-segment-btn:hover {
+            border-color: #4cc9f0;
+            color: #4cc9f0;
+            background: rgba(76, 201, 240, 0.05);
+        }
+
+        .clips-section {
+            background: #0f0f1a;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #2a2a4a;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .clips-header {
+            padding: 12px 12px;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .clips-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .clip-create {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .clip-create input {
+            flex: 1;
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            border-radius: 4px;
+            padding: 6px 8px;
+            font-size: 12px;
+            color: #eee;
+        }
+
+        .clip-create input:focus {
+            outline: none;
+            border-color: #4cc9f0;
+        }
+
+        .auto-assign-btn {
+            width: 100%;
+            padding: 6px 8px;
+            background: #2a2a4a;
+            border: 1px solid #3a3a5a;
+            border-radius: 4px;
+            color: #888;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .auto-assign-btn:hover {
+            background: #3a3a5a;
+            color: #4cc9f0;
+            border-color: #4cc9f0;
+        }
+
+        .unassigned-count {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            padding: 4px;
+            margin-top: 4px;
+        }
+
+        .clips-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .clip-item {
+            background: #16213e;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .clip-item:hover {
+            background: #1a2744;
+        }
+
+        .clip-item.active {
+            border-color: #4cc9f0;
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .clip-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .clip-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #eee;
+        }
+
+        .clip-item-count {
+            font-size: 11px;
+            color: #888;
+            background: #2a2a4a;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .clip-item-actions {
+            display: flex;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .clip-item:hover .clip-item-actions {
+            opacity: 1;
+        }
+
+        .clip-item-btn {
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 2px;
+            font-size: 12px;
+        }
+
+        .clip-item-btn:hover {
+            color: #4cc9f0;
+        }
+
+        .clip-item-btn.delete:hover {
+            color: #f66;
+        }
+
+        .clip-unassigned {
+            color: #666;
+            font-style: italic;
+            font-size: 12px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .transcript-list::-webkit-scrollbar,
+        .clips-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .transcript-list::-webkit-scrollbar-track,
+        .clips-list::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        .transcript-list::-webkit-scrollbar-thumb,
+        .clips-list::-webkit-scrollbar-thumb {
+            background: #3a3a5a;
+            border-radius: 4px;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #666;
+        }
+
+        .error {
+            color: #f66;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .assign-dropdown {
+            position: absolute;
+            background: #16213e;
+            border: 1px solid #2a2a4a;
+            border-radius: 6px;
+            padding: 4px 0;
+            z-index: 100;
+            min-width: 120px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .assign-dropdown-item {
+            padding: 8px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .assign-dropdown-item:hover {
+            background: #2a2a4a;
+        }
+
+        .assign-dropdown-item.unassign {
+            color: #f66;
+            border-top: 1px solid #2a2a4a;
+            margin-top: 4px;
+            padding-top: 8px;
+        }
+
+        .split-hint {
+            background: rgba(246, 173, 85, 0.2);
+            border: 1px solid #f6ad55;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin: 8px;
+            font-size: 12px;
+            color: #f6ad55;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .split-hint button {
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="header-left">
+                <h1>02 - Review & Assign</h1>
+                <div class="header-info">
+                    <span id="videoInfo">Loading...</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="edit-mode-toggle" id="editModeToggle">
+                    <div class="indicator"></div>
+                    <span>Edit Mode</span>
+                </div>
+                <span class="save-status" id="saveStatus"></span>
+                <button class="btn btn-success btn-small" id="saveBtn">Save</button>
+            </div>
+        </header>
+
+        <section class="video-section">
+            <div class="video-container">
+                <video id="video" preload="metadata">
+                    <source id="videoSource" src="" type="video/mp4">
+                    Your browser does not support video playback.
+                </video>
+                <div class="video-controls">
+                    <button class="btn" id="playBtn">Play</button>
+                    <button class="btn btn-secondary" id="skipBackBtn">-5s</button>
+                    <button class="btn btn-secondary" id="skipFwdBtn">+5s</button>
+                    <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="transcript-section">
+            <div class="transcript-header">
+                <h2>Transcript</h2>
+                <span class="segment-count" id="segmentCount">0 segments</span>
+            </div>
+            <div class="split-hint" id="splitHint" style="display: none;">
+                <span>Click a word to split, then click "Split Here"</span>
+                <div>
+                    <button class="btn btn-small" id="splitConfirmBtn">Split Here</button>
+                    <button class="btn btn-secondary btn-small" id="splitCancelBtn">Cancel</button>
+                </div>
+            </div>
+            <div class="transcript-list" id="transcriptList">
+                <div class="loading">Loading transcript...</div>
+            </div>
+        </section>
+
+        <section class="clips-section">
+            <div class="clips-header">
+                <h2>Clips</h2>
+                <div class="clip-create">
+                    <input type="text" id="newClipName" placeholder="New clip name...">
+                    <button class="btn btn-small" id="createClipBtn">+</button>
+                </div>
+                <button class="auto-assign-btn" id="autoAssignBtn">Auto-assign remaining segments</button>
+                <div class="unassigned-count" id="unassignedCount"></div>
+            </div>
+            <div class="clips-list" id="clipsList">
+                <div class="clip-unassigned">No clips yet</div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // State
+        let CONFIG = null;
+        let transcript = null;
+        let sources = null;
+        let project = { clips: [], version: 1 };
+        let activeSegmentIndex = -1;
+        let activeDropdown = null;
+        let hasUnsavedChanges = false;
+        let editMode = false;
+        let splitSelectedWord = null;
+        let splitSegmentIndex = null;
+
+        // DOM elements
+        const video = document.getElementById('video');
+        const videoSource = document.getElementById('videoSource');
+        const playBtn = document.getElementById('playBtn');
+        const skipBackBtn = document.getElementById('skipBackBtn');
+        const skipFwdBtn = document.getElementById('skipFwdBtn');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const transcriptList = document.getElementById('transcriptList');
+        const segmentCount = document.getElementById('segmentCount');
+        const videoInfo = document.getElementById('videoInfo');
+        const clipsList = document.getElementById('clipsList');
+        const newClipName = document.getElementById('newClipName');
+        const createClipBtn = document.getElementById('createClipBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const saveStatus = document.getElementById('saveStatus');
+        const editModeToggle = document.getElementById('editModeToggle');
+        const splitHint = document.getElementById('splitHint');
+        const splitConfirmBtn = document.getElementById('splitConfirmBtn');
+        const splitCancelBtn = document.getElementById('splitCancelBtn');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        let idCounter = 0;
+
+        function generateId() {
+            idCounter++;
+            return 'clip_' + Date.now().toString(36) + '_' + idCounter.toString(36);
+        }
+
+        function markUnsaved() {
+            hasUnsavedChanges = true;
+            saveStatus.textContent = 'Unsaved';
+            saveStatus.className = 'save-status unsaved';
+        }
+
+        function markSaved() {
+            hasUnsavedChanges = false;
+            saveStatus.textContent = 'Saved';
+            saveStatus.className = 'save-status saved';
+            setTimeout(() => {
+                saveStatus.textContent = '';
+                saveStatus.className = 'save-status';
+            }, 2000);
+        }
+
+        // Project management
+        async function loadProject() {
+            try {
+                const response = await fetch('/api/project?v=' + Date.now());
+                if (response.ok) {
+                    project = await response.json();
+                    console.log('[Review] Loaded project with', project.clips?.length || 0, 'clips');
+                }
+            } catch (e) {
+                console.log('[Review] No existing project, starting fresh');
+            }
+        }
+
+        async function saveProject() {
+            try {
+                const projectData = {
+                    ...project,
+                    transcript: transcript
+                };
+                
+                const response = await fetch('/api/project', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(projectData, null, 2)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to save');
+                }
+                
+                markSaved();
+                console.log('[Review] Project saved');
+            } catch (e) {
+                // Fallback: download as file
+                const projectData = {
+                    ...project,
+                    transcript: transcript
+                };
+                const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'project.json';
+                a.click();
+                URL.revokeObjectURL(url);
+                markSaved();
+                console.log('[Review] Project downloaded as file');
+            }
+        }
+
+        // Clip management
+        function createClip(name) {
+            if (!name.trim()) return;
+            
+            const clip = {
+                id: generateId(),
+                name: name.trim(),
+                segments: [],
+                include: true
+            };
+            
+            project.clips.push(clip);
+            markUnsaved();
+            renderClips();
+            newClipName.value = '';
+        }
+
+        function deleteClip(clipId) {
+            project.clips = project.clips.filter(c => c.id !== clipId);
+            markUnsaved();
+            renderClips();
+            renderTranscript();
+        }
+
+        function renameClip(clipId, newName) {
+            const clip = project.clips.find(c => c.id === clipId);
+            if (clip) {
+                clip.name = newName;
+                markUnsaved();
+                renderClips();
+                renderTranscript();
+            }
+        }
+
+        function assignSegment(clipId, segmentIndex) {
+            const clip = project.clips.find(c => c.id === clipId);
+            if (!clip || !transcript) return;
+            
+            const seg = transcript.segments[segmentIndex];
+            const segmentRef = {
+                segment_index: segmentIndex,
+                original_video_id: seg.original_video_id,
+                start: seg.start,
+                end: seg.end,
+                text: seg.text
+            };
+            
+            // Remove from other clips first
+            project.clips.forEach(c => {
+                c.segments = c.segments.filter(s => s.segment_index !== segmentIndex);
+            });
+            
+            // Add to this clip
+            if (clipId !== null) {
+                clip.segments.push(segmentRef);
+            }
+            
+            markUnsaved();
+            renderClips();
+            renderTranscript();
+        }
+
+        function getSegmentClip(segmentIndex) {
+            for (const clip of project.clips) {
+                if (clip.segments.some(s => s.segment_index === segmentIndex)) {
+                    return clip;
+                }
+            }
+            return null;
+        }
+
+        function getUnassignedCount() {
+            if (!transcript) return 0;
+            let assignedCount = 0;
+            project.clips.forEach(clip => {
+                assignedCount += clip.segments.length;
+            });
+            return transcript.segments.length - assignedCount;
+        }
+
+        function updateUnassignedCount() {
+            const count = getUnassignedCount();
+            const el = document.getElementById('unassignedCount');
+            if (count > 0) {
+                el.textContent = `${count} unassigned segment${count !== 1 ? 's' : ''}`;
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+
+        function autoAssignRemaining() {
+            if (!transcript) return;
+            
+            const unassignedCount = getUnassignedCount();
+            if (unassignedCount === 0) {
+                alert('All segments are already assigned!');
+                return;
+            }
+            
+            if (!confirm(`This will create ${unassignedCount} new clip${unassignedCount !== 1 ? 's' : ''} (one per unassigned segment). Continue?`)) {
+                return;
+            }
+            
+            // Find all unassigned segment indices
+            const assignedIndices = new Set();
+            project.clips.forEach(clip => {
+                clip.segments.forEach(s => assignedIndices.add(s.segment_index));
+            });
+            
+            const unassignedIndices = [];
+            for (let i = 0; i < transcript.segments.length; i++) {
+                if (!assignedIndices.has(i)) {
+                    unassignedIndices.push(i);
+                }
+            }
+            
+            // Create a clip for each unassigned segment
+            unassignedIndices.forEach(index => {
+                const seg = transcript.segments[index];
+                const clipName = seg.text.length > 35 
+                    ? seg.text.substring(0, 35).trim() + '...' 
+                    : seg.text;
+                
+                const clip = {
+                    id: generateId(),
+                    name: clipName,
+                    segments: [{
+                        segment_index: index,
+                        original_video_id: seg.original_video_id,
+                        start: seg.start,
+                        end: seg.end,
+                        text: seg.text
+                    }],
+                    include: true,
+                    autoCreated: true
+                };
+                
+                project.clips.push(clip);
+            });
+            
+            markUnsaved();
+            renderClips();
+            renderTranscript();
+        }
+
+        function renderClips() {
+            updateUnassignedCount();
+            
+            if (project.clips.length === 0) {
+                clipsList.innerHTML = '<div class="clip-unassigned">No clips yet.<br>Create one to start organizing.</div>';
+                return;
+            }
+
+            clipsList.innerHTML = project.clips.map(clip => `
+                <div class="clip-item" data-clip-id="${clip.id}">
+                    <div class="clip-item-header">
+                        <span class="clip-item-name">${clip.name}</span>
+                        <span class="clip-item-count">${clip.segments.length}</span>
+                    </div>
+                    <div class="clip-item-actions">
+                        <button class="clip-item-btn rename-btn" data-clip-id="${clip.id}">✎</button>
+                        <button class="clip-item-btn delete delete-btn" data-clip-id="${clip.id}">✕</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.rename-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    promptRename(btn.dataset.clipId);
+                });
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteClip(btn.dataset.clipId);
+                });
+            });
+        }
+
+        function promptRename(clipId) {
+            const clip = project.clips.find(c => c.id === clipId);
+            if (!clip) return;
+            
+            const newName = prompt('Rename clip:', clip.name);
+            if (newName && newName !== clip.name) {
+                renameClip(clipId, newName);
+            }
+        }
+
+        // Edit mode toggle
+        function toggleEditMode() {
+            editMode = !editMode;
+            editModeToggle.classList.toggle('active', editMode);
+            cancelSplit();
+            renderTranscript();
+        }
+
+        // Word redistribution when text is edited
+        function redistributeWords(seg, newText) {
+            if (!seg.words || seg.words.length === 0) return;
+            
+            const oldWords = seg.words.map(w => w.text.replace(/[.,!?;:]/g, '')).join(' ');
+            const oldCharCount = oldWords.length;
+            const newCharCount = newText.trim().length;
+            
+            if (oldCharCount === 0 || newCharCount === 0) return;
+            
+            const duration = seg.end - seg.start;
+            const newWords = newText.trim().split(/\s+/);
+            
+            // Simple proportional redistribution
+            const avgCharDuration = duration / newCharCount;
+            let currentTime = seg.start;
+            
+            seg.words = newWords.map(word => {
+                const wordDuration = word.length * avgCharDuration;
+                const wordStart = currentTime;
+                const wordEnd = Math.min(currentTime + wordDuration, seg.end);
+                currentTime = wordEnd;
+                
+                return {
+                    text: word,
+                    start: wordStart,
+                    end: wordEnd
+                };
+            });
+            
+            seg.text = newText.trim();
+        }
+
+        // Split segment at selected word
+        function splitSegmentAtWord() {
+            if (splitSelectedWord === null || splitSegmentIndex === null || !transcript) return;
+            
+            const seg = transcript.segments[splitSegmentIndex];
+            if (!seg.words || splitSelectedWord >= seg.words.length) return;
+            
+            const splitWord = seg.words[splitSelectedWord];
+            
+            // Create two new segments
+            const seg1 = {
+                ...seg,
+                text: seg.words.slice(0, splitSelectedWord).map(w => w.text).join(' '),
+                end: splitWord.start,
+                words: seg.words.slice(0, splitSelectedWord)
+            };
+            
+            const seg2 = {
+                ...seg,
+                id: `${seg.id}_split_${Date.now()}`,
+                text: seg.words.slice(splitSelectedWord).map(w => w.text).join(' '),
+                start: splitWord.start,
+                words: seg.words.slice(splitSelectedWord)
+            };
+            
+            // Remove empty segments
+            const newSegments = [...transcript.segments];
+            if (seg1.words.length > 0 && seg2.words.length > 0) {
+                newSegments.splice(splitSegmentIndex, 1, seg1, seg2);
+            } else {
+                console.log('[Review] Cannot split - would create empty segment');
+                cancelSplit();
+                return;
+            }
+            
+            // Update segment indices in clips
+            project.clips.forEach(clip => {
+                clip.segments.forEach(s => {
+                    if (s.segment_index > splitSegmentIndex) {
+                        s.segment_index++;
+                    } else if (s.segment_index === splitSegmentIndex) {
+                        // Assign to first part by default
+                        s.segment_index = splitSegmentIndex;
+                    }
+                });
+            });
+            
+            transcript.segments = newSegments;
+            markUnsaved();
+            cancelSplit();
+            renderTranscript();
+            renderClips();
+        }
+
+        function cancelSplit() {
+            splitSelectedWord = null;
+            splitSegmentIndex = null;
+            splitHint.style.display = 'none';
+            document.querySelectorAll('.word.split-selected').forEach(el => {
+                el.classList.remove('split-selected');
+            });
+        }
+
+        // Merge with adjacent segment
+        function mergeWithPrevious(segmentIndex) {
+            if (segmentIndex <= 0 || !transcript) return;
+            
+            const prevSeg = transcript.segments[segmentIndex - 1];
+            const currSeg = transcript.segments[segmentIndex];
+            
+            const merged = {
+                id: prevSeg.id,
+                text: prevSeg.text + ' ' + currSeg.text,
+                start: prevSeg.start,
+                end: currSeg.end,
+                words: [...prevSeg.words, ...currSeg.words],
+                original_video_id: prevSeg.original_video_id
+            };
+            
+            transcript.segments.splice(segmentIndex - 1, 2, merged);
+            
+            // Update clip assignments
+            project.clips.forEach(clip => {
+                clip.segments = clip.segments.filter(s => s.segment_index !== segmentIndex);
+                clip.segments.forEach(s => {
+                    if (s.segment_index > segmentIndex) {
+                        s.segment_index--;
+                    }
+                });
+            });
+            
+            markUnsaved();
+            renderTranscript();
+            renderClips();
+        }
+
+        function mergeWithNext(segmentIndex) {
+            if (segmentIndex >= transcript.segments.length - 1 || !transcript) return;
+            mergeWithPrevious(segmentIndex + 1);
+        }
+
+        // Delete segment
+        function deleteSegment(segmentIndex) {
+            if (!transcript || !confirm('Delete this segment?')) return;
+            
+            transcript.segments.splice(segmentIndex, 1);
+            
+            // Update clip assignments
+            project.clips.forEach(clip => {
+                clip.segments = clip.segments.filter(s => s.segment_index !== segmentIndex);
+                clip.segments.forEach(s => {
+                    if (s.segment_index > segmentIndex) {
+                        s.segment_index--;
+                    }
+                });
+            });
+            
+            markUnsaved();
+            renderTranscript();
+            renderClips();
+        }
+
+        // Add new segment
+        function addSegmentAfter(segmentIndex) {
+            if (!transcript) return;
+            
+            const currentSeg = transcript.segments[segmentIndex];
+            const nextSeg = transcript.segments[segmentIndex + 1];
+            
+            // Calculate new segment timing (halfway between current end and next start)
+            let newStart = currentSeg.end;
+            let newEnd = nextSeg ? nextSeg.start : currentSeg.end + 2;
+            
+            if (newEnd <= newStart) {
+                newEnd = newStart + 1;
+            }
+            
+            const newSeg = {
+                id: `seg_new_${Date.now()}`,
+                text: '[New segment - click to edit]',
+                start: newStart,
+                end: newEnd,
+                words: [{
+                    text: '[New segment - click to edit]',
+                    start: newStart,
+                    end: newEnd
+                }],
+                original_video_id: currentSeg.original_video_id
+            };
+            
+            transcript.segments.splice(segmentIndex + 1, 0, newSeg);
+            
+            // Update clip assignments
+            project.clips.forEach(clip => {
+                clip.segments.forEach(s => {
+                    if (s.segment_index > segmentIndex) {
+                        s.segment_index++;
+                    }
+                });
+            });
+            
+            markUnsaved();
+            renderTranscript();
+            renderClips();
+        }
+
+        // Transcript rendering
+        async function loadTranscript() {
+            console.log('[Review] Loading transcript...');
+            
+            let data = null;
+            
+            try {
+                const projectResponse = await fetch('/api/project?v=' + Date.now());
+                if (projectResponse.ok) {
+                    const projectData = await projectResponse.json();
+                    if (projectData.transcript && projectData.transcript.segments) {
+                        data = projectData.transcript;
+                        console.log('[Review] Loaded edited transcript from project.json');
+                    }
+                }
+            } catch (e) {
+                console.log('[Review] No edited transcript in project, loading fresh...');
+            }
+            
+            if (!data) {
+                try {
+                    const transcriptPath = CONFIG ? CONFIG.paths.combined_transcript : '/data/transcript_combined.json';
+                    const response = await fetch(transcriptPath + '?v=' + Date.now());
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    data = await response.json();
+                    console.log('[Review] Loaded fresh transcript from transcript_combined.json');
+                } catch (error) {
+                    console.error('[Review] Error loading transcript:', error);
+                    transcriptList.innerHTML = `<div class="error">Error loading transcript: ${error.message}</div>`;
+                    return;
+                }
+            }
+            
+            console.log('[Review] Loaded', data.segments.length, 'segments from', data.sources?.length || 0, 'sources');
+            transcript = data;
+            sources = data.sources || [];
+            renderTranscript();
+            videoInfo.textContent = `${data.segments.length} segments | ${sources.length} videos | ${formatTime(data.duration)}`;
+        }
+
+        function renderTranscript() {
+            if (!transcript) return;
+
+            segmentCount.textContent = `${transcript.segments.length} segments`;
+            
+            let html = '';
+            let currentSourceId = null;
+
+            transcript.segments.forEach((seg, index) => {
+                const sourceId = seg.original_video_id;
+                const assignedClip = getSegmentClip(index);
+                
+                if (sourceId !== currentSourceId) {
+                    const source = sources.find(s => s.video_id === sourceId);
+                    if (source) {
+                        html += `
+                            <div class="source-marker" data-source-start="${source.start}">
+                                <span class="source-name">${source.video_id}</span>
+                                <span class="source-time">${formatTime(source.start)} - ${formatTime(source.end)}</span>
+                            </div>
+                        `;
+                    }
+                    currentSourceId = sourceId;
+                }
+
+                let wordsHtml = '';
+                if (seg.words && seg.words.length > 0) {
+                    wordsHtml = seg.words.map((w, wi) => {
+                        const editableClass = editMode ? 'editable' : '';
+                        return `<span class="word ${editableClass}" data-word-index="${wi}" data-start="${w.start}" data-end="${w.end}">${w.text}</span>`;
+                    }).join(' ');
+                } else {
+                    wordsHtml = seg.text;
+                }
+
+                const assignedClass = assignedClip ? 'assigned' : '';
+                const editModeClass = editMode ? 'edit-mode' : '';
+                const btnClass = assignedClip ? 'assigned' : '';
+                const btnText = assignedClip ? assignedClip.name : 'Assign';
+
+                // Edit buttons (only in edit mode)
+                const editButtons = editMode ? `
+                    <div class="segment-actions">
+                        <button class="btn btn-tiny btn-secondary split-btn" data-index="${index}">Split</button>
+                        <button class="btn btn-tiny btn-secondary merge-prev-btn" data-index="${index}" ${index === 0 ? 'disabled' : ''}>↑ Merge</button>
+                        <button class="btn btn-tiny btn-secondary merge-next-btn" data-index="${index}" ${index >= transcript.segments.length - 1 ? 'disabled' : ''}>Merge ↓</button>
+                        <button class="btn btn-tiny btn-secondary add-btn" data-index="${index}">+ Add</button>
+                        <button class="btn btn-tiny btn-danger delete-btn" data-index="${index}">✕</button>
+                    </div>
+                ` : '';
+
+                // Add segment button (in edit mode)
+                const addBtn = editMode ? `<button class="add-segment-btn" data-after="${index}">+ Add segment here</button>` : '';
+
+                html += `
+                    <div class="segment ${assignedClass} ${editModeClass}" data-index="${index}" data-start="${seg.start}" data-end="${seg.end}">
+                        <div class="segment-row">
+                            <div class="segment-content">
+                                <div class="segment-time">${formatTime(seg.start)} - ${formatTime(seg.end)}</div>
+                                <div class="segment-text" contenteditable="${editMode}" data-index="${index}">${wordsHtml}</div>
+                                ${editButtons}
+                            </div>
+                            <button class="segment-assign-btn ${btnClass}" data-segment-index="${index}">${btnText}</button>
+                        </div>
+                    </div>
+                    ${addBtn}
+                `;
+            });
+
+            transcriptList.innerHTML = html;
+
+            // Segment click (jump to time) - only when not in edit mode
+            if (!editMode) {
+                document.querySelectorAll('.segment').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('segment-assign-btn')) return;
+                        if (e.target.closest('.segment-actions')) return;
+                        const start = parseFloat(el.dataset.start);
+                        video.currentTime = start;
+                        video.play();
+                    });
+                });
+            }
+
+            // Word click for split (in edit mode)
+            if (editMode) {
+                document.querySelectorAll('.word.editable').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const segmentEl = el.closest('.segment');
+                        const segIndex = parseInt(segmentEl.dataset.index);
+                        
+                        // Clear previous selection
+                        document.querySelectorAll('.word.split-selected').forEach(w => {
+                            w.classList.remove('split-selected');
+                        });
+                        
+                        // Select this word
+                        el.classList.add('split-selected');
+                        splitSelectedWord = parseInt(el.dataset.wordIndex);
+                        splitSegmentIndex = segIndex;
+                        splitHint.style.display = 'flex';
+                    });
+                });
+            }
+
+            // Text editing
+            document.querySelectorAll('.segment-text[contenteditable="true"]').forEach(el => {
+                el.addEventListener('blur', (e) => {
+                    const index = parseInt(el.dataset.index);
+                    const seg = transcript.segments[index];
+                    const newText = el.textContent;
+                    
+                    if (newText !== seg.text) {
+                        redistributeWords(seg, newText);
+                        markUnsaved();
+                    }
+                });
+                
+                el.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        el.blur();
+                    }
+                });
+            });
+
+            // Edit action buttons
+            document.querySelectorAll('.split-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const segIndex = parseInt(btn.dataset.index);
+                    
+                    if (splitSelectedWord !== null && splitSegmentIndex === segIndex) {
+                        splitSegmentAtWord();
+                    } else {
+                        cancelSplit();
+                        alert('Click a word in the segment text above to select where to split');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.merge-prev-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mergeWithPrevious(parseInt(btn.dataset.index));
+                });
+            });
+
+            document.querySelectorAll('.merge-next-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mergeWithNext(parseInt(btn.dataset.index));
+                });
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteSegment(parseInt(btn.dataset.index));
+                });
+            });
+
+            document.querySelectorAll('.add-btn, .add-segment-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    addSegmentAfter(parseInt(btn.dataset.index || btn.dataset.after));
+                });
+            });
+
+            // Assign button click
+            document.querySelectorAll('.segment-assign-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showAssignDropdown(btn, parseInt(btn.dataset.segmentIndex));
+                });
+            });
+        }
+
+        function showAssignDropdown(btn, segmentIndex) {
+            if (activeDropdown) {
+                activeDropdown.remove();
+            }
+
+            const dropdown = document.createElement('div');
+            dropdown.className = 'assign-dropdown';
+            
+            let html = '';
+            project.clips.forEach(clip => {
+                html += `<div class="assign-dropdown-item" data-clip-id="${clip.id}">${clip.name}</div>`;
+            });
+            
+            const currentClip = getSegmentClip(segmentIndex);
+            if (currentClip) {
+                html += `<div class="assign-dropdown-item unassign" data-clip-id="null">Unassign</div>`;
+            }
+            
+            dropdown.innerHTML = html;
+            
+            const rect = btn.getBoundingClientRect();
+            dropdown.style.top = `${rect.bottom + 4}px`;
+            dropdown.style.right = `${window.innerWidth - rect.right}px`;
+            
+            document.body.appendChild(dropdown);
+            activeDropdown = dropdown;
+
+            dropdown.querySelectorAll('.assign-dropdown-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const clipId = item.dataset.clipId === 'null' ? null : item.dataset.clipId;
+                    assignSegment(clipId, segmentIndex);
+                    dropdown.remove();
+                    activeDropdown = null;
+                });
+            });
+
+            setTimeout(() => {
+                document.addEventListener('click', function closeDropdown(e) {
+                    if (!dropdown.contains(e.target) && e.target !== btn) {
+                        dropdown.remove();
+                        activeDropdown = null;
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                });
+            }, 0);
+        }
+
+        function updateActiveSegment() {
+            if (!transcript) return;
+
+            const time = video.currentTime;
+            let newActiveIndex = -1;
+
+            for (let i = 0; i < transcript.segments.length; i++) {
+                const seg = transcript.segments[i];
+                if (time >= seg.start && time <= seg.end) {
+                    newActiveIndex = i;
+                    break;
+                }
+            }
+
+            if (newActiveIndex !== activeSegmentIndex) {
+                document.querySelectorAll('.segment.active').forEach(el => {
+                    el.classList.remove('active');
+                });
+
+                if (newActiveIndex >= 0) {
+                    const activeEl = document.querySelector(`.segment[data-index="${newActiveIndex}"]`);
+                    if (activeEl) {
+                        activeEl.classList.add('active');
+                        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+
+                activeSegmentIndex = newActiveIndex;
+            }
+
+            // Word-level highlighting (only in non-edit mode)
+            if (!editMode) {
+                document.querySelectorAll('.word.active').forEach(el => {
+                    el.classList.remove('active');
+                });
+
+                if (newActiveIndex >= 0) {
+                    const activeSegment = document.querySelector(`.segment[data-index="${newActiveIndex}"]`);
+                    if (activeSegment) {
+                        const words = activeSegment.querySelectorAll('.word');
+                        for (const wordEl of words) {
+                            const wordStart = parseFloat(wordEl.dataset.start);
+                            const wordEnd = parseFloat(wordEl.dataset.end);
+                            if (time >= wordStart && time <= wordEnd) {
+                                wordEl.classList.add('active');
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function updateProgress() {
+            const current = video.currentTime;
+            const duration = video.duration || 0;
+            const percent = duration > 0 ? (current / duration) * 100 : 0;
+
+            timeDisplay.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
+            progressFill.style.width = `${percent}%`;
+
+            updateActiveSegment();
+        }
+
+        // Event listeners
+        playBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+
+        video.addEventListener('play', () => {
+            playBtn.textContent = 'Pause';
+        });
+
+        video.addEventListener('pause', () => {
+            playBtn.textContent = 'Play';
+        });
+
+        video.addEventListener('timeupdate', updateProgress);
+
+        video.addEventListener('loadedmetadata', () => {
+            console.log('[Review] Video loaded, duration:', video.duration);
+            updateProgress();
+        });
+
+        video.addEventListener('error', (e) => {
+            console.error('[Review] Video error:', e);
+        });
+
+        skipBackBtn.addEventListener('click', () => {
+            video.currentTime = Math.max(0, video.currentTime - 5);
+        });
+
+        skipFwdBtn.addEventListener('click', () => {
+            video.currentTime = Math.min(video.duration, video.currentTime + 5);
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            video.currentTime = percent * video.duration;
+        });
+
+        createClipBtn.addEventListener('click', () => {
+            createClip(newClipName.value);
+        });
+
+        newClipName.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                createClip(newClipName.value);
+            }
+        });
+
+        document.getElementById('autoAssignBtn').addEventListener('click', autoAssignRemaining);
+
+        saveBtn.addEventListener('click', saveProject);
+
+        editModeToggle.addEventListener('click', toggleEditMode);
+
+        splitConfirmBtn.addEventListener('click', splitSegmentAtWord);
+        splitCancelBtn.addEventListener('click', cancelSplit);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.target.getAttribute('contenteditable') === 'true') return;
+
+            switch (e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    playBtn.click();
+                    break;
+                case 'ArrowLeft':
+                    video.currentTime = Math.max(0, video.currentTime - 5);
+                    break;
+                case 'ArrowRight':
+                    video.currentTime = Math.min(video.duration, video.currentTime + 5);
+                    break;
+                case 'Escape':
+                    if (editMode) {
+                        cancelSplit();
+                    }
+                    break;
+            }
+        });
+
+        window.addEventListener('beforeunload', (e) => {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        // Initialize
+        async function init() {
+            try {
+                const configResponse = await fetch('/api/config?v=' + Date.now());
+                if (configResponse.ok) {
+                    CONFIG = await configResponse.json();
+                    console.log('[Review] Loaded config:', CONFIG.project?.name);
+                    videoSource.src = CONFIG.paths.combined_video;
+                    video.load();
+                }
+            } catch (e) {
+                console.log('[Review] Could not load config, using defaults');
+                videoSource.src = '/data/video_combined.mp4';
+                video.load();
+            }
+            await loadProject();
+            await loadTranscript();
+            renderClips();
+        }
+
+        init();
+    </script>
+</body>
+</html>
