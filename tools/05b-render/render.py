@@ -76,15 +76,15 @@ def render_segmented(
             print(f"  Segment {current_segment}/{total_segments} ({seg_duration:.2f}s)...")
             
             seg_captions = [
-                e for e in caption_events 
-                if abs(e.get('original_start', -1) - seg_start) < 0.001 
-                and abs(e.get('original_end', -1) - seg_end) < 0.001
+                e for e in caption_events
+                if e.get('original_start', -1) < seg_end
+                and e.get('original_end', -1) > seg_start
             ]
             
             for event in seg_captions:
                 for word in event.get('words', []):
-                    word['start'] = word['start'] - seg_start
-                    word['end'] = word['end'] - seg_start
+                    word['start'] = max(0.0, word['start'] - seg_start)
+                    word['end'] = min(seg_end - seg_start, word['end'] - seg_start)
                 event['output_start'] = 0.0
                 event['original_start'] = 0.0
             

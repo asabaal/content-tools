@@ -1,29 +1,18 @@
-Caption Verification Log - 2026-03-11T18:28:36.753962
+Caption Verification Log - 2026-03-24T20:06:30.181013
 ==================================================
-Text Coverage: 13.09%
-Expected Words: 275
-Rendered Words: 10
-Mean Timing Drift: 0.9ms
-Max Timing Drift: 0.9ms
-First Mismatch Index: 10
-First Drift Index: 0
+Text Coverage: 0.00%
+Expected Words: 0
+Rendered Words: 0
+Mean Timing Drift: 0.0ms
+Max Timing Drift: 0.0ms
+First Mismatch Index: -1
+First Drift Index: -1
 Exit Code: 1
 
 Text Fidelity: FAIL
-Timing Projection: FAIL
+Timing Projection: PASS
 
-Render Audio Sync:
-  Words Matched: 6/275
-  Mean Drift: -67.3ms
-  Max Drift: -443.1ms
-  Min Drift: -443.1ms
-  Model: base
-  Word-by-word drift:
-    Where           expected=0.205s actual=0.000s drift=-204.9ms
-    there           expected=0.459s actual=0.480s drift=+21.0ms
-    was             expected=0.679s actual=0.700s drift=+21.0ms
-    not             expected=0.859s actual=0.880s drift=+21.0ms
-    God's           expected=1.623s actual=1.180s drift=-443.1ms
-    folk.           expected=1.939s actual=2.120s drift=+181.2ms
+Render Audio Sync: SKIPPED
+Reason: No words matched between transcript and expected
 
 Report: /mnt/storage/repos/content-tools/data/output/verification/captions_full_verification_report.html
