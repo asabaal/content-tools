@@ -486,6 +486,45 @@
             z-index: 15;
         }
 
+        .time-axis {
+            height: 20px;
+            background: #0f0f1a;
+            border-top: 1px solid #2a2a4a;
+            position: relative;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .time-axis-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+
+        .time-axis-tick {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .time-axis-tick-line {
+            width: 1px;
+            height: 6px;
+            background: #4a4a6a;
+        }
+
+        .time-axis-tick-label {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 9px;
+            color: #6a6a8a;
+            margin-top: 1px;
+        }
+
         .seek-bar {
             height: 24px;
             background: #0f0f1a;
@@ -664,7 +703,6 @@
             <h1>04 - Assemble Timeline</h1>
             <div class="header-actions">
                 <span class="save-status" id="saveStatus"></span>
-                <button class="btn btn-secondary btn-small" id="playbackModeBtn">Mode: Clip</button>
                 <button class="btn btn-secondary btn-small" id="previewAllBtn">Preview All</button>
                 <button class="btn btn-secondary btn-small" id="exportBtn">Export EDL</button>
                 <button class="btn btn-success btn-small" id="saveBtn">Save</button>
@@ -720,6 +758,9 @@
                     <div class="waveform-zoom-info" id="waveformZoomInfo">1.0x</div>
                     <div class="waveform-selection" id="waveformSelection"></div>
                 </div>
+                <div class="time-axis" id="timeAxis">
+                    <div class="time-axis-inner" id="timeAxisInner"></div>
+                </div>
                 <div class="seek-bar" id="seekBar">
                     <div class="seek-bar-playhead" id="seekBarPlayhead"></div>
                 </div>
@@ -751,7 +792,6 @@
         let isDraggingTrim = null;
         let previewQueue = [];
         let previewIndex = 0;
-        let playbackMode = 'clip';
         let isDraggingSeekBar = false;
 
         // Waveform zoom/pan state
@@ -798,13 +838,14 @@
         const playhead = document.getElementById('playhead');
         const seekBar = document.getElementById('seekBar');
         const seekBarPlayhead = document.getElementById('seekBarPlayhead');
+        const timeAxis = document.getElementById('timeAxis');
+        const timeAxisInner = document.getElementById('timeAxisInner');
         const waveformZoomInfo = document.getElementById('waveformZoomInfo');
         const waveformScrollbar = document.getElementById('waveformScrollbar');
         const waveformScrollbarThumb = document.getElementById('waveformScrollbarThumb');
         const waveformSelection = document.getElementById('waveformSelection');
         const saveStatus = document.getElementById('saveStatus');
         const saveBtn = document.getElementById('saveBtn');
-        const playbackModeBtn = document.getElementById('playbackModeBtn');
         const previewAllBtn = document.getElementById('previewAllBtn');
         const exportBtn = document.getElementById('exportBtn');
         const splitBtn = document.getElementById('splitBtn');
@@ -900,26 +941,10 @@
                 const fullWaveformData = await waveformResp.json();
                 
                 initializeTimelineData();
-                
-                const timelineClips = getTimelineClips();
-                const hasSelections = timelineClips.some(c => c.selected_segment);
-                
-                if (hasSelections) {
-                    const selected = buildSelectedTimeline(fullWaveformData, timelineClips);
-                    waveformData = {
-                        video_id: 'selected_timeline',
-                        peaks: selected.peaks,
-                        duration: selected.duration,
-                        total_peaks: selected.total_peaks,
-                        peaks_per_second: selected.peaks_per_second
-                    };
-                    waveformClipMapping = selected.clipMapping;
-                    console.log('[Assemble] Built selected timeline:', waveformClipMapping.length, 'clips,', selected.duration.toFixed(2) + 's');
-                } else {
-                    waveformData = fullWaveformData;
-                    waveformClipMapping = null;
-                    console.log('[Assemble] Using full waveform:', waveformData.duration.toFixed(2) + 's');
-                }
+
+                waveformData = fullWaveformData;
+                waveformClipMapping = null;
+                console.log('[Assemble] Using full waveform:', waveformData.duration.toFixed(2) + 's');
 
                 if (!project.transcript) {
                     throw new Error('No transcript in project.json. Complete Tool 2 (Review) to save the edited transcript first.');
@@ -1023,25 +1048,31 @@
         function applySelectedSegmentDeletions() {
             if (!project.clips) return;
 
+            project.timeline_deleted_regions = [];
+
             for (const clip of project.clips) {
                 if (!clip.selected_segment) continue;
 
                 const segStart = clip.selected_segment.start;
                 const segEnd = clip.selected_segment.end;
 
-                const effectiveStart = clip.trim_start ?? segStart;
-                const effectiveEnd = clip.trim_end ?? segEnd;
+                const allSegments = clip.segments || [];
+                const clipStart = allSegments.length > 0 ? Math.min(...allSegments.map(s => s.start)) : segStart;
+                const clipEnd = allSegments.length > 0 ? Math.max(...allSegments.map(s => s.end)) : segEnd;
 
-                clip.deleted_regions = [];
+                const effectiveStart = clip.trim_start ?? clipStart;
+                const effectiveEnd = clip.trim_end ?? clipEnd;
 
                 if (effectiveStart < segStart) {
-                    clip.deleted_regions.push({ start: effectiveStart, end: segStart });
+                    project.timeline_deleted_regions.push({ start: effectiveStart, end: segStart });
                 }
 
                 if (effectiveEnd > segEnd) {
-                    clip.deleted_regions.push({ start: segEnd, end: effectiveEnd });
+                    project.timeline_deleted_regions.push({ start: segEnd, end: effectiveEnd });
                 }
             }
+
+            mergeDeletedRegions();
         }
 
         function getClipById(clipId) {
@@ -1372,9 +1403,6 @@
             toggleEnabledBtn.textContent = clip.enabled ? 'Disable' : 'Enable';
             toggleEnabledBtn.classList.toggle('btn-success', !clip.enabled);
 
-            trimStart.style.display = playbackMode === 'clip' ? '' : 'none';
-            trimEnd.style.display = playbackMode === 'clip' ? '' : 'none';
-
             requestAnimationFrame(() => {
                 renderFullWaveform(clip);
             });
@@ -1438,64 +1466,43 @@
 
                 trimStart.style.left = (startX - waveformPanX) + 'px';
                 trimEnd.style.left = (endX - 12 - waveformPanX) + 'px';
-
-                if (clip.deleted_regions && clip.deleted_regions.length > 0) {
-                    ctx.fillStyle = 'rgba(240, 80, 80, 0.4)';
-                    clip.deleted_regions.forEach(region => {
-                        let regionStart, regionEnd;
-                        if (waveformClipMapping) {
-                            const mapping = waveformClipMapping.find(m => m.clip_id === clip.id);
-                            if (mapping) {
-                                regionStart = (region.start - mapping.original_start) + mapping.output_start;
-                                regionEnd = (region.end - mapping.original_start) + mapping.output_start;
-                            } else {
-                                regionStart = region.start;
-                                regionEnd = region.end;
-                            }
-                        } else {
-                            regionStart = region.start;
-                            regionEnd = region.end;
-                        }
-                        const regionStartX = (regionStart / duration) * waveformWidth;
-                        const regionEndX = (regionEnd / duration) * waveformWidth;
-                        ctx.fillRect(regionStartX, 0, regionEndX - regionStartX, rect.height);
-                    });
-                }
             }
 
-            renderDeletedRegionElements(clip);
+            const deletedRegions = project?.timeline_deleted_regions || [];
+            if (deletedRegions.length > 0) {
+                ctx.fillStyle = 'rgba(240, 80, 80, 0.4)';
+                deletedRegions.forEach(region => {
+                    const regionStart = region.start;
+                    const regionEnd = region.end;
+                    const regionStartX = (regionStart / duration) * waveformWidth;
+                    const regionEndX = (regionEnd / duration) * waveformWidth;
+                    ctx.fillRect(regionStartX, 0, regionEndX - regionStartX, rect.height);
+                });
+            }
+
+            renderDeletedRegionElements();
             waveformZoomInfo.textContent = `${waveformZoom.toFixed(1)}x`;
             updatePlayheadPosition();
             updateScrollbar();
+            renderTimeAxis();
             positionWords();
         }
 
-        function renderDeletedRegionElements(clip) {
+        function renderDeletedRegionElements() {
             waveformWrapper.querySelectorAll('.deleted-region').forEach(el => el.remove());
             
-            if (!clip || !clip.deleted_regions) return;
+            const deletedRegions = project?.timeline_deleted_regions || [];
+            if (deletedRegions.length === 0) return;
             
             const duration = waveformData.duration;
             
-            clip.deleted_regions.forEach((region, index) => {
+            deletedRegions.forEach((region, index) => {
                 const el = document.createElement('div');
                 el.className = 'deleted-region';
                 el.dataset.regionIndex = index;
                 
-                let regionStart, regionEnd;
-                if (waveformClipMapping) {
-                    const mapping = waveformClipMapping.find(m => m.clip_id === clip.id);
-                    if (mapping) {
-                        regionStart = (region.start - mapping.original_start) + mapping.output_start;
-                        regionEnd = (region.end - mapping.original_start) + mapping.output_start;
-                    } else {
-                        regionStart = region.start;
-                        regionEnd = region.end;
-                    }
-                } else {
-                    regionStart = region.start;
-                    regionEnd = region.end;
-                }
+                const regionStart = region.start;
+                const regionEnd = region.end;
                 
                 const startX = (regionStart / duration) * waveformWidth - waveformPanX;
                 const endX = (regionEnd / duration) * waveformWidth - waveformPanX;
@@ -1504,9 +1511,9 @@
                 el.style.width = (endX - startX) + 'px';
                 
                 el.addEventListener('dblclick', () => {
-                    clip.deleted_regions.splice(index, 1);
+                    project.timeline_deleted_regions.splice(index, 1);
                     markUnsaved();
-                    renderFullWaveform(clip);
+                    renderFullWaveform(null);
                 });
                 
                 waveformWrapper.appendChild(el);
@@ -1617,17 +1624,14 @@
                 waveformSelection.style.display = 'none';
                 
                 const duration = Math.abs(selectionEndTime - selectionStartTime);
-                if (duration > 0.1 && selectedClipId) {
-                    const clip = getClipById(selectedClipId);
-                    if (clip) {
-                        if (!clip.deleted_regions) clip.deleted_regions = [];
-                        const start = Math.min(selectionStartTime, selectionEndTime);
-                        const end = Math.max(selectionStartTime, selectionEndTime);
-                        clip.deleted_regions.push({ start: roundTo(start, 3), end: roundTo(end, 3) });
-                        mergeDeletedRegions(clip);
-                        markUnsaved();
-                        renderFullWaveform(clip);
-                    }
+                if (duration > 0.1) {
+                    if (!project.timeline_deleted_regions) project.timeline_deleted_regions = [];
+                    const start = Math.min(selectionStartTime, selectionEndTime);
+                    const end = Math.max(selectionStartTime, selectionEndTime);
+                    project.timeline_deleted_regions.push({ start: roundTo(start, 3), end: roundTo(end, 3) });
+                    mergeDeletedRegions();
+                    markUnsaved();
+                    renderFullWaveform(null);
                 }
             }
         });
@@ -1636,14 +1640,14 @@
             return Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
         }
 
-        function mergeDeletedRegions(clip) {
-            if (!clip.deleted_regions || clip.deleted_regions.length <= 1) return;
+        function mergeDeletedRegions() {
+            if (!project.timeline_deleted_regions || project.timeline_deleted_regions.length <= 1) return;
             
-            clip.deleted_regions.sort((a, b) => a.start - b.start);
-            const merged = [clip.deleted_regions[0]];
+            project.timeline_deleted_regions.sort((a, b) => a.start - b.start);
+            const merged = [project.timeline_deleted_regions[0]];
             
-            for (let i = 1; i < clip.deleted_regions.length; i++) {
-                const current = clip.deleted_regions[i];
+            for (let i = 1; i < project.timeline_deleted_regions.length; i++) {
+                const current = project.timeline_deleted_regions[i];
                 const last = merged[merged.length - 1];
                 
                 if (current.start <= last.end) {
@@ -1653,7 +1657,7 @@
                 }
             }
             
-            clip.deleted_regions = merged;
+            project.timeline_deleted_regions = merged;
         }
 
         waveformScrollbarThumb.addEventListener('mousedown', (e) => {
@@ -1708,6 +1712,62 @@
             const time = (x / rect.width) * waveformData.duration;
             mainVideo.currentTime = time;
             updatePlayheadPosition();
+        }
+
+        function renderTimeAxis() {
+            if (!waveformData) return;
+
+            const duration = waveformData.duration;
+            const rect = timeAxis.getBoundingClientRect();
+            const containerWidth = rect.width;
+
+            timeAxisInner.style.width = waveformWidth + 'px';
+            timeAxisInner.style.transform = `translateX(${-waveformPanX}px)`;
+
+            let tickInterval;
+            if (duration <= 60) {
+                tickInterval = 10;
+            } else if (duration <= 180) {
+                tickInterval = 30;
+            } else if (duration <= 600) {
+                tickInterval = 60;
+            } else {
+                tickInterval = 120;
+            }
+
+            const effectiveZoom = waveformWidth / containerWidth;
+            if (effectiveZoom > 2) {
+                tickInterval = tickInterval / 2;
+            }
+            if (effectiveZoom > 4) {
+                tickInterval = tickInterval / 2;
+            }
+            tickInterval = Math.max(5, tickInterval);
+
+            timeAxisInner.innerHTML = '';
+
+            const numTicks = Math.ceil(duration / tickInterval) + 1;
+            for (let i = 0; i < numTicks; i++) {
+                const time = i * tickInterval;
+                if (time > duration) break;
+
+                const x = (time / duration) * waveformWidth;
+
+                const tick = document.createElement('div');
+                tick.className = 'time-axis-tick';
+                tick.style.left = x + 'px';
+
+                const line = document.createElement('div');
+                line.className = 'time-axis-tick-line';
+                tick.appendChild(line);
+
+                const label = document.createElement('div');
+                label.className = 'time-axis-tick-label';
+                label.textContent = formatTimeShort(time);
+                tick.appendChild(label);
+
+                timeAxisInner.appendChild(tick);
+            }
         }
 
         function updateScrollbar() {
@@ -1772,13 +1832,8 @@
             const times = getEffectiveTimes(clip);
             console.log('[loadVideoPreview] times.start:', times.start, 'times.end:', times.end);
 
-            if (playbackMode === 'timeline') {
-                mainVideo.timeStart = 0;
-                mainVideo.timeEnd = mainVideo.duration || 999999;
-            } else {
-                mainVideo.timeStart = times.start;
-                mainVideo.timeEnd = times.end;
-            }
+            mainVideo.timeStart = 0;
+            mainVideo.timeEnd = mainVideo.duration || 999999;
 
             videoInfoTitle.textContent = clip.name;
             videoInfoTime.textContent = `${formatTimeShort(times.start)} - ${formatTimeShort(times.end)}`;
@@ -1813,29 +1868,21 @@
                 'lt', lastTime.toFixed(3),
                 'start', start.toFixed(3),
                 'end', end.toFixed(3),
-                'deleted', (clip?.deleted_regions?.length || 0),
+                'deleted', (project?.timeline_deleted_regions?.length || 0),
                 'queue', previewQueue.length
             );
 
-            if (playbackMode === 'clip' && currentTime >= end - END_EPS) {
-                console.log('[TU] end guard fired');
-                if (previewQueue.length > 0) {
-                    previewIndex++;
-                    playNextInQueue();
-                    return;
-                }
-                mainVideo.pause();
-                mainVideo.currentTime = end;
-                mainVideo._lastTime = end;
+            if (currentTime >= end - END_EPS && previewQueue.length > 0) {
+                console.log('[TU] end guard fired for preview queue');
+                previewIndex++;
+                playNextInQueue();
                 return;
             }
 
-            if (clip && clip.deleted_regions && clip.deleted_regions.length > 0) {
-                const effectiveRegions = clip.deleted_regions
-                    .map(r => ({
-                        start: Math.max(r.start, start),
-                        end: Math.min(r.end, end)
-                    }))
+            const deletedRegions = project?.timeline_deleted_regions || [];
+            if (deletedRegions.length > 0) {
+                const videoDuration = mainVideo.duration || waveformData.duration;
+                const effectiveRegions = deletedRegions
                     .filter(r => r.end > r.start);
 
                 let t = currentTime;
@@ -1848,22 +1895,22 @@
                     for (const region of effectiveRegions) {
                         const inRegion = t >= region.start && t < region.end;
                         const enteredRegion = lt < region.start && t >= region.start && t < region.end;
-                        const jumpedPastRegion = lt < region.start && t >= region.end && t < end - END_EPS;
+                        const jumpedPastRegion = lt < region.start && t >= region.end && t < videoDuration - END_EPS;
 
                         if (inRegion || enteredRegion || jumpedPastRegion) {
-                            let skipTarget = Math.min(region.end + SAFE_SKIP_OFFSET, end - SAFE_SKIP_OFFSET);
+                            let skipTarget = Math.min(region.end + SAFE_SKIP_OFFSET, videoDuration - SAFE_SKIP_OFFSET);
                             
                             console.log('[TU] skip to', skipTarget.toFixed(3), 'region was', region.start.toFixed(3), '-', region.end.toFixed(3));
                             
-                            if (skipTarget >= end) {
+                            if (skipTarget >= videoDuration) {
                                 if (previewQueue.length > 0) {
                                     previewIndex++;
                                     playNextInQueue();
                                     return;
                                 }
                                 mainVideo.pause();
-                                mainVideo.currentTime = end;
-                                mainVideo._lastTime = end;
+                                mainVideo.currentTime = videoDuration;
+                                mainVideo._lastTime = videoDuration;
                                 return;
                             }
                             
@@ -2024,13 +2071,6 @@
             renderClipPool();
             renderTimelineCards();
             renderEditor();
-        });
-
-        playbackModeBtn.addEventListener('click', () => {
-            playbackMode = playbackMode === 'clip' ? 'timeline' : 'clip';
-            playbackModeBtn.textContent = 'Mode: ' + (playbackMode === 'clip' ? 'Clip' : 'Timeline');
-            trimStart.style.display = playbackMode === 'clip' ? '' : 'none';
-            trimEnd.style.display = playbackMode === 'clip' ? '' : 'none';
         });
 
         previewAllBtn.addEventListener('click', () => {
