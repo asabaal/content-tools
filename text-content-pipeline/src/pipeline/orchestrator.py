@@ -95,7 +95,7 @@ async def run_full_pipeline(
         print(f"  Created schedule with {len(schedule.slots)} total slots")
 
         # Save slot plan for inspection
-        plan_path = _save_plan(calendar, slot_plan, schedule, plans_dir, weekly_subtitles)
+        plan_path = _save_plan(calendar, slot_plan, schedule, plans_dir, weekly_subtitles, payload.style_preset, background_color)
         print(f"  Saved slot plan: {plan_path}")
 
         # Stage 5: AI Monthly Text Generation
@@ -209,6 +209,8 @@ def _save_plan(
     schedule,  # scheduler.DailySlotSchedule
     plans_dir: Path | None = None,
     weekly_subtitles: dict[int, str] | None = None,
+    style_preset: str = "default",
+    background_color: str | None = None,
 ) -> str:
     """Save slot plan to JSON file.
 
@@ -233,6 +235,10 @@ def _save_plan(
         "weekly_subthemes": calendar.weekly_subthemes,
         "weekly_subtitles": weekly_subtitles,
         "weekly_subthemes_source": schedule.weekly_subthemes_source,
+        "render_config": {
+            "style_preset": style_preset,
+            "background_color": background_color,
+        },
         "slot_plan": slot_plan,
         "schedule_summary": [
             {

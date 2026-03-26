@@ -12,6 +12,7 @@ from src.weekly_calendar.resolver import resolve_calendar
 from src.config.defaults import (
     COLORFUL_PRESETS,
     DEFAULT_AI_MODEL,
+    MAX_WORDS_PER_SLOT,
 )
 from src.errors.exceptions import (
     ModelUnavailableError,
@@ -20,6 +21,30 @@ from src.errors.exceptions import (
 from src.payload import schema, validation
 from src.pipeline import orchestrator
 from src.renderer import html_renderer
+
+
+REFINEMENT_PROMPT = """You are refining a social media post based on user feedback.
+
+Monthly theme: {monthly_theme}
+Weekly subtheme: {weekly_subtheme}
+Slot type: {slot_type}
+
+Original post:
+{original_post}
+
+User feedback:
+{feedback}
+
+Task: Rewrite the post to address the user feedback while staying true to the monthly theme, weekly subtheme, and slot type requirements.
+
+Requirements:
+- Directly address the feedback provided
+- Maintain consistency with the theme and subtheme
+- Follow the slot type format ({slot_type})
+- Plain text only (no markdown, no emojis, no hashtags)
+- Maximum {max_words} words
+
+Output: Just the refined post, nothing else."""
 
 
 @click.group()
@@ -449,6 +474,12 @@ def rerender(
 
     generated_texts = texts_data.get("texts", {})
 
+    # Read render config from plan (CLI --background-color overrides if provided)
+    stored_render_config = plan_data.get("render_config", {})
+    stored_style_preset = stored_render_config.get("style_preset", "default")
+    stored_bg_color = stored_render_config.get("background_color")
+    effective_bg_color = background_color or stored_bg_color
+
     # Determine output directory
     images_dir = Path(output_dir) / "images" if output_dir else Path(plan_dir) / "images"
     images_dir.mkdir(parents=True, exist_ok=True)
@@ -511,8 +542,8 @@ def rerender(
                     text=text,
                     slot_info=slot_info,
                     output_path=output_path,
-                    style_preset="default",
-                    background_color=background_color,
+                    style_preset=stored_style_preset,
+                    background_color=effective_bg_color,
                 )
                 click.echo(f"  Rendered: {output_path}")
                 rendered += 1
@@ -524,6 +555,218 @@ def rerender(
     click.echo(f"Re-rendering {len(dates_to_render)} image(s)...")
     rendered_count = asyncio.run(do_render())
     click.echo(f"\n✓ Rendered {rendered_count} image(s)")
+
+
+async def _refine_post_with_ai(
+    original_post: str,
+    feedback: str,
+    slot_type: str,
+    monthly_theme: str,
+    weekly_subtheme: str,
+    max_words: int = 50,
+) -> str:
+    """Refine a post using AI based on user feedback."""
+    prompt = REFINEMENT_PROMPT.format(
+        original_post=original_post,
+        feedback=feedback,
+        slot_type=slot_type,
+        monthly_theme=monthly_theme,
+        weekly_subtheme=weekly_subtheme,
+        max_words=max_words,
+    )
+    return await generator._call_ollama(prompt, touchpoint="post_refinement")
+
+
+def _parse_feedback(feedback: str) -> list[tuple[str, str]]:
+    """Parse feedback string into list of (date, feedback) tuples.
+
+    Format: "DATE::feedback|DATE::feedback|..."
+    """
+    entries = []
+    for entry in feedback.split("|"):
+        entry = entry.strip()
+        if not entry:
+            continue
+        if "::" not in entry:
+            raise ValueError(f"Invalid feedback entry '{entry}'. Expected format: DATE::feedback")
+        parts = entry.split("::", 1)
+        date_str = parts[0].strip()
+        feedback_text = parts[1].strip()
+        if not date_str or not feedback_text:
+            raise ValueError(f"Invalid feedback entry '{entry}'. Expected format: DATE::feedback")
+        entries.append((date_str, feedback_text))
+    if not entries:
+        raise ValueError("No valid feedback entries found. Expected format: DATE::feedback|DATE::feedback")
+    return entries
+
+
+@cli.command()
+@click.option("--plan-dir", required=True, help="Directory containing plans (e.g., 202604-draft)")
+@click.option("--feedback", required=True, help="Feedback string: DATE::feedback|DATE::feedback")
+def refine_posts(plan_dir: str, feedback: str) -> None:
+    """Refine existing posts with user feedback.
+
+    Example:
+        tcp refine-posts --plan-dir 202604-draft --feedback "2026-04-05::Too generic."
+        tcp refine-posts --plan-dir 202604-draft --feedback "2026-04-05::Too generic.|2026-04-12::Too abstract."
+    """
+    try:
+        parsed_entries = _parse_feedback(feedback)
+    except ValueError as e:
+        click.echo(f"✗ {e}", err=True)
+        sys.exit(1)
+
+    click.echo(f"Parsed {len(parsed_entries)} feedback entries")
+
+    plan_path = Path(plan_dir) / "plans"
+    plan_files = list(plan_path.glob("*_plan.json"))
+    if not plan_files:
+        click.echo(f"✗ No plan file found in {plan_path}", err=True)
+        sys.exit(1)
+    plan_file = plan_files[0]
+
+    texts_files = list(plan_path.glob("*_texts.json"))
+    if not texts_files:
+        click.echo(f"✗ No texts file found in {plan_path}", err=True)
+        sys.exit(1)
+    texts_file = texts_files[0]
+
+    with open(plan_file, "r", encoding="utf-8") as f:
+        plan_data = json.load(f)
+
+    with open(texts_file, "r", encoding="utf-8") as f:
+        texts_data = json.load(f)
+
+    generated_texts = texts_data.get("texts", {})
+    slot_lookup = {slot["date"]: slot for slot in plan_data.get("schedule_summary", [])}
+    monthly_theme = plan_data.get("monthly_theme", "")
+    weekly_subtitles = plan_data.get("weekly_subtitles", {})
+    render_config = plan_data.get("render_config", {})
+    style_preset = render_config.get("style_preset", "default")
+    bg_color = render_config.get("background_color")
+    images_dir = Path(plan_dir) / "images"
+    images_dir.mkdir(parents=True, exist_ok=True)
+
+    processed_count = 0
+    skipped_count = 0
+
+    async def process_all_entries():
+        nonlocal processed_count, skipped_count
+        
+        for entry_index, (target_date, initial_feedback) in enumerate(parsed_entries, 1):
+            click.echo(f"\n{'#'*60}")
+            click.echo(f"Entry {entry_index}/{len(parsed_entries)}: {target_date}")
+            click.echo(f"{'#'*60}")
+
+            if target_date not in generated_texts:
+                click.echo(f"✗ No post found for date: {target_date}, skipping", err=True)
+                skipped_count += 1
+                continue
+
+            slot_info = slot_lookup.get(target_date, {})
+            slot_type = slot_info.get("slot_type", "declarative_statement")
+            max_words = MAX_WORDS_PER_SLOT.get(slot_type, 50)
+            weekly_subtheme = slot_info.get("subtheme", "")
+
+            current_post = generated_texts[target_date]
+            accumulated_feedback = initial_feedback
+
+            while True:
+                click.echo(f"\n{'='*50}")
+                click.echo(f"Date: {target_date}")
+                click.echo(f"Slot type: {slot_type}")
+                click.echo(f"\nCurrent post:\n  {current_post}")
+                click.echo(f"\nFeedback:\n  {accumulated_feedback}")
+                click.echo(f"{'='*50}")
+
+                click.echo("\nGenerating refined post...")
+                try:
+                    revised_post = await _refine_post_with_ai(
+                        original_post=current_post,
+                        feedback=accumulated_feedback,
+                        slot_type=slot_type,
+                        monthly_theme=monthly_theme,
+                        weekly_subtheme=weekly_subtheme,
+                        max_words=max_words,
+                    )
+                    revised_post = revised_post.strip()
+                except Exception as e:
+                    click.echo(f"✗ AI refinement failed: {e}", err=True)
+                    skipped_count += 1
+                    break
+
+                click.echo(f"\nRevised post:\n  {revised_post}")
+
+                choice = click.prompt(
+                    "\nOptions: 1=accept, 2=refine, 3=skip, 4=exit",
+                    type=click.Choice(["1", "2", "3", "4"]),
+                    default="1",
+                )
+
+                if choice == "1":
+                    generated_texts[target_date] = revised_post
+                    with open(texts_file, "w", encoding="utf-8") as f:
+                        json.dump(texts_data, f, indent=2, ensure_ascii=False)
+                    click.echo(f"\n✓ Post updated for {target_date}")
+
+                    year, month, day = map(int, target_date.split("-"))
+                    render_slot_info = {
+                        "type": slot_type,
+                        "year": year,
+                        "month": month,
+                        "day": day,
+                        "week_number": str(slot_info.get("week_number", 1)),
+                        "subtheme": slot_info.get("subtheme", ""),
+                        "subtheme_subtitle": weekly_subtitles.get(slot_info.get("week_number", 1), ""),
+                        "monthly_theme": monthly_theme,
+                    }
+                    render_output_path = html_renderer.get_output_path(
+                        year=year,
+                        month=month,
+                        day=day,
+                        monthly_theme=monthly_theme,
+                        week_number=slot_info.get("week_number", 1),
+                        subtheme=weekly_subtitles.get(slot_info.get("week_number", 1), slot_info.get("subtheme", "")),
+                        slot_type=slot_type,
+                        images_dir=images_dir,
+                    )
+                    try:
+                        await html_renderer.render_text_to_image(
+                            text=revised_post,
+                            slot_info=render_slot_info,
+                            output_path=render_output_path,
+                            style_preset=style_preset,
+                            background_color=bg_color,
+                        )
+                        click.echo(f"  Rendered: {render_output_path}")
+                    except Exception as e:
+                        click.echo(f"  Warning: Failed to render {target_date}: {e}")
+
+                    processed_count += 1
+                    break
+                elif choice == "2":
+                    additional_feedback = click.prompt("Enter additional feedback", type=str)
+                    accumulated_feedback = f"{accumulated_feedback} {additional_feedback}"
+                    current_post = revised_post
+                    continue
+                elif choice == "3":
+                    click.echo(f"\n⊗ Skipped {target_date}")
+                    skipped_count += 1
+                    break
+                elif choice == "4":
+                    click.echo("\n✗ Exiting. No more entries processed.")
+                    return True
+
+        return False
+
+    early_exit = asyncio.run(process_all_entries())
+
+    click.echo(f"\n{'#'*60}")
+    if early_exit:
+        click.echo(f"⊗ Exited early. Processed: {processed_count}, Skipped: {skipped_count}")
+    else:
+        click.echo(f"✓ Completed. Processed: {processed_count}, Skipped: {skipped_count}")
+    click.echo(f"{'#'*60}")
 
 
 if __name__ == "__main__":  # pragma: no cover
