@@ -241,6 +241,7 @@ async def _call_ollama(prompt: str, touchpoint: str) -> str:
         "model": DEFAULT_AI_MODEL,
         "prompt": prompt,
         "stream": False,
+        "think": False,
         "options": {
             "temperature": AI_TEMPERATURE,
             "top_p": 0.9,

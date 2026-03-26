@@ -50,7 +50,7 @@ def test_paths_are_relative_to_project_root() -> None:
 def test_ai_config_constants() -> None:
     """Test AI configuration constants."""
     assert DEFAULT_AI_PROVIDER == "ollama"
-    assert DEFAULT_AI_MODEL == "gpt-oss:20b"
+    assert DEFAULT_AI_MODEL == "qwen3.5:35b-a3b"
     assert DEFAULT_AI_BASE_URL == "http://localhost:11434"
     assert AI_TIMEOUT == 300.0
     assert AI_MAX_RETRIES == 2
