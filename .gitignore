@@ -53,3 +53,6 @@ tests/
 tools/05b-render/TEST_RESULTS.md
 tools/05b-render/render_first_2_lines.py
 tools/05b-render/validate_first_2_lines.sh
+
+# Audio
+*.mp3
