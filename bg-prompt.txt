@@ -1,0 +1,169 @@
+TEST: Background rendering system upgrade
+
+Observed behavior:
+The current system renders a solid color background with no variation.
+
+Goal:
+Extend the background system to support structured gradients and controlled texture overlays, and validate the implementation by generating test images using existing April content.
+
+Scope:
+You may ONLY modify:
+
+- background rendering logic
+- utilities directly related to background generation
+
+You may NOT modify:
+
+- text layout
+- timing
+- pipeline structure
+- file interfaces
+
+Requirements:
+
+1. Gradient Rendering
+
+Implement gradient rendering with:
+
+gradient_direction:
+
+- vertical_top_bottom
+- vertical_bottom_top
+- horizontal_left_right
+- horizontal_right_left
+- diagonal_tl_br
+- diagonal_tr_bl
+- radial_center
+- radial_top
+- radial_bottom
+
+gradient_colors:
+
+- array of 2 to 4 colors
+
+gradient_stops:
+
+- optional array of normalized values (0.0 to 1.0)
+- default evenly spaced if not provided
+
+Fallback:
+
+- If no gradient parameters are provided, output must match current solid color behavior
+
+2. Texture Layer
+
+Implement a texture system with:
+
+texture_type:
+
+- none
+- noise_fine
+- noise_coarse
+- grain_film
+- paper_subtle
+- vignette_soft
+- vignette_heavy
+
+3. Texture Controls
+
+texture_opacity:
+
+- float from 0.0 to 1.0
+
+texture_blend_mode:
+
+- normal
+- multiply
+- overlay
+
+Defaults:
+
+- opacity 0.15
+- blend mode multiply
+
+4. Composition
+
+Final background must be rendered as:
+
+gradient_base
+then texture_layer if enabled
+
+5. Backwards Compatibility
+
+If no new parameters are passed:
+
+- output must remain identical to the current system
+
+6. Visual Output Testing
+
+After implementing the background system, generate test outputs using existing April content.
+
+Testing rules:
+
+- Use existing April text content only
+- Do not modify the content
+- Only change rendering parameters
+
+Generate at least 4 test images:
+
+Test Case 1:
+
+- gradient_direction: vertical_top_bottom
+- gradient_colors: 2 colors
+- texture_type: none
+
+Test Case 2:
+
+- gradient_direction: diagonal_tl_br
+- gradient_colors: 3 colors
+- texture_type: noise_fine
+- texture_opacity: 0.15
+- texture_blend_mode: multiply
+
+Test Case 3:
+
+- gradient_direction: radial_center
+- gradient_colors: 2 colors
+- texture_type: vignette_soft
+- texture_opacity: 0.25
+
+Test Case 4:
+
+- gradient_direction: horizontal_left_right
+- gradient_colors: 4 colors
+- texture_type: grain_film
+- texture_opacity: 0.2
+- texture_blend_mode: overlay
+
+Output requirements:
+
+- Save images to a defined directory (e.g. /outputs/background_tests/)
+- Filenames must include test case identifier
+- Do not overwrite existing files
+
+Validation criteria:
+
+- Each image must visibly differ in gradient direction
+- Texture presence must be visually distinguishable
+- Text must remain readable in all outputs
+
+Restrictions:
+
+- Do not modify pipeline structure to support testing
+- Do not hardcode values into production logic
+
+Success Criteria:
+
+- All gradient directions render correctly
+- Texture types produce distinct visual differences
+- Texture can be toggled on and off
+- No regression in text rendering
+- Test images are successfully generated
+
+Output:
+
+- Unified diff only
+- No explanations
+
+If this cannot be completed within scope:
+IMPOSSIBLE WITH CURRENT SCOPE

@@ -48,6 +48,7 @@ async def run_full_pipeline(
     anim_seed: int | None = None,
     audio: bool = False,
     audio_voice: str | None = None,
+    text_color: str | None = None,
 ) -> dict:
     """Run the complete pipeline from payload to images.
 
@@ -65,6 +66,7 @@ async def run_full_pipeline(
         anim_seed: Seed for deterministic animation
         audio: If True, generate TTS audio for each video
         audio_voice: Edge TTS voice name for audio generation
+        text_color: Optional text color override. Auto-computed from background if not provided.
 
     Returns:
         Dictionary with pipeline results and outputs
@@ -262,6 +264,7 @@ async def run_full_pipeline(
                                     anim_loop=anim_loop if anim_loop is not None else 60,
                                     anim_seed=anim_seed,
                                     audio_path=audio_path,
+                                    text_color=text_color,
                                 )
 
                             else:
@@ -290,6 +293,7 @@ async def run_full_pipeline(
                                     texture_type=texture_type,
                                     texture_opacity=texture_opacity,
                                     texture_blend_mode=texture_blend_mode,
+                                    text_color=text_color,
                                 )
                             rendered_images.append(output_path)
                             print(f"  Rendered: {output_path}")

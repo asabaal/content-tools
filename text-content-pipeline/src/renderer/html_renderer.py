@@ -46,6 +46,7 @@ async def render_text_to_image(
     texture_type: TextureType | None = None,
     texture_opacity: float | None = None,
     texture_blend_mode: TextureBlendMode | None = None,
+    text_color: str | None = None,
 ) -> str:
     """Render text content to a PNG image.
 
@@ -62,6 +63,7 @@ async def render_text_to_image(
         texture_type: Optional texture overlay type
         texture_opacity: Optional texture opacity (0.0-1.0)
         texture_blend_mode: Optional texture blend mode
+        text_color: Optional text color override. Auto-computed from background if not provided.
 
     Returns:
         Path to rendered image file
@@ -69,7 +71,6 @@ async def render_text_to_image(
     Raises:
         RendererError: If rendering fails
     """
-    # Get preset configuration
     if style_preset not in COLORFUL_PRESETS:
         raise RendererError(
             f"Invalid style preset '{style_preset}'. Available: {list(COLORFUL_PRESETS.keys())}"
@@ -77,11 +78,9 @@ async def render_text_to_image(
 
     preset = COLORFUL_PRESETS[style_preset].copy()
 
-    # Override background color if specified
     if background_color:
         preset["background"] = background_color
 
-    # Set dimensions based on aspect ratio
     if aspect_ratio == "4:5":
         width = 1080
         height = 1350
@@ -89,7 +88,6 @@ async def render_text_to_image(
         width = DEFAULT_IMAGE_WIDTH
         height = DEFAULT_IMAGE_HEIGHT
 
-    # Generate HTML using template builder
     html_content = build_html(
         text,
         slot_info,
@@ -102,6 +100,7 @@ async def render_text_to_image(
         texture_type=texture_type,
         texture_opacity=texture_opacity,
         texture_blend_mode=texture_blend_mode,
+        text_color=text_color,
     )
 
     # Generate filename if not provided
@@ -259,6 +258,7 @@ async def _render_text_layer_to_pil(
     texture_type: TextureType | None = None,
     texture_opacity: float | None = None,
     texture_blend_mode: TextureBlendMode | None = None,
+    text_color: str | None = None,
 ) -> Image.Image:
     """Render text content to a PIL Image with transparent background.
 
@@ -275,6 +275,7 @@ async def _render_text_layer_to_pil(
         texture_type: Optional texture overlay type (ignored, transparent)
         texture_opacity: Optional texture opacity (ignored, transparent)
         texture_blend_mode: Optional texture blend mode (ignored, transparent)
+        text_color: Optional text color override. Auto-computed from background if not provided.
 
     Returns:
         PIL Image with RGBA (transparent background)
@@ -302,6 +303,7 @@ async def _render_text_layer_to_pil(
         texture_opacity=texture_opacity,
         texture_blend_mode=texture_blend_mode,
         transparent_bg=True,
+        text_color=text_color,
     )
 
     try:
@@ -346,6 +348,7 @@ async def render_animated_video(
     anim_loop: int = DEFAULT_ANIM_LOOP,
     anim_seed: int | None = None,
     audio_path: str | None = None,
+    text_color: str | None = None,
 ) -> str:
     """Render text content to an animated MP4 video.
 
@@ -369,6 +372,7 @@ async def render_animated_video(
         anim_seed: Optional seed for deterministic output
         audio_path: Optional path to audio file. If provided, overrides
             anim_loop with audio duration and muxes audio into final video.
+        text_color: Optional text color override. Auto-computed from background if not provided.
 
     Returns:
         Path to rendered video file
@@ -416,14 +420,16 @@ async def render_animated_video(
         texture_type=texture_type,
         texture_opacity=texture_opacity,
         texture_blend_mode=texture_blend_mode,
+        text_color=text_color,
     )
 
     effective_colors = gradient_colors
     if not effective_colors:
+        from src.config.defaults import companion_color
+
         preset = COLORFUL_PRESETS.get(style_preset, {})
         bg = background_color or preset.get("background", "#4A90E2")
-        text_color = preset.get("text_color", "#FFFFFF")
-        effective_colors = [bg, str(text_color)]
+        effective_colors = [bg, companion_color(bg)]
 
     generator = AnimationFrameGenerator(
         anim_type=anim_type,

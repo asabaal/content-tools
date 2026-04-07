@@ -138,3 +138,40 @@ DEFAULT_TTS_VOICE = "en-US-AriaNeural"
 AUDIO_PAD_SECONDS = 0.5
 
 BACKGROUND_TEST_DIR = OUTPUTS_DIR / "background_tests"
+
+
+def auto_contrast_color(hex_color: str) -> str:
+    """Return black or white text color for best contrast against a background.
+
+    Uses WCAG relative luminance formula on the background color.
+    """
+    hex_color = hex_color.lstrip("#")
+    if len(hex_color) != 6:
+        return "#FFFFFF"
+    r = int(hex_color[0:2], 16) / 255.0
+    g = int(hex_color[2:4], 16) / 255.0
+    b = int(hex_color[4:6], 16) / 255.0
+    luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    return "#000000" if luminance > 0.6 else "#FFFFFF"
+
+
+def companion_color(hex_color: str, hue_shift: float = 40.0) -> str:
+    """Generate an interesting companion color by rotating hue.
+
+    Converts to HSL, shifts the hue, and slightly adjusts saturation/lightness
+    to produce a harmonious but visually distinct gradient pair.
+    """
+    import colorsys
+
+    hex_color = hex_color.lstrip("#")
+    if len(hex_color) != 6:
+        return "#FFFFFF"
+    r = int(hex_color[0:2], 16) / 255.0
+    g = int(hex_color[2:4], 16) / 255.0
+    b = int(hex_color[4:6], 16) / 255.0
+    h, s, l = colorsys.rgb_to_hls(r, g, b)
+    h = (h + hue_shift / 360.0) % 1.0
+    s = min(1.0, s * 1.1)
+    l = max(0.2, min(0.8, l * 0.9))
+    r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
+    return f"#{int(r2*255):02X}{int(g2*255):02X}{int(b2*255):02X}"

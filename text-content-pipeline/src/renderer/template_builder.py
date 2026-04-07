@@ -169,6 +169,7 @@ def build_html(
     texture_opacity: float | None = None,
     texture_blend_mode: TextureBlendMode | None = None,
     transparent_bg: bool = False,
+    text_color: str | None = None,
 ) -> str:
     """Build HTML from content and style.
 
@@ -185,14 +186,19 @@ def build_html(
         texture_opacity: Optional texture opacity (0.0-1.0)
         texture_blend_mode: Optional texture blend mode
         transparent_bg: If True, render with transparent background
+        text_color: Optional text color override (hex). Auto-computed from background if not provided.
 
     Returns:
         Complete HTML string
     """
-    from src.config.defaults import DEFAULT_TEXTURE_BLEND_MODE, DEFAULT_TEXTURE_OPACITY
+    from src.config.defaults import DEFAULT_TEXTURE_BLEND_MODE, DEFAULT_TEXTURE_OPACITY, auto_contrast_color
 
     background = preset.get("background", "#4A90E2")
-    text_color = preset.get("text_color", "#FFFFFF")
+    if text_color is not None:
+        effective_text_color = text_color
+    else:
+        ref_bg = gradient_colors[0] if gradient_colors and len(gradient_colors) >= 1 else background
+        effective_text_color = auto_contrast_color(ref_bg)
     font_size = int(preset.get("font_size", 48))
     padding = int(preset.get("padding", 80))
     preset_width = int(preset.get("max_width", max_width))
@@ -277,7 +283,7 @@ def build_html(
         body {{
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             {bg_css_property}: {bg_css_value};
-            color: {text_color};
+            color: {effective_text_color};
             display: flex;
             align-items: center;
             justify-content: center;

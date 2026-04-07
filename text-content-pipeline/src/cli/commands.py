@@ -286,6 +286,7 @@ def resolve_calendar_cmd(payload_path: str, output: str | None) -> None:
 @click.option("--anim-seed", type=int, help="Seed for deterministic animation")
 @click.option("--audio", is_flag=True, help="Generate TTS narration audio for animated videos")
 @click.option("--audio-voice", help="Edge TTS voice name (default: en-US-AriaNeural)")
+@click.option("--text-color", help="Text color override (hex, e.g. #FFFFFF). Auto-computed from background if not set.")
 def run_all(
     payload: str | None,
     theme: str | None,
@@ -311,6 +312,7 @@ def run_all(
     anim_seed: int | None,
     audio: bool,
     audio_voice: str | None,
+    text_color: str | None,
 ) -> None:
     """Run full pipeline end-to-end.
 
@@ -397,6 +399,7 @@ def run_all(
                 anim_seed=anim_seed,
                 audio=audio,
                 audio_voice=audio_voice,
+                text_color=text_color,
             )
         )
 
@@ -599,6 +602,7 @@ def demo(
 @click.option("--anim-seed", type=int, help="Seed for deterministic animation")
 @click.option("--audio", is_flag=True, help="Generate TTS narration audio for animated videos")
 @click.option("--audio-voice", help="Edge TTS voice name (default: en-US-AriaNeural)")
+@click.option("--text-color", help="Text color override (hex, e.g. #FFFFFF). Auto-computed from background if not set.")
 def rerender(
     plan_dir: str,
     target_date: str | None,
@@ -619,6 +623,7 @@ def rerender(
     anim_seed: int | None,
     audio: bool,
     audio_voice: str | None,
+    text_color: str | None,
 ) -> None:
     """Re-render images from saved plan and texts.
 
@@ -818,6 +823,7 @@ def rerender(
                         anim_loop=effective_anim_loop if effective_anim_loop is not None else 60,
                         anim_seed=effective_anim_seed,
                         audio_path=audio_path,
+                        text_color=text_color,
                     )
                 else:
                     await html_renderer.render_text_to_image(
@@ -832,6 +838,7 @@ def rerender(
                         texture_type=effective_texture_type,
                         texture_opacity=effective_texture_opacity,
                         texture_blend_mode=effective_texture_blend,
+                        text_color=text_color,
                     )
                 click.echo(f"  Rendered: {output_path}")
                 rendered += 1
