@@ -145,22 +145,23 @@ async def _render_html_to_image(
     try:
         async with async_playwright() as p:
             browser = await p.chromium.launch()
-            page = await browser.new_page(
-                viewport={"width": width, "height": height},
-            )
+            try:
+                page = await browser.new_page(
+                    viewport={"width": width, "height": height},
+                )
 
-            await page.set_content(html)
+                await page.set_content(html)
 
-            screenshot_path = Path(output_path)
-            await page.screenshot(
-                path=str(screenshot_path),
-                full_page=False,
-                type="png",
-            )
+                screenshot_path = Path(output_path)
+                await page.screenshot(
+                    path=str(screenshot_path),
+                    full_page=False,
+                    type="png",
+                )
 
-            await browser.close()
-
-            return str(screenshot_path)
+                return str(screenshot_path)
+            finally:
+                await browser.close()
 
     except Exception as e:
         raise RendererError(f"Failed to render HTML to image: {e}") from e

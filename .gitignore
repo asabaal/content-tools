@@ -1,6 +1,8 @@
 *.mp4
 *.png
 outputs/*
+**/outputs/
+!**/outputs/.gitkeep
 
 # Python
 *.pyc

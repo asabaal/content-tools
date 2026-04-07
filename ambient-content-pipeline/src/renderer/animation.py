@@ -30,6 +30,10 @@ class AnimationFrameGenerator:
         seed: int | None = None,
         gradient_colors: list[str] | None = None,
     ) -> None:
+        if width <= 0 or height <= 0:
+            raise ValueError(f"Invalid dimensions: width={width}, height={height}")
+        if speed <= 0:
+            raise ValueError(f"Speed must be positive, got {speed}")
         self.anim_type = anim_type
         self.intensity = max(0.0, min(0.5, intensity))
         self.speed = speed
@@ -62,11 +66,16 @@ class AnimationFrameGenerator:
     @staticmethod
     def _hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
         hex_color = hex_color.lstrip("#")
-        return (
-            int(hex_color[0:2], 16),
-            int(hex_color[2:4], 16),
-            int(hex_color[4:6], 16),
-        )
+        if len(hex_color) != 6:
+            raise ValueError(f"Invalid hex color '{hex_color}', expected 6 hex digits")
+        try:
+            return (
+                int(hex_color[0:2], 16),
+                int(hex_color[2:4], 16),
+                int(hex_color[4:6], 16),
+            )
+        except ValueError:
+            raise ValueError(f"Invalid hex color '#{hex_color}', contains non-hex characters")
 
     def _make_noise_grid(self, rows: int, cols: int) -> NDArray[np.float64]:
         grid = np.zeros((rows, cols), dtype=np.float64)
@@ -140,6 +149,9 @@ class AnimationFrameGenerator:
         return Image.fromarray(clamped)
 
     def generate_background_frame(self, t: float) -> "Image.Image":
+        import logging
+        logger = logging.getLogger(__name__)
+
         dispatch = {
             "drift": self._generate_drift,
             "flow": self._generate_flow,
@@ -148,6 +160,8 @@ class AnimationFrameGenerator:
             "parallax": self._generate_parallax,
             "reactive": self._generate_pulse,
         }
+        if self.anim_type == "reactive":
+            logger.warning("'reactive' animation mode is not yet implemented, falling back to 'pulse'")
         handler = dispatch.get(self.anim_type, self._generate_drift)
         return handler(t)
 
