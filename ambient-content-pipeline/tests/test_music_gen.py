@@ -1,5 +1,6 @@
 """Tests for music generation module."""
 
+import asyncio
 import json
 import pytest
 from unittest.mock import patch, MagicMock, AsyncMock
@@ -96,74 +97,111 @@ async def test_generate_music_prompt_from_theme_http_error() -> None:
             await generate_music_prompt_from_theme("Test")
 
 
-def test_generate_background_music_success() -> None:
+@pytest.mark.asyncio
+async def test_generate_background_music_success() -> None:
     json_output = json.dumps({"status": "ok", "path": "/tmp/music.wav", "duration": 23.5})
 
-    with patch("src.renderer.music_gen.subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(returncode=0, stdout=json_output, stderr="")
-        result = generate_background_music("piano music", 30.0, "/tmp/music.wav")
+    mock_proc = AsyncMock()
+    mock_proc.communicate = AsyncMock(return_value=(
+        json_output.encode(),
+        b"",
+    ))
+    mock_proc.returncode = 0
+
+    with patch("asyncio.create_subprocess_exec", return_value=mock_proc) as mock_exec:
+        result = await generate_background_music("piano music", 30.0, "/tmp/music.wav")
         assert result == "/tmp/music.wav"
-        mock_run.assert_called_once()
-        cmd = mock_run.call_args[0][0]
-        assert "--prompt" in cmd
-        assert "piano music" in cmd
-        assert "--duration" in cmd
-        assert "30.0" in cmd
-        assert "--outfile" in cmd
-        assert "/tmp/music.wav" in cmd
+        mock_exec.assert_called_once()
+        cmd_args = mock_exec.call_args[0]
+        assert "--prompt" in cmd_args
+        assert "piano music" in cmd_args
+        assert "--duration" in cmd_args
+        assert "30.0" in cmd_args
+        assert "--outfile" in cmd_args
+        assert "/tmp/music.wav" in cmd_args
 
 
-def test_generate_background_music_with_seed() -> None:
+@pytest.mark.asyncio
+async def test_generate_background_music_with_seed() -> None:
     json_output = json.dumps({"status": "ok", "path": "/tmp/music.wav", "duration": 10.0})
 
-    with patch("src.renderer.music_gen.subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(returncode=0, stdout=json_output, stderr="")
-        generate_background_music("piano", 10.0, "/tmp/out.wav", seed=42)
-        cmd = mock_run.call_args[0][0]
-        assert "--seed" in cmd
-        assert "42" in cmd
+    mock_proc = AsyncMock()
+    mock_proc.communicate = AsyncMock(return_value=(
+        json_output.encode(),
+        b"",
+    ))
+    mock_proc.returncode = 0
+
+    with patch("asyncio.create_subprocess_exec", return_value=mock_proc) as mock_exec:
+        await generate_background_music("piano", 10.0, "/tmp/out.wav", seed=42)
+        cmd_args = mock_exec.call_args[0]
+        assert "--seed" in cmd_args
+        assert "42" in cmd_args
 
 
-def test_generate_background_music_nonzero_exit() -> None:
-    with patch("src.renderer.music_gen.subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(returncode=1, stdout="", stderr="model load failed")
+@pytest.mark.asyncio
+async def test_generate_background_music_nonzero_exit() -> None:
+    mock_proc = AsyncMock()
+    mock_proc.communicate = AsyncMock(return_value=(b"", b"model load failed"))
+    mock_proc.returncode = 1
+
+    with patch("asyncio.create_subprocess_exec", return_value=mock_proc):
         with pytest.raises(RendererError, match="ACE-Step failed"):
-            generate_background_music("piano", 10.0, "/tmp/out.wav")
+            await generate_background_music("piano", 10.0, "/tmp/out.wav")
 
 
-def test_generate_background_music_timeout() -> None:
-    import subprocess
+@pytest.mark.asyncio
+async def test_generate_background_music_timeout() -> None:
+    mock_proc = AsyncMock()
+    mock_proc.communicate = AsyncMock(side_effect=asyncio.TimeoutError())
 
-    with patch("src.renderer.music_gen.subprocess.run") as mock_run:
-        mock_run.side_effect = subprocess.TimeoutExpired(cmd="python", timeout=600)
+    with patch("asyncio.create_subprocess_exec", return_value=mock_proc):
         with pytest.raises(RendererError, match="timed out"):
-            generate_background_music("piano", 10.0, "/tmp/out.wav")
+            await generate_background_music("piano", 10.0, "/tmp/out.wav")
 
 
-def test_generate_background_music_bad_json() -> None:
-    with patch("src.renderer.music_gen.subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(returncode=0, stdout="not json", stderr="")
+@pytest.mark.asyncio
+async def test_generate_background_music_bad_json() -> None:
+    mock_proc = AsyncMock()
+    mock_proc.communicate = AsyncMock(return_value=(b"not json", b""))
+    mock_proc.returncode = 0
+
+    with patch("asyncio.create_subprocess_exec", return_value=mock_proc):
         with pytest.raises(RendererError, match="non-JSON"):
-            generate_background_music("piano", 10.0, "/tmp/out.wav")
+            await generate_background_music("piano", 10.0, "/tmp/out.wav")
 
 
-def test_generate_background_music_error_status() -> None:
+@pytest.mark.asyncio
+async def test_generate_background_music_error_status() -> None:
     json_output = json.dumps({"status": "error", "message": "out of memory"})
 
-    with patch("src.renderer.music_gen.subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(returncode=0, stdout=json_output, stderr="")
+    mock_proc = AsyncMock()
+    mock_proc.communicate = AsyncMock(return_value=(
+        json_output.encode(),
+        b"",
+    ))
+    mock_proc.returncode = 0
+
+    with patch("asyncio.create_subprocess_exec", return_value=mock_proc):
         with pytest.raises(RendererError, match="out of memory"):
-            generate_background_music("piano", 10.0, "/tmp/out.wav")
+            await generate_background_music("piano", 10.0, "/tmp/out.wav")
 
 
-def test_generate_background_music_custom_params() -> None:
+@pytest.mark.asyncio
+async def test_generate_background_music_custom_params() -> None:
     json_output = json.dumps({"status": "ok", "path": "/tmp/out.wav", "duration": 30.0})
 
-    with patch("src.renderer.music_gen.subprocess.run") as mock_run:
-        mock_run.return_value = MagicMock(returncode=0, stdout=json_output, stderr="")
-        generate_background_music("jazz", 30.0, "/tmp/out.wav", steps=40, guidance=10.0)
-        cmd = mock_run.call_args[0][0]
-        assert "--steps" in cmd
-        assert "40" in cmd
-        assert "--guidance" in cmd
-        assert "10.0" in cmd
+    mock_proc = AsyncMock()
+    mock_proc.communicate = AsyncMock(return_value=(
+        json_output.encode(),
+        b"",
+    ))
+    mock_proc.returncode = 0
+
+    with patch("asyncio.create_subprocess_exec", return_value=mock_proc) as mock_exec:
+        await generate_background_music("jazz", 30.0, "/tmp/out.wav", steps=40, guidance=10.0)
+        cmd_args = mock_exec.call_args[0]
+        assert "--steps" in cmd_args
+        assert "40" in cmd_args
+        assert "--guidance" in cmd_args
+        assert "10.0" in cmd_args

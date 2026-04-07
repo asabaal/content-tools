@@ -1,5 +1,6 @@
 """Configuration defaults and constants."""
 
+import os
 from pathlib import Path
 from typing import Literal
 
@@ -137,7 +138,10 @@ DEFAULT_ANIM_LOOP = 60
 DEFAULT_TTS_VOICE = "en-US-AriaNeural"
 AUDIO_PAD_SECONDS = 0.5
 
-ACE_STEP_PYTHON = "/mnt/storage/python_env/ace_step_env/bin/python"
+ACE_STEP_PYTHON = os.environ.get(
+    "ACE_STEP_PYTHON",
+    "/mnt/storage/python_env/ace_step_env/bin/python",
+)
 ACE_STEP_SCRIPT = str(PROJECT_ROOT / "scripts" / "run_ace_step_pipe.py")
 ACE_STEP_DEFAULT_STEPS = 20
 ACE_STEP_DEFAULT_GUIDANCE = 7.0
@@ -179,9 +183,9 @@ def companion_color(hex_color: str, hue_shift: float = 40.0) -> str:
     r = int(hex_color[0:2], 16) / 255.0
     g = int(hex_color[2:4], 16) / 255.0
     b = int(hex_color[4:6], 16) / 255.0
-    h, s, l = colorsys.rgb_to_hls(r, g, b)
+    h, lightness, saturation = colorsys.rgb_to_hls(r, g, b)
     h = (h + hue_shift / 360.0) % 1.0
-    s = min(1.0, s * 1.1)
-    l = max(0.2, min(0.8, l * 0.9))
-    r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
+    saturation = min(1.0, saturation * 1.1)
+    lightness = max(0.2, min(0.8, lightness * 0.9))
+    r2, g2, b2 = colorsys.hls_to_rgb(h, lightness, saturation)
     return f"#{int(r2*255):02X}{int(g2*255):02X}{int(b2*255):02X}"

@@ -1,7 +1,7 @@
 """Background music generation via ACE-Step subprocess."""
 
+import asyncio
 import json
-import subprocess
 
 from src.config.defaults import (
     ACE_STEP_DEFAULT_GUIDANCE,
@@ -57,7 +57,7 @@ async def generate_music_prompt_from_theme(theme: str) -> str:
         return result
 
 
-def generate_background_music(
+async def generate_background_music(
     prompt: str,
     duration: float,
     output_path: str,
@@ -79,24 +79,26 @@ def generate_background_music(
         cmd.extend(["--seed", str(seed)])
 
     try:
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=ACE_STEP_TIMEOUT,
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
         )
-    except subprocess.TimeoutExpired:
+        stdout, stderr = await asyncio.wait_for(
+            proc.communicate(), timeout=ACE_STEP_TIMEOUT
+        )
+    except asyncio.TimeoutError:
         raise RendererError(f"ACE-Step timed out after {ACE_STEP_TIMEOUT}s")
 
-    if result.returncode != 0:
-        stderr_msg = result.stderr.strip() if result.stderr else "unknown error"
-        stdout_msg = result.stdout.strip() if result.stdout else ""
-        raise RendererError(f"ACE-Step failed (exit {result.returncode}): {stderr_msg} {stdout_msg}")
+    if proc.returncode != 0:
+        stderr_msg = stderr.decode("utf-8", errors="replace").strip() if stderr else "unknown error"
+        stdout_msg = stdout.decode("utf-8", errors="replace").strip() if stdout else ""
+        raise RendererError(f"ACE-Step failed (exit {proc.returncode}): {stderr_msg} {stdout_msg}")
 
     try:
-        data = json.loads(result.stdout.strip())
+        data = json.loads(stdout.decode("utf-8").strip())
     except json.JSONDecodeError:
-        raise RendererError(f"ACE-Step returned non-JSON output: {result.stdout.strip()}")
+        raise RendererError(f"ACE-Step returned non-JSON output: {stdout.decode('utf-8', errors='replace').strip()}")
 
     if data.get("status") != "ok":
         raise RendererError(f"ACE-Step error: {data.get('message', 'unknown')}")

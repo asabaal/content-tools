@@ -810,7 +810,7 @@ def rerender(
 
         click.echo(f"  Generating music: {prompt}")
         click.echo(f"  Duration: {music_dur:.1f}s")
-        effective_music_path = generate_background_music(
+        effective_music_path = await generate_background_music(
             prompt=prompt,
             duration=music_dur,
             output_path=music_out,

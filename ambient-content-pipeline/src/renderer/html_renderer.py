@@ -1,6 +1,7 @@
 """HTML renderer using headless browser."""
 
 import io
+import logging
 import math
 from datetime import datetime
 from pathlib import Path
@@ -31,6 +32,8 @@ from src.errors.exceptions import RendererError
 from src.renderer.animation import AnimationFrameGenerator
 from src.renderer.template_builder import build_html
 from src.renderer.video_encoder import VideoEncoder
+
+logger = logging.getLogger(__name__)
 
 
 async def render_text_to_image(
@@ -406,13 +409,13 @@ async def render_animated_video(
     effective_loop = anim_loop
     if video_duration is not None:
         effective_loop = max(1, math.ceil(video_duration))
-        print(f"  Video duration (explicit): {video_duration:.1f}s -> video loop: {effective_loop}s")
+        logger.info(f"  Video duration (explicit): {video_duration:.1f}s -> video loop: {effective_loop}s")
     elif audio_path:
         audio_dur = get_audio_duration(audio_path)
         effective_loop = max(1, math.ceil(audio_dur + AUDIO_PAD_SECONDS))
-        print(f"  Audio duration: {audio_dur:.1f}s -> video loop: {effective_loop}s")
+        logger.info(f"  Audio duration: {audio_dur:.1f}s -> video loop: {effective_loop}s")
 
-    print("  Rendering text layer for animation...")
+    logger.info("  Rendering text layer for animation...")
     text_layer = await _render_text_layer_to_pil(
         text=text,
         slot_info=slot_info,
@@ -449,7 +452,7 @@ async def render_animated_video(
 
     total_frames = ANIM_FPS * effective_loop
 
-    print(f"  Encoding video: {total_frames} frames at {ANIM_FPS}fps ({effective_loop}s)...")
+    logger.info(f"  Encoding video: {total_frames} frames at {ANIM_FPS}fps ({effective_loop}s)...")
 
     video_only_path = output_path
     if audio_path:
@@ -466,7 +469,7 @@ async def render_animated_video(
             encoder.write_frame(composite.convert("RGB"))
 
             if (i + 1) % (ANIM_FPS * 5) == 0:
-                print(f"    Progress: {i + 1}/{total_frames} frames")
+                logger.info(f"    Progress: {i + 1}/{total_frames} frames")
 
     if audio_path and Path(audio_path).is_file():
         mux_audio_video(
@@ -476,7 +479,7 @@ async def render_animated_video(
         )
         if video_only_path != output_path:
             Path(video_only_path).unlink(missing_ok=True)
-        print(f"  Muxed audio into video")
+        logger.info(f"  Muxed audio into video")
     elif video_only_path != output_path:
         Path(video_only_path).rename(output_path)
 

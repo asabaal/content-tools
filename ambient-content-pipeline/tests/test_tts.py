@@ -93,7 +93,8 @@ def test_get_audio_duration_missing_format() -> None:
 
     with patch("src.renderer.tts.subprocess.run") as mock_run:
         mock_run.return_value = MagicMock(stdout=ffprobe_output, returncode=0)
-        assert get_audio_duration("/tmp/bad.mp3") == 0.0
+        with pytest.raises(RendererError, match="ffprobe returned no duration"):
+            get_audio_duration("/tmp/bad.mp3")
 
 
 def test_get_audio_duration_ffprobe_not_found() -> None:

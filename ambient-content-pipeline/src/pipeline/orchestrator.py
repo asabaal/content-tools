@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import logging
 from pathlib import Path
 from typing import Literal
 
@@ -25,6 +26,8 @@ from src.renderer import html_renderer
 from src.slots import scheduler
 from src.slots.enum import SlotFunction
 from src.weekly_calendar.resolver import ResolvedCalendar, resolve_calendar
+
+logger = logging.getLogger(__name__)
 
 
 async def run_full_pipeline(
@@ -89,6 +92,8 @@ async def run_full_pipeline(
 
         old_model = defaults.DEFAULT_AI_MODEL
         defaults.DEFAULT_AI_MODEL = model
+    else:
+        old_model = None
 
     from src.config.defaults import DEFAULT_TTS_VOICE
 
@@ -98,40 +103,40 @@ async def run_full_pipeline(
 
     try:
         # Stage 1: Resolve calendar
-        print("Stage 1: Resolving calendar...")
+        logger.info("Stage 1: Resolving calendar...")
         calendar = resolve_calendar(payload)
 
         # Stage 2: AI Weekly Subtheme Derivation (if needed)
         if calendar.weekly_subthemes is None:
-            print("Stage 2a: Deriving weekly subthemes using AI...")
+            logger.info("Stage 2a: Deriving weekly subthemes using AI...")
             weekly_subthemes = await generator.generate_weekly_subthemes(
                 monthly_theme=calendar.monthly_theme,
                 num_weeks=len(calendar.weeks),
             )
             calendar.weekly_subthemes = weekly_subthemes
-            print(f"  Derived {len(weekly_subthemes)} weekly subthemes")
+            logger.info(f"  Derived {len(weekly_subthemes)} weekly subthemes")
         else:
-            print("Stage 2a: Using provided weekly subthemes (skipping AI derivation)")
+            logger.info("Stage 2a: Using provided weekly subthemes (skipping AI derivation)")
 
         # Stage 2b: Generate weekly subtitles for display
-        print("Stage 2b: Generating weekly subtitles...")
+        logger.info("Stage 2b: Generating weekly subtitles...")
         weekly_subtitles = {}
         if calendar.weekly_subthemes:
             for i, subtheme in enumerate(calendar.weekly_subthemes, 1):
                 subtitle = await generator.generate_weekly_subtitle(subtheme)
                 weekly_subtitles[i] = subtitle
-                print(f"  Week {i}: {subtitle}")
+                logger.info(f"  Week {i}: {subtitle}")
 
         # Stage 3: AI Monthly Slot Planning
-        print("Stage 2c: Planning monthly slots using AI...")
+        logger.info("Stage 2c: Planning monthly slots using AI...")
         slot_plan = await generator.plan_monthly_slots(calendar)
-        print(f"  Generated slot plan for {len(slot_plan)} dates")
+        logger.info(f"  Generated slot plan for {len(slot_plan)} dates")
 
         # Stage 4: Apply and validate slot plan
-        print("Stage 3: Applying and validating slot plan...")
+        logger.info("Stage 3: Applying and validating slot plan...")
         scheduler.validate_slot_plan(calendar, slot_plan)
         schedule = scheduler.apply_slot_plan(calendar, slot_plan)
-        print(f"  Created schedule with {len(schedule.slots)} total slots")
+        logger.info(f"  Created schedule with {len(schedule.slots)} total slots")
 
         # Save slot plan for inspection
         plan_path = _save_plan(
@@ -155,11 +160,11 @@ async def run_full_pipeline(
             anim_loop=anim_loop,
             anim_seed=anim_seed,
         )
-        print(f"  Saved slot plan: {plan_path}")
+        logger.info(f"  Saved slot plan: {plan_path}")
 
         # Stage 5: AI Monthly Text Generation
         if not skip_text_generation:
-            print("Stage 4: Generating daily text using AI...")
+            logger.info("Stage 4: Generating daily text using AI...")
             generated_texts = {}
 
             # Sort slots by date to ensure chronological processing
@@ -181,19 +186,19 @@ async def run_full_pipeline(
                     )
                     generated_texts[slot.date] = text
                     previous_texts.append(text)
-                    print(f"  Generated text for {slot.date}")
+                    logger.info(f"  Generated text for {slot.date}")
                 except AIGenerationError as e:
-                    print(f"  Warning: Failed to generate text for {slot.date}: {e}")
+                    logger.info(f"  Warning: Failed to generate text for {slot.date}: {e}")
                     generated_texts[slot.date] = ""
         else:
-            print("Stage 4: Skipping text generation")
+            logger.info("Stage 4: Skipping text generation")
             generated_texts = {
                 slot.date: "[PLACEHOLDER]" for slot in schedule.slots if slot.is_automated
             }
 
         # Save generated texts for re-rendering
         texts_path = _save_texts(calendar.year, calendar.month, generated_texts, plans_dir)
-        print(f"  Saved texts: {texts_path}")
+        logger.info(f"  Saved texts: {texts_path}")
 
         # Stage 4.5: TTS pre-pass (only when bg_music is enabled)
         tts_paths: dict[str, str] = {}
@@ -202,7 +207,7 @@ async def run_full_pipeline(
         actual_music_prompt: str | None = None
 
         if bg_music and not skip_rendering:
-            print("Stage 4.5: TTS pre-pass (generating all TTS audio)...")
+            logger.info("Stage 4.5: TTS pre-pass (generating all TTS audio)...")
             import tempfile
             from src.renderer.tts import generate_tts, get_audio_duration
 
@@ -215,7 +220,7 @@ async def run_full_pipeline(
                         )
                         tts_tmp.close()
                         tts_path = tts_tmp.name
-                        print(f"  TTS for {slot.date}...")
+                        logger.info(f"  TTS for {slot.date}...")
                         await generate_tts(
                             text=text,
                             output_path=tts_path,
@@ -224,14 +229,14 @@ async def run_full_pipeline(
                         dur = get_audio_duration(tts_path)
                         tts_paths[slot.date] = tts_path
                         tts_durations[slot.date] = dur
-                        print(f"    {dur:.1f}s")
+                        logger.info(f"    {dur:.1f}s")
 
             if not tts_durations:
-                print("  No TTS generated, skipping music")
+                logger.info("  No TTS generated, skipping music")
                 bg_music = False
             else:
                 # Stage 4.6: Generate monthly background music
-                print("Stage 4.6: Generating monthly background music...")
+                logger.info("Stage 4.6: Generating monthly background music...")
                 from src.renderer.music_gen import (
                     calculate_music_duration,
                     generate_background_music,
@@ -241,7 +246,7 @@ async def run_full_pipeline(
                 if bg_music_prompt:
                     actual_music_prompt = bg_music_prompt
                 else:
-                    print("  Auto-generating music prompt from theme...")
+                    logger.info("  Auto-generating music prompt from theme...")
                     actual_music_prompt = await generate_music_prompt_from_theme(
                         calendar.monthly_theme
                     )
@@ -252,14 +257,14 @@ async def run_full_pipeline(
                 audio_dir.mkdir(parents=True, exist_ok=True)
                 monthly_music_path = str(audio_dir / "bg_music.wav")
 
-                print(f"  Prompt: {actual_music_prompt}")
-                print(f"  Duration: {music_dur:.1f}s (max TTS: {max_tts:.1f}s)")
-                generate_background_music(
+                logger.info(f"  Prompt: {actual_music_prompt}")
+                logger.info(f"  Duration: {music_dur:.1f}s (max TTS: {max_tts:.1f}s)")
+                await generate_background_music(
                     prompt=actual_music_prompt,
                     duration=music_dur,
                     output_path=monthly_music_path,
                 )
-                print(f"  Music saved: {monthly_music_path}")
+                logger.info(f"  Music saved: {monthly_music_path}")
 
                 import json as _json
                 with open(plan_path, "r", encoding="utf-8") as f:
@@ -269,14 +274,14 @@ async def run_full_pipeline(
                 plan_update["render_config"]["bg_music_path"] = monthly_music_path
                 with open(plan_path, "w", encoding="utf-8") as f:
                     _json.dump(plan_update, f, indent=2, ensure_ascii=False)
-                print(f"  Updated plan with music config")
+                logger.info(f"  Updated plan with music config")
 
         # Stage 6: Render images or videos
         if not skip_rendering:
             if animate:
-                print("Stage 5: Rendering animated videos...")
+                logger.info("Stage 5: Rendering animated videos...")
             else:
-                print("Stage 5: Rendering images...")
+                logger.info("Stage 5: Rendering images...")
             rendered_images = []
 
             for slot in schedule.slots:
@@ -327,7 +332,7 @@ async def run_full_pipeline(
                                         suffix=".mp3", delete=False, dir=str(images_dir)
                                     )
                                     mixed_tmp.close()
-                                    print(f"  Mixing audio for {slot.date}...")
+                                    logger.info(f"  Mixing audio for {slot.date}...")
                                     audio_path, video_dur = prepare_slot_audio(
                                         tts_path=slot_tts_path,
                                         music_path=monthly_music_path or "",
@@ -345,7 +350,7 @@ async def run_full_pipeline(
                                     )
                                     audio_tmp.close()
                                     audio_path = audio_tmp.name
-                                    print(f"  Generating TTS audio...")
+                                    logger.info(f"  Generating TTS audio...")
                                     await generate_tts(
                                         text=text,
                                         output_path=audio_path,
@@ -405,14 +410,14 @@ async def run_full_pipeline(
                                     text_color=text_color,
                                 )
                             rendered_images.append(output_path)
-                            print(f"  Rendered: {output_path}")
+                            logger.info(f"  Rendered: {output_path}")
                     except Exception as e:
-                        print(f"  Warning: Failed to render {slot.date}: {e}")
+                        logger.info(f"  Warning: Failed to render {slot.date}: {e}")
 
             label = "videos" if animate else "images"
-            print(f"  Rendered {len(rendered_images)} {label}")
+            logger.info(f"  Rendered {len(rendered_images)} {label}")
         else:
-            print("Stage 5: Skipping image rendering")
+            logger.info("Stage 5: Skipping image rendering")
             rendered_images = []
 
         # Return results
@@ -430,6 +435,10 @@ async def run_full_pipeline(
         if isinstance(e, PipelineError):
             raise
         raise PipelineError(f"Pipeline failed: {e}") from e
+    finally:
+        if old_model is not None:
+            from src.config import defaults
+            defaults.DEFAULT_AI_MODEL = old_model
 
 
 def _save_plan(
@@ -613,7 +622,7 @@ async def validate_and_run(
     payload = schema.MonthlyPayload(**payload_data)
     validation.validate_payload(payload)
 
-    print(f"Validated payload for {payload.year}-{payload.month:02d}: {payload.monthly_theme}")
+    logger.info(f"Validated payload for {payload.year}-{payload.month:02d}: {payload.monthly_theme}")
 
     # Run pipeline
     return await run_full_pipeline(

@@ -1,5 +1,6 @@
 """HTML template builder for rendering."""
 
+from html import escape as _html_escape
 from datetime import datetime
 from typing import Literal
 
@@ -256,13 +257,13 @@ def build_html(
     metadata_padding = font_size // 4
 
     theme_header_html = f"""        <div class="theme-header">
-            <div class="theme-value">{monthly_theme}</div>
+            <div class="theme-value">{_html_escape(monthly_theme)}</div>
         </div>"""
 
     week_metadata_html = ""
     if display_subtheme:
         week_metadata_html = f"""        <div class="week-metadata">
-            <div class="subtheme-pill">{display_subtheme}</div>
+            <div class="subtheme-pill">{_html_escape(display_subtheme)}</div>
         </div>"""
 
     card_z_index = "z-index: 2; position: relative;" if texture_html else ""
@@ -339,7 +340,6 @@ def build_html(
             padding: 8px 16px;
             border-radius: 20px;
             font-size: {metadata_font_size}px;
-            font-size: {metadata_font_size}px;
             font-weight: 600;
             letter-spacing: 1px;
         }}
@@ -358,7 +358,7 @@ def build_html(
 {theme_header_html}
 {week_metadata_html}
         <div class="text-content">
-            {text}
+            {_html_escape(text)}
         </div>
     </div>
 {texture_html}

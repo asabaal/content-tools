@@ -2,7 +2,6 @@
 
 import asyncio
 import subprocess
-import tempfile
 from pathlib import Path
 
 from src.config.defaults import DEFAULT_TTS_VOICE
@@ -66,17 +65,25 @@ def get_audio_duration(audio_path: str) -> float:
             capture_output=True,
             text=True,
             check=True,
+            timeout=30,
         )
     except FileNotFoundError:
         raise RendererError("ffprobe not found. Install ffmpeg and ensure it is on PATH.")
     except subprocess.CalledProcessError as e:
         raise RendererError(f"ffprobe failed: {e.stderr}") from e
+    except subprocess.TimeoutExpired:
+        raise RendererError("ffprobe timed out")
 
     import json
 
     info = json.loads(result.stdout)
-    duration_str = info.get("format", {}).get("duration", "0")
-    return float(duration_str)
+    duration_str = info.get("format", {}).get("duration")
+    if duration_str is None:
+        raise RendererError(f"ffprobe returned no duration for {audio_path}")
+    try:
+        return float(duration_str)
+    except ValueError:
+        raise RendererError(f"ffprobe returned non-numeric duration '{duration_str}' for {audio_path}")
 
 
 def mux_audio_video(video_path: str, audio_path: str, output_path: str) -> str:
@@ -117,9 +124,12 @@ def mux_audio_video(video_path: str, audio_path: str, output_path: str) -> str:
             cmd,
             capture_output=True,
             text=True,
+            timeout=120,
         )
     except FileNotFoundError:
         raise RendererError("ffmpeg not found. Install ffmpeg and ensure it is on PATH.")
+    except subprocess.TimeoutExpired:
+        raise RendererError("ffmpeg mux timed out")
 
     if result.returncode != 0:
         raise RendererError(f"ffmpeg mux failed: {result.stderr}")

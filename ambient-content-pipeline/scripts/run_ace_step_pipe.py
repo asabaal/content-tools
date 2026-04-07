@@ -2,23 +2,32 @@
 """Machine-readable ACE-Step subprocess entry point.
 
 Outputs JSON to stdout. Designed for subprocess.run() invocation.
-Called by TCP's music_gen.py via the ACE-Step Python 3.10 environment.
+Called by ACP's music_gen.py via the ACE-Step Python 3.10 environment.
 """
 import argparse
 import json
+import os
 import shutil
 import sys
-import os
 
-sys.path.insert(0, '/mnt/storage/python_env/ace_step_env/lib/python3.10/site-packages')
 
-STUB_PATH = "/mnt/storage/python_env/ace_step_env/lib/python3.10/site-packages/transformers/modeling_layers.py"
-if not os.path.exists(STUB_PATH):
-    with open(STUB_PATH, 'w') as f:
-        f.write("class GradientCheckpointingLayer:\n    pass\n")
+def _ensure_stub():
+    site_packages = os.environ.get(
+        "ACE_STEP_SITE_PACKAGES",
+        "/mnt/storage/python_env/ace_step_env/lib/python3.10/site-packages",
+    )
+    sys.path.insert(0, site_packages)
+
+    stub_path = os.path.join(site_packages, "transformers", "modeling_layers.py")
+    if not os.path.exists(stub_path):
+        os.makedirs(os.path.dirname(stub_path), exist_ok=True)
+        with open(stub_path, "w") as f:
+            f.write("class GradientCheckpointingLayer:\n    pass\n")
 
 
 def main():
+    _ensure_stub()
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--prompt", required=True)
     parser.add_argument("--duration", required=True, type=float)
@@ -70,11 +79,14 @@ def main():
 
         shutil.copy2(generated_path, args.outfile)
 
-        import torchaudio
-        audio_tensor, sample_rate = torchaudio.load(args.outfile)
-        duration = round(audio_tensor.shape[-1] / sample_rate, 2)
+        try:
+            import torchaudio
+            audio_tensor, sample_rate = torchaudio.load(args.outfile)
+            duration = round(audio_tensor.shape[-1] / sample_rate, 2)
+            print(json.dumps({"status": "ok", "path": os.path.abspath(args.outfile), "duration": duration}))
+        except ImportError:
+            print(json.dumps({"status": "ok", "path": os.path.abspath(args.outfile), "duration": None}))
 
-        print(json.dumps({"status": "ok", "path": os.path.abspath(args.outfile), "duration": duration}))
         sys.exit(0)
 
     except Exception as e:

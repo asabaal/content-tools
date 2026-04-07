@@ -21,10 +21,16 @@ def prepare_slot_audio(
     3. Mix TTS at 1.0 + music at music_volume
     4. Return (mixed_audio_path, slot_video_duration)
     """
+    if slot_video_duration <= 0:
+        raise RendererError(f"slot_video_duration must be positive, got {slot_video_duration}")
+    if not isinstance(music_volume, (int, float)) or music_volume < 0:
+        raise RendererError(f"music_volume must be a non-negative number, got {music_volume}")
+
     delay_ms = int(ACE_STEP_TTS_DELAY * 1000)
 
     filter_complex = (
-        f"[0:a]adelay={delay_ms}|{delay_ms}[tts];"
+        f"[0:a]atrim=0:{slot_video_duration},asetpts=PTS-STARTPTS[tts_trimmed];"
+        f"[tts_trimmed]adelay={delay_ms}|{delay_ms}[tts];"
         f"[1:a]atrim=0:{slot_video_duration},asetpts=PTS-STARTPTS[volume];"
         f"[volume]volume={music_volume}[music];"
         f"[tts][music]amix=inputs=2:duration=longest:dropout_transition=2[out]"
