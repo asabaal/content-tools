@@ -52,7 +52,7 @@ def test_ai_config_constants() -> None:
     assert DEFAULT_AI_PROVIDER == "ollama"
     assert DEFAULT_AI_MODEL == "qwen3.5:35b-a3b"
     assert DEFAULT_AI_BASE_URL == "http://localhost:11434"
-    assert AI_TIMEOUT == 300.0
+    assert AI_TIMEOUT == 600.0
     assert AI_MAX_RETRIES == 2
     assert AI_TEMPERATURE == 0.2
 

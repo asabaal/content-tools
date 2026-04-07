@@ -1,6 +1,7 @@
 """Configuration defaults and constants."""
 
 from pathlib import Path
+from typing import Literal
 
 # Project paths
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -81,3 +82,59 @@ COLORFUL_PRESETS = {
         "padding": 80,
     },
 }
+
+# Gradient directions
+GradientDirection = Literal[
+    "vertical_top_bottom",
+    "vertical_bottom_top",
+    "horizontal_left_right",
+    "horizontal_right_left",
+    "diagonal_tl_br",
+    "diagonal_tr_bl",
+    "radial_center",
+    "radial_top",
+    "radial_bottom",
+]
+
+# Texture types
+TextureType = Literal[
+    "none",
+    "noise_fine",
+    "noise_coarse",
+    "grain_film",
+    "paper_subtle",
+    "vignette_soft",
+    "vignette_heavy",
+]
+
+# Texture blend modes
+TextureBlendMode = Literal[
+    "normal",
+    "multiply",
+    "overlay",
+]
+
+# Texture defaults
+DEFAULT_TEXTURE_OPACITY = 0.15
+DEFAULT_TEXTURE_BLEND_MODE: TextureBlendMode = "multiply"
+
+# Animation types
+AnimType = Literal[
+    "drift",
+    "flow",
+    "pulse",
+    "distortion",
+    "parallax",
+    "reactive",
+]
+
+ANIM_FPS = 30
+DEFAULT_ANIM_TYPE: AnimType = "drift"
+DEFAULT_ANIM_INTENSITY = 0.2
+DEFAULT_ANIM_SPEED = 1.0
+DEFAULT_ANIM_LOOP = 60
+
+DEFAULT_TTS_VOICE = "en-US-AriaNeural"
+AUDIO_PAD_SECONDS = 0.5
+
+BACKGROUND_TEST_DIR = OUTPUTS_DIR / "background_tests"

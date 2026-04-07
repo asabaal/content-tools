@@ -31,7 +31,7 @@ def test_check_model_available_exists() -> None:
 async def test_check_model_available_true() -> None:
     """Test check_model_available returns True when model exists."""
     mock_response = MagicMock()
-    mock_response.json.return_value = {"models": [{"name": "gpt-oss:20b"}]}
+    mock_response.json.return_value = {"models": [{"name": "qwen3.5:35b-a3b"}]}
     mock_response.raise_for_status = MagicMock()
     
     mock_client = MagicMock()

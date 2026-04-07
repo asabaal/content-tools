@@ -4,15 +4,20 @@ import asyncio
 import json
 import sys
 from pathlib import Path
+from typing import cast
 
 import click
 
 from src.ai_generator import generator
-from src.weekly_calendar.resolver import resolve_calendar
 from src.config.defaults import (
     COLORFUL_PRESETS,
     DEFAULT_AI_MODEL,
+    DEFAULT_TTS_VOICE,
     MAX_WORDS_PER_SLOT,
+    AnimType,
+    GradientDirection,
+    TextureBlendMode,
+    TextureType,
 )
 from src.errors.exceptions import (
     ModelUnavailableError,
@@ -21,7 +26,7 @@ from src.errors.exceptions import (
 from src.payload import schema, validation
 from src.pipeline import orchestrator
 from src.renderer import html_renderer
-
+from src.weekly_calendar.resolver import resolve_calendar
 
 REFINEMENT_PROMPT = """You are refining a social media post based on user feedback.
 
@@ -224,7 +229,63 @@ def resolve_calendar_cmd(payload_path: str, output: str | None) -> None:
 @click.option("--skip-text", is_flag=True, help="Skip AI text generation")
 @click.option("--model", help="Override AI model (e.g., gpt-oss:20b)")
 @click.option("--background-color", help="Override background color (e.g., #4A90E2)")
+@click.option(
+    "--gradient-direction",
+    type=click.Choice(
+        [
+            "vertical_top_bottom",
+            "vertical_bottom_top",
+            "horizontal_left_right",
+            "horizontal_right_left",
+            "diagonal_tl_br",
+            "diagonal_tr_bl",
+            "radial_center",
+            "radial_top",
+            "radial_bottom",
+        ]
+    ),
+    help="Gradient direction",
+)
+@click.option(
+    "--gradient-colors", help="Comma-separated hex colors for gradient (2-4, e.g., #FF0000,#00FF00)"
+)
+@click.option(
+    "--gradient-stops", help="Comma-separated stop positions (0.0-1.0, e.g., 0.0,0.5,1.0)"
+)
+@click.option(
+    "--texture-type",
+    type=click.Choice(
+        [
+            "none",
+            "noise_fine",
+            "noise_coarse",
+            "grain_film",
+            "paper_subtle",
+            "vignette_soft",
+            "vignette_heavy",
+        ]
+    ),
+    help="Texture overlay type",
+)
+@click.option("--texture-opacity", type=float, help="Texture opacity (0.0-1.0, default 0.15)")
+@click.option(
+    "--texture-blend-mode",
+    type=click.Choice(["normal", "multiply", "overlay"]),
+    help="Texture blend mode",
+)
 @click.option("--output-dir", "-o", help="Output directory for plans and images (default: outputs)")
+@click.option("--animate", is_flag=True, help="Enable animate mode to produce video output")
+@click.option(
+    "--anim-type",
+    type=click.Choice(["drift", "flow", "pulse", "distortion", "parallax", "reactive"]),
+    help="Animation type (default: drift)",
+)
+@click.option("--anim-intensity", type=float, help="Animation intensity 0.0-0.5 (default: 0.2)")
+@click.option("--anim-speed", type=float, help="Animation speed 0.1-2.0 (default: 1.0)")
+@click.option("--anim-loop", type=int, help="Loop duration in seconds (default: 60)")
+@click.option("--anim-seed", type=int, help="Seed for deterministic animation")
+@click.option("--audio", is_flag=True, help="Generate TTS narration audio for animated videos")
+@click.option("--audio-voice", help="Edge TTS voice name (default: en-US-AriaNeural)")
 def run_all(
     payload: str | None,
     theme: str | None,
@@ -235,7 +296,21 @@ def run_all(
     skip_text: bool,
     model: str | None,
     background_color: str | None,
+    gradient_direction: str | None,
+    gradient_colors: str | None,
+    gradient_stops: str | None,
+    texture_type: str | None,
+    texture_opacity: float | None,
+    texture_blend_mode: str | None,
     output_dir: str | None,
+    animate: bool,
+    anim_type: str | None,
+    anim_intensity: float | None,
+    anim_speed: float | None,
+    anim_loop: int | None,
+    anim_seed: int | None,
+    audio: bool,
+    audio_voice: str | None,
 ) -> None:
     """Run full pipeline end-to-end.
 
@@ -244,6 +319,9 @@ def run_all(
         run-all --theme "Evolving in Christ" --year 2026 --month 2
         run-all --theme "Evolving in Christ" --year 2026 --month 2 --skip-rendering
     """
+    if audio and not animate:
+        animate = True
+        click.echo("  --audio implies --animate, enabling animate mode")
     # Validate: either payload or theme/year/month
     if payload is None:
         if not theme or year is None or month is None:
@@ -290,6 +368,13 @@ def run_all(
                 sys.exit(1)
 
         # Run pipeline
+        parsed_gradient_colors = (
+            [c.strip() for c in gradient_colors.split(",")] if gradient_colors else None
+        )
+        parsed_gradient_stops = (
+            [float(s.strip()) for s in gradient_stops.split(",")] if gradient_stops else None
+        )
+
         results = asyncio.run(
             orchestrator.validate_and_run(
                 str(payload_path),
@@ -298,6 +383,20 @@ def run_all(
                 skip_rendering=skip_rendering,
                 skip_text_generation=skip_text,
                 output_dir=output_dir,
+                gradient_direction=cast(GradientDirection | None, gradient_direction),
+                gradient_colors=parsed_gradient_colors,
+                gradient_stops=parsed_gradient_stops,
+                texture_type=cast(TextureType | None, texture_type),
+                texture_opacity=texture_opacity,
+                texture_blend_mode=cast(TextureBlendMode | None, texture_blend_mode),
+                animate=animate,
+                anim_type=cast(AnimType | None, anim_type),
+                anim_intensity=anim_intensity,
+                anim_speed=anim_speed,
+                anim_loop=anim_loop,
+                anim_seed=anim_seed,
+                audio=audio,
+                audio_voice=audio_voice,
             )
         )
 
@@ -308,7 +407,10 @@ def run_all(
         if not skip_text:
             click.echo(f"  Generated texts: {len(results['generated_texts'])}")
         if not skip_rendering:
-            click.echo(f"  Rendered images: {len(results['rendered_images'])}")
+            if animate:
+                click.echo(f"  Rendered videos: {len(results['rendered_images'])}")
+            else:
+                click.echo(f"  Rendered images: {len(results['rendered_images'])}")
 
     except ModelUnavailableError as e:
         click.echo(f"✗ {e}", err=True)
@@ -372,7 +474,7 @@ def inspect_plan(payload_path: str) -> None:
     click.echo(f"Source: {plan_data['weekly_subthemes_source']}")
     click.echo(f"\nWeekly subthemes:")
     for i, subtheme in enumerate(plan_data.get("weekly_subthemes", [])):
-        click.echo(f"  Week {i+1}: {subtheme}")
+        click.echo(f"  Week {i + 1}: {subtheme}")
 
     click.echo(f"\nSlot schedule:")
     for slot in plan_data["schedule_summary"]:
@@ -386,7 +488,9 @@ def inspect_plan(payload_path: str) -> None:
 @click.option("--year", type=int, default=2026, help="Year to run demo for")
 @click.option("--month", type=int, default=3, help="Month to run demo for (1-12)")
 @click.option("--background-color", help="Override background color (e.g., #4A90E2)")
-def demo(theme: str | None, subthemes: str | None, year: int, month: int, background_color: str | None) -> None:
+def demo(
+    theme: str | None, subthemes: str | None, year: int, month: int, background_color: str | None
+) -> None:
     """Run demo with faith/hope/love concept.
 
     Example:
@@ -410,7 +514,16 @@ def demo(theme: str | None, subthemes: str | None, year: int, month: int, backgr
 
     if weekly_subthemes_list:
         click.echo("✓ Running demo with provided weekly subthemes")
-        args = ["--theme", theme, "--year", str(year), "--month", str(month), "--subthemes", subthemes]
+        args = [
+            "--theme",
+            theme,
+            "--year",
+            str(year),
+            "--month",
+            str(month),
+            "--subthemes",
+            subthemes,
+        ]
     else:
         click.echo("✓ Running demo with AI-derived weekly subthemes")
         args = ["--theme", theme, "--year", str(year), "--month", str(month)]
@@ -433,13 +546,79 @@ def demo(theme: str | None, subthemes: str | None, year: int, month: int, backgr
 @click.option("--date", "target_date", help="Specific date to re-render (e.g., 2026-03-09)")
 @click.option("--all", "render_all", is_flag=True, help="Re-render all dates")
 @click.option("--background-color", help="Override background color (e.g., #4A90E2)")
+@click.option(
+    "--gradient-direction",
+    type=click.Choice(
+        [
+            "vertical_top_bottom",
+            "vertical_bottom_top",
+            "horizontal_left_right",
+            "horizontal_right_left",
+            "diagonal_tl_br",
+            "diagonal_tr_bl",
+            "radial_center",
+            "radial_top",
+            "radial_bottom",
+        ]
+    ),
+    help="Gradient direction",
+)
+@click.option("--gradient-colors", help="Comma-separated hex colors for gradient (2-4)")
+@click.option("--gradient-stops", help="Comma-separated stop positions (0.0-1.0)")
+@click.option(
+    "--texture-type",
+    type=click.Choice(
+        [
+            "none",
+            "noise_fine",
+            "noise_coarse",
+            "grain_film",
+            "paper_subtle",
+            "vignette_soft",
+            "vignette_heavy",
+        ]
+    ),
+    help="Texture overlay type",
+)
+@click.option("--texture-opacity", type=float, help="Texture opacity (0.0-1.0)")
+@click.option(
+    "--texture-blend-mode",
+    type=click.Choice(["normal", "multiply", "overlay"]),
+    help="Texture blend mode",
+)
 @click.option("--output-dir", "-o", help="Output directory for images (default: same as plan-dir)")
+@click.option("--animate", is_flag=True, help="Enable animate mode to produce video output")
+@click.option(
+    "--anim-type",
+    type=click.Choice(["drift", "flow", "pulse", "distortion", "parallax", "reactive"]),
+    help="Animation type (default: drift)",
+)
+@click.option("--anim-intensity", type=float, help="Animation intensity 0.0-0.5 (default: 0.2)")
+@click.option("--anim-speed", type=float, help="Animation speed 0.1-2.0 (default: 1.0)")
+@click.option("--anim-loop", type=int, help="Loop duration in seconds (default: 60)")
+@click.option("--anim-seed", type=int, help="Seed for deterministic animation")
+@click.option("--audio", is_flag=True, help="Generate TTS narration audio for animated videos")
+@click.option("--audio-voice", help="Edge TTS voice name (default: en-US-AriaNeural)")
 def rerender(
     plan_dir: str,
     target_date: str | None,
     render_all: bool,
     background_color: str | None,
+    gradient_direction: str | None,
+    gradient_colors: str | None,
+    gradient_stops: str | None,
+    texture_type: str | None,
+    texture_opacity: float | None,
+    texture_blend_mode: str | None,
     output_dir: str | None,
+    animate: bool,
+    anim_type: str | None,
+    anim_intensity: float | None,
+    anim_speed: float | None,
+    anim_loop: int | None,
+    anim_seed: int | None,
+    audio: bool,
+    audio_voice: str | None,
 ) -> None:
     """Re-render images from saved plan and texts.
 
@@ -480,13 +659,57 @@ def rerender(
     stored_bg_color = stored_render_config.get("background_color")
     effective_bg_color = background_color or stored_bg_color
 
+    parsed_gradient_colors = (
+        [c.strip() for c in gradient_colors.split(",")] if gradient_colors else None
+    )
+    parsed_gradient_stops = (
+        [float(s.strip()) for s in gradient_stops.split(",")] if gradient_stops else None
+    )
+    effective_gradient_direction = cast(GradientDirection | None, gradient_direction) or cast(
+        GradientDirection | None, stored_render_config.get("gradient_direction")
+    )
+    effective_gradient_colors = parsed_gradient_colors or stored_render_config.get(
+        "gradient_colors"
+    )
+    effective_gradient_stops = parsed_gradient_stops or stored_render_config.get("gradient_stops")
+    effective_texture_type = cast(TextureType | None, texture_type) or cast(
+        TextureType | None, stored_render_config.get("texture_type")
+    )
+    effective_texture_opacity = (
+        texture_opacity
+        if texture_opacity is not None
+        else stored_render_config.get("texture_opacity")
+    )
+    effective_texture_blend = cast(TextureBlendMode | None, texture_blend_mode) or cast(
+        TextureBlendMode | None, stored_render_config.get("texture_blend_mode")
+    )
+
+    effective_animate = animate or stored_render_config.get("animate", False)
+    effective_anim_type = cast(AnimType | None, anim_type) or cast(
+        AnimType | None, stored_render_config.get("anim_type")
+    )
+    effective_anim_intensity = (
+        anim_intensity if anim_intensity is not None else stored_render_config.get("anim_intensity")
+    )
+    effective_anim_speed = (
+        anim_speed if anim_speed is not None else stored_render_config.get("anim_speed")
+    )
+    effective_anim_loop = (
+        anim_loop if anim_loop is not None else stored_render_config.get("anim_loop")
+    )
+    effective_anim_seed = (
+        anim_seed if anim_seed is not None else stored_render_config.get("anim_seed")
+    )
+
     # Determine output directory
     images_dir = Path(output_dir) / "images" if output_dir else Path(plan_dir) / "images"
     images_dir.mkdir(parents=True, exist_ok=True)
 
     # Determine which dates to render
     if render_all:
-        dates_to_render = [slot["date"] for slot in plan_data["schedule_summary"] if slot["is_automated"]]
+        dates_to_render = [
+            slot["date"] for slot in plan_data["schedule_summary"] if slot["is_automated"]
+        ]
     elif target_date:
         dates_to_render = [target_date]
     else:
@@ -526,25 +749,90 @@ def rerender(
                 "monthly_theme": plan_data["monthly_theme"],
             }
 
-            output_path = html_renderer.get_output_path(
-                year=year,
-                month=month,
-                day=day,
-                monthly_theme=plan_data["monthly_theme"],
-                week_number=slot.get("week_number", 1),
-                subtheme=weekly_subtitles.get(slot.get("week_number", 1), slot.get("subtheme", "")),
-                slot_type=slot["slot_type"],
-                images_dir=images_dir,
-            )
+            if effective_animate:
+                output_path = html_renderer.get_video_output_path(
+                    year=year,
+                    month=month,
+                    day=day,
+                    monthly_theme=plan_data["monthly_theme"],
+                    week_number=slot.get("week_number", 1),
+                    subtheme=weekly_subtitles.get(
+                        slot.get("week_number", 1), slot.get("subtheme", "")
+                    ),
+                    slot_type=slot["slot_type"],
+                    images_dir=images_dir,
+                )
+            else:
+                output_path = html_renderer.get_output_path(
+                    year=year,
+                    month=month,
+                    day=day,
+                    monthly_theme=plan_data["monthly_theme"],
+                    week_number=slot.get("week_number", 1),
+                    subtheme=weekly_subtitles.get(
+                        slot.get("week_number", 1), slot.get("subtheme", "")
+                    ),
+                    slot_type=slot["slot_type"],
+                    images_dir=images_dir,
+                )
 
             try:
-                await html_renderer.render_text_to_image(
-                    text=text,
-                    slot_info=slot_info,
-                    output_path=output_path,
-                    style_preset=stored_style_preset,
-                    background_color=effective_bg_color,
-                )
+                if effective_animate:
+                    audio_path = None
+                    if audio and text:
+                        import tempfile
+
+                        from src.renderer.tts import generate_tts
+
+                        audio_tmp = tempfile.NamedTemporaryFile(
+                            suffix=".mp3", delete=False, dir=str(images_dir)
+                        )
+                        audio_tmp.close()
+                        audio_path = audio_tmp.name
+                        click.echo(f"  Generating TTS audio...")
+                        await generate_tts(
+                            text=text,
+                            output_path=audio_path,
+                            voice=audio_voice or DEFAULT_TTS_VOICE,
+                        )
+
+                    await html_renderer.render_animated_video(
+                        text=text,
+                        slot_info=slot_info,
+                        output_path=output_path,
+                        style_preset=stored_style_preset,
+                        background_color=effective_bg_color,
+                        gradient_direction=effective_gradient_direction,
+                        gradient_colors=effective_gradient_colors,
+                        gradient_stops=effective_gradient_stops,
+                        texture_type=effective_texture_type,
+                        texture_opacity=effective_texture_opacity,
+                        texture_blend_mode=effective_texture_blend,
+                        anim_type=effective_anim_type or "drift",
+                        anim_intensity=effective_anim_intensity
+                        if effective_anim_intensity is not None
+                        else 0.2,
+                        anim_speed=effective_anim_speed
+                        if effective_anim_speed is not None
+                        else 1.0,
+                        anim_loop=effective_anim_loop if effective_anim_loop is not None else 60,
+                        anim_seed=effective_anim_seed,
+                        audio_path=audio_path,
+                    )
+                else:
+                    await html_renderer.render_text_to_image(
+                        text=text,
+                        slot_info=slot_info,
+                        output_path=output_path,
+                        style_preset=stored_style_preset,
+                        background_color=effective_bg_color,
+                        gradient_direction=effective_gradient_direction,
+                        gradient_colors=effective_gradient_colors,
+                        gradient_stops=effective_gradient_stops,
+                        texture_type=effective_texture_type,
+                        texture_opacity=effective_texture_opacity,
+                        texture_blend_mode=effective_texture_blend,
+                    )
                 click.echo(f"  Rendered: {output_path}")
                 rendered += 1
             except Exception as e:
@@ -552,9 +840,10 @@ def rerender(
 
         return rendered
 
-    click.echo(f"Re-rendering {len(dates_to_render)} image(s)...")
+    label = "video(s)" if effective_animate else "image(s)"
+    click.echo(f"Re-rendering {len(dates_to_render)} {label}...")
     rendered_count = asyncio.run(do_render())
-    click.echo(f"\n✓ Rendered {rendered_count} image(s)")
+    click.echo(f"\n✓ Rendered {rendered_count} {label}")
 
 
 async def _refine_post_with_ai(
@@ -596,7 +885,9 @@ def _parse_feedback(feedback: str) -> list[tuple[str, str]]:
             raise ValueError(f"Invalid feedback entry '{entry}'. Expected format: DATE::feedback")
         entries.append((date_str, feedback_text))
     if not entries:
-        raise ValueError("No valid feedback entries found. Expected format: DATE::feedback|DATE::feedback")
+        raise ValueError(
+            "No valid feedback entries found. Expected format: DATE::feedback|DATE::feedback"
+        )
     return entries
 
 
@@ -652,11 +943,11 @@ def refine_posts(plan_dir: str, feedback: str) -> None:
 
     async def process_all_entries():
         nonlocal processed_count, skipped_count
-        
+
         for entry_index, (target_date, initial_feedback) in enumerate(parsed_entries, 1):
-            click.echo(f"\n{'#'*60}")
+            click.echo(f"\n{'#' * 60}")
             click.echo(f"Entry {entry_index}/{len(parsed_entries)}: {target_date}")
-            click.echo(f"{'#'*60}")
+            click.echo(f"{'#' * 60}")
 
             if target_date not in generated_texts:
                 click.echo(f"✗ No post found for date: {target_date}, skipping", err=True)
@@ -672,12 +963,12 @@ def refine_posts(plan_dir: str, feedback: str) -> None:
             accumulated_feedback = initial_feedback
 
             while True:
-                click.echo(f"\n{'='*50}")
+                click.echo(f"\n{'=' * 50}")
                 click.echo(f"Date: {target_date}")
                 click.echo(f"Slot type: {slot_type}")
                 click.echo(f"\nCurrent post:\n  {current_post}")
                 click.echo(f"\nFeedback:\n  {accumulated_feedback}")
-                click.echo(f"{'='*50}")
+                click.echo(f"{'=' * 50}")
 
                 click.echo("\nGenerating refined post...")
                 try:
@@ -717,7 +1008,9 @@ def refine_posts(plan_dir: str, feedback: str) -> None:
                         "day": day,
                         "week_number": str(slot_info.get("week_number", 1)),
                         "subtheme": slot_info.get("subtheme", ""),
-                        "subtheme_subtitle": weekly_subtitles.get(slot_info.get("week_number", 1), ""),
+                        "subtheme_subtitle": weekly_subtitles.get(
+                            slot_info.get("week_number", 1), ""
+                        ),
                         "monthly_theme": monthly_theme,
                     }
                     render_output_path = html_renderer.get_output_path(
@@ -726,7 +1019,9 @@ def refine_posts(plan_dir: str, feedback: str) -> None:
                         day=day,
                         monthly_theme=monthly_theme,
                         week_number=slot_info.get("week_number", 1),
-                        subtheme=weekly_subtitles.get(slot_info.get("week_number", 1), slot_info.get("subtheme", "")),
+                        subtheme=weekly_subtitles.get(
+                            slot_info.get("week_number", 1), slot_info.get("subtheme", "")
+                        ),
                         slot_type=slot_type,
                         images_dir=images_dir,
                     )
@@ -761,12 +1056,12 @@ def refine_posts(plan_dir: str, feedback: str) -> None:
 
     early_exit = asyncio.run(process_all_entries())
 
-    click.echo(f"\n{'#'*60}")
+    click.echo(f"\n{'#' * 60}")
     if early_exit:
         click.echo(f"⊗ Exited early. Processed: {processed_count}, Skipped: {skipped_count}")
     else:
         click.echo(f"✓ Completed. Processed: {processed_count}, Skipped: {skipped_count}")
-    click.echo(f"{'#'*60}")
+    click.echo(f"{'#' * 60}")
 
 
 if __name__ == "__main__":  # pragma: no cover

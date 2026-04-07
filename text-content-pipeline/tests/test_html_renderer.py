@@ -212,3 +212,130 @@ async def test_render_text_to_image_playwright_error() -> None:
             )
         
         assert "Failed to render HTML to image" in str(exc_info.value)
+
+
+@pytest.mark.asyncio
+async def test_render_text_to_image_with_gradient_params() -> None:
+    """Test rendering with gradient parameters passes through to template."""
+    with patch("src.renderer.html_renderer.async_playwright") as mock_playwright:
+        mock_browser = AsyncMock()
+        mock_page = AsyncMock()
+        mock_playwright.return_value.__aenter__.return_value.chromium.launch.return_value = mock_browser
+        mock_browser.new_page.return_value = mock_page
+        mock_page.screenshot.return_value = None
+
+        result = await render_text_to_image(
+            text="Test content",
+            slot_info={
+                "type": "post",
+                "year": "2026",
+                "month": "4",
+                "day": "6",
+                "week_number": "1",
+                "subtheme": "Sub",
+                "monthly_theme": "Theme",
+            },
+            output_path="/tmp/test_gradient.png",
+            gradient_direction="vertical_top_bottom",
+            gradient_colors=["#FF0000", "#0000FF"],
+        )
+
+        html_content = mock_page.set_content.call_args[0][0]
+        assert "linear-gradient(to bottom" in html_content
+        assert result == "/tmp/test_gradient.png"
+
+
+@pytest.mark.asyncio
+async def test_render_text_to_image_with_texture_params() -> None:
+    """Test rendering with texture parameters passes through to template."""
+    with patch("src.renderer.html_renderer.async_playwright") as mock_playwright:
+        mock_browser = AsyncMock()
+        mock_page = AsyncMock()
+        mock_playwright.return_value.__aenter__.return_value.chromium.launch.return_value = mock_browser
+        mock_browser.new_page.return_value = mock_page
+        mock_page.screenshot.return_value = None
+
+        result = await render_text_to_image(
+            text="Test content",
+            slot_info={
+                "type": "post",
+                "year": "2026",
+                "month": "4",
+                "day": "6",
+                "week_number": "1",
+                "subtheme": "Sub",
+                "monthly_theme": "Theme",
+            },
+            output_path="/tmp/test_texture.png",
+            texture_type="noise_fine",
+            texture_opacity=0.2,
+            texture_blend_mode="overlay",
+        )
+
+        html_content = mock_page.set_content.call_args[0][0]
+        assert "texture-overlay" in html_content
+        assert "filter: url(#tex-noise)" in html_content
+        assert result == "/tmp/test_texture.png"
+
+
+@pytest.mark.asyncio
+async def test_render_text_to_image_with_gradient_and_texture() -> None:
+    """Test rendering with both gradient and texture parameters."""
+    with patch("src.renderer.html_renderer.async_playwright") as mock_playwright:
+        mock_browser = AsyncMock()
+        mock_page = AsyncMock()
+        mock_playwright.return_value.__aenter__.return_value.chromium.launch.return_value = mock_browser
+        mock_browser.new_page.return_value = mock_page
+        mock_page.screenshot.return_value = None
+
+        await render_text_to_image(
+            text="Test content",
+            slot_info={
+                "type": "post",
+                "year": "2026",
+                "month": "4",
+                "day": "6",
+                "week_number": "1",
+                "subtheme": "Sub",
+                "monthly_theme": "Theme",
+            },
+            output_path="/tmp/test_both.png",
+            gradient_direction="radial_center",
+            gradient_colors=["#FF0000", "#0000FF"],
+            texture_type="vignette_soft",
+            texture_opacity=0.25,
+        )
+
+        html_content = mock_page.set_content.call_args[0][0]
+        assert "radial-gradient(circle at center" in html_content
+        assert "texture-overlay" in html_content
+
+
+@pytest.mark.asyncio
+async def test_render_text_to_image_backward_compat() -> None:
+    """Test rendering without new params still works (backward compatibility)."""
+    with patch("src.renderer.html_renderer.async_playwright") as mock_playwright:
+        mock_browser = AsyncMock()
+        mock_page = AsyncMock()
+        mock_playwright.return_value.__aenter__.return_value.chromium.launch.return_value = mock_browser
+        mock_browser.new_page.return_value = mock_page
+        mock_page.screenshot.return_value = None
+
+        await render_text_to_image(
+            text="Test content",
+            slot_info={
+                "type": "post",
+                "year": "2026",
+                "month": "4",
+                "day": "6",
+                "week_number": "1",
+                "subtheme": "Sub",
+                "monthly_theme": "Theme",
+            },
+            output_path="/tmp/test_compat.png",
+        )
+
+        html_content = mock_page.set_content.call_args[0][0]
+        assert "background-color: #4A90E2" in html_content
+        assert "linear-gradient" not in html_content
+        assert "texture-overlay" not in html_content
