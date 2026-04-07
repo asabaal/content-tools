@@ -349,6 +349,7 @@ async def render_animated_video(
     anim_seed: int | None = None,
     audio_path: str | None = None,
     text_color: str | None = None,
+    video_duration: float | None = None,
 ) -> str:
     """Render text content to an animated MP4 video.
 
@@ -373,6 +374,8 @@ async def render_animated_video(
         audio_path: Optional path to audio file. If provided, overrides
             anim_loop with audio duration and muxes audio into final video.
         text_color: Optional text color override. Auto-computed from background if not provided.
+        video_duration: Optional explicit video duration in seconds. If provided, overrides
+            both anim_loop and audio-derived duration. Use when mixed audio already has correct length.
 
     Returns:
         Path to rendered video file
@@ -401,7 +404,10 @@ async def render_animated_video(
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
     effective_loop = anim_loop
-    if audio_path:
+    if video_duration is not None:
+        effective_loop = max(1, math.ceil(video_duration))
+        print(f"  Video duration (explicit): {video_duration:.1f}s -> video loop: {effective_loop}s")
+    elif audio_path:
         audio_dur = get_audio_duration(audio_path)
         effective_loop = max(1, math.ceil(audio_dur + AUDIO_PAD_SECONDS))
         print(f"  Audio duration: {audio_dur:.1f}s -> video loop: {effective_loop}s")

@@ -49,6 +49,8 @@ async def run_full_pipeline(
     audio: bool = False,
     audio_voice: str | None = None,
     text_color: str | None = None,
+    bg_music: bool = False,
+    bg_music_prompt: str | None = None,
 ) -> dict:
     """Run the complete pipeline from payload to images.
 
@@ -67,6 +69,8 @@ async def run_full_pipeline(
         audio: If True, generate TTS audio for each video
         audio_voice: Edge TTS voice name for audio generation
         text_color: Optional text color override. Auto-computed from background if not provided.
+        bg_music: If True, generate background music via ACE-Step and mix with TTS. Implies animate+audio.
+        bg_music_prompt: Optional music prompt. Auto-generated from monthly theme if not provided.
 
     Returns:
         Dictionary with pipeline results and outputs
@@ -87,6 +91,10 @@ async def run_full_pipeline(
         defaults.DEFAULT_AI_MODEL = model
 
     from src.config.defaults import DEFAULT_TTS_VOICE
+
+    if bg_music:
+        animate = True
+        audio = True
 
     try:
         # Stage 1: Resolve calendar
@@ -187,6 +195,82 @@ async def run_full_pipeline(
         texts_path = _save_texts(calendar.year, calendar.month, generated_texts, plans_dir)
         print(f"  Saved texts: {texts_path}")
 
+        # Stage 4.5: TTS pre-pass (only when bg_music is enabled)
+        tts_paths: dict[str, str] = {}
+        tts_durations: dict[str, float] = {}
+        monthly_music_path: str | None = None
+        actual_music_prompt: str | None = None
+
+        if bg_music and not skip_rendering:
+            print("Stage 4.5: TTS pre-pass (generating all TTS audio)...")
+            import tempfile
+            from src.renderer.tts import generate_tts, get_audio_duration
+
+            for slot in schedule.slots:
+                if slot.is_automated:
+                    text = generated_texts.get(slot.date, "")
+                    if text:
+                        tts_tmp = tempfile.NamedTemporaryFile(
+                            suffix=".mp3", delete=False, dir=str(images_dir)
+                        )
+                        tts_tmp.close()
+                        tts_path = tts_tmp.name
+                        print(f"  TTS for {slot.date}...")
+                        await generate_tts(
+                            text=text,
+                            output_path=tts_path,
+                            voice=audio_voice or DEFAULT_TTS_VOICE,
+                        )
+                        dur = get_audio_duration(tts_path)
+                        tts_paths[slot.date] = tts_path
+                        tts_durations[slot.date] = dur
+                        print(f"    {dur:.1f}s")
+
+            if not tts_durations:
+                print("  No TTS generated, skipping music")
+                bg_music = False
+            else:
+                # Stage 4.6: Generate monthly background music
+                print("Stage 4.6: Generating monthly background music...")
+                from src.renderer.music_gen import (
+                    calculate_music_duration,
+                    generate_background_music,
+                    generate_music_prompt_from_theme,
+                )
+
+                if bg_music_prompt:
+                    actual_music_prompt = bg_music_prompt
+                else:
+                    print("  Auto-generating music prompt from theme...")
+                    actual_music_prompt = await generate_music_prompt_from_theme(
+                        calendar.monthly_theme
+                    )
+
+                max_tts = max(tts_durations.values())
+                music_dur = calculate_music_duration(max_tts)
+                audio_dir = images_dir / "audio"
+                audio_dir.mkdir(parents=True, exist_ok=True)
+                monthly_music_path = str(audio_dir / "bg_music.wav")
+
+                print(f"  Prompt: {actual_music_prompt}")
+                print(f"  Duration: {music_dur:.1f}s (max TTS: {max_tts:.1f}s)")
+                generate_background_music(
+                    prompt=actual_music_prompt,
+                    duration=music_dur,
+                    output_path=monthly_music_path,
+                )
+                print(f"  Music saved: {monthly_music_path}")
+
+                import json as _json
+                with open(plan_path, "r", encoding="utf-8") as f:
+                    plan_update = _json.load(f)
+                plan_update["render_config"]["bg_music"] = True
+                plan_update["render_config"]["bg_music_prompt"] = actual_music_prompt
+                plan_update["render_config"]["bg_music_path"] = monthly_music_path
+                with open(plan_path, "w", encoding="utf-8") as f:
+                    _json.dump(plan_update, f, indent=2, ensure_ascii=False)
+                print(f"  Updated plan with music config")
+
         # Stage 6: Render images or videos
         if not skip_rendering:
             if animate:
@@ -228,7 +312,31 @@ async def run_full_pipeline(
                                 )
 
                                 audio_path = None
-                                if audio and text:
+                                video_dur = None
+
+                                if bg_music and slot.date in tts_paths:
+                                    import tempfile
+                                    from src.renderer.audio_mix import prepare_slot_audio
+                                    from src.renderer.music_gen import calculate_slot_video_duration
+
+                                    slot_tts_path = tts_paths[slot.date]
+                                    slot_tts_dur = tts_durations[slot.date]
+                                    slot_video_dur = calculate_slot_video_duration(slot_tts_dur)
+
+                                    mixed_tmp = tempfile.NamedTemporaryFile(
+                                        suffix=".mp3", delete=False, dir=str(images_dir)
+                                    )
+                                    mixed_tmp.close()
+                                    print(f"  Mixing audio for {slot.date}...")
+                                    audio_path, video_dur = prepare_slot_audio(
+                                        tts_path=slot_tts_path,
+                                        music_path=monthly_music_path or "",
+                                        output_path=mixed_tmp.name,
+                                        tts_duration=slot_tts_dur,
+                                        slot_video_duration=slot_video_dur,
+                                    )
+
+                                elif audio and text:
                                     import tempfile
                                     from src.renderer.tts import generate_tts
 
@@ -265,6 +373,7 @@ async def run_full_pipeline(
                                     anim_seed=anim_seed,
                                     audio_path=audio_path,
                                     text_color=text_color,
+                                    video_duration=video_dur,
                                 )
 
                             else:
@@ -343,6 +452,9 @@ def _save_plan(
     anim_speed: float | None = None,
     anim_loop: int | None = None,
     anim_seed: int | None = None,
+    bg_music: bool = False,
+    bg_music_prompt: str | None = None,
+    bg_music_path: str | None = None,
 ) -> str:
     """Save slot plan to JSON file.
 
@@ -396,6 +508,12 @@ def _save_plan(
             render_config["anim_loop"] = anim_loop
         if anim_seed is not None:
             render_config["anim_seed"] = anim_seed
+    if bg_music:
+        render_config["bg_music"] = True
+        if bg_music_prompt:
+            render_config["bg_music_prompt"] = bg_music_prompt
+        if bg_music_path:
+            render_config["bg_music_path"] = bg_music_path
 
     plan_data = {
         "year": calendar.year,

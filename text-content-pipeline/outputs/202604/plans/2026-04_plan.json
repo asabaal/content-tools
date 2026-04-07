@@ -17,7 +17,10 @@
   "weekly_subthemes_source": "human",
   "render_config": {
     "style_preset": "warm",
-    "background_color": "#E67E22"
+    "background_color": "#E67E22",
+    "bg_music": true,
+    "bg_music_prompt": "gentle ambient piano with soft pads, slow tempo, peaceful atmosphere",
+    "bg_music_path": "/mnt/storage/repos/content-tools/text-content-pipeline/outputs/202604/images/audio/bg_music.wav"
   },
   "slot_plan": {
     "2026-04-06": "declarative_statement",

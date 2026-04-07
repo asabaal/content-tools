@@ -287,6 +287,8 @@ def resolve_calendar_cmd(payload_path: str, output: str | None) -> None:
 @click.option("--audio", is_flag=True, help="Generate TTS narration audio for animated videos")
 @click.option("--audio-voice", help="Edge TTS voice name (default: en-US-AriaNeural)")
 @click.option("--text-color", help="Text color override (hex, e.g. #FFFFFF). Auto-computed from background if not set.")
+@click.option("--bg-music", is_flag=True, help="Enable background music (implies --animate --audio)")
+@click.option("--bg-music-prompt", help="Music generation prompt. Auto-generated from theme if not set.")
 def run_all(
     payload: str | None,
     theme: str | None,
@@ -313,6 +315,8 @@ def run_all(
     audio: bool,
     audio_voice: str | None,
     text_color: str | None,
+    bg_music: bool,
+    bg_music_prompt: str | None,
 ) -> None:
     """Run full pipeline end-to-end.
 
@@ -400,6 +404,8 @@ def run_all(
                 audio=audio,
                 audio_voice=audio_voice,
                 text_color=text_color,
+                bg_music=bg_music,
+                bg_music_prompt=bg_music_prompt,
             )
         )
 
@@ -603,6 +609,9 @@ def demo(
 @click.option("--audio", is_flag=True, help="Generate TTS narration audio for animated videos")
 @click.option("--audio-voice", help="Edge TTS voice name (default: en-US-AriaNeural)")
 @click.option("--text-color", help="Text color override (hex, e.g. #FFFFFF). Auto-computed from background if not set.")
+@click.option("--bg-music", is_flag=True, help="Enable background music (reuses saved track)")
+@click.option("--bg-music-prompt", help="Music prompt to use when generating new music")
+@click.option("--regen-music", is_flag=True, help="Force regeneration of background music")
 def rerender(
     plan_dir: str,
     target_date: str | None,
@@ -624,6 +633,9 @@ def rerender(
     audio: bool,
     audio_voice: str | None,
     text_color: str | None,
+    bg_music: bool,
+    bg_music_prompt: str | None,
+    regen_music: bool,
 ) -> None:
     """Re-render images from saved plan and texts.
 
@@ -706,6 +718,29 @@ def rerender(
         anim_seed if anim_seed is not None else stored_render_config.get("anim_seed")
     )
 
+    saved_music_path = stored_render_config.get("bg_music_path")
+    saved_music_prompt = stored_render_config.get("bg_music_prompt")
+    effective_bg_music = bg_music or bool(saved_music_path)
+    effective_music_path: str | None = None
+    need_generate_music = False
+
+    if effective_bg_music:
+        effective_animate = True
+        if regen_music:
+            need_generate_music = True
+        elif saved_music_path and not bg_music_prompt:
+            import os
+            if os.path.exists(saved_music_path):
+                effective_music_path = saved_music_path
+            else:
+                need_generate_music = True
+                click.echo("  Warning: Saved music file not found, will regenerate")
+        elif bg_music_prompt:
+            need_generate_music = True
+        else:
+            effective_bg_music = False
+            click.echo("  Warning: No music available. Use --regen-music or --bg-music-prompt.")
+
     # Determine output directory
     images_dir = Path(output_dir) / "images" if output_dir else Path(plan_dir) / "images"
     images_dir.mkdir(parents=True, exist_ok=True)
@@ -726,6 +761,70 @@ def rerender(
 
     # Get weekly subtitles
     weekly_subtitles = plan_data.get("weekly_subtitles", {})
+
+    rerender_tts_paths: dict[str, str] = {}
+    rerender_tts_durations: dict[str, float] = {}
+
+    async def generate_music_if_needed():
+        nonlocal effective_music_path
+
+        if not need_generate_music:
+            return
+
+        import tempfile
+
+        from src.renderer.music_gen import (
+            calculate_music_duration,
+            generate_background_music,
+            generate_music_prompt_from_theme,
+        )
+        from src.renderer.tts import generate_tts, get_audio_duration
+
+        prompt = bg_music_prompt or saved_music_prompt
+        if not prompt:
+            prompt = await generate_music_prompt_from_theme(plan_data["monthly_theme"])
+            click.echo(f"  Auto-generated music prompt: {prompt}")
+
+        max_tts = 0.0
+        for date in dates_to_render:
+            text = generated_texts.get(date, "")
+            if text:
+                tts_tmp = tempfile.NamedTemporaryFile(
+                    suffix=".mp3", delete=False, dir=str(images_dir)
+                )
+                tts_tmp.close()
+                await generate_tts(
+                    text=text,
+                    output_path=tts_tmp.name,
+                    voice=audio_voice or DEFAULT_TTS_VOICE,
+                )
+                dur = get_audio_duration(tts_tmp.name)
+                rerender_tts_paths[date] = tts_tmp.name
+                rerender_tts_durations[date] = dur
+                max_tts = max(max_tts, dur)
+
+        music_dur = calculate_music_duration(max_tts) if max_tts > 0 else 15.0
+        audio_dir = images_dir / "audio"
+        audio_dir.mkdir(parents=True, exist_ok=True)
+        music_out = str(audio_dir / "bg_music.wav")
+
+        click.echo(f"  Generating music: {prompt}")
+        click.echo(f"  Duration: {music_dur:.1f}s")
+        effective_music_path = generate_background_music(
+            prompt=prompt,
+            duration=music_dur,
+            output_path=music_out,
+        )
+        click.echo(f"  Music saved: {effective_music_path}")
+
+        import json as _json
+        with open(plan_file, "r", encoding="utf-8") as f:
+            plan_update = _json.load(f)
+        plan_update["render_config"]["bg_music"] = True
+        plan_update["render_config"]["bg_music_prompt"] = prompt
+        plan_update["render_config"]["bg_music_path"] = effective_music_path
+        with open(plan_file, "w", encoding="utf-8") as f:
+            _json.dump(plan_update, f, indent=2, ensure_ascii=False)
 
     async def do_render():
         rendered = 0
@@ -784,7 +883,49 @@ def rerender(
             try:
                 if effective_animate:
                     audio_path = None
-                    if audio and text:
+                    video_dur = None
+
+                    if effective_bg_music and effective_music_path and text:
+                        import tempfile
+
+                        from src.renderer.audio_mix import prepare_slot_audio
+                        from src.renderer.music_gen import calculate_slot_video_duration
+
+                        if date in rerender_tts_paths:
+                            slot_tts_path = rerender_tts_paths[date]
+                            tts_dur = rerender_tts_durations[date]
+                        else:
+                            from src.renderer.tts import generate_tts, get_audio_duration
+
+                            tts_tmp = tempfile.NamedTemporaryFile(
+                                suffix=".mp3", delete=False, dir=str(images_dir)
+                            )
+                            tts_tmp.close()
+                            click.echo(f"  Generating TTS audio...")
+                            await generate_tts(
+                                text=text,
+                                output_path=tts_tmp.name,
+                                voice=audio_voice or DEFAULT_TTS_VOICE,
+                            )
+                            slot_tts_path = tts_tmp.name
+                            tts_dur = get_audio_duration(tts_tmp.name)
+
+                        slot_video_dur = calculate_slot_video_duration(tts_dur)
+
+                        mixed_tmp = tempfile.NamedTemporaryFile(
+                            suffix=".mp3", delete=False, dir=str(images_dir)
+                        )
+                        mixed_tmp.close()
+                        click.echo(f"  Mixing audio with background music...")
+                        audio_path, video_dur = prepare_slot_audio(
+                            tts_path=slot_tts_path,
+                            music_path=effective_music_path,
+                            output_path=mixed_tmp.name,
+                            tts_duration=tts_dur,
+                            slot_video_duration=slot_video_dur,
+                        )
+
+                    elif audio and text:
                         import tempfile
 
                         from src.renderer.tts import generate_tts
@@ -824,6 +965,7 @@ def rerender(
                         anim_seed=effective_anim_seed,
                         audio_path=audio_path,
                         text_color=text_color,
+                        video_duration=video_dur,
                     )
                 else:
                     await html_renderer.render_text_to_image(
@@ -849,7 +991,11 @@ def rerender(
 
     label = "video(s)" if effective_animate else "image(s)"
     click.echo(f"Re-rendering {len(dates_to_render)} {label}...")
-    rendered_count = asyncio.run(do_render())
+    async def run_all():
+        await generate_music_if_needed()
+        return await do_render()
+
+    rendered_count = asyncio.run(run_all())
     click.echo(f"\n✓ Rendered {rendered_count} {label}")
 
 

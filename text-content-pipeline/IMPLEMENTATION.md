@@ -191,6 +191,32 @@ Real AI calls using gpt-oss:20b model:
 
 ---
 
-**Implementation Status: ✅ COMPLETE**
+## 🎵 Planned: Background Music Integration (ACE-Step)
 
-The system is ready for use. All architecture, modules, AI touchpoints, and demo requirements have been implemented and tested.
+Status: **Planned** (see `DESIGN.md` for full specification)
+
+### Summary
+Add AI-generated background music to animated video output. One music track per month, mixed with TTS narration. ACE-Step runs in a separate Python 3.10 environment, invoked via subprocess from TCP's Python 3.12 process.
+
+### Files to Create
+- `test-models/run_ace_step_pipe.py` — machine-readable subprocess entry point for ACE-Step
+- `test-models/ACE_STEP_GUIDE.md` — standalone ACE-Step invocation reference
+- `src/renderer/music_gen.py` — subprocess wrapper + duration calculation
+- `src/renderer/audio_mix.py` — ffmpeg-based TTS + music mixing
+
+### Files to Modify
+- `src/config/defaults.py` — add ACE-Step constants
+- `src/renderer/html_renderer.py` — add `video_duration` param to `render_animated_video`
+- `src/pipeline/orchestrator.py` — add TTS pre-pass (Stage 4.5), music generation (Stage 4.6), modified rendering loop
+- `src/cli/commands.py` — add `--bg-music` and `--bg-music-prompt` options
+
+### Key Design Decisions
+- Subprocess invocation (Python 3.10 vs 3.12 incompatibility)
+- One music track per month, trimmed per slot
+- Audio duration derived from TTS lengths: `0.5 + tts_dur + min(3.0, tts_dur * 0.25)`
+- Music saved in plan JSON for rerender reuse
+- Zero regression risk: all new behavior gated behind `--bg-music` flag
+
+---
+
+**Implementation Status: ✅ CORE COMPLETE | 🎵 BACKGROUND MUSIC: PLANNED**
