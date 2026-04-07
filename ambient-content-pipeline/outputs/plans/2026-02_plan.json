@@ -1,0 +1,236 @@
+{
+  "year": 2026,
+  "month": 2,
+  "monthly_theme": "Evolving in Christ",
+  "weekly_subthemes": [
+    "Rooted in Christ's Love",
+    "Growing in Spiritual Discernment",
+    "Reflecting Christ's Character",
+    "Transforming Through His Power"
+  ],
+  "weekly_subthemes_source": "human",
+  "slot_plan": {
+    "2026-02-02": "declarative_statement",
+    "2026-02-03": "excerpt",
+    "2026-02-04": "process_note",
+    "2026-02-05": "unanswered_question",
+    "2026-02-06": "reframing",
+    "2026-02-07": "quiet_observation",
+    "2026-02-09": "excerpt",
+    "2026-02-10": "process_note",
+    "2026-02-11": "unanswered_question",
+    "2026-02-12": "reframing",
+    "2026-02-13": "quiet_observation",
+    "2026-02-14": "declarative_statement",
+    "2026-02-16": "process_note",
+    "2026-02-17": "unanswered_question",
+    "2026-02-18": "reframing",
+    "2026-02-19": "quiet_observation",
+    "2026-02-20": "declarative_statement",
+    "2026-02-21": "excerpt",
+    "2026-02-23": "unanswered_question",
+    "2026-02-24": "reframing",
+    "2026-02-25": "quiet_observation",
+    "2026-02-26": "declarative_statement",
+    "2026-02-27": "excerpt",
+    "2026-02-28": "process_note"
+  },
+  "schedule_summary": [
+    {
+      "date": "2026-02-02",
+      "weekday": "Monday",
+      "slot_type": "declarative_statement",
+      "subtheme": "Rooted in Christ's Love",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-03",
+      "weekday": "Tuesday",
+      "slot_type": "excerpt",
+      "subtheme": "Rooted in Christ's Love",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-04",
+      "weekday": "Wednesday",
+      "slot_type": "process_note",
+      "subtheme": "Rooted in Christ's Love",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-05",
+      "weekday": "Thursday",
+      "slot_type": "unanswered_question",
+      "subtheme": "Rooted in Christ's Love",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-06",
+      "weekday": "Friday",
+      "slot_type": "reframing",
+      "subtheme": "Rooted in Christ's Love",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-07",
+      "weekday": "Saturday",
+      "slot_type": "quiet_observation",
+      "subtheme": "Rooted in Christ's Love",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-08",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": "Rooted in Christ's Love",
+      "is_automated": false
+    },
+    {
+      "date": "2026-02-09",
+      "weekday": "Monday",
+      "slot_type": "excerpt",
+      "subtheme": "Growing in Spiritual Discernment",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-10",
+      "weekday": "Tuesday",
+      "slot_type": "process_note",
+      "subtheme": "Growing in Spiritual Discernment",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-11",
+      "weekday": "Wednesday",
+      "slot_type": "unanswered_question",
+      "subtheme": "Growing in Spiritual Discernment",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-12",
+      "weekday": "Thursday",
+      "slot_type": "reframing",
+      "subtheme": "Growing in Spiritual Discernment",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-13",
+      "weekday": "Friday",
+      "slot_type": "quiet_observation",
+      "subtheme": "Growing in Spiritual Discernment",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-14",
+      "weekday": "Saturday",
+      "slot_type": "declarative_statement",
+      "subtheme": "Growing in Spiritual Discernment",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-15",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": "Growing in Spiritual Discernment",
+      "is_automated": false
+    },
+    {
+      "date": "2026-02-16",
+      "weekday": "Monday",
+      "slot_type": "process_note",
+      "subtheme": "Reflecting Christ's Character",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-17",
+      "weekday": "Tuesday",
+      "slot_type": "unanswered_question",
+      "subtheme": "Reflecting Christ's Character",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-18",
+      "weekday": "Wednesday",
+      "slot_type": "reframing",
+      "subtheme": "Reflecting Christ's Character",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-19",
+      "weekday": "Thursday",
+      "slot_type": "quiet_observation",
+      "subtheme": "Reflecting Christ's Character",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-20",
+      "weekday": "Friday",
+      "slot_type": "declarative_statement",
+      "subtheme": "Reflecting Christ's Character",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-21",
+      "weekday": "Saturday",
+      "slot_type": "excerpt",
+      "subtheme": "Reflecting Christ's Character",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-22",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": "Reflecting Christ's Character",
+      "is_automated": false
+    },
+    {
+      "date": "2026-02-23",
+      "weekday": "Monday",
+      "slot_type": "unanswered_question",
+      "subtheme": "Transforming Through His Power",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-24",
+      "weekday": "Tuesday",
+      "slot_type": "reframing",
+      "subtheme": "Transforming Through His Power",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-25",
+      "weekday": "Wednesday",
+      "slot_type": "quiet_observation",
+      "subtheme": "Transforming Through His Power",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-26",
+      "weekday": "Thursday",
+      "slot_type": "declarative_statement",
+      "subtheme": "Transforming Through His Power",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-27",
+      "weekday": "Friday",
+      "slot_type": "excerpt",
+      "subtheme": "Transforming Through His Power",
+      "is_automated": true
+    },
+    {
+      "date": "2026-02-28",
+      "weekday": "Saturday",
+      "slot_type": "process_note",
+      "subtheme": "Transforming Through His Power",
+      "is_automated": true
+    },
+    {
+      "date": "2026-03-01",
+      "weekday": "Sunday",
+      "slot_type": "human_intentional",
+      "subtheme": "Transforming Through His Power",
+      "is_automated": false
+    }
+  ]
+}
