@@ -49,7 +49,6 @@ data/transcripts/
 liyw-s0e05/
 liyw-s0e10-test/
 pr_file_list.txt
-tests/
 tools/05b-render/TEST_RESULTS.md
 tools/05b-render/render_first_2_lines.py
 tools/05b-render/validate_first_2_lines.sh
