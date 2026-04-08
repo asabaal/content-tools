@@ -1,0 +1,112 @@
+Fix failing test: test_animation_is_global_field_not_local_artifact
+
+Observed failure:
+Current animation output produces localized artifacts such as bars or partial regions moving across the frame. Example: a colored band rises from the bottom instead of the entire background evolving.
+
+This indicates animation is being applied to discrete elements or subregions rather than the full background field.
+
+Goal:
+Refactor animation logic so that ALL animation types operate on the entire background as a continuous field over time. Eliminate any object-based, region-based, or edge-based motion.
+
+Scope constraints:
+You may ONLY modify:
+
+- Background rendering module
+- Animation logic functions
+
+DO NOT modify:
+
+- CLI parsing
+- Pipeline branching
+- Text rendering
+- Video encoding/output logic
+
+Root requirement:
+
+Animation must be implemented as a transformation of a continuous function:
+
+G(x, y, t)
+
+Where:
+
+- every pixel (x, y) changes smoothly over time t
+- no discrete shapes, overlays, or partial regions are introduced
+
+Hard rules:
+
+- It is forbidden to:
+  
+  - animate only a subsection of the frame
+  - introduce bars, stripes, or moving shapes
+  - create edges that move across the screen
+  - overlay new animated elements
+
+- At least 95% of pixels must change over time for all animation types except pulse (which may be uniform)
+
+Required fixes by animation type:
+
+drift:
+
+- Replace any object translation with coordinate space translation
+- Implement:
+  sample(x + dx(t), y + dy(t))
+- dx(t), dy(t) must be smooth and low-frequency
+- Entire frame must shift uniformly
+
+flow:
+
+- Replace directional or band motion with continuous field evolution
+- Implement time-varying noise or interpolation:
+  G(x, y, t)
+- No linear wipes or gradients moving as blocks
+
+pulse:
+
+- Apply ONLY a global scalar transformation:
+  color = base_color * (1 + sin(t * speed) * intensity * k)
+- No spatial variation
+
+distortion:
+
+- Replace localized warps with full-frame displacement field:
+  sample(x + D_x(x,y,t), y + D_y(x,y,t))
+- D must be smooth and low amplitude
+- No sharp or isolated distortions
+
+parallax:
+
+- Ensure each layer:
+  - covers the full frame
+  - has no edges
+- Movement must be full-frame per layer, not partial elements
+
+reactive:
+
+- Map input signal ONLY to parameters of global transforms
+- Do not generate new shapes or regions
+
+Validation conditions:
+
+- No visible bars, bands, or edges moving across frame
+- No region remains static while another moves
+- Motion appears as continuous evolution of entire background
+- Text layer remains unaffected
+
+Fallback rule:
+
+If any animation type produces localized artifacts, automatically fallback to drift implementation using global coordinate shift.
+
+Success criteria:
+
+- Animation visually affects entire frame
+- No discrete moving objects are present
+- Output remains smooth, continuous, and ambient
+- Existing functionality remains unchanged
+
+Output format:
+
+Return ONLY a unified diff.
+No explanations.
+
+If this cannot be implemented within scope, output exactly:
+IMPOSSIBLE WITH CURRENT SCOPE
