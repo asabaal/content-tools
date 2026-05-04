@@ -620,9 +620,6 @@ def regen_text(plan_dir: str, dates: str, model: str | None, temperature: float 
         sys.exit(1)
 
     target_dates = [d.strip() for d in dates.split(",")]
-    if not target_dates:
-        click.echo("✗ No dates provided", err=True)
-        sys.exit(1)
 
     first_date = target_dates[0]
     year_part, month_part = first_date.split("-")[0], first_date.split("-")[1]

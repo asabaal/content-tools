@@ -426,3 +426,94 @@ async def test_render_animated_video_video_duration_overrides_audio() -> None:
         )
 
         assert mock_encoder.write_frame.call_count == 90
+
+
+@pytest.mark.asyncio
+async def test_render_text_layer_to_pil_invalid_preset() -> None:
+    """Test _render_text_layer_to_pil raises error for invalid preset."""
+    from src.renderer.html_renderer import _render_text_layer_to_pil
+    from src.errors.exceptions import RendererError
+
+    with pytest.raises(RendererError, match="Invalid style preset"):
+        await _render_text_layer_to_pil(
+            text="Test",
+            slot_info={"type": "post"},
+            width=1080,
+            height=1080,
+            style_preset="nonexistent",
+        )
+
+
+@pytest.mark.asyncio
+async def test_render_text_layer_to_pil_render_error() -> None:
+    """Test _render_text_layer_to_pil wraps playwright errors."""
+    from src.renderer.html_renderer import _render_text_layer_to_pil
+    from src.errors.exceptions import RendererError
+
+    with patch("src.renderer.html_renderer.async_playwright") as mock_pw:
+        mock_pw.return_value.__aenter__.side_effect = Exception("browser crash")
+        with pytest.raises(RendererError, match="Failed to render text layer"):
+            await _render_text_layer_to_pil(
+                text="Test",
+                slot_info={"type": "post"},
+                width=1080,
+                height=1080,
+                style_preset="default",
+            )
+
+
+@pytest.mark.asyncio
+async def test_render_animated_video_4_5_aspect_ratio() -> None:
+    """Test render_animated_video with 4:5 aspect ratio uses correct dimensions."""
+    from PIL import Image
+
+    frame = Image.new("RGB", (1080, 1350), (0, 128, 255))
+
+    with patch("src.renderer.html_renderer._render_text_layer_to_pil", return_value=Image.new("RGBA", (1080, 1350))), \
+         patch("src.renderer.html_renderer.AnimationFrameGenerator") as mock_anim_cls, \
+         patch("src.renderer.html_renderer.VideoEncoder") as mock_encoder_cls:
+        mock_anim = MagicMock()
+        mock_anim.generate_background_frame.return_value = frame
+        mock_anim_cls.return_value = mock_anim
+        mock_encoder = MagicMock()
+        mock_encoder.__enter__ = MagicMock(return_value=mock_encoder)
+        mock_encoder.__exit__ = MagicMock(return_value=False)
+        mock_encoder_cls.return_value = mock_encoder
+
+        await render_animated_video(
+            text="Test",
+            slot_info={"type": "post", "year": "2026", "month": "4", "day": "6", "week_number": "1", "subtheme": "S", "monthly_theme": "T"},
+            output_path="/tmp/test_45.mp4",
+            aspect_ratio="4:5",
+        )
+
+        mock_anim_cls.assert_called_once()
+        assert mock_anim_cls.call_args[1]["width"] == 1080
+        assert mock_anim_cls.call_args[1]["height"] == 1350
+
+
+@pytest.mark.asyncio
+async def test_render_animated_video_generates_output_path() -> None:
+    """Test render_animated_video generates path when output_path is empty."""
+    from PIL import Image
+
+    frame = Image.new("RGB", (1080, 1080), (0, 128, 255))
+
+    with patch("src.renderer.html_renderer._render_text_layer_to_pil", return_value=Image.new("RGBA", (1080, 1080))), \
+         patch("src.renderer.html_renderer.AnimationFrameGenerator") as mock_anim_cls, \
+         patch("src.renderer.html_renderer.VideoEncoder") as mock_encoder_cls:
+        mock_anim = MagicMock()
+        mock_anim.generate_background_frame.return_value = frame
+        mock_anim_cls.return_value = mock_anim
+        mock_encoder = MagicMock()
+        mock_encoder.__enter__ = MagicMock(return_value=mock_encoder)
+        mock_encoder.__exit__ = MagicMock(return_value=False)
+        mock_encoder_cls.return_value = mock_encoder
+
+        result = await render_animated_video(
+            text="Test",
+            slot_info={"type": "post", "year": "2026", "month": "4", "day": "6", "week_number": "1", "subtheme": "S", "monthly_theme": "T"},
+            output_path="",
+        )
+
+        assert result.endswith(".mp4")

@@ -65,8 +65,6 @@ def _infer_week_number(date_str: str, year: int, month: int) -> int:
     first_monday = first_day
     while first_monday.weekday() != 0:
         first_monday += timedelta(days=1)
-    if first_monday.month != month:
-        first_monday += timedelta(weeks=1)
     delta_weeks = (monday - first_monday).days // 7
     return delta_weeks + 1
 

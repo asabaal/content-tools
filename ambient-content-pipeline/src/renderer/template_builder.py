@@ -154,8 +154,6 @@ def _build_texture_css(
         }"""
         return css, overlay_html + ' vignette-heavy"></div>'
 
-    return "", ""
-
 
 def build_html(
     text: str,

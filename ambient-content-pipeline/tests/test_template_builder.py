@@ -734,3 +734,33 @@ def test_build_html_auto_contrast_with_gradient() -> None:
     slot_info = {"year": "2026", "month": "2", "day": "2", "week_number": "1", "subtheme": "S", "monthly_theme": "T", "type": "post"}
     html = build_html("Test", slot_info, preset, 1080, 1080, gradient_direction="vertical_top_bottom", gradient_colors=["#FFFFFF", "#000000"])
     assert "#000000" in html
+
+
+def test_build_texture_css_fallthrough_returns_empty() -> None:
+    """The final return '', '' at the end of _build_texture_css is reached for unknown types."""
+    css, html = _build_texture_css("none", 0.1, "multiply")
+    assert css == ""
+    assert html == ""
+
+
+def test_build_html_transparent_bg() -> None:
+    """Test transparent_bg renders with transparent background and no texture."""
+    text = "Test content"
+    slot_info = {
+        "year": "2026", "month": "4", "day": "6",
+        "week_number": "1", "subtheme": "Sub",
+        "monthly_theme": "Theme", "type": "post",
+    }
+    preset = {
+        "background": "#4A90E2", "text_color": "#FFFFFF",
+        "font_size": 48, "padding": 80, "max_width": 1080,
+    }
+
+    html = build_html(
+        text, slot_info, preset, 1080, 1080,
+        transparent_bg=True,
+        texture_type="noise_fine",
+    )
+
+    assert "background-color: transparent" in html
+    assert "texture-overlay" not in html
