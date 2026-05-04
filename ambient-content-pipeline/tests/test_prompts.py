@@ -143,7 +143,7 @@ def test_text_generation_prompt_reframing() -> None:
     prompt = TEXT_GENERATION_PROMPTS[SlotFunction.REFRAMING]
     
     assert "reframing statement" in prompt
-    assert "not X, but Y" in prompt
+    assert "shifts the reader's perspective" in prompt
 
 
 def test_text_generation_prompt_quiet_observation() -> None:
