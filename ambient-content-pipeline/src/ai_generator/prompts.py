@@ -118,11 +118,11 @@ Output: Just the excerpt, nothing else.""",
     SlotFunction.PROCESS_NOTE: """Monthly theme: {monthly_theme}
 Weekly subtheme: {weekly_subtheme}
 
-Task: Write a reflective process note about formation, effort, slowness, or restraint.
+Task: Write a reflective process note about an ongoing internal experience.
 
 Requirements:
-- A brief note about ongoing process
-- Acknowledges effort or stillness
+- A brief note reflecting on process, change, tension, surrender, arrival, resistance, or growth
+- Acknowledges something unfolding without resolving it
 - No conclusions or finality
 - Plain text only (no markdown, no emojis, no hashtags)
 - Maximum {max_words} words
@@ -146,30 +146,22 @@ Output: Just the question, nothing else.""",
     SlotFunction.REFRAMING: """Monthly theme: {monthly_theme}
 Weekly subtheme: {weekly_subtheme}
 
-Task: Write a reframing statement (a "not X, but Y" perspective shift).
+Task: Write a reframing statement that shifts the reader's perspective on something.
 
 Requirements:
-- A single sentence that reframes something
-- Uses "not X, but Y" structure or similar
+- A single sentence that reframes or reorients how something is seen
+- Vary your sentence structure — do not default to contrast patterns
 - No explanation of why
 - Plain text only (no markdown, no emojis, no hashtags)
 - Maximum {max_words} words
 {previously_generated_section}
 Output: Just the reframing, nothing else.""",
 
-    SlotFunction.QUIET_OBSERVATION: """Monthly theme: {monthly_theme}
-Weekly subtheme: {weekly_subtheme}
+    SlotFunction.QUIET_OBSERVATION: """{previously_generated_section}Context: This post is part of a month on "{monthly_theme}". This week's focus: "{weekly_subtheme}".
 
-Task: Write a quiet observation of something noticed.
+Write one quiet observation (1-2 sentences, max {max_words} words) that connects directly to this week's theme. The observation should be about something human and ordinary, but the connection to the theme must be explicit — the reader should immediately see how it reflects the subtheme.
 
-Requirements:
-- A single sentence or short observation
-- Describes something noticed, not concluded
-- No interpretation or judgment
-- Plain text only (no markdown, no emojis, no hashtags)
-- Maximum {max_words} words
-{previously_generated_section}
-Output: Just the observation, nothing else.""",
+Output: Just the observation.""",
 }
 
 

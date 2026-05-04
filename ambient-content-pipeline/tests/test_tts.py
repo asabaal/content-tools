@@ -141,3 +141,30 @@ def test_mux_audio_video_ffmpeg_fail() -> None:
         mock_run.return_value = MagicMock(returncode=1, stderr="encode error")
         with pytest.raises(RendererError, match="ffmpeg mux failed"):
             mux_audio_video("/tmp/video.mp4", "/tmp/audio.mp3", "/tmp/out.mp4")
+
+
+def test_get_audio_duration_timeout() -> None:
+    import subprocess
+
+    with patch("src.renderer.tts.subprocess.run") as mock_run:
+        mock_run.side_effect = subprocess.TimeoutExpired("ffprobe", 30)
+        with pytest.raises(RendererError, match="ffprobe timed out"):
+            get_audio_duration("/tmp/audio.mp3")
+
+
+def test_get_audio_duration_non_numeric_duration() -> None:
+    ffprobe_output = json.dumps({"format": {"duration": "not_a_number"}})
+
+    with patch("src.renderer.tts.subprocess.run") as mock_run:
+        mock_run.return_value = MagicMock(stdout=ffprobe_output, returncode=0)
+        with pytest.raises(RendererError, match="non-numeric duration"):
+            get_audio_duration("/tmp/audio.mp3")
+
+
+def test_mux_audio_video_timeout() -> None:
+    import subprocess
+
+    with patch("src.renderer.tts.subprocess.run") as mock_run:
+        mock_run.side_effect = subprocess.TimeoutExpired("ffmpeg", 120)
+        with pytest.raises(RendererError, match="ffmpeg mux timed out"):
+            mux_audio_video("/tmp/video.mp4", "/tmp/audio.mp3", "/tmp/out.mp4")

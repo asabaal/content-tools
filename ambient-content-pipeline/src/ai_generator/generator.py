@@ -166,6 +166,8 @@ async def generate_daily_text(
     weekly_subtheme: str,
     max_words: int | None = None,
     previously_generated: list[str] | None = None,
+    current_date: str | None = None,
+    previously_generated_with_context: list[dict[str, str]] | None = None,
 ) -> str:
     """Generate text for a single daily slot using AI (touchpoint 3).
 
@@ -175,6 +177,8 @@ async def generate_daily_text(
         weekly_subtheme: Weekly subtheme context
         max_words: Maximum word count (optional, uses defaults if not provided)
         previously_generated: List of previously generated texts to avoid duplication
+        current_date: The date being generated (for context in dedup)
+        previously_generated_with_context: List of dicts with date, slot_type, text keys
 
     Returns:
         Generated plain text
@@ -182,15 +186,31 @@ async def generate_daily_text(
     Raises:
         AIGenerationError: If generation fails
     """
-    # Get max words from config if not provided
     if max_words is None:
         slot_type_str = slot_type.value if isinstance(slot_type, SlotFunction) else str(slot_type)
         max_words = MAX_WORDS_PER_SLOT.get(slot_type_str, 50)
 
-    # Format previously generated section (empty if no previous posts)
-    if previously_generated and len(previously_generated) > 0:
+    if previously_generated_with_context and len(previously_generated_with_context) > 0:
+        formatted_prev = "\n".join(
+            f"  - {entry.get('date', '?')} ({entry.get('slot_type', '?')}): \"{entry.get('text', '')}\""
+            for entry in previously_generated_with_context
+        )
+        current_slot = slot_type.value if isinstance(slot_type, SlotFunction) else str(slot_type)
+        previously_generated_section = (
+            f"CRITICAL: You are writing for {current_date or 'today'} ({current_slot}). "
+            "You must produce text that is substantively different from ALL previously generated posts below. "
+            "Different opening words, different structure, different imagery. "
+            "Do not reuse phrases, metaphors, or sentence patterns from any previous post.\n"
+            f"{formatted_prev}\n"
+        )
+    elif previously_generated and len(previously_generated) > 0:
         formatted_prev = "\n".join(f"  - \"{text}\"" for text in previously_generated)
-        previously_generated_section = f"Previously generated posts (do NOT repeat these concepts):\n{formatted_prev}\n"
+        previously_generated_section = (
+            "CRITICAL: You must produce text that is substantively different from all previously generated posts below. "
+            "Different opening words, different structure, different imagery. "
+            "Do not reuse phrases, metaphors, or sentence patterns from any previous post.\n"
+            f"{formatted_prev}\n"
+        )
     else:
         previously_generated_section = ""
 

@@ -101,8 +101,9 @@ def test_text_generation_prompts_exist() -> None:
     
     for slot in required_slots:
         assert slot in TEXT_GENERATION_PROMPTS
-        assert "Monthly theme:" in TEXT_GENERATION_PROMPTS[slot]
-        assert "Weekly subtheme:" in TEXT_GENERATION_PROMPTS[slot]
+        prompt = TEXT_GENERATION_PROMPTS[slot]
+        assert "monthly_theme" in prompt
+        assert "weekly_subtheme" in prompt
 
 
 def test_text_generation_prompt_declarative_statement() -> None:
@@ -143,7 +144,7 @@ def test_text_generation_prompt_reframing() -> None:
     prompt = TEXT_GENERATION_PROMPTS[SlotFunction.REFRAMING]
     
     assert "reframing statement" in prompt
-    assert "not X, but Y" in prompt
+    assert "shifts the reader's perspective" in prompt
 
 
 def test_text_generation_prompt_quiet_observation() -> None:
@@ -151,7 +152,7 @@ def test_text_generation_prompt_quiet_observation() -> None:
     prompt = TEXT_GENERATION_PROMPTS[SlotFunction.QUIET_OBSERVATION]
     
     assert "quiet observation" in prompt
-    assert "No interpretation or judgment" in prompt
+    assert "max_words" in prompt
 
 
 def test_format_calendar_structure_multiple_weeks() -> None:

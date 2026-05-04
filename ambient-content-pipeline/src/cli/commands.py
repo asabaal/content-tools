@@ -8,6 +8,7 @@ from typing import cast
 
 import click
 
+from src.cli.preview import generate_preview
 from src.ai_generator import generator
 from src.config.defaults import (
     COLORFUL_PRESETS,
@@ -26,7 +27,44 @@ from src.errors.exceptions import (
 from src.payload import schema, validation
 from src.pipeline import orchestrator
 from src.renderer import html_renderer
+from src.slots.enum import SlotFunction
 from src.weekly_calendar.resolver import resolve_calendar
+
+WORKFLOW_ORDER = [
+    "init-month",
+    "validate",
+    "resolve-calendar",
+    "run-all",
+    "demo",
+    "preview",
+    "regen-text",
+    "inspect-plan",
+    "rerender",
+    "refine-posts",
+    "list-presets",
+    "show-preset",
+]
+
+
+class WorkflowGroup(click.Group):
+    def list_commands(self, ctx: click.Context) -> list[str]:
+        return [cmd for cmd in WORKFLOW_ORDER if cmd in self.commands]
+
+    def format_help(self, ctx: click.Context, formatter: click.HelpFormatter) -> None:
+        super().format_help(ctx, formatter)
+        for cmd_name in self.list_commands(ctx):
+            cmd = self.commands[cmd_name]
+            sub_ctx = click.Context(cmd, info_name=cmd_name, parent=ctx)
+            params = cmd.get_params(sub_ctx)
+            opts = []
+            for param in params:
+                record = param.get_help_record(sub_ctx)
+                if record:
+                    opts.append(record)
+            if opts:
+                with formatter.section(cmd_name):
+                    formatter.write_dl(opts)
+
 
 REFINEMENT_PROMPT = """You are refining a social media post based on user feedback.
 
@@ -52,9 +90,35 @@ Requirements:
 Output: Just the refined post, nothing else."""
 
 
-@click.group()
+@click.group(
+    cls=WorkflowGroup,
+    epilog="""\
+Examples:
+  acp run-all --animate --theme "Evolving in Christ" --year 2026 --month 2
+  acp run-all --animate --payload 2026-02_payload.json
+  acp demo
+  acp rerender --plan-dir 202603 --all --background-color "#1a1a2e"\
+""",
+)
 def cli() -> None:
-    """Ambient content pipeline - Convert monthly themes into daily images."""
+    """ACP - Ambient Content Pipeline.
+
+    Convert monthly themes into daily publishable images without requiring
+    daily judgment.
+
+    \b
+    Workflow:
+      1. init-month       Create a payload JSON for a month
+      2. validate         Check your payload is correct
+      3. run-all          Run the full pipeline (plan -> generate -> render)
+      4. rerender         Re-render specific dates with different styles
+      5. refine-posts     Iterate on posts with AI-assisted feedback
+
+    \b
+    Quick start:
+      acp demo
+      acp run-all --theme "..." --year 2026 --month 6
+    """
     pass  # pragma: no cover
 
 
@@ -286,9 +350,14 @@ def resolve_calendar_cmd(payload_path: str, output: str | None) -> None:
 @click.option("--anim-seed", type=int, help="Seed for deterministic animation")
 @click.option("--audio", is_flag=True, help="Generate TTS narration audio for animated videos")
 @click.option("--audio-voice", help="Edge TTS voice name (default: en-US-AriaNeural)")
-@click.option("--text-color", help="Text color override (hex, e.g. #FFFFFF). Auto-computed from background if not set.")
-@click.option("--bg-music", is_flag=True, help="Enable background music (implies --animate --audio)")
-@click.option("--bg-music-prompt", help="Music generation prompt. Auto-generated from theme if not set.")
+@click.option(
+    "--text-color",
+    help="Text color override (hex, e.g. #FFFFFF). Auto-computed from background if not set.",
+)
+@click.option("--bg-music", is_flag=True, help="Enable background music (implied by --animate)")
+@click.option(
+    "--bg-music-prompt", help="Music generation prompt. Auto-generated from theme if not set."
+)
 def run_all(
     payload: str | None,
     theme: str | None,
@@ -318,16 +387,26 @@ def run_all(
     bg_music: bool,
     bg_music_prompt: str | None,
 ) -> None:
-    """Run full pipeline end-to-end.
+    """Run full pipeline: plan -> generate text -> render.
 
-    Example:
-        run-all --payload 2026-02_payload.json
-        run-all --theme "Evolving in Christ" --year 2026 --month 2
-        run-all --theme "Evolving in Christ" --year 2026 --month 2 --skip-rendering
+    \b
+    Modes:
+      Default      Static images
+      --animate    Animated video with TTS narration + background music
+                   (--audio and --bg-music are implied)
+
+    \b
+    Examples:
+      acp run-all --payload 2026-06_payload.json
+      acp run-all --animate --theme "Hope" --year 2026 --month 6
+      acp run-all --animate --theme "Hope" --year 2026 --month 6 --subthemes "Wk1, Wk2"
+      acp run-all --animate --payload month.json --bg-music-prompt "calm piano"
     """
-    if audio and not animate:
-        animate = True
-        click.echo("  --audio implies --animate, enabling animate mode")
+    if animate:
+        if not audio:
+            audio = True
+        if not bg_music:
+            bg_music = True
     # Validate: either payload or theme/year/month
     if payload is None:
         if not theme or year is None or month is None:
@@ -460,6 +539,207 @@ def show_preset(preset_name: str) -> None:
 
 
 @cli.command()
+@click.option("--plan-dir", help="Directory containing plans (e.g., outputs/202605)")
+@click.option("--year", type=int, help="Year (alternative to --plan-dir)")
+@click.option("--month", type=int, help="Month (alternative to --plan-dir)")
+@click.option("--open", "open_browser", is_flag=True, help="Open the preview in your browser")
+def preview(plan_dir: str | None, year: int | None, month: int | None, open_browser: bool) -> None:
+    """Generate an HTML preview of all generated texts for a month.
+
+    \b
+    Examples:
+      acp preview --plan-dir outputs/202605
+      acp preview --year 2026 --month 5
+      acp preview --year 2026 --month 5 --open
+    """
+    import webbrowser
+
+    if plan_dir is None:
+        if year is None or month is None:
+            click.echo("✗ Provide --plan-dir or both --year and --month", err=True)
+            sys.exit(1)
+        plan_path = Path("outputs") / f"{year}{month:02d}"
+        if not plan_path.exists():
+            plan_path = Path("outputs")
+    else:
+        plan_path = Path(plan_dir)
+
+    if not plan_path.exists():
+        click.echo(f"✗ Directory not found: {plan_path}", err=True)
+        sys.exit(1)
+
+    try:
+        output_path = generate_preview(plan_path, year=year, month=month)
+        click.echo(f"✓ Preview generated: {output_path}")
+        if open_browser:
+            webbrowser.open(f"file://{output_path.resolve()}")
+            click.echo("  Opened in browser.")
+        else:
+            click.echo(f"  Open with: file://{output_path.resolve()}")
+    except FileNotFoundError as e:
+        click.echo(f"✗ {e}", err=True)
+        sys.exit(1)
+
+
+@cli.command()
+@click.option("--plan-dir", required=True, help="Directory containing plans (e.g., outputs)")
+@click.option(
+    "--dates",
+    required=True,
+    help="Comma-separated dates to regenerate (e.g., 2026-05-04,2026-05-05)",
+)
+@click.option("--model", help="Override AI model (e.g., qwen3.5:35b-a3b)")
+@click.option("--temperature", type=float, help="Override AI temperature (0.0-1.0, default 0.2)")
+@click.option("--preview", "gen_preview", is_flag=True, help="Regenerate preview HTML after")
+def regen_text(plan_dir: str, dates: str, model: str | None, temperature: float | None, gen_preview: bool) -> None:
+    """Regenerate text for specific dates using AI.
+
+    Reads the existing plan and texts, regenerates only the specified dates,
+    and saves the updated texts file. All other existing texts are passed
+    as context to prevent repetition.
+
+    \b
+    Examples:
+      acp regen-text --plan-dir outputs --dates 2026-05-04,2026-05-05
+      acp regen-text --plan-dir outputs --dates 2026-05-04,2026-05-05 --preview
+      acp regen-text --plan-dir outputs --dates 2026-05-04 --model qwen3.5:35b-a3b
+    """
+    plan_path = Path(plan_dir)
+    plans_dir = plan_path / "plans"
+
+    plan_files = sorted(
+        [f for f in plans_dir.glob("*_plan.json") if not f.name.startswith("temp_")]
+    )
+    if not plan_files:
+        click.echo(f"✗ No plan file found in {plans_dir}", err=True)
+        sys.exit(1)
+
+    texts_files = list(plans_dir.glob("*_texts.json"))
+    if not texts_files:
+        click.echo(f"✗ No texts file found in {plans_dir}", err=True)
+        sys.exit(1)
+
+    target_dates = [d.strip() for d in dates.split(",")]
+
+    first_date = target_dates[0]
+    year_part, month_part = first_date.split("-")[0], first_date.split("-")[1]
+    target_plan = f"{year_part}-{month_part}_plan.json"
+    target_texts = f"{year_part}-{month_part}_texts.json"
+
+    plan_match = [f for f in plan_files if f.name == target_plan]
+    if not plan_match:
+        click.echo(f"✗ No plan file for {year_part}-{month_part} in {plans_dir}", err=True)
+        sys.exit(1)
+
+    texts_match = [f for f in texts_files if f.name == target_texts]
+    if not texts_match:
+        click.echo(f"✗ No texts file for {year_part}-{month_part} in {plans_dir}", err=True)
+        sys.exit(1)
+
+    with open(plan_match[0], "r", encoding="utf-8") as f:
+        plan_data = json.load(f)
+
+    with open(texts_match[0], "r", encoding="utf-8") as f:
+        texts_data = json.load(f)
+
+    generated_texts = texts_data.get("texts", {})
+    slot_lookup = {slot["date"]: slot for slot in plan_data.get("schedule_summary", [])}
+    monthly_theme = plan_data.get("monthly_theme", "")
+    weekly_subtitles = plan_data.get("weekly_subtitles", {})
+
+    invalid_dates = [d for d in target_dates if d not in slot_lookup]
+    if invalid_dates:
+        click.echo(f"✗ Dates not found in plan: {', '.join(invalid_dates)}", err=True)
+        sys.exit(1)
+
+    click.echo(f"Regenerating {len(target_dates)} posts...")
+
+    async def do_regen():
+        available = await generator.check_model_available()
+        if not available:
+            click.echo(
+                f"✗ Model '{model or DEFAULT_AI_MODEL}' not found in Ollama.",
+                err=True,
+            )
+            click.echo(f"  Please run: ollama pull {model or DEFAULT_AI_MODEL}")
+            sys.exit(1)
+
+        for date_str in target_dates:
+            slot = slot_lookup[date_str]
+            slot_type_str = slot["slot_type"]
+            weekly_subtheme = slot.get("subtheme", "")
+
+            try:
+                slot_enum = SlotFunction(slot_type_str)
+            except ValueError:
+                click.echo(f"  ✗ Unknown slot type '{slot_type_str}' for {date_str}", err=True)
+                continue
+
+            max_words = MAX_WORDS_PER_SLOT.get(slot_type_str, 50)
+
+            other_texts_with_context = [
+                {
+                    "date": k,
+                    "slot_type": slot_lookup[k]["slot_type"] if k in slot_lookup else "?",
+                    "text": v,
+                }
+                for k, v in generated_texts.items()
+                if k != date_str and v
+            ]
+
+            old_text = generated_texts.get(date_str, "")
+
+            if model:
+                original_model = generator.DEFAULT_AI_MODEL
+                generator.DEFAULT_AI_MODEL = model
+
+            if temperature is not None:
+                original_temp = generator.AI_TEMPERATURE
+                generator.AI_TEMPERATURE = temperature
+
+            try:
+                new_text = await generator.generate_daily_text(
+                    slot_type=slot_enum,
+                    monthly_theme=monthly_theme,
+                    weekly_subtheme=weekly_subtheme,
+                    max_words=max_words,
+                    previously_generated_with_context=other_texts_with_context,
+                    current_date=date_str,
+                )
+            except Exception as e:
+                click.echo(f"  ✗ Failed to regenerate {date_str}: {e}", err=True)
+                continue
+            finally:
+                if model:
+                    generator.DEFAULT_AI_MODEL = original_model
+                if temperature is not None:
+                    generator.AI_TEMPERATURE = original_temp
+
+            generated_texts[date_str] = new_text
+
+            click.echo(f"\n  {date_str} ({slot_type_str}):")
+            click.echo(f"    OLD: {old_text[:80]}{'...' if len(old_text) > 80 else ''}")
+            click.echo(f"    NEW: {new_text[:80]}{'...' if len(new_text) > 80 else ''}")
+
+    asyncio.run(do_regen())
+
+    with open(texts_match[0], "w", encoding="utf-8") as f:
+        json.dump(texts_data, f, indent=2, ensure_ascii=False)
+    click.echo(f"\n✓ Updated {len(target_dates)} posts in {texts_match[0]}")
+
+    if gen_preview:
+        try:
+            output_path = generate_preview(
+                plan_path,
+                year=plan_data.get("year"),
+                month=plan_data.get("month"),
+            )
+            click.echo(f"✓ Preview updated: {output_path}")
+        except Exception as e:
+            click.echo(f"  Warning: Preview generation failed: {e}", err=True)
+
+
+@cli.command()
 @click.argument("payload_path", type=click.Path(exists=True))
 def inspect_plan(payload_path: str) -> None:
     """Inspect the generated slot plan for a month."""
@@ -554,6 +834,8 @@ def demo(
 @click.option("--plan-dir", required=True, help="Directory containing plans (e.g., 202603)")
 @click.option("--date", "target_date", help="Specific date to re-render (e.g., 2026-03-09)")
 @click.option("--all", "render_all", is_flag=True, help="Re-render all dates")
+@click.option("--year", type=int, help="Year to select plan file (needed when plans/ has multiple months)")
+@click.option("--month", type=int, help="Month to select plan file (needed when plans/ has multiple months)")
 @click.option("--background-color", help="Override background color (e.g., #4A90E2)")
 @click.option(
     "--gradient-direction",
@@ -608,14 +890,19 @@ def demo(
 @click.option("--anim-seed", type=int, help="Seed for deterministic animation")
 @click.option("--audio", is_flag=True, help="Generate TTS narration audio for animated videos")
 @click.option("--audio-voice", help="Edge TTS voice name (default: en-US-AriaNeural)")
-@click.option("--text-color", help="Text color override (hex, e.g. #FFFFFF). Auto-computed from background if not set.")
-@click.option("--bg-music", is_flag=True, help="Enable background music (reuses saved track)")
+@click.option(
+    "--text-color",
+    help="Text color override (hex, e.g. #FFFFFF). Auto-computed from background if not set.",
+)
+@click.option("--bg-music", is_flag=True, help="Enable background music (implied by --animate)")
 @click.option("--bg-music-prompt", help="Music prompt to use when generating new music")
 @click.option("--regen-music", is_flag=True, help="Force regeneration of background music")
 def rerender(
     plan_dir: str,
     target_date: str | None,
     render_all: bool,
+    year: int | None,
+    month: int | None,
     background_color: str | None,
     gradient_direction: str | None,
     gradient_colors: str | None,
@@ -637,28 +924,50 @@ def rerender(
     bg_music_prompt: str | None,
     regen_music: bool,
 ) -> None:
-    """Re-render images from saved plan and texts.
+    """Re-render images (or videos) from a saved plan and texts.
 
-    Example:
-        acp rerender --plan-dir 202603 --date 2026-03-09
-        acp rerender --plan-dir 202603 --all
-        acp rerender --plan-dir 202603 --date 2026-03-09 --background-color "#ff0000"
+    Reuses the style settings from the original run-all unless overridden.
+
+    \b
+    Examples:
+      acp rerender --plan-dir 202603 --all
+      acp rerender --plan-dir 202603 --date 2026-03-09
+      acp rerender --plan-dir 202603 --all --background-color "#1a1a2e"
+      acp rerender --plan-dir 202603 --all --animate
     """
     plan_path = Path(plan_dir) / "plans"
 
     # Find plan file
-    plan_files = list(plan_path.glob("*_plan.json"))
+    plan_files = [f for f in plan_path.glob("*_plan.json") if not f.name.startswith("temp_")]
     if not plan_files:
         click.echo(f"✗ No plan file found in {plan_path}", err=True)
         sys.exit(1)
-    plan_file = plan_files[0]
+
+    if year is not None and month is not None:
+        target_plan = f"{year}-{month:02d}_plan.json"
+        target_texts_name = f"{year}-{month:02d}_texts.json"
+        plan_match = [f for f in plan_files if f.name == target_plan]
+        if not plan_match:
+            click.echo(f"✗ No plan file for {year}-{month:02d} in {plan_path}", err=True)
+            sys.exit(1)
+        plan_file = plan_match[0]
+    else:
+        plan_file = plan_files[0]
 
     # Find texts file
     texts_files = list(plan_path.glob("*_texts.json"))
     if not texts_files:
         click.echo(f"✗ No texts file found in {plan_path}", err=True)
         sys.exit(1)
-    texts_file = texts_files[0]
+
+    if year is not None and month is not None:
+        texts_match = [f for f in texts_files if f.name == target_texts_name]
+        if not texts_match:
+            click.echo(f"✗ No texts file for {year}-{month:02d} in {plan_path}", err=True)
+            sys.exit(1)
+        texts_file = texts_match[0]
+    else:
+        texts_file = texts_files[0]
 
     # Load plan
     with open(plan_file, "r", encoding="utf-8") as f:
@@ -702,6 +1011,9 @@ def rerender(
     )
 
     effective_animate = animate or stored_render_config.get("animate", False)
+    if effective_animate:
+        if not audio:
+            audio = True
     effective_anim_type = cast(AnimType | None, anim_type) or cast(
         AnimType | None, stored_render_config.get("anim_type")
     )
@@ -720,7 +1032,7 @@ def rerender(
 
     saved_music_path = stored_render_config.get("bg_music_path")
     saved_music_prompt = stored_render_config.get("bg_music_prompt")
-    effective_bg_music = bg_music or bool(saved_music_path)
+    effective_bg_music = bg_music or bool(saved_music_path) or effective_animate
     effective_music_path: str | None = None
     need_generate_music = False
 
@@ -730,6 +1042,7 @@ def rerender(
             need_generate_music = True
         elif saved_music_path and not bg_music_prompt:
             import os
+
             if os.path.exists(saved_music_path):
                 effective_music_path = saved_music_path
             else:
@@ -786,9 +1099,11 @@ def rerender(
             click.echo(f"  Auto-generated music prompt: {prompt}")
 
         max_tts = 0.0
-        for date in dates_to_render:
+        click.echo(f"  Generating TTS audio for {len(dates_to_render)} posts...")
+        for i, date in enumerate(dates_to_render, 1):
             text = generated_texts.get(date, "")
             if text:
+                click.echo(f"    [{i}/{len(dates_to_render)}] {date}")
                 tts_tmp = tempfile.NamedTemporaryFile(
                     suffix=".mp3", delete=False, dir=str(images_dir)
                 )
@@ -802,6 +1117,7 @@ def rerender(
                 rerender_tts_paths[date] = tts_tmp.name
                 rerender_tts_durations[date] = dur
                 max_tts = max(max_tts, dur)
+        click.echo(f"  TTS complete. Longest narration: {max_tts:.1f}s")
 
         music_dur = calculate_music_duration(max_tts) if max_tts > 0 else 15.0
         audio_dir = images_dir / "audio"
@@ -818,6 +1134,7 @@ def rerender(
         click.echo(f"  Music saved: {effective_music_path}")
 
         import json as _json
+
         with open(plan_file, "r", encoding="utf-8") as f:
             plan_update = _json.load(f)
         plan_update["render_config"]["bg_music"] = True
@@ -882,6 +1199,7 @@ def rerender(
 
             try:
                 if effective_animate:
+                    click.echo(f"  [{rendered + 1}/{len(dates_to_render)}] Rendering {date} ({slot['slot_type']})...")
                     audio_path = None
                     video_dur = None
 
@@ -901,7 +1219,7 @@ def rerender(
                                 suffix=".mp3", delete=False, dir=str(images_dir)
                             )
                             tts_tmp.close()
-                            click.echo(f"  Generating TTS audio...")
+                            click.echo(f"  Generating TTS audio for {date}...")
                             await generate_tts(
                                 text=text,
                                 output_path=tts_tmp.name,
@@ -916,7 +1234,7 @@ def rerender(
                             suffix=".mp3", delete=False, dir=str(images_dir)
                         )
                         mixed_tmp.close()
-                        click.echo(f"  Mixing audio with background music...")
+                        click.echo(f"    Mixing audio with background music...")
                         audio_path, video_dur = prepare_slot_audio(
                             tts_path=slot_tts_path,
                             music_path=effective_music_path,
@@ -991,6 +1309,7 @@ def rerender(
 
     label = "video(s)" if effective_animate else "image(s)"
     click.echo(f"Re-rendering {len(dates_to_render)} {label}...")
+
     async def run_all():
         await generate_music_if_needed()
         return await do_render()

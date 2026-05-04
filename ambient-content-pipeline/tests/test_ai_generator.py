@@ -206,6 +206,43 @@ async def test_generate_daily_text_with_previously_generated() -> None:
 
 
 @pytest.mark.asyncio
+async def test_generate_daily_text_with_previously_generated_with_context() -> None:
+    """Test generate_daily_text with context-rich dedup (previously_generated_with_context)."""
+    with patch("src.ai_generator.generator._call_ollama", new_callable=AsyncMock, return_value="Fresh unique text") as mock_ollama:
+        result = await generator.generate_daily_text(
+            slot_type=SlotFunction.DECLARATIVE_STATEMENT,
+            monthly_theme="Test Theme",
+            weekly_subtheme="Test Subtheme",
+            current_date="2026-05-10",
+            previously_generated_with_context=[
+                {"date": "2026-05-03", "slot_type": "quiet_observation", "text": "Old post one"},
+                {"date": "2026-05-05", "slot_type": "declarative_statement", "text": "Old post two"},
+            ],
+        )
+        assert result == "Fresh unique text"
+        call_args = mock_ollama.call_args
+        prompt = call_args[1]["prompt"]
+        assert "2026-05-10" in prompt
+        assert "Old post one" in prompt
+        assert "Old post two" in prompt
+
+
+@pytest.mark.asyncio
+async def test_generate_daily_text_with_empty_previously_generated_with_context() -> None:
+    """Test generate_daily_text with empty previously_generated_with_context list."""
+    with patch("src.ai_generator.generator._call_ollama", new_callable=AsyncMock, return_value="First post") as mock_ollama:
+        result = await generator.generate_daily_text(
+            slot_type=SlotFunction.DECLARATIVE_STATEMENT,
+            monthly_theme="Test Theme",
+            weekly_subtheme="Test Subtheme",
+            previously_generated_with_context=[],
+        )
+        assert result == "First post"
+        call_args = mock_ollama.call_args
+        assert "Previously generated" not in call_args[1]["prompt"]
+
+
+@pytest.mark.asyncio
 async def test_generate_daily_text_with_empty_previously_generated() -> None:
     """Test generate_daily_text with empty previously_generated list."""
     with patch("src.ai_generator.generator._call_ollama", new_callable=AsyncMock, return_value="First post text") as mock_ollama:

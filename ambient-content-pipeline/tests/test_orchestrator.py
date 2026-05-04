@@ -684,36 +684,258 @@ async def test_run_full_pipeline_reraises_pipeline_error() -> None:
 
 
 @pytest.mark.asyncio
-async def test_run_full_pipeline_bg_music_implies_animate() -> None:
-    """Test bg_music=True forces animate=True and audio=True."""
+async def test_run_full_pipeline_bg_music_auto_music_prompt() -> None:
+    """Test bg_music auto-generates music prompt when none given."""
+    import tempfile
+    from pathlib import Path
+    from src.slots.enum import SlotFunction
+
+    payload = MonthlyPayload(
+        year=2026, month=2, monthly_theme="Hope",
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        week_rule=WeekRule.MONDAY_DETERMINES_MONTH, video_week=VideoWeek.LAST_WEEK,
+    )
+    week_info = MagicMock()
+    week_info.week_number = 1
+    week_info.monday_date = "2026-02-02"
+    week_info.sunday_date = "2026-02-08"
+    week_info.subtheme = "W1"
+    week_info.is_video_week = False
+
+    resolved_calendar = ResolvedCalendar(
+        year=2026, month=2, monthly_theme="Hope",
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        weeks=[week_info],
+        week_rule=WeekRule.MONDAY_DETERMINES_MONTH, video_week=VideoWeek.LAST_WEEK,
+    )
+
+    slot = MagicMock()
+    slot.date = "2026-02-02"
+    slot.weekday = "Monday"
+    slot.slot_type = SlotFunction.DECLARATIVE_STATEMENT
+    slot.week_number = 1
+    slot.subtheme = "W1"
+    slot.is_automated = True
+
+    schedule = MagicMock()
+    schedule.slots = [slot]
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        plan_dir = Path(tmpdir) / "plans"
+        plan_dir.mkdir()
+        plan_file = plan_dir / "2026-02_plan.json"
+        plan_file.write_text(json.dumps({"render_config": {}}))
+
+        with patch("src.pipeline.orchestrator.resolve_calendar", return_value=resolved_calendar), \
+             patch("src.pipeline.orchestrator.scheduler.apply_slot_plan", return_value=schedule), \
+             patch("src.pipeline.orchestrator.scheduler.validate_slot_plan"), \
+             patch("src.pipeline.orchestrator.generator.generate_weekly_subtitle", return_value="Short"), \
+             patch("src.pipeline.orchestrator.generator.plan_monthly_slots", return_value={}), \
+             patch("src.pipeline.orchestrator.generator.generate_daily_text", return_value="Generated text"), \
+             patch("src.pipeline.orchestrator._save_plan", return_value=plan_file), \
+             patch("src.pipeline.orchestrator._save_texts", return_value=plan_dir / "texts.json"), \
+             patch("src.renderer.tts.generate_tts", new_callable=AsyncMock, return_value="/tmp/tts.mp3"), \
+             patch("src.renderer.tts.get_audio_duration", return_value=5.0), \
+             patch("src.renderer.music_gen.generate_music_prompt_from_theme", new_callable=AsyncMock, return_value="auto piano"), \
+             patch("src.renderer.music_gen.calculate_music_duration", return_value=10.0), \
+             patch("src.renderer.music_gen.generate_background_music", new_callable=AsyncMock, return_value="/tmp/bg_music.wav"), \
+             patch("src.renderer.music_gen.calculate_slot_video_duration", return_value=10.0), \
+             patch("src.pipeline.orchestrator.html_renderer.render_animated_video", new_callable=AsyncMock, return_value="/tmp/video.mp4"), \
+             patch("src.pipeline.orchestrator.html_renderer.get_video_output_path", return_value="/tmp/video.mp4"), \
+             patch("src.renderer.audio_mix.prepare_slot_audio", return_value=("/tmp/mixed.mp3", 10.0)):
+            result = await orchestrator.run_full_pipeline(
+                payload, skip_rendering=False, skip_text_generation=False,
+                animate=True, bg_music=True,
+                output_dir=tmpdir,
+            )
+            assert result is not None
+
+
+@pytest.mark.asyncio
+async def test_run_full_pipeline_bg_music_with_explicit_prompt() -> None:
+    """Test bg_music with explicit prompt skips auto-generate (line 247)."""
+    import tempfile
+    from pathlib import Path
+    from src.slots.enum import SlotFunction
+
+    payload = MonthlyPayload(
+        year=2026, month=2, monthly_theme="Hope",
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        week_rule=WeekRule.MONDAY_DETERMINES_MONTH, video_week=VideoWeek.LAST_WEEK,
+    )
+    week_info = MagicMock()
+    week_info.week_number = 1
+    week_info.monday_date = "2026-02-02"
+    week_info.sunday_date = "2026-02-08"
+    week_info.subtheme = "W1"
+    week_info.is_video_week = False
+
+    resolved_calendar = ResolvedCalendar(
+        year=2026, month=2, monthly_theme="Hope",
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        weeks=[week_info],
+        week_rule=WeekRule.MONDAY_DETERMINES_MONTH, video_week=VideoWeek.LAST_WEEK,
+    )
+
+    slot = MagicMock()
+    slot.date = "2026-02-02"
+    slot.weekday = "Monday"
+    slot.slot_type = SlotFunction.DECLARATIVE_STATEMENT
+    slot.week_number = 1
+    slot.subtheme = "W1"
+    slot.is_automated = True
+
+    schedule = MagicMock()
+    schedule.slots = [slot]
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        plan_dir = Path(tmpdir) / "plans"
+        plan_dir.mkdir()
+        plan_file = plan_dir / "2026-02_plan.json"
+        plan_file.write_text(json.dumps({"render_config": {}}))
+
+        with patch("src.pipeline.orchestrator.resolve_calendar", return_value=resolved_calendar), \
+             patch("src.pipeline.orchestrator.scheduler.apply_slot_plan", return_value=schedule), \
+             patch("src.pipeline.orchestrator.scheduler.validate_slot_plan"), \
+             patch("src.pipeline.orchestrator.generator.generate_weekly_subtitle", return_value="Short"), \
+             patch("src.pipeline.orchestrator.generator.plan_monthly_slots", return_value={}), \
+             patch("src.pipeline.orchestrator.generator.generate_daily_text", return_value="Generated text"), \
+             patch("src.pipeline.orchestrator._save_plan", return_value=plan_file), \
+             patch("src.pipeline.orchestrator._save_texts", return_value=plan_dir / "texts.json"), \
+             patch("src.renderer.tts.generate_tts", new_callable=AsyncMock, return_value="/tmp/tts.mp3"), \
+             patch("src.renderer.tts.get_audio_duration", return_value=5.0), \
+             patch("src.renderer.music_gen.calculate_music_duration", return_value=10.0), \
+             patch("src.renderer.music_gen.generate_background_music", new_callable=AsyncMock, return_value="/tmp/bg_music.wav") as mock_gen_music, \
+             patch("src.renderer.music_gen.calculate_slot_video_duration", return_value=10.0), \
+             patch("src.pipeline.orchestrator.html_renderer.render_animated_video", new_callable=AsyncMock, return_value="/tmp/video.mp4"), \
+             patch("src.pipeline.orchestrator.html_renderer.get_video_output_path", return_value="/tmp/video.mp4"), \
+             patch("src.renderer.audio_mix.prepare_slot_audio", return_value=("/tmp/mixed.mp3", 10.0)):
+            result = await orchestrator.run_full_pipeline(
+                payload, skip_rendering=False, skip_text_generation=False,
+                animate=True, bg_music=True, bg_music_prompt="calm piano",
+                output_dir=tmpdir,
+            )
+            assert result is not None
+            assert mock_gen_music.call_args[1]["prompt"] == "calm piano"
+
+
+@pytest.mark.asyncio
+async def test_run_full_pipeline_non_bg_music_audio_path() -> None:
+    """Test audio=True (non-bg-music) path generates TTS and muxes into video."""
+    import tempfile
+    from pathlib import Path
+    from src.slots.enum import SlotFunction
+
     payload = MonthlyPayload(
         year=2026, month=2, monthly_theme="Test",
         weekly_subthemes=["W1", "W2", "W3", "W4"],
         week_rule=WeekRule.MONDAY_DETERMINES_MONTH, video_week=VideoWeek.LAST_WEEK,
     )
+    week_info = MagicMock()
+    week_info.week_number = 1
+    week_info.monday_date = "2026-02-02"
+    week_info.sunday_date = "2026-02-08"
+    week_info.subtheme = "W1"
+    week_info.is_video_week = False
+
     resolved_calendar = ResolvedCalendar(
         year=2026, month=2, monthly_theme="Test",
-        weekly_subthemes=["W1", "W2", "W3", "W4"], weeks=[],
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        weeks=[week_info],
         week_rule=WeekRule.MONDAY_DETERMINES_MONTH, video_week=VideoWeek.LAST_WEEK,
     )
+
+    slot = MagicMock()
+    slot.date = "2026-02-02"
+    slot.weekday = "Monday"
+    slot.slot_type = SlotFunction.DECLARATIVE_STATEMENT
+    slot.week_number = 1
+    slot.subtheme = "W1"
+    slot.is_automated = True
+
     schedule = MagicMock()
-    schedule.slots = []
+    schedule.slots = [slot]
 
-    with patch("src.pipeline.orchestrator.resolve_calendar", return_value=resolved_calendar):
-        with patch("src.pipeline.orchestrator.scheduler.apply_slot_plan", return_value=schedule):
-            with patch("src.pipeline.orchestrator.scheduler.validate_slot_plan"):
-                with patch("src.pipeline.orchestrator.generator.generate_weekly_subtitle", return_value="Short"):
-                    with patch("src.pipeline.orchestrator.generator.plan_monthly_slots", return_value={}):
-                        with patch("src.pipeline.orchestrator._save_plan"):
-                            result = await orchestrator.run_full_pipeline(
-                                payload, skip_rendering=True, skip_text_generation=True,
-                                bg_music=True, bg_music_prompt="piano",
-                            )
-                            assert result is not None
+    with tempfile.TemporaryDirectory() as tmpdir:
+        plan_dir = Path(tmpdir) / "plans"
+        plan_dir.mkdir()
+        plan_file = plan_dir / "2026-02_plan.json"
+        plan_file.write_text(json.dumps({"render_config": {}}))
+
+        with patch("src.pipeline.orchestrator.resolve_calendar", return_value=resolved_calendar), \
+             patch("src.pipeline.orchestrator.scheduler.apply_slot_plan", return_value=schedule), \
+             patch("src.pipeline.orchestrator.scheduler.validate_slot_plan"), \
+             patch("src.pipeline.orchestrator.generator.generate_weekly_subtitle", return_value="Short"), \
+             patch("src.pipeline.orchestrator.generator.plan_monthly_slots", return_value={}), \
+             patch("src.pipeline.orchestrator.generator.generate_daily_text", return_value="Generated text"), \
+             patch("src.pipeline.orchestrator._save_plan", return_value=plan_file), \
+             patch("src.pipeline.orchestrator._save_texts", return_value=plan_dir / "texts.json"), \
+             patch("src.renderer.tts.generate_tts", new_callable=AsyncMock, return_value="/tmp/tts.mp3") as mock_tts, \
+             patch("src.renderer.tts.get_audio_duration", return_value=5.0), \
+             patch("src.renderer.tts.mux_audio_video", return_value="/tmp/final.mp4"), \
+             patch("src.pipeline.orchestrator.html_renderer.render_animated_video", new_callable=AsyncMock, return_value="/tmp/video.mp4") as mock_render, \
+             patch("src.pipeline.orchestrator.html_renderer.get_video_output_path", return_value="/tmp/video.mp4"):
+            result = await orchestrator.run_full_pipeline(
+                payload, skip_rendering=False, skip_text_generation=False,
+                animate=True, audio=True,
+                output_dir=tmpdir,
+            )
+            assert result is not None
+            mock_tts.assert_called_once()
+            mock_render.assert_called_once()
+            assert mock_render.call_args[1]["audio_path"] is not None
+    """Test bg_music disables when no TTS is generated (all slots empty text)."""
+    from src.slots.enum import SlotFunction
+
+    payload = MonthlyPayload(
+        year=2026, month=2, monthly_theme="Test",
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        week_rule=WeekRule.MONDAY_DETERMINES_MONTH, video_week=VideoWeek.LAST_WEEK,
+    )
+    week_info = MagicMock()
+    week_info.week_number = 1
+    week_info.monday_date = "2026-02-02"
+    week_info.sunday_date = "2026-02-08"
+    week_info.subtheme = "W1"
+    week_info.is_video_week = False
+
+    resolved_calendar = ResolvedCalendar(
+        year=2026, month=2, monthly_theme="Test",
+        weekly_subthemes=["W1", "W2", "W3", "W4"],
+        weeks=[week_info],
+        week_rule=WeekRule.MONDAY_DETERMINES_MONTH, video_week=VideoWeek.LAST_WEEK,
+    )
+
+    slot = MagicMock()
+    slot.date = "2026-02-02"
+    slot.weekday = "Monday"
+    slot.slot_type = SlotFunction.DECLARATIVE_STATEMENT
+    slot.week_number = 1
+    slot.subtheme = "W1"
+    slot.is_automated = True
+
+    schedule = MagicMock()
+    schedule.slots = [slot]
+
+    with patch("src.pipeline.orchestrator.resolve_calendar", return_value=resolved_calendar), \
+         patch("src.pipeline.orchestrator.scheduler.apply_slot_plan", return_value=schedule), \
+         patch("src.pipeline.orchestrator.scheduler.validate_slot_plan"), \
+         patch("src.pipeline.orchestrator.generator.generate_weekly_subtitle", return_value="Short"), \
+         patch("src.pipeline.orchestrator.generator.plan_monthly_slots", return_value={}), \
+         patch("src.pipeline.orchestrator.generator.generate_daily_text", return_value=""), \
+         patch("src.pipeline.orchestrator._save_plan"), \
+         patch("src.pipeline.orchestrator._save_texts"), \
+         patch("src.pipeline.orchestrator.html_renderer.render_animated_video", new_callable=AsyncMock, return_value="/tmp/video.mp4"), \
+         patch("src.pipeline.orchestrator.html_renderer.get_video_output_path", return_value="/tmp/video.mp4"):
+        result = await orchestrator.run_full_pipeline(
+            payload, skip_rendering=False, skip_text_generation=False,
+            animate=True, bg_music=True,
+        )
+        assert result is not None
 
 
-def test_save_plan_with_bg_music() -> None:
-    """Test _save_plan stores bg_music config."""
+def test_save_plan_with_gradient_and_texture_params() -> None:
+    """Test _save_plan stores gradient and texture render config params."""
     calendar = MagicMock()
     calendar.year = 2026
     calendar.month = 2
@@ -735,10 +957,67 @@ def test_save_plan_with_bg_music() -> None:
             with patch("json.dump", capture_save):
                 orchestrator._save_plan(
                     calendar, slot_plan, schedule,
-                    bg_music=True, bg_music_prompt="ambient piano",
-                    bg_music_path="/tmp/bg_music.wav",
+                    style_preset="purple",
+                    background_color="#8E44AD",
+                    gradient_direction="diagonal_tl_br",
+                    gradient_colors=["#FF0000", "#00FF00"],
+                    gradient_stops=[0.0, 1.0],
+                    texture_type="noise_fine",
+                    texture_opacity=0.15,
+                    texture_blend_mode="multiply",
+                    animate=False,
                 )
                 rc = saved_data["render_config"]
+                assert rc["gradient_direction"] == "diagonal_tl_br"
+                assert rc["gradient_colors"] == ["#FF0000", "#00FF00"]
+                assert rc["gradient_stops"] == [0.0, 1.0]
+                assert rc["texture_type"] == "noise_fine"
+                assert rc["texture_opacity"] == 0.15
+                assert rc["texture_blend_mode"] == "multiply"
+
+
+def test_save_plan_with_all_animate_params() -> None:
+    """Test _save_plan stores all animate params."""
+    calendar = MagicMock()
+    calendar.year = 2026
+    calendar.month = 2
+    calendar.monthly_theme = "Test"
+    calendar.weekly_subthemes = ["W1"]
+
+    slot_plan = {"2026-02-02": "declarative_statement"}
+    schedule = MagicMock()
+    schedule.weekly_subthemes_source = "human"
+    schedule.slots = []
+
+    saved_data = {}
+
+    def capture_save(data, f, **kwargs):
+        saved_data.update(data)
+
+    with patch("pathlib.Path.mkdir"):
+        with patch("builtins.open", MagicMock()):
+            with patch("json.dump", capture_save):
+                orchestrator._save_plan(
+                    calendar, slot_plan, schedule,
+                    style_preset="default",
+                    background_color=None,
+                    animate=True,
+                    anim_type="flow",
+                    anim_intensity=0.3,
+                    anim_speed=1.5,
+                    anim_loop=30,
+                    anim_seed=42,
+                    bg_music=True,
+                    bg_music_prompt="piano",
+                    bg_music_path="/tmp/music.wav",
+                )
+                rc = saved_data["render_config"]
+                assert rc["animate"] is True
+                assert rc["anim_type"] == "flow"
+                assert rc["anim_intensity"] == 0.3
+                assert rc["anim_speed"] == 1.5
+                assert rc["anim_loop"] == 30
+                assert rc["anim_seed"] == 42
                 assert rc["bg_music"] is True
-                assert rc["bg_music_prompt"] == "ambient piano"
-                assert rc["bg_music_path"] == "/tmp/bg_music.wav"
+                assert rc["bg_music_prompt"] == "piano"
+                assert rc["bg_music_path"] == "/tmp/music.wav"

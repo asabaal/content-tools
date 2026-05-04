@@ -92,6 +92,29 @@ def test_prepare_slot_audio_timeout() -> None:
             )
 
 
+def test_prepare_slot_audio_invalid_duration() -> None:
+    with pytest.raises(RendererError, match="must be positive"):
+        prepare_slot_audio(
+            tts_path="/tmp/tts.mp3",
+            music_path="/tmp/music.wav",
+            output_path="/tmp/out.mp3",
+            tts_duration=5.0,
+            slot_video_duration=0,
+        )
+
+
+def test_prepare_slot_audio_negative_volume() -> None:
+    with pytest.raises(RendererError, match="must be a non-negative number"):
+        prepare_slot_audio(
+            tts_path="/tmp/tts.mp3",
+            music_path="/tmp/music.wav",
+            output_path="/tmp/out.mp3",
+            tts_duration=5.0,
+            slot_video_duration=10.0,
+            music_volume=-0.5,
+        )
+
+
 def test_prepare_slot_audio_output_params() -> None:
     with patch("src.renderer.audio_mix.subprocess.run") as mock_run:
         mock_run.return_value = MagicMock(returncode=0, stderr="")

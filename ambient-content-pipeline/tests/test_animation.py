@@ -211,6 +211,42 @@ class TestDimensions:
         assert frame.mode == "RGB"
 
 
+class TestValidation:
+    def test_invalid_dimensions_zero_width(self):
+        with pytest.raises(ValueError, match="Invalid dimensions"):
+            _make_gen("drift", width=0, height=100)
+
+    def test_invalid_dimensions_negative_height(self):
+        with pytest.raises(ValueError, match="Invalid dimensions"):
+            _make_gen("drift", width=100, height=-10)
+
+    def test_non_positive_speed(self):
+        with pytest.raises(ValueError, match="Speed must be positive"):
+            _make_gen("drift", speed=0.0)
+
+    def test_invalid_hex_color_length(self):
+        with pytest.raises(ValueError, match="Invalid hex color"):
+            AnimationFrameGenerator(
+                anim_type="drift",
+                intensity=0.3,
+                speed=1.0,
+                width=100,
+                height=100,
+                gradient_colors=["#FFF"],
+            )
+
+    def test_invalid_hex_color_non_hex_chars(self):
+        with pytest.raises(ValueError, match="non-hex characters"):
+            AnimationFrameGenerator(
+                anim_type="drift",
+                intensity=0.3,
+                speed=1.0,
+                width=100,
+                height=100,
+                gradient_colors=["#GGGGGG"],
+            )
+
+
 class TestIntensityClamp:
     def test_clamp_high(self):
         gen = _make_gen("drift", intensity=1.0)
