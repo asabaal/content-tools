@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "name": "I Never Asked To Be Queer",
+  "artist": "",
+  "created": "2026-05-06T17:01:20",
+  "modified": "2026-05-06T17:01:26",
+  "paths": {
+    "audio": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/I Never Asked To Be Queer.wav",
+    "lyrics": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/lyrics.txt",
+    "data_dir": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer"
+  },
+  "input_tier": "full",
+  "audio_info": {
+    "duration": 156.12,
+    "bpm": 103.8,
+    "sample_rate": 48000,
+    "beat_count": 261,
+    "onset_count": 729,
+    "midi_bpm": 103.82419103651151
+  },
+  "lyrics_info": {
+    "total_lines": 49,
+    "total_words": 404,
+    "format": "txt",
+    "first_line_time": 0.0,
+    "last_line_time": 147.0,
+    "has_sections": true,
+    "section_count": 9
+  },
+  "stages": {
+    "ingest": "complete",
+    "analyze": "complete",
+    "sync": "complete",
+    "structure": "pending",
+    "design": "pending",
+    "render": "pending"
+  }
+}

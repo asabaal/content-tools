@@ -1,0 +1,129 @@
+from __future__ import annotations
+
+import logging
+from pathlib import Path
+from typing import Optional, Union
+
+import numpy as np
+
+from .features import AudioFeatures, BeatInfo, StemFeatures
+
+logger = logging.getLogger(__name__)
+
+PEAKS_PER_SECOND = 100
+
+
+class AudioAnalyzer:
+    def __init__(self, hop_length: int = 512, n_fft: int = 2048):
+        self.hop_length = hop_length
+        self.n_fft = n_fft
+        self._audio: Optional[np.ndarray] = None
+        self._sr: Optional[int] = None
+
+    def load_audio(self, audio_path: Union[str, Path], start_time: Optional[float] = None, end_time: Optional[float] = None) -> None:
+        import librosa
+
+        audio_path = Path(audio_path)
+        logger.info("Loading audio: %s", audio_path)
+
+        offset = start_time if start_time is not None else 0.0
+        duration = (end_time - offset) if end_time is not None else None
+
+        if offset > 0 or duration is not None:
+            self._audio, self._sr = librosa.load(str(audio_path), sr=None, mono=True, offset=offset, duration=duration)
+        else:
+            self._audio, self._sr = librosa.load(str(audio_path), sr=None, mono=True)
+
+        dur = len(self._audio) / self._sr
+        logger.info("Loaded %.2fs at %dHz", dur, self._sr)
+
+    def analyze(self, audio_path: Optional[Union[str, Path]] = None, start_time: Optional[float] = None, end_time: Optional[float] = None) -> AudioFeatures:
+        import librosa
+
+        if audio_path:
+            self.load_audio(audio_path, start_time, end_time)
+        if self._audio is None:
+            raise ValueError("No audio loaded")
+
+        logger.info("Analyzing audio...")
+
+        tempo, beat_frames = librosa.beat.beat_track(y=self._audio, sr=self._sr, hop_length=self.hop_length)
+        tempo = float(np.atleast_1d(tempo)[0])
+        beat_frames = np.atleast_1d(beat_frames)
+        beat_times = librosa.frames_to_time(beat_frames, sr=self._sr, hop_length=self.hop_length)
+        beat_times = np.atleast_1d(beat_times).astype(float)
+
+        confidence = 0.0
+        if len(beat_times) > 1:
+            intervals = np.diff(beat_times)
+            valid = intervals[intervals > 0]
+            if len(valid) > 0:
+                tempo_std = np.std(60.0 / valid)
+                confidence = 1.0 - min(tempo_std / 10.0, 1.0)
+        beats = BeatInfo(times=beat_times, tempo=tempo, confidence=confidence)
+
+        onset_env = librosa.onset.onset_strength(y=self._audio, sr=self._sr, hop_length=self.hop_length)
+        onset_frames = librosa.onset.onset_detect(onset_envelope=onset_env, sr=self._sr, hop_length=self.hop_length, backtrack=True)
+        onset_times = librosa.frames_to_time(onset_frames, sr=self._sr, hop_length=self.hop_length)
+
+        rms = librosa.feature.rms(y=self._audio, frame_length=self.n_fft, hop_length=self.hop_length)[0]
+        if rms.max() > 0:
+            rms = rms / rms.max()
+
+        centroids = librosa.feature.spectral_centroid(y=self._audio, sr=self._sr, hop_length=self.hop_length)[0]
+        if centroids.max() > 0:
+            centroids = centroids / centroids.max()
+
+        zcr = librosa.feature.zero_crossing_rate(self._audio, frame_length=self.n_fft, hop_length=self.hop_length)[0]
+
+        features = AudioFeatures(
+            duration=len(self._audio) / self._sr,
+            sample_rate=self._sr,
+            beats=beats,
+            onset_times=np.asarray(onset_times, dtype=float),
+            rms_energy=rms,
+            spectral_centroids=centroids,
+            zero_crossing_rate=zcr,
+            hop_length=self.hop_length,
+            n_fft=self.n_fft,
+        )
+
+        logger.info("Analysis complete: %d beats, %d onsets, %.1f BPM", len(beat_times), len(onset_times), float(tempo))
+        return features
+
+    def analyze_stem(self, stem_path: Union[str, Path], stem_type: str, name: str) -> StemFeatures:
+        import librosa
+
+        audio, sr = librosa.load(str(stem_path), sr=None, mono=True)
+
+        rms = librosa.feature.rms(y=audio, frame_length=self.n_fft, hop_length=self.hop_length)[0]
+        energy = float(rms.mean())
+        if energy > 0:
+            max_rms = float(rms.max())
+            if max_rms > 0:
+                energy = energy / max_rms
+
+        onset_env = librosa.onset.onset_strength(y=audio, sr=sr, hop_length=self.hop_length)
+        onset_frames = librosa.onset.onset_detect(onset_envelope=onset_env, sr=sr, hop_length=self.hop_length, backtrack=True)
+        onset_count = len(onset_frames)
+
+        return StemFeatures(stem_type=stem_type, name=name, energy=energy, onset_count=onset_count)
+
+    def generate_waveforms(self) -> tuple[list[float], float]:
+        if self._audio is None:
+            raise ValueError("No audio loaded")
+
+        duration = len(self._audio) / self._sr
+        num_peaks = int(duration * PEAKS_PER_SECOND)
+        if num_peaks == 0:
+            return [], duration
+        samples_per_peak = max(1, len(self._audio) // num_peaks)
+
+        peaks = []
+        for i in range(num_peaks):
+            start = i * samples_per_peak
+            end = min(start + samples_per_peak, len(self._audio))
+            chunk = self._audio[start:end]
+            peaks.append(round(float(np.max(np.abs(chunk))), 4))
+
+        return peaks, duration

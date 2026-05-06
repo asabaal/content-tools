@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 - Sync Lyrics</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:#16213e;border-bottom:1px solid #0f3460}
+.header h1{font-size:16px;font-weight:600;color:#e94560}
+.btn{padding:6px 14px;border:1px solid #0f3460;border-radius:4px;background:#16213e;color:#e0e0e0;cursor:pointer;font-size:13px}
+.btn:hover{background:#0f3460}
+.btn-primary{background:#e94560;border-color:#e94560;color:#fff}
+.btn-primary:hover{background:#c73550}
+.waveform-section{height:80px;background:#0f0f23;border-bottom:1px solid #0f3460;position:relative;cursor:crosshair}
+.waveform-section canvas{width:100%;height:100%}
+.transport{display:flex;align-items:center;gap:10px;padding:6px 16px;background:#16213e;border-bottom:1px solid #0f3460;font-size:13px}
+.transport .time{color:#e94560;font-family:monospace;min-width:120px}
+.main{display:flex;flex:1;overflow:hidden}
+.timeline{width:260px;overflow-y:auto;border-right:1px solid #0f3460;background:#0f0f23}
+.timeline .section-header{padding:4px 10px;font-size:11px;font-weight:700;color:#e94560;text-transform:uppercase;background:#16213e;position:sticky;top:0;z-index:1}
+.timeline .line-item{padding:6px 10px;cursor:pointer;border-left:3px solid transparent;font-size:13px;transition:background .1s}
+.timeline .line-item:hover{background:#16213e}
+.timeline .line-item.active{background:#16213e;border-left-color:#e94560}
+.timeline .line-item .time-range{font-size:10px;color:#666;font-family:monospace}
+.detail{flex:1;overflow-y:auto;padding:16px}
+.detail .detail-line{font-size:16px;margin-bottom:12px;color:#e94560;font-weight:600}
+.word-row{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13px;border-bottom:1px solid #1a1a3e}
+.word-row .word-text{min-width:80px;font-weight:600}
+.word-row .word-time{font-family:monospace;font-size:11px;color:#aaa;min-width:60px}
+.word-row .word-source{font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;text-transform:uppercase}
+.word-row .word-source.onset{background:#0a4;color:#fff}
+.word-row .word-source.midi{background:#04a;color:#fff}
+.word-row .word-source.vocal_onset{background:#a40;color:#fff}
+.word-row .word-source.interpolated{background:#555;color:#ccc}
+.conf-bar{display:inline-block;height:4px;border-radius:2px;vertical-align:middle;margin-left:8px}
+.conf-high{background:#0a4;width:40px}
+.conf-med{background:#aa4;width:40px}
+.conf-low{background:#a44;width:40px}
+.footer{display:flex;align-items:center;gap:10px;padding:8px 16px;background:#16213e;border-top:1px solid #0f3460}
+.status{font-size:12px;color:#666;margin-left:auto}
+.beat-marker{position:absolute;top:0;width:1px;height:100%;background:rgba(233,69,96,0.3)}
+.playhead{position:absolute;top:0;width:2px;height:100%;background:#e94560;z-index:2;pointer-events:none}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>03 - Sync Lyrics</h1>
+  <div>
+    <button class="btn" onclick="autoSync()">Auto-Sync</button>
+    <button class="btn btn-primary" onclick="save()">Save</button>
+  </div>
+</div>
+
+<div class="waveform-section" id="waveformContainer">
+  <canvas id="waveformCanvas"></canvas>
+  <div id="playhead" class="playhead" style="left:0"></div>
+</div>
+
+<div class="transport">
+  <button class="btn" onclick="togglePlay()">&#9654; / &#9646;&#9646;</button>
+  <span class="time" id="currentTime">0:00.0</span>
+  <span>/</span>
+  <span class="time" id="totalTime">0:00.0</span>
+  <span id="currentLineText" style="color:#aaa;margin-left:20px"></span>
+</div>
+
+<div class="main">
+  <div class="timeline" id="timeline"></div>
+  <div class="detail" id="detail">
+    <p style="color:#666">Select a line to view word details</p>
+  </div>
+</div>
+
+<div class="footer">
+  <button class="btn" onclick="clearTiming()">Clear Timing</button>
+  <button class="btn" onclick="shiftAll(0.5)">Shift All +0.5s</button>
+  <button class="btn" onclick="shiftAll(-0.5)">Shift All -0.5s</button>
+  <span class="status" id="status">Loading...</span>
+</div>
+
+<script>
+const API = '';
+let audioCtx, audioBuffer, sourceNode;
+let lyricsRaw = null;
+let syncedData = null;
+let analysisData = null;
+let waveformPeaks = [];
+let beatTimes = [];
+let audioPath = '';
+let isPlaying = false;
+let startTime = 0;
+let pauseOffset = 0;
+let selectedLineIdx = -1;
+let animFrame = null;
+
+async function init() {
+  try {
+    const [projRes, rawRes, analysisRes, waveRes, syncedRes] = await Promise.all([
+      fetch(`${API}/api/project`).then(r => r.json()),
+      fetch(`${API}/api/lyrics-raw`).then(r => r.json()),
+      fetch(`${API}/api/analysis`).then(r => r.json()),
+      fetch(`${API}/api/waveforms`).then(r => r.json()),
+      fetch(`${API}/api/lyrics-synced`).then(r => r.json()).catch(() => null),
+    ]);
+
+    if (projRes.error) { setStatus('No project loaded'); return; }
+    lyricsRaw = rawRes;
+    analysisData = analysisRes;
+    waveformPeaks = waveRes.peaks || [];
+    beatTimes = analysisRes.beat_times || [];
+    syncedData = syncedRes && !syncedRes.error ? syncedRes : null;
+
+    if (projRes.paths && projRes.paths.audio) {
+      audioPath = `/data/${projRes.paths.audio}`;
+    }
+
+    document.getElementById('totalTime').textContent = fmtTime(analysisRes.duration || 0);
+    drawWaveform();
+    renderTimeline();
+    setStatus(`Loaded: ${lyricsRaw.total_lines} lines, ${lyricsRaw.total_words} words`);
+
+    if (audioPath) await loadAudio();
+  } catch (e) {
+    setStatus('Error: ' + e.message);
+  }
+}
+
+async function loadAudio() {
+  try {
+    const res = await fetch(audioPath);
+    const arrayBuf = await res.arrayBuffer();
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    audioBuffer = await audioCtx.decodeAudioData(arrayBuf);
+  } catch (e) {
+    setStatus('Audio load error: ' + e.message);
+  }
+}
+
+function togglePlay() {
+  if (!audioCtx || !audioBuffer) return;
+  if (isPlaying) {
+    pauseOffset += audioCtx.currentTime - startTime;
+    sourceNode.stop();
+    isPlaying = false;
+  } else {
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; };
+    startTime = audioCtx.currentTime;
+    sourceNode.start(0, pauseOffset);
+    isPlaying = true;
+    updatePlayhead();
+  }
+}
+
+function getPlaybackTime() {
+  if (!isPlaying) return pauseOffset;
+  return pauseOffset + (audioCtx.currentTime - startTime);
+}
+
+function updatePlayhead() {
+  if (!isPlaying) return;
+  const t = getPlaybackTime();
+  const pct = (t / (analysisData?.duration || 1)) * 100;
+  document.getElementById('playhead').style.left = pct + '%';
+  document.getElementById('currentTime').textContent = fmtTime(t);
+  highlightCurrentLine(t);
+  animFrame = requestAnimationFrame(updatePlayhead);
+}
+
+function seekTo(pct) {
+  if (!analysisData) return;
+  const t = pct * analysisData.duration;
+  pauseOffset = t;
+  if (isPlaying) {
+    sourceNode.stop();
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; };
+    startTime = audioCtx.currentTime;
+    sourceNode.start(0, t);
+  }
+  document.getElementById('playhead').style.left = (pct * 100) + '%';
+  document.getElementById('currentTime').textContent = fmtTime(t);
+  highlightCurrentLine(t);
+}
+
+function highlightCurrentLine(t) {
+  const lines = getLines();
+  for (let i = 0; i < lines.length; i++) {
+    const el = document.getElementById('line-' + i);
+    if (!el) continue;
+    if (t >= lines[i].start && t <= lines[i].end) {
+      if (!el.classList.contains('active')) el.classList.add('active');
+      document.getElementById('currentLineText').textContent = lines[i].text;
+    } else {
+      el.classList.remove('active');
+    }
+  }
+}
+
+function getLines() {
+  if (syncedData && syncedData.lines) return syncedData.lines;
+  if (lyricsRaw && lyricsRaw.lines) return lyricsRaw.lines;
+  return [];
+}
+
+function drawWaveform() {
+  const canvas = document.getElementById('waveformCanvas');
+  const container = document.getElementById('waveformContainer');
+  canvas.width = container.clientWidth;
+  canvas.height = container.clientHeight;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#0f0f23';
+  ctx.fillRect(0, 0, w, h);
+
+  if (!waveformPeaks.length) return;
+
+  const barW = w / waveformPeaks.length;
+  ctx.fillStyle = '#e94560';
+  for (let i = 0; i < waveformPeaks.length; i++) {
+    const barH = waveformPeaks[i] * h;
+    ctx.fillRect(i * barW, (h - barH) / 2, Math.max(barW - 0.5, 0.5), barH);
+  }
+
+  if (beatTimes.length && analysisData) {
+    ctx.strokeStyle = 'rgba(233,69,96,0.25)';
+    ctx.lineWidth = 1;
+    for (const bt of beatTimes) {
+      const x = (bt / analysisData.duration) * w;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+  }
+}
+
+function renderTimeline() {
+  const el = document.getElementById('timeline');
+  el.innerHTML = '';
+  const lines = getLines();
+  let lastSection = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const section = line.section;
+    if (section && section.section_type !== (lastSection?.section_type)) {
+      const hdr = document.createElement('div');
+      hdr.className = 'section-header';
+      hdr.textContent = section.raw_marker || section.section_type;
+      el.appendChild(hdr);
+      lastSection = section;
+    }
+
+    const item = document.createElement('div');
+    item.className = 'line-item';
+    item.id = 'line-' + i;
+    const conf = line.alignment_confidence;
+    const confClass = conf >= 0.8 ? 'conf-high' : (conf >= 0.5 ? 'conf-med' : 'conf-low');
+    item.innerHTML = `<div>${line.text.substring(0, 30)}${line.text.length > 30 ? '...' : ''}${conf !== undefined ? `<span class="conf-bar ${confClass}"></span>` : ''}</div><div class="time-range">${fmtTime(line.start)} - ${fmtTime(line.end)}</div>`;
+    item.onclick = () => selectLine(i);
+    el.appendChild(item);
+  }
+}
+
+function selectLine(idx) {
+  selectedLineIdx = idx;
+  const lines = getLines();
+  document.querySelectorAll('.line-item').forEach(el => el.style.background = '');
+  const el = document.getElementById('line-' + idx);
+  if (el) el.style.background = '#0f3460';
+  renderDetail(lines[idx]);
+  seekTo(lines[idx].start / (analysisData?.duration || 1));
+}
+
+function renderDetail(line) {
+  const el = document.getElementById('detail');
+  if (!line) { el.innerHTML = '<p style="color:#666">Select a line</p>'; return; }
+
+  let html = `<div class="detail-line">"${line.text}"</div>`;
+  html += `<div style="margin-bottom:12px;font-size:12px;color:#888">Start: ${line.start.toFixed(3)}s — End: ${line.end.toFixed(3)}s (${(line.end - line.start).toFixed(2)}s)</div>`;
+
+  for (const w of (line.words || [])) {
+    const src = w.source || 'interpolated';
+    html += `<div class="word-row">
+      <span class="word-text">${w.text}</span>
+      <span class="word-time">${w.start.toFixed(2)} → ${w.end.toFixed(2)}</span>
+      <span class="word-source ${src}">${src}</span>
+    </div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+async function autoSync() {
+  setStatus('Running auto-sync...');
+  try {
+    const res = await fetch(`${API}/api/auto-sync`, { method: 'POST' });
+    const data = await res.json();
+    if (data.error) { setStatus('Error: ' + data.error); return; }
+    syncedData = data;
+    renderTimeline();
+    setStatus(`Auto-sync complete: ${data.lines?.length || 0} lines, confidence: ${((data.avg_confidence || 0) * 100).toFixed(0)}%`);
+  } catch (e) {
+    setStatus('Auto-sync error: ' + e.message);
+  }
+}
+
+async function save() {
+  if (!syncedData) { setStatus('Nothing to save'); return; }
+  try {
+    const res = await fetch(`${API}/api/lyrics-synced`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(syncedData),
+    });
+    const data = await res.json();
+    setStatus(data.status === 'saved' ? 'Saved!' : 'Error: ' + (data.error || 'unknown'));
+  } catch (e) {
+    setStatus('Save error: ' + e.message);
+  }
+}
+
+function clearTiming() {
+  if (!syncedData) return;
+  syncedData = null;
+  renderTimeline();
+  document.getElementById('detail').innerHTML = '<p style="color:#666">Timing cleared. Use Auto-Sync or edit manually.</p>';
+  setStatus('Timing cleared');
+}
+
+function shiftAll(delta) {
+  const lines = getLines();
+  if (!syncedData) return;
+  for (const line of syncedData.lines) {
+    line.start += delta;
+    line.end += delta;
+    for (const w of (line.words || [])) {
+      w.start += delta;
+      w.end += delta;
+    }
+  }
+  renderTimeline();
+  if (selectedLineIdx >= 0) renderDetail(syncedData.lines[selectedLineIdx]);
+  setStatus(`Shifted all by ${delta > 0 ? '+' : ''}${delta}s`);
+}
+
+function fmtTime(s) {
+  if (s === undefined || s === null) return '0:00.0';
+  const m = Math.floor(s / 60);
+  const sec = s - m * 60;
+  return `${m}:${sec.toFixed(1).padStart(4, '0')}`;
+}
+
+function setStatus(msg) {
+  document.getElementById('status').textContent = msg;
+}
+
+document.getElementById('waveformContainer').addEventListener('click', (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  seekTo(pct);
+});
+
+window.addEventListener('resize', drawWaveform);
+
+init();
+</script>
+</body>
+</html>

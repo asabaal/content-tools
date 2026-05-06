@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "music-video-pipeline"
+version = "0.1.0"
+description = "Music/lyric video production pipeline"
+requires-python = ">=3.10"
+dependencies = [
+    "librosa>=0.10.0",
+    "numpy>=1.24.0",
+    "Pillow>=10.0.0",
+    "click>=8.0.0",
+    "soundfile>=0.12.0",
+]
+
+[project.scripts]
+mvp = "cli.commands:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"

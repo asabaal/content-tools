@@ -1,0 +1,2835 @@
+{
+  "format": "txt",
+  "source_file": "lyrics.txt",
+  "total_lines": 49,
+  "total_words": 404,
+  "has_sections": true,
+  "section_count": 9,
+  "lines": [
+    {
+      "index": 0,
+      "text": "I never asked to be queer",
+      "start": 0.0,
+      "end": 3.0,
+      "words": [
+        {
+          "text": "I",
+          "start": 0.0,
+          "end": 0.5
+        },
+        {
+          "text": "never",
+          "start": 0.5,
+          "end": 1.0
+        },
+        {
+          "text": "asked",
+          "start": 1.0,
+          "end": 1.5
+        },
+        {
+          "text": "to",
+          "start": 1.5,
+          "end": 2.0
+        },
+        {
+          "text": "be",
+          "start": 2.0,
+          "end": 2.5
+        },
+        {
+          "text": "queer",
+          "start": 2.5,
+          "end": 3.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Intro",
+        "section_type": "intro",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 1,
+      "text": "I never asked to live here",
+      "start": 3.0,
+      "end": 6.0,
+      "words": [
+        {
+          "text": "I",
+          "start": 3.0,
+          "end": 3.5
+        },
+        {
+          "text": "never",
+          "start": 3.5,
+          "end": 4.0
+        },
+        {
+          "text": "asked",
+          "start": 4.0,
+          "end": 4.5
+        },
+        {
+          "text": "to",
+          "start": 4.5,
+          "end": 5.0
+        },
+        {
+          "text": "live",
+          "start": 5.0,
+          "end": 5.5
+        },
+        {
+          "text": "here",
+          "start": 5.5,
+          "end": 6.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Intro",
+        "section_type": "intro",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 2,
+      "text": "Now it's easy to live in fear",
+      "start": 6.0,
+      "end": 9.0,
+      "words": [
+        {
+          "text": "Now",
+          "start": 6.0,
+          "end": 6.429
+        },
+        {
+          "text": "it's",
+          "start": 6.429,
+          "end": 6.857
+        },
+        {
+          "text": "easy",
+          "start": 6.857,
+          "end": 7.286
+        },
+        {
+          "text": "to",
+          "start": 7.286,
+          "end": 7.714
+        },
+        {
+          "text": "live",
+          "start": 7.714,
+          "end": 8.143
+        },
+        {
+          "text": "in",
+          "start": 8.143,
+          "end": 8.571
+        },
+        {
+          "text": "fear",
+          "start": 8.571,
+          "end": 9.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Intro",
+        "section_type": "intro",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 3,
+      "text": "That the end of folks like me is near",
+      "start": 9.0,
+      "end": 12.0,
+      "words": [
+        {
+          "text": "That",
+          "start": 9.0,
+          "end": 9.333
+        },
+        {
+          "text": "the",
+          "start": 9.333,
+          "end": 9.667
+        },
+        {
+          "text": "end",
+          "start": 9.667,
+          "end": 10.0
+        },
+        {
+          "text": "of",
+          "start": 10.0,
+          "end": 10.333
+        },
+        {
+          "text": "folks",
+          "start": 10.333,
+          "end": 10.667
+        },
+        {
+          "text": "like",
+          "start": 10.667,
+          "end": 11.0
+        },
+        {
+          "text": "me",
+          "start": 11.0,
+          "end": 11.333
+        },
+        {
+          "text": "is",
+          "start": 11.333,
+          "end": 11.667
+        },
+        {
+          "text": "near",
+          "start": 11.667,
+          "end": 12.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Intro",
+        "section_type": "intro",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 4,
+      "text": "I was such a good little Christian kid",
+      "start": 12.0,
+      "end": 15.0,
+      "words": [
+        {
+          "text": "I",
+          "start": 12.0,
+          "end": 12.375
+        },
+        {
+          "text": "was",
+          "start": 12.375,
+          "end": 12.75
+        },
+        {
+          "text": "such",
+          "start": 12.75,
+          "end": 13.125
+        },
+        {
+          "text": "a",
+          "start": 13.125,
+          "end": 13.5
+        },
+        {
+          "text": "good",
+          "start": 13.5,
+          "end": 13.875
+        },
+        {
+          "text": "little",
+          "start": 13.875,
+          "end": 14.25
+        },
+        {
+          "text": "Christian",
+          "start": 14.25,
+          "end": 14.625
+        },
+        {
+          "text": "kid",
+          "start": 14.625,
+          "end": 15.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse",
+        "section_type": "verse",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 5,
+      "text": "At church up to 5 times per week, I did",
+      "start": 15.0,
+      "end": 18.0,
+      "words": [
+        {
+          "text": "At",
+          "start": 15.0,
+          "end": 15.3
+        },
+        {
+          "text": "church",
+          "start": 15.3,
+          "end": 15.6
+        },
+        {
+          "text": "up",
+          "start": 15.6,
+          "end": 15.9
+        },
+        {
+          "text": "to",
+          "start": 15.9,
+          "end": 16.2
+        },
+        {
+          "text": "5",
+          "start": 16.2,
+          "end": 16.5
+        },
+        {
+          "text": "times",
+          "start": 16.5,
+          "end": 16.8
+        },
+        {
+          "text": "per",
+          "start": 16.8,
+          "end": 17.1
+        },
+        {
+          "text": "week,",
+          "start": 17.1,
+          "end": 17.4
+        },
+        {
+          "text": "I",
+          "start": 17.4,
+          "end": 17.7
+        },
+        {
+          "text": "did",
+          "start": 17.7,
+          "end": 18.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse",
+        "section_type": "verse",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 6,
+      "text": "Always despising it when I backslid",
+      "start": 18.0,
+      "end": 21.0,
+      "words": [
+        {
+          "text": "Always",
+          "start": 18.0,
+          "end": 18.5
+        },
+        {
+          "text": "despising",
+          "start": 18.5,
+          "end": 19.0
+        },
+        {
+          "text": "it",
+          "start": 19.0,
+          "end": 19.5
+        },
+        {
+          "text": "when",
+          "start": 19.5,
+          "end": 20.0
+        },
+        {
+          "text": "I",
+          "start": 20.0,
+          "end": 20.5
+        },
+        {
+          "text": "backslid",
+          "start": 20.5,
+          "end": 21.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse",
+        "section_type": "verse",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 7,
+      "text": "Hating my sin, I just wanted it rid",
+      "start": 21.0,
+      "end": 24.0,
+      "words": [
+        {
+          "text": "Hating",
+          "start": 21.0,
+          "end": 21.375
+        },
+        {
+          "text": "my",
+          "start": 21.375,
+          "end": 21.75
+        },
+        {
+          "text": "sin,",
+          "start": 21.75,
+          "end": 22.125
+        },
+        {
+          "text": "I",
+          "start": 22.125,
+          "end": 22.5
+        },
+        {
+          "text": "just",
+          "start": 22.5,
+          "end": 22.875
+        },
+        {
+          "text": "wanted",
+          "start": 22.875,
+          "end": 23.25
+        },
+        {
+          "text": "it",
+          "start": 23.25,
+          "end": 23.625
+        },
+        {
+          "text": "rid",
+          "start": 23.625,
+          "end": 24.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse",
+        "section_type": "verse",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 8,
+      "text": "How could so many things be demonic?",
+      "start": 24.0,
+      "end": 27.0,
+      "words": [
+        {
+          "text": "How",
+          "start": 24.0,
+          "end": 24.429
+        },
+        {
+          "text": "could",
+          "start": 24.429,
+          "end": 24.857
+        },
+        {
+          "text": "so",
+          "start": 24.857,
+          "end": 25.286
+        },
+        {
+          "text": "many",
+          "start": 25.286,
+          "end": 25.714
+        },
+        {
+          "text": "things",
+          "start": 25.714,
+          "end": 26.143
+        },
+        {
+          "text": "be",
+          "start": 26.143,
+          "end": 26.571
+        },
+        {
+          "text": "demonic?",
+          "start": 26.571,
+          "end": 27.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 2",
+        "section_type": "verse",
+        "index": 2,
+        "tags": []
+      }
+    },
+    {
+      "index": 9,
+      "text": "They caused my extreme anxiety, now it's chronic",
+      "start": 27.0,
+      "end": 30.0,
+      "words": [
+        {
+          "text": "They",
+          "start": 27.0,
+          "end": 27.375
+        },
+        {
+          "text": "caused",
+          "start": 27.375,
+          "end": 27.75
+        },
+        {
+          "text": "my",
+          "start": 27.75,
+          "end": 28.125
+        },
+        {
+          "text": "extreme",
+          "start": 28.125,
+          "end": 28.5
+        },
+        {
+          "text": "anxiety,",
+          "start": 28.5,
+          "end": 28.875
+        },
+        {
+          "text": "now",
+          "start": 28.875,
+          "end": 29.25
+        },
+        {
+          "text": "it's",
+          "start": 29.25,
+          "end": 29.625
+        },
+        {
+          "text": "chronic",
+          "start": 29.625,
+          "end": 30.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 2",
+        "section_type": "verse",
+        "index": 2,
+        "tags": []
+      }
+    },
+    {
+      "index": 10,
+      "text": "If Jesus with sinners was gladly platonic",
+      "start": 30.0,
+      "end": 33.0,
+      "words": [
+        {
+          "text": "If",
+          "start": 30.0,
+          "end": 30.429
+        },
+        {
+          "text": "Jesus",
+          "start": 30.429,
+          "end": 30.857
+        },
+        {
+          "text": "with",
+          "start": 30.857,
+          "end": 31.286
+        },
+        {
+          "text": "sinners",
+          "start": 31.286,
+          "end": 31.714
+        },
+        {
+          "text": "was",
+          "start": 31.714,
+          "end": 32.143
+        },
+        {
+          "text": "gladly",
+          "start": 32.143,
+          "end": 32.571
+        },
+        {
+          "text": "platonic",
+          "start": 32.571,
+          "end": 33.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 2",
+        "section_type": "verse",
+        "index": 2,
+        "tags": []
+      }
+    },
+    {
+      "index": 11,
+      "text": "How was that the result when they were sonic?",
+      "start": 33.0,
+      "end": 36.0,
+      "words": [
+        {
+          "text": "How",
+          "start": 33.0,
+          "end": 33.333
+        },
+        {
+          "text": "was",
+          "start": 33.333,
+          "end": 33.667
+        },
+        {
+          "text": "that",
+          "start": 33.667,
+          "end": 34.0
+        },
+        {
+          "text": "the",
+          "start": 34.0,
+          "end": 34.333
+        },
+        {
+          "text": "result",
+          "start": 34.333,
+          "end": 34.667
+        },
+        {
+          "text": "when",
+          "start": 34.667,
+          "end": 35.0
+        },
+        {
+          "text": "they",
+          "start": 35.0,
+          "end": 35.333
+        },
+        {
+          "text": "were",
+          "start": 35.333,
+          "end": 35.667
+        },
+        {
+          "text": "sonic?",
+          "start": 35.667,
+          "end": 36.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 2",
+        "section_type": "verse",
+        "index": 2,
+        "tags": []
+      }
+    },
+    {
+      "index": 12,
+      "text": "Our faith was supposed to be different",
+      "start": 36.0,
+      "end": 39.0,
+      "words": [
+        {
+          "text": "Our",
+          "start": 36.0,
+          "end": 36.429
+        },
+        {
+          "text": "faith",
+          "start": 36.429,
+          "end": 36.857
+        },
+        {
+          "text": "was",
+          "start": 36.857,
+          "end": 37.286
+        },
+        {
+          "text": "supposed",
+          "start": 37.286,
+          "end": 37.714
+        },
+        {
+          "text": "to",
+          "start": 37.714,
+          "end": 38.143
+        },
+        {
+          "text": "be",
+          "start": 38.143,
+          "end": 38.571
+        },
+        {
+          "text": "different",
+          "start": 38.571,
+          "end": 39.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 2",
+        "section_type": "verse",
+        "index": 2,
+        "tags": []
+      }
+    },
+    {
+      "index": 13,
+      "text": "Believing in life, love, truth, not belligerent",
+      "start": 39.0,
+      "end": 42.0,
+      "words": [
+        {
+          "text": "Believing",
+          "start": 39.0,
+          "end": 39.429
+        },
+        {
+          "text": "in",
+          "start": 39.429,
+          "end": 39.857
+        },
+        {
+          "text": "life,",
+          "start": 39.857,
+          "end": 40.286
+        },
+        {
+          "text": "love,",
+          "start": 40.286,
+          "end": 40.714
+        },
+        {
+          "text": "truth,",
+          "start": 40.714,
+          "end": 41.143
+        },
+        {
+          "text": "not",
+          "start": 41.143,
+          "end": 41.571
+        },
+        {
+          "text": "belligerent",
+          "start": 41.571,
+          "end": 42.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 2",
+        "section_type": "verse",
+        "index": 2,
+        "tags": []
+      }
+    },
+    {
+      "index": 14,
+      "text": "But because God made me intelligent",
+      "start": 42.0,
+      "end": 45.0,
+      "words": [
+        {
+          "text": "But",
+          "start": 42.0,
+          "end": 42.5
+        },
+        {
+          "text": "because",
+          "start": 42.5,
+          "end": 43.0
+        },
+        {
+          "text": "God",
+          "start": 43.0,
+          "end": 43.5
+        },
+        {
+          "text": "made",
+          "start": 43.5,
+          "end": 44.0
+        },
+        {
+          "text": "me",
+          "start": 44.0,
+          "end": 44.5
+        },
+        {
+          "text": "intelligent",
+          "start": 44.5,
+          "end": 45.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 2",
+        "section_type": "verse",
+        "index": 2,
+        "tags": []
+      }
+    },
+    {
+      "index": 15,
+      "text": "Now they see me as an evil insurgent",
+      "start": 45.0,
+      "end": 48.0,
+      "words": [
+        {
+          "text": "Now",
+          "start": 45.0,
+          "end": 45.375
+        },
+        {
+          "text": "they",
+          "start": 45.375,
+          "end": 45.75
+        },
+        {
+          "text": "see",
+          "start": 45.75,
+          "end": 46.125
+        },
+        {
+          "text": "me",
+          "start": 46.125,
+          "end": 46.5
+        },
+        {
+          "text": "as",
+          "start": 46.5,
+          "end": 46.875
+        },
+        {
+          "text": "an",
+          "start": 46.875,
+          "end": 47.25
+        },
+        {
+          "text": "evil",
+          "start": 47.25,
+          "end": 47.625
+        },
+        {
+          "text": "insurgent",
+          "start": 47.625,
+          "end": 48.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 2",
+        "section_type": "verse",
+        "index": 2,
+        "tags": []
+      }
+    },
+    {
+      "index": 16,
+      "text": "They warned me about going to university",
+      "start": 48.0,
+      "end": 51.0,
+      "words": [
+        {
+          "text": "They",
+          "start": 48.0,
+          "end": 48.429
+        },
+        {
+          "text": "warned",
+          "start": 48.429,
+          "end": 48.857
+        },
+        {
+          "text": "me",
+          "start": 48.857,
+          "end": 49.286
+        },
+        {
+          "text": "about",
+          "start": 49.286,
+          "end": 49.714
+        },
+        {
+          "text": "going",
+          "start": 49.714,
+          "end": 50.143
+        },
+        {
+          "text": "to",
+          "start": 50.143,
+          "end": 50.571
+        },
+        {
+          "text": "university",
+          "start": 50.571,
+          "end": 51.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 17,
+      "text": "That to stand for truth, I'd face great adversity",
+      "start": 51.0,
+      "end": 54.0,
+      "words": [
+        {
+          "text": "That",
+          "start": 51.0,
+          "end": 51.333
+        },
+        {
+          "text": "to",
+          "start": 51.333,
+          "end": 51.667
+        },
+        {
+          "text": "stand",
+          "start": 51.667,
+          "end": 52.0
+        },
+        {
+          "text": "for",
+          "start": 52.0,
+          "end": 52.333
+        },
+        {
+          "text": "truth,",
+          "start": 52.333,
+          "end": 52.667
+        },
+        {
+          "text": "I'd",
+          "start": 52.667,
+          "end": 53.0
+        },
+        {
+          "text": "face",
+          "start": 53.0,
+          "end": 53.333
+        },
+        {
+          "text": "great",
+          "start": 53.333,
+          "end": 53.667
+        },
+        {
+          "text": "adversity",
+          "start": 53.667,
+          "end": 54.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 18,
+      "text": "The enemy had filled that place with perversity",
+      "start": 54.0,
+      "end": 57.0,
+      "words": [
+        {
+          "text": "The",
+          "start": 54.0,
+          "end": 54.375
+        },
+        {
+          "text": "enemy",
+          "start": 54.375,
+          "end": 54.75
+        },
+        {
+          "text": "had",
+          "start": 54.75,
+          "end": 55.125
+        },
+        {
+          "text": "filled",
+          "start": 55.125,
+          "end": 55.5
+        },
+        {
+          "text": "that",
+          "start": 55.5,
+          "end": 55.875
+        },
+        {
+          "text": "place",
+          "start": 55.875,
+          "end": 56.25
+        },
+        {
+          "text": "with",
+          "start": 56.25,
+          "end": 56.625
+        },
+        {
+          "text": "perversity",
+          "start": 56.625,
+          "end": 57.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 19,
+      "text": "So I should tactfully manage my immersivity",
+      "start": 57.0,
+      "end": 60.0,
+      "words": [
+        {
+          "text": "So",
+          "start": 57.0,
+          "end": 57.429
+        },
+        {
+          "text": "I",
+          "start": 57.429,
+          "end": 57.857
+        },
+        {
+          "text": "should",
+          "start": 57.857,
+          "end": 58.286
+        },
+        {
+          "text": "tactfully",
+          "start": 58.286,
+          "end": 58.714
+        },
+        {
+          "text": "manage",
+          "start": 58.714,
+          "end": 59.143
+        },
+        {
+          "text": "my",
+          "start": 59.143,
+          "end": 59.571
+        },
+        {
+          "text": "immersivity",
+          "start": 59.571,
+          "end": 60.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 20,
+      "text": "I spoke up loudly in my religion classes",
+      "start": 60.0,
+      "end": 63.0,
+      "words": [
+        {
+          "text": "I",
+          "start": 60.0,
+          "end": 60.375
+        },
+        {
+          "text": "spoke",
+          "start": 60.375,
+          "end": 60.75
+        },
+        {
+          "text": "up",
+          "start": 60.75,
+          "end": 61.125
+        },
+        {
+          "text": "loudly",
+          "start": 61.125,
+          "end": 61.5
+        },
+        {
+          "text": "in",
+          "start": 61.5,
+          "end": 61.875
+        },
+        {
+          "text": "my",
+          "start": 61.875,
+          "end": 62.25
+        },
+        {
+          "text": "religion",
+          "start": 62.25,
+          "end": 62.625
+        },
+        {
+          "text": "classes",
+          "start": 62.625,
+          "end": 63.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 21,
+      "text": "Me and my partner there looking like asses",
+      "start": 63.0,
+      "end": 66.0,
+      "words": [
+        {
+          "text": "Me",
+          "start": 63.0,
+          "end": 63.375
+        },
+        {
+          "text": "and",
+          "start": 63.375,
+          "end": 63.75
+        },
+        {
+          "text": "my",
+          "start": 63.75,
+          "end": 64.125
+        },
+        {
+          "text": "partner",
+          "start": 64.125,
+          "end": 64.5
+        },
+        {
+          "text": "there",
+          "start": 64.5,
+          "end": 64.875
+        },
+        {
+          "text": "looking",
+          "start": 64.875,
+          "end": 65.25
+        },
+        {
+          "text": "like",
+          "start": 65.25,
+          "end": 65.625
+        },
+        {
+          "text": "asses",
+          "start": 65.625,
+          "end": 66.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 22,
+      "text": "So when that fool with those annoying glasses",
+      "start": 66.0,
+      "end": 69.0,
+      "words": [
+        {
+          "text": "So",
+          "start": 66.0,
+          "end": 66.375
+        },
+        {
+          "text": "when",
+          "start": 66.375,
+          "end": 66.75
+        },
+        {
+          "text": "that",
+          "start": 66.75,
+          "end": 67.125
+        },
+        {
+          "text": "fool",
+          "start": 67.125,
+          "end": 67.5
+        },
+        {
+          "text": "with",
+          "start": 67.5,
+          "end": 67.875
+        },
+        {
+          "text": "those",
+          "start": 67.875,
+          "end": 68.25
+        },
+        {
+          "text": "annoying",
+          "start": 68.25,
+          "end": 68.625
+        },
+        {
+          "text": "glasses",
+          "start": 68.625,
+          "end": 69.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 23,
+      "text": "Showed me something new, it took a few passes",
+      "start": 69.0,
+      "end": 72.0,
+      "words": [
+        {
+          "text": "Showed",
+          "start": 69.0,
+          "end": 69.333
+        },
+        {
+          "text": "me",
+          "start": 69.333,
+          "end": 69.667
+        },
+        {
+          "text": "something",
+          "start": 69.667,
+          "end": 70.0
+        },
+        {
+          "text": "new,",
+          "start": 70.0,
+          "end": 70.333
+        },
+        {
+          "text": "it",
+          "start": 70.333,
+          "end": 70.667
+        },
+        {
+          "text": "took",
+          "start": 70.667,
+          "end": 71.0
+        },
+        {
+          "text": "a",
+          "start": 71.0,
+          "end": 71.333
+        },
+        {
+          "text": "few",
+          "start": 71.333,
+          "end": 71.667
+        },
+        {
+          "text": "passes",
+          "start": 71.667,
+          "end": 72.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 24,
+      "text": "If the Bible was the word of God and inerrant",
+      "start": 72.0,
+      "end": 75.0,
+      "words": [
+        {
+          "text": "If",
+          "start": 72.0,
+          "end": 72.3
+        },
+        {
+          "text": "the",
+          "start": 72.3,
+          "end": 72.6
+        },
+        {
+          "text": "Bible",
+          "start": 72.6,
+          "end": 72.9
+        },
+        {
+          "text": "was",
+          "start": 72.9,
+          "end": 73.2
+        },
+        {
+          "text": "the",
+          "start": 73.2,
+          "end": 73.5
+        },
+        {
+          "text": "word",
+          "start": 73.5,
+          "end": 73.8
+        },
+        {
+          "text": "of",
+          "start": 73.8,
+          "end": 74.1
+        },
+        {
+          "text": "God",
+          "start": 74.1,
+          "end": 74.4
+        },
+        {
+          "text": "and",
+          "start": 74.4,
+          "end": 74.7
+        },
+        {
+          "text": "inerrant",
+          "start": 74.7,
+          "end": 75.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 25,
+      "text": "How could it have contradiction so blatant?",
+      "start": 75.0,
+      "end": 78.0,
+      "words": [
+        {
+          "text": "How",
+          "start": 75.0,
+          "end": 75.429
+        },
+        {
+          "text": "could",
+          "start": 75.429,
+          "end": 75.857
+        },
+        {
+          "text": "it",
+          "start": 75.857,
+          "end": 76.286
+        },
+        {
+          "text": "have",
+          "start": 76.286,
+          "end": 76.714
+        },
+        {
+          "text": "contradiction",
+          "start": 76.714,
+          "end": 77.143
+        },
+        {
+          "text": "so",
+          "start": 77.143,
+          "end": 77.571
+        },
+        {
+          "text": "blatant?",
+          "start": 77.571,
+          "end": 78.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 26,
+      "text": "Even if small or from scribes incompetent",
+      "start": 78.0,
+      "end": 81.0,
+      "words": [
+        {
+          "text": "Even",
+          "start": 78.0,
+          "end": 78.429
+        },
+        {
+          "text": "if",
+          "start": 78.429,
+          "end": 78.857
+        },
+        {
+          "text": "small",
+          "start": 78.857,
+          "end": 79.286
+        },
+        {
+          "text": "or",
+          "start": 79.286,
+          "end": 79.714
+        },
+        {
+          "text": "from",
+          "start": 79.714,
+          "end": 80.143
+        },
+        {
+          "text": "scribes",
+          "start": 80.143,
+          "end": 80.571
+        },
+        {
+          "text": "incompetent",
+          "start": 80.571,
+          "end": 81.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 27,
+      "text": "We were missing something, it was transparent",
+      "start": 81.0,
+      "end": 84.0,
+      "words": [
+        {
+          "text": "We",
+          "start": 81.0,
+          "end": 81.429
+        },
+        {
+          "text": "were",
+          "start": 81.429,
+          "end": 81.857
+        },
+        {
+          "text": "missing",
+          "start": 81.857,
+          "end": 82.286
+        },
+        {
+          "text": "something,",
+          "start": 82.286,
+          "end": 82.714
+        },
+        {
+          "text": "it",
+          "start": 82.714,
+          "end": 83.143
+        },
+        {
+          "text": "was",
+          "start": 83.143,
+          "end": 83.571
+        },
+        {
+          "text": "transparent",
+          "start": 83.571,
+          "end": 84.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 28,
+      "text": "We know enough to know one thing as fact",
+      "start": 84.0,
+      "end": 87.0,
+      "words": [
+        {
+          "text": "We",
+          "start": 84.0,
+          "end": 84.333
+        },
+        {
+          "text": "know",
+          "start": 84.333,
+          "end": 84.667
+        },
+        {
+          "text": "enough",
+          "start": 84.667,
+          "end": 85.0
+        },
+        {
+          "text": "to",
+          "start": 85.0,
+          "end": 85.333
+        },
+        {
+          "text": "know",
+          "start": 85.333,
+          "end": 85.667
+        },
+        {
+          "text": "one",
+          "start": 85.667,
+          "end": 86.0
+        },
+        {
+          "text": "thing",
+          "start": 86.0,
+          "end": 86.333
+        },
+        {
+          "text": "as",
+          "start": 86.333,
+          "end": 86.667
+        },
+        {
+          "text": "fact",
+          "start": 86.667,
+          "end": 87.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 29,
+      "text": "There are things that keep us from knowing as fact",
+      "start": 87.0,
+      "end": 90.0,
+      "words": [
+        {
+          "text": "There",
+          "start": 87.0,
+          "end": 87.3
+        },
+        {
+          "text": "are",
+          "start": 87.3,
+          "end": 87.6
+        },
+        {
+          "text": "things",
+          "start": 87.6,
+          "end": 87.9
+        },
+        {
+          "text": "that",
+          "start": 87.9,
+          "end": 88.2
+        },
+        {
+          "text": "keep",
+          "start": 88.2,
+          "end": 88.5
+        },
+        {
+          "text": "us",
+          "start": 88.5,
+          "end": 88.8
+        },
+        {
+          "text": "from",
+          "start": 88.8,
+          "end": 89.1
+        },
+        {
+          "text": "knowing",
+          "start": 89.1,
+          "end": 89.4
+        },
+        {
+          "text": "as",
+          "start": 89.4,
+          "end": 89.7
+        },
+        {
+          "text": "fact",
+          "start": 89.7,
+          "end": 90.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 30,
+      "text": "What the entirety of Scripture is, it's not intact",
+      "start": 90.0,
+      "end": 93.0,
+      "words": [
+        {
+          "text": "What",
+          "start": 90.0,
+          "end": 90.333
+        },
+        {
+          "text": "the",
+          "start": 90.333,
+          "end": 90.667
+        },
+        {
+          "text": "entirety",
+          "start": 90.667,
+          "end": 91.0
+        },
+        {
+          "text": "of",
+          "start": 91.0,
+          "end": 91.333
+        },
+        {
+          "text": "Scripture",
+          "start": 91.333,
+          "end": 91.667
+        },
+        {
+          "text": "is,",
+          "start": 91.667,
+          "end": 92.0
+        },
+        {
+          "text": "it's",
+          "start": 92.0,
+          "end": 92.333
+        },
+        {
+          "text": "not",
+          "start": 92.333,
+          "end": 92.667
+        },
+        {
+          "text": "intact",
+          "start": 92.667,
+          "end": 93.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 31,
+      "text": "So who is this God with whom we've made a pact?",
+      "start": 93.0,
+      "end": 96.0,
+      "words": [
+        {
+          "text": "So",
+          "start": 93.0,
+          "end": 93.273
+        },
+        {
+          "text": "who",
+          "start": 93.273,
+          "end": 93.545
+        },
+        {
+          "text": "is",
+          "start": 93.545,
+          "end": 93.818
+        },
+        {
+          "text": "this",
+          "start": 93.818,
+          "end": 94.091
+        },
+        {
+          "text": "God",
+          "start": 94.091,
+          "end": 94.364
+        },
+        {
+          "text": "with",
+          "start": 94.364,
+          "end": 94.636
+        },
+        {
+          "text": "whom",
+          "start": 94.636,
+          "end": 94.909
+        },
+        {
+          "text": "we've",
+          "start": 94.909,
+          "end": 95.182
+        },
+        {
+          "text": "made",
+          "start": 95.182,
+          "end": 95.455
+        },
+        {
+          "text": "a",
+          "start": 95.455,
+          "end": 95.727
+        },
+        {
+          "text": "pact?",
+          "start": 95.727,
+          "end": 96.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 3, double time, female",
+        "section_type": "verse",
+        "index": 3,
+        "tags": [
+          "double_time",
+          "female"
+        ]
+      }
+    },
+    {
+      "index": 32,
+      "text": "Some think Yahweh emerged from other gods",
+      "start": 96.0,
+      "end": 99.0,
+      "words": [
+        {
+          "text": "Some",
+          "start": 96.0,
+          "end": 96.429
+        },
+        {
+          "text": "think",
+          "start": 96.429,
+          "end": 96.857
+        },
+        {
+          "text": "Yahweh",
+          "start": 96.857,
+          "end": 97.286
+        },
+        {
+          "text": "emerged",
+          "start": 97.286,
+          "end": 97.714
+        },
+        {
+          "text": "from",
+          "start": 97.714,
+          "end": 98.143
+        },
+        {
+          "text": "other",
+          "start": 98.143,
+          "end": 98.571
+        },
+        {
+          "text": "gods",
+          "start": 98.571,
+          "end": 99.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 4",
+        "section_type": "verse",
+        "index": 4,
+        "tags": []
+      }
+    },
+    {
+      "index": 33,
+      "text": "That's a scary thought, so what are the odds?",
+      "start": 99.0,
+      "end": 102.0,
+      "words": [
+        {
+          "text": "That's",
+          "start": 99.0,
+          "end": 99.333
+        },
+        {
+          "text": "a",
+          "start": 99.333,
+          "end": 99.667
+        },
+        {
+          "text": "scary",
+          "start": 99.667,
+          "end": 100.0
+        },
+        {
+          "text": "thought,",
+          "start": 100.0,
+          "end": 100.333
+        },
+        {
+          "text": "so",
+          "start": 100.333,
+          "end": 100.667
+        },
+        {
+          "text": "what",
+          "start": 100.667,
+          "end": 101.0
+        },
+        {
+          "text": "are",
+          "start": 101.0,
+          "end": 101.333
+        },
+        {
+          "text": "the",
+          "start": 101.333,
+          "end": 101.667
+        },
+        {
+          "text": "odds?",
+          "start": 101.667,
+          "end": 102.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 4",
+        "section_type": "verse",
+        "index": 4,
+        "tags": []
+      }
+    },
+    {
+      "index": 34,
+      "text": "Have you ever asked yourself if we're the frauds?",
+      "start": 102.0,
+      "end": 105.0,
+      "words": [
+        {
+          "text": "Have",
+          "start": 102.0,
+          "end": 102.333
+        },
+        {
+          "text": "you",
+          "start": 102.333,
+          "end": 102.667
+        },
+        {
+          "text": "ever",
+          "start": 102.667,
+          "end": 103.0
+        },
+        {
+          "text": "asked",
+          "start": 103.0,
+          "end": 103.333
+        },
+        {
+          "text": "yourself",
+          "start": 103.333,
+          "end": 103.667
+        },
+        {
+          "text": "if",
+          "start": 103.667,
+          "end": 104.0
+        },
+        {
+          "text": "we're",
+          "start": 104.0,
+          "end": 104.333
+        },
+        {
+          "text": "the",
+          "start": 104.333,
+          "end": 104.667
+        },
+        {
+          "text": "frauds?",
+          "start": 104.667,
+          "end": 105.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 4",
+        "section_type": "verse",
+        "index": 4,
+        "tags": []
+      }
+    },
+    {
+      "index": 35,
+      "text": "These are the paths that philosophers trod",
+      "start": 105.0,
+      "end": 108.0,
+      "words": [
+        {
+          "text": "These",
+          "start": 105.0,
+          "end": 105.429
+        },
+        {
+          "text": "are",
+          "start": 105.429,
+          "end": 105.857
+        },
+        {
+          "text": "the",
+          "start": 105.857,
+          "end": 106.286
+        },
+        {
+          "text": "paths",
+          "start": 106.286,
+          "end": 106.714
+        },
+        {
+          "text": "that",
+          "start": 106.714,
+          "end": 107.143
+        },
+        {
+          "text": "philosophers",
+          "start": 107.143,
+          "end": 107.571
+        },
+        {
+          "text": "trod",
+          "start": 107.571,
+          "end": 108.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 4",
+        "section_type": "verse",
+        "index": 4,
+        "tags": []
+      }
+    },
+    {
+      "index": 36,
+      "text": "How do we know which ones are deceptive?",
+      "start": 108.0,
+      "end": 111.0,
+      "words": [
+        {
+          "text": "How",
+          "start": 108.0,
+          "end": 108.375
+        },
+        {
+          "text": "do",
+          "start": 108.375,
+          "end": 108.75
+        },
+        {
+          "text": "we",
+          "start": 108.75,
+          "end": 109.125
+        },
+        {
+          "text": "know",
+          "start": 109.125,
+          "end": 109.5
+        },
+        {
+          "text": "which",
+          "start": 109.5,
+          "end": 109.875
+        },
+        {
+          "text": "ones",
+          "start": 109.875,
+          "end": 110.25
+        },
+        {
+          "text": "are",
+          "start": 110.25,
+          "end": 110.625
+        },
+        {
+          "text": "deceptive?",
+          "start": 110.625,
+          "end": 111.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 4",
+        "section_type": "verse",
+        "index": 4,
+        "tags": []
+      }
+    },
+    {
+      "index": 37,
+      "text": "We must judge sternly while being receptive",
+      "start": 111.0,
+      "end": 114.0,
+      "words": [
+        {
+          "text": "We",
+          "start": 111.0,
+          "end": 111.429
+        },
+        {
+          "text": "must",
+          "start": 111.429,
+          "end": 111.857
+        },
+        {
+          "text": "judge",
+          "start": 111.857,
+          "end": 112.286
+        },
+        {
+          "text": "sternly",
+          "start": 112.286,
+          "end": 112.714
+        },
+        {
+          "text": "while",
+          "start": 112.714,
+          "end": 113.143
+        },
+        {
+          "text": "being",
+          "start": 113.143,
+          "end": 113.571
+        },
+        {
+          "text": "receptive",
+          "start": 113.571,
+          "end": 114.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 4",
+        "section_type": "verse",
+        "index": 4,
+        "tags": []
+      }
+    },
+    {
+      "index": 38,
+      "text": "The sheep know his voice, we must be perceptive",
+      "start": 114.0,
+      "end": 117.0,
+      "words": [
+        {
+          "text": "The",
+          "start": 114.0,
+          "end": 114.333
+        },
+        {
+          "text": "sheep",
+          "start": 114.333,
+          "end": 114.667
+        },
+        {
+          "text": "know",
+          "start": 114.667,
+          "end": 115.0
+        },
+        {
+          "text": "his",
+          "start": 115.0,
+          "end": 115.333
+        },
+        {
+          "text": "voice,",
+          "start": 115.333,
+          "end": 115.667
+        },
+        {
+          "text": "we",
+          "start": 115.667,
+          "end": 116.0
+        },
+        {
+          "text": "must",
+          "start": 116.0,
+          "end": 116.333
+        },
+        {
+          "text": "be",
+          "start": 116.333,
+          "end": 116.667
+        },
+        {
+          "text": "perceptive",
+          "start": 116.667,
+          "end": 117.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 4",
+        "section_type": "verse",
+        "index": 4,
+        "tags": []
+      }
+    },
+    {
+      "index": 39,
+      "text": "To what God says as he's being preceptive",
+      "start": 117.0,
+      "end": 120.0,
+      "words": [
+        {
+          "text": "To",
+          "start": 117.0,
+          "end": 117.375
+        },
+        {
+          "text": "what",
+          "start": 117.375,
+          "end": 117.75
+        },
+        {
+          "text": "God",
+          "start": 117.75,
+          "end": 118.125
+        },
+        {
+          "text": "says",
+          "start": 118.125,
+          "end": 118.5
+        },
+        {
+          "text": "as",
+          "start": 118.5,
+          "end": 118.875
+        },
+        {
+          "text": "he's",
+          "start": 118.875,
+          "end": 119.25
+        },
+        {
+          "text": "being",
+          "start": 119.25,
+          "end": 119.625
+        },
+        {
+          "text": "preceptive",
+          "start": 119.625,
+          "end": 120.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 4",
+        "section_type": "verse",
+        "index": 4,
+        "tags": []
+      }
+    },
+    {
+      "index": 40,
+      "text": "Our enemies aren't flesh and blood, but spirit",
+      "start": 120.0,
+      "end": 123.0,
+      "words": [
+        {
+          "text": "Our",
+          "start": 120.0,
+          "end": 120.375
+        },
+        {
+          "text": "enemies",
+          "start": 120.375,
+          "end": 120.75
+        },
+        {
+          "text": "aren't",
+          "start": 120.75,
+          "end": 121.125
+        },
+        {
+          "text": "flesh",
+          "start": 121.125,
+          "end": 121.5
+        },
+        {
+          "text": "and",
+          "start": 121.5,
+          "end": 121.875
+        },
+        {
+          "text": "blood,",
+          "start": 121.875,
+          "end": 122.25
+        },
+        {
+          "text": "but",
+          "start": 122.25,
+          "end": 122.625
+        },
+        {
+          "text": "spirit",
+          "start": 122.625,
+          "end": 123.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 5, BIG",
+        "section_type": "verse",
+        "index": 5,
+        "tags": [
+          "big"
+        ]
+      }
+    },
+    {
+      "index": 41,
+      "text": "So why are you fighting me? I don't wanna hear it",
+      "start": 123.0,
+      "end": 126.0,
+      "words": [
+        {
+          "text": "So",
+          "start": 123.0,
+          "end": 123.273
+        },
+        {
+          "text": "why",
+          "start": 123.273,
+          "end": 123.545
+        },
+        {
+          "text": "are",
+          "start": 123.545,
+          "end": 123.818
+        },
+        {
+          "text": "you",
+          "start": 123.818,
+          "end": 124.091
+        },
+        {
+          "text": "fighting",
+          "start": 124.091,
+          "end": 124.364
+        },
+        {
+          "text": "me?",
+          "start": 124.364,
+          "end": 124.636
+        },
+        {
+          "text": "I",
+          "start": 124.636,
+          "end": 124.909
+        },
+        {
+          "text": "don't",
+          "start": 124.909,
+          "end": 125.182
+        },
+        {
+          "text": "wanna",
+          "start": 125.182,
+          "end": 125.455
+        },
+        {
+          "text": "hear",
+          "start": 125.455,
+          "end": 125.727
+        },
+        {
+          "text": "it",
+          "start": 125.727,
+          "end": 126.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 5, BIG",
+        "section_type": "verse",
+        "index": 5,
+        "tags": [
+          "big"
+        ]
+      }
+    },
+    {
+      "index": 42,
+      "text": "Salvation exclusive but we are to share it",
+      "start": 126.0,
+      "end": 129.0,
+      "words": [
+        {
+          "text": "Salvation",
+          "start": 126.0,
+          "end": 126.375
+        },
+        {
+          "text": "exclusive",
+          "start": 126.375,
+          "end": 126.75
+        },
+        {
+          "text": "but",
+          "start": 126.75,
+          "end": 127.125
+        },
+        {
+          "text": "we",
+          "start": 127.125,
+          "end": 127.5
+        },
+        {
+          "text": "are",
+          "start": 127.5,
+          "end": 127.875
+        },
+        {
+          "text": "to",
+          "start": 127.875,
+          "end": 128.25
+        },
+        {
+          "text": "share",
+          "start": 128.25,
+          "end": 128.625
+        },
+        {
+          "text": "it",
+          "start": 128.625,
+          "end": 129.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 5, BIG",
+        "section_type": "verse",
+        "index": 5,
+        "tags": [
+          "big"
+        ]
+      }
+    },
+    {
+      "index": 43,
+      "text": "Maybe we are just stochastic parrots",
+      "start": 129.0,
+      "end": 132.0,
+      "words": [
+        {
+          "text": "Maybe",
+          "start": 129.0,
+          "end": 129.5
+        },
+        {
+          "text": "we",
+          "start": 129.5,
+          "end": 130.0
+        },
+        {
+          "text": "are",
+          "start": 130.0,
+          "end": 130.5
+        },
+        {
+          "text": "just",
+          "start": 130.5,
+          "end": 131.0
+        },
+        {
+          "text": "stochastic",
+          "start": 131.0,
+          "end": 131.5
+        },
+        {
+          "text": "parrots",
+          "start": 131.5,
+          "end": 132.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Verse 5, BIG",
+        "section_type": "verse",
+        "index": 5,
+        "tags": [
+          "big"
+        ]
+      }
+    },
+    {
+      "index": 44,
+      "text": "Now I'm the victim of a theocratic agenda",
+      "start": 132.0,
+      "end": 135.0,
+      "words": [
+        {
+          "text": "Now",
+          "start": 132.0,
+          "end": 132.375
+        },
+        {
+          "text": "I'm",
+          "start": 132.375,
+          "end": 132.75
+        },
+        {
+          "text": "the",
+          "start": 132.75,
+          "end": 133.125
+        },
+        {
+          "text": "victim",
+          "start": 133.125,
+          "end": 133.5
+        },
+        {
+          "text": "of",
+          "start": 133.5,
+          "end": 133.875
+        },
+        {
+          "text": "a",
+          "start": 133.875,
+          "end": 134.25
+        },
+        {
+          "text": "theocratic",
+          "start": 134.25,
+          "end": 134.625
+        },
+        {
+          "text": "agenda",
+          "start": 134.625,
+          "end": 135.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Outro",
+        "section_type": "outro",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 45,
+      "text": "And all they conceive is dangerous propaganda",
+      "start": 135.0,
+      "end": 138.0,
+      "words": [
+        {
+          "text": "And",
+          "start": 135.0,
+          "end": 135.429
+        },
+        {
+          "text": "all",
+          "start": 135.429,
+          "end": 135.857
+        },
+        {
+          "text": "they",
+          "start": 135.857,
+          "end": 136.286
+        },
+        {
+          "text": "conceive",
+          "start": 136.286,
+          "end": 136.714
+        },
+        {
+          "text": "is",
+          "start": 136.714,
+          "end": 137.143
+        },
+        {
+          "text": "dangerous",
+          "start": 137.143,
+          "end": 137.571
+        },
+        {
+          "text": "propaganda",
+          "start": 137.571,
+          "end": 138.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Outro",
+        "section_type": "outro",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 46,
+      "text": "But I'm not a freak, a gross genda benda",
+      "start": 138.0,
+      "end": 141.0,
+      "words": [
+        {
+          "text": "But",
+          "start": 138.0,
+          "end": 138.333
+        },
+        {
+          "text": "I'm",
+          "start": 138.333,
+          "end": 138.667
+        },
+        {
+          "text": "not",
+          "start": 138.667,
+          "end": 139.0
+        },
+        {
+          "text": "a",
+          "start": 139.0,
+          "end": 139.333
+        },
+        {
+          "text": "freak,",
+          "start": 139.333,
+          "end": 139.667
+        },
+        {
+          "text": "a",
+          "start": 139.667,
+          "end": 140.0
+        },
+        {
+          "text": "gross",
+          "start": 140.0,
+          "end": 140.333
+        },
+        {
+          "text": "genda",
+          "start": 140.333,
+          "end": 140.667
+        },
+        {
+          "text": "benda",
+          "start": 140.667,
+          "end": 141.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Outro",
+        "section_type": "outro",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 47,
+      "text": "I'm the prophet rejected from my own land, HA!",
+      "start": 141.0,
+      "end": 144.0,
+      "words": [
+        {
+          "text": "I'm",
+          "start": 141.0,
+          "end": 141.333
+        },
+        {
+          "text": "the",
+          "start": 141.333,
+          "end": 141.667
+        },
+        {
+          "text": "prophet",
+          "start": 141.667,
+          "end": 142.0
+        },
+        {
+          "text": "rejected",
+          "start": 142.0,
+          "end": 142.333
+        },
+        {
+          "text": "from",
+          "start": 142.333,
+          "end": 142.667
+        },
+        {
+          "text": "my",
+          "start": 142.667,
+          "end": 143.0
+        },
+        {
+          "text": "own",
+          "start": 143.0,
+          "end": 143.333
+        },
+        {
+          "text": "land,",
+          "start": 143.333,
+          "end": 143.667
+        },
+        {
+          "text": "HA!",
+          "start": 143.667,
+          "end": 144.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Outro",
+        "section_type": "outro",
+        "index": null,
+        "tags": []
+      }
+    },
+    {
+      "index": 48,
+      "text": "HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA HA",
+      "start": 144.0,
+      "end": 147.0,
+      "words": [
+        {
+          "text": "HA",
+          "start": 144.0,
+          "end": 144.143
+        },
+        {
+          "text": "HA",
+          "start": 144.143,
+          "end": 144.286
+        },
+        {
+          "text": "HA",
+          "start": 144.286,
+          "end": 144.429
+        },
+        {
+          "text": "HA",
+          "start": 144.429,
+          "end": 144.571
+        },
+        {
+          "text": "HA",
+          "start": 144.571,
+          "end": 144.714
+        },
+        {
+          "text": "HA",
+          "start": 144.714,
+          "end": 144.857
+        },
+        {
+          "text": "HA",
+          "start": 144.857,
+          "end": 145.0
+        },
+        {
+          "text": "HA",
+          "start": 145.0,
+          "end": 145.143
+        },
+        {
+          "text": "HA",
+          "start": 145.143,
+          "end": 145.286
+        },
+        {
+          "text": "HA",
+          "start": 145.286,
+          "end": 145.429
+        },
+        {
+          "text": "HA",
+          "start": 145.429,
+          "end": 145.571
+        },
+        {
+          "text": "HA",
+          "start": 145.571,
+          "end": 145.714
+        },
+        {
+          "text": "HA",
+          "start": 145.714,
+          "end": 145.857
+        },
+        {
+          "text": "HA",
+          "start": 145.857,
+          "end": 146.0
+        },
+        {
+          "text": "HA",
+          "start": 146.0,
+          "end": 146.143
+        },
+        {
+          "text": "HA",
+          "start": 146.143,
+          "end": 146.286
+        },
+        {
+          "text": "HA",
+          "start": 146.286,
+          "end": 146.429
+        },
+        {
+          "text": "HA",
+          "start": 146.429,
+          "end": 146.571
+        },
+        {
+          "text": "HA",
+          "start": 146.571,
+          "end": 146.714
+        },
+        {
+          "text": "HA",
+          "start": 146.714,
+          "end": 146.857
+        },
+        {
+          "text": "HA",
+          "start": 146.857,
+          "end": 147.0
+        }
+      ],
+      "section": {
+        "raw_marker": "Overexaggerated tyrannical laughter",
+        "section_type": "overexaggerated_tyrannical_laughter",
+        "index": null,
+        "tags": []
+      }
+    }
+  ],
+  "sections": [
+    {
+      "raw_marker": "Intro, swooshy",
+      "section_type": "intro",
+      "index": null,
+      "tags": [
+        "swooshy"
+      ]
+    },
+    {
+      "raw_marker": "Intro",
+      "section_type": "intro",
+      "index": null,
+      "tags": []
+    },
+    {
+      "raw_marker": "Verse",
+      "section_type": "verse",
+      "index": null,
+      "tags": []
+    },
+    {
+      "raw_marker": "Verse 2",
+      "section_type": "verse",
+      "index": 2,
+      "tags": []
+    },
+    {
+      "raw_marker": "Verse 3, double time, female",
+      "section_type": "verse",
+      "index": 3,
+      "tags": [
+        "double_time",
+        "female"
+      ]
+    },
+    {
+      "raw_marker": "Verse 4",
+      "section_type": "verse",
+      "index": 4,
+      "tags": []
+    },
+    {
+      "raw_marker": "Verse 5, BIG",
+      "section_type": "verse",
+      "index": 5,
+      "tags": [
+        "big"
+      ]
+    },
+    {
+      "raw_marker": "Outro",
+      "section_type": "outro",
+      "index": null,
+      "tags": []
+    },
+    {
+      "raw_marker": "Overexaggerated tyrannical laughter",
+      "section_type": "overexaggerated_tyrannical_laughter",
+      "index": null,
+      "tags": []
+    }
+  ]
+}
