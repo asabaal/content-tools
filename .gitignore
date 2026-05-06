@@ -57,3 +57,6 @@ tools/05b-render/validate_first_2_lines.sh
 
 # Audio
 *.mp3
+
+*.zip
+*.mid
