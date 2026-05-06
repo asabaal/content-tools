@@ -2,11 +2,11 @@
   "schema_version": "1.0",
   "name": "I Never Asked To Be Queer",
   "artist": "",
-  "created": "2026-05-06T17:01:20",
-  "modified": "2026-05-06T17:01:26",
+  "created": "2026-05-06T17:07:33",
+  "modified": "2026-05-06T17:07:41",
   "paths": {
-    "audio": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/I Never Asked To Be Queer.wav",
-    "lyrics": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/lyrics.txt",
+    "audio": "i-never-asked-to-be-queer/I Never Asked To Be Queer.wav",
+    "lyrics": "i-never-asked-to-be-queer/lyrics.txt",
     "data_dir": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer"
   },
   "input_tier": "full",

@@ -1,6 +1,6 @@
 # Stage 3 (Sync) Implementation Plan
 
-**Status**: IMPLEMENTING
+**Status**: COMPLETE (backend), UI REDESIGN IN PROGRESS
 **Type**: Browser tool (auto-sync via server API, human review/adjust in browser)
 **CLI**: `mvp sync` runs initial auto-pass, `mvp serve` opens browser editor
 
@@ -78,39 +78,64 @@ Adapted from `content-tools/serve.py` pattern (stdlib http.server, range request
 
 ### 3. `tools/03-sync/index.html` — Browser sync editor
 
-Single self-contained HTML file following repo conventions.
+Single self-contained HTML file matching content-tools UI patterns (no frameworks, no dependencies).
 
-**Layout**:
+**Layout** (matching content-tools Tool 04 "Assemble"):
 ```
-┌──────────────────────────────────────────────────────────┐
-│ 03 - Sync Lyrics                            [Save]      │
-├──────────────────────────────────────────────────────────┤
-│ Waveform + beat markers (click to seek)                  │
-│ [▶ Play] [⏸ Pause]  0:42 / 2:36                        │
-├────────────────────┬─────────────────────────────────────┤
-│ Lyrics Timeline    │ Word Detail                         │
-│                    │                                     │
-│ [Verse]            │ Line: "I never asked to be queer"   │
-│ ► never asked...   │                                     │
-│   0.00 ──── 3.00   │ never  [0.00]──[0.75]  (onset)    │
-│ to be queer        │ asked  [0.75]──[1.50]  (onset)    │
-│   3.00 ──── 6.00   │ to     [1.50]──[2.25]  (interp)   │
-│                    │ be     [2.25]──[2.62]  (interp)   │
-│ [Verse]            │ queer  [2.62]──[3.00]  (onset)    │
-│ I was such a...   │                                     │
-├────────────────────┴─────────────────────────────────────┤
-│ [Auto-Sync]                                              │
-└──────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────┐
+│ 03 - Sync Lyrics                     [Auto-Sync] [Save]      │
+├─────────────────┬─────────────────────────────────────────────┤
+│                 │  Waveform + beat markers                    │
+│  Transcript     │  ─────────────────────────────────────     │
+│  (karaoke       │  Word Layer (draggable word boxes)          │
+│   highlight)    │  ┌───┐┌──────┐┌────┐┌──────┐              │
+│                 │  │I  ││never ││ask ││ed to  │              │
+│  [Verse]        │  └───┘└──────┘└────┘└──────┘              │
+│  I never asked  │  ─────────────────────────────────────     │
+│  to be queer    │  Time axis + seek bar                       │
+│  I was such a...├─────────────────────────────────────────────┤
+│  ...            │  Detail panel: selected line word timing    │
+│                 │  (editable start/end fields per word)       │
+├─────────────────┴─────────────────────────────────────────────┤
+│ [◀ 5s] [▶/⏸] [▶ 5s]  0:42 / 2:36  [Shift +0.5] [−0.5]     │
+└───────────────────────────────────────────────────────────────┘
 ```
 
-**Interactions**:
-- Click waveform to seek audio position
-- Audio playback with current line highlighted, words progressing in real-time
-- Click word to jump to its start time
-- Drag word boundary handles to adjust start/end
-- "Auto-Sync" button: POST to `/api/auto-sync`, reloads with results
-- Sections from lyrics shown as group headers
-- Confidence color-coding: green (>0.8), yellow (0.5-0.8), red (<0.5)
+**Interactions** (matching content-tools Tool 04 pattern):
+
+1. **Karaoke word highlighting**: During playback, active word highlighted cyan. Transcript auto-scrolls. Words within active line highlight one-by-one as playback progresses. Matches Tool 02/04 `.active` class pattern.
+
+2. **Draggable word boxes on word layer**: Words positioned absolutely over waveform strip. Three drag modes (from Tool 04):
+   - Drag body: move word start+end together, maintain duration
+   - Drag left edge: adjust word start, shift previous word's end to fill gap
+   - Drag right edge: adjust word end, shift next word's start
+   - Min 0.15s word duration enforced, clamped to line bounds
+
+3. **Waveform + word layer sync**: Word layer positioned directly below waveform, scroll together. Beat markers drawn on waveform. Playhead line on both layers.
+
+4. **Click-to-seek**: Click on waveform or word-layer to jump audio position.
+
+5. **Transcript panel (left)**: All lines listed with section headers. Click line to seek + select. Active line highlighted during playback. Words rendered as inline `<span>` elements with per-word highlighting.
+
+6. **Editable timing fields**: Selected line shows in detail panel with per-word start/end number inputs. Changing a field updates the word box position on the word layer.
+
+7. **Keyboard shortcuts**: Space: play/pause, Left/Right: ±5s, Escape: deselect
+
+8. **Unsaved changes guard**: `beforeunload` warning when changes pending.
+
+9. **Source badges**: Per-word source indicator (midi/onset/vocal_onset/interpolated) shown as colored badges in both word boxes and detail table.
+
+10. **Confidence indicators**: Per-line confidence color bar: green (>0.8), yellow (0.5-0.8), red (<0.5).
+
+**Color scheme**: Matches content-tools dark theme:
+- `#0f0f1a` — darkest (waveform bg)
+- `#1a1a2e` — body background
+- `#16213e` — panels, headers
+- `#2a2a4a` — borders, inputs
+- `#4cc9f0` — primary accent (cyan), active states
+- `#48bb78` — success/save (green)
+- `#f6ad55` — warning/unsaved (orange)
+- `#f66` — danger (red)
 
 ### 4. CLI updates
 

@@ -131,6 +131,7 @@ class TestLoadProject:
         import serve as _serve
 
         monkeypatch.chdir(tmp_path)
+        monkeypatch.setattr(_serve, "REPO_ROOT", tmp_path)
         result = _serve.load_project(None)
         assert result is None
 
@@ -360,6 +361,22 @@ class TestTranslatePath:
 
         result = h.translate_path("/tools/03-sync/index.html")
         assert result == str(_serve.REPO_ROOT / "tools/03-sync/index.html")
+
+    def test_url_encoded_spaces_in_data_path(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/data/I%20Never%20Asked.wav")
+            result = h.translate_path("/data/I%20Never%20Asked.wav")
+            assert result == str(project_with_data.data_dir / "I Never Asked.wav")
+        finally:
+            _restore_project(original)
+
+    def test_url_encoded_spaces_in_non_data_path(self):
+        h = _make_handler("/tools/some%20file.html")
+        import serve as _serve
+
+        result = h.translate_path("/tools/some%20file.html")
+        assert result == str(_serve.REPO_ROOT / "tools/some file.html")
 
 
 class TestDoOptions:

@@ -57,6 +57,13 @@ def _format_duration(seconds: float) -> str:
     return f"{m}:{s:02d}" if m < 60 else f"{m // 60}:{m % 60:02d}:{s:02d}"
 
 
+def _to_relative(abs_path: str, base_dir: Path) -> str:
+    try:
+        return str(Path(abs_path).relative_to(base_dir))
+    except ValueError:
+        return abs_path
+
+
 def _run_ingest(proj: MusicVideoProject) -> dict | None:
     audio_path = proj.paths.resolve_audio(proj.data_dir)
     lyrics_path = proj.paths.resolve_lyrics(proj.data_dir)
@@ -76,10 +83,10 @@ def _run_ingest(proj: MusicVideoProject) -> dict | None:
     proj.ingest_file.write_text(json.dumps(result_data, indent=2, ensure_ascii=False), encoding="utf-8")
 
     if result.audio_path and not proj.paths.audio:
-        proj.paths.audio = result.audio_path
+        proj.paths.audio = _to_relative(result.audio_path, proj.data_dir)
 
     if result.lyrics_path and not proj.paths.lyrics:
-        proj.paths.lyrics = result.lyrics_path
+        proj.paths.lyrics = _to_relative(result.lyrics_path, proj.data_dir)
 
     proj.input_tier = result.tier
 

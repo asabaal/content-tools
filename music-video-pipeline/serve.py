@@ -46,7 +46,7 @@ def _data_dir() -> Path:
 class PipelineHandler(SimpleHTTPRequestHandler):
     def translate_path(self, path: str) -> str:
         parts = urllib.parse.urlparse(path)
-        rel_path = parts.path.lstrip("/")
+        rel_path = urllib.parse.unquote(parts.path.lstrip("/"))
 
         if rel_path.startswith("data/"):
             file_part = rel_path[len("data/"):]
