@@ -358,6 +358,10 @@ def resolve_calendar_cmd(payload_path: str, output: str | None) -> None:
 @click.option(
     "--bg-music-prompt", help="Music generation prompt. Auto-generated from theme if not set."
 )
+@click.option("--bg-image", is_flag=True, help="Generate AI background image via SD3")
+@click.option("--bg-image-prompt", help="Image generation prompt. Auto-generated from theme if not set.")
+@click.option("--bg-image-path", help="Use existing image as background (skip generation)")
+@click.option("--bg-image-seed", type=int, help="Seed for deterministic image generation")
 def run_all(
     payload: str | None,
     theme: str | None,
@@ -386,6 +390,10 @@ def run_all(
     text_color: str | None,
     bg_music: bool,
     bg_music_prompt: str | None,
+    bg_image: bool,
+    bg_image_prompt: str | None,
+    bg_image_path: str | None,
+    bg_image_seed: int | None,
 ) -> None:
     """Run full pipeline: plan -> generate text -> render.
 
@@ -485,6 +493,10 @@ def run_all(
                 text_color=text_color,
                 bg_music=bg_music,
                 bg_music_prompt=bg_music_prompt,
+                bg_image=bg_image or bool(bg_image_path),
+                bg_image_prompt=bg_image_prompt,
+                bg_image_path=bg_image_path,
+                bg_image_seed=bg_image_seed,
             )
         )
 

@@ -943,3 +943,95 @@ def test_run_all_with_bg_music_flags(runner: CliRunner) -> None:
         import os
 
         os.unlink(payload_path)
+
+
+def test_run_all_with_bg_image_flags(runner: CliRunner) -> None:
+    """Test run-all accepts --bg-image and related flags."""
+    import tempfile
+
+    payload_data = {
+        "year": 2026,
+        "month": 4,
+        "monthly_theme": "Test",
+        "weekly_subthemes": ["W1"],
+        "style_preset": "default",
+        "week_rule": "monday_determines_month",
+        "video_week": "last_week",
+    }
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+        json.dump(payload_data, f)
+        payload_path = f.name
+
+    try:
+        with patch(
+            "src.pipeline.orchestrator.validate_and_run",
+            new_callable=AsyncMock,
+            return_value={
+                "plan_path": "p",
+                "texts_path": "t",
+                "generated_texts": {},
+                "rendered_images": [],
+                "calendar": MagicMock(),
+            },
+        ):
+            result = runner.invoke(
+                commands.run_all,
+                [
+                    "--payload", payload_path,
+                    "--bg-image",
+                    "--bg-image-prompt", "abstract sunrise",
+                    "--bg-image-seed", "42",
+                ],
+            )
+            assert result.exit_code == 0
+    finally:
+        import os
+
+        os.unlink(payload_path)
+
+
+def test_run_all_with_bg_image_path(runner: CliRunner) -> None:
+    """Test run-all accepts --bg-image-path flag."""
+    import tempfile
+    from pathlib import Path
+
+    payload_data = {
+        "year": 2026,
+        "month": 4,
+        "monthly_theme": "Test",
+        "weekly_subthemes": ["W1"],
+        "style_preset": "default",
+        "week_rule": "monday_determines_month",
+        "video_week": "last_week",
+    }
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+        json.dump(payload_data, f)
+        payload_path = f.name
+
+    try:
+        with patch(
+            "src.pipeline.orchestrator.validate_and_run",
+            new_callable=AsyncMock,
+            return_value={
+                "plan_path": "p",
+                "texts_path": "t",
+                "generated_texts": {},
+                "rendered_images": [],
+                "calendar": MagicMock(),
+            },
+        ):
+            result = runner.invoke(
+                commands.run_all,
+                [
+                    "--payload", payload_path,
+                    "--bg-image",
+                    "--bg-image-path", "/tmp/existing_bg.png",
+                ],
+            )
+            assert result.exit_code == 0
+    finally:
+        import os
+
+        os.unlink(payload_path)

@@ -127,6 +127,144 @@ def _log(msg: str) -> None:
     print(f"  [{time.strftime('%H:%M:%S')}] {msg}")
 
 
+SECTION_PREFIXES: dict[str, list[str]] = {
+    "01-base": ["base_default"],
+    "02-presets": ["preset_", "bg_"],
+    "03-gradients": ["grad_"],
+    "04-textures": ["tex_"],
+    "05-animation": ["drift_", "flow_", "pulse_", "distortion_", "parallax_"],
+    "06-audio": ["tts_sample", "bg_music_sample", "mixed_sample"],
+    "07-post-types": ["slot_"],
+    "08-recipes": ["recipe_"],
+    "09-bg-image": ["bg_image_", "ken_burns_img_"],
+}
+
+SECTION_ALIASES: dict[str, list[str]] = {
+    "static": ["01-base", "02-presets", "03-gradients", "04-textures", "07-post-types", "08-recipes"],
+    "video": ["05-animation"],
+    "audio": ["06-audio"],
+}
+
+ALL_FORCE_CHOICES = list(SECTION_PREFIXES.keys()) + list(SECTION_ALIASES.keys())
+
+
+def _expand_sections(raw: set[str]) -> set[str]:
+    expanded: set[str] = set()
+    for s in raw:
+        if s in SECTION_ALIASES:
+            expanded.update(SECTION_ALIASES[s])
+        else:
+            expanded.add(s)
+    return expanded
+
+
+def _should_skip(path: Path, force_sections: set[str], name: str = "") -> bool:
+    if not path.exists():
+        return False
+    if not force_sections:
+        return True
+    expanded = _expand_sections(force_sections)
+    if expanded >= set(SECTION_PREFIXES.keys()):
+        return False
+    for section_id in expanded:
+        prefixes = SECTION_PREFIXES.get(section_id, [])
+        if any(name.startswith(p) for p in prefixes):
+            return False
+    return True
+
+
+def _generate_synthetic_bg_image(size: int = 1080) -> Path:
+    from PIL import Image, ImageDraw, ImageFilter
+
+    assets = Path(__file__).parent / "tutorial_assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    out = assets / "bg_image_synthetic.png"
+
+    if out.exists():
+        return out
+
+    _log("  Generating synthetic fallback background image...")
+    img = Image.new("RGB", (size, size), (60, 50, 70))
+    draw = ImageDraw.Draw(img)
+
+    import colorsys
+    import random
+    rng = random.Random(42)
+
+    for _ in range(10):
+        cx = rng.randint(0, size)
+        cy = rng.randint(0, size)
+        r = rng.randint(200, 500)
+        h = rng.random()
+        s = rng.uniform(0.4, 0.8)
+        v = rng.uniform(0.4, 0.85)
+        rgb = colorsys.hsv_to_rgb(h, s, v)
+        color = (int(rgb[0] * 255), int(rgb[1] * 255), int(rgb[2] * 255))
+        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color)
+
+    img = img.filter(ImageFilter.GaussianBlur(radius=80))
+    img.save(str(out))
+    _log(f"  Synthetic background saved: {out}")
+    return out
+
+
+def _image_to_data_uri(path: str | Path) -> str:
+    import base64
+
+    p = Path(path)
+    data = p.read_bytes()
+    b64 = base64.b64encode(data).decode("ascii")
+    return f"data:image/png;base64,{b64}"
+
+
+async def _generate_bg_image_sample(force_sections: set[str] | None = None) -> tuple[Path, str]:
+    if force_sections is None:
+        force_sections = set()
+
+    assets = Path(__file__).parent / "tutorial_assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    out = assets / "bg_image_sample.png"
+
+    force = "09-bg-image" in force_sections or "bg-image" in force_sections or "static" in force_sections or "video" in force_sections
+    expanded = _expand_sections(force_sections)
+    if not force and expanded >= set(SECTION_PREFIXES.keys()):
+        force = True
+    if not force and out.exists():
+        _log("  Background image sample already exists, skipping generation")
+        return out, _image_to_data_uri(out)
+
+    theme = "The only three things that matter are faith, hope, and love."
+
+    from src.renderer.image_gen import generate_background_image, generate_image_prompt_from_theme
+
+    prompt = None
+    try:
+        _log("  Generating background image prompt via Ollama...")
+        prompt = await generate_image_prompt_from_theme(theme)
+        _log(f"  Image prompt: {prompt}")
+    except Exception as e:
+        _log(f"  Ollama prompt generation failed ({type(e).__name__}): {e}")
+
+    if prompt:
+        try:
+            _log("  Generating background image via SD3 (this may take up to 1 hour on CPU)...")
+            path = await generate_background_image(
+                prompt=prompt,
+                output_path=str(out),
+                seed=42,
+            )
+            _log(f"  Background image saved: {path}")
+            return Path(path), _image_to_data_uri(path)
+        except Exception as e:
+            _log(f"  SD3 image generation failed ({type(e).__name__}): {e}")
+
+    _log("  Falling back to synthetic background image...")
+    synth = _generate_synthetic_bg_image()
+    import shutil
+    shutil.copy2(str(synth), str(out))
+    return out, _image_to_data_uri(synth)
+
+
 def _build_preset_card_html(
     text: str,
     slot_info: dict[str, str],
@@ -139,6 +277,7 @@ def _build_preset_card_html(
     texture_opacity: float | None = None,
     texture_blend_mode: TextureBlendMode | None = None,
     text_color: str | None = None,
+    background_image_path: str | None = None,
 ) -> str:
     preset = COLORFUL_PRESETS.get(preset_name, COLORFUL_PRESETS["default"]).copy()
     if background_color:
@@ -156,6 +295,7 @@ def _build_preset_card_html(
         texture_opacity=texture_opacity,
         texture_blend_mode=texture_blend_mode,
         text_color=text_color,
+        background_image_path=background_image_path,
     )
     return html
 
@@ -174,7 +314,7 @@ async def _render_html_to_png(html_content: str, output_path: Path, size: int = 
     return str(output_path)
 
 
-async def generate_static_variants(progress: dict) -> None:
+async def generate_static_variants(progress: dict, force_sections: set[str] | None = None, bg_data_uri: str | None = None) -> None:
     _log("Generating static image variants...")
 
     if not STATIC_DIR.exists():
@@ -313,15 +453,42 @@ async def generate_static_variants(progress: dict) -> None:
         )
         renders.append((f"recipe_{recipe['name']}", html, f"Recipe: {recipe['label']} — {recipe['desc']}"))
 
+    # --- Background image variants ---
+    if bg_data_uri:
+        html = _build_preset_card_html(
+            SAMPLE_TEXT, BASE_SLOT_INFO,
+            background_image_path=bg_data_uri,
+        )
+        renders.append(("bg_image_plain", html, "Background Image: AI-generated landscape"))
+
+        html = _build_preset_card_html(
+            SAMPLE_TEXT, BASE_SLOT_INFO,
+            background_image_path=bg_data_uri,
+            texture_type="vignette_soft",
+        )
+        renders.append(("bg_image_vignette", html, "Background Image + Vignette"))
+
+        html = _build_preset_card_html(
+            SAMPLE_TEXT, BASE_SLOT_INFO,
+            background_image_path=bg_data_uri,
+            text_color="#FFFFFF",
+        )
+        renders.append(("bg_image_light_text", html, "Background Image + White text"))
+
     # --- Render all via Playwright ---
     _log(f"Rendering {len(renders)} static images via Playwright...")
     from playwright.async_api import async_playwright
 
+    skipped = 0
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         try:
             for idx, (name, html_content, description) in enumerate(renders):
                 out_path = STATIC_DIR / f"{name}.png"
+                progress[name] = description
+                if _should_skip(out_path, force_sections, name):
+                    skipped += 1
+                    continue
                 page = await browser.new_page(viewport={"width": 1080, "height": 1080})
                 try:
                     await page.set_content(html_content)
@@ -329,13 +496,14 @@ async def generate_static_variants(progress: dict) -> None:
                 finally:
                     await page.close()
                 if (idx + 1) % 10 == 0 or idx == len(renders) - 1:
-                    _log(f"  Rendered {idx + 1}/{len(renders)} static images")
-                progress[name] = description
+                    _log(f"  Processed {idx + 1}/{len(renders)} static images")
         finally:
             await browser.close()
+    if skipped:
+        _log(f"  Skipped {skipped} existing static images")
 
 
-async def generate_video_variants(progress: dict) -> None:
+async def generate_video_variants(progress: dict, force_sections: set[str] | None = None, bg_image_path: Path | None = None) -> None:
     _log("Generating video variants...")
 
     if not VIDEO_DIR.exists():
@@ -354,8 +522,13 @@ async def generate_video_variants(progress: dict) -> None:
 
     total_frames = VIDEO_DURATION * VIDEO_FPS
 
+    skipped = 0
     for idx, (name, anim, intensity, speed) in enumerate(combos):
         out_path = VIDEO_DIR / f"{name}.mp4"
+        progress[name] = f"Video: {anim} intensity={intensity} speed={speed}"
+        if _should_skip(out_path, force_sections, name):
+            skipped += 1
+            continue
         _log(f"  Video {idx + 1}/{len(combos)}: {name}")
 
         gen = AnimationFrameGenerator(
@@ -374,12 +547,44 @@ async def generate_video_variants(progress: dict) -> None:
                 frame = gen.generate_background_frame(t)
                 enc.write_frame(frame)
 
-        progress[name] = f"Video: {anim} intensity={intensity} speed={speed}"
+    # --- Ken Burns with background image ---
+    if bg_image_path and bg_image_path.exists():
+        from PIL import Image as PILImage
 
-    _log(f"Generated {len(combos)} video clips")
+        bg_img = PILImage.open(str(bg_image_path))
+        for intensity in [0.1, 0.2, 0.4]:
+            for speed in [0.5, 1.0]:
+                name = f"ken_burns_img_i{intensity}_s{speed}"
+                out_path = VIDEO_DIR / f"{name}.mp4"
+                progress[name] = f"Ken Burns: intensity={intensity} speed={speed} (with bg image)"
+                if _should_skip(out_path, force_sections, name):
+                    skipped += 1
+                    continue
+                _log(f"  Ken Burns video: {name}")
+
+                gen = AnimationFrameGenerator(
+                    anim_type="ken_burns",
+                    intensity=intensity,
+                    speed=speed,
+                    width=THUMB_SIZE,
+                    height=THUMB_SIZE,
+                    seed=42,
+                    gradient_colors=gradient_colors,
+                    background_image=bg_img,
+                )
+
+                with VideoEncoder(str(out_path), THUMB_SIZE, THUMB_SIZE, fps=VIDEO_FPS) as enc:
+                    for frame_idx in range(total_frames):
+                        t = frame_idx / VIDEO_FPS
+                        frame = gen.generate_background_frame(t)
+                        enc.write_frame(frame)
+
+    if skipped:
+        _log(f"  Skipped {skipped} existing videos")
+    _log(f"Processed {len(combos)} video variants")
 
 
-async def generate_audio_samples(progress: dict) -> None:
+async def generate_audio_samples(progress: dict, force_sections: set[str] | None = None) -> None:
     _log("Generating audio samples...")
 
     if not AUDIO_DIR.exists():
@@ -387,61 +592,76 @@ async def generate_audio_samples(progress: dict) -> None:
 
     # --- TTS sample ---
     _log("  Generating TTS sample...")
-    try:
-        from src.renderer.tts import generate_tts
-
-        tts_path = str(AUDIO_DIR / "tts_sample.mp3")
-        await generate_tts(SAMPLE_TEXT, tts_path, voice=DEFAULT_TTS_VOICE)
+    tts_path = AUDIO_DIR / "tts_sample.mp3"
+    if _should_skip(tts_path, force_sections, "tts_sample"):
         progress["tts_sample"] = "TTS: en-US-AriaNeural reading sample text"
-        _log("  TTS sample generated")
-    except Exception as e:
-        _log(f"  TTS generation skipped: {e}")
-        progress["tts_sample"] = f"TTS: skipped ({e})"
+        _log("  TTS sample already exists, skipping")
+    else:
+        try:
+            from src.renderer.tts import generate_tts
+
+            await generate_tts(SAMPLE_TEXT, str(tts_path), voice=DEFAULT_TTS_VOICE)
+            progress["tts_sample"] = "TTS: en-US-AriaNeural reading sample text"
+            _log("  TTS sample generated")
+        except Exception as e:
+            _log(f"  TTS generation skipped: {e}")
+            progress["tts_sample"] = f"TTS: skipped ({e})"
 
     # --- Background music sample ---
     _log("  Generating background music sample (this may take a few minutes)...")
-    try:
-        from src.renderer.music_gen import generate_background_music, generate_music_prompt_from_theme
+    music_path = AUDIO_DIR / "bg_music_sample.wav"
+    if _should_skip(music_path, force_sections, "bg_music_sample"):
+        progress["bg_music_sample"] = "BG Music: cached"
+        _log("  Background music sample already exists, skipping")
+    else:
+        try:
+            from src.renderer.music_gen import generate_background_music, generate_music_prompt_from_theme
 
-        theme = "The only three things that matter are faith, hope, and love."
-        music_prompt = await generate_music_prompt_from_theme(theme)
-        _log(f"  Music prompt: {music_prompt}")
+            theme = "The only three things that matter are faith, hope, and love."
+            music_prompt = await generate_music_prompt_from_theme(theme)
+            _log(f"  Music prompt: {music_prompt}")
 
-        music_duration = 15.0
-        music_path = str(AUDIO_DIR / "bg_music_sample.wav")
-        await generate_background_music(
-            prompt=music_prompt,
-            duration=music_duration,
-            output_path=music_path,
-            steps=ACE_STEP_DEFAULT_STEPS,
-            guidance=ACE_STEP_DEFAULT_GUIDANCE,
-        )
-        progress["bg_music_sample"] = f"BG Music: prompt='{music_prompt}'"
-        _log("  Background music sample generated")
+            music_duration = 15.0
+            await generate_background_music(
+                prompt=music_prompt,
+                duration=music_duration,
+                output_path=str(music_path),
+                steps=ACE_STEP_DEFAULT_STEPS,
+                guidance=ACE_STEP_DEFAULT_GUIDANCE,
+            )
+            progress["bg_music_sample"] = f"BG Music: prompt='{music_prompt}'"
+            _log("  Background music sample generated")
+        except Exception as e:
+            _log(f"  Music generation skipped: {e}")
+            progress["bg_music_sample"] = f"BG Music: skipped ({e})"
 
-        # --- Mixed audio sample ---
+    # --- Mixed audio sample ---
+    mixed_path = AUDIO_DIR / "mixed_sample.mp3"
+    if _should_skip(mixed_path, force_sections, "mixed_sample"):
         if "tts_sample" in progress and not progress["tts_sample"].startswith("TTS: skipped"):
-            _log("  Generating mixed audio sample...")
+            progress["mixed_sample"] = "Mixed: TTS + background music"
+            _log("  Mixed audio sample already exists, skipping")
+    elif "tts_sample" in progress and not progress["tts_sample"].startswith("TTS: skipped") and music_path.exists():
+        _log("  Generating mixed audio sample...")
+        try:
             from src.renderer.tts import get_audio_duration
             from src.renderer.audio_mix import prepare_slot_audio
             from src.renderer.music_gen import calculate_slot_video_duration
 
-            tts_duration = get_audio_duration(str(AUDIO_DIR / "tts_sample.mp3"))
+            tts_duration = get_audio_duration(str(tts_path))
             slot_duration = calculate_slot_video_duration(tts_duration)
 
-            mixed_path = str(AUDIO_DIR / "mixed_sample.mp3")
             prepare_slot_audio(
-                tts_path=str(AUDIO_DIR / "tts_sample.mp3"),
-                music_path=music_path,
-                output_path=mixed_path,
+                tts_path=str(tts_path),
+                music_path=str(music_path),
+                output_path=str(mixed_path),
                 tts_duration=tts_duration,
                 slot_video_duration=slot_duration,
             )
             progress["mixed_sample"] = "Mixed: TTS + background music"
             _log("  Mixed audio sample generated")
-    except Exception as e:
-        _log(f"  Music generation skipped: {e}")
-        progress["bg_music_sample"] = f"BG Music: skipped ({e})"
+        except Exception as e:
+            _log(f"  Mixed audio skipped: {e}")
 
 
 def _cli_command(label: str, **overrides) -> str:
@@ -725,6 +945,55 @@ def build_html_gallery(static_variants: dict, video_variants: dict, audio_varian
 
     sections += _section("recipes", "Recipes: Combined Variants", "08", recipe_cards)
 
+    # 9. AI Background Images
+    bg_image_cards = ""
+
+    bg_image_cards += """<div class="info-box">
+        <strong>AI-generated backgrounds:</strong> The <code>--bg-image</code> flag generates a
+        background image using <strong>Stable Diffusion 3 Medium</strong> (SD3). The pipeline
+        auto-generates a prompt from the monthly theme via Ollama, or you can provide your own with
+        <code>--bg-image-prompt</code>. Use <code>--bg-image-seed</code> for reproducibility.
+        Images are generated once per month and reused for all posts.<br><br>
+        <strong>Performance:</strong> SD3 generation takes 3–5 minutes on CPU (seconds on GPU).
+        You can also provide a pre-made image with <code>--bg-image-path</code> to skip generation.
+    </div>"""
+
+    bg_image_cards += '<h3 class="sub-heading">Static Background Image Variants</h3>'
+    bg_image_cards += _img_card(
+        "bg_image_plain",
+        "Plain background image",
+        'acp run-all --theme "..." --year 2026 --month 5 --bg-image',
+    )
+    bg_image_cards += _img_card(
+        "bg_image_vignette",
+        "Background image + vignette_soft texture",
+        'acp run-all --theme "..." --year 2026 --month 5 --bg-image --texture-type vignette_soft',
+    )
+    bg_image_cards += _img_card(
+        "bg_image_light_text",
+        "Background image + white text override",
+        'acp run-all --theme "..." --year 2026 --month 5 --bg-image --text-color #FFFFFF',
+    )
+
+    bg_image_cards += '<h3 class="sub-heading">Ken Burns Animation (pan & zoom over image)</h3>'
+    bg_image_cards += """<div class="info-box">
+        <strong>Ken Burns effect:</strong> Use <code>--animate --anim-type ken_burns --bg-image</code>
+        to create a slow pan-and-zoom animation over the generated background image. Without a
+        background image, Ken Burns falls back to a drift animation. Intensity controls zoom range
+        and pan distance; speed controls how fast the camera moves.
+    </div>"""
+    for intensity in [0.1, 0.2, 0.4]:
+        for speed in [0.5, 1.0]:
+            name = f"ken_burns_img_i{intensity}_s{speed}"
+            cli = f'acp run-all ... --animate --anim-type ken_burns --bg-image --anim-intensity {intensity} --anim-speed {speed}'
+            bg_image_cards += _video_card(
+                name,
+                f"Ken Burns — intensity={intensity}, speed={speed}",
+                cli,
+            )
+
+    sections += _section("bg-images", "AI Background Images & Ken Burns", "09", bg_image_cards)
+
     # ---- COMPOSE FULL HTML ----
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -996,6 +1265,7 @@ def build_html_gallery(static_variants: dict, video_variants: dict, audio_varian
     <a href="#audio">06 — Audio</a>
     <a href="#post-types">07 — Post Types</a>
     <a href="#recipes">08 — Recipes</a>
+    <a href="#bg-images">09 — AI Background Images</a>
 </nav>
 
 <div class="main">
@@ -1029,8 +1299,38 @@ def build_html_gallery(static_variants: dict, video_variants: dict, audio_varian
 
 
 async def main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="ACP Tutorial Explorer Generator")
+    parser.add_argument(
+        "--force",
+        nargs="*",
+        choices=ALL_FORCE_CHOICES,
+        default=None,
+        metavar="SECTION",
+        help="Re-render specific sections. No value = all. "
+             "Sections: 01-base 02-presets 03-gradients 04-textures "
+             "05-animation 06-audio 07-post-types 08-recipes 09-bg-image. "
+             "Aliases: static video audio.",
+    )
+    args = parser.parse_args()
+
+    if args.force is None:
+        force_sections: set[str] = set()
+    elif len(args.force) == 0:
+        force_sections = set(SECTION_PREFIXES.keys())
+    else:
+        force_sections = set(args.force)
+
     print("=" * 60)
     print("  ACP Tutorial Explorer Generator")
+    if force_sections:
+        expanded = _expand_sections(force_sections)
+        if expanded >= set(SECTION_PREFIXES.keys()):
+            sections_str = "all"
+        else:
+            sections_str = ", ".join(sorted(force_sections))
+        print(f"  (--force: re-rendering {sections_str})")
     print("=" * 60)
     print()
 
@@ -1043,19 +1343,26 @@ async def main() -> None:
     for d in [STATIC_DIR, VIDEO_DIR, AUDIO_DIR]:
         d.mkdir(parents=True, exist_ok=True)
 
+    # Phase 1b: Generate background image sample (once, shared across phases)
+    bg_image_path: Path | None = None
+    bg_data_uri: str | None = None
+    if "09-bg-image" in force_sections or "bg-image" in force_sections or "static" in force_sections or "video" in force_sections or not force_sections:
+        _log("Generating background image sample...")
+        bg_image_path, bg_data_uri = await _generate_bg_image_sample(force_sections=force_sections)
+
     # Phase 2: Static images
     t0 = time.time()
-    await generate_static_variants(static_variants)
+    await generate_static_variants(static_variants, force_sections=force_sections, bg_data_uri=bg_data_uri)
     _log(f"Static images done in {time.time() - t0:.1f}s")
 
     # Phase 3: Videos
     t0 = time.time()
-    await generate_video_variants(video_variants)
+    await generate_video_variants(video_variants, force_sections=force_sections, bg_image_path=bg_image_path)
     _log(f"Videos done in {time.time() - t0:.1f}s")
 
     # Phase 4: Audio
     t0 = time.time()
-    await generate_audio_samples(audio_variants)
+    await generate_audio_samples(audio_variants, force_sections=force_sections)
     _log(f"Audio done in {time.time() - t0:.1f}s")
 
     # Phase 5: Build HTML

@@ -764,3 +764,66 @@ def test_build_html_transparent_bg() -> None:
 
     assert "background-color: transparent" in html
     assert "texture-overlay" not in html
+
+
+def test_build_html_with_background_image() -> None:
+    text = "Test content"
+    slot_info = {
+        "year": "2026", "month": "4", "day": "6",
+        "week_number": "1", "subtheme": "Sub",
+        "monthly_theme": "Theme", "type": "post",
+    }
+    preset = {
+        "background": "#4A90E2", "text_color": "#FFFFFF",
+        "font_size": 48, "padding": 80, "max_width": 1080,
+    }
+
+    html = build_html(
+        text, slot_info, preset, 1080, 1080,
+        background_image_path="/tmp/bg_image.png",
+    )
+
+    assert "url('file:///tmp/bg_image.png')" in html
+    assert "center/cover" in html
+    assert "z-index: 2" in html
+
+
+def test_build_html_background_image_ignores_solid_color() -> None:
+    slot_info = {
+        "year": "2026", "month": "4", "day": "6",
+        "week_number": "1", "subtheme": "Sub",
+        "monthly_theme": "Theme", "type": "post",
+    }
+    preset = {
+        "background": "#FF0000", "text_color": "#FFFFFF",
+        "font_size": 48, "padding": 80, "max_width": 1080,
+    }
+
+    html = build_html(
+        "Test", slot_info, preset, 1080, 1080,
+        background_image_path="/tmp/bg.png",
+    )
+
+    assert "url('file:///tmp/bg.png')" in html
+
+
+def test_build_html_background_image_with_texture() -> None:
+    slot_info = {
+        "year": "2026", "month": "4", "day": "6",
+        "week_number": "1", "subtheme": "Sub",
+        "monthly_theme": "Theme", "type": "post",
+    }
+    preset = {
+        "background": "#4A90E2", "text_color": "#FFFFFF",
+        "font_size": 48, "padding": 80, "max_width": 1080,
+    }
+
+    html = build_html(
+        "Test", slot_info, preset, 1080, 1080,
+        background_image_path="/tmp/bg.png",
+        texture_type="vignette_soft",
+    )
+
+    assert "url('file:///tmp/bg.png')" in html
+    assert "vignette-soft" in html
+    assert "z-index: 2" in html

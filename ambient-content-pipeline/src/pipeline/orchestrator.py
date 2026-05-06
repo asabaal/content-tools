@@ -54,6 +54,10 @@ async def run_full_pipeline(
     text_color: str | None = None,
     bg_music: bool = False,
     bg_music_prompt: str | None = None,
+    bg_image: bool = False,
+    bg_image_prompt: str | None = None,
+    bg_image_path: str | None = None,
+    bg_image_seed: int | None = None,
 ) -> dict:
     """Run the complete pipeline from payload to images.
 
@@ -266,15 +270,50 @@ async def run_full_pipeline(
                 )
                 logger.info(f"  Music saved: {monthly_music_path}")
 
-                import json as _json
                 with open(plan_path, "r", encoding="utf-8") as f:
-                    plan_update = _json.load(f)
+                    plan_update = json.load(f)
                 plan_update["render_config"]["bg_music"] = True
                 plan_update["render_config"]["bg_music_prompt"] = actual_music_prompt
                 plan_update["render_config"]["bg_music_path"] = monthly_music_path
                 with open(plan_path, "w", encoding="utf-8") as f:
-                    _json.dump(plan_update, f, indent=2, ensure_ascii=False)
+                    json.dump(plan_update, f, indent=2, ensure_ascii=False)
                 logger.info(f"  Updated plan with music config")
+
+        # Stage 5.5: Background image generation (once per month)
+        effective_bg_image_path = bg_image_path
+        if bg_image and not skip_rendering and not bg_image_path:
+            import tempfile
+
+            from src.renderer import image_gen as img_gen
+
+            if not bg_image_prompt:
+                logger.info("  Auto-generating background image prompt from theme...")
+                bg_image_prompt = await img_gen.generate_image_prompt_from_theme(
+                    calendar.monthly_theme
+                )
+                logger.info(f"  Image prompt: {bg_image_prompt}")
+
+            image_dir = images_dir / "ai_backgrounds"
+            image_dir.mkdir(parents=True, exist_ok=True)
+            bg_image_out = str(image_dir / "bg_image.png")
+
+            logger.info(f"  Generating background image (this may take several minutes on CPU)...")
+            effective_bg_image_path = await img_gen.generate_background_image(
+                prompt=bg_image_prompt,
+                output_path=bg_image_out,
+                seed=bg_image_seed,
+            )
+            logger.info(f"  Background image saved: {effective_bg_image_path}")
+
+            with open(plan_path, "r", encoding="utf-8") as f:
+                plan_update = json.load(f)
+            plan_update["render_config"]["bg_image"] = True
+            plan_update["render_config"]["bg_image_prompt"] = bg_image_prompt
+            plan_update["render_config"]["bg_image_path"] = effective_bg_image_path
+            if bg_image_seed is not None:
+                plan_update["render_config"]["bg_image_seed"] = bg_image_seed
+            with open(plan_path, "w", encoding="utf-8") as f:
+                json.dump(plan_update, f, indent=2, ensure_ascii=False)
 
         # Stage 6: Render images or videos
         if not skip_rendering:
@@ -379,6 +418,7 @@ async def run_full_pipeline(
                                     audio_path=audio_path,
                                     text_color=text_color,
                                     video_duration=video_dur,
+                                    background_image_path=effective_bg_image_path,
                                 )
 
                             else:
@@ -408,6 +448,7 @@ async def run_full_pipeline(
                                     texture_opacity=texture_opacity,
                                     texture_blend_mode=texture_blend_mode,
                                     text_color=text_color,
+                                    background_image_path=effective_bg_image_path,
                                 )
                             rendered_images.append(output_path)
                             logger.info(f"  Rendered: {output_path}")

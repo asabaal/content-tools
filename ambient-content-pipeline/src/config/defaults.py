@@ -127,6 +127,7 @@ AnimType = Literal[
     "distortion",
     "parallax",
     "reactive",
+    "ken_burns",
 ]
 
 ANIM_FPS = 30
@@ -150,6 +151,22 @@ ACE_STEP_TTS_DELAY = 0.5
 ACE_STEP_TAIL_MAX = 3.0
 ACE_STEP_TAIL_RATIO = 0.25
 ACE_STEP_TIMEOUT = 600
+
+# SD3 Image Generation
+SD3_PYTHON = os.environ.get(
+    "SD3_PYTHON",
+    "/mnt/storage/python_env/sd3_env/bin/python",
+)
+SD3_SCRIPT = str(PROJECT_ROOT / "scripts" / "run_sd3_pipe.py")
+SD3_MODEL_PATH = os.environ.get(
+    "SD3_MODEL_PATH",
+    "/mnt/storage/models/sd3-medium/sd3_medium_incl_clips_t5xxlfp8.safetensors",
+)
+SD3_DEFAULT_WIDTH = 1024
+SD3_DEFAULT_HEIGHT = 1024
+SD3_DEFAULT_STEPS = 20
+SD3_DEFAULT_GUIDANCE = 7.0
+SD3_TIMEOUT = 3600
 
 BACKGROUND_TEST_DIR = OUTPUTS_DIR / "background_tests"
 

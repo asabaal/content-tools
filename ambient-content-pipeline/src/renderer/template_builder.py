@@ -169,6 +169,7 @@ def build_html(
     texture_blend_mode: TextureBlendMode | None = None,
     transparent_bg: bool = False,
     text_color: str | None = None,
+    background_image_path: str | None = None,
 ) -> str:
     """Build HTML from content and style.
 
@@ -208,9 +209,17 @@ def build_html(
         and gradient_colors is not None
         and len(gradient_colors) >= 2
     )
+    use_image = background_image_path is not None and not transparent_bg
+
     if transparent_bg:
         bg_css_property = "background-color"
         bg_css_value = "transparent"
+    elif use_image:
+        bg_css_property = "background"
+        if background_image_path.startswith("data:"):
+            bg_css_value = f"url('{background_image_path}') center/cover no-repeat"
+        else:
+            bg_css_value = f"url('file://{background_image_path}') center/cover no-repeat"
     elif use_gradient:
         assert gradient_direction is not None
         assert gradient_colors is not None
@@ -239,6 +248,8 @@ def build_html(
             effective_texture_blend,
         )
 
+    card_z_index = "z-index: 2; position: relative;" if (texture_html or use_image) else ""
+
     # Extract slot info with defaults
     year = int(slot_info.get("year", datetime.now().year))
     month = int(slot_info.get("month", datetime.now().month))
@@ -264,7 +275,6 @@ def build_html(
             <div class="subtheme-pill">{_html_escape(display_subtheme)}</div>
         </div>"""
 
-    card_z_index = "z-index: 2; position: relative;" if texture_html else ""
 
     html = f"""<!DOCTYPE html>
 <html lang="en">

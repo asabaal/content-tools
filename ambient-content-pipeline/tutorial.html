@@ -268,6 +268,7 @@
     <a href="#audio">06 — Audio</a>
     <a href="#post-types">07 — Post Types</a>
     <a href="#recipes">08 — Recipes</a>
+    <a href="#bg-images">09 — AI Background Images</a>
 </nav>
 
 <div class="main">
@@ -823,7 +824,7 @@
                 <div class="audio-icon">&#9835;</div>
                 <div class="audio-label">Background Music</div>
             </div>
-            <div class="variant-label">BG Music: prompt='Serene, uplifting orchestral piece with strings and piano, slow tempo, evoking peace and divine grace, perfectly capturing faith, hope, and love without vocals or percussion.'</div>
+            <div class="variant-label">BG Music: cached</div>
             <audio controls src="tutorial_assets/audio/bg_music_sample.wav" preload="auto"></audio>
         </div><h3 class="sub-heading">Mixed Audio (TTS + Music)</h3><div class="info-box">
         The final audio mix places TTS at volume 1.0 with a 0.5s delay, then layers
@@ -949,6 +950,91 @@
   --background-color "#C0392B" \
   --texture-type grain_film --texture-opacity 0.20 \
   --animate --anim-type pulse --anim-intensity 0.3</code></div>
+        </div>
+            </div>
+        </section>
+        <section id="bg-images" class="section">
+            <div class="section-header">
+                <span class="section-num">09</span>
+                <h2>AI Background Images & Ken Burns</h2>
+            </div>
+            <div class="section-body">
+                <div class="info-box">
+        <strong>AI-generated backgrounds:</strong> The <code>--bg-image</code> flag generates a
+        background image using <strong>Stable Diffusion 3 Medium</strong> (SD3). The pipeline
+        auto-generates a prompt from the monthly theme via Ollama, or you can provide your own with
+        <code>--bg-image-prompt</code>. Use <code>--bg-image-seed</code> for reproducibility.
+        Images are generated once per month and reused for all posts.<br><br>
+        <strong>Performance:</strong> SD3 generation takes 3–5 minutes on CPU (seconds on GPU).
+        You can also provide a pre-made image with <code>--bg-image-path</code> to skip generation.
+    </div><h3 class="sub-heading">Static Background Image Variants</h3>
+        <div class="variant-card">
+            <div class="variant-preview">
+                <img src="tutorial_assets/static/bg_image_plain.png" alt="Plain background image" loading="lazy">
+            </div>
+            <div class="variant-label">Plain background image</div>
+            <div class="variant-cli"><code>acp run-all --theme "..." --year 2026 --month 5 --bg-image</code></div>
+        </div>
+        <div class="variant-card">
+            <div class="variant-preview">
+                <img src="tutorial_assets/static/bg_image_vignette.png" alt="Background image + vignette_soft texture" loading="lazy">
+            </div>
+            <div class="variant-label">Background image + vignette_soft texture</div>
+            <div class="variant-cli"><code>acp run-all --theme "..." --year 2026 --month 5 --bg-image --texture-type vignette_soft</code></div>
+        </div>
+        <div class="variant-card">
+            <div class="variant-preview">
+                <img src="tutorial_assets/static/bg_image_light_text.png" alt="Background image + white text override" loading="lazy">
+            </div>
+            <div class="variant-label">Background image + white text override</div>
+            <div class="variant-cli"><code>acp run-all --theme "..." --year 2026 --month 5 --bg-image --text-color #FFFFFF</code></div>
+        </div><h3 class="sub-heading">Ken Burns Animation (pan & zoom over image)</h3><div class="info-box">
+        <strong>Ken Burns effect:</strong> Use <code>--animate --anim-type ken_burns --bg-image</code>
+        to create a slow pan-and-zoom animation over the generated background image. Without a
+        background image, Ken Burns falls back to a drift animation. Intensity controls zoom range
+        and pan distance; speed controls how fast the camera moves.
+    </div>
+        <div class="variant-card video-card">
+            <div class="variant-preview">
+                <video src="tutorial_assets/video/ken_burns_img_i0.1_s0.5.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="variant-label">Ken Burns — intensity=0.1, speed=0.5</div>
+            <div class="variant-cli"><code>acp run-all ... --animate --anim-type ken_burns --bg-image --anim-intensity 0.1 --anim-speed 0.5</code></div>
+        </div>
+        <div class="variant-card video-card">
+            <div class="variant-preview">
+                <video src="tutorial_assets/video/ken_burns_img_i0.1_s1.0.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="variant-label">Ken Burns — intensity=0.1, speed=1.0</div>
+            <div class="variant-cli"><code>acp run-all ... --animate --anim-type ken_burns --bg-image --anim-intensity 0.1 --anim-speed 1.0</code></div>
+        </div>
+        <div class="variant-card video-card">
+            <div class="variant-preview">
+                <video src="tutorial_assets/video/ken_burns_img_i0.2_s0.5.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="variant-label">Ken Burns — intensity=0.2, speed=0.5</div>
+            <div class="variant-cli"><code>acp run-all ... --animate --anim-type ken_burns --bg-image --anim-intensity 0.2 --anim-speed 0.5</code></div>
+        </div>
+        <div class="variant-card video-card">
+            <div class="variant-preview">
+                <video src="tutorial_assets/video/ken_burns_img_i0.2_s1.0.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="variant-label">Ken Burns — intensity=0.2, speed=1.0</div>
+            <div class="variant-cli"><code>acp run-all ... --animate --anim-type ken_burns --bg-image --anim-intensity 0.2 --anim-speed 1.0</code></div>
+        </div>
+        <div class="variant-card video-card">
+            <div class="variant-preview">
+                <video src="tutorial_assets/video/ken_burns_img_i0.4_s0.5.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="variant-label">Ken Burns — intensity=0.4, speed=0.5</div>
+            <div class="variant-cli"><code>acp run-all ... --animate --anim-type ken_burns --bg-image --anim-intensity 0.4 --anim-speed 0.5</code></div>
+        </div>
+        <div class="variant-card video-card">
+            <div class="variant-preview">
+                <video src="tutorial_assets/video/ken_burns_img_i0.4_s1.0.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="variant-label">Ken Burns — intensity=0.4, speed=1.0</div>
+            <div class="variant-cli"><code>acp run-all ... --animate --anim-type ken_burns --bg-image --anim-intensity 0.4 --anim-speed 1.0</code></div>
         </div>
             </div>
         </section>

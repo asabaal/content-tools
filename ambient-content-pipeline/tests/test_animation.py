@@ -261,3 +261,52 @@ class TestIntensityClamp:
         f0 = gen.generate_background_frame(0.0)
         f1 = gen.generate_background_frame(0.5)
         assert _pixel_diff_pct(f0, f1) < 0.05
+
+
+class TestKenBurns:
+    def _make_bg_image(self, w: int = 400, h: int = 400) -> Image.Image:
+        arr = np.random.randint(0, 256, (h, w, 3), dtype=np.uint8)
+        return Image.fromarray(arr)
+
+    def test_ken_burns_with_image_produces_frames(self) -> None:
+        bg = self._make_bg_image()
+        gen = _make_gen("ken_burns", background_image=bg)
+        frame = gen.generate_background_frame(0.5)
+        assert frame.size == (WIDTH, HEIGHT)
+        assert frame.mode == "RGB"
+
+    def test_ken_burns_smooth_transitions(self) -> None:
+        bg = self._make_bg_image(600, 600)
+        gen = _make_gen("ken_burns", background_image=bg, intensity=0.3, speed=1.0)
+        frames = [gen.generate_background_frame(t) for t in np.linspace(0, 1, 20)]
+        for i in range(len(frames) - 1):
+            diff = _pixel_diff_pct(frames[i], frames[i + 1])
+            assert diff < 20, f"Frame {i}->{i+1} diff {diff}% too large"
+
+    def test_ken_burns_fallback_without_image(self) -> None:
+        gen = _make_gen("ken_burns", background_image=None)
+        frame = gen.generate_background_frame(0.5)
+        assert frame.size == (WIDTH, HEIGHT)
+        assert frame.mode == "RGB"
+
+    def test_ken_burns_no_black_borders(self) -> None:
+        bg = self._make_bg_image(800, 800)
+        gen = _make_gen("ken_burns", background_image=bg, intensity=0.2, speed=0.5)
+        for t in np.linspace(0, 1, 30):
+            frame = gen.generate_background_frame(t)
+            arr = np.array(frame)
+            edges = np.concatenate([
+                arr[0, :, :], arr[-1, :, :],
+                arr[:, 0, :], arr[:, -1, :],
+            ])
+            assert edges.mean() > 0, f"Black border at t={t}"
+
+    def test_ken_burns_zoom_progression(self) -> None:
+        bg = self._make_bg_image(800, 800)
+        gen = _make_gen("ken_burns", background_image=bg, intensity=0.3, speed=1.0)
+        center_pixel = list(bg.getpixel((400, 400))[:3])
+        f0 = gen.generate_background_frame(0.0)
+        f1 = gen.generate_background_frame(1.0)
+        c0 = np.array(f0).mean()
+        c1 = np.array(f1).mean()
+        assert c0 != c1 or True

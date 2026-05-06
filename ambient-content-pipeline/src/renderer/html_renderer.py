@@ -50,6 +50,7 @@ async def render_text_to_image(
     texture_opacity: float | None = None,
     texture_blend_mode: TextureBlendMode | None = None,
     text_color: str | None = None,
+    background_image_path: str | None = None,
 ) -> str:
     """Render text content to a PNG image.
 
@@ -104,6 +105,7 @@ async def render_text_to_image(
         texture_opacity=texture_opacity,
         texture_blend_mode=texture_blend_mode,
         text_color=text_color,
+        background_image_path=background_image_path,
     )
 
     # Generate filename if not provided
@@ -354,6 +356,7 @@ async def render_animated_video(
     audio_path: str | None = None,
     text_color: str | None = None,
     video_duration: float | None = None,
+    background_image_path: str | None = None,
 ) -> str:
     """Render text content to an animated MP4 video.
 
@@ -441,6 +444,12 @@ async def render_animated_video(
         bg = background_color or preset.get("background", "#4A90E2")
         effective_colors = [bg, companion_color(bg)]
 
+    bg_image = None
+    if background_image_path:
+        from PIL import Image as PILImage
+
+        bg_image = PILImage.open(background_image_path).convert("RGB")
+
     generator = AnimationFrameGenerator(
         anim_type=anim_type,
         intensity=anim_intensity,
@@ -449,6 +458,7 @@ async def render_animated_video(
         height=height,
         seed=anim_seed,
         gradient_colors=effective_colors,
+        background_image=bg_image,
     )
 
     total_frames = ANIM_FPS * effective_loop

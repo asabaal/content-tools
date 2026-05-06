@@ -29,6 +29,7 @@ class AnimationFrameGenerator:
         height: int,
         seed: int | None = None,
         gradient_colors: list[str] | None = None,
+        background_image: "Image.Image | None" = None,
     ) -> None:
         if width <= 0 or height <= 0:
             raise ValueError(f"Invalid dimensions: width={width}, height={height}")
@@ -41,6 +42,7 @@ class AnimationFrameGenerator:
         self.height = height
         self.gradient_colors = gradient_colors or ["#4A90E2", "#2C3E50"]
         self._seed = seed
+        self._background_image = background_image
 
         if seed is not None:
             self._rng = random.Random(seed)
@@ -159,6 +161,7 @@ class AnimationFrameGenerator:
             "distortion": self._generate_distortion,
             "parallax": self._generate_parallax,
             "reactive": self._generate_pulse,
+            "ken_burns": self._generate_ken_burns,
         }
         if self.anim_type == "reactive":
             logger.warning("'reactive' animation mode is not yet implemented, falling back to 'pulse'")
@@ -232,3 +235,44 @@ class AnimationFrameGenerator:
             result += layer * layer_weights[i]
 
         return self._to_image(result)
+
+    def _generate_ken_burns(self, t: float) -> "Image.Image":
+        """Ken Burns effect: slow pan and zoom over a background image."""
+        if self._background_image is None:
+            return self._generate_drift(t)
+
+        from PIL import Image
+
+        img = self._background_image
+        img_w, img_h = img.size
+        out_w, out_h = self.width, self.height
+
+        pan_strength = self.intensity * 0.3
+        zoom_start = 1.0 + self.intensity * 0.5
+        zoom_end = 1.0 + self.intensity * 1.0
+
+        zoom = zoom_start + (zoom_end - zoom_start) * t * self.speed
+
+        pan_x = math.sin(t * self.speed * math.pi * 2) * img_w * pan_strength
+        pan_y = math.cos(t * self.speed * math.pi * 2 * 0.7) * img_h * pan_strength * 0.5
+
+        crop_w = int(out_w / zoom)
+        crop_h = int(out_h / zoom)
+
+        center_x = img_w / 2 + pan_x
+        center_y = img_h / 2 + pan_y
+
+        left = max(0, int(center_x - crop_w / 2))
+        top = max(0, int(center_y - crop_h / 2))
+
+        right = min(img_w, left + crop_w)
+        bottom = min(img_h, top + crop_h)
+
+        if right - left < crop_w:
+            left = max(0, right - crop_w)
+        if bottom - top < crop_h:
+            top = max(0, bottom - crop_h)
+
+        cropped = img.crop((left, top, left + crop_w, top + crop_h))
+        resized = cropped.resize((out_w, out_h), Image.LANCZOS)
+        return resized

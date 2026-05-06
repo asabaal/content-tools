@@ -517,3 +517,54 @@ async def test_render_animated_video_generates_output_path() -> None:
         )
 
         assert result.endswith(".mp4")
+
+
+@pytest.mark.asyncio
+async def test_render_text_to_image_with_background_image() -> None:
+    from PIL import Image
+
+    with patch("src.renderer.html_renderer._render_text_layer_to_pil", return_value=Image.new("RGBA", (1080, 1080))) as mock_render:
+        result = await render_text_to_image(
+            text="Test",
+            slot_info={"type": "post", "year": "2026", "month": "4", "day": "6", "week_number": "1", "subtheme": "S", "monthly_theme": "T"},
+            background_image_path="/tmp/bg_test.png",
+        )
+
+        assert result is not None
+
+
+@pytest.mark.asyncio
+async def test_render_animated_video_with_background_image() -> None:
+    import tempfile
+    from PIL import Image
+
+    frame = Image.new("RGB", (1080, 1080), (0, 128, 255))
+    bg_img = Image.new("RGB", (1024, 1024), (50, 100, 150))
+
+    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
+        bg_img.save(f.name)
+        bg_path = f.name
+
+    try:
+        with patch("src.renderer.html_renderer._render_text_layer_to_pil", return_value=Image.new("RGBA", (1080, 1080))), \
+             patch("src.renderer.html_renderer.AnimationFrameGenerator") as mock_anim_cls, \
+             patch("src.renderer.html_renderer.VideoEncoder") as mock_encoder_cls:
+            mock_anim = MagicMock()
+            mock_anim.generate_background_frame.return_value = frame
+            mock_anim_cls.return_value = mock_anim
+            mock_encoder = MagicMock()
+            mock_encoder.__enter__ = MagicMock(return_value=mock_encoder)
+            mock_encoder.__exit__ = MagicMock(return_value=False)
+            mock_encoder_cls.return_value = mock_encoder
+
+            await render_animated_video(
+                text="Test",
+                slot_info={"type": "post", "year": "2026", "month": "4", "day": "6", "week_number": "1", "subtheme": "S", "monthly_theme": "T"},
+                background_image_path=bg_path,
+            )
+
+            call_kwargs = mock_anim_cls.call_args[1]
+            assert call_kwargs.get("background_image") is not None
+    finally:
+        import os
+        os.unlink(bg_path)
