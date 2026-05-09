@@ -27,7 +27,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 
 .main{display:grid;grid-template-columns:280px 1fr;flex:1;overflow:hidden}
 
-/* Left: Transcript */
 .transcript{overflow-y:auto;background:#0f0f1a;border-right:1px solid #2a2a4a}
 .transcript .section-header{padding:6px 12px;font-size:11px;font-weight:700;color:#4cc9f0;text-transform:uppercase;background:#16213e;position:sticky;top:0;z-index:1;letter-spacing:.5px}
 .transcript .line-item{padding:6px 12px;cursor:pointer;border-left:3px solid transparent;font-size:13px;transition:background .1s}
@@ -43,24 +42,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .conf-med{background:#f6ad55;width:30px}
 .conf-low{background:#f66;width:30px}
 
-/* Right: Waveform + Word Layer + Detail */
 .right-panel{display:flex;flex-direction:column;overflow:hidden}
-
 .editor-area{flex:1;display:flex;flex-direction:column;min-height:0}
 
-.waveform-container{height:80px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;cursor:crosshair;overflow:hidden}
-.waveform-container canvas{width:100%;height:100%}
+.waveform-container{flex:2;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;cursor:crosshair;overflow:hidden;min-height:80px}
+.waveform-container canvas{width:100%;height:100%;display:block}
 .beat-marker{position:absolute;top:0;width:1px;height:100%;background:rgba(76,201,240,0.2);pointer-events:none}
 .playhead{position:absolute;top:0;width:2px;height:100%;background:#4cc9f0;z-index:5;pointer-events:none}
 
-.word-layer{height:70px;background:#0a0a1a;border-bottom:1px solid #2a2a4a;position:relative;overflow:hidden}
-.word-layer-inner{position:relative;height:100%}
+.word-zone{flex:1;background:#0a0a1a;border-bottom:1px solid #2a2a4a;position:relative;overflow:hidden;min-height:60px;cursor:crosshair}
+.word-zone-inner{position:relative;height:100%}
 
-.word{position:absolute;top:12px;height:40px;background:#2a4a6a;border-radius:4px;padding:0 10px;display:flex;align-items:center;cursor:grab;user-select:none;font-size:12px;color:#fff;white-space:nowrap;transition:background .1s}
+.word{position:absolute;height:40px;background:#2a4a6a;border-radius:4px;padding:0 10px;display:flex;align-items:center;cursor:grab;user-select:none;font-size:12px;color:#fff;white-space:nowrap;transition:background .1s}
 .word:hover{background:#3a5a8a}
 .word.active{background:#4cc9f0;color:#0f0f1a}
 .word.dragging{cursor:grabbing;background:#4a6a9a;z-index:100}
 .word.selected-line{border:1px solid #4cc9f0}
+.word.readonly{cursor:default}
+.word.readonly:hover{background:#2a4a6a}
 .word-handle{position:absolute;top:0;bottom:0;width:8px;cursor:ew-resize;z-index:10}
 .word-handle-left{left:0;border-radius:4px 0 0 4px}
 .word-handle-left:hover{background:rgba(76,201,240,0.3)}
@@ -72,16 +71,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .source-dot.vocal_onset{background:#f6ad55}
 .source-dot.interpolated{background:#666}
 
-.time-axis{height:20px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;font-size:10px;color:#666;font-family:monospace}
+.line-handle{position:absolute;top:0;height:100%;width:10px;cursor:ew-resize;z-index:20;border-radius:2px}
+.line-handle:hover{background:rgba(76,201,240,0.4) !important}
+.line-handle .line-handle-time{display:none;position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#4cc9f0;background:#16213e;padding:1px 4px;border-radius:2px;white-space:nowrap;pointer-events:none;z-index:30}
+.line-handle:hover .line-handle-time{display:block}
+.word.dim{opacity:0.45}
+
+.time-axis{height:20px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;font-size:10px;color:#666;font-family:monospace;flex-shrink:0}
 .time-axis .tick{position:absolute;top:0;height:100%;border-left:1px solid #2a2a4a;padding-left:3px;display:flex;align-items:flex-end;padding-bottom:2px}
 
-/* Transport */
-.transport{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#16213e;border-bottom:1px solid #2a2a4a;font-size:13px}
+.transport{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#16213e;border-bottom:1px solid #2a2a4a;font-size:13px;flex-wrap:wrap}
 .transport .time{color:#4cc9f0;font-family:monospace;min-width:60px}
 .transport .divider{color:#444}
 .current-lyric{color:#888;margin-left:16px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:italic}
 
-/* Detail panel */
+.mode-toggle{display:inline-flex;border:1px solid #2a2a4a;border-radius:4px;overflow:hidden}
+.mode-toggle button{padding:4px 12px;font-size:12px;background:#2a2a4a;color:#e0e0e0;border:none;cursor:pointer;font-family:inherit}
+.mode-toggle button.active{background:#4cc9f0;color:#0f0f1a;font-weight:600}
+.mode-toggle button:hover:not(.active){background:#3a3a5a}
+
 .detail-panel{height:200px;overflow-y:auto;background:#0f0f1a;border-top:1px solid #2a2a4a;padding:12px}
 .detail-header{font-size:14px;color:#4cc9f0;font-weight:600;margin-bottom:4px}
 .detail-meta{font-size:11px;color:#666;margin-bottom:10px;font-family:monospace}
@@ -97,7 +105,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .source-badge.vocal_onset{background:rgba(246,173,85,0.2);color:#f6ad55}
 .source-badge.interpolated{background:rgba(102,102,102,0.2);color:#888}
 
-/* Footer */
 .footer{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#16213e;border-top:1px solid #2a2a4a}
 .footer .status{font-size:12px;color:#666;margin-left:auto}
 
@@ -128,17 +135,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
         <canvas id="waveformCanvas"></canvas>
         <div id="playheadWave" class="playhead" style="left:0"></div>
       </div>
-      <div class="word-layer" id="wordLayer">
-        <div class="word-layer-inner" id="wordLayerInner"></div>
+      <div class="word-zone" id="wordZone">
+        <div class="word-zone-inner" id="wordOverlay"></div>
         <div id="playheadWords" class="playhead" style="left:0"></div>
       </div>
       <div class="time-axis" id="timeAxis"></div>
     </div>
 
     <div class="transport">
-      <button class="btn btn-small" onclick="skipBack()">◀ 5s</button>
-      <button class="btn btn-small" id="playBtn" onclick="togglePlay()">▶</button>
-      <button class="btn btn-small" onclick="skipForward()">5s ▶</button>
+      <div class="mode-toggle">
+        <button id="modeLineBtn" class="active" onclick="setMode('line')">Line</button>
+        <button id="modeWordBtn" onclick="setMode('word')">Word</button>
+      </div>
+      <span class="divider">|</span>
+      <button class="btn btn-small" onclick="zoomIn()" title="Fewer lines">&#x2212;</button>
+      <button class="btn btn-small" onclick="fitAll()">Fit All</button>
+      <button class="btn btn-small" onclick="zoomOut()" title="More lines">+</button>
+      <span class="divider">|</span>
+      <button class="btn btn-small" onclick="skipBack()">&#x25C0; 5s</button>
+      <button class="btn btn-small" id="playBtn" onclick="togglePlay()">&#x25B6;</button>
+      <button class="btn btn-small" onclick="skipForward()">5s &#x25B6;</button>
       <span class="time" id="currentTime">0:00.0</span>
       <span class="divider">/</span>
       <span class="time" id="totalTime">0:00.0</span>
@@ -152,7 +168,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 </div>
 
 <div class="footer">
-  <button class="btn btn-small" onclick="shiftAll(-0.5)">Shift −0.5s</button>
+  <button class="btn btn-small" onclick="shiftAll(-0.5)">Shift -0.5s</button>
   <button class="btn btn-small" onclick="shiftAll(0.5)">Shift +0.5s</button>
   <button class="btn btn-small btn-danger" onclick="clearTiming()">Clear Timing</button>
   <span class="status" id="status">Loading...</span>
@@ -163,6 +179,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 <script>
 const API = '';
 const MIN_WORD_DURATION = 0.15;
+const MIN_LINE_DURATION = 0.5;
 
 let audioCtx, audioBuffer, sourceNode;
 let lyricsRaw = null;
@@ -178,11 +195,23 @@ let selectedLineIdx = -1;
 let animFrame = null;
 let hasUnsavedChanges = false;
 
+let viewStart = 0;
+let viewEnd = 0;
+let editMode = 'line';
+let zoomContext = 1;
+let isZoomed = false;
+
 let draggingWord = null;
 let wordDragStartX = 0;
 let wordDragStartTime = 0;
 let wordDragEndTime = 0;
 let dragType = 'move';
+
+let draggingLine = null;
+let lineDragStartX = 0;
+let lineDragOrigTime = 0;
+
+// ===== INIT =====
 
 async function init() {
   try {
@@ -204,6 +233,9 @@ async function init() {
     if (projRes.paths && projRes.paths.audio) {
       audioPath = `/data/${projRes.paths.audio}`;
     }
+
+    viewStart = 0;
+    viewEnd = analysisData.duration || 0;
 
     document.getElementById('totalTime').textContent = fmtTime(analysisData.duration || 0);
     drawWaveform();
@@ -230,23 +262,25 @@ async function loadAudio() {
   }
 }
 
+// ===== AUDIO =====
+
 function togglePlay() {
   if (!audioCtx || !audioBuffer) return;
   if (isPlaying) {
     pauseOffset += audioCtx.currentTime - startTime;
     sourceNode.stop();
     isPlaying = false;
-    document.getElementById('playBtn').textContent = '▶';
+    document.getElementById('playBtn').textContent = '\u25B6';
   } else {
     if (audioCtx.state === 'suspended') audioCtx.resume();
     sourceNode = audioCtx.createBufferSource();
     sourceNode.buffer = audioBuffer;
     sourceNode.connect(audioCtx.destination);
-    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').textContent = '▶'; };
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').textContent = '\u25B6'; };
     startTime = audioCtx.currentTime;
     sourceNode.start(0, pauseOffset);
     isPlaying = true;
-    document.getElementById('playBtn').textContent = '⏸';
+    document.getElementById('playBtn').textContent = '\u23F8';
     updatePlayhead();
   }
 }
@@ -278,7 +312,7 @@ function seekToTime(t) {
     sourceNode = audioCtx.createBufferSource();
     sourceNode.buffer = audioBuffer;
     sourceNode.connect(audioCtx.destination);
-    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').textContent = '▶'; };
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').textContent = '\u25B6'; };
     startTime = audioCtx.currentTime;
     sourceNode.start(0, t);
   }
@@ -289,76 +323,78 @@ function seekToTime(t) {
   highlightAtTime(t);
 }
 
+// ===== VIEWPORT MATH =====
+
 function timeToPct(t) {
-  return ((t / (analysisData?.duration || 1)) * 100);
+  if (!analysisData) return 0;
+  if (!isZoomed) return (t / analysisData.duration) * 100;
+  const range = viewEnd - viewStart;
+  return range > 0 ? ((t - viewStart) / range) * 100 : 0;
 }
 
-function highlightAtTime(t) {
-  const lines = getLines();
-  let activeLineIdx = -1;
-  let activeWordGlobal = null;
+function pctToTime(pct) {
+  if (!analysisData) return 0;
+  if (!isZoomed) return (pct / 100) * analysisData.duration;
+  return viewStart + (pct / 100) * (viewEnd - viewStart);
+}
 
-  for (let i = 0; i < lines.length; i++) {
-    const el = document.getElementById('line-' + i);
-    if (!el) continue;
-    if (t >= lines[i].start && t <= lines[i].end) {
-      if (!el.classList.contains('active')) el.classList.add('active');
-      el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      activeLineIdx = i;
-    } else {
-      el.classList.remove('active');
-    }
-  }
+// ===== ZOOM =====
 
-  if (activeLineIdx >= 0) {
-    const line = lines[activeLineIdx];
-    const lineEl = document.getElementById('line-words-' + activeLineIdx);
-    if (lineEl) {
-      const spans = lineEl.querySelectorAll('.word-span');
-      const words = line.words || [];
-      for (let j = 0; j < words.length && j < spans.length; j++) {
-        if (t >= words[j].start && t <= words[j].end) {
-          spans[j].classList.add('active');
-          activeWordGlobal = { lineIdx: activeLineIdx, wordIdx: j };
-        } else {
-          spans[j].classList.remove('active');
-        }
-      }
-    }
-    document.getElementById('currentLyric').textContent = line.text;
-  } else {
-    document.getElementById('currentLyric').textContent = '';
-  }
+function zoomToLine(lineIdx, context) {
+  if (!syncedData || !syncedData.lines.length || !analysisData) return;
+  const lines = syncedData.lines;
+  const firstIdx = Math.max(0, lineIdx - context);
+  const lastIdx = Math.min(lines.length - 1, lineIdx + context);
 
-  document.querySelectorAll('.word').forEach(wEl => {
-    const wStart = parseFloat(wEl.dataset.start);
-    const wEnd = parseFloat(wEl.dataset.end);
-    if (activeWordGlobal && t >= wStart && t <= wEnd) {
-      wEl.classList.add('active');
-    } else {
-      wEl.classList.remove('active');
-    }
-  });
+  let vs = lines[firstIdx].start;
+  let ve = lines[lastIdx].end;
 
-  if (activeLineIdx >= 0 && activeLineIdx !== selectedLineIdx) {
-    highlightDetailWord(activeLineIdx, activeWordGlobal?.wordIdx);
+  const range = ve - vs;
+  const pad = range * 0.1;
+  vs = Math.max(0, vs - pad);
+  ve = Math.min(analysisData.duration, ve + pad);
+
+  viewStart = vs;
+  viewEnd = ve;
+  isZoomed = true;
+
+  redrawAll();
+}
+
+function zoomIn() {
+  zoomContext = Math.max(0, zoomContext - 1);
+  if (selectedLineIdx >= 0 && syncedData) {
+    zoomToLine(selectedLineIdx, zoomContext);
   }
 }
 
-function highlightDetailWord(lineIdx, wordIdx) {
-  const rows = document.querySelectorAll('.word-table tr[data-word-idx]');
-  rows.forEach(r => {
-    const wi = parseInt(r.dataset.wordIdx);
-    if (wi === wordIdx) r.classList.add('active');
-    else r.classList.remove('active');
-  });
+function zoomOut() {
+  zoomContext++;
+  if (selectedLineIdx >= 0 && syncedData) {
+    zoomToLine(selectedLineIdx, zoomContext);
+  }
 }
 
-function getLines() {
-  if (syncedData && syncedData.lines) return syncedData.lines;
-  if (lyricsRaw && lyricsRaw.lines) return lyricsRaw.lines;
-  return [];
+function fitAll() {
+  if (!analysisData) return;
+  viewStart = 0;
+  viewEnd = analysisData.duration;
+  isZoomed = false;
+  zoomContext = 1;
+  redrawAll();
 }
+
+function redrawAll() {
+  drawWaveform();
+  renderTimeAxis();
+  renderWordLayer();
+  const t = getPlaybackTime();
+  const pct = timeToPct(t);
+  document.getElementById('playheadWave').style.left = pct + '%';
+  document.getElementById('playheadWords').style.left = pct + '%';
+}
+
+// ===== WAVEFORM =====
 
 function drawWaveform() {
   const canvas = document.getElementById('waveformCanvas');
@@ -372,124 +408,258 @@ function drawWaveform() {
   ctx.fillStyle = '#0f0f1a';
   ctx.fillRect(0, 0, w, h);
 
-  if (!waveformPeaks.length) return;
+  if (!waveformPeaks.length || !analysisData) return;
 
-  const barW = w / waveformPeaks.length;
+  const vs = isZoomed ? viewStart : 0;
+  const ve = isZoomed ? viewEnd : analysisData.duration;
+  const visibleDuration = ve - vs;
+  if (visibleDuration <= 0) return;
+
+  const totalDuration = analysisData.duration;
+  const peaksPerSecond = waveformPeaks.length / totalDuration;
+  const startPeak = Math.max(0, Math.floor(vs * peaksPerSecond));
+  const endPeak = Math.min(waveformPeaks.length, Math.ceil(ve * peaksPerSecond));
+  const visiblePeaks = waveformPeaks.slice(startPeak, endPeak);
+  const numVisible = visiblePeaks.length;
+
+  if (numVisible === 0) return;
+
+  const barW = w / numVisible;
   ctx.fillStyle = '#4cc9f0';
-  for (let i = 0; i < waveformPeaks.length; i++) {
-    const barH = waveformPeaks[i] * h * 0.8;
+  for (let i = 0; i < numVisible; i++) {
+    const barH = visiblePeaks[i] * h * 0.8;
     ctx.fillRect(i * barW, (h - barH) / 2, Math.max(barW - 0.5, 0.5), barH);
   }
 
-  if (beatTimes.length && analysisData) {
+  if (beatTimes.length) {
     ctx.strokeStyle = 'rgba(76,201,240,0.15)';
     ctx.lineWidth = 1;
     for (const bt of beatTimes) {
-      const x = (bt / analysisData.duration) * w;
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      if (bt >= vs && bt <= ve) {
+        const x = ((bt - vs) / visibleDuration) * w;
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      }
+    }
+  }
+
+  if (isZoomed && syncedData) {
+    const lines = syncedData.lines;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].end < vs || lines[i].start > ve) continue;
+      const isSel = i === selectedLineIdx;
+      const x1 = Math.max(0, ((lines[i].start - vs) / visibleDuration) * w);
+      const x2 = Math.min(w, ((lines[i].end - vs) / visibleDuration) * w);
+
+      if (isSel) {
+        ctx.fillStyle = 'rgba(76,201,240,0.06)';
+        ctx.fillRect(x1, 0, x2 - x1, h);
+      }
+
+      if (editMode === 'line') {
+        ctx.strokeStyle = isSel ? 'rgba(76,201,240,0.5)' : 'rgba(76,201,240,0.15)';
+        ctx.lineWidth = isSel ? 2 : 1;
+        ctx.setLineDash([4, 4]);
+        if (lines[i].start >= vs) {
+          ctx.beginPath(); ctx.moveTo(x1, 0); ctx.lineTo(x1, h); ctx.stroke();
+        }
+        if (lines[i].end <= ve) {
+          ctx.beginPath(); ctx.moveTo(x2, 0); ctx.lineTo(x2, h); ctx.stroke();
+        }
+        ctx.setLineDash([]);
+      }
     }
   }
 }
+
+// ===== TIME AXIS =====
 
 function renderTimeAxis() {
   const el = document.getElementById('timeAxis');
   el.innerHTML = '';
   if (!analysisData) return;
-  const dur = analysisData.duration;
-  const containerW = el.offsetWidth;
-  const interval = dur > 120 ? 10 : (dur > 60 ? 5 : 2);
-  for (let t = 0; t <= dur; t += interval) {
+
+  const vs = isZoomed ? viewStart : 0;
+  const ve = isZoomed ? viewEnd : analysisData.duration;
+  const dur = ve - vs;
+  if (dur <= 0) return;
+
+  let interval;
+  if (dur > 120) interval = 10;
+  else if (dur > 60) interval = 5;
+  else if (dur > 20) interval = 2;
+  else if (dur > 5) interval = 1;
+  else interval = 0.5;
+
+  const startT = Math.ceil(vs / interval) * interval;
+  for (let t = startT; t <= ve; t += interval) {
     const tick = document.createElement('div');
     tick.className = 'tick';
-    tick.style.left = ((t / dur) * 100) + '%';
+    tick.style.left = (((t - vs) / dur) * 100) + '%';
     tick.textContent = fmtTimeShort(t);
     el.appendChild(tick);
   }
 }
 
-function renderTranscript() {
-  const el = document.getElementById('transcript');
-  el.innerHTML = '';
-  const lines = getLines();
-  let lastSection = null;
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const section = line.section;
-    if (section && section.section_type !== (lastSection?.section_type)) {
-      const hdr = document.createElement('div');
-      hdr.className = 'section-header';
-      hdr.textContent = section.raw_marker || section.section_type;
-      el.appendChild(hdr);
-      lastSection = section;
-    }
-
-    const item = document.createElement('div');
-    item.className = 'line-item';
-    item.id = 'line-' + i;
-
-    const conf = line.alignment_confidence;
-    const confClass = conf >= 0.8 ? 'conf-high' : (conf >= 0.5 ? 'conf-med' : 'conf-low');
-    const confHtml = conf !== undefined ? `<span class="conf-bar ${confClass}"></span>` : '';
-
-    const words = line.words || [];
-    let wordsHtml = '';
-    if (words.length) {
-      wordsHtml = words.map(w => `<span class="word-span" data-line="${i}" data-word="${words.indexOf(w)}">${w.text}</span>`).join(' ');
-    } else {
-      wordsHtml = line.text;
-    }
-
-    item.innerHTML = `<div class="line-text" id="line-words-${i}">${wordsHtml}${confHtml}</div><div class="time-range">${fmtTime(line.start)} - ${fmtTime(line.end)}</div>`;
-    item.onclick = () => selectLine(i);
-    el.appendChild(item);
-  }
-}
+// ===== WORD LAYER =====
 
 function renderWordLayer() {
-  const inner = document.getElementById('wordLayerInner');
+  const inner = document.getElementById('wordOverlay');
   inner.innerHTML = '';
   if (!syncedData || !analysisData) return;
 
   const lines = syncedData.lines;
-  const dur = analysisData.duration;
-  const containerW = document.getElementById('wordLayer').offsetWidth;
+  const containerW = document.getElementById('wordZone').offsetWidth;
+  const containerH = document.getElementById('wordZone').offsetHeight;
+  const vs = isZoomed ? viewStart : 0;
+  const ve = isZoomed ? viewEnd : analysisData.duration;
+  const range = ve - vs;
+  if (range <= 0) return;
 
   let html = '';
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    for (let j = 0; j < (line.words || []).length; j++) {
-      const w = line.words[j];
-      const left = (w.start / dur) * containerW;
-      const width = Math.max(30, ((w.end - w.start) / dur) * containerW);
-      const src = w.source || 'interpolated';
-      const selClass = i === selectedLineIdx ? ' selected-line' : '';
-      html += `<div class="word${selClass}" data-line="${i}" data-word="${j}" data-start="${w.start}" data-end="${w.end}" style="left:${left}px;width:${width}px">
-        <div class="word-handle word-handle-left"></div>
-        <span class="source-dot ${src}"></span><span>${w.text}</span>
-        <div class="word-handle word-handle-right"></div>
-      </div>`;
+
+  if (editMode === 'line' && isZoomed) {
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].end < vs || lines[i].start > ve) continue;
+      const isSel = i === selectedLineIdx;
+      const leftX = ((lines[i].start - vs) / range) * containerW;
+      const rightX = ((lines[i].end - vs) / range) * containerW;
+      const hbg = isSel ? 'rgba(76,201,240,0.15)' : 'rgba(76,201,240,0.07)';
+      html += '<div class="line-handle" data-line-idx="' + i + '" data-boundary="start" style="left:' + (leftX - 5) + 'px;background:' + hbg + '"><span class="line-handle-time">' + lines[i].start.toFixed(2) + '</span></div>';
+      html += '<div class="line-handle" data-line-idx="' + i + '" data-boundary="end" style="left:' + (rightX - 5) + 'px;background:' + hbg + '"><span class="line-handle-time">' + lines[i].end.toFixed(2) + '</span></div>';
     }
   }
+
+  var wordTop = Math.max(12, (containerH - 40) / 2);
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (isZoomed && line.end < vs) continue;
+    if (isZoomed && line.start > ve) continue;
+    const isSel = i === selectedLineIdx;
+    const dimClass = (isZoomed && !isSel) ? ' dim' : '';
+
+    for (let j = 0; j < (line.words || []).length; j++) {
+      const w = line.words[j];
+      const left = ((w.start - vs) / range) * containerW;
+      const width = Math.max(30, ((w.end - w.start) / range) * containerW);
+      const src = w.source || 'interpolated';
+      const selClass = isSel ? ' selected-line' : '';
+
+      const showHandles = (editMode === 'word' && isSel);
+      const roClass = showHandles ? '' : ' readonly';
+      const handlesHtml = showHandles ?
+        '<div class="word-handle word-handle-left"></div><div class="word-handle word-handle-right"></div>' : '';
+
+      html += '<div class="word' + selClass + roClass + dimClass + '" data-line="' + i + '" data-word="' + j + '" data-start="' + w.start + '" data-end="' + w.end + '" style="left:' + left + 'px;width:' + width + 'px;top:' + wordTop + 'px">' +
+        handlesHtml +
+        '<span class="source-dot ' + src + '"></span><span>' + w.text + '</span>' +
+        '</div>';
+    }
+  }
+
   inner.innerHTML = html;
-  attachWordDragHandlers();
+
+  if (editMode === 'line' && isZoomed) attachLineDragHandlers();
+  if (editMode === 'word' || !isZoomed) attachWordDragHandlers();
 }
 
-function positionWords() {
-  if (!syncedData || !analysisData) return;
-  const dur = analysisData.duration;
-  const containerW = document.getElementById('wordLayer').offsetWidth;
+// ===== WORD REDISTRIBUTION =====
 
-  document.querySelectorAll('.word').forEach(wordEl => {
-    const s = parseFloat(wordEl.dataset.start);
-    const e = parseFloat(wordEl.dataset.end);
-    wordEl.style.left = ((s / dur) * containerW) + 'px';
-    wordEl.style.width = Math.max(30, ((e - s) / dur) * containerW) + 'px';
+function redistributeWords(line) {
+  const words = line.words || [];
+  if (!words.length) return;
+  const totalChars = words.reduce((s, w) => s + w.text.length, 0);
+  if (totalChars === 0) return;
+  const duration = line.end - line.start;
+  let t = line.start;
+  for (const word of words) {
+    const wordDur = (word.text.length / totalChars) * duration;
+    word.start = t;
+    word.end = t + wordDur;
+    t += wordDur;
+  }
+}
+
+// ===== LINE DRAG =====
+
+function attachLineDragHandlers() {
+  document.querySelectorAll('.line-handle').forEach(function(handle) {
+    handle.addEventListener('mousedown', handleLineMouseDown);
   });
 }
 
+function handleLineMouseDown(e) {
+  const handle = e.target.closest('.line-handle');
+  if (!handle || !syncedData) return;
+
+  const lineIdx = parseInt(handle.dataset.lineIdx);
+  const boundary = handle.dataset.boundary;
+  const line = syncedData.lines[lineIdx];
+
+  draggingLine = { lineIdx: lineIdx, boundary: boundary };
+  lineDragStartX = e.clientX;
+  lineDragOrigTime = boundary === 'start' ? line.start : line.end;
+
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function handleLineMouseMove(e) {
+  if (!draggingLine || !syncedData || !analysisData) return;
+
+  const containerW = document.getElementById('wordZone').offsetWidth;
+  const range = viewEnd - viewStart;
+  const deltaTime = ((e.clientX - lineDragStartX) / containerW) * range;
+
+  const lineIdx = draggingLine.lineIdx;
+  const boundary = draggingLine.boundary;
+  const line = syncedData.lines[lineIdx];
+  const minDur = Math.max(MIN_LINE_DURATION, (line.words || []).length * MIN_WORD_DURATION);
+
+  if (boundary === 'start') {
+    let newStart = lineDragOrigTime + deltaTime;
+    newStart = Math.max(0, newStart);
+    newStart = Math.min(line.end - minDur, newStart);
+    if (lineIdx > 0) {
+      const prevLine = syncedData.lines[lineIdx - 1];
+      const prevMinDur = Math.max(MIN_LINE_DURATION, (prevLine.words || []).length * MIN_WORD_DURATION);
+      newStart = Math.max(prevLine.start + prevMinDur, newStart);
+      prevLine.end = newStart;
+      redistributeWords(prevLine);
+      updateLineTimeDisplay(lineIdx - 1);
+    }
+    line.start = newStart;
+    redistributeWords(line);
+  } else {
+    let newEnd = lineDragOrigTime + deltaTime;
+    newEnd = Math.min(analysisData.duration, newEnd);
+    newEnd = Math.max(line.start + minDur, newEnd);
+    if (lineIdx < syncedData.lines.length - 1) {
+      const nextLine = syncedData.lines[lineIdx + 1];
+      const nextMinDur = Math.max(MIN_LINE_DURATION, (nextLine.words || []).length * MIN_WORD_DURATION);
+      newEnd = Math.min(nextLine.end - nextMinDur, newEnd);
+      nextLine.start = newEnd;
+      redistributeWords(nextLine);
+      updateLineTimeDisplay(lineIdx + 1);
+    }
+    line.end = newEnd;
+    redistributeWords(line);
+  }
+
+  updateLineTimeDisplay(lineIdx);
+  renderWordLayer();
+  if (lineIdx === selectedLineIdx) renderDetail(syncedData.lines[selectedLineIdx]);
+  markUnsaved();
+}
+
+function handleLineMouseUp() {
+  draggingLine = null;
+}
+
+// ===== WORD DRAG =====
+
 function attachWordDragHandlers() {
-  document.querySelectorAll('.word').forEach(wordEl => {
+  document.querySelectorAll('.word').forEach(function(wordEl) {
     wordEl.addEventListener('mousedown', handleWordMouseDown);
   });
 }
@@ -497,6 +667,7 @@ function attachWordDragHandlers() {
 function handleWordMouseDown(e) {
   const wordEl = e.target.closest('.word');
   if (!wordEl || !syncedData) return;
+  if (wordEl.classList.contains('readonly')) return;
 
   draggingWord = wordEl;
   wordDragStartX = e.clientX;
@@ -518,9 +689,9 @@ function handleWordMouseDown(e) {
 function handleWordMouseMove(e) {
   if (!draggingWord || !syncedData || !analysisData) return;
 
-  const containerW = document.getElementById('wordLayer').offsetWidth;
-  const deltaX = e.clientX - wordDragStartX;
-  const deltaTime = (deltaX / containerW) * analysisData.duration;
+  const containerW = document.getElementById('wordZone').offsetWidth;
+  const range = isZoomed ? (viewEnd - viewStart) : analysisData.duration;
+  const deltaTime = ((e.clientX - wordDragStartX) / containerW) * range;
 
   const lineIdx = parseInt(draggingWord.dataset.line);
   const wordIdx = parseInt(draggingWord.dataset.word);
@@ -575,52 +746,201 @@ function handleWordMouseUp() {
   }
 }
 
-document.addEventListener('mousemove', handleWordMouseMove);
-document.addEventListener('mouseup', handleWordMouseUp);
+// ===== SELECTION =====
 
 function selectLine(idx) {
   selectedLineIdx = idx;
   const lines = getLines();
 
-  document.querySelectorAll('.line-item').forEach(el => el.style.background = '');
+  document.querySelectorAll('.line-item').forEach(function(el) { el.style.background = ''; });
   const el = document.getElementById('line-' + idx);
   if (el) el.style.background = '#0f3460';
 
-  document.querySelectorAll('.word').forEach(w => {
-    w.classList.toggle('selected-line', parseInt(w.dataset.line) === idx);
+  if (syncedData) {
+    zoomToLine(idx, zoomContext);
+    seekToTime(syncedData.lines[idx].start);
+    renderDetail(syncedData.lines[idx]);
+  } else {
+    renderDetail(lines[idx]);
+  }
+}
+
+function setMode(mode) {
+  editMode = mode;
+  document.getElementById('modeLineBtn').classList.toggle('active', mode === 'line');
+  document.getElementById('modeWordBtn').classList.toggle('active', mode === 'word');
+  if (isZoomed) {
+    renderWordLayer();
+  }
+  if (selectedLineIdx >= 0 && syncedData) {
+    renderDetail(syncedData.lines[selectedLineIdx]);
+  }
+}
+
+// ===== HIGHLIGHTING =====
+
+function highlightAtTime(t) {
+  const lines = getLines();
+  let activeLineIdx = -1;
+  let activeWordGlobal = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const el = document.getElementById('line-' + i);
+    if (!el) continue;
+    if (t >= lines[i].start && t <= lines[i].end) {
+      if (!el.classList.contains('active')) el.classList.add('active');
+      el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      activeLineIdx = i;
+    } else {
+      el.classList.remove('active');
+    }
+  }
+
+  if (activeLineIdx >= 0) {
+    const line = lines[activeLineIdx];
+    const lineEl = document.getElementById('line-words-' + activeLineIdx);
+    if (lineEl) {
+      const spans = lineEl.querySelectorAll('.word-span');
+      const words = line.words || [];
+      for (let j = 0; j < words.length && j < spans.length; j++) {
+        if (t >= words[j].start && t <= words[j].end) {
+          spans[j].classList.add('active');
+          activeWordGlobal = { lineIdx: activeLineIdx, wordIdx: j };
+        } else {
+          spans[j].classList.remove('active');
+        }
+      }
+    }
+    document.getElementById('currentLyric').textContent = line.text;
+  } else {
+    document.getElementById('currentLyric').textContent = '';
+  }
+
+  document.querySelectorAll('.word').forEach(function(wEl) {
+    const wStart = parseFloat(wEl.dataset.start);
+    const wEnd = parseFloat(wEl.dataset.end);
+    if (activeWordGlobal && t >= wStart && t <= wEnd) {
+      wEl.classList.add('active');
+    } else {
+      wEl.classList.remove('active');
+    }
   });
 
-  renderDetail(lines[idx]);
-  seekToTime(lines[idx].start);
+  if (activeLineIdx >= 0 && activeLineIdx !== selectedLineIdx) {
+    highlightDetailWord(activeLineIdx, activeWordGlobal ? activeWordGlobal.wordIdx : -1);
+  }
 }
+
+function highlightDetailWord(lineIdx, wordIdx) {
+  const rows = document.querySelectorAll('.word-table tr[data-word-idx]');
+  rows.forEach(function(r) {
+    const wi = parseInt(r.dataset.wordIdx);
+    if (wi === wordIdx) r.classList.add('active');
+    else r.classList.remove('active');
+  });
+}
+
+// ===== DETAIL PANEL =====
 
 function renderDetail(line) {
   const el = document.getElementById('detailPanel');
   if (!line) { el.innerHTML = '<p style="color:#666;font-size:13px">Select a line</p>'; return; }
 
-  let html = `<div class="detail-header">"${line.text}"</div>`;
-  html += `<div class="detail-meta">Start: ${line.start.toFixed(3)}s — End: ${line.end.toFixed(3)}s (${(line.end - line.start).toFixed(2)}s)</div>`;
+  if (editMode === 'line') {
+    renderDetailLineMode(line, el);
+  } else {
+    renderDetailWordMode(line, el);
+  }
+}
+
+function renderDetailLineMode(line, el) {
+  const li = selectedLineIdx;
+  let html = '<div class="detail-header">"' + escHtml(line.text) + '"</div>';
+  html += '<div class="detail-meta">Start: <input class="time-input" type="number" step="0.01" value="' + line.start.toFixed(3) + '" id="lineStartInput">s &mdash; End: <input class="time-input" type="number" step="0.01" value="' + line.end.toFixed(3) + '" id="lineEndInput">s (' + (line.end - line.start).toFixed(2) + 's)</div>';
 
   const words = line.words || [];
   if (words.length) {
-    html += `<table class="word-table"><thead><tr><th>Word</th><th>Start</th><th>End</th><th>Source</th></tr></thead><tbody>`;
-    for (let j = 0; j < words.length; j++) {
-      const w = words[j];
+    html += '<table class="word-table"><thead><tr><th>Word</th><th>Start</th><th>End</th><th>Source</th></tr></thead><tbody>';
+    for (const w of words) {
       const src = w.source || 'interpolated';
-      html += `<tr data-word-idx="${j}">
-        <td style="font-weight:600">${w.text}</td>
-        <td><input class="time-input" type="number" step="0.01" value="${w.start.toFixed(3)}" data-line="${selectedLineIdx}" data-word="${j}" data-field="start"></td>
-        <td><input class="time-input" type="number" step="0.01" value="${w.end.toFixed(3)}" data-line="${selectedLineIdx}" data-word="${j}" data-field="end"></td>
-        <td><span class="source-badge ${src}">${src}</span></td>
-      </tr>`;
+      html += '<tr><td style="font-weight:600">' + escHtml(w.text) + '</td>' +
+        '<td style="color:#888;font-family:monospace">' + w.start.toFixed(3) + '</td>' +
+        '<td style="color:#888;font-family:monospace">' + w.end.toFixed(3) + '</td>' +
+        '<td><span class="source-badge ' + src + '">' + src + '</span></td></tr>';
     }
-    html += `</tbody></table>`;
+    html += '</tbody></table>';
+    html += '<div style="color:#666;font-size:11px;margin-top:8px;font-style:italic">Words auto-distribute proportionally in Line mode</div>';
   }
 
   el.innerHTML = html;
 
-  el.querySelectorAll('.time-input').forEach(input => {
-    input.addEventListener('change', (e) => {
+  var startInput = document.getElementById('lineStartInput');
+  var endInput = document.getElementById('lineEndInput');
+
+  if (startInput) {
+    startInput.addEventListener('change', function(e) {
+      var val = parseFloat(e.target.value);
+      if (isNaN(val) || !syncedData || li < 0) return;
+      var l = syncedData.lines[li];
+      var minDur = Math.max(MIN_LINE_DURATION, (l.words || []).length * MIN_WORD_DURATION);
+      l.start = Math.max(0, Math.min(l.end - minDur, val));
+      if (li > 0) {
+        syncedData.lines[li - 1].end = l.start;
+        redistributeWords(syncedData.lines[li - 1]);
+        updateLineTimeDisplay(li - 1);
+      }
+      redistributeWords(l);
+      updateLineTimeDisplay(li);
+      renderWordLayer();
+      renderDetail(l);
+      markUnsaved();
+    });
+  }
+
+  if (endInput) {
+    endInput.addEventListener('change', function(e) {
+      var val = parseFloat(e.target.value);
+      if (isNaN(val) || !syncedData || li < 0) return;
+      var l = syncedData.lines[li];
+      var minDur = Math.max(MIN_LINE_DURATION, (l.words || []).length * MIN_WORD_DURATION);
+      l.end = Math.min(analysisData.duration, Math.max(l.start + minDur, val));
+      if (li < syncedData.lines.length - 1) {
+        syncedData.lines[li + 1].start = l.end;
+        redistributeWords(syncedData.lines[li + 1]);
+        updateLineTimeDisplay(li + 1);
+      }
+      redistributeWords(l);
+      updateLineTimeDisplay(li);
+      renderWordLayer();
+      renderDetail(l);
+      markUnsaved();
+    });
+  }
+}
+
+function renderDetailWordMode(line, el) {
+  let html = '<div class="detail-header">"' + escHtml(line.text) + '"</div>';
+  html += '<div class="detail-meta">Start: ' + line.start.toFixed(3) + 's &mdash; End: ' + line.end.toFixed(3) + 's (' + (line.end - line.start).toFixed(2) + 's)</div>';
+
+  const words = line.words || [];
+  if (words.length) {
+    html += '<table class="word-table"><thead><tr><th>Word</th><th>Start</th><th>End</th><th>Source</th></tr></thead><tbody>';
+    for (let j = 0; j < words.length; j++) {
+      const w = words[j];
+      const src = w.source || 'interpolated';
+      html += '<tr data-word-idx="' + j + '">' +
+        '<td style="font-weight:600">' + escHtml(w.text) + '</td>' +
+        '<td><input class="time-input" type="number" step="0.01" value="' + w.start.toFixed(3) + '" data-line="' + selectedLineIdx + '" data-word="' + j + '" data-field="start"></td>' +
+        '<td><input class="time-input" type="number" step="0.01" value="' + w.end.toFixed(3) + '" data-line="' + selectedLineIdx + '" data-word="' + j + '" data-field="end"></td>' +
+        '<td><span class="source-badge ' + src + '">' + src + '</span></td></tr>';
+    }
+    html += '</tbody></table>';
+  }
+
+  el.innerHTML = html;
+
+  el.querySelectorAll('.time-input').forEach(function(input) {
+    input.addEventListener('change', function(e) {
       const li = parseInt(e.target.dataset.line);
       const wi = parseInt(e.target.dataset.word);
       const field = e.target.dataset.field;
@@ -634,7 +954,7 @@ function renderDetail(line) {
         word.end = Math.max(val, word.start + MIN_WORD_DURATION);
       }
 
-      const wordEl = document.querySelector(`.word[data-line="${li}"][data-word="${wi}"]`);
+      var wordEl = document.querySelector('.word[data-line="' + li + '"][data-word="' + wi + '"]');
       if (wordEl) {
         wordEl.dataset.start = word.start;
         wordEl.dataset.end = word.end;
@@ -645,17 +965,67 @@ function renderDetail(line) {
   });
 }
 
+// ===== TRANSCRIPT =====
+
+function renderTranscript() {
+  var el = document.getElementById('transcript');
+  el.innerHTML = '';
+  var lines = getLines();
+  var lastSection = null;
+
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    var section = line.section;
+    if (section && section.section_type !== (lastSection ? lastSection.section_type : null)) {
+      var hdr = document.createElement('div');
+      hdr.className = 'section-header';
+      hdr.textContent = section.raw_marker || section.section_type;
+      el.appendChild(hdr);
+      lastSection = section;
+    }
+
+    var item = document.createElement('div');
+    item.className = 'line-item';
+    item.id = 'line-' + i;
+
+    var conf = line.alignment_confidence;
+    var confClass = conf >= 0.8 ? 'conf-high' : (conf >= 0.5 ? 'conf-med' : 'conf-low');
+    var confHtml = conf !== undefined ? '<span class="conf-bar ' + confClass + '"></span>' : '';
+
+    var words = line.words || [];
+    var wordsHtml = '';
+    if (words.length) {
+      wordsHtml = words.map(function(w, wi) {
+        return '<span class="word-span" data-line="' + i + '" data-word="' + wi + '">' + escHtml(w.text) + '</span>';
+      }).join(' ');
+    } else {
+      wordsHtml = escHtml(line.text);
+    }
+
+    item.innerHTML = '<div class="line-text" id="line-words-' + i + '">' + wordsHtml + confHtml + '</div><div class="time-range">' + fmtTime(line.start) + ' - ' + fmtTime(line.end) + '</div>';
+    let idx = i;
+    item.onclick = function() { selectLine(idx); };
+    el.appendChild(item);
+  }
+}
+
+// ===== API =====
+
 async function autoSync() {
   setStatus('Running auto-sync...');
   try {
-    const res = await fetch(`${API}/api/auto-sync`, { method: 'POST' });
-    const data = await res.json();
+    var res = await fetch(`${API}/api/auto-sync`, { method: 'POST' });
+    var data = await res.json();
     if (data.error) { setStatus('Error: ' + data.error); return; }
     syncedData = data;
     renderTranscript();
-    renderWordLayer();
+    if (selectedLineIdx >= 0) {
+      zoomToLine(selectedLineIdx, zoomContext);
+    } else {
+      renderWordLayer();
+    }
     markUnsaved();
-    setStatus(`Auto-sync: ${data.lines?.length || 0} lines, ${((data.avg_confidence || 0) * 100).toFixed(0)}% confidence`);
+    setStatus('Auto-sync: ' + (data.lines ? data.lines.length : 0) + ' lines, ' + ((data.avg_confidence || 0) * 100).toFixed(0) + '% confidence');
   } catch (e) {
     setStatus('Auto-sync error: ' + e.message);
   }
@@ -664,12 +1034,12 @@ async function autoSync() {
 async function save() {
   if (!syncedData) { setStatus('Nothing to save'); return; }
   try {
-    const res = await fetch(`${API}/api/lyrics-synced`, {
+    var res = await fetch(`${API}/api/lyrics-synced`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(syncedData),
     });
-    const data = await res.json();
+    var data = await res.json();
     if (data.status === 'saved') {
       markSaved();
       setStatus('Saved!');
@@ -685,8 +1055,8 @@ function clearTiming() {
   if (!syncedData) return;
   syncedData = null;
   selectedLineIdx = -1;
+  fitAll();
   renderTranscript();
-  renderWordLayer();
   document.getElementById('detailPanel').innerHTML = '<p style="color:#666;font-size:13px">Timing cleared. Use Auto-Sync.</p>';
   markUnsaved();
   setStatus('Timing cleared');
@@ -694,32 +1064,73 @@ function clearTiming() {
 
 function shiftAll(delta) {
   if (!syncedData) return;
-  for (const line of syncedData.lines) {
+  for (var i = 0; i < syncedData.lines.length; i++) {
+    var line = syncedData.lines[i];
     line.start += delta;
     line.end += delta;
-    for (const w of (line.words || [])) {
-      w.start += delta;
-      w.end += delta;
+    for (var j = 0; j < (line.words || []).length; j++) {
+      line.words[j].start += delta;
+      line.words[j].end += delta;
     }
   }
   renderTranscript();
-  renderWordLayer();
+  if (isZoomed && selectedLineIdx >= 0) {
+    zoomToLine(selectedLineIdx, zoomContext);
+  } else {
+    redrawAll();
+  }
   if (selectedLineIdx >= 0) renderDetail(syncedData.lines[selectedLineIdx]);
   markUnsaved();
-  setStatus(`Shifted all by ${delta > 0 ? '+' : ''}${delta}s`);
+  setStatus('Shifted all by ' + (delta > 0 ? '+' : '') + delta + 's');
+}
+
+// ===== UTILITIES =====
+
+function getLines() {
+  if (syncedData && syncedData.lines) return syncedData.lines;
+  if (lyricsRaw && lyricsRaw.lines) return lyricsRaw.lines;
+  return [];
+}
+
+function positionWords() {
+  if (!syncedData || !analysisData) return;
+  var containerW = document.getElementById('wordZone').offsetWidth;
+  var range = isZoomed ? (viewEnd - viewStart) : analysisData.duration;
+  var offset = isZoomed ? viewStart : 0;
+
+  document.querySelectorAll('.word').forEach(function(wordEl) {
+    var s = parseFloat(wordEl.dataset.start);
+    var e = parseFloat(wordEl.dataset.end);
+    wordEl.style.left = (((s - offset) / range) * containerW) + 'px';
+    wordEl.style.width = Math.max(30, ((e - s) / range) * containerW) + 'px';
+  });
+}
+
+function updateLineTimeDisplay(lineIdx) {
+  var el = document.querySelector('#line-' + lineIdx + ' .time-range');
+  if (el && syncedData) {
+    var line = syncedData.lines[lineIdx];
+    el.textContent = fmtTime(line.start) + ' - ' + fmtTime(line.end);
+  }
 }
 
 function fmtTime(s) {
   if (s === undefined || s === null) return '0:00.0';
-  const m = Math.floor(s / 60);
-  const sec = s - m * 60;
-  return `${m}:${sec.toFixed(1).padStart(4, '0')}`;
+  var m = Math.floor(s / 60);
+  var sec = s - m * 60;
+  return m + ':' + sec.toFixed(1).padStart(4, '0');
 }
 
 function fmtTimeShort(s) {
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s - m * 60);
-  return `${m}:${String(sec).padStart(2, '0')}`;
+  var m = Math.floor(s / 60);
+  var sec = Math.floor(s - m * 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function escHtml(s) {
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
 }
 
 function setStatus(msg) {
@@ -728,50 +1139,69 @@ function setStatus(msg) {
 
 function markUnsaved() {
   hasUnsavedChanges = true;
-  const el = document.getElementById('saveStatus');
+  var el = document.getElementById('saveStatus');
   el.textContent = 'Unsaved';
   el.className = 'save-status unsaved';
 }
 
 function markSaved() {
   hasUnsavedChanges = false;
-  const el = document.getElementById('saveStatus');
+  var el = document.getElementById('saveStatus');
   el.textContent = 'Saved';
   el.className = 'save-status saved';
-  setTimeout(() => { el.textContent = ''; }, 2000);
+  setTimeout(function() { el.textContent = ''; }, 2000);
 }
 
-document.getElementById('waveformContainer').addEventListener('click', (e) => {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const pct = (e.clientX - rect.left) / rect.width;
-  seekToTime(pct * analysisData.duration);
+// ===== EVENT LISTENERS =====
+
+document.addEventListener('mousemove', function(e) {
+  handleWordMouseMove(e);
+  handleLineMouseMove(e);
 });
 
-document.getElementById('wordLayer').addEventListener('click', (e) => {
-  if (e.target.closest('.word')) return;
-  const rect = e.currentTarget.getBoundingClientRect();
-  const pct = (e.clientX - rect.left) / rect.width;
-  seekToTime(pct * analysisData.duration);
+document.addEventListener('mouseup', function() {
+  handleWordMouseUp();
+  handleLineMouseUp();
 });
 
-document.addEventListener('keydown', (e) => {
+document.getElementById('waveformContainer').addEventListener('click', function(e) {
+  var rect = e.currentTarget.getBoundingClientRect();
+  var frac = (e.clientX - rect.left) / rect.width;
+  seekToTime(pctToTime(frac * 100));
+});
+
+document.getElementById('wordZone').addEventListener('click', function(e) {
+  if (e.target.closest('.word') || e.target.closest('.line-handle')) return;
+  var rect = e.currentTarget.getBoundingClientRect();
+  var frac = (e.clientX - rect.left) / rect.width;
+  seekToTime(pctToTime(frac * 100));
+});
+
+document.querySelector('.editor-area').addEventListener('wheel', function(e) {
+  if (!syncedData || selectedLineIdx < 0) return;
+  e.preventDefault();
+  if (e.deltaY < 0) zoomIn();
+  else zoomOut();
+}, { passive: false });
+
+document.addEventListener('keydown', function(e) {
   if (e.target.tagName === 'INPUT') return;
   if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
   else if (e.code === 'ArrowLeft') { e.preventDefault(); skipBack(); }
   else if (e.code === 'ArrowRight') { e.preventDefault(); skipForward(); }
   else if (e.code === 'Escape') {
     selectedLineIdx = -1;
-    document.querySelectorAll('.line-item').forEach(el => el.style.background = '');
-    document.querySelectorAll('.word').forEach(w => w.classList.remove('selected-line'));
+    document.querySelectorAll('.line-item').forEach(function(el) { el.style.background = ''; });
+    fitAll();
     document.getElementById('detailPanel').innerHTML = '<p style="color:#666;font-size:13px">Select a line</p>';
   }
 });
 
-window.addEventListener('beforeunload', (e) => {
+window.addEventListener('beforeunload', function(e) {
   if (hasUnsavedChanges) { e.preventDefault(); e.returnValue = ''; }
 });
 
-window.addEventListener('resize', () => { drawWaveform(); renderTimeAxis(); renderWordLayer(); });
+window.addEventListener('resize', function() { redrawAll(); });
 
 init();
 </script>
