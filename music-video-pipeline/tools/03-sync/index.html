@@ -80,6 +80,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .time-axis{height:20px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;font-size:10px;color:#666;font-family:monospace;flex-shrink:0}
 .time-axis .tick{position:absolute;top:0;height:100%;border-left:1px solid #2a2a4a;padding-left:3px;display:flex;align-items:flex-end;padding-bottom:2px}
 
+.scrollbar-track{height:14px;background:#0a0a18;border-top:1px solid #2a2a4a;border-bottom:1px solid #2a2a4a;position:relative;cursor:pointer;flex-shrink:0;box-shadow:inset 0 1px 3px rgba(0,0,0,0.5)}
+.scrollbar-thumb{position:absolute;top:2px;height:10px;background:rgba(76,201,240,0.35);border:1px solid rgba(76,201,240,0.6);border-radius:5px;cursor:grab;min-width:20px}
+.scrollbar-thumb:hover{background:rgba(76,201,240,0.5)}
+.scrollbar-thumb.dragging{background:rgba(76,201,240,0.65);cursor:grabbing}
+
 .transport{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#16213e;border-bottom:1px solid #2a2a4a;font-size:13px;flex-wrap:wrap}
 .transport .time{color:#4cc9f0;font-family:monospace;min-width:60px}
 .transport .divider{color:#444}
@@ -140,6 +145,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
         <div id="playheadWords" class="playhead" style="left:0"></div>
       </div>
       <div class="time-axis" id="timeAxis"></div>
+      <div class="scrollbar-track" id="scrollbarTrack">
+        <div class="scrollbar-thumb" id="scrollbarThumb"></div>
+      </div>
     </div>
 
     <div class="transport">
@@ -155,6 +163,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
       <button class="btn btn-small" onclick="skipBack()">&#x25C0; 5s</button>
       <button class="btn btn-small" id="playBtn" onclick="togglePlay()">&#x25B6;</button>
       <button class="btn btn-small" onclick="skipForward()">5s &#x25B6;</button>
+      <button class="btn btn-small" id="loopBtn" onclick="toggleLoopLine()">&#x21BB; Loop Line</button>
       <span class="time" id="currentTime">0:00.0</span>
       <span class="divider">/</span>
       <span class="time" id="totalTime">0:00.0</span>
@@ -211,6 +220,12 @@ let draggingLine = null;
 let lineDragStartX = 0;
 let lineDragOrigTime = 0;
 
+let draggingThumb = false;
+let thumbDragStartX = 0;
+let thumbDragStartViewStart = 0;
+
+let loopLine = false;
+
 // ===== INIT =====
 
 async function init() {
@@ -242,6 +257,7 @@ async function init() {
     renderTimeAxis();
     renderTranscript();
     renderWordLayer();
+    updateScrollbar();
     setStatus(`Loaded: ${lyricsRaw.total_lines} lines, ${lyricsRaw.total_words} words`);
 
     if (audioPath) await loadAudio();
@@ -270,6 +286,7 @@ function togglePlay() {
     pauseOffset += audioCtx.currentTime - startTime;
     sourceNode.stop();
     isPlaying = false;
+    if (loopLine) { loopLine = false; document.getElementById('loopBtn').classList.remove('btn-primary'); }
     document.getElementById('playBtn').textContent = '\u25B6';
   } else {
     if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -288,6 +305,18 @@ function togglePlay() {
 function skipBack() { seekToTime(Math.max(0, getPlaybackTime() - 5)); }
 function skipForward() { seekToTime(Math.min(analysisData.duration, getPlaybackTime() + 5)); }
 
+function toggleLoopLine() {
+  if (selectedLineIdx < 0 || !syncedData) return;
+  loopLine = !loopLine;
+  var btn = document.getElementById('loopBtn');
+  btn.classList.toggle('btn-primary', loopLine);
+  if (loopLine) {
+    var line = syncedData.lines[selectedLineIdx];
+    seekToTime(line.start);
+    if (!isPlaying) togglePlay();
+  }
+}
+
 function getPlaybackTime() {
   if (!isPlaying) return pauseOffset;
   return pauseOffset + (audioCtx.currentTime - startTime);
@@ -296,6 +325,16 @@ function getPlaybackTime() {
 function updatePlayhead() {
   if (!isPlaying) return;
   const t = getPlaybackTime();
+
+  if (loopLine && selectedLineIdx >= 0 && syncedData) {
+    const line = syncedData.lines[selectedLineIdx];
+    if (t >= line.end) {
+      seekToTime(line.start);
+      animFrame = requestAnimationFrame(updatePlayhead);
+      return;
+    }
+  }
+
   const pct = timeToPct(t);
   document.getElementById('playheadWave').style.left = pct + '%';
   document.getElementById('playheadWords').style.left = pct + '%';
@@ -308,6 +347,7 @@ function seekToTime(t) {
   t = Math.max(0, Math.min(t, analysisData.duration));
   pauseOffset = t;
   if (isPlaying) {
+    sourceNode.onended = null;
     sourceNode.stop();
     sourceNode = audioCtx.createBufferSource();
     sourceNode.buffer = audioBuffer;
@@ -388,10 +428,26 @@ function redrawAll() {
   drawWaveform();
   renderTimeAxis();
   renderWordLayer();
+  updateScrollbar();
   const t = getPlaybackTime();
   const pct = timeToPct(t);
   document.getElementById('playheadWave').style.left = pct + '%';
   document.getElementById('playheadWords').style.left = pct + '%';
+}
+
+function updateScrollbar() {
+  var track = document.getElementById('scrollbarTrack');
+  var thumb = document.getElementById('scrollbarThumb');
+  if (!track || !analysisData) return;
+
+  var trackW = track.offsetWidth;
+  var totalDur = analysisData.duration;
+  var viewRange = viewEnd - viewStart;
+  var thumbW = Math.max(20, (viewRange / totalDur) * trackW);
+  var thumbL = (viewStart / totalDur) * trackW;
+
+  thumb.style.width = thumbW + 'px';
+  thumb.style.left = thumbL + 'px';
 }
 
 // ===== WAVEFORM =====
@@ -1184,12 +1240,60 @@ document.querySelector('.editor-area').addEventListener('wheel', function(e) {
   else zoomOut();
 }, { passive: false });
 
+// ===== SCROLLBAR =====
+
+document.getElementById('scrollbarThumb').addEventListener('mousedown', function(e) {
+  if (!analysisData) return;
+  draggingThumb = true;
+  thumbDragStartX = e.clientX;
+  thumbDragStartViewStart = viewStart;
+  e.target.classList.add('dragging');
+  e.preventDefault();
+  e.stopPropagation();
+});
+
+document.getElementById('scrollbarTrack').addEventListener('mousedown', function(e) {
+  if (e.target.id === 'scrollbarThumb' || !analysisData) return;
+  var track = document.getElementById('scrollbarTrack');
+  var trackW = track.offsetWidth;
+  var frac = (e.clientX - track.getBoundingClientRect().left) / trackW;
+  var viewRange = viewEnd - viewStart;
+  var newStart = Math.max(0, Math.min(analysisData.duration - viewRange, frac * analysisData.duration - viewRange / 2));
+  viewStart = newStart;
+  viewEnd = newStart + viewRange;
+  redrawAll();
+});
+
+document.addEventListener('mousemove', function(e) {
+  if (!draggingThumb || !analysisData) return;
+  var track = document.getElementById('scrollbarTrack');
+  var trackW = track.offsetWidth;
+  var totalDur = analysisData.duration;
+  var deltaX = e.clientX - thumbDragStartX;
+  var deltaTime = (deltaX / trackW) * totalDur;
+  var viewRange = viewEnd - viewStart;
+  var newStart = Math.max(0, Math.min(totalDur - viewRange, thumbDragStartViewStart + deltaTime));
+  viewStart = newStart;
+  viewEnd = newStart + viewRange;
+  redrawAll();
+});
+
+document.addEventListener('mouseup', function() {
+  if (draggingThumb) {
+    document.getElementById('scrollbarThumb').classList.remove('dragging');
+    draggingThumb = false;
+  }
+});
+
 document.addEventListener('keydown', function(e) {
   if (e.target.tagName === 'INPUT') return;
   if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+  else if (e.code === 'KeyL') { e.preventDefault(); toggleLoopLine(); }
   else if (e.code === 'ArrowLeft') { e.preventDefault(); skipBack(); }
   else if (e.code === 'ArrowRight') { e.preventDefault(); skipForward(); }
   else if (e.code === 'Escape') {
+    loopLine = false;
+    document.getElementById('loopBtn').classList.remove('btn-primary');
     selectedLineIdx = -1;
     document.querySelectorAll('.line-item').forEach(function(el) { el.style.background = ''; });
     fitAll();
