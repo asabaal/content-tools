@@ -1,0 +1,13 @@
+{
+  "background_type": "gradient",
+  "background_color": "#1a1a2e",
+  "gradient_colors": ["#1a1a2e", "#16213e"],
+  "gradient_direction": "diagonal_tl_br",
+  "texture_type": "vignette_soft",
+  "texture_opacity": 0.2,
+  "text_auto_contrast": true,
+  "font_size": 44,
+  "animation_type": "fade",
+  "animation_speed": 0.8,
+  "reactivity": ["energy"]
+}

@@ -1,0 +1,12 @@
+{
+  "background_type": "solid",
+  "background_color": "#16213e",
+  "gradient_direction": "vertical_top_bottom",
+  "texture_type": "none",
+  "texture_opacity": 0.15,
+  "text_auto_contrast": true,
+  "font_size": 52,
+  "animation_type": "slide",
+  "animation_speed": 1.0,
+  "reactivity": []
+}

@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVP Editor</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+.header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:#16213e;border-bottom:1px solid #2a2a4a}
+.header h1{font-size:16px;font-weight:600;color:#4cc9f0}
+.header-actions{display:flex;gap:8px;align-items:center}
+.save-status{font-size:12px;padding:4px 8px;border-radius:3px}
+.save-status.saved{color:#48bb78}
+.save-status.unsaved{color:#f6ad55}
+
+.btn{padding:6px 14px;border:1px solid #2a2a4a;border-radius:4px;background:#2a2a4a;color:#e0e0e0;cursor:pointer;font-size:13px}
+.btn:hover{background:#3a3a5a}
+.btn-primary{background:#4cc9f0;border-color:#4cc9f0;color:#0f0f1a;font-weight:600}
+.btn-primary:hover{background:#3ab8df}
+.btn-danger{background:#f66;border-color:#f66;color:#fff}
+.btn-danger:hover{background:#e55}
+.btn-small{padding:4px 10px;font-size:12px}
+
+.main{display:grid;grid-template-columns:220px 1fr 260px;flex:1;overflow:hidden}
+
+/* Left: section list */
+.section-list{overflow-y:auto;background:#0f0f1a;border-right:1px solid #2a2a4a}
+.section-item{padding:8px 12px;cursor:pointer;border-left:3px solid transparent;font-size:13px;transition:background .1s}
+.section-item:hover{background:#16213e}
+.section-item.active{background:#16213e;border-left-color:#4cc9f0}
+.section-item .sec-type{font-size:10px;text-transform:uppercase;color:#888;letter-spacing:.5px}
+.section-item .sec-name{font-weight:600;margin:2px 0}
+.section-item .sec-range{font-size:10px;color:#666;font-family:monospace}
+.section-item .sec-color{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:6px;vertical-align:middle}
+.section-add{padding:8px 12px;text-align:center;color:#666;cursor:pointer;font-size:12px;border-top:1px solid #2a2a4a}
+.section-add:hover{color:#4cc9f0;background:#16213e}
+
+/* Center: timeline + detail */
+.center-panel{display:flex;flex-direction:column;overflow:hidden}
+.waveform-container{flex:2;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;cursor:crosshair;overflow:hidden;min-height:80px}
+.waveform-container canvas{width:100%;height:100%;display:block}
+.section-overlay{position:absolute;top:0;height:100%;opacity:0.15;pointer-events:none;transition:opacity .1s}
+.section-overlay.active{opacity:0.3}
+.section-boundary{position:absolute;top:0;width:3px;height:100%;background:#4cc9f0;cursor:ew-resize;z-index:6;opacity:0;transition:opacity .15s}
+.section-boundary:hover,.section-boundary.dragging{opacity:1}
+.section-boundary::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:1px;height:20px;background:#4cc9f0}
+.beat-marker{position:absolute;top:0;width:1px;height:100%;background:rgba(76,201,240,0.2);pointer-events:none}
+.playhead{position:absolute;top:0;width:2px;height:100%;background:#4cc9f0;z-index:5;pointer-events:none}
+
+.word-zone{flex:1;background:#0a0a1a;border-bottom:1px solid #2a2a4a;position:relative;overflow:hidden;min-height:60px;cursor:crosshair}
+.word-zone-inner{position:relative;height:100%}
+
+.word{position:absolute;height:40px;background:#2a4a6a;border-radius:4px;padding:0 10px;display:flex;align-items:center;cursor:grab;user-select:none;font-size:12px;color:#fff;white-space:nowrap;transition:background .1s}
+.word:hover{background:#3a5a8a}
+.word.active{background:#4cc9f0;color:#0f0f1a}
+.word.dragging{cursor:grabbing;background:#4a6a9a;z-index:100}
+.word.selected-line{border:1px solid #4cc9f0}
+.word.readonly{cursor:default}
+.word.readonly:hover{background:#2a4a6a}
+.word-handle{position:absolute;top:0;bottom:0;width:8px;cursor:ew-resize;z-index:10}
+.word-handle-left{left:0;border-radius:4px 0 0 4px}
+.word-handle-left:hover{background:rgba(76,201,240,0.3)}
+.word-handle-right{right:0;border-radius:0 4px 4px 0}
+.word-handle-right:hover{background:rgba(76,201,240,0.3)}
+.word .source-dot{width:6px;height:6px;border-radius:50%;margin-right:4px;flex-shrink:0}
+.source-dot.onset{background:#48bb78}
+.source-dot.midi{background:#6c8cff}
+.source-dot.vocal_onset{background:#f6ad55}
+.source-dot.interpolated{background:#666}
+.source-dot.transcription{background:#4cc9f0}
+.source-dot.onset_syllable{background:#4cc9f0}
+.word.dim{opacity:0.45}
+
+.line-handle{position:absolute;top:0;height:100%;width:10px;cursor:ew-resize;z-index:20;border-radius:2px}
+.line-handle:hover{background:rgba(76,201,240,0.4) !important}
+.line-handle .line-handle-time{display:none;position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#4cc9f0;background:#16213e;padding:1px 4px;border-radius:2px;white-space:nowrap;pointer-events:none;z-index:30}
+.line-handle:hover .line-handle-time{display:block}
+
+.time-axis{height:20px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;font-size:10px;color:#666;font-family:monospace;flex-shrink:0}
+.time-axis .tick{position:absolute;top:0;height:100%;border-left:1px solid #2a2a4a;padding-left:3px;display:flex;align-items:flex-end;padding-bottom:2px}
+
+.scrollbar-track{height:14px;background:#0a0a18;border-top:1px solid #2a2a4a;border-bottom:1px solid #2a2a4a;position:relative;cursor:pointer;flex-shrink:0;box-shadow:inset 0 1px 3px rgba(0,0,0,0.5)}
+.scrollbar-thumb{position:absolute;top:2px;height:10px;background:rgba(76,201,240,0.35);border:1px solid rgba(76,201,240,0.6);border-radius:5px;cursor:grab;min-width:20px}
+.scrollbar-thumb:hover{background:rgba(76,201,240,0.5)}
+.scrollbar-thumb.dragging{background:rgba(76,201,240,0.65);cursor:grabbing}
+
+.transport{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#16213e;border-bottom:1px solid #2a2a4a;font-size:13px;flex-wrap:wrap}
+.transport .time{color:#4cc9f0;font-family:monospace;min-width:60px}
+.transport .divider{color:#444}
+.current-lyric{color:#888;margin-left:16px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:italic}
+
+.mode-toggle{display:inline-flex;border:1px solid #2a2a4a;border-radius:4px;overflow:hidden}
+.mode-toggle button{padding:4px 12px;font-size:12px;background:#2a2a4a;color:#e0e0e0;border:none;cursor:pointer;font-family:inherit}
+.mode-toggle button.active{background:#4cc9f0;color:#0f0f1a;font-weight:600}
+.mode-toggle button:hover:not(.active){background:#3a3a5a}
+
+/* Detail panel (bottom of center) */
+.detail-panel{height:200px;overflow-y:auto;background:#0f0f1a;border-top:1px solid #2a2a4a;padding:12px}
+.detail-header{font-size:14px;color:#4cc9f0;font-weight:600;margin-bottom:4px}
+.detail-meta{font-size:11px;color:#666;margin-bottom:10px;font-family:monospace}
+.word-table{width:100%;border-collapse:collapse}
+.word-table th{text-align:left;font-size:10px;color:#888;padding:2px 6px;border-bottom:1px solid #2a2a4a;text-transform:uppercase;letter-spacing:.5px}
+.word-table td{padding:3px 6px;font-size:12px;border-bottom:1px solid #1a1a2e}
+.word-table tr.active td{background:#16213e}
+.word-table .time-input{width:65px;background:#16213e;border:1px solid #2a2a4a;color:#e0e0e0;padding:2px 4px;border-radius:3px;font-size:11px;font-family:monospace;text-align:right}
+.word-table .time-input:focus{border-color:#4cc9f0;outline:none}
+.source-badge{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:600;text-transform:uppercase}
+.source-badge.onset{background:rgba(72,187,120,0.2);color:#48bb78}
+.source-badge.midi{background:rgba(108,140,255,0.2);color:#6c8cff}
+.source-badge.vocal_onset{background:rgba(246,173,85,0.2);color:#f6ad55}
+.source-badge.interpolated{background:rgba(102,102,102,0.2);color:#888}
+.source-badge.transcription{background:rgba(76,201,240,0.2);color:#4cc9f0}
+.source-badge.onset_syllable{background:rgba(76,201,240,0.2);color:#4cc9f0}
+
+/* Right: properties panel */
+.props-panel{overflow-y:auto;background:#0f0f1a;border-left:1px solid #2a2a4a;padding:12px}
+.props-section{margin-bottom:16px}
+.props-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.props-value{margin-bottom:8px}
+.props-input{width:100%;background:#16213e;border:1px solid #2a2a4a;color:#e0e0e0;padding:4px 8px;border-radius:3px;font-size:12px}
+.props-input:focus{border-color:#4cc9f0;outline:none}
+.props-select{width:100%;background:#16213e;border:1px solid #2a2a4a;color:#e0e0e0;padding:4px 8px;border-radius:3px;font-size:12px;cursor:pointer}
+.props-select:focus{border-color:#4cc9f0;outline:none}
+.props-color{width:40px;height:28px;border:1px solid #2a2a4a;border-radius:3px;cursor:pointer;padding:0;background:none}
+.props-color::-webkit-color-swatch{border:none;border-radius:2px}
+.props-color::-webkit-color-swatch-wrapper{padding:2px}
+.props-range{width:100%;accent-color:#4cc9f0}
+.props-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.props-row .props-label{margin-bottom:0;min-width:70px}
+.props-row .props-value{flex:1;margin-bottom:0}
+.props-divider{border:none;border-top:1px solid #2a2a4a;margin:12px 0}
+.section-type-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600;background:rgba(76,201,240,0.15);color:#4cc9f0}
+
+.empty-state{padding:40px 20px;text-align:center;color:#666;font-size:13px}
+
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:#1a1a2e}
+::-webkit-scrollbar-thumb{background:#3a3a5a;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#4a4a6a}
+</style>
+</head>
+<body>
+<div class="app" style="display:flex;flex-direction:column;height:100vh">
+
+<div class="header">
+  <h1>MVP Editor</h1>
+  <div class="header-actions">
+    <span class="save-status" id="saveStatus"></span>
+    <button class="btn" onclick="autoSync()">Auto-Sync</button>
+    <button class="btn btn-primary" onclick="saveAll()">Save</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="section-list" id="sectionList"></div>
+
+  <div class="center-panel">
+    <div style="flex:1;display:flex;flex-direction:column;min-height:0">
+      <div class="waveform-container" id="waveformContainer">
+        <canvas id="waveformCanvas"></canvas>
+        <div id="sectionOverlays"></div>
+        <div id="playheadWave" class="playhead" style="left:0"></div>
+      </div>
+      <div class="word-zone" id="wordZone">
+        <div class="word-zone-inner" id="wordOverlay"></div>
+        <div id="playheadWords" class="playhead" style="left:0"></div>
+      </div>
+      <div class="time-axis" id="timeAxis"></div>
+      <div class="scrollbar-track" id="scrollbarTrack">
+        <div class="scrollbar-thumb" id="scrollbarThumb"></div>
+      </div>
+    </div>
+
+    <div class="transport">
+      <div class="mode-toggle">
+        <button id="modeLineBtn" class="active" onclick="setMode('line')">Line</button>
+        <button id="modeWordBtn" onclick="setMode('word')">Word</button>
+      </div>
+      <span class="divider">|</span>
+      <button class="btn btn-small" onclick="zoomIn()">&#x2212;</button>
+      <button class="btn btn-small" onclick="fitAll()">Fit All</button>
+      <button class="btn btn-small" onclick="zoomOut()">+</button>
+      <span class="divider">|</span>
+      <button class="btn btn-small" onclick="skipBack()">&#x25C0; 5s</button>
+      <button class="btn btn-small" id="playBtn" onclick="togglePlay()">&#x25B6;</button>
+      <button class="btn btn-small" onclick="skipForward()">5s &#x25B6;</button>
+      <button class="btn btn-small" id="loopBtn" onclick="toggleLoopLine()">&#x21BB; Loop</button>
+      <span class="time" id="currentTime">0:00.0</span>
+      <span class="divider">/</span>
+      <span class="time" id="totalTime">0:00.0</span>
+      <span class="current-lyric" id="currentLyric"></span>
+    </div>
+
+    <div class="detail-panel" id="detailPanel">
+      <p style="color:#666;font-size:13px">Select a line or section to edit</p>
+    </div>
+  </div>
+
+  <div class="props-panel" id="propsPanel">
+    <p style="color:#666;font-size:13px">Select a section to edit its properties</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+const API = '';
+const MIN_WORD_DURATION = 0.15;
+const MIN_LINE_DURATION = 0.5;
+const SECTION_COLORS = ['#4cc9f0','#48bb78','#f6ad55','#6c8cff','#f66','#e056a0','#56e0c0','#c0e056','#ff8c42','#42c6ff'];
+const CORE_TYPES = ['verse','chorus','bridge','intro','outro','pre_chorus','hook','interlude','instrumental'];
+const ANIM_TYPES = ['fade','slide','scale','typewriter','pulse','none'];
+const TEXTURE_TYPES = ['none','noise_fine','noise_coarse','grain_film','paper_subtle','vignette_soft','vignette_heavy'];
+const GRADIENT_DIRS = ['vertical_top_bottom','vertical_bottom_top','horizontal_left_right','horizontal_right_left','diagonal_tl_br','diagonal_tr_bl','radial_center','radial_top','radial_bottom'];
+
+let audioCtx, audioBuffer, sourceNode;
+let lyricsRaw = null;
+let syncedData = null;
+let analysisData = null;
+let waveformPeaks = [];
+let beatTimes = [];
+let audioPath = '';
+let structureData = {sections:[]};
+let templates = {};
+let isPlaying = false;
+let startTime = 0;
+let pauseOffset = 0;
+let selectedLineIdx = -1;
+let selectedSectionIdx = -1;
+let animFrame = null;
+let hasUnsavedChanges = false;
+let viewStart = 0;
+let viewEnd = 0;
+let editMode = 'line';
+let zoomContext = 1;
+let isZoomed = false;
+let draggingWord = null;
+let wordDragStartX = 0;
+let wordDragStartTime = 0;
+let wordDragEndTime = 0;
+let dragType = 'move';
+let draggingLine = null;
+let lineDragStartX = 0;
+let lineDragOrigTime = 0;
+let draggingBoundary = null;
+let boundaryDragStartX = 0;
+let boundaryDragOrigLine = 0;
+let draggingThumb = false;
+let thumbDragStartX = 0;
+let thumbDragStartViewStart = 0;
+let loopLine = false;
+
+// ===== INIT =====
+
+async function init() {
+  try {
+    const [projRes, rawRes, analysisRes, waveRes, syncedRes, structRes, templRes] = await Promise.all([
+      fetch(`${API}/api/project`).then(r => r.json()),
+      fetch(`${API}/api/lyrics-raw`).then(r => r.json()),
+      fetch(`${API}/api/analysis`).then(r => r.json()),
+      fetch(`${API}/api/waveforms`).then(r => r.json()),
+      fetch(`${API}/api/lyrics-synced`).then(r => r.json()).catch(() => null),
+      fetch(`${API}/api/structure`).then(r => r.json()).catch(() => null),
+      fetch(`${API}/api/templates`).then(r => r.json()),
+    ]);
+
+    if (projRes.error) { setStatus('No project loaded'); return; }
+    lyricsRaw = rawRes;
+    analysisData = analysisRes;
+    waveformPeaks = waveRes.peaks || [];
+    beatTimes = analysisRes.beat_times || [];
+    syncedData = syncedRes && !syncedRes.error ? syncedRes : null;
+    templates = templRes || {};
+
+    if (structRes && !structRes.error && structRes.sections) {
+      structureData = structRes;
+    }
+
+    if (projRes.paths && projRes.paths.audio) {
+      audioPath = `/data/${projRes.paths.audio}`;
+    }
+
+    if (!syncedData) {
+      await autoSync();
+    }
+
+    if (!structureData.sections.length) {
+      await autoGenerateStructure();
+    }
+
+    viewStart = 0;
+    viewEnd = analysisData.duration || 0;
+    document.getElementById('totalTime').textContent = fmtTime(analysisData.duration || 0);
+    renderSectionList();
+    drawWaveform();
+    renderTimeAxis();
+    renderWordLayer();
+    renderSectionOverlays();
+    updateScrollbar();
+    setStatus(`Loaded: ${getLines().length} lines, ${structureData.sections.length} sections`);
+    if (audioPath) await loadAudio();
+  } catch (e) {
+    setStatus('Error: ' + e.message);
+  }
+}
+
+async function loadAudio() {
+  try {
+    const res = await fetch(audioPath);
+    const buf = await res.arrayBuffer();
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    audioBuffer = await audioCtx.decodeAudioData(buf);
+  } catch (e) {
+    setStatus('Audio unavailable');
+  }
+}
+
+// ===== STRUCTURE =====
+
+function getLineColor(idx) {
+  const sec = structureData.sections[idx];
+  if (sec && sec.visual && sec.visual.background_color) return sec.visual.background_color;
+  return SECTION_COLORS[idx % SECTION_COLORS.length];
+}
+
+function findSectionForLine(lineIdx) {
+  for (let i = 0; i < structureData.sections.length; i++) {
+    const s = structureData.sections[i];
+    if (lineIdx >= s.start_line && lineIdx <= s.end_line) return i;
+  }
+  return -1;
+}
+
+async function autoGenerateStructure() {
+  try {
+    const res = await fetch(`${API}/api/auto-generate-structure`, {method:'POST'});
+    const data = await res.json();
+    if (data.sections) {
+      structureData = {sections: data.sections};
+      hasUnsavedChanges = true;
+    }
+  } catch (e) {
+    setStatus('Structure generation failed: ' + e.message);
+  }
+}
+
+function addSection(afterIdx) {
+  const secs = structureData.sections;
+  if (secs.length === 0) return;
+  const idx = afterIdx != null ? afterIdx : secs.length - 1;
+  const sec = secs[idx];
+  if (sec.start_line >= sec.end_line) return;
+  const splitAt = Math.floor((sec.start_line + sec.end_line) / 2);
+  const newSec = JSON.parse(JSON.stringify(sec));
+  newSec.id = 's' + Date.now();
+  newSec.start_line = splitAt + 1;
+  newSec.name = sec.name + ' (split)';
+  sec.end_line = splitAt;
+  secs.splice(idx + 1, 0, newSec);
+  markUnsaved();
+  renderSectionList();
+  renderSectionOverlays();
+  renderWordLayer();
+}
+
+function deleteSection(idx) {
+  const secs = structureData.sections;
+  if (secs.length <= 1) return;
+  const sec = secs[idx];
+  const absorb = idx > 0 ? secs[idx - 1] : secs[idx + 1];
+  if (idx > 0) absorb.end_line = sec.end_line;
+  else absorb.start_line = sec.start_line;
+  secs.splice(idx, 1);
+  selectedSectionIdx = -1;
+  markUnsaved();
+  renderSectionList();
+  renderSectionOverlays();
+  renderWordLayer();
+  renderPropsPanel();
+}
+
+function updateSectionType(idx, newType) {
+  const sec = structureData.sections[idx];
+  if (CORE_TYPES.includes(newType)) {
+    sec.type = newType;
+    sec.custom_type = undefined;
+  } else {
+    sec.type = 'custom';
+    sec.custom_type = newType;
+  }
+  sec.name = (sec.custom_type || sec.type).replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  markUnsaved();
+  renderSectionList();
+  renderPropsPanel();
+}
+
+function applyTemplate(idx, templateName) {
+  const t = templates[templateName];
+  if (!t || !structureData.sections[idx]) return;
+  structureData.sections[idx].visual = JSON.parse(JSON.stringify(t));
+  markUnsaved();
+  renderPropsPanel();
+  renderSectionOverlays();
+}
+
+// ===== RENDER =====
+
+function renderSectionList() {
+  const el = document.getElementById('sectionList');
+  let html = '';
+  structureData.sections.forEach((sec, i) => {
+    const color = getLineColor(i);
+    const lineCount = sec.end_line - sec.start_line + 1;
+    const cls = i === selectedSectionIdx ? ' active' : '';
+    html += `<div class="section-item${cls}" data-sec="${i}" onclick="selectSection(${i})">` +
+      `<div class="sec-type"><span class="sec-color" style="background:${color}"></span>${escHtml(sec.type === 'custom' ? sec.custom_type : sec.type)}</div>` +
+      `<div class="sec-name">${escHtml(sec.name)}</div>` +
+      `<div class="sec-range">Lines ${sec.start_line + 1}\u2013${sec.end_line + 1} (${lineCount})</div>` +
+      `</div>`;
+  });
+  html += `<div class="section-add" onclick="addSection(null)">+ Add Section</div>`;
+  el.innerHTML = html;
+}
+
+function renderSectionOverlays() {
+  const container = document.getElementById('sectionOverlays');
+  container.innerHTML = '';
+  if (!syncedData || !syncedData.lines.length) return;
+  const lines = syncedData.lines;
+
+  structureData.sections.forEach((sec, i) => {
+    const startLine = lines[sec.start_line];
+    const endLine = lines[sec.end_line];
+    if (!startLine || !endLine) return;
+    const left = timeToPct(startLine.start);
+    const right = timeToPct(endLine.end);
+    const color = getLineColor(i);
+    const cls = i === selectedSectionIdx ? ' active' : '';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'section-overlay' + cls;
+    overlay.style.cssText = `left:${left}%;width:${right - left}%;background:${color}`;
+    container.appendChild(overlay);
+
+    if (i > 0) {
+      const boundary = document.createElement('div');
+      boundary.className = 'section-boundary';
+      boundary.style.left = left + '%';
+      boundary.dataset.secIdx = i;
+      boundary.addEventListener('mousedown', handleBoundaryMouseDown);
+      container.appendChild(boundary);
+    }
+  });
+}
+
+function renderPropsPanel() {
+  const el = document.getElementById('propsPanel');
+  if (selectedSectionIdx < 0 || selectedSectionIdx >= structureData.sections.length) {
+    el.innerHTML = '<p style="color:#666;font-size:13px">Select a section to edit its properties</p>';
+    return;
+  }
+  const sec = structureData.sections[selectedSectionIdx];
+  const v = sec.visual || {};
+  const color = getLineColor(selectedSectionIdx);
+
+  let typeOptions = CORE_TYPES.map(t =>
+    `<option value="${t}"${sec.type === t ? ' selected' : ''}>${t.replace(/_/g,' ')}</option>`
+  ).join('') + `<option value="custom"${sec.type === 'custom' ? ' selected' : ''}>Custom...</option>`;
+
+  let templateOptions = Object.keys(templates).map(t =>
+    `<option value="${t}">${t}</option>`
+  ).join('');
+
+  let animOptions = ANIM_TYPES.map(t =>
+    `<option value="${t}"${v.animation_type === t ? ' selected' : ''}>${t}</option>`
+  ).join('');
+
+  let textureOptions = TEXTURE_TYPES.map(t =>
+    `<option value="${t}"${v.texture_type === t ? ' selected' : ''}>${t.replace(/_/g,' ')}</option>`
+  ).join('');
+
+  let gradDirOptions = GRADIENT_DIRS.map(t =>
+    `<option value="${t}"${v.gradient_direction === t ? ' selected' : ''}>${t.replace(/_/g,' ')}</option>`
+  ).join('');
+
+  el.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <span style="width:14px;height:14px;border-radius:3px;background:${color};flex-shrink:0"></span>
+      <div class="detail-header" style="margin:0">${escHtml(sec.name)}</div>
+    </div>
+    <div class="props-section">
+      <div class="props-label">Section Type</div>
+      <div class="props-value">
+        <select class="props-select" onchange="updateSectionType(${selectedSectionIdx},this.value)">${typeOptions}</select>
+        ${sec.type === 'custom' ? `<input class="props-input" style="margin-top:4px" value="${escHtml(sec.custom_type||'')}" onchange="structureData.sections[${selectedSectionIdx}].custom_type=this.value;structureData.sections[${selectedSectionIdx}].name=this.value;markUnsaved();renderSectionList()">` : ''}
+      </div>
+      <div class="props-label">Template</div>
+      <div class="props-value">
+        <select class="props-select" onchange="applyTemplate(${selectedSectionIdx},this.value)"><option value="">-- pick template --</option>${templateOptions}</select>
+      </div>
+    </div>
+    <hr class="props-divider">
+    <div class="props-section">
+      <div class="props-label">Background</div>
+      <div class="props-row">
+        <span class="props-label">Type</span>
+        <div class="props-value"><select class="props-select" onchange="secField(${selectedSectionIdx},'background_type',this.value);renderPropsPanel()">
+          <option value="solid"${v.background_type!=='gradient'?' selected':''}>Solid</option>
+          <option value="gradient"${v.background_type==='gradient'?' selected':''}>Gradient</option>
+        </select></div>
+      </div>
+      <div class="props-row">
+        <span class="props-label">Color</span>
+        <div class="props-value"><input type="color" class="props-color" value="${v.background_color||'#1a1a2e'}" onchange="secField(${selectedSectionIdx},'background_color',this.value);renderSectionOverlays()"></div>
+      </div>
+      ${v.background_type === 'gradient' ? `
+      <div class="props-row">
+        <span class="props-label">Grad 2</span>
+        <div class="props-value"><input type="color" class="props-color" value="${(v.gradient_colors&&v.gradient_colors[1])||'#8E44AD'}" onchange="setGradientColor2(${selectedSectionIdx},this.value);renderSectionOverlays()"></div>
+      </div>
+      <div class="props-row">
+        <span class="props-label">Direction</span>
+        <div class="props-value"><select class="props-select" onchange="secField(${selectedSectionIdx},'gradient_direction',this.value)">${gradDirOptions}</select></div>
+      </div>
+      ` : ''}
+    </div>
+    <hr class="props-divider">
+    <div class="props-section">
+      <div class="props-label">Texture</div>
+      <div class="props-value"><select class="props-select" onchange="secField(${selectedSectionIdx},'texture_type',this.value)">${textureOptions}</select></div>
+      <div class="props-row" style="margin-top:4px">
+        <span class="props-label">Opacity</span>
+        <div class="props-value"><input type="range" class="props-range" min="0" max="0.5" step="0.05" value="${v.texture_opacity||0.15}" onchange="secField(${selectedSectionIdx},'texture_opacity',parseFloat(this.value))"></div>
+      </div>
+    </div>
+    <hr class="props-divider">
+    <div class="props-section">
+      <div class="props-label">Text</div>
+      <div class="props-row">
+        <span class="props-label">Auto</span>
+        <div class="props-value"><input type="checkbox" ${v.text_auto_contrast !== false ? 'checked' : ''} onchange="secField(${selectedSectionIdx},'text_auto_contrast',this.checked);renderPropsPanel()"></div>
+      </div>
+      ${!v.text_auto_contrast ? `<div class="props-row"><span class="props-label">Color</span><div class="props-value"><input type="color" class="props-color" value="${v.text_color||'#ffffff'}" onchange="secField(${selectedSectionIdx},'text_color',this.value)"></div></div>` : ''}
+      <div class="props-row">
+        <span class="props-label">Size</span>
+        <div class="props-value"><input class="props-input" type="number" min="24" max="96" value="${v.font_size||48}" onchange="secField(${selectedSectionIdx},'font_size',parseInt(this.value))"></div>
+      </div>
+    </div>
+    <hr class="props-divider">
+    <div class="props-section">
+      <div class="props-label">Animation</div>
+      <div class="props-value"><select class="props-select" onchange="secField(${selectedSectionIdx},'animation_type',this.value)">${animOptions}</select></div>
+      <div class="props-row" style="margin-top:4px">
+        <span class="props-label">Speed</span>
+        <div class="props-value"><input type="range" class="props-range" min="0.1" max="2" step="0.1" value="${v.animation_speed||1}" onchange="secField(${selectedSectionIdx},'animation_speed',parseFloat(this.value))"></div>
+      </div>
+    </div>
+    <hr class="props-divider">
+    <div class="props-section">
+      <div class="props-label">Reactivity</div>
+      ${['vocals','drums','bass','synth','energy'].map(r => {
+        const checked = (v.reactivity || ['vocals']).includes(r);
+        return `<div class="props-row"><span class="props-label">${r}</span><div class="props-value"><input type="checkbox" ${checked?'checked':''} onchange="toggleReactivity(${selectedSectionIdx},'${r}',this.checked)"></div></div>`;
+      }).join('')}
+    </div>
+    <hr class="props-divider">
+    <div class="props-section">
+      <div class="props-label">Actions</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn btn-small" onclick="addSection(${selectedSectionIdx})">Split Here</button>
+        <button class="btn btn-small btn-danger" onclick="if(confirm('Delete this section?'))deleteSection(${selectedSectionIdx})">Delete</button>
+      </div>
+    </div>
+  `;
+}
+
+function secField(idx, field, value) {
+  if (!structureData.sections[idx]) return;
+  if (!structureData.sections[idx].visual) structureData.sections[idx].visual = {};
+  structureData.sections[idx].visual[field] = value;
+  markUnsaved();
+}
+
+function toggleReactivity(idx, stem, checked) {
+  if (!structureData.sections[idx]) return;
+  const v = structureData.sections[idx].visual;
+  if (!v.reactivity) v.reactivity = [];
+  if (checked && !v.reactivity.includes(stem)) v.reactivity.push(stem);
+  if (!checked) v.reactivity = v.reactivity.filter(r => r !== stem);
+  markUnsaved();
+}
+
+function setGradientColor2(idx, color) {
+  if (!structureData.sections[idx]) return;
+  const v = structureData.sections[idx].visual;
+  v.gradient_colors = [v.background_color || '#1a1a2e', color];
+  markUnsaved();
+}
+
+// ===== AUDIO =====
+
+function togglePlay() {
+  if (!audioBuffer) return;
+  if (isPlaying) {
+    pauseOffset += audioCtx.currentTime - startTime;
+    sourceNode.onended = null;
+    sourceNode.stop();
+    isPlaying = false;
+    document.getElementById('playBtn').textContent = '\u25B6';
+  } else {
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').textContent = '\u25B6'; };
+    startTime = audioCtx.currentTime;
+    sourceNode.start(0, pauseOffset);
+    isPlaying = true;
+    document.getElementById('playBtn').textContent = '\u23F8';
+    updatePlayhead();
+  }
+}
+
+function getPlaybackTime() {
+  return isPlaying ? pauseOffset + (audioCtx.currentTime - startTime) : pauseOffset;
+}
+
+function seekToTime(t) {
+  if (!audioBuffer) return;
+  t = Math.max(0, Math.min(t, analysisData.duration));
+  if (isPlaying) {
+    sourceNode.onended = null;
+    sourceNode.stop();
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').textContent = '\u25B6'; };
+    pauseOffset = t;
+    startTime = audioCtx.currentTime;
+    sourceNode.start(0, t);
+  } else {
+    pauseOffset = t;
+  }
+  updatePlayheadVisual(t);
+  highlightAtTime(t);
+}
+
+function updatePlayheadVisual(t) {
+  const pct = timeToPct(t) + '%';
+  document.getElementById('playheadWave').style.left = pct;
+  document.getElementById('playheadWords').style.left = pct;
+}
+
+function updatePlayhead() {
+  if (!isPlaying) return;
+  const t = getPlaybackTime();
+
+  if (loopLine && selectedLineIdx >= 0 && syncedData) {
+    const line = syncedData.lines[selectedLineIdx];
+    if (t >= line.end) {
+      seekToTime(line.start);
+      return updatePlayhead();
+    }
+  }
+
+  updatePlayheadVisual(t);
+  document.getElementById('currentTime').textContent = fmtTime(t);
+  highlightAtTime(t);
+  animFrame = requestAnimationFrame(updatePlayhead);
+}
+
+function skipBack() { seekToTime(getPlaybackTime() - 5); }
+function skipForward() { seekToTime(getPlaybackTime() + 5); }
+function toggleLoopLine() {
+  loopLine = !loopLine;
+  document.getElementById('loopBtn').style.background = loopLine ? '#4cc9f0' : '';
+  document.getElementById('loopBtn').style.color = loopLine ? '#0f0f1a' : '';
+  if (loopLine && selectedLineIdx >= 0 && syncedData) {
+    seekToTime(syncedData.lines[selectedLineIdx].start);
+    if (!isPlaying) togglePlay();
+  }
+}
+
+// ===== VIEW =====
+
+function timeToPct(t) {
+  const range = viewEnd - viewStart;
+  return range > 0 ? ((t - viewStart) / range) * 100 : 0;
+}
+function pctToTime(pct) {
+  return viewStart + (pct / 100) * (viewEnd - viewStart);
+}
+
+function zoomToLine(lineIdx, context) {
+  if (!syncedData) return;
+  const lines = syncedData.lines;
+  const first = Math.max(0, lineIdx - context);
+  const last = Math.min(lines.length - 1, lineIdx + context);
+  let s = lines[first].start;
+  let e = lines[last].end;
+  const pad = (e - s) * 0.1;
+  viewStart = Math.max(0, s - pad);
+  viewEnd = Math.min(analysisData.duration, e + pad);
+  isZoomed = true;
+  redrawAll();
+}
+
+function zoomIn() { if (isZoomed && zoomContext > 0) { zoomContext--; zoomToLine(selectedLineIdx, zoomContext); } }
+function zoomOut() { if (isZoomed) { zoomContext++; zoomToLine(selectedLineIdx, zoomContext); } }
+function fitAll() { viewStart = 0; viewEnd = analysisData.duration; isZoomed = false; document.getElementById('totalTime').textContent = fmtTime(analysisData.duration); redrawAll(); }
+
+function redrawAll() { drawWaveform(); renderTimeAxis(); renderWordLayer(); renderSectionOverlays(); updateScrollbar(); repositionPlayhead(); }
+
+function repositionPlayhead() { updatePlayheadVisual(getPlaybackTime()); }
+
+function updateScrollbar() {
+  const dur = analysisData.duration || 1;
+  const thumb = document.getElementById('scrollbarThumb');
+  const track = document.getElementById('scrollbarTrack');
+  const tw = track.offsetWidth;
+  const left = (viewStart / dur) * tw;
+  const width = ((viewEnd - viewStart) / dur) * tw;
+  thumb.style.left = left + 'px';
+  thumb.style.width = Math.max(20, width) + 'px';
+}
+
+// ===== DRAW =====
+
+function drawWaveform() {
+  const canvas = document.getElementById('waveformCanvas');
+  const container = document.getElementById('waveformContainer');
+  canvas.width = container.offsetWidth;
+  canvas.height = container.offsetHeight;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  if (!waveformPeaks.length) return;
+  const dur = analysisData.duration || 1;
+  const startIdx = Math.floor((viewStart / dur) * waveformPeaks.length);
+  const endIdx = Math.ceil((viewEnd / dur) * waveformPeaks.length);
+  const count = endIdx - startIdx;
+  if (count <= 0) return;
+  const barW = Math.max(1, w / count);
+  const midY = h / 2;
+
+  for (let i = 0; i < count; i++) {
+    const val = waveformPeaks[startIdx + i] || 0;
+    const barH = val * midY;
+    ctx.fillStyle = '#4cc9f0';
+    ctx.fillRect(i * barW, midY - barH, Math.max(1, barW - 0.5), barH * 2);
+  }
+
+  beatTimes.forEach(bt => {
+    if (bt >= viewStart && bt <= viewEnd) {
+      const x = timeToPct(bt) / 100 * w;
+      ctx.fillStyle = 'rgba(76,201,240,0.2)';
+      ctx.fillRect(x, 0, 1, h);
+    }
+  });
+}
+
+function renderTimeAxis() {
+  const el = document.getElementById('timeAxis');
+  const dur = viewEnd - viewStart;
+  let interval = 1;
+  if (dur > 120) interval = 10;
+  else if (dur > 60) interval = 5;
+  else if (dur > 30) interval = 2;
+  let html = '';
+  const first = Math.ceil(viewStart / interval) * interval;
+  for (let t = first; t <= viewEnd; t += interval) {
+    const pct = timeToPct(t);
+    html += `<div class="tick" style="left:${pct}%">${fmtTimeShort(t)}</div>`;
+  }
+  el.innerHTML = html;
+}
+
+function renderWordLayer() {
+  if (!syncedData || !syncedData.lines.length || !analysisData) return;
+  const lines = syncedData.lines;
+  const overlay = document.getElementById('wordOverlay');
+  overlay.innerHTML = '';
+
+  if (isZoomed && selectedLineIdx >= 0) {
+    const first = Math.max(0, selectedLineIdx - zoomContext);
+    const last = Math.min(lines.length - 1, selectedLineIdx + zoomContext);
+    let topOffset = 4;
+
+    for (let i = first; i <= last; i++) {
+      const line = lines[i];
+      const leftPct = timeToPct(line.start);
+      const rightPct = timeToPct(line.end);
+      const lineLeft = leftPct / 100 * overlay.offsetWidth;
+      const lineRight = rightPct / 100 * overlay.offsetWidth;
+      const lineW = lineRight - lineLeft;
+      if (lineW <= 0) continue;
+
+      if (editMode === 'line') {
+        const lhL = document.createElement('div');
+        lhL.className = 'line-handle';
+        lhL.style.cssText = `left:${leftPct}%;top:${topOffset}px;background:rgba(76,201,240,0.1)`;
+        lhL.innerHTML = `<span class="line-handle-time">${fmtTime(line.start)}</span>`;
+        lhL.dataset.lineIdx = i;
+        lhL.dataset.boundary = 'start';
+        lhL.addEventListener('mousedown', handleLineMouseDown);
+        overlay.appendChild(lhL);
+
+        const lhR = document.createElement('div');
+        lhR.className = 'line-handle';
+        lhR.style.cssText = `left:${rightPct}%;top:${topOffset}px;background:rgba(76,201,240,0.1)`;
+        lhR.innerHTML = `<span class="line-handle-time">${fmtTime(line.end)}</span>`;
+        lhR.dataset.lineIdx = i;
+        lhR.dataset.boundary = 'end';
+        lhR.addEventListener('mousedown', handleLineMouseDown);
+        overlay.appendChild(lhR);
+      }
+
+      line.words.forEach((w, j) => {
+        const wL = timeToPct(w.start) / 100 * overlay.offsetWidth;
+        const wR = timeToPct(w.end) / 100 * overlay.offsetWidth;
+        const wW = Math.max(20, wR - wL);
+        const wordEl = document.createElement('div');
+        const src = w.source || 'interpolated';
+        const selClass = i === selectedLineIdx ? ' selected-line' : '';
+        const roClass = editMode === 'line' ? ' readonly' : '';
+        wordEl.className = `word${selClass}${roClass}`;
+        wordEl.style.cssText = `left:${wL}px;width:${wW}px;top:${topOffset}px`;
+        wordEl.dataset.line = i;
+        wordEl.dataset.word = j;
+        wordEl.dataset.start = w.start;
+        wordEl.dataset.end = w.end;
+        wordEl.innerHTML = `<span class="source-dot ${src}"></span><span>${escHtml(w.text)}</span>`;
+        if (editMode === 'word') {
+          const handleL = document.createElement('div');
+          handleL.className = 'word-handle word-handle-left';
+          wordEl.appendChild(handleL);
+          const handleR = document.createElement('div');
+          handleR.className = 'word-handle word-handle-right';
+          wordEl.appendChild(handleR);
+          wordEl.addEventListener('mousedown', handleWordMouseDown);
+        }
+        overlay.appendChild(wordEl);
+      });
+
+      topOffset += 46;
+    }
+  } else {
+    if (isZoomed && selectedLineIdx >= 0 && syncedData) {
+      for (let j = 0; j < lines[selectedLineIdx].words.length; j++) {
+        const w = lines[selectedLineIdx].words[j];
+        const wL = timeToPct(w.start) / 100 * overlay.offsetWidth;
+        const wR = timeToPct(w.end) / 100 * overlay.offsetWidth;
+        const wW = Math.max(20, wR - wL);
+        const wordEl = document.createElement('div');
+        const src = w.source || 'interpolated';
+        wordEl.className = 'word selected-line';
+        wordEl.style.cssText = `left:${wL}px;width:${wW}px;top:10px`;
+        wordEl.dataset.line = selectedLineIdx;
+        wordEl.dataset.word = j;
+        wordEl.dataset.start = w.start;
+        wordEl.dataset.end = w.end;
+        wordEl.innerHTML = `<span class="source-dot ${src}"></span><span>${escHtml(w.text)}</span>`;
+        overlay.appendChild(wordEl);
+      }
+    }
+  }
+}
+
+function highlightAtTime(t) {
+  if (!syncedData) return;
+  const lines = syncedData.lines;
+  for (let i = 0; i < lines.length; i++) {
+    const words = lines[i].words;
+    for (let j = 0; j < words.length; j++) {
+      if (t >= words[j].start && t <= words[j].end) {
+        document.getElementById('currentLyric').textContent = lines[i].text;
+        return;
+      }
+    }
+  }
+  document.getElementById('currentLyric').textContent = '';
+}
+
+// ===== INTERACTION =====
+
+function selectLine(idx) {
+  selectedLineIdx = idx;
+  selectedSectionIdx = findSectionForLine(idx);
+  if (syncedData && idx >= 0 && idx < syncedData.lines.length) {
+    zoomToLine(idx, zoomContext);
+    seekToTime(syncedData.lines[idx].start);
+    renderDetail(syncedData.lines[idx]);
+    renderSectionList();
+    renderPropsPanel();
+  }
+}
+
+function selectSection(idx) {
+  selectedSectionIdx = idx;
+  const sec = structureData.sections[idx];
+  if (!sec || !syncedData) return;
+  const midLine = Math.floor((sec.start_line + sec.end_line) / 2);
+  selectedLineIdx = midLine;
+  viewStart = syncedData.lines[sec.start_line].start;
+  viewEnd = syncedData.lines[sec.end_line].end;
+  const pad = (viewEnd - viewStart) * 0.05;
+  viewStart = Math.max(0, viewStart - pad);
+  viewEnd = Math.min(analysisData.duration, viewEnd + pad);
+  isZoomed = true;
+  redrawAll();
+  renderSectionList();
+  renderPropsPanel();
+  renderDetail(syncedData.lines[midLine]);
+}
+
+function setMode(mode) {
+  editMode = mode;
+  document.getElementById('modeLineBtn').className = mode === 'line' ? 'active' : '';
+  document.getElementById('modeWordBtn').className = mode === 'word' ? 'active' : '';
+  renderWordLayer();
+  if (selectedLineIdx >= 0 && syncedData) renderDetail(syncedData.lines[selectedLineIdx]);
+}
+
+function renderDetail(line) {
+  const el = document.getElementById('detailPanel');
+  if (!line) { el.innerHTML = ''; return; }
+  if (editMode === 'word') renderDetailWordMode(line, el);
+  else renderDetailLineMode(line, el);
+}
+
+function renderDetailLineMode(line, el) {
+  const li = selectedLineIdx;
+  let html = `<div class="detail-header">${escHtml(line.text)}</div>`;
+  html += `<div class="detail-meta">Line ${li + 1} | ${fmtTime(line.start)} \u2013 ${fmtTime(line.end)} (${(line.end - line.start).toFixed(2)}s)</div>`;
+  html += `<table class="word-table"><tr><th>Word</th><th>Start</th><th>End</th><th>Source</th></tr>`;
+  line.words.forEach((w, j) => {
+    const src = w.source || 'interpolated';
+    html += `<tr><td>${escHtml(w.text)}</td><td>${w.start.toFixed(3)}</td><td>${w.end.toFixed(3)}</td><td><span class="source-badge ${src}">${src}</span></td></tr>`;
+  });
+  html += `</table>`;
+  el.innerHTML = html;
+}
+
+function renderDetailWordMode(line, el) {
+  const li = selectedLineIdx;
+  let html = `<div class="detail-header">${escHtml(line.text)}</div>`;
+  html += `<div class="detail-meta">Line ${li + 1} | ${fmtTime(line.start)} \u2013 ${fmtTime(line.end)}</div>`;
+  html += `<table class="word-table"><tr><th>Word</th><th>Start</th><th>End</th><th>Source</th></tr>`;
+  line.words.forEach((w, j) => {
+    const src = w.source || 'interpolated';
+    html += `<tr><td>${escHtml(w.text)}</td>` +
+      `<td><input class="time-input" type="number" step="0.01" value="${w.start.toFixed(3)}" data-line="${li}" data-word="${j}" data-field="start"></td>` +
+      `<td><input class="time-input" type="number" step="0.01" value="${w.end.toFixed(3)}" data-line="${li}" data-word="${j}" data-field="end"></td>` +
+      `<td><span class="source-badge ${src}">${src}</span></td></tr>`;
+  });
+  html += `</table>`;
+  el.innerHTML = html;
+
+  el.querySelectorAll('.time-input').forEach(inp => {
+    inp.addEventListener('change', function() {
+      const val = parseFloat(this.value);
+      if (isNaN(val) || !syncedData || li < 0) return;
+      const word = syncedData.lines[li].words[parseInt(this.dataset.word)];
+      if (this.dataset.field === 'start') word.start = Math.min(val, word.end - MIN_WORD_DURATION);
+      else word.end = Math.max(val, word.start + MIN_WORD_DURATION);
+      this.value = (this.dataset.field === 'start' ? word.start : word.end).toFixed(3);
+      markUnsaved();
+      renderWordLayer();
+    });
+  });
+}
+
+// ===== DRAG: WORDS =====
+
+function handleWordMouseDown(e) {
+  const wordEl = e.currentTarget;
+  draggingWord = wordEl;
+  wordDragStartX = e.clientX;
+  wordDragStartTime = parseFloat(wordEl.dataset.start);
+  wordDragEndTime = parseFloat(wordEl.dataset.end);
+  if (e.target.classList.contains('word-handle-left')) dragType = 'left';
+  else if (e.target.classList.contains('word-handle-right')) dragType = 'right';
+  else dragType = 'move';
+  wordEl.classList.add('dragging');
+  e.preventDefault();
+}
+
+function handleWordMouseMove(e) {
+  if (!draggingWord || !syncedData || !analysisData) return;
+  const zoneW = document.getElementById('wordZone').offsetWidth;
+  const dx = e.clientX - wordDragStartX;
+  const dt = (dx / zoneW) * (viewEnd - viewStart);
+  const li = parseInt(draggingWord.dataset.line);
+  const wi = parseInt(draggingWord.dataset.word);
+  const word = syncedData.lines[li].words[wi];
+  const line = syncedData.lines[li];
+  const wordDur = wordDragEndTime - wordDragStartTime;
+
+  if (dragType === 'move') {
+    let newStart = Math.max(line.start, Math.min(wordDragStartTime + dt, line.end - wordDur));
+    word.start = newStart;
+    word.end = newStart + wordDur;
+  } else if (dragType === 'left') {
+    let newStart = Math.max(line.start, Math.min(wordDragStartTime + dt, word.end - MIN_WORD_DURATION));
+    if (wi > 0) newStart = Math.max(newStart, line.words[wi - 1].end);
+    word.start = newStart;
+  } else if (dragType === 'right') {
+    let newEnd = Math.min(line.end, Math.max(wordDragEndTime + dt, word.start + MIN_WORD_DURATION));
+    if (wi < line.words.length - 1) newEnd = Math.min(newEnd, line.words[wi + 1].start);
+    word.end = newEnd;
+  }
+
+  draggingWord.dataset.start = word.start;
+  draggingWord.dataset.end = word.end;
+  const left = timeToPct(word.start) / 100 * document.getElementById('wordZone').offsetWidth;
+  const right = timeToPct(word.end) / 100 * document.getElementById('wordZone').offsetWidth;
+  draggingWord.style.left = left + 'px';
+  draggingWord.style.width = Math.max(20, right - left) + 'px';
+  markUnsaved();
+}
+
+function handleWordMouseUp() {
+  if (draggingWord) { draggingWord.classList.remove('dragging'); draggingWord = null; }
+}
+
+// ===== DRAG: LINES =====
+
+function handleLineMouseDown(e) {
+  const handle = e.currentTarget;
+  draggingLine = { lineIdx: parseInt(handle.dataset.lineIdx), boundary: handle.dataset.boundary };
+  lineDragStartX = e.clientX;
+  lineDragOrigTime = draggingLine.boundary === 'start'
+    ? syncedData.lines[draggingLine.lineIdx].start
+    : syncedData.lines[draggingLine.lineIdx].end;
+  e.preventDefault();
+}
+
+function handleLineMouseMove(e) {
+  if (!draggingLine || !syncedData || !analysisData) return;
+  const zoneW = document.getElementById('wordZone').offsetWidth;
+  const dx = e.clientX - lineDragStartX;
+  const dt = (dx / zoneW) * (viewEnd - viewStart);
+  const li = draggingLine.lineIdx;
+  const line = syncedData.lines[li];
+  let newTime = lineDragOrigTime + dt;
+
+  if (draggingLine.boundary === 'start') {
+    newTime = Math.max(0, newTime);
+    if (li > 0) newTime = Math.max(newTime, syncedData.lines[li - 1].end);
+    newTime = Math.min(newTime, line.end - MIN_LINE_DURATION);
+    line.start = newTime;
+    if (li > 0) syncedData.lines[li - 1].end = newTime;
+    redistributeWords(syncedData.lines[li - 1]);
+  } else {
+    newTime = Math.min(analysisData.duration, newTime);
+    if (li < syncedData.lines.length - 1) newTime = Math.min(newTime, syncedData.lines[li + 1].start);
+    newTime = Math.max(newTime, line.start + MIN_LINE_DURATION);
+    line.end = newTime;
+    if (li < syncedData.lines.length - 1) syncedData.lines[li + 1].start = newTime;
+    redistributeWords(syncedData.lines[li + 1]);
+  }
+
+  redistributeWords(line);
+  markUnsaved();
+  renderWordLayer();
+}
+
+function handleLineMouseUp() { draggingLine = null; }
+
+// ===== DRAG: SECTION BOUNDARIES =====
+
+function handleBoundaryMouseDown(e) {
+  const el = e.currentTarget;
+  const secIdx = parseInt(el.dataset.secIdx);
+  draggingBoundary = { secIdx };
+  boundaryDragStartX = e.clientX;
+  boundaryDragOrigLine = structureData.sections[secIdx].start_line;
+  el.classList.add('dragging');
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function handleBoundaryMouseMove(e) {
+  if (!draggingBoundary || !syncedData) return;
+  const secIdx = draggingBoundary.secIdx;
+  const zoneW = document.getElementById('wordZone').offsetWidth || 1;
+  const dx = e.clientX - boundaryDragStartX;
+  const dt = (dx / zoneW) * (viewEnd - viewStart);
+  const line = syncedData.lines[boundaryDragOrigLine];
+  const newTime = line.start + dt;
+
+  let newLine = boundaryDragOrigLine;
+  for (let i = 0; i < syncedData.lines.length; i++) {
+    if (syncedData.lines[i].start <= newTime && syncedData.lines[i].end >= newTime) {
+      newLine = i;
+      break;
+    }
+  }
+
+  const prevSec = structureData.sections[secIdx - 1];
+  const sec = structureData.sections[secIdx];
+  newLine = Math.max(prevSec.start_line + 1, Math.min(newLine, sec.end_line));
+
+  prevSec.end_line = newLine - 1;
+  sec.start_line = newLine;
+  markUnsaved();
+  renderSectionList();
+  renderSectionOverlays();
+  renderPropsPanel();
+}
+
+function handleBoundaryMouseUp() {
+  if (draggingBoundary) {
+    document.querySelectorAll('.section-boundary.dragging').forEach(el => el.classList.remove('dragging'));
+    draggingBoundary = null;
+  }
+}
+
+function redistributeWords(line) {
+  if (!line || !line.words.length) return;
+  const dur = line.end - line.start;
+  const chars = line.words.reduce((s, w) => s + w.text.length, 0);
+  let t = line.start;
+  line.words.forEach((w, i) => {
+    const wDur = (w.text.length / chars) * dur;
+    w.start = t;
+    w.end = (i === line.words.length - 1) ? line.end : t + wDur;
+    t = w.end;
+  });
+}
+
+// ===== API =====
+
+async function autoSync() {
+  setStatus('Running auto-sync...');
+  try {
+    const res = await fetch(`${API}/api/auto-sync`, {method: 'POST'});
+    const data = await res.json();
+    if (data.error) { setStatus('Error: ' + data.error); return; }
+    syncedData = data;
+    if (selectedLineIdx >= 0) zoomToLine(selectedLineIdx, zoomContext);
+    else renderWordLayer();
+    renderSectionOverlays();
+    markUnsaved();
+    setStatus('Auto-sync: ' + (data.lines ? data.lines.length : 0) + ' lines');
+  } catch (e) {
+    setStatus('Auto-sync error: ' + e.message);
+  }
+}
+
+async function saveAll() {
+  if (!syncedData && structureData.sections.length === 0) { setStatus('Nothing to save'); return; }
+  try {
+    if (syncedData) {
+      const res = await fetch(`${API}/api/lyrics-synced`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(syncedData),
+      });
+      const data = await res.json();
+      if (data.error) { setStatus('Error saving lyrics: ' + data.error); return; }
+    }
+    if (structureData.sections.length > 0) {
+      const res = await fetch(`${API}/api/structure`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(structureData),
+      });
+      const data = await res.json();
+      if (data.error) { setStatus('Error saving structure: ' + data.error); return; }
+    }
+    markSaved();
+  } catch (e) {
+    setStatus('Save error: ' + e.message);
+  }
+}
+
+function getLines() { return syncedData ? syncedData.lines : (lyricsRaw ? lyricsRaw.lines : []); }
+
+// ===== UTILS =====
+
+function fmtTime(s) { if (s == null || isNaN(s)) return '0:00.0'; const m = Math.floor(s / 60); return m + ':' + (s % 60 < 10 ? '0' : '') + (s % 60).toFixed(1); }
+function fmtTimeShort(s) { if (s == null) return ''; const m = Math.floor(s / 60); return m + ':' + (s % 60 < 10 ? '0' : '') + Math.floor(s % 60); }
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function setStatus(msg) { document.getElementById('currentTime').title = msg; /* reuse status area */ const el = document.getElementById('currentLyric'); if (!isPlaying) el.textContent = msg; }
+function markUnsaved() { hasUnsavedChanges = true; document.getElementById('saveStatus').textContent = 'Unsaved'; document.getElementById('saveStatus').className = 'save-status unsaved'; }
+function markSaved() { hasUnsavedChanges = false; const el = document.getElementById('saveStatus'); el.textContent = 'Saved'; el.className = 'save-status saved'; setTimeout(() => { el.textContent = ''; }, 2000); }
+
+// ===== EVENTS =====
+
+document.addEventListener('mousemove', e => {
+  handleWordMouseMove(e);
+  handleLineMouseMove(e);
+  handleBoundaryMouseMove(e);
+  if (draggingThumb) {
+    const dur = analysisData.duration || 1;
+    const tw = document.getElementById('scrollbarTrack').offsetWidth;
+    const dx = e.clientX - thumbDragStartX;
+    const dTime = (dx / tw) * dur;
+    let newStart = Math.max(0, Math.min(thumbDragStartViewStart + dTime, dur - (viewEnd - viewStart)));
+    const range = viewEnd - viewStart;
+    viewStart = newStart;
+    viewEnd = newStart + range;
+    redrawAll();
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  handleWordMouseUp();
+  handleLineMouseUp();
+  handleBoundaryMouseUp();
+  if (draggingThumb) { draggingThumb = false; document.getElementById('scrollbarThumb').classList.remove('dragging'); }
+});
+
+document.getElementById('waveformContainer').addEventListener('click', e => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width * 100;
+  seekToTime(pctToTime(pct));
+});
+
+document.getElementById('wordZone').addEventListener('click', e => {
+  if (e.target.closest('.word') || e.target.closest('.line-handle')) return;
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width * 100;
+  seekToTime(pctToTime(pct));
+});
+
+document.querySelector('.center-panel').addEventListener('wheel', e => {
+  if (e.deltaY > 0) zoomOut(); else zoomIn();
+  e.preventDefault();
+}, {passive: false});
+
+document.getElementById('scrollbarThumb').addEventListener('mousedown', e => {
+  draggingThumb = true;
+  thumbDragStartX = e.clientX;
+  thumbDragStartViewStart = viewStart;
+  e.currentTarget.classList.add('dragging');
+  e.preventDefault();
+});
+
+document.getElementById('scrollbarTrack').addEventListener('mousedown', e => {
+  if (e.target.id === 'scrollbarThumb') return;
+  const dur = analysisData.duration || 1;
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  const range = viewEnd - viewStart;
+  viewStart = Math.max(0, pct * dur - range / 2);
+  viewEnd = viewStart + range;
+  redrawAll();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+  else if (e.key === 'l') toggleLoopLine();
+  else if (e.code === 'ArrowLeft') skipBack();
+  else if (e.code === 'ArrowRight') skipForward();
+  else if (e.code === 'Escape') { selectedLineIdx = -1; selectedSectionIdx = -1; loopLine = false; fitAll(); renderSectionList(); renderPropsPanel(); document.getElementById('detailPanel').innerHTML = '<p style="color:#666;font-size:13px">Select a line or section to edit</p>'; }
+});
+
+window.addEventListener('beforeunload', e => { if (hasUnsavedChanges) { e.preventDefault(); e.returnValue = ''; } });
+window.addEventListener('resize', redrawAll);
+
+init();
+</script>
+</body>
+</html>

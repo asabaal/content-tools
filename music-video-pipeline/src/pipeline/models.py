@@ -5,7 +5,7 @@ from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 
 SUPPORTED_AUDIO = {".mp3", ".wav", ".flac", ".ogg", ".m4a", ".aac"}
@@ -280,3 +280,101 @@ class MusicVideoProject:
         proj.stages.mark_complete("ingest")
         proj.save()
         return proj
+
+
+CORE_SECTION_TYPES = [
+    "verse", "chorus", "bridge", "intro", "outro",
+    "pre_chorus", "hook", "interlude", "instrumental",
+]
+
+
+@dataclass
+class SectionVisual:
+    background_type: str = "solid"
+    background_color: str = "#1a1a2e"
+    gradient_colors: Optional[List[str]] = None
+    gradient_direction: str = "vertical_top_bottom"
+    texture_type: str = "none"
+    texture_opacity: float = 0.15
+    text_color: Optional[str] = None
+    text_auto_contrast: bool = True
+    font_size: int = 48
+    animation_type: str = "fade"
+    animation_speed: float = 1.0
+    reactivity: List[str] = field(default_factory=lambda: ["vocals"])
+
+    def to_dict(self) -> dict:
+        d = {
+            "background_type": self.background_type,
+            "background_color": self.background_color,
+            "gradient_direction": self.gradient_direction,
+            "texture_type": self.texture_type,
+            "texture_opacity": self.texture_opacity,
+            "text_auto_contrast": self.text_auto_contrast,
+            "font_size": self.font_size,
+            "animation_type": self.animation_type,
+            "animation_speed": self.animation_speed,
+            "reactivity": self.reactivity,
+        }
+        if self.gradient_colors is not None:
+            d["gradient_colors"] = self.gradient_colors
+        if self.text_color is not None:
+            d["text_color"] = self.text_color
+        return d
+
+    @classmethod
+    def from_dict(cls, d: dict) -> SectionVisual:
+        return cls(
+            background_type=d.get("background_type", "solid"),
+            background_color=d.get("background_color", "#1a1a2e"),
+            gradient_colors=d.get("gradient_colors"),
+            gradient_direction=d.get("gradient_direction", "vertical_top_bottom"),
+            texture_type=d.get("texture_type", "none"),
+            texture_opacity=d.get("texture_opacity", 0.15),
+            text_color=d.get("text_color"),
+            text_auto_contrast=d.get("text_auto_contrast", True),
+            font_size=d.get("font_size", 48),
+            animation_type=d.get("animation_type", "fade"),
+            animation_speed=d.get("animation_speed", 1.0),
+            reactivity=d.get("reactivity", ["vocals"]),
+        )
+
+
+@dataclass
+class StructureSection:
+    id: str
+    type: str
+    name: str
+    start_line: int
+    end_line: int
+    custom_type: Optional[str] = None
+    tags: List[str] = field(default_factory=list)
+    visual: SectionVisual = field(default_factory=SectionVisual)
+
+    def to_dict(self) -> dict:
+        d = {
+            "id": self.id,
+            "type": self.type,
+            "name": self.name,
+            "start_line": self.start_line,
+            "end_line": self.end_line,
+            "tags": self.tags,
+            "visual": self.visual.to_dict(),
+        }
+        if self.custom_type is not None:
+            d["custom_type"] = self.custom_type
+        return d
+
+    @classmethod
+    def from_dict(cls, d: dict) -> StructureSection:
+        visual = SectionVisual.from_dict(d.get("visual", {}))
+        return cls(
+            id=d["id"],
+            type=d["type"],
+            name=d["name"],
+            start_line=d["start_line"],
+            end_line=d["end_line"],
+            custom_type=d.get("custom_type"),
+            tags=d.get("tags", []),
+            visual=visual,
+        )

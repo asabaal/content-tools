@@ -1,0 +1,13 @@
+{
+  "background_type": "gradient",
+  "background_color": "#4A90E2",
+  "gradient_colors": ["#4A90E2", "#8E44AD"],
+  "gradient_direction": "horizontal_left_right",
+  "texture_type": "none",
+  "texture_opacity": 0.15,
+  "text_auto_contrast": true,
+  "font_size": 48,
+  "animation_type": "scale",
+  "animation_speed": 1.2,
+  "reactivity": ["energy"]
+}

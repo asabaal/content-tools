@@ -717,3 +717,179 @@ class TestSendHeadException:
                     h.send_head()
         finally:
             test_file.unlink(missing_ok=True)
+
+
+class TestStructureEndpoints:
+    def test_get_structure_not_found(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/structure")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+            assert h._response_code == 404
+        finally:
+            _restore_project(original)
+
+    def test_get_structure_found(self, project_with_data):
+        structure = {"sections": [{"id": "s0", "type": "verse", "name": "Verse 1", "start_line": 0, "end_line": 5, "visual": {}}]}
+        (project_with_data.data_dir / "structure.json").write_text(json.dumps(structure), encoding="utf-8")
+
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/structure")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["sections"][0]["id"] == "s0"
+        finally:
+            _restore_project(original)
+
+    def test_save_structure(self, project_with_data):
+        structure = {"sections": [{"id": "s0", "type": "verse", "name": "V1", "start_line": 0, "end_line": 5, "visual": {}}]}
+        body = json.dumps(structure).encode("utf-8")
+
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/structure", method="POST", headers={"Content-Length": str(len(body))}, body=body)
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["status"] == "saved"
+            saved = json.loads((project_with_data.data_dir / "structure.json").read_text(encoding="utf-8"))
+            assert saved["sections"][0]["id"] == "s0"
+        finally:
+            _restore_project(original)
+
+    def test_save_structure_invalid_json(self, project_with_data):
+        body = b"not json"
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/structure", method="POST", headers={"Content-Length": str(len(body))}, body=body)
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+            assert h._response_code == 400
+        finally:
+            _restore_project(original)
+
+    def test_get_templates(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/templates")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "default" in data
+            assert "elegant" in data
+            assert data["default"]["background_type"] == "solid"
+        finally:
+            _restore_project(original)
+
+    def test_auto_generate_structure(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/auto-generate-structure", method="POST")
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "sections" in data
+            assert len(data["sections"]) > 0
+            assert data["sections"][0]["id"] == "s0"
+        finally:
+            _restore_project(original)
+
+    def test_auto_generate_structure_no_raw(self, project_with_data):
+        (project_with_data.data_dir / "lyrics_raw.json").unlink()
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/auto-generate-structure", method="POST")
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+            assert h._response_code == 404
+        finally:
+            _restore_project(original)
+
+    def test_editor_route(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/editor")
+            resolved = h.translate_path("/editor")
+            assert resolved.endswith("tools/editor/index.html")
+        finally:
+            _restore_project(original)
+
+    def test_editor_trailing_slash(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/editor/")
+            resolved = h.translate_path("/editor/")
+            assert resolved.endswith("tools/editor/index.html")
+        finally:
+            _restore_project(original)
+
+
+class TestGenerateSectionsFromLyrics:
+    def test_basic_sections(self):
+        import serve as _serve
+        raw = {
+            "lines": [
+                {"index": 0, "text": "line 0", "section": {"section_type": "intro", "raw_marker": "Intro"}},
+                {"index": 1, "text": "line 1", "section": {"section_type": "intro", "raw_marker": "Intro"}},
+                {"index": 2, "text": "line 2", "section": {"section_type": "verse", "raw_marker": "Verse 1"}},
+                {"index": 3, "text": "line 3", "section": {"section_type": "verse", "raw_marker": "Verse 1"}},
+                {"index": 4, "text": "line 4", "section": {"section_type": "chorus", "raw_marker": "Chorus"}},
+            ]
+        }
+        sections = _serve._generate_sections_from_lyrics(raw)
+        assert len(sections) == 3
+        assert sections[0].type == "intro"
+        assert sections[0].start_line == 0
+        assert sections[0].end_line == 1
+        assert sections[1].type == "verse"
+        assert sections[1].start_line == 2
+        assert sections[1].end_line == 3
+        assert sections[2].type == "chorus"
+        assert sections[2].start_line == 4
+        assert sections[2].end_line == 4
+
+    def test_custom_type(self):
+        import serve as _serve
+        raw = {
+            "lines": [
+                {"index": 0, "text": "line 0", "section": {"section_type": "breakdown", "raw_marker": "Breakdown"}},
+                {"index": 1, "text": "line 1", "section": {"section_type": "breakdown", "raw_marker": "Breakdown"}},
+            ]
+        }
+        sections = _serve._generate_sections_from_lyrics(raw)
+        assert len(sections) == 1
+        assert sections[0].type == "custom"
+        assert sections[0].custom_type == "breakdown"
+
+    def test_no_sections(self):
+        import serve as _serve
+        raw = {
+            "lines": [
+                {"index": 0, "text": "line 0"},
+                {"index": 1, "text": "line 1"},
+            ]
+        }
+        sections = _serve._generate_sections_from_lyrics(raw)
+        assert len(sections) == 1
+        assert sections[0].type == "custom"
+        assert sections[0].start_line == 0
+        assert sections[0].end_line == 1
+
+    def test_empty_lines(self):
+        import serve as _serve
+        sections = _serve._generate_sections_from_lyrics({"lines": []})
+        assert sections == []
+
+    def test_single_section(self):
+        import serve as _serve
+        raw = {
+            "lines": [
+                {"index": 0, "text": "line 0", "section": {"section_type": "verse", "raw_marker": "Verse"}},
+            ]
+        }
+        sections = _serve._generate_sections_from_lyrics(raw)
+        assert len(sections) == 1
+        assert sections[0].type == "verse"
+        assert sections[0].name == "Verse"

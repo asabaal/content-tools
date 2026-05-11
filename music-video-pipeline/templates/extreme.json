@@ -1,0 +1,13 @@
+{
+  "background_type": "gradient",
+  "background_color": "#8E44AD",
+  "gradient_colors": ["#8E44AD", "#C0392B"],
+  "gradient_direction": "radial_center",
+  "texture_type": "grain_film",
+  "texture_opacity": 0.15,
+  "text_auto_contrast": true,
+  "font_size": 54,
+  "animation_type": "pulse",
+  "animation_speed": 1.8,
+  "reactivity": ["vocals", "drums", "bass", "energy"]
+}

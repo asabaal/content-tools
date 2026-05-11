@@ -1,7 +1,7 @@
 # Music Video Pipeline -- Design Specification
 
 **Created**: May 6, 2026
-**Status**: APPROVED -- Stages 1-3 implemented
+**Status**: APPROVED — Stages 1-3 implemented, unified editor in progress
 **Location**: `music-video-pipeline/` (new top-level directory in content-tools)
 
 ---
@@ -126,9 +126,8 @@ music-video-pipeline/
 │   └── extreme.json
 │
 ├── tools/                      # Browser-based interactive tools
-│   ├── 03-sync/               # Lyrics sync editor (index.html)
-│   ├── 04-structure/           # Song structure editor (index.html)
-│   ├── 05-visual-design/       # Visual design + lyric styling (index.html)
+│   ├── editor/                # Unified editor (sync + structure + visuals)
+│   ├── analysis/              # Alignment quality review
 │   └── shared/                 # Shared JS/CSS for browser tools
 │       ├── audio-player.js     # Audio playback component
 │       ├── waveform.js         # Waveform visualization
@@ -157,7 +156,8 @@ music-video-pipeline/
 ├── README.md
 ├── DESIGN.md                   # This file
 ├── STAGE1_PLAN.md              # Stage 1 (Ingest) + Stage 2 (Analyze) plan
-└── STAGE3_PLAN.md              # Stage 3 (Sync) plan
+├── STAGE3_PLAN.md              # Stage 3 (Sync) plan (superseded by UNIFIED_EDITOR_PLAN.md)
+└── UNIFIED_EDITOR_PLAN.md      # Unified editor plan (replaces stages 3-5 browser tools)
 ```
 
 ---
@@ -539,26 +539,20 @@ requests>=2.31.0         # For Ollama API calls (auto-prompt generation)
 
 ### Phase 2: Sync — DONE
 - [x] `src/lyrics/synchronizer.py` — beat/onset/MIDI alignment (3-tier degradation)
+- [x] `src/lyrics/alignment_analyzer.py` — transcription-based word-level alignment + recovery
 - [x] `serve.py` — HTTP server with API endpoints (auto-sync, save, static files)
 - [x] `tools/03-sync/index.html` — browser sync editor
 - [x] `src/cli/commands.py` — `sync` command (CLI initial pass), `serve` command
-- [x] 345 tests, 100% coverage on new code
+- [x] Transcription word timing merge into auto-sync
+- [x] 476 tests, 100% coverage
 
-### Phase 3: Structure
-- [ ] `src/lyrics/processor.py` — lyrics facade
-- [ ] `src/sections/types.py` — section type enum + visual profiles
-- [ ] `src/sections/manager.py` — section management
-- [ ] `src/sections/loader.py` — structure file parser
-- [ ] `tools/04-structure/index.html` — structure editor browser tool
-
-### Phase 3: Visual Design
-- [ ] `scripts/run_sd3_pipe.py` — SD3 subprocess bridge
-- [ ] `src/visual/image_gen.py` — image generation wrapper
-- [ ] `src/visual/backgrounds.py` — background source management
-- [ ] `src/visual/style_profiles.py` — per-section defaults
-- [ ] `src/render/animations.py` — animation types + easing
-- [ ] `src/render/fonts.py` — font management
-- [ ] `tools/05-visual-design/index.html` — visual design browser tool
+### Phase 3: Unified Editor — IN PROGRESS
+- [x] `StructureSection` + `SectionVisual` dataclasses
+- [x] 6 visual templates in `templates/`
+- [x] Structure API endpoints (GET/POST structure, GET templates, POST auto-generate)
+- [ ] `tools/editor/index.html` — unified timeline-driven editor
+- [ ] Replaces `tools/03-sync/`, `tools/04-structure/`, `tools/05-visual-design/`
+- [ ] See `UNIFIED_EDITOR_PLAN.md` for full specification
 
 ### Phase 4: Render Engine
 - [ ] `src/render/effects.py` — motion effects library

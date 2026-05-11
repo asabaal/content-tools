@@ -20,12 +20,55 @@ SRC_DIR = REPO_ROOT / "src"
 
 sys.path.insert(0, str(SRC_DIR))
 
-from pipeline.models import MusicVideoProject
+from pipeline.models import MusicVideoProject, SectionVisual, StructureSection
 from lyrics.parser import LyricLine, LyricSection, LyricWord
 from lyrics.synchronizer import LyricSynchronizer
 from audio.features import AudioFeatures, BeatInfo
 
 PROJECT: Optional[MusicVideoProject] = None
+
+
+def _generate_sections_from_lyrics(raw_data: dict) -> list:
+    lines = raw_data.get("lines", [])
+    if not lines:
+        return []
+
+    sections = []
+    current_type = None
+    current_name = None
+    current_start = 0
+    sec_idx = 0
+
+    for i, line in enumerate(lines):
+        sec = line.get("section")
+        line_type = sec.get("section_type", "unknown") if sec else "unknown"
+
+        if line_type != current_type:
+            if current_type is not None:
+                sections.append(StructureSection(
+                    id=f"s{sec_idx}",
+                    type=current_type if current_type in ("verse", "chorus", "bridge", "intro", "outro", "pre_chorus", "hook", "interlude", "instrumental") else "custom",
+                    name=current_name or current_type.title(),
+                    start_line=current_start,
+                    end_line=i - 1,
+                    custom_type=current_type if current_type not in ("verse", "chorus", "bridge", "intro", "outro", "pre_chorus", "hook", "interlude", "instrumental") else None,
+                ))
+                sec_idx += 1
+            current_type = line_type
+            current_name = sec.get("raw_marker", line_type.title()) if sec else line_type.title()
+            current_start = i
+
+    if current_type is not None:
+        sections.append(StructureSection(
+            id=f"s{sec_idx}",
+            type=current_type if current_type in ("verse", "chorus", "bridge", "intro", "outro", "pre_chorus", "hook", "interlude", "instrumental") else "custom",
+            name=current_name or current_type.title(),
+            start_line=current_start,
+            end_line=len(lines) - 1,
+            custom_type=current_type if current_type not in ("verse", "chorus", "bridge", "intro", "outro", "pre_chorus", "hook", "interlude", "instrumental") else None,
+        ))
+
+    return sections
 
 
 def load_project(project_dir: Optional[str]) -> Optional[MusicVideoProject]:
@@ -55,6 +98,9 @@ class PipelineHandler(SimpleHTTPRequestHandler):
     def translate_path(self, path: str) -> str:
         parts = urllib.parse.urlparse(path)
         rel_path = urllib.parse.unquote(parts.path.lstrip("/"))
+
+        if rel_path == "editor" or rel_path == "editor/":
+            return str(REPO_ROOT / "tools" / "editor" / "index.html")
 
         if rel_path.startswith("data/"):
             file_part = rel_path[len("data/"):]
@@ -181,6 +227,10 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_get_json("vocal_transcription.json")
         elif path == "/api/alignment-analysis":
             self._handle_get_json("alignment_analysis.json")
+        elif path == "/api/structure":
+            self._handle_get_structure()
+        elif path == "/api/templates":
+            self._handle_get_templates()
         else:
             super().do_GET()
 
@@ -209,6 +259,10 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_save_synced()
         elif path == "/api/auto-sync":
             self._handle_auto_sync()
+        elif path == "/api/structure":
+            self._handle_save_structure()
+        elif path == "/api/auto-generate-structure":
+            self._handle_auto_generate_structure()
         else:
             self.send_response(404)
             self._cors_headers()
@@ -311,6 +365,50 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             line.start = line.words[0].start
             line.end = line.words[-1].end
 
+    def _handle_get_structure(self):
+        pdd = _project_data_dir()
+        structure_path = pdd / "structure.json"
+        if structure_path.exists():
+            self._send_json(json.loads(structure_path.read_text(encoding="utf-8")))
+        else:
+            self._send_json({"error": "structure.json not found"}, 404)
+
+    def _handle_get_templates(self):
+        templates_dir = REPO_ROOT / "templates"
+        templates = {}
+        if templates_dir.exists():
+            for tf in sorted(templates_dir.glob("*.json")):
+                templates[tf.stem] = json.loads(tf.read_text(encoding="utf-8"))
+        self._send_json(templates)
+
+    def _handle_save_structure(self):
+        body = self._read_body()
+        try:
+            data = json.loads(body)
+            json.dumps(data)
+        except json.JSONDecodeError:
+            self._send_json({"error": "Invalid JSON"}, 400)
+            return
+
+        out_path = _project_data_dir() / "structure.json"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(body)
+        self._send_json({"status": "saved"})
+
+    def _handle_auto_generate_structure(self):
+        dd = _data_dir()
+        raw_path = dd / "lyrics_raw.json"
+        if not raw_path.exists():
+            self._send_json({"error": "lyrics_raw.json not found"}, 404)
+            return
+
+        try:
+            raw_data = json.loads(raw_path.read_text(encoding="utf-8"))
+            sections = _generate_sections_from_lyrics(raw_data)
+            self._send_json({"sections": [s.to_dict() for s in sections]})
+        except Exception as e:
+            self._send_json({"error": str(e)}, 500)
+
     def log_message(self, format, *args):
         print(f"{self.address_string()} - {args[0]}")
 
@@ -328,8 +426,8 @@ def run_server(project_dir: Optional[str] = None, port: int = 8900):  # pragma: 
     socketserver.TCPServer.allow_reuse_address = True
 
     print(f"\nServing at http://localhost:{port}/")
+    print(f"Editor:          http://localhost:{port}/editor")
     print(f"Analysis Review: http://localhost:{port}/tools/analysis/")
-    print(f"Sync Editor:    http://localhost:{port}/tools/03-sync/")
     print("Press Ctrl+C to stop\n")
 
     with socketserver.TCPServer(("", port), PipelineHandler) as httpd:

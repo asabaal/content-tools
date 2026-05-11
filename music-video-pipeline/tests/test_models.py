@@ -4,15 +4,18 @@ from pathlib import Path
 import pytest
 
 from pipeline.models import (
+    CORE_SECTION_TYPES,
+    AudioInfo,
+    IngestResult,
+    InputTier,
+    LyricsInfo,
+    MidiFileInfo,
     MusicVideoProject,
     ProjectPaths,
-    AudioInfo,
-    LyricsInfo,
+    SectionVisual,
     StageStatus,
-    InputTier,
     StemInfo,
-    MidiFileInfo,
-    IngestResult,
+    StructureSection,
     SUPPORTED_AUDIO,
     SUPPORTED_LYRICS,
 )
@@ -277,3 +280,97 @@ class TestConstants:
         assert ".srt" in SUPPORTED_LYRICS
         assert ".lrc" in SUPPORTED_LYRICS
         assert ".txt" in SUPPORTED_LYRICS
+
+
+class TestSectionVisual:
+    def test_to_dict_defaults(self):
+        v = SectionVisual()
+        d = v.to_dict()
+        assert d["background_type"] == "solid"
+        assert d["background_color"] == "#1a1a2e"
+        assert "gradient_colors" not in d
+        assert "text_color" not in d
+        assert d["reactivity"] == ["vocals"]
+
+    def test_to_dict_with_overrides(self):
+        v = SectionVisual(
+            background_type="gradient",
+            gradient_colors=["#FF0000", "#00FF00"],
+            text_color="#FFFFFF",
+        )
+        d = v.to_dict()
+        assert d["gradient_colors"] == ["#FF0000", "#00FF00"]
+        assert d["text_color"] == "#FFFFFF"
+
+    def test_from_dict(self):
+        d = {"background_type": "gradient", "gradient_colors": ["#a", "#b"]}
+        v = SectionVisual.from_dict(d)
+        assert v.background_type == "gradient"
+        assert v.gradient_colors == ["#a", "#b"]
+
+    def test_from_dict_defaults(self):
+        v = SectionVisual.from_dict({})
+        assert v.background_type == "solid"
+        assert v.reactivity == ["vocals"]
+
+    def test_roundtrip(self):
+        v = SectionVisual(
+            background_type="gradient",
+            gradient_colors=["#a", "#b"],
+            text_color="#fff",
+        )
+        v2 = SectionVisual.from_dict(v.to_dict())
+        assert v2.gradient_colors == ["#a", "#b"]
+        assert v2.text_color == "#fff"
+
+
+class TestStructureSection:
+    def test_to_dict(self):
+        s = StructureSection(
+            id="s0", type="verse", name="Verse 1",
+            start_line=0, end_line=5,
+        )
+        d = s.to_dict()
+        assert d["id"] == "s0"
+        assert d["type"] == "verse"
+        assert d["start_line"] == 0
+        assert d["end_line"] == 5
+        assert "custom_type" not in d
+        assert "visual" in d
+
+    def test_to_dict_custom(self):
+        s = StructureSection(
+            id="s1", type="custom", name="Breakdown",
+            start_line=6, end_line=10, custom_type="breakdown",
+        )
+        d = s.to_dict()
+        assert d["custom_type"] == "breakdown"
+
+    def test_from_dict(self):
+        d = {
+            "id": "s0", "type": "chorus", "name": "Chorus",
+            "start_line": 5, "end_line": 10,
+            "visual": {"background_color": "#FF0000"},
+        }
+        s = StructureSection.from_dict(d)
+        assert s.type == "chorus"
+        assert s.visual.background_color == "#FF0000"
+
+    def test_roundtrip(self):
+        s = StructureSection(
+            id="s2", type="intro", name="Intro",
+            start_line=0, end_line=3,
+            visual=SectionVisual(background_type="gradient", gradient_colors=["#a", "#b"]),
+        )
+        s2 = StructureSection.from_dict(s.to_dict())
+        assert s2.id == "s2"
+        assert s2.visual.gradient_colors == ["#a", "#b"]
+
+
+class TestCoreSectionTypes:
+    def test_has_core_types(self):
+        assert "verse" in CORE_SECTION_TYPES
+        assert "chorus" in CORE_SECTION_TYPES
+        assert "bridge" in CORE_SECTION_TYPES
+        assert "intro" in CORE_SECTION_TYPES
+        assert "outro" in CORE_SECTION_TYPES
