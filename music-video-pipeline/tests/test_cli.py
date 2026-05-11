@@ -266,6 +266,65 @@ class TestAnalyze:
         )
         assert (tmp_path / "data" / "raw" / sample_srt_for_cli.name).exists()
 
+    def test_analyze_with_vocal_stem(self, runner, tmp_path, sample_wav_for_cli):
+        stem_dir = tmp_path / "data" / "cache" / "stems"
+        stem_dir.mkdir(parents=True, exist_ok=True)
+        _write_wav(stem_dir / "0 Lead Vocals.wav")
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        stem_path = str(stem_dir / "0 Lead Vocals.wav")
+        ingest_data = {
+            "tier": "enhanced",
+            "stems": [
+                {"name": "Lead Vocals", "stem_type": "lead_vocals", "path": stem_path, "format": "wav"},
+            ],
+        }
+        (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
+        result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        assert result.exit_code == 0
+        assert "Vocal onsets" in result.output
+
+    def test_analyze_vocal_stem_saves_files(self, runner, tmp_path, sample_wav_for_cli):
+        stem_dir = tmp_path / "data" / "cache" / "stems"
+        stem_dir.mkdir(parents=True, exist_ok=True)
+        _write_wav(stem_dir / "0 Lead Vocals.wav")
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        stem_path = str(stem_dir / "0 Lead Vocals.wav")
+        ingest_data = {
+            "tier": "enhanced",
+            "stems": [
+                {"name": "Lead Vocals", "stem_type": "lead_vocals", "path": stem_path, "format": "wav"},
+            ],
+        }
+        (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
+        runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        assert (tmp_path / "data" / "vocal_onsets.json").exists()
+        assert (tmp_path / "data" / "vocal_transcription.json").exists()
+
+    def test_analyze_vocal_stem_transcription_failure(self, runner, tmp_path, sample_wav_for_cli):
+        stem_dir = tmp_path / "data" / "cache" / "stems"
+        stem_dir.mkdir(parents=True, exist_ok=True)
+        _write_wav(stem_dir / "0 Lead Vocals.wav")
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        stem_path = str(stem_dir / "0 Lead Vocals.wav")
+        ingest_data = {
+            "tier": "enhanced",
+            "stems": [
+                {"name": "Lead Vocals", "stem_type": "lead_vocals", "path": stem_path, "format": "wav"},
+            ],
+        }
+        (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
+        from unittest.mock import patch
+        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", side_effect=RuntimeError("model not found")):
+            result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        assert result.exit_code == 0
+        assert "WARNING" in result.output
+
 
 class TestInfo:
     def test_info_shows_project(self, runner, tmp_path):
@@ -510,6 +569,57 @@ class TestSyncCommand:
 
         synced = json.loads((tmp_path / "data" / "lyrics_synced.json").read_text(encoding="utf-8"))
         assert "lines" in synced
+
+    def test_sync_with_transcription(self, runner, tmp_path, sample_wav_for_cli, sample_srt_for_cli):
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--lyrics", str(sample_srt_for_cli), "--dir", str(tmp_path)]
+        )
+        assert result.exit_code == 0
+
+        trans_data = {
+            "segments": [
+                {"start": 0.0, "end": 0.5, "text": "Hello world"},
+            ],
+            "words": [{"word": "Hello", "start": 0.0, "end": 0.3, "probability": 0.9}],
+        }
+        (tmp_path / "data" / "vocal_transcription.json").write_text(
+            json.dumps(trans_data), encoding="utf-8"
+        )
+
+        result = runner.invoke(cli, ["sync", "--project", str(tmp_path)])
+        assert result.exit_code == 0
+        assert "Syncing lyrics" in result.output
+
+    def test_sync_with_drift(self, runner, tmp_path, sample_wav_for_cli):
+        srt_content = (
+            "1\n00:00:00,000 --> 00:00:00,500\nHello world\n\n"
+            "2\n00:00:01,000 --> 00:00:01,500\nSecond line here\n\n"
+            "3\n00:00:02,000 --> 00:00:02,500\nThird line here\n\n"
+            "4\n00:00:03,000 --> 00:00:03,500\nFourth line here\n"
+        )
+        lyrics_file = tmp_path / "lyrics.srt"
+        lyrics_file.write_text(srt_content, encoding="utf-8")
+
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--lyrics", str(lyrics_file), "--dir", str(tmp_path)]
+        )
+        assert result.exit_code == 0
+
+        trans_data = {
+            "segments": [
+                {"start": 0.0, "end": 0.5, "text": "Hello world"},
+                {"start": 1.0, "end": 1.5, "text": "Second line here"},
+                {"start": 2.0, "end": 2.5, "text": "Completely different text"},
+                {"start": 3.0, "end": 3.5, "text": "Also very wrong words"},
+            ],
+            "words": [],
+        }
+        (tmp_path / "data" / "vocal_transcription.json").write_text(
+            json.dumps(trans_data), encoding="utf-8"
+        )
+
+        result = runner.invoke(cli, ["sync", "--project", str(tmp_path)])
+        assert result.exit_code == 0
 
     def test_sync_verbose(self, runner, tmp_path, sample_wav_for_cli, sample_srt_for_cli):
         result = runner.invoke(

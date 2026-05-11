@@ -127,6 +127,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
                     midi_tempo = t
                     break
 
+    vocal_stem_path = None
     if ingest_data and ingest_data.get("stems"):
         stem_features = []
         for sf in ingest_data["stems"]:
@@ -134,6 +135,8 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
             if spath and Path(spath).exists():
                 sf_result = analyzer.analyze_stem(spath, sf.get("stem_type", ""), sf.get("name", ""))
                 stem_features.append(sf_result)
+                if not vocal_stem_path and "vocal" in sf.get("stem_type", "").lower():
+                    vocal_stem_path = spath
         features.stem_features = stem_features
 
     if midi_tempo is not None:
@@ -142,6 +145,32 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
     proj.data_dir.mkdir(parents=True, exist_ok=True)
 
     analysis_data = features.to_dict()
+
+    if vocal_stem_path:
+        click.echo(f"    Extracting vocal onsets...")
+        vocal_onsets = analyzer.extract_vocal_onsets(vocal_stem_path)
+        analysis_data["vocal_onset_times"] = vocal_onsets.tolist()
+
+        vocal_onset_data = {
+            "source": Path(vocal_stem_path).name,
+            "onset_count": len(vocal_onsets),
+            "onset_times": vocal_onsets.tolist(),
+        }
+        (proj.data_dir / "vocal_onsets.json").write_text(
+            json.dumps(vocal_onset_data, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
+
+        click.echo(f"    Transcribing vocal stem...")
+        try:
+            transcription = analyzer.transcribe_vocal_stem(vocal_stem_path)
+            transcription["source"] = Path(vocal_stem_path).name
+            (proj.data_dir / "vocal_transcription.json").write_text(
+                json.dumps(transcription, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+            analysis_data["vocal_transcription_word_count"] = len(transcription.get("words", []))
+        except Exception as e:
+            click.echo(f"    WARNING: Transcription failed: {e}", err=True)
+
     proj.analysis_file.write_text(json.dumps(analysis_data, indent=2, ensure_ascii=False), encoding="utf-8")
 
     waveform_data = {
@@ -174,13 +203,24 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
 
     if features.stem_features:
         click.echo(f"    Stems analyzed: {len(features.stem_features)}")
+    if vocal_stem_path:
+        vocal_onset_count = len(analysis_data.get("vocal_onset_times", []))
+        click.echo(f"    Vocal onsets: {vocal_onset_count}")
+        trans_count = analysis_data.get("vocal_transcription_word_count", 0)
+        if trans_count:
+            click.echo(f"    Transcribed words: {trans_count}")
 
     if verbose:
         click.echo(f"    Sample rate: {features.sample_rate} Hz")
         click.echo(f"    Frames: {len(features.rms_energy)} @ {features.frame_rate:.1f}/s")
         click.echo(f"    Waveform peaks: {len(peaks)}")
 
-    click.echo(f"    Saved: analysis.json, waveforms.json")
+    saved = ["analysis.json", "waveforms.json"]
+    if vocal_stem_path:
+        saved.append("vocal_onsets.json")
+        if analysis_data.get("vocal_transcription_word_count", 0):
+            saved.append("vocal_transcription.json")
+    click.echo(f"    Saved: {', '.join(saved)}")
 
 
 def _run_lyrics_import(proj: MusicVideoProject) -> None:
@@ -264,16 +304,45 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
         zero_crossing_rate=np.zeros(100),
     )
 
-    syncer = LyricSynchronizer(lines, features)
+    transcription_segments = None
+    transcription_path = proj.data_dir / "vocal_transcription.json"
+    if transcription_path.exists():
+        trans_data = json.loads(transcription_path.read_text(encoding="utf-8"))
+        if trans_data.get("segments"):
+            transcription_segments = trans_data["segments"]
+
+    syncer = LyricSynchronizer(
+        lines,
+        features,
+        vocal_onset_times=np.array(analysis_data.get("vocal_onset_times", []), dtype=float) if analysis_data.get("vocal_onset_times") else None,
+        transcription_segments=transcription_segments,
+    )
     result = syncer.synchronize()
 
     result.save(proj.data_dir / "lyrics_synced.json")
+
+    from lyrics.alignment_analyzer import analyze_alignment
+    alignment = analyze_alignment(
+        lyrics=lines,
+        transcription_segments=transcription_segments,
+        vocal_onset_times=np.array(analysis_data.get("vocal_onset_times", []), dtype=float) if analysis_data.get("vocal_onset_times") else None,
+        audio_features=features,
+    )
+    alignment.save(proj.data_dir / "alignment_analysis.json")
 
     proj.stages.mark_complete("sync")
 
     click.echo(f"    Lines synced: {len(result.lines)}")
     click.echo(f"    Source: {result.source}")
     click.echo(f"    Avg confidence: {result.avg_confidence:.0%}")
+
+    if alignment.transcription_segment_count > 0:
+        click.echo(f"    Alignment analysis:")
+        click.echo(f"      Transcription segments: {alignment.transcription_segment_count}")
+        click.echo(f"      Word matches: {alignment.exact_matches} exact, {alignment.partial_matches} partial")
+        if alignment.lines_split > 0:  # pragma: no cover
+            click.echo(f"      Lines split across segments: {alignment.lines_split}")
+        click.echo(f"      Recommendation: {alignment.recommendation}")
 
     if verbose:
         for i, line in enumerate(result.lines):

@@ -43,6 +43,14 @@ def _data_dir() -> Path:
     return REPO_ROOT / "data"
 
 
+def _project_data_dir() -> Path:
+    if PROJECT and PROJECT.paths.data_dir:
+        p = Path(PROJECT.paths.data_dir) / "data"
+        if p.exists():
+            return p
+    return _data_dir()
+
+
 class PipelineHandler(SimpleHTTPRequestHandler):
     def translate_path(self, path: str) -> str:
         parts = urllib.parse.urlparse(path)
@@ -167,6 +175,12 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_get_json("lyrics_synced.json")
         elif path == "/api/ingest":
             self._handle_get_json("ingest.json")
+        elif path == "/api/vocal-onsets":
+            self._handle_get_json("vocal_onsets.json")
+        elif path == "/api/vocal-transcription":
+            self._handle_get_json("vocal_transcription.json")
+        elif path == "/api/alignment-analysis":
+            self._handle_get_json("alignment_analysis.json")
         else:
             super().do_GET()
 
@@ -179,11 +193,15 @@ class PipelineHandler(SimpleHTTPRequestHandler):
         self._send_json({"error": "Project not found"}, 404)
 
     def _handle_get_json(self, filename: str):
-        fpath = _data_dir() / filename
+        fpath = _project_data_dir() / filename
         if fpath.exists():
             self._send_json(json.loads(fpath.read_text(encoding="utf-8")))
         else:
-            self._send_json({"error": f"{filename} not found. Run earlier pipeline stages first."}, 404)
+            fpath = _data_dir() / filename
+            if fpath.exists():
+                self._send_json(json.loads(fpath.read_text(encoding="utf-8")))
+            else:
+                self._send_json({"error": f"{filename} not found. Run earlier pipeline stages first."}, 404)
 
     def do_POST(self):
         path = urllib.parse.urlparse(self.path).path
@@ -278,7 +296,8 @@ def run_server(project_dir: Optional[str] = None, port: int = 8900):  # pragma: 
     socketserver.TCPServer.allow_reuse_address = True
 
     print(f"\nServing at http://localhost:{port}/")
-    print(f"Sync Editor: http://localhost:{port}/tools/03-sync/")
+    print(f"Analysis Review: http://localhost:{port}/tools/analysis/")
+    print(f"Sync Editor:    http://localhost:{port}/tools/03-sync/")
     print("Press Ctrl+C to stop\n")
 
     with socketserver.TCPServer(("", port), PipelineHandler) as httpd:

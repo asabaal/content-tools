@@ -1,0 +1,114 @@
+{
+  "tier": "full",
+  "audio_path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/I Never Asked To Be Queer.wav",
+  "lyrics_path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/lyrics.txt",
+  "stems": [
+    {
+      "name": "Lead Vocals",
+      "stem_type": "lead_vocals",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/stems/0 Lead Vocals.wav",
+      "format": "wav"
+    },
+    {
+      "name": "Drums",
+      "stem_type": "drums",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/stems/1 Drums.wav",
+      "format": "wav"
+    },
+    {
+      "name": "Bass",
+      "stem_type": "bass",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/stems/2 Bass.wav",
+      "format": "wav"
+    },
+    {
+      "name": "Guitar",
+      "stem_type": "guitar",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/stems/3 Guitar.wav",
+      "format": "wav"
+    },
+    {
+      "name": "Keyboard",
+      "stem_type": "keyboard",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/stems/4 Keyboard.wav",
+      "format": "wav"
+    },
+    {
+      "name": "Percussion",
+      "stem_type": "percussion",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/stems/5 Percussion.wav",
+      "format": "wav"
+    },
+    {
+      "name": "Synth",
+      "stem_type": "synth",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/stems/6 Synth.wav",
+      "format": "wav"
+    },
+    {
+      "name": "Other",
+      "stem_type": "other",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/stems/7 Other.wav",
+      "format": "wav"
+    }
+  ],
+  "midi_files": [
+    {
+      "name": "I Never Asked To Be Queer (Drums).mid",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/midi/I Never Asked To Be Queer (Drums).mid",
+      "instrument": "Drums",
+      "note_count": 0,
+      "duration": 0.0
+    },
+    {
+      "name": "I Never Asked To Be Queer (Synth).mid",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/midi/I Never Asked To Be Queer (Synth).mid",
+      "instrument": "Synth",
+      "note_count": 0,
+      "duration": 0.0
+    },
+    {
+      "name": "I Never Asked To Be Queer (Keyboard).mid",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/midi/I Never Asked To Be Queer (Keyboard).mid",
+      "instrument": "Keyboard",
+      "note_count": 0,
+      "duration": 0.0
+    },
+    {
+      "name": "I Never Asked To Be Queer (Percussion).mid",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/midi/I Never Asked To Be Queer (Percussion).mid",
+      "instrument": "Percussion",
+      "note_count": 0,
+      "duration": 0.0
+    },
+    {
+      "name": "I Never Asked To Be Queer (Vocals).mid",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/midi/I Never Asked To Be Queer (Vocals).mid",
+      "instrument": "Vocals",
+      "note_count": 0,
+      "duration": 0.0
+    },
+    {
+      "name": "I Never Asked To Be Queer (FX).mid",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/midi/I Never Asked To Be Queer (FX).mid",
+      "instrument": "FX",
+      "note_count": 0,
+      "duration": 0.0
+    },
+    {
+      "name": "I Never Asked To Be Queer (Bass).mid",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/midi/I Never Asked To Be Queer (Bass).mid",
+      "instrument": "Bass",
+      "note_count": 0,
+      "duration": 0.0
+    },
+    {
+      "name": "I Never Asked To Be Queer (Guitar).mid",
+      "path": "/mnt/storage/repos/content-tools/music-video-pipeline/data/i-never-asked-to-be-queer/data/cache/midi/I Never Asked To Be Queer (Guitar).mid",
+      "instrument": "Guitar",
+      "note_count": 0,
+      "duration": 0.0
+    }
+  ],
+  "has_tempo_locked_stems": true
+}

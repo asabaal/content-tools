@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alignment Analysis</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacRangeFont,"Segoe UI",Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.app{display:flex;flex-direction:column;height:100%}
+.header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:#16213e;border-bottom:1px solid #2a2a4a}
+.header h1{font-size:16px;font-weight:600;color:#4cc9f0}
+.header-actions{display:flex;gap:8px;align-items:center}
+.btn{padding:6px 14px;border:1px solid #2a2a4a;border-radius:4px;background:#2a2a4a;color:#e0e0e0;cursor:pointer;font-size:13px;text-decoration:none}
+.btn:hover{background:#3a3a5a}
+.btn-primary{background:#4cc9f0;border-color:#4cc9f0;color:#0f0f1a;font-weight:600}
+.btn-primary:hover{background:#3ab8df}
+.btn:disabled{opacity:0.4;cursor:default}
+
+.summary{padding:10px 16px;background:#16213e;border-bottom:1px solid #2a2a4a;display:flex;gap:20px;flex-wrap:wrap;font-size:13px;align-items:center}
+.summary .stat{display:flex;gap:4px}
+.summary .stat-label{color:#888}
+.summary .stat-val{color:#4cc9f0;font-family:monospace}
+.summary .rec{color:#48bb78;font-weight:600}
+.summary .split-note{color:#f6ad55;font-weight:600}
+
+.transport{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;font-size:13px}
+.transport .time{color:#4cc9f0;font-family:monospace;min-width:60px}
+.transport .audio-status{color:#666;font-size:12px}
+
+.table-container{flex:1;overflow-y:auto;background:#0a0a1a}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead{position:sticky;top:0;z-index:10;background:#16213e}
+th{padding:6px 8px;text-align:left;color:#4cc9f0;font-weight:600;border-bottom:2px solid #2a2a4a;white-space:nowrap}
+td{padding:5px 8px;border-bottom:1px solid rgba(42,42,74,0.4);vertical-align:top}
+tr:hover{background:rgba(76,201,240,0.04)}
+tr.split-row td:first-child{border-left:3px solid #f6ad55}
+tr.exact-row td:first-child{border-left:3px solid #48bb78}
+tr.partial-row td:first-child{border-left:3px solid #6c8cff}
+tr.no-match-row td:first-child{border-left:3px solid #666}
+
+.match-bar{display:inline-block;height:8px;border-radius:4px;min-width:4px}
+.match-high{background:#48bb78}
+.match-med{background:#6c8cff}
+.match-low{background:#f6ad55}
+.match-none{background:#666}
+
+.text-cell{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+.text-cell:hover{white-space:normal;word-break:break-word}
+.quality-cell{font-family:monospace;font-size:11px}
+
+.waveform-strip{height:60px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;cursor:crosshair;flex-shrink:0}
+.waveform-strip canvas{width:100%;height:100%;display:block}
+.playhead{position:absolute;top:0;width:2px;height:100%;background:#4cc9f0;z-index:50;pointer-events:none}
+
+.empty-state{flex:1;display:flex;align-items:center;justify-content:center;color:#666;font-size:14px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>Alignment Analysis</h1>
+    <div class="header-actions">
+      <button class="btn btn-primary" id="playBtn" style="min-width:40px">&#9654;</button>
+      <span class="time" id="timeDisplay" style="color:#4cc9f0;font-family:monospace;font-size:13px;min-width:50px">0:00</span>
+      <span class="audio-status" id="audioStatus"></span>
+      <span style="color:#444">|</span>
+      <a href="../03-sync/" class="btn">Sync Editor</a>
+    </div>
+  </div>
+  <div class="summary" id="summary">Loading...</div>
+  <div class="waveform-strip" id="waveformStrip">
+    <canvas id="waveformCanvas"></canvas>
+    <div class="playhead" id="playhead"></div>
+  </div>
+  <div class="table-container" id="tableContainer">
+    <div class="empty-state">Loading analysis data...</div>
+  </div>
+</div>
+<script>
+let analysisData = null;
+let waveformData = null;
+let audioBuffer = null;
+let audioCtx = null;
+let sourceNode = null;
+let isPlaying = false;
+let startTime = 0;
+let pauseOffset = 0;
+let duration = 0;
+let animFrame = null;
+
+async function init() {
+  try {
+    const [aRes, wRes, alRes] = await Promise.all([
+      fetch('/api/analysis').then(r => r.json()),
+      fetch('/api/waveforms').then(r => r.json()),
+      fetch('/api/alignment-analysis').then(r => r.json()),
+    ]);
+
+    if (aRes.error) { showEmpty(aRes.error); return; }
+    duration = aRes.duration || 0;
+    waveformData = wRes;
+    analysisData = alRes;
+
+    loadAudio();
+    renderSummary();
+    renderTable();
+    renderWaveform();
+    startLoop();
+  } catch (e) {
+    showEmpty('Error: ' + e.message);
+  }
+}
+
+async function loadAudio() {
+  const statusEl = document.getElementById('audioStatus');
+  const playBtn = document.getElementById('playBtn');
+  try {
+    const resp = await fetch('/api/project');
+    const proj = await resp.json();
+    const audioPath = proj.paths && proj.paths.audio;
+    if (!audioPath) {
+      statusEl.textContent = 'No audio';
+      playBtn.disabled = true;
+      return;
+    }
+    statusEl.textContent = 'Loading audio...';
+    const audioResp = await fetch('/data/' + audioPath);
+    if (!audioResp.ok) throw new Error('HTTP ' + audioResp.status);
+    const buf = await audioResp.arrayBuffer();
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    audioBuffer = await audioCtx.decodeAudioData(buf);
+    statusEl.textContent = '';
+  } catch (e) {
+    statusEl.textContent = 'Audio unavailable';
+    playBtn.disabled = true;
+    console.warn('Audio load failed:', e);
+  }
+}
+
+function showEmpty(msg) {
+  document.getElementById('tableContainer').innerHTML = '<div class="empty-state">' + msg + '</div>';
+}
+
+function renderSummary() {
+  const s = analysisData.summary;
+  const el = document.getElementById('summary');
+
+  let splitNote = '';
+  if (s.lines_split > 0) {
+    splitNote = '<span class="split-note">' + s.lines_split + ' lines span multiple segments</span>';
+  }
+
+  el.innerHTML = `
+    <div class="stat"><span class="stat-label">Lines:</span><span class="stat-val">${s.total_lines}</span></div>
+    <div class="stat"><span class="stat-label">Segments:</span><span class="stat-val">${s.transcription_segment_count}</span></div>
+    <div class="stat"><span class="stat-label">Exact:</span><span class="stat-val">${s.exact_matches}</span></div>
+    <div class="stat"><span class="stat-label">Partial:</span><span class="stat-val">${s.partial_matches}</span></div>
+    <div class="stat"><span class="stat-label">Unmatched:</span><span class="stat-val">${s.unmatched_lines}</span></div>
+    <div class="stat"><span class="stat-label">Rec:</span><span class="rec">${s.recommendation}</span></div>
+    ${splitNote}
+  `;
+}
+
+function renderTable() {
+  const container = document.getElementById('tableContainer');
+  const matches = analysisData.line_matches;
+
+  let html = `<table><thead><tr>
+    <th>#</th><th>Match</th><th>Lyric Text</th><th>Transcription</th><th>Segments</th><th>Boundary</th><th>Quality</th>
+  </tr></thead><tbody>`;
+
+  for (const m of matches) {
+    const ratio = m.word_match_ratio || 0;
+    let rowClass = '';
+    let matchClass = 'match-none';
+
+    if (ratio > 0.9) { rowClass = 'exact-row'; matchClass = 'match-high'; }
+    else if (ratio > 0.3) { rowClass = 'partial-row'; matchClass = 'match-med'; }
+    else { rowClass = 'no-match-row'; matchClass = 'match-low'; }
+
+    if (m.is_split) rowClass = 'split-row';
+
+    const matchBar = `<span class="match-bar ${matchClass}" style="width:${Math.round(ratio * 50)}px"></span>`;
+
+    const segLabel = m.is_split
+      ? `<span style="color:#f6ad55">Segs ${m.matched_segments[0]}-${m.matched_segments[m.matched_segments.length-1]}</span>`
+      : (m.matched_segments.length ? `Seg ${m.matched_segments[0]}` : '-');
+
+    const tStart = m.transcription_start != null ? fmtTime(m.transcription_start) : '-';
+    const tEnd = m.transcription_end != null ? fmtTime(m.transcription_end) : '-';
+    const boundary = `${tStart} - ${tEnd}`;
+
+    const quality = m.boundary_quality != null ? (m.boundary_quality * 100).toFixed(0) + '%' : '-';
+
+    const startAttr = m.transcription_start != null ? ` data-start="${m.transcription_start}"` : '';
+
+    let dataCols = `<td style="font-family:monospace;color:#888">${m.lyric_index}</td>`;
+    dataCols += `<td>${matchBar} <span style="font-family:monospace;font-size:11px">${(ratio * 100).toFixed(0)}%</span></td>`;
+    dataCols += `<td class="text-cell" title="${esc(m.lyric_text)}">${esc(m.lyric_text)}</td>`;
+    dataCols += `<td class="text-cell" title="${esc(m.transcription_text || '')}">${esc(m.transcription_text || '-')}</td>`;
+    dataCols += `<td style="font-family:monospace;font-size:11px">${segLabel}</td>`;
+    dataCols += `<td class="quality-cell">${boundary}</td>`;
+    dataCols += `<td class="quality-cell">${quality}</td>`;
+
+    html += `<tr class="${rowClass}"${startAttr}>${dataCols}</tr>`;
+  }
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+
+  container.querySelectorAll('tr[data-start]').forEach(tr => {
+    tr.style.cursor = 'pointer';
+    tr.addEventListener('click', () => {
+      const t = parseFloat(tr.dataset.start);
+      seekToTime(t);
+    });
+  });
+}
+
+function fmtTime(s) {
+  if (s == null) return '-';
+  const m = Math.floor(s / 60);
+  const sec = (s % 60).toFixed(1);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function esc(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function togglePlay() {
+  if (!audioCtx || !audioBuffer) return;
+  if (isPlaying) {
+    pauseOffset += audioCtx.currentTime - startTime;
+    sourceNode.onended = null;
+    sourceNode.stop();
+    isPlaying = false;
+    document.getElementById('playBtn').innerHTML = '&#9654;';
+  } else {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').innerHTML = '&#9654;'; };
+    startTime = audioCtx.currentTime;
+    sourceNode.start(0, pauseOffset);
+    isPlaying = true;
+    document.getElementById('playBtn').innerHTML = '&#9646;&#9646;';
+  }
+}
+
+function seekToTime(t) {
+  t = Math.max(0, Math.min(t, duration));
+  pauseOffset = t;
+  if (isPlaying) {
+    sourceNode.onended = null;
+    sourceNode.stop();
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').innerHTML = '&#9654;'; };
+    startTime = audioCtx.currentTime;
+    sourceNode.start(0, t);
+  }
+}
+
+function getCurrentTime() {
+  if (isPlaying) return pauseOffset + (audioCtx.currentTime - startTime);
+  return pauseOffset;
+}
+
+function renderWaveform() {
+  const strip = document.getElementById('waveformStrip');
+  const canvas = document.getElementById('waveformCanvas');
+  if (!canvas || !waveformData) return;
+
+  const W = strip.offsetWidth;
+  const H = strip.offsetHeight;
+  canvas.width = W * devicePixelRatio;
+  canvas.height = H * devicePixelRatio;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  ctx.clearRect(0, 0, W, H);
+
+  const peaks = waveformData.peaks || [];
+  const pps = waveformData.peaks_per_second || 100;
+  const pixPerSec = W / duration;
+
+  ctx.fillStyle = '#4cc9f0';
+  for (let px = 0; px < W; px++) {
+    const t = (px / W) * duration;
+    const pi = Math.floor(t * pps);
+    let maxVal = 0;
+    const count = Math.max(1, Math.ceil(pps / pixPerSec));
+    for (let j = 0; j < count; j++) {
+      const idx = pi + j;
+      if (idx >= 0 && idx < peaks.length) maxVal = Math.max(maxVal, peaks[idx]);
+    }
+    const h = maxVal * H * 0.8;
+    ctx.fillRect(px, (H - h) / 2, 1, h);
+  }
+
+  if (analysisData && analysisData.line_matches) {
+    for (const m of analysisData.line_matches) {
+      if (m.transcription_start == null) continue;
+      const x1 = (m.transcription_start / duration) * W;
+      const x2 = ((m.transcription_end || m.transcription_start) / duration) * W;
+      let color = 'rgba(108,140,255,0.15)';
+      if (m.word_match_ratio > 0.9) color = 'rgba(72,187,120,0.15)';
+      else if (m.is_split) color = 'rgba(246,173,85,0.2)';
+      ctx.fillStyle = color;
+      ctx.fillRect(x1, 0, x2 - x1, H);
+    }
+  }
+
+  strip.addEventListener('click', (e) => {
+    const t = (e.offsetX / W) * duration;
+    seekToTime(t);
+  });
+}
+
+function startLoop() {
+  function tick() {
+    animFrame = requestAnimationFrame(tick);
+    const t = getCurrentTime();
+    document.getElementById('timeDisplay').textContent = fmtTime(t);
+    const pct = (t / duration) * 100;
+    document.getElementById('playhead').style.left = pct + '%';
+  }
+  tick();
+}
+
+document.getElementById('playBtn').addEventListener('click', togglePlay);
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+});
+
+window.addEventListener('resize', () => renderWaveform());
+init();
+</script>
+</body>
+</html>

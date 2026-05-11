@@ -91,6 +91,49 @@ class AudioAnalyzer:
         logger.info("Analysis complete: %d beats, %d onsets, %.1f BPM", len(beat_times), len(onset_times), float(tempo))
         return features
 
+    def extract_vocal_onsets(self, stem_path: Union[str, Path]) -> np.ndarray:
+        import librosa
+
+        audio, sr = librosa.load(str(stem_path), sr=None, mono=True)
+        onset_env = librosa.onset.onset_strength(y=audio, sr=sr, hop_length=self.hop_length)
+        onset_frames = librosa.onset.onset_detect(onset_envelope=onset_env, sr=sr, hop_length=self.hop_length, backtrack=True)
+        onset_times = librosa.frames_to_time(onset_frames, sr=sr, hop_length=self.hop_length)
+        return np.asarray(onset_times, dtype=float)
+
+    def transcribe_vocal_stem(self, stem_path: Union[str, Path], model_size: str = "small") -> dict:
+        from faster_whisper import WhisperModel
+
+        model = WhisperModel(model_size, device="cpu", compute_type="int8")
+        segments, info = model.transcribe(str(stem_path), word_timestamps=True)
+
+        result = {
+            "language": info.language,
+            "language_probability": round(info.language_probability, 3),
+            "duration": round(info.duration, 3),
+            "segments": [],
+            "words": [],
+        }
+
+        for seg in segments:  # pragma: no cover
+            seg_data = {
+                "start": round(seg.start, 3),
+                "end": round(seg.end, 3),
+                "text": seg.text.strip(),
+                "words": [],
+            }
+            for w in seg.words:
+                word_data = {
+                    "word": w.word.strip(),
+                    "start": round(w.start, 3),
+                    "end": round(w.end, 3),
+                    "probability": round(w.probability, 3),
+                }
+                seg_data["words"].append(word_data)
+                result["words"].append(word_data)
+            result["segments"].append(seg_data)
+
+        return result
+
     def analyze_stem(self, stem_path: Union[str, Path], stem_type: str, name: str) -> StemFeatures:
         import librosa
 

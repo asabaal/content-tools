@@ -284,6 +284,7 @@ function togglePlay() {
   if (!audioCtx || !audioBuffer) return;
   if (isPlaying) {
     pauseOffset += audioCtx.currentTime - startTime;
+    sourceNode.onended = null;
     sourceNode.stop();
     isPlaying = false;
     if (loopLine) { loopLine = false; document.getElementById('loopBtn').classList.remove('btn-primary'); }

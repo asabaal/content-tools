@@ -122,7 +122,49 @@ class TestAudioAnalyzerWaveforms:
         assert len(peaks) == int(duration * PEAKS_PER_SECOND)
 
 
-class TestConfidenceEdgeCases:
+class TestAudioAnalyzerVocalOnsets:
+    def test_extract_vocal_onsets(self, sample_stem_wav):
+        a = AudioAnalyzer()
+        onsets = a.extract_vocal_onsets(sample_stem_wav)
+        assert isinstance(onsets, np.ndarray)
+        assert len(onsets) >= 0
+        if len(onsets) > 0:
+            assert onsets[0] >= 0.0
+
+    def test_extract_vocal_onsets_returns_float(self, sample_stem_wav):
+        a = AudioAnalyzer()
+        onsets = a.extract_vocal_onsets(sample_stem_wav)
+        assert onsets.dtype == float
+
+
+class TestAudioAnalyzerTranscription:
+    def test_transcribe_vocal_stem(self, sample_stem_wav):
+        a = AudioAnalyzer()
+        result = a.transcribe_vocal_stem(sample_stem_wav, model_size="tiny")
+        assert "segments" in result
+        assert "words" in result
+        assert "language" in result
+        assert "duration" in result
+        assert isinstance(result["segments"], list)
+        assert isinstance(result["words"], list)
+
+    def test_transcription_word_format(self, sample_stem_wav):
+        a = AudioAnalyzer()
+        result = a.transcribe_vocal_stem(sample_stem_wav, model_size="tiny")
+        for w in result["words"]:
+            assert "word" in w
+            assert "start" in w
+            assert "end" in w
+            assert "probability" in w
+
+    def test_transcription_segment_format(self, sample_stem_wav):
+        a = AudioAnalyzer()
+        result = a.transcribe_vocal_stem(sample_stem_wav, model_size="tiny")
+        for seg in result["segments"]:
+            assert "start" in seg
+            assert "end" in seg
+            assert "text" in seg
+            assert "words" in seg
     def test_confidence_with_multiple_beats(self, tmp_path):
         import soundfile as sf
         sr = 22050

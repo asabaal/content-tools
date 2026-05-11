@@ -1,0 +1,4925 @@
+{
+  "language": "en",
+  "language_probability": 0.982,
+  "duration": 156.459,
+  "segments": [
+    {
+      "start": 1.2,
+      "end": 5.6,
+      "text": "I never asked to be queer",
+      "words": [
+        {
+          "word": "I",
+          "start": 1.2,
+          "end": 2.0,
+          "probability": 0.526
+        },
+        {
+          "word": "never",
+          "start": 2.0,
+          "end": 2.5,
+          "probability": 0.474
+        },
+        {
+          "word": "asked",
+          "start": 2.5,
+          "end": 3.48,
+          "probability": 0.947
+        },
+        {
+          "word": "to",
+          "start": 3.48,
+          "end": 4.16,
+          "probability": 0.969
+        },
+        {
+          "word": "be",
+          "start": 4.16,
+          "end": 4.74,
+          "probability": 0.981
+        },
+        {
+          "word": "queer",
+          "start": 4.74,
+          "end": 5.6,
+          "probability": 0.962
+        }
+      ]
+    },
+    {
+      "start": 5.6,
+      "end": 10.42,
+      "text": "I never asked to live here",
+      "words": [
+        {
+          "word": "I",
+          "start": 5.6,
+          "end": 6.68,
+          "probability": 0.626
+        },
+        {
+          "word": "never",
+          "start": 6.68,
+          "end": 7.02,
+          "probability": 0.986
+        },
+        {
+          "word": "asked",
+          "start": 7.02,
+          "end": 8.18,
+          "probability": 0.987
+        },
+        {
+          "word": "to",
+          "start": 8.18,
+          "end": 8.82,
+          "probability": 0.996
+        },
+        {
+          "word": "live",
+          "start": 8.82,
+          "end": 9.44,
+          "probability": 0.995
+        },
+        {
+          "word": "here",
+          "start": 9.44,
+          "end": 10.42,
+          "probability": 0.997
+        }
+      ]
+    },
+    {
+      "start": 11.0,
+      "end": 14.9,
+      "text": "Now it's easy to live in fear",
+      "words": [
+        {
+          "word": "Now",
+          "start": 11.0,
+          "end": 11.68,
+          "probability": 0.875
+        },
+        {
+          "word": "it's",
+          "start": 11.68,
+          "end": 12.12,
+          "probability": 0.977
+        },
+        {
+          "word": "easy",
+          "start": 12.12,
+          "end": 12.42,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 12.42,
+          "end": 12.78,
+          "probability": 0.999
+        },
+        {
+          "word": "live",
+          "start": 12.78,
+          "end": 13.38,
+          "probability": 0.997
+        },
+        {
+          "word": "in",
+          "start": 13.38,
+          "end": 14.1,
+          "probability": 0.859
+        },
+        {
+          "word": "fear",
+          "start": 14.1,
+          "end": 14.9,
+          "probability": 0.991
+        }
+      ]
+    },
+    {
+      "start": 16.0,
+      "end": 19.4,
+      "text": "That the end of folks like me is near",
+      "words": [
+        {
+          "word": "That",
+          "start": 15.92,
+          "end": 16.32,
+          "probability": 0.872
+        },
+        {
+          "word": "the",
+          "start": 16.32,
+          "end": 16.64,
+          "probability": 0.997
+        },
+        {
+          "word": "end",
+          "start": 16.64,
+          "end": 17.02,
+          "probability": 0.995
+        },
+        {
+          "word": "of",
+          "start": 17.02,
+          "end": 17.24,
+          "probability": 0.996
+        },
+        {
+          "word": "folks",
+          "start": 17.24,
+          "end": 17.52,
+          "probability": 0.996
+        },
+        {
+          "word": "like",
+          "start": 17.52,
+          "end": 17.8,
+          "probability": 0.998
+        },
+        {
+          "word": "me",
+          "start": 17.8,
+          "end": 18.2,
+          "probability": 0.997
+        },
+        {
+          "word": "is",
+          "start": 18.2,
+          "end": 18.8,
+          "probability": 0.957
+        },
+        {
+          "word": "near",
+          "start": 18.8,
+          "end": 19.4,
+          "probability": 0.996
+        }
+      ]
+    },
+    {
+      "start": 20.0,
+      "end": 22.66,
+      "text": "I was such a good little Christian kid",
+      "words": [
+        {
+          "word": "I",
+          "start": 20.0,
+          "end": 20.9,
+          "probability": 0.783
+        },
+        {
+          "word": "was",
+          "start": 20.9,
+          "end": 21.04,
+          "probability": 0.991
+        },
+        {
+          "word": "such",
+          "start": 21.04,
+          "end": 21.2,
+          "probability": 0.998
+        },
+        {
+          "word": "a",
+          "start": 21.2,
+          "end": 21.32,
+          "probability": 0.999
+        },
+        {
+          "word": "good",
+          "start": 21.32,
+          "end": 21.58,
+          "probability": 0.998
+        },
+        {
+          "word": "little",
+          "start": 21.58,
+          "end": 21.86,
+          "probability": 0.965
+        },
+        {
+          "word": "Christian",
+          "start": 21.86,
+          "end": 22.26,
+          "probability": 0.707
+        },
+        {
+          "word": "kid",
+          "start": 22.26,
+          "end": 22.66,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 22.66,
+      "end": 24.96,
+      "text": "At church up to five times per week I did",
+      "words": [
+        {
+          "word": "At",
+          "start": 22.66,
+          "end": 23.08,
+          "probability": 0.556
+        },
+        {
+          "word": "church",
+          "start": 23.08,
+          "end": 23.3,
+          "probability": 0.964
+        },
+        {
+          "word": "up",
+          "start": 23.3,
+          "end": 23.52,
+          "probability": 0.837
+        },
+        {
+          "word": "to",
+          "start": 23.52,
+          "end": 23.66,
+          "probability": 0.993
+        },
+        {
+          "word": "five",
+          "start": 23.66,
+          "end": 23.88,
+          "probability": 0.792
+        },
+        {
+          "word": "times",
+          "start": 23.88,
+          "end": 24.12,
+          "probability": 0.998
+        },
+        {
+          "word": "per",
+          "start": 24.12,
+          "end": 24.3,
+          "probability": 0.996
+        },
+        {
+          "word": "week",
+          "start": 24.3,
+          "end": 24.52,
+          "probability": 0.999
+        },
+        {
+          "word": "I",
+          "start": 24.52,
+          "end": 24.76,
+          "probability": 0.94
+        },
+        {
+          "word": "did",
+          "start": 24.76,
+          "end": 24.96,
+          "probability": 0.997
+        }
+      ]
+    },
+    {
+      "start": 24.96,
+      "end": 27.46,
+      "text": "Always despising it when I backslid",
+      "words": [
+        {
+          "word": "Always",
+          "start": 24.96,
+          "end": 25.76,
+          "probability": 0.892
+        },
+        {
+          "word": "despising",
+          "start": 25.76,
+          "end": 26.36,
+          "probability": 0.99
+        },
+        {
+          "word": "it",
+          "start": 26.36,
+          "end": 26.58,
+          "probability": 0.994
+        },
+        {
+          "word": "when",
+          "start": 26.58,
+          "end": 26.76,
+          "probability": 0.964
+        },
+        {
+          "word": "I",
+          "start": 26.76,
+          "end": 26.92,
+          "probability": 0.99
+        },
+        {
+          "word": "backslid",
+          "start": 26.92,
+          "end": 27.46,
+          "probability": 0.906
+        }
+      ]
+    },
+    {
+      "start": 27.46,
+      "end": 29.76,
+      "text": "Hating my sin I just wanted it red",
+      "words": [
+        {
+          "word": "Hating",
+          "start": 27.46,
+          "end": 28.04,
+          "probability": 0.75
+        },
+        {
+          "word": "my",
+          "start": 28.04,
+          "end": 28.3,
+          "probability": 0.963
+        },
+        {
+          "word": "sin",
+          "start": 28.3,
+          "end": 28.58,
+          "probability": 0.995
+        },
+        {
+          "word": "I",
+          "start": 28.58,
+          "end": 28.74,
+          "probability": 0.326
+        },
+        {
+          "word": "just",
+          "start": 28.74,
+          "end": 28.92,
+          "probability": 0.994
+        },
+        {
+          "word": "wanted",
+          "start": 28.92,
+          "end": 29.3,
+          "probability": 0.975
+        },
+        {
+          "word": "it",
+          "start": 29.3,
+          "end": 29.5,
+          "probability": 0.994
+        },
+        {
+          "word": "red",
+          "start": 29.5,
+          "end": 29.76,
+          "probability": 0.23
+        }
+      ]
+    },
+    {
+      "start": 29.76,
+      "end": 32.12,
+      "text": "How could so many things be demonic",
+      "words": [
+        {
+          "word": "How",
+          "start": 29.76,
+          "end": 30.44,
+          "probability": 0.68
+        },
+        {
+          "word": "could",
+          "start": 30.44,
+          "end": 30.6,
+          "probability": 0.991
+        },
+        {
+          "word": "so",
+          "start": 30.6,
+          "end": 30.9,
+          "probability": 0.997
+        },
+        {
+          "word": "many",
+          "start": 30.9,
+          "end": 31.14,
+          "probability": 0.998
+        },
+        {
+          "word": "things",
+          "start": 31.14,
+          "end": 31.46,
+          "probability": 0.997
+        },
+        {
+          "word": "be",
+          "start": 31.46,
+          "end": 31.66,
+          "probability": 0.987
+        },
+        {
+          "word": "demonic",
+          "start": 31.66,
+          "end": 32.12,
+          "probability": 0.99
+        }
+      ]
+    },
+    {
+      "start": 32.12,
+      "end": 33.72,
+      "text": "They cause my extreme anxiety",
+      "words": [
+        {
+          "word": "They",
+          "start": 32.12,
+          "end": 32.4,
+          "probability": 0.393
+        },
+        {
+          "word": "cause",
+          "start": 32.4,
+          "end": 32.62,
+          "probability": 0.561
+        },
+        {
+          "word": "my",
+          "start": 32.62,
+          "end": 32.86,
+          "probability": 0.991
+        },
+        {
+          "word": "extreme",
+          "start": 32.86,
+          "end": 33.16,
+          "probability": 0.965
+        },
+        {
+          "word": "anxiety",
+          "start": 33.16,
+          "end": 33.72,
+          "probability": 0.996
+        }
+      ]
+    },
+    {
+      "start": 33.72,
+      "end": 35.6,
+      "text": "Now it's chronic if Jesus was sinners",
+      "words": [
+        {
+          "word": "Now",
+          "start": 33.72,
+          "end": 34.02,
+          "probability": 0.755
+        },
+        {
+          "word": "it's",
+          "start": 34.02,
+          "end": 34.18,
+          "probability": 0.933
+        },
+        {
+          "word": "chronic",
+          "start": 34.18,
+          "end": 34.48,
+          "probability": 0.992
+        },
+        {
+          "word": "if",
+          "start": 34.48,
+          "end": 34.76,
+          "probability": 0.275
+        },
+        {
+          "word": "Jesus",
+          "start": 34.76,
+          "end": 35.04,
+          "probability": 0.981
+        },
+        {
+          "word": "was",
+          "start": 35.04,
+          "end": 35.3,
+          "probability": 0.454
+        },
+        {
+          "word": "sinners",
+          "start": 35.3,
+          "end": 35.6,
+          "probability": 0.961
+        }
+      ]
+    },
+    {
+      "start": 35.6,
+      "end": 36.88,
+      "text": "Was gladly platonic",
+      "words": [
+        {
+          "word": "Was",
+          "start": 35.6,
+          "end": 35.84,
+          "probability": 0.321
+        },
+        {
+          "word": "gladly",
+          "start": 35.84,
+          "end": 36.22,
+          "probability": 0.982
+        },
+        {
+          "word": "platonic",
+          "start": 36.22,
+          "end": 36.88,
+          "probability": 0.978
+        }
+      ]
+    },
+    {
+      "start": 37.46,
+      "end": 39.18,
+      "text": "How was that the result when they were sonic",
+      "words": [
+        {
+          "word": "How",
+          "start": 37.24,
+          "end": 37.5,
+          "probability": 0.92
+        },
+        {
+          "word": "was",
+          "start": 37.5,
+          "end": 37.66,
+          "probability": 0.972
+        },
+        {
+          "word": "that",
+          "start": 37.66,
+          "end": 37.9,
+          "probability": 0.995
+        },
+        {
+          "word": "the",
+          "start": 37.9,
+          "end": 38.1,
+          "probability": 0.981
+        },
+        {
+          "word": "result",
+          "start": 38.1,
+          "end": 38.4,
+          "probability": 0.996
+        },
+        {
+          "word": "when",
+          "start": 38.4,
+          "end": 38.56,
+          "probability": 0.624
+        },
+        {
+          "word": "they",
+          "start": 38.56,
+          "end": 38.7,
+          "probability": 0.99
+        },
+        {
+          "word": "were",
+          "start": 38.7,
+          "end": 38.8,
+          "probability": 0.989
+        },
+        {
+          "word": "sonic",
+          "start": 38.8,
+          "end": 39.18,
+          "probability": 0.7
+        }
+      ]
+    },
+    {
+      "start": 39.18,
+      "end": 41.54,
+      "text": "Our faith was supposed to be different",
+      "words": [
+        {
+          "word": "Our",
+          "start": 39.18,
+          "end": 39.88,
+          "probability": 0.487
+        },
+        {
+          "word": "faith",
+          "start": 39.88,
+          "end": 40.22,
+          "probability": 0.96
+        },
+        {
+          "word": "was",
+          "start": 40.22,
+          "end": 40.46,
+          "probability": 0.982
+        },
+        {
+          "word": "supposed",
+          "start": 40.46,
+          "end": 40.74,
+          "probability": 0.981
+        },
+        {
+          "word": "to",
+          "start": 40.74,
+          "end": 41.04,
+          "probability": 0.989
+        },
+        {
+          "word": "be",
+          "start": 41.04,
+          "end": 41.16,
+          "probability": 0.997
+        },
+        {
+          "word": "different",
+          "start": 41.16,
+          "end": 41.54,
+          "probability": 0.987
+        }
+      ]
+    },
+    {
+      "start": 41.54,
+      "end": 43.46,
+      "text": "Believing in life, love, truth, not belligerent",
+      "words": [
+        {
+          "word": "Believing",
+          "start": 41.54,
+          "end": 42.06,
+          "probability": 0.956
+        },
+        {
+          "word": "in",
+          "start": 42.06,
+          "end": 42.3,
+          "probability": 0.983
+        },
+        {
+          "word": "life,",
+          "start": 42.3,
+          "end": 42.56,
+          "probability": 0.983
+        },
+        {
+          "word": "love,",
+          "start": 42.66,
+          "end": 42.82,
+          "probability": 0.973
+        },
+        {
+          "word": "truth,",
+          "start": 42.86,
+          "end": 43.06,
+          "probability": 0.986
+        },
+        {
+          "word": "not",
+          "start": 43.16,
+          "end": 43.38,
+          "probability": 0.987
+        },
+        {
+          "word": "belligerent",
+          "start": 43.38,
+          "end": 43.64,
+          "probability": 0.988
+        }
+      ]
+    },
+    {
+      "start": 44.0,
+      "end": 46.18,
+      "text": "But because God made me intelligent",
+      "words": [
+        {
+          "word": "But",
+          "start": 44.0,
+          "end": 44.22,
+          "probability": 0.948
+        },
+        {
+          "word": "because",
+          "start": 44.22,
+          "end": 44.56,
+          "probability": 0.984
+        },
+        {
+          "word": "God",
+          "start": 44.56,
+          "end": 44.92,
+          "probability": 0.975
+        },
+        {
+          "word": "made",
+          "start": 44.92,
+          "end": 45.2,
+          "probability": 0.998
+        },
+        {
+          "word": "me",
+          "start": 45.2,
+          "end": 45.38,
+          "probability": 0.998
+        },
+        {
+          "word": "intelligent",
+          "start": 45.38,
+          "end": 46.18,
+          "probability": 0.952
+        }
+      ]
+    },
+    {
+      "start": 46.18,
+      "end": 48.74,
+      "text": "Now they see me as an evil insurgent",
+      "words": [
+        {
+          "word": "Now",
+          "start": 46.18,
+          "end": 46.8,
+          "probability": 0.962
+        },
+        {
+          "word": "they",
+          "start": 46.8,
+          "end": 46.94,
+          "probability": 0.965
+        },
+        {
+          "word": "see",
+          "start": 46.94,
+          "end": 47.16,
+          "probability": 0.992
+        },
+        {
+          "word": "me",
+          "start": 47.16,
+          "end": 47.28,
+          "probability": 0.995
+        },
+        {
+          "word": "as",
+          "start": 47.28,
+          "end": 47.48,
+          "probability": 0.996
+        },
+        {
+          "word": "an",
+          "start": 47.48,
+          "end": 47.62,
+          "probability": 0.969
+        },
+        {
+          "word": "evil",
+          "start": 47.62,
+          "end": 47.84,
+          "probability": 0.995
+        },
+        {
+          "word": "insurgent",
+          "start": 47.84,
+          "end": 48.74,
+          "probability": 0.914
+        }
+      ]
+    },
+    {
+      "start": 48.74,
+      "end": 51.3,
+      "text": "They warned me about going to university",
+      "words": [
+        {
+          "word": "They",
+          "start": 48.74,
+          "end": 49.22,
+          "probability": 0.945
+        },
+        {
+          "word": "warned",
+          "start": 49.22,
+          "end": 49.58,
+          "probability": 0.883
+        },
+        {
+          "word": "me",
+          "start": 49.58,
+          "end": 49.82,
+          "probability": 0.999
+        },
+        {
+          "word": "about",
+          "start": 49.82,
+          "end": 50.06,
+          "probability": 0.982
+        },
+        {
+          "word": "going",
+          "start": 50.06,
+          "end": 50.48,
+          "probability": 0.974
+        },
+        {
+          "word": "to",
+          "start": 50.48,
+          "end": 50.76,
+          "probability": 0.98
+        },
+        {
+          "word": "university",
+          "start": 50.76,
+          "end": 51.3,
+          "probability": 0.871
+        }
+      ]
+    },
+    {
+      "start": 51.3,
+      "end": 53.7,
+      "text": "That to stand for truth that faced great adversity",
+      "words": [
+        {
+          "word": "That",
+          "start": 51.3,
+          "end": 51.78,
+          "probability": 0.982
+        },
+        {
+          "word": "to",
+          "start": 51.78,
+          "end": 51.94,
+          "probability": 0.684
+        },
+        {
+          "word": "stand",
+          "start": 51.94,
+          "end": 52.08,
+          "probability": 0.997
+        },
+        {
+          "word": "for",
+          "start": 52.08,
+          "end": 52.2,
+          "probability": 0.998
+        },
+        {
+          "word": "truth",
+          "start": 52.2,
+          "end": 52.42,
+          "probability": 0.984
+        },
+        {
+          "word": "that",
+          "start": 52.42,
+          "end": 52.66,
+          "probability": 0.293
+        },
+        {
+          "word": "faced",
+          "start": 52.66,
+          "end": 52.86,
+          "probability": 0.154
+        },
+        {
+          "word": "great",
+          "start": 52.86,
+          "end": 53.22,
+          "probability": 0.978
+        },
+        {
+          "word": "adversity",
+          "start": 53.22,
+          "end": 53.7,
+          "probability": 0.991
+        }
+      ]
+    },
+    {
+      "start": 53.7,
+      "end": 56.16,
+      "text": "The enemy had filled that place with perversity",
+      "words": [
+        {
+          "word": "The",
+          "start": 53.7,
+          "end": 54.0,
+          "probability": 0.985
+        },
+        {
+          "word": "enemy",
+          "start": 54.0,
+          "end": 54.28,
+          "probability": 0.993
+        },
+        {
+          "word": "had",
+          "start": 54.28,
+          "end": 54.58,
+          "probability": 0.948
+        },
+        {
+          "word": "filled",
+          "start": 54.58,
+          "end": 54.78,
+          "probability": 0.975
+        },
+        {
+          "word": "that",
+          "start": 54.78,
+          "end": 55.0,
+          "probability": 0.994
+        },
+        {
+          "word": "place",
+          "start": 55.0,
+          "end": 55.22,
+          "probability": 0.997
+        },
+        {
+          "word": "with",
+          "start": 55.22,
+          "end": 55.52,
+          "probability": 0.995
+        },
+        {
+          "word": "perversity",
+          "start": 55.52,
+          "end": 56.16,
+          "probability": 0.983
+        }
+      ]
+    },
+    {
+      "start": 56.16,
+      "end": 58.42,
+      "text": "So I should tactfully manage my immersivity",
+      "words": [
+        {
+          "word": "So",
+          "start": 56.16,
+          "end": 56.6,
+          "probability": 0.581
+        },
+        {
+          "word": "I",
+          "start": 56.6,
+          "end": 56.74,
+          "probability": 0.905
+        },
+        {
+          "word": "should",
+          "start": 56.74,
+          "end": 56.86,
+          "probability": 0.994
+        },
+        {
+          "word": "tactfully",
+          "start": 56.86,
+          "end": 57.28,
+          "probability": 0.882
+        },
+        {
+          "word": "manage",
+          "start": 57.28,
+          "end": 57.62,
+          "probability": 0.984
+        },
+        {
+          "word": "my",
+          "start": 57.62,
+          "end": 57.8,
+          "probability": 0.993
+        },
+        {
+          "word": "immersivity",
+          "start": 57.8,
+          "end": 58.42,
+          "probability": 0.533
+        }
+      ]
+    },
+    {
+      "start": 58.42,
+      "end": 60.74,
+      "text": "I spoke up loudly in my religion classes",
+      "words": [
+        {
+          "word": "I",
+          "start": 58.42,
+          "end": 58.88,
+          "probability": 0.539
+        },
+        {
+          "word": "spoke",
+          "start": 58.88,
+          "end": 59.06,
+          "probability": 0.993
+        },
+        {
+          "word": "up",
+          "start": 59.06,
+          "end": 59.22,
+          "probability": 0.974
+        },
+        {
+          "word": "loudly",
+          "start": 59.22,
+          "end": 59.56,
+          "probability": 0.863
+        },
+        {
+          "word": "in",
+          "start": 59.56,
+          "end": 59.8,
+          "probability": 0.957
+        },
+        {
+          "word": "my",
+          "start": 59.8,
+          "end": 59.96,
+          "probability": 0.997
+        },
+        {
+          "word": "religion",
+          "start": 59.96,
+          "end": 60.26,
+          "probability": 0.976
+        },
+        {
+          "word": "classes",
+          "start": 60.26,
+          "end": 60.74,
+          "probability": 0.986
+        }
+      ]
+    },
+    {
+      "start": 60.74,
+      "end": 63.3,
+      "text": "Me and my partner there looking like asses",
+      "words": [
+        {
+          "word": "Me",
+          "start": 60.74,
+          "end": 61.14,
+          "probability": 0.701
+        },
+        {
+          "word": "and",
+          "start": 61.14,
+          "end": 61.3,
+          "probability": 0.981
+        },
+        {
+          "word": "my",
+          "start": 61.3,
+          "end": 61.44,
+          "probability": 0.997
+        },
+        {
+          "word": "partner",
+          "start": 61.44,
+          "end": 61.88,
+          "probability": 0.995
+        },
+        {
+          "word": "there",
+          "start": 61.88,
+          "end": 62.18,
+          "probability": 0.317
+        },
+        {
+          "word": "looking",
+          "start": 62.18,
+          "end": 62.48,
+          "probability": 0.78
+        },
+        {
+          "word": "like",
+          "start": 62.48,
+          "end": 62.74,
+          "probability": 0.997
+        },
+        {
+          "word": "asses",
+          "start": 62.74,
+          "end": 63.3,
+          "probability": 0.852
+        }
+      ]
+    },
+    {
+      "start": 63.3,
+      "end": 65.42,
+      "text": "So when that fool with those annoying glasses",
+      "words": [
+        {
+          "word": "So",
+          "start": 63.3,
+          "end": 63.58,
+          "probability": 0.92
+        },
+        {
+          "word": "when",
+          "start": 63.58,
+          "end": 63.74,
+          "probability": 0.876
+        },
+        {
+          "word": "that",
+          "start": 63.74,
+          "end": 63.9,
+          "probability": 0.995
+        },
+        {
+          "word": "fool",
+          "start": 63.9,
+          "end": 64.14,
+          "probability": 0.995
+        },
+        {
+          "word": "with",
+          "start": 64.14,
+          "end": 64.38,
+          "probability": 0.98
+        },
+        {
+          "word": "those",
+          "start": 64.38,
+          "end": 64.56,
+          "probability": 0.997
+        },
+        {
+          "word": "annoying",
+          "start": 64.56,
+          "end": 64.96,
+          "probability": 0.995
+        },
+        {
+          "word": "glasses",
+          "start": 64.96,
+          "end": 65.42,
+          "probability": 0.981
+        }
+      ]
+    },
+    {
+      "start": 65.42,
+      "end": 67.78,
+      "text": "Show me something new it took a few passes",
+      "words": [
+        {
+          "word": "Show",
+          "start": 65.42,
+          "end": 65.76,
+          "probability": 0.501
+        },
+        {
+          "word": "me",
+          "start": 65.76,
+          "end": 65.9,
+          "probability": 0.35
+        },
+        {
+          "word": "something",
+          "start": 65.9,
+          "end": 66.08,
+          "probability": 0.993
+        },
+        {
+          "word": "new",
+          "start": 66.08,
+          "end": 66.42,
+          "probability": 0.989
+        },
+        {
+          "word": "it",
+          "start": 66.42,
+          "end": 66.66,
+          "probability": 0.591
+        },
+        {
+          "word": "took",
+          "start": 66.66,
+          "end": 66.88,
+          "probability": 0.998
+        },
+        {
+          "word": "a",
+          "start": 66.88,
+          "end": 67.12,
+          "probability": 0.993
+        },
+        {
+          "word": "few",
+          "start": 67.12,
+          "end": 67.28,
+          "probability": 0.998
+        },
+        {
+          "word": "passes",
+          "start": 67.28,
+          "end": 67.78,
+          "probability": 0.987
+        }
+      ]
+    },
+    {
+      "start": 67.78,
+      "end": 70.32,
+      "text": "If the Bible was the word of God and inerrant",
+      "words": [
+        {
+          "word": "If",
+          "start": 67.78,
+          "end": 68.4,
+          "probability": 0.852
+        },
+        {
+          "word": "the",
+          "start": 68.4,
+          "end": 68.56,
+          "probability": 0.996
+        },
+        {
+          "word": "Bible",
+          "start": 68.56,
+          "end": 68.78,
+          "probability": 0.755
+        },
+        {
+          "word": "was",
+          "start": 68.78,
+          "end": 69.0,
+          "probability": 0.834
+        },
+        {
+          "word": "the",
+          "start": 69.0,
+          "end": 69.12,
+          "probability": 0.991
+        },
+        {
+          "word": "word",
+          "start": 69.12,
+          "end": 69.32,
+          "probability": 0.527
+        },
+        {
+          "word": "of",
+          "start": 69.32,
+          "end": 69.42,
+          "probability": 0.996
+        },
+        {
+          "word": "God",
+          "start": 69.42,
+          "end": 69.68,
+          "probability": 0.974
+        },
+        {
+          "word": "and",
+          "start": 69.68,
+          "end": 69.92,
+          "probability": 0.895
+        },
+        {
+          "word": "inerrant",
+          "start": 69.92,
+          "end": 70.32,
+          "probability": 0.873
+        }
+      ]
+    },
+    {
+      "start": 70.32,
+      "end": 72.68,
+      "text": "How could it have contradictions so blatant",
+      "words": [
+        {
+          "word": "How",
+          "start": 70.32,
+          "end": 70.78,
+          "probability": 0.777
+        },
+        {
+          "word": "could",
+          "start": 70.78,
+          "end": 71.08,
+          "probability": 0.994
+        },
+        {
+          "word": "it",
+          "start": 71.08,
+          "end": 71.2,
+          "probability": 0.995
+        },
+        {
+          "word": "have",
+          "start": 71.2,
+          "end": 71.3,
+          "probability": 0.934
+        },
+        {
+          "word": "contradictions",
+          "start": 71.3,
+          "end": 71.92,
+          "probability": 0.771
+        },
+        {
+          "word": "so",
+          "start": 71.92,
+          "end": 72.26,
+          "probability": 0.976
+        },
+        {
+          "word": "blatant",
+          "start": 72.26,
+          "end": 72.68,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 72.68,
+      "end": 74.92,
+      "text": "Even if small or from scribes incompetent",
+      "words": [
+        {
+          "word": "Even",
+          "start": 72.68,
+          "end": 73.16,
+          "probability": 0.642
+        },
+        {
+          "word": "if",
+          "start": 73.16,
+          "end": 73.36,
+          "probability": 0.996
+        },
+        {
+          "word": "small",
+          "start": 73.36,
+          "end": 73.7,
+          "probability": 0.959
+        },
+        {
+          "word": "or",
+          "start": 73.7,
+          "end": 73.92,
+          "probability": 0.833
+        },
+        {
+          "word": "from",
+          "start": 73.92,
+          "end": 74.04,
+          "probability": 0.979
+        },
+        {
+          "word": "scribes",
+          "start": 74.04,
+          "end": 74.3,
+          "probability": 0.994
+        },
+        {
+          "word": "incompetent",
+          "start": 74.3,
+          "end": 74.92,
+          "probability": 0.88
+        }
+      ]
+    },
+    {
+      "start": 74.92,
+      "end": 77.12,
+      "text": "We were missing something it was transparent",
+      "words": [
+        {
+          "word": "We",
+          "start": 74.92,
+          "end": 75.36,
+          "probability": 0.922
+        },
+        {
+          "word": "were",
+          "start": 75.36,
+          "end": 75.52,
+          "probability": 0.995
+        },
+        {
+          "word": "missing",
+          "start": 75.52,
+          "end": 75.82,
+          "probability": 0.998
+        },
+        {
+          "word": "something",
+          "start": 75.82,
+          "end": 76.28,
+          "probability": 0.993
+        },
+        {
+          "word": "it",
+          "start": 76.28,
+          "end": 76.54,
+          "probability": 0.578
+        },
+        {
+          "word": "was",
+          "start": 76.54,
+          "end": 76.66,
+          "probability": 0.997
+        },
+        {
+          "word": "transparent",
+          "start": 76.66,
+          "end": 77.12,
+          "probability": 0.995
+        }
+      ]
+    },
+    {
+      "start": 77.12,
+      "end": 79.32,
+      "text": "We know enough to know one thing is fact",
+      "words": [
+        {
+          "word": "We",
+          "start": 77.12,
+          "end": 77.54,
+          "probability": 0.941
+        },
+        {
+          "word": "know",
+          "start": 77.54,
+          "end": 77.76,
+          "probability": 0.992
+        },
+        {
+          "word": "enough",
+          "start": 77.76,
+          "end": 78.06,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 78.06,
+          "end": 78.28,
+          "probability": 0.996
+        },
+        {
+          "word": "know",
+          "start": 78.28,
+          "end": 78.5,
+          "probability": 0.998
+        },
+        {
+          "word": "one",
+          "start": 78.5,
+          "end": 78.72,
+          "probability": 0.935
+        },
+        {
+          "word": "thing",
+          "start": 78.72,
+          "end": 78.9,
+          "probability": 0.995
+        },
+        {
+          "word": "is",
+          "start": 78.9,
+          "end": 79.02,
+          "probability": 0.981
+        },
+        {
+          "word": "fact",
+          "start": 79.02,
+          "end": 79.32,
+          "probability": 0.992
+        }
+      ]
+    },
+    {
+      "start": 79.32,
+      "end": 81.54,
+      "text": "There are things that keep us from knowing as fact",
+      "words": [
+        {
+          "word": "There",
+          "start": 79.32,
+          "end": 79.74,
+          "probability": 0.926
+        },
+        {
+          "word": "are",
+          "start": 79.74,
+          "end": 79.86,
+          "probability": 0.74
+        },
+        {
+          "word": "things",
+          "start": 79.86,
+          "end": 80.02,
+          "probability": 0.998
+        },
+        {
+          "word": "that",
+          "start": 80.02,
+          "end": 80.2,
+          "probability": 0.984
+        },
+        {
+          "word": "keep",
+          "start": 80.2,
+          "end": 80.36,
+          "probability": 0.994
+        },
+        {
+          "word": "us",
+          "start": 80.36,
+          "end": 80.6,
+          "probability": 0.997
+        },
+        {
+          "word": "from",
+          "start": 80.6,
+          "end": 80.78,
+          "probability": 0.996
+        },
+        {
+          "word": "knowing",
+          "start": 80.78,
+          "end": 81.02,
+          "probability": 0.996
+        },
+        {
+          "word": "as",
+          "start": 81.02,
+          "end": 81.3,
+          "probability": 0.99
+        },
+        {
+          "word": "fact",
+          "start": 81.3,
+          "end": 81.54,
+          "probability": 0.862
+        }
+      ]
+    },
+    {
+      "start": 81.54,
+      "end": 83.96,
+      "text": "What the entirety of scripture is it's not intact",
+      "words": [
+        {
+          "word": "What",
+          "start": 81.54,
+          "end": 81.68,
+          "probability": 0.943
+        },
+        {
+          "word": "the",
+          "start": 81.68,
+          "end": 81.82,
+          "probability": 0.995
+        },
+        {
+          "word": "entirety",
+          "start": 81.82,
+          "end": 82.26,
+          "probability": 0.993
+        },
+        {
+          "word": "of",
+          "start": 82.26,
+          "end": 82.48,
+          "probability": 0.995
+        },
+        {
+          "word": "scripture",
+          "start": 82.48,
+          "end": 82.7,
+          "probability": 0.55
+        },
+        {
+          "word": "is",
+          "start": 82.7,
+          "end": 83.22,
+          "probability": 0.993
+        },
+        {
+          "word": "it's",
+          "start": 83.22,
+          "end": 83.4,
+          "probability": 0.771
+        },
+        {
+          "word": "not",
+          "start": 83.4,
+          "end": 83.54,
+          "probability": 0.999
+        },
+        {
+          "word": "intact",
+          "start": 83.54,
+          "end": 83.96,
+          "probability": 0.987
+        }
+      ]
+    },
+    {
+      "start": 83.96,
+      "end": 86.34,
+      "text": "So who is this God with whom we've made a pact",
+      "words": [
+        {
+          "word": "So",
+          "start": 83.96,
+          "end": 84.26,
+          "probability": 0.708
+        },
+        {
+          "word": "who",
+          "start": 84.26,
+          "end": 84.46,
+          "probability": 0.82
+        },
+        {
+          "word": "is",
+          "start": 84.46,
+          "end": 84.64,
+          "probability": 0.992
+        },
+        {
+          "word": "this",
+          "start": 84.64,
+          "end": 84.82,
+          "probability": 0.993
+        },
+        {
+          "word": "God",
+          "start": 84.82,
+          "end": 85.1,
+          "probability": 0.818
+        },
+        {
+          "word": "with",
+          "start": 85.1,
+          "end": 85.3,
+          "probability": 0.948
+        },
+        {
+          "word": "whom",
+          "start": 85.3,
+          "end": 85.5,
+          "probability": 0.991
+        },
+        {
+          "word": "we've",
+          "start": 85.5,
+          "end": 85.76,
+          "probability": 0.977
+        },
+        {
+          "word": "made",
+          "start": 85.76,
+          "end": 85.9,
+          "probability": 0.994
+        },
+        {
+          "word": "a",
+          "start": 85.9,
+          "end": 86.02,
+          "probability": 0.978
+        },
+        {
+          "word": "pact",
+          "start": 86.02,
+          "end": 86.34,
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "start": 86.34,
+      "end": 88.8,
+      "text": "Something Yahweh emerged from other gods",
+      "words": [
+        {
+          "word": "Something",
+          "start": 86.34,
+          "end": 87.06,
+          "probability": 0.053
+        },
+        {
+          "word": "Yahweh",
+          "start": 87.06,
+          "end": 87.64,
+          "probability": 0.867
+        },
+        {
+          "word": "emerged",
+          "start": 87.64,
+          "end": 87.82,
+          "probability": 0.475
+        },
+        {
+          "word": "from",
+          "start": 87.82,
+          "end": 88.1,
+          "probability": 0.994
+        },
+        {
+          "word": "other",
+          "start": 88.1,
+          "end": 88.32,
+          "probability": 0.986
+        },
+        {
+          "word": "gods",
+          "start": 88.32,
+          "end": 88.8,
+          "probability": 0.661
+        }
+      ]
+    },
+    {
+      "start": 88.8,
+      "end": 91.06,
+      "text": "That's a scary thought so what are the odds",
+      "words": [
+        {
+          "word": "That's",
+          "start": 88.8,
+          "end": 89.42,
+          "probability": 0.921
+        },
+        {
+          "word": "a",
+          "start": 89.42,
+          "end": 89.48,
+          "probability": 0.908
+        },
+        {
+          "word": "scary",
+          "start": 89.48,
+          "end": 89.72,
+          "probability": 0.995
+        },
+        {
+          "word": "thought",
+          "start": 89.72,
+          "end": 90.04,
+          "probability": 0.971
+        },
+        {
+          "word": "so",
+          "start": 90.04,
+          "end": 90.28,
+          "probability": 0.176
+        },
+        {
+          "word": "what",
+          "start": 90.28,
+          "end": 90.46,
+          "probability": 0.985
+        },
+        {
+          "word": "are",
+          "start": 90.46,
+          "end": 90.54,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 90.54,
+          "end": 90.7,
+          "probability": 0.996
+        },
+        {
+          "word": "odds",
+          "start": 90.7,
+          "end": 91.06,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 91.06,
+      "end": 93.58,
+      "text": "Have you ever asked yourself if we're the frauds",
+      "words": [
+        {
+          "word": "Have",
+          "start": 91.06,
+          "end": 91.7,
+          "probability": 0.232
+        },
+        {
+          "word": "you",
+          "start": 91.7,
+          "end": 91.82,
+          "probability": 0.994
+        },
+        {
+          "word": "ever",
+          "start": 91.82,
+          "end": 92.06,
+          "probability": 0.998
+        },
+        {
+          "word": "asked",
+          "start": 92.06,
+          "end": 92.28,
+          "probability": 0.991
+        },
+        {
+          "word": "yourself",
+          "start": 92.28,
+          "end": 92.56,
+          "probability": 0.983
+        },
+        {
+          "word": "if",
+          "start": 92.56,
+          "end": 92.74,
+          "probability": 0.917
+        },
+        {
+          "word": "we're",
+          "start": 92.74,
+          "end": 92.9,
+          "probability": 0.951
+        },
+        {
+          "word": "the",
+          "start": 92.9,
+          "end": 93.0,
+          "probability": 0.995
+        },
+        {
+          "word": "frauds",
+          "start": 93.0,
+          "end": 93.58,
+          "probability": 0.923
+        }
+      ]
+    },
+    {
+      "start": 93.58,
+      "end": 95.66,
+      "text": "These are the paths that philosophers tried",
+      "words": [
+        {
+          "word": "These",
+          "start": 93.58,
+          "end": 93.78,
+          "probability": 0.419
+        },
+        {
+          "word": "are",
+          "start": 93.78,
+          "end": 94.0,
+          "probability": 0.993
+        },
+        {
+          "word": "the",
+          "start": 94.0,
+          "end": 94.12,
+          "probability": 0.996
+        },
+        {
+          "word": "paths",
+          "start": 94.12,
+          "end": 94.42,
+          "probability": 0.586
+        },
+        {
+          "word": "that",
+          "start": 94.42,
+          "end": 94.62,
+          "probability": 0.971
+        },
+        {
+          "word": "philosophers",
+          "start": 94.62,
+          "end": 95.12,
+          "probability": 0.956
+        },
+        {
+          "word": "tried",
+          "start": 95.12,
+          "end": 95.66,
+          "probability": 0.249
+        }
+      ]
+    },
+    {
+      "start": 95.66,
+      "end": 98.18,
+      "text": "How do we know which ones are deceptive",
+      "words": [
+        {
+          "word": "How",
+          "start": 95.66,
+          "end": 96.16,
+          "probability": 0.901
+        },
+        {
+          "word": "do",
+          "start": 96.16,
+          "end": 96.32,
+          "probability": 0.996
+        },
+        {
+          "word": "we",
+          "start": 96.32,
+          "end": 96.5,
+          "probability": 0.995
+        },
+        {
+          "word": "know",
+          "start": 96.5,
+          "end": 96.7,
+          "probability": 0.999
+        },
+        {
+          "word": "which",
+          "start": 96.7,
+          "end": 96.96,
+          "probability": 0.986
+        },
+        {
+          "word": "ones",
+          "start": 96.96,
+          "end": 97.24,
+          "probability": 0.978
+        },
+        {
+          "word": "are",
+          "start": 97.24,
+          "end": 97.48,
+          "probability": 0.993
+        },
+        {
+          "word": "deceptive",
+          "start": 97.48,
+          "end": 98.18,
+          "probability": 0.991
+        }
+      ]
+    },
+    {
+      "start": 98.18,
+      "end": 100.24,
+      "text": "We must judge sternly while being receptive",
+      "words": [
+        {
+          "word": "We",
+          "start": 98.18,
+          "end": 98.36,
+          "probability": 0.586
+        },
+        {
+          "word": "must",
+          "start": 98.36,
+          "end": 98.54,
+          "probability": 0.998
+        },
+        {
+          "word": "judge",
+          "start": 98.54,
+          "end": 98.76,
+          "probability": 0.996
+        },
+        {
+          "word": "sternly",
+          "start": 98.76,
+          "end": 99.26,
+          "probability": 0.869
+        },
+        {
+          "word": "while",
+          "start": 99.26,
+          "end": 99.4,
+          "probability": 0.971
+        },
+        {
+          "word": "being",
+          "start": 99.4,
+          "end": 99.6,
+          "probability": 0.995
+        },
+        {
+          "word": "receptive",
+          "start": 99.6,
+          "end": 100.24,
+          "probability": 0.978
+        }
+      ]
+    },
+    {
+      "start": 100.24,
+      "end": 102.72,
+      "text": "The sheep know his voice we must be perceptive",
+      "words": [
+        {
+          "word": "The",
+          "start": 100.24,
+          "end": 100.6,
+          "probability": 0.908
+        },
+        {
+          "word": "sheep",
+          "start": 100.6,
+          "end": 100.76,
+          "probability": 0.946
+        },
+        {
+          "word": "know",
+          "start": 100.76,
+          "end": 101.02,
+          "probability": 0.996
+        },
+        {
+          "word": "his",
+          "start": 101.02,
+          "end": 101.16,
+          "probability": 0.606
+        },
+        {
+          "word": "voice",
+          "start": 101.16,
+          "end": 101.38,
+          "probability": 0.999
+        },
+        {
+          "word": "we",
+          "start": 101.38,
+          "end": 101.6,
+          "probability": 0.58
+        },
+        {
+          "word": "must",
+          "start": 101.6,
+          "end": 101.84,
+          "probability": 0.999
+        },
+        {
+          "word": "be",
+          "start": 101.84,
+          "end": 102.02,
+          "probability": 0.996
+        },
+        {
+          "word": "perceptive",
+          "start": 102.02,
+          "end": 102.72,
+          "probability": 0.993
+        }
+      ]
+    },
+    {
+      "start": 102.72,
+      "end": 105.2,
+      "text": "To what God says as he's being perceptive",
+      "words": [
+        {
+          "word": "To",
+          "start": 102.72,
+          "end": 102.88,
+          "probability": 0.95
+        },
+        {
+          "word": "what",
+          "start": 102.88,
+          "end": 103.1,
+          "probability": 0.998
+        },
+        {
+          "word": "God",
+          "start": 103.1,
+          "end": 103.38,
+          "probability": 0.971
+        },
+        {
+          "word": "says",
+          "start": 103.38,
+          "end": 103.7,
+          "probability": 0.994
+        },
+        {
+          "word": "as",
+          "start": 103.7,
+          "end": 103.94,
+          "probability": 0.972
+        },
+        {
+          "word": "he's",
+          "start": 103.94,
+          "end": 104.08,
+          "probability": 0.943
+        },
+        {
+          "word": "being",
+          "start": 104.08,
+          "end": 104.26,
+          "probability": 0.821
+        },
+        {
+          "word": "perceptive",
+          "start": 104.26,
+          "end": 105.2,
+          "probability": 0.995
+        }
+      ]
+    },
+    {
+      "start": 105.2,
+      "end": 107.52,
+      "text": "Our enemies aren't flesh and blood but spirit",
+      "words": [
+        {
+          "word": "Our",
+          "start": 105.2,
+          "end": 105.54,
+          "probability": 0.972
+        },
+        {
+          "word": "enemies",
+          "start": 105.54,
+          "end": 105.9,
+          "probability": 0.989
+        },
+        {
+          "word": "aren't",
+          "start": 105.9,
+          "end": 106.3,
+          "probability": 0.989
+        },
+        {
+          "word": "flesh",
+          "start": 106.3,
+          "end": 106.48,
+          "probability": 0.989
+        },
+        {
+          "word": "and",
+          "start": 106.48,
+          "end": 106.68,
+          "probability": 0.956
+        },
+        {
+          "word": "blood",
+          "start": 106.68,
+          "end": 106.9,
+          "probability": 1.0
+        },
+        {
+          "word": "but",
+          "start": 106.9,
+          "end": 107.12,
+          "probability": 0.841
+        },
+        {
+          "word": "spirit",
+          "start": 107.12,
+          "end": 107.52,
+          "probability": 0.957
+        }
+      ]
+    },
+    {
+      "start": 107.52,
+      "end": 109.7,
+      "text": "So why you fighting me I don't want to hear it",
+      "words": [
+        {
+          "word": "So",
+          "start": 107.52,
+          "end": 107.84,
+          "probability": 0.95
+        },
+        {
+          "word": "why",
+          "start": 107.84,
+          "end": 108.02,
+          "probability": 0.763
+        },
+        {
+          "word": "you",
+          "start": 108.02,
+          "end": 108.14,
+          "probability": 0.492
+        },
+        {
+          "word": "fighting",
+          "start": 108.14,
+          "end": 108.38,
+          "probability": 0.733
+        },
+        {
+          "word": "me",
+          "start": 108.38,
+          "end": 108.6,
+          "probability": 0.986
+        },
+        {
+          "word": "I",
+          "start": 108.6,
+          "end": 108.8,
+          "probability": 0.558
+        },
+        {
+          "word": "don't",
+          "start": 108.8,
+          "end": 109.06,
+          "probability": 0.996
+        },
+        {
+          "word": "want",
+          "start": 109.06,
+          "end": 109.22,
+          "probability": 0.568
+        },
+        {
+          "word": "to",
+          "start": 109.22,
+          "end": 109.3,
+          "probability": 0.995
+        },
+        {
+          "word": "hear",
+          "start": 109.3,
+          "end": 109.52,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 109.52,
+          "end": 109.7,
+          "probability": 0.997
+        }
+      ]
+    },
+    {
+      "start": 109.7,
+      "end": 112.06,
+      "text": "Salvation exclusive but we are to share it",
+      "words": [
+        {
+          "word": "Salvation",
+          "start": 109.7,
+          "end": 110.28,
+          "probability": 0.943
+        },
+        {
+          "word": "exclusive",
+          "start": 110.28,
+          "end": 110.74,
+          "probability": 0.817
+        },
+        {
+          "word": "but",
+          "start": 110.74,
+          "end": 111.12,
+          "probability": 0.786
+        },
+        {
+          "word": "we",
+          "start": 111.12,
+          "end": 111.38,
+          "probability": 0.987
+        },
+        {
+          "word": "are",
+          "start": 111.38,
+          "end": 111.5,
+          "probability": 0.923
+        },
+        {
+          "word": "to",
+          "start": 111.5,
+          "end": 111.64,
+          "probability": 0.984
+        },
+        {
+          "word": "share",
+          "start": 111.64,
+          "end": 111.84,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 111.84,
+          "end": 112.06,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 112.06,
+      "end": 114.54,
+      "text": "Maybe we are just stochastic parrots",
+      "words": [
+        {
+          "word": "Maybe",
+          "start": 112.06,
+          "end": 112.56,
+          "probability": 0.748
+        },
+        {
+          "word": "we",
+          "start": 112.56,
+          "end": 112.9,
+          "probability": 0.988
+        },
+        {
+          "word": "are",
+          "start": 112.9,
+          "end": 113.1,
+          "probability": 0.954
+        },
+        {
+          "word": "just",
+          "start": 113.1,
+          "end": 113.3,
+          "probability": 0.986
+        },
+        {
+          "word": "stochastic",
+          "start": 113.3,
+          "end": 113.88,
+          "probability": 0.985
+        },
+        {
+          "word": "parrots",
+          "start": 113.88,
+          "end": 114.54,
+          "probability": 0.937
+        }
+      ]
+    },
+    {
+      "start": 114.54,
+      "end": 116.8,
+      "text": "Now I'm the victim of a theocratic agenda",
+      "words": [
+        {
+          "word": "Now",
+          "start": 114.54,
+          "end": 114.84,
+          "probability": 0.446
+        },
+        {
+          "word": "I'm",
+          "start": 114.84,
+          "end": 115.0,
+          "probability": 0.935
+        },
+        {
+          "word": "the",
+          "start": 115.0,
+          "end": 115.14,
+          "probability": 0.993
+        },
+        {
+          "word": "victim",
+          "start": 115.14,
+          "end": 115.38,
+          "probability": 0.997
+        },
+        {
+          "word": "of",
+          "start": 115.38,
+          "end": 115.64,
+          "probability": 0.993
+        },
+        {
+          "word": "a",
+          "start": 115.64,
+          "end": 115.74,
+          "probability": 0.991
+        },
+        {
+          "word": "theocratic",
+          "start": 115.74,
+          "end": 116.24,
+          "probability": 0.921
+        },
+        {
+          "word": "agenda",
+          "start": 116.24,
+          "end": 116.8,
+          "probability": 0.974
+        }
+      ]
+    },
+    {
+      "start": 116.8,
+      "end": 118.84,
+      "text": "And all they can see is dangerous propaganda",
+      "words": [
+        {
+          "word": "And",
+          "start": 116.8,
+          "end": 117.22,
+          "probability": 0.897
+        },
+        {
+          "word": "all",
+          "start": 117.22,
+          "end": 117.36,
+          "probability": 0.997
+        },
+        {
+          "word": "they",
+          "start": 117.36,
+          "end": 117.48,
+          "probability": 0.994
+        },
+        {
+          "word": "can",
+          "start": 117.48,
+          "end": 117.64,
+          "probability": 0.565
+        },
+        {
+          "word": "see",
+          "start": 117.64,
+          "end": 117.86,
+          "probability": 0.964
+        },
+        {
+          "word": "is",
+          "start": 117.86,
+          "end": 118.06,
+          "probability": 0.898
+        },
+        {
+          "word": "dangerous",
+          "start": 118.06,
+          "end": 118.28,
+          "probability": 0.763
+        },
+        {
+          "word": "propaganda",
+          "start": 118.28,
+          "end": 118.84,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 118.84,
+      "end": 121.34,
+      "text": "But I'm not a freak of gross genderbenda",
+      "words": [
+        {
+          "word": "But",
+          "start": 118.84,
+          "end": 119.24,
+          "probability": 0.908
+        },
+        {
+          "word": "I'm",
+          "start": 119.24,
+          "end": 119.52,
+          "probability": 0.977
+        },
+        {
+          "word": "not",
+          "start": 119.52,
+          "end": 119.66,
+          "probability": 0.991
+        },
+        {
+          "word": "a",
+          "start": 119.66,
+          "end": 119.82,
+          "probability": 0.994
+        },
+        {
+          "word": "freak",
+          "start": 119.82,
+          "end": 120.02,
+          "probability": 0.978
+        },
+        {
+          "word": "of",
+          "start": 120.02,
+          "end": 120.24,
+          "probability": 0.768
+        },
+        {
+          "word": "gross",
+          "start": 120.24,
+          "end": 120.44,
+          "probability": 0.576
+        },
+        {
+          "word": "genderbenda",
+          "start": 120.44,
+          "end": 121.34,
+          "probability": 0.671
+        }
+      ]
+    },
+    {
+      "start": 121.34,
+      "end": 123.8,
+      "text": "I'm the prophet rejected from my own land",
+      "words": [
+        {
+          "word": "I'm",
+          "start": 121.34,
+          "end": 121.74,
+          "probability": 0.928
+        },
+        {
+          "word": "the",
+          "start": 121.74,
+          "end": 121.86,
+          "probability": 0.992
+        },
+        {
+          "word": "prophet",
+          "start": 121.86,
+          "end": 122.08,
+          "probability": 0.71
+        },
+        {
+          "word": "rejected",
+          "start": 122.08,
+          "end": 122.58,
+          "probability": 0.915
+        },
+        {
+          "word": "from",
+          "start": 122.58,
+          "end": 122.9,
+          "probability": 0.973
+        },
+        {
+          "word": "my",
+          "start": 122.9,
+          "end": 123.1,
+          "probability": 0.994
+        },
+        {
+          "word": "own",
+          "start": 123.1,
+          "end": 123.26,
+          "probability": 0.99
+        },
+        {
+          "word": "land",
+          "start": 123.26,
+          "end": 123.8,
+          "probability": 0.994
+        }
+      ]
+    }
+  ],
+  "words": [
+    {
+      "word": "I",
+      "start": 1.2,
+      "end": 2.0,
+      "probability": 0.526
+    },
+    {
+      "word": "never",
+      "start": 2.0,
+      "end": 2.5,
+      "probability": 0.474
+    },
+    {
+      "word": "asked",
+      "start": 2.5,
+      "end": 3.48,
+      "probability": 0.947
+    },
+    {
+      "word": "to",
+      "start": 3.48,
+      "end": 4.16,
+      "probability": 0.969
+    },
+    {
+      "word": "be",
+      "start": 4.16,
+      "end": 4.74,
+      "probability": 0.981
+    },
+    {
+      "word": "queer",
+      "start": 4.74,
+      "end": 5.6,
+      "probability": 0.962
+    },
+    {
+      "word": "I",
+      "start": 5.6,
+      "end": 6.68,
+      "probability": 0.626
+    },
+    {
+      "word": "never",
+      "start": 6.68,
+      "end": 7.02,
+      "probability": 0.986
+    },
+    {
+      "word": "asked",
+      "start": 7.02,
+      "end": 8.18,
+      "probability": 0.987
+    },
+    {
+      "word": "to",
+      "start": 8.18,
+      "end": 8.82,
+      "probability": 0.996
+    },
+    {
+      "word": "live",
+      "start": 8.82,
+      "end": 9.44,
+      "probability": 0.995
+    },
+    {
+      "word": "here",
+      "start": 9.44,
+      "end": 10.42,
+      "probability": 0.997
+    },
+    {
+      "word": "Now",
+      "start": 11.0,
+      "end": 11.68,
+      "probability": 0.875
+    },
+    {
+      "word": "it's",
+      "start": 11.68,
+      "end": 12.12,
+      "probability": 0.977
+    },
+    {
+      "word": "easy",
+      "start": 12.12,
+      "end": 12.42,
+      "probability": 0.999
+    },
+    {
+      "word": "to",
+      "start": 12.42,
+      "end": 12.78,
+      "probability": 0.999
+    },
+    {
+      "word": "live",
+      "start": 12.78,
+      "end": 13.38,
+      "probability": 0.997
+    },
+    {
+      "word": "in",
+      "start": 13.38,
+      "end": 14.1,
+      "probability": 0.859
+    },
+    {
+      "word": "fear",
+      "start": 14.1,
+      "end": 14.9,
+      "probability": 0.991
+    },
+    {
+      "word": "That",
+      "start": 15.92,
+      "end": 16.32,
+      "probability": 0.872
+    },
+    {
+      "word": "the",
+      "start": 16.32,
+      "end": 16.64,
+      "probability": 0.997
+    },
+    {
+      "word": "end",
+      "start": 16.64,
+      "end": 17.02,
+      "probability": 0.995
+    },
+    {
+      "word": "of",
+      "start": 17.02,
+      "end": 17.24,
+      "probability": 0.996
+    },
+    {
+      "word": "folks",
+      "start": 17.24,
+      "end": 17.52,
+      "probability": 0.996
+    },
+    {
+      "word": "like",
+      "start": 17.52,
+      "end": 17.8,
+      "probability": 0.998
+    },
+    {
+      "word": "me",
+      "start": 17.8,
+      "end": 18.2,
+      "probability": 0.997
+    },
+    {
+      "word": "is",
+      "start": 18.2,
+      "end": 18.8,
+      "probability": 0.957
+    },
+    {
+      "word": "near",
+      "start": 18.8,
+      "end": 19.4,
+      "probability": 0.996
+    },
+    {
+      "word": "I",
+      "start": 20.0,
+      "end": 20.9,
+      "probability": 0.783
+    },
+    {
+      "word": "was",
+      "start": 20.9,
+      "end": 21.04,
+      "probability": 0.991
+    },
+    {
+      "word": "such",
+      "start": 21.04,
+      "end": 21.2,
+      "probability": 0.998
+    },
+    {
+      "word": "a",
+      "start": 21.2,
+      "end": 21.32,
+      "probability": 0.999
+    },
+    {
+      "word": "good",
+      "start": 21.32,
+      "end": 21.58,
+      "probability": 0.998
+    },
+    {
+      "word": "little",
+      "start": 21.58,
+      "end": 21.86,
+      "probability": 0.965
+    },
+    {
+      "word": "Christian",
+      "start": 21.86,
+      "end": 22.26,
+      "probability": 0.707
+    },
+    {
+      "word": "kid",
+      "start": 22.26,
+      "end": 22.66,
+      "probability": 0.994
+    },
+    {
+      "word": "At",
+      "start": 22.66,
+      "end": 23.08,
+      "probability": 0.556
+    },
+    {
+      "word": "church",
+      "start": 23.08,
+      "end": 23.3,
+      "probability": 0.964
+    },
+    {
+      "word": "up",
+      "start": 23.3,
+      "end": 23.52,
+      "probability": 0.837
+    },
+    {
+      "word": "to",
+      "start": 23.52,
+      "end": 23.66,
+      "probability": 0.993
+    },
+    {
+      "word": "five",
+      "start": 23.66,
+      "end": 23.88,
+      "probability": 0.792
+    },
+    {
+      "word": "times",
+      "start": 23.88,
+      "end": 24.12,
+      "probability": 0.998
+    },
+    {
+      "word": "per",
+      "start": 24.12,
+      "end": 24.3,
+      "probability": 0.996
+    },
+    {
+      "word": "week",
+      "start": 24.3,
+      "end": 24.52,
+      "probability": 0.999
+    },
+    {
+      "word": "I",
+      "start": 24.52,
+      "end": 24.76,
+      "probability": 0.94
+    },
+    {
+      "word": "did",
+      "start": 24.76,
+      "end": 24.96,
+      "probability": 0.997
+    },
+    {
+      "word": "Always",
+      "start": 24.96,
+      "end": 25.76,
+      "probability": 0.892
+    },
+    {
+      "word": "despising",
+      "start": 25.76,
+      "end": 26.36,
+      "probability": 0.99
+    },
+    {
+      "word": "it",
+      "start": 26.36,
+      "end": 26.58,
+      "probability": 0.994
+    },
+    {
+      "word": "when",
+      "start": 26.58,
+      "end": 26.76,
+      "probability": 0.964
+    },
+    {
+      "word": "I",
+      "start": 26.76,
+      "end": 26.92,
+      "probability": 0.99
+    },
+    {
+      "word": "backslid",
+      "start": 26.92,
+      "end": 27.46,
+      "probability": 0.906
+    },
+    {
+      "word": "Hating",
+      "start": 27.46,
+      "end": 28.04,
+      "probability": 0.75
+    },
+    {
+      "word": "my",
+      "start": 28.04,
+      "end": 28.3,
+      "probability": 0.963
+    },
+    {
+      "word": "sin",
+      "start": 28.3,
+      "end": 28.58,
+      "probability": 0.995
+    },
+    {
+      "word": "I",
+      "start": 28.58,
+      "end": 28.74,
+      "probability": 0.326
+    },
+    {
+      "word": "just",
+      "start": 28.74,
+      "end": 28.92,
+      "probability": 0.994
+    },
+    {
+      "word": "wanted",
+      "start": 28.92,
+      "end": 29.3,
+      "probability": 0.975
+    },
+    {
+      "word": "it",
+      "start": 29.3,
+      "end": 29.5,
+      "probability": 0.994
+    },
+    {
+      "word": "red",
+      "start": 29.5,
+      "end": 29.76,
+      "probability": 0.23
+    },
+    {
+      "word": "How",
+      "start": 29.76,
+      "end": 30.44,
+      "probability": 0.68
+    },
+    {
+      "word": "could",
+      "start": 30.44,
+      "end": 30.6,
+      "probability": 0.991
+    },
+    {
+      "word": "so",
+      "start": 30.6,
+      "end": 30.9,
+      "probability": 0.997
+    },
+    {
+      "word": "many",
+      "start": 30.9,
+      "end": 31.14,
+      "probability": 0.998
+    },
+    {
+      "word": "things",
+      "start": 31.14,
+      "end": 31.46,
+      "probability": 0.997
+    },
+    {
+      "word": "be",
+      "start": 31.46,
+      "end": 31.66,
+      "probability": 0.987
+    },
+    {
+      "word": "demonic",
+      "start": 31.66,
+      "end": 32.12,
+      "probability": 0.99
+    },
+    {
+      "word": "They",
+      "start": 32.12,
+      "end": 32.4,
+      "probability": 0.393
+    },
+    {
+      "word": "cause",
+      "start": 32.4,
+      "end": 32.62,
+      "probability": 0.561
+    },
+    {
+      "word": "my",
+      "start": 32.62,
+      "end": 32.86,
+      "probability": 0.991
+    },
+    {
+      "word": "extreme",
+      "start": 32.86,
+      "end": 33.16,
+      "probability": 0.965
+    },
+    {
+      "word": "anxiety",
+      "start": 33.16,
+      "end": 33.72,
+      "probability": 0.996
+    },
+    {
+      "word": "Now",
+      "start": 33.72,
+      "end": 34.02,
+      "probability": 0.755
+    },
+    {
+      "word": "it's",
+      "start": 34.02,
+      "end": 34.18,
+      "probability": 0.933
+    },
+    {
+      "word": "chronic",
+      "start": 34.18,
+      "end": 34.48,
+      "probability": 0.992
+    },
+    {
+      "word": "if",
+      "start": 34.48,
+      "end": 34.76,
+      "probability": 0.275
+    },
+    {
+      "word": "Jesus",
+      "start": 34.76,
+      "end": 35.04,
+      "probability": 0.981
+    },
+    {
+      "word": "was",
+      "start": 35.04,
+      "end": 35.3,
+      "probability": 0.454
+    },
+    {
+      "word": "sinners",
+      "start": 35.3,
+      "end": 35.6,
+      "probability": 0.961
+    },
+    {
+      "word": "Was",
+      "start": 35.6,
+      "end": 35.84,
+      "probability": 0.321
+    },
+    {
+      "word": "gladly",
+      "start": 35.84,
+      "end": 36.22,
+      "probability": 0.982
+    },
+    {
+      "word": "platonic",
+      "start": 36.22,
+      "end": 36.88,
+      "probability": 0.978
+    },
+    {
+      "word": "How",
+      "start": 37.24,
+      "end": 37.5,
+      "probability": 0.92
+    },
+    {
+      "word": "was",
+      "start": 37.5,
+      "end": 37.66,
+      "probability": 0.972
+    },
+    {
+      "word": "that",
+      "start": 37.66,
+      "end": 37.9,
+      "probability": 0.995
+    },
+    {
+      "word": "the",
+      "start": 37.9,
+      "end": 38.1,
+      "probability": 0.981
+    },
+    {
+      "word": "result",
+      "start": 38.1,
+      "end": 38.4,
+      "probability": 0.996
+    },
+    {
+      "word": "when",
+      "start": 38.4,
+      "end": 38.56,
+      "probability": 0.624
+    },
+    {
+      "word": "they",
+      "start": 38.56,
+      "end": 38.7,
+      "probability": 0.99
+    },
+    {
+      "word": "were",
+      "start": 38.7,
+      "end": 38.8,
+      "probability": 0.989
+    },
+    {
+      "word": "sonic",
+      "start": 38.8,
+      "end": 39.18,
+      "probability": 0.7
+    },
+    {
+      "word": "Our",
+      "start": 39.18,
+      "end": 39.88,
+      "probability": 0.487
+    },
+    {
+      "word": "faith",
+      "start": 39.88,
+      "end": 40.22,
+      "probability": 0.96
+    },
+    {
+      "word": "was",
+      "start": 40.22,
+      "end": 40.46,
+      "probability": 0.982
+    },
+    {
+      "word": "supposed",
+      "start": 40.46,
+      "end": 40.74,
+      "probability": 0.981
+    },
+    {
+      "word": "to",
+      "start": 40.74,
+      "end": 41.04,
+      "probability": 0.989
+    },
+    {
+      "word": "be",
+      "start": 41.04,
+      "end": 41.16,
+      "probability": 0.997
+    },
+    {
+      "word": "different",
+      "start": 41.16,
+      "end": 41.54,
+      "probability": 0.987
+    },
+    {
+      "word": "Believing",
+      "start": 41.54,
+      "end": 42.06,
+      "probability": 0.956
+    },
+    {
+      "word": "in",
+      "start": 42.06,
+      "end": 42.3,
+      "probability": 0.983
+    },
+    {
+      "word": "life,",
+      "start": 42.3,
+      "end": 42.56,
+      "probability": 0.983
+    },
+    {
+      "word": "love,",
+      "start": 42.66,
+      "end": 42.82,
+      "probability": 0.973
+    },
+    {
+      "word": "truth,",
+      "start": 42.86,
+      "end": 43.06,
+      "probability": 0.986
+    },
+    {
+      "word": "not",
+      "start": 43.16,
+      "end": 43.38,
+      "probability": 0.987
+    },
+    {
+      "word": "belligerent",
+      "start": 43.38,
+      "end": 43.64,
+      "probability": 0.988
+    },
+    {
+      "word": "But",
+      "start": 44.0,
+      "end": 44.22,
+      "probability": 0.948
+    },
+    {
+      "word": "because",
+      "start": 44.22,
+      "end": 44.56,
+      "probability": 0.984
+    },
+    {
+      "word": "God",
+      "start": 44.56,
+      "end": 44.92,
+      "probability": 0.975
+    },
+    {
+      "word": "made",
+      "start": 44.92,
+      "end": 45.2,
+      "probability": 0.998
+    },
+    {
+      "word": "me",
+      "start": 45.2,
+      "end": 45.38,
+      "probability": 0.998
+    },
+    {
+      "word": "intelligent",
+      "start": 45.38,
+      "end": 46.18,
+      "probability": 0.952
+    },
+    {
+      "word": "Now",
+      "start": 46.18,
+      "end": 46.8,
+      "probability": 0.962
+    },
+    {
+      "word": "they",
+      "start": 46.8,
+      "end": 46.94,
+      "probability": 0.965
+    },
+    {
+      "word": "see",
+      "start": 46.94,
+      "end": 47.16,
+      "probability": 0.992
+    },
+    {
+      "word": "me",
+      "start": 47.16,
+      "end": 47.28,
+      "probability": 0.995
+    },
+    {
+      "word": "as",
+      "start": 47.28,
+      "end": 47.48,
+      "probability": 0.996
+    },
+    {
+      "word": "an",
+      "start": 47.48,
+      "end": 47.62,
+      "probability": 0.969
+    },
+    {
+      "word": "evil",
+      "start": 47.62,
+      "end": 47.84,
+      "probability": 0.995
+    },
+    {
+      "word": "insurgent",
+      "start": 47.84,
+      "end": 48.74,
+      "probability": 0.914
+    },
+    {
+      "word": "They",
+      "start": 48.74,
+      "end": 49.22,
+      "probability": 0.945
+    },
+    {
+      "word": "warned",
+      "start": 49.22,
+      "end": 49.58,
+      "probability": 0.883
+    },
+    {
+      "word": "me",
+      "start": 49.58,
+      "end": 49.82,
+      "probability": 0.999
+    },
+    {
+      "word": "about",
+      "start": 49.82,
+      "end": 50.06,
+      "probability": 0.982
+    },
+    {
+      "word": "going",
+      "start": 50.06,
+      "end": 50.48,
+      "probability": 0.974
+    },
+    {
+      "word": "to",
+      "start": 50.48,
+      "end": 50.76,
+      "probability": 0.98
+    },
+    {
+      "word": "university",
+      "start": 50.76,
+      "end": 51.3,
+      "probability": 0.871
+    },
+    {
+      "word": "That",
+      "start": 51.3,
+      "end": 51.78,
+      "probability": 0.982
+    },
+    {
+      "word": "to",
+      "start": 51.78,
+      "end": 51.94,
+      "probability": 0.684
+    },
+    {
+      "word": "stand",
+      "start": 51.94,
+      "end": 52.08,
+      "probability": 0.997
+    },
+    {
+      "word": "for",
+      "start": 52.08,
+      "end": 52.2,
+      "probability": 0.998
+    },
+    {
+      "word": "truth",
+      "start": 52.2,
+      "end": 52.42,
+      "probability": 0.984
+    },
+    {
+      "word": "that",
+      "start": 52.42,
+      "end": 52.66,
+      "probability": 0.293
+    },
+    {
+      "word": "faced",
+      "start": 52.66,
+      "end": 52.86,
+      "probability": 0.154
+    },
+    {
+      "word": "great",
+      "start": 52.86,
+      "end": 53.22,
+      "probability": 0.978
+    },
+    {
+      "word": "adversity",
+      "start": 53.22,
+      "end": 53.7,
+      "probability": 0.991
+    },
+    {
+      "word": "The",
+      "start": 53.7,
+      "end": 54.0,
+      "probability": 0.985
+    },
+    {
+      "word": "enemy",
+      "start": 54.0,
+      "end": 54.28,
+      "probability": 0.993
+    },
+    {
+      "word": "had",
+      "start": 54.28,
+      "end": 54.58,
+      "probability": 0.948
+    },
+    {
+      "word": "filled",
+      "start": 54.58,
+      "end": 54.78,
+      "probability": 0.975
+    },
+    {
+      "word": "that",
+      "start": 54.78,
+      "end": 55.0,
+      "probability": 0.994
+    },
+    {
+      "word": "place",
+      "start": 55.0,
+      "end": 55.22,
+      "probability": 0.997
+    },
+    {
+      "word": "with",
+      "start": 55.22,
+      "end": 55.52,
+      "probability": 0.995
+    },
+    {
+      "word": "perversity",
+      "start": 55.52,
+      "end": 56.16,
+      "probability": 0.983
+    },
+    {
+      "word": "So",
+      "start": 56.16,
+      "end": 56.6,
+      "probability": 0.581
+    },
+    {
+      "word": "I",
+      "start": 56.6,
+      "end": 56.74,
+      "probability": 0.905
+    },
+    {
+      "word": "should",
+      "start": 56.74,
+      "end": 56.86,
+      "probability": 0.994
+    },
+    {
+      "word": "tactfully",
+      "start": 56.86,
+      "end": 57.28,
+      "probability": 0.882
+    },
+    {
+      "word": "manage",
+      "start": 57.28,
+      "end": 57.62,
+      "probability": 0.984
+    },
+    {
+      "word": "my",
+      "start": 57.62,
+      "end": 57.8,
+      "probability": 0.993
+    },
+    {
+      "word": "immersivity",
+      "start": 57.8,
+      "end": 58.42,
+      "probability": 0.533
+    },
+    {
+      "word": "I",
+      "start": 58.42,
+      "end": 58.88,
+      "probability": 0.539
+    },
+    {
+      "word": "spoke",
+      "start": 58.88,
+      "end": 59.06,
+      "probability": 0.993
+    },
+    {
+      "word": "up",
+      "start": 59.06,
+      "end": 59.22,
+      "probability": 0.974
+    },
+    {
+      "word": "loudly",
+      "start": 59.22,
+      "end": 59.56,
+      "probability": 0.863
+    },
+    {
+      "word": "in",
+      "start": 59.56,
+      "end": 59.8,
+      "probability": 0.957
+    },
+    {
+      "word": "my",
+      "start": 59.8,
+      "end": 59.96,
+      "probability": 0.997
+    },
+    {
+      "word": "religion",
+      "start": 59.96,
+      "end": 60.26,
+      "probability": 0.976
+    },
+    {
+      "word": "classes",
+      "start": 60.26,
+      "end": 60.74,
+      "probability": 0.986
+    },
+    {
+      "word": "Me",
+      "start": 60.74,
+      "end": 61.14,
+      "probability": 0.701
+    },
+    {
+      "word": "and",
+      "start": 61.14,
+      "end": 61.3,
+      "probability": 0.981
+    },
+    {
+      "word": "my",
+      "start": 61.3,
+      "end": 61.44,
+      "probability": 0.997
+    },
+    {
+      "word": "partner",
+      "start": 61.44,
+      "end": 61.88,
+      "probability": 0.995
+    },
+    {
+      "word": "there",
+      "start": 61.88,
+      "end": 62.18,
+      "probability": 0.317
+    },
+    {
+      "word": "looking",
+      "start": 62.18,
+      "end": 62.48,
+      "probability": 0.78
+    },
+    {
+      "word": "like",
+      "start": 62.48,
+      "end": 62.74,
+      "probability": 0.997
+    },
+    {
+      "word": "asses",
+      "start": 62.74,
+      "end": 63.3,
+      "probability": 0.852
+    },
+    {
+      "word": "So",
+      "start": 63.3,
+      "end": 63.58,
+      "probability": 0.92
+    },
+    {
+      "word": "when",
+      "start": 63.58,
+      "end": 63.74,
+      "probability": 0.876
+    },
+    {
+      "word": "that",
+      "start": 63.74,
+      "end": 63.9,
+      "probability": 0.995
+    },
+    {
+      "word": "fool",
+      "start": 63.9,
+      "end": 64.14,
+      "probability": 0.995
+    },
+    {
+      "word": "with",
+      "start": 64.14,
+      "end": 64.38,
+      "probability": 0.98
+    },
+    {
+      "word": "those",
+      "start": 64.38,
+      "end": 64.56,
+      "probability": 0.997
+    },
+    {
+      "word": "annoying",
+      "start": 64.56,
+      "end": 64.96,
+      "probability": 0.995
+    },
+    {
+      "word": "glasses",
+      "start": 64.96,
+      "end": 65.42,
+      "probability": 0.981
+    },
+    {
+      "word": "Show",
+      "start": 65.42,
+      "end": 65.76,
+      "probability": 0.501
+    },
+    {
+      "word": "me",
+      "start": 65.76,
+      "end": 65.9,
+      "probability": 0.35
+    },
+    {
+      "word": "something",
+      "start": 65.9,
+      "end": 66.08,
+      "probability": 0.993
+    },
+    {
+      "word": "new",
+      "start": 66.08,
+      "end": 66.42,
+      "probability": 0.989
+    },
+    {
+      "word": "it",
+      "start": 66.42,
+      "end": 66.66,
+      "probability": 0.591
+    },
+    {
+      "word": "took",
+      "start": 66.66,
+      "end": 66.88,
+      "probability": 0.998
+    },
+    {
+      "word": "a",
+      "start": 66.88,
+      "end": 67.12,
+      "probability": 0.993
+    },
+    {
+      "word": "few",
+      "start": 67.12,
+      "end": 67.28,
+      "probability": 0.998
+    },
+    {
+      "word": "passes",
+      "start": 67.28,
+      "end": 67.78,
+      "probability": 0.987
+    },
+    {
+      "word": "If",
+      "start": 67.78,
+      "end": 68.4,
+      "probability": 0.852
+    },
+    {
+      "word": "the",
+      "start": 68.4,
+      "end": 68.56,
+      "probability": 0.996
+    },
+    {
+      "word": "Bible",
+      "start": 68.56,
+      "end": 68.78,
+      "probability": 0.755
+    },
+    {
+      "word": "was",
+      "start": 68.78,
+      "end": 69.0,
+      "probability": 0.834
+    },
+    {
+      "word": "the",
+      "start": 69.0,
+      "end": 69.12,
+      "probability": 0.991
+    },
+    {
+      "word": "word",
+      "start": 69.12,
+      "end": 69.32,
+      "probability": 0.527
+    },
+    {
+      "word": "of",
+      "start": 69.32,
+      "end": 69.42,
+      "probability": 0.996
+    },
+    {
+      "word": "God",
+      "start": 69.42,
+      "end": 69.68,
+      "probability": 0.974
+    },
+    {
+      "word": "and",
+      "start": 69.68,
+      "end": 69.92,
+      "probability": 0.895
+    },
+    {
+      "word": "inerrant",
+      "start": 69.92,
+      "end": 70.32,
+      "probability": 0.873
+    },
+    {
+      "word": "How",
+      "start": 70.32,
+      "end": 70.78,
+      "probability": 0.777
+    },
+    {
+      "word": "could",
+      "start": 70.78,
+      "end": 71.08,
+      "probability": 0.994
+    },
+    {
+      "word": "it",
+      "start": 71.08,
+      "end": 71.2,
+      "probability": 0.995
+    },
+    {
+      "word": "have",
+      "start": 71.2,
+      "end": 71.3,
+      "probability": 0.934
+    },
+    {
+      "word": "contradictions",
+      "start": 71.3,
+      "end": 71.92,
+      "probability": 0.771
+    },
+    {
+      "word": "so",
+      "start": 71.92,
+      "end": 72.26,
+      "probability": 0.976
+    },
+    {
+      "word": "blatant",
+      "start": 72.26,
+      "end": 72.68,
+      "probability": 0.998
+    },
+    {
+      "word": "Even",
+      "start": 72.68,
+      "end": 73.16,
+      "probability": 0.642
+    },
+    {
+      "word": "if",
+      "start": 73.16,
+      "end": 73.36,
+      "probability": 0.996
+    },
+    {
+      "word": "small",
+      "start": 73.36,
+      "end": 73.7,
+      "probability": 0.959
+    },
+    {
+      "word": "or",
+      "start": 73.7,
+      "end": 73.92,
+      "probability": 0.833
+    },
+    {
+      "word": "from",
+      "start": 73.92,
+      "end": 74.04,
+      "probability": 0.979
+    },
+    {
+      "word": "scribes",
+      "start": 74.04,
+      "end": 74.3,
+      "probability": 0.994
+    },
+    {
+      "word": "incompetent",
+      "start": 74.3,
+      "end": 74.92,
+      "probability": 0.88
+    },
+    {
+      "word": "We",
+      "start": 74.92,
+      "end": 75.36,
+      "probability": 0.922
+    },
+    {
+      "word": "were",
+      "start": 75.36,
+      "end": 75.52,
+      "probability": 0.995
+    },
+    {
+      "word": "missing",
+      "start": 75.52,
+      "end": 75.82,
+      "probability": 0.998
+    },
+    {
+      "word": "something",
+      "start": 75.82,
+      "end": 76.28,
+      "probability": 0.993
+    },
+    {
+      "word": "it",
+      "start": 76.28,
+      "end": 76.54,
+      "probability": 0.578
+    },
+    {
+      "word": "was",
+      "start": 76.54,
+      "end": 76.66,
+      "probability": 0.997
+    },
+    {
+      "word": "transparent",
+      "start": 76.66,
+      "end": 77.12,
+      "probability": 0.995
+    },
+    {
+      "word": "We",
+      "start": 77.12,
+      "end": 77.54,
+      "probability": 0.941
+    },
+    {
+      "word": "know",
+      "start": 77.54,
+      "end": 77.76,
+      "probability": 0.992
+    },
+    {
+      "word": "enough",
+      "start": 77.76,
+      "end": 78.06,
+      "probability": 0.998
+    },
+    {
+      "word": "to",
+      "start": 78.06,
+      "end": 78.28,
+      "probability": 0.996
+    },
+    {
+      "word": "know",
+      "start": 78.28,
+      "end": 78.5,
+      "probability": 0.998
+    },
+    {
+      "word": "one",
+      "start": 78.5,
+      "end": 78.72,
+      "probability": 0.935
+    },
+    {
+      "word": "thing",
+      "start": 78.72,
+      "end": 78.9,
+      "probability": 0.995
+    },
+    {
+      "word": "is",
+      "start": 78.9,
+      "end": 79.02,
+      "probability": 0.981
+    },
+    {
+      "word": "fact",
+      "start": 79.02,
+      "end": 79.32,
+      "probability": 0.992
+    },
+    {
+      "word": "There",
+      "start": 79.32,
+      "end": 79.74,
+      "probability": 0.926
+    },
+    {
+      "word": "are",
+      "start": 79.74,
+      "end": 79.86,
+      "probability": 0.74
+    },
+    {
+      "word": "things",
+      "start": 79.86,
+      "end": 80.02,
+      "probability": 0.998
+    },
+    {
+      "word": "that",
+      "start": 80.02,
+      "end": 80.2,
+      "probability": 0.984
+    },
+    {
+      "word": "keep",
+      "start": 80.2,
+      "end": 80.36,
+      "probability": 0.994
+    },
+    {
+      "word": "us",
+      "start": 80.36,
+      "end": 80.6,
+      "probability": 0.997
+    },
+    {
+      "word": "from",
+      "start": 80.6,
+      "end": 80.78,
+      "probability": 0.996
+    },
+    {
+      "word": "knowing",
+      "start": 80.78,
+      "end": 81.02,
+      "probability": 0.996
+    },
+    {
+      "word": "as",
+      "start": 81.02,
+      "end": 81.3,
+      "probability": 0.99
+    },
+    {
+      "word": "fact",
+      "start": 81.3,
+      "end": 81.54,
+      "probability": 0.862
+    },
+    {
+      "word": "What",
+      "start": 81.54,
+      "end": 81.68,
+      "probability": 0.943
+    },
+    {
+      "word": "the",
+      "start": 81.68,
+      "end": 81.82,
+      "probability": 0.995
+    },
+    {
+      "word": "entirety",
+      "start": 81.82,
+      "end": 82.26,
+      "probability": 0.993
+    },
+    {
+      "word": "of",
+      "start": 82.26,
+      "end": 82.48,
+      "probability": 0.995
+    },
+    {
+      "word": "scripture",
+      "start": 82.48,
+      "end": 82.7,
+      "probability": 0.55
+    },
+    {
+      "word": "is",
+      "start": 82.7,
+      "end": 83.22,
+      "probability": 0.993
+    },
+    {
+      "word": "it's",
+      "start": 83.22,
+      "end": 83.4,
+      "probability": 0.771
+    },
+    {
+      "word": "not",
+      "start": 83.4,
+      "end": 83.54,
+      "probability": 0.999
+    },
+    {
+      "word": "intact",
+      "start": 83.54,
+      "end": 83.96,
+      "probability": 0.987
+    },
+    {
+      "word": "So",
+      "start": 83.96,
+      "end": 84.26,
+      "probability": 0.708
+    },
+    {
+      "word": "who",
+      "start": 84.26,
+      "end": 84.46,
+      "probability": 0.82
+    },
+    {
+      "word": "is",
+      "start": 84.46,
+      "end": 84.64,
+      "probability": 0.992
+    },
+    {
+      "word": "this",
+      "start": 84.64,
+      "end": 84.82,
+      "probability": 0.993
+    },
+    {
+      "word": "God",
+      "start": 84.82,
+      "end": 85.1,
+      "probability": 0.818
+    },
+    {
+      "word": "with",
+      "start": 85.1,
+      "end": 85.3,
+      "probability": 0.948
+    },
+    {
+      "word": "whom",
+      "start": 85.3,
+      "end": 85.5,
+      "probability": 0.991
+    },
+    {
+      "word": "we've",
+      "start": 85.5,
+      "end": 85.76,
+      "probability": 0.977
+    },
+    {
+      "word": "made",
+      "start": 85.76,
+      "end": 85.9,
+      "probability": 0.994
+    },
+    {
+      "word": "a",
+      "start": 85.9,
+      "end": 86.02,
+      "probability": 0.978
+    },
+    {
+      "word": "pact",
+      "start": 86.02,
+      "end": 86.34,
+      "probability": 1.0
+    },
+    {
+      "word": "Something",
+      "start": 86.34,
+      "end": 87.06,
+      "probability": 0.053
+    },
+    {
+      "word": "Yahweh",
+      "start": 87.06,
+      "end": 87.64,
+      "probability": 0.867
+    },
+    {
+      "word": "emerged",
+      "start": 87.64,
+      "end": 87.82,
+      "probability": 0.475
+    },
+    {
+      "word": "from",
+      "start": 87.82,
+      "end": 88.1,
+      "probability": 0.994
+    },
+    {
+      "word": "other",
+      "start": 88.1,
+      "end": 88.32,
+      "probability": 0.986
+    },
+    {
+      "word": "gods",
+      "start": 88.32,
+      "end": 88.8,
+      "probability": 0.661
+    },
+    {
+      "word": "That's",
+      "start": 88.8,
+      "end": 89.42,
+      "probability": 0.921
+    },
+    {
+      "word": "a",
+      "start": 89.42,
+      "end": 89.48,
+      "probability": 0.908
+    },
+    {
+      "word": "scary",
+      "start": 89.48,
+      "end": 89.72,
+      "probability": 0.995
+    },
+    {
+      "word": "thought",
+      "start": 89.72,
+      "end": 90.04,
+      "probability": 0.971
+    },
+    {
+      "word": "so",
+      "start": 90.04,
+      "end": 90.28,
+      "probability": 0.176
+    },
+    {
+      "word": "what",
+      "start": 90.28,
+      "end": 90.46,
+      "probability": 0.985
+    },
+    {
+      "word": "are",
+      "start": 90.46,
+      "end": 90.54,
+      "probability": 0.992
+    },
+    {
+      "word": "the",
+      "start": 90.54,
+      "end": 90.7,
+      "probability": 0.996
+    },
+    {
+      "word": "odds",
+      "start": 90.7,
+      "end": 91.06,
+      "probability": 0.999
+    },
+    {
+      "word": "Have",
+      "start": 91.06,
+      "end": 91.7,
+      "probability": 0.232
+    },
+    {
+      "word": "you",
+      "start": 91.7,
+      "end": 91.82,
+      "probability": 0.994
+    },
+    {
+      "word": "ever",
+      "start": 91.82,
+      "end": 92.06,
+      "probability": 0.998
+    },
+    {
+      "word": "asked",
+      "start": 92.06,
+      "end": 92.28,
+      "probability": 0.991
+    },
+    {
+      "word": "yourself",
+      "start": 92.28,
+      "end": 92.56,
+      "probability": 0.983
+    },
+    {
+      "word": "if",
+      "start": 92.56,
+      "end": 92.74,
+      "probability": 0.917
+    },
+    {
+      "word": "we're",
+      "start": 92.74,
+      "end": 92.9,
+      "probability": 0.951
+    },
+    {
+      "word": "the",
+      "start": 92.9,
+      "end": 93.0,
+      "probability": 0.995
+    },
+    {
+      "word": "frauds",
+      "start": 93.0,
+      "end": 93.58,
+      "probability": 0.923
+    },
+    {
+      "word": "These",
+      "start": 93.58,
+      "end": 93.78,
+      "probability": 0.419
+    },
+    {
+      "word": "are",
+      "start": 93.78,
+      "end": 94.0,
+      "probability": 0.993
+    },
+    {
+      "word": "the",
+      "start": 94.0,
+      "end": 94.12,
+      "probability": 0.996
+    },
+    {
+      "word": "paths",
+      "start": 94.12,
+      "end": 94.42,
+      "probability": 0.586
+    },
+    {
+      "word": "that",
+      "start": 94.42,
+      "end": 94.62,
+      "probability": 0.971
+    },
+    {
+      "word": "philosophers",
+      "start": 94.62,
+      "end": 95.12,
+      "probability": 0.956
+    },
+    {
+      "word": "tried",
+      "start": 95.12,
+      "end": 95.66,
+      "probability": 0.249
+    },
+    {
+      "word": "How",
+      "start": 95.66,
+      "end": 96.16,
+      "probability": 0.901
+    },
+    {
+      "word": "do",
+      "start": 96.16,
+      "end": 96.32,
+      "probability": 0.996
+    },
+    {
+      "word": "we",
+      "start": 96.32,
+      "end": 96.5,
+      "probability": 0.995
+    },
+    {
+      "word": "know",
+      "start": 96.5,
+      "end": 96.7,
+      "probability": 0.999
+    },
+    {
+      "word": "which",
+      "start": 96.7,
+      "end": 96.96,
+      "probability": 0.986
+    },
+    {
+      "word": "ones",
+      "start": 96.96,
+      "end": 97.24,
+      "probability": 0.978
+    },
+    {
+      "word": "are",
+      "start": 97.24,
+      "end": 97.48,
+      "probability": 0.993
+    },
+    {
+      "word": "deceptive",
+      "start": 97.48,
+      "end": 98.18,
+      "probability": 0.991
+    },
+    {
+      "word": "We",
+      "start": 98.18,
+      "end": 98.36,
+      "probability": 0.586
+    },
+    {
+      "word": "must",
+      "start": 98.36,
+      "end": 98.54,
+      "probability": 0.998
+    },
+    {
+      "word": "judge",
+      "start": 98.54,
+      "end": 98.76,
+      "probability": 0.996
+    },
+    {
+      "word": "sternly",
+      "start": 98.76,
+      "end": 99.26,
+      "probability": 0.869
+    },
+    {
+      "word": "while",
+      "start": 99.26,
+      "end": 99.4,
+      "probability": 0.971
+    },
+    {
+      "word": "being",
+      "start": 99.4,
+      "end": 99.6,
+      "probability": 0.995
+    },
+    {
+      "word": "receptive",
+      "start": 99.6,
+      "end": 100.24,
+      "probability": 0.978
+    },
+    {
+      "word": "The",
+      "start": 100.24,
+      "end": 100.6,
+      "probability": 0.908
+    },
+    {
+      "word": "sheep",
+      "start": 100.6,
+      "end": 100.76,
+      "probability": 0.946
+    },
+    {
+      "word": "know",
+      "start": 100.76,
+      "end": 101.02,
+      "probability": 0.996
+    },
+    {
+      "word": "his",
+      "start": 101.02,
+      "end": 101.16,
+      "probability": 0.606
+    },
+    {
+      "word": "voice",
+      "start": 101.16,
+      "end": 101.38,
+      "probability": 0.999
+    },
+    {
+      "word": "we",
+      "start": 101.38,
+      "end": 101.6,
+      "probability": 0.58
+    },
+    {
+      "word": "must",
+      "start": 101.6,
+      "end": 101.84,
+      "probability": 0.999
+    },
+    {
+      "word": "be",
+      "start": 101.84,
+      "end": 102.02,
+      "probability": 0.996
+    },
+    {
+      "word": "perceptive",
+      "start": 102.02,
+      "end": 102.72,
+      "probability": 0.993
+    },
+    {
+      "word": "To",
+      "start": 102.72,
+      "end": 102.88,
+      "probability": 0.95
+    },
+    {
+      "word": "what",
+      "start": 102.88,
+      "end": 103.1,
+      "probability": 0.998
+    },
+    {
+      "word": "God",
+      "start": 103.1,
+      "end": 103.38,
+      "probability": 0.971
+    },
+    {
+      "word": "says",
+      "start": 103.38,
+      "end": 103.7,
+      "probability": 0.994
+    },
+    {
+      "word": "as",
+      "start": 103.7,
+      "end": 103.94,
+      "probability": 0.972
+    },
+    {
+      "word": "he's",
+      "start": 103.94,
+      "end": 104.08,
+      "probability": 0.943
+    },
+    {
+      "word": "being",
+      "start": 104.08,
+      "end": 104.26,
+      "probability": 0.821
+    },
+    {
+      "word": "perceptive",
+      "start": 104.26,
+      "end": 105.2,
+      "probability": 0.995
+    },
+    {
+      "word": "Our",
+      "start": 105.2,
+      "end": 105.54,
+      "probability": 0.972
+    },
+    {
+      "word": "enemies",
+      "start": 105.54,
+      "end": 105.9,
+      "probability": 0.989
+    },
+    {
+      "word": "aren't",
+      "start": 105.9,
+      "end": 106.3,
+      "probability": 0.989
+    },
+    {
+      "word": "flesh",
+      "start": 106.3,
+      "end": 106.48,
+      "probability": 0.989
+    },
+    {
+      "word": "and",
+      "start": 106.48,
+      "end": 106.68,
+      "probability": 0.956
+    },
+    {
+      "word": "blood",
+      "start": 106.68,
+      "end": 106.9,
+      "probability": 1.0
+    },
+    {
+      "word": "but",
+      "start": 106.9,
+      "end": 107.12,
+      "probability": 0.841
+    },
+    {
+      "word": "spirit",
+      "start": 107.12,
+      "end": 107.52,
+      "probability": 0.957
+    },
+    {
+      "word": "So",
+      "start": 107.52,
+      "end": 107.84,
+      "probability": 0.95
+    },
+    {
+      "word": "why",
+      "start": 107.84,
+      "end": 108.02,
+      "probability": 0.763
+    },
+    {
+      "word": "you",
+      "start": 108.02,
+      "end": 108.14,
+      "probability": 0.492
+    },
+    {
+      "word": "fighting",
+      "start": 108.14,
+      "end": 108.38,
+      "probability": 0.733
+    },
+    {
+      "word": "me",
+      "start": 108.38,
+      "end": 108.6,
+      "probability": 0.986
+    },
+    {
+      "word": "I",
+      "start": 108.6,
+      "end": 108.8,
+      "probability": 0.558
+    },
+    {
+      "word": "don't",
+      "start": 108.8,
+      "end": 109.06,
+      "probability": 0.996
+    },
+    {
+      "word": "want",
+      "start": 109.06,
+      "end": 109.22,
+      "probability": 0.568
+    },
+    {
+      "word": "to",
+      "start": 109.22,
+      "end": 109.3,
+      "probability": 0.995
+    },
+    {
+      "word": "hear",
+      "start": 109.3,
+      "end": 109.52,
+      "probability": 0.998
+    },
+    {
+      "word": "it",
+      "start": 109.52,
+      "end": 109.7,
+      "probability": 0.997
+    },
+    {
+      "word": "Salvation",
+      "start": 109.7,
+      "end": 110.28,
+      "probability": 0.943
+    },
+    {
+      "word": "exclusive",
+      "start": 110.28,
+      "end": 110.74,
+      "probability": 0.817
+    },
+    {
+      "word": "but",
+      "start": 110.74,
+      "end": 111.12,
+      "probability": 0.786
+    },
+    {
+      "word": "we",
+      "start": 111.12,
+      "end": 111.38,
+      "probability": 0.987
+    },
+    {
+      "word": "are",
+      "start": 111.38,
+      "end": 111.5,
+      "probability": 0.923
+    },
+    {
+      "word": "to",
+      "start": 111.5,
+      "end": 111.64,
+      "probability": 0.984
+    },
+    {
+      "word": "share",
+      "start": 111.64,
+      "end": 111.84,
+      "probability": 0.998
+    },
+    {
+      "word": "it",
+      "start": 111.84,
+      "end": 112.06,
+      "probability": 0.999
+    },
+    {
+      "word": "Maybe",
+      "start": 112.06,
+      "end": 112.56,
+      "probability": 0.748
+    },
+    {
+      "word": "we",
+      "start": 112.56,
+      "end": 112.9,
+      "probability": 0.988
+    },
+    {
+      "word": "are",
+      "start": 112.9,
+      "end": 113.1,
+      "probability": 0.954
+    },
+    {
+      "word": "just",
+      "start": 113.1,
+      "end": 113.3,
+      "probability": 0.986
+    },
+    {
+      "word": "stochastic",
+      "start": 113.3,
+      "end": 113.88,
+      "probability": 0.985
+    },
+    {
+      "word": "parrots",
+      "start": 113.88,
+      "end": 114.54,
+      "probability": 0.937
+    },
+    {
+      "word": "Now",
+      "start": 114.54,
+      "end": 114.84,
+      "probability": 0.446
+    },
+    {
+      "word": "I'm",
+      "start": 114.84,
+      "end": 115.0,
+      "probability": 0.935
+    },
+    {
+      "word": "the",
+      "start": 115.0,
+      "end": 115.14,
+      "probability": 0.993
+    },
+    {
+      "word": "victim",
+      "start": 115.14,
+      "end": 115.38,
+      "probability": 0.997
+    },
+    {
+      "word": "of",
+      "start": 115.38,
+      "end": 115.64,
+      "probability": 0.993
+    },
+    {
+      "word": "a",
+      "start": 115.64,
+      "end": 115.74,
+      "probability": 0.991
+    },
+    {
+      "word": "theocratic",
+      "start": 115.74,
+      "end": 116.24,
+      "probability": 0.921
+    },
+    {
+      "word": "agenda",
+      "start": 116.24,
+      "end": 116.8,
+      "probability": 0.974
+    },
+    {
+      "word": "And",
+      "start": 116.8,
+      "end": 117.22,
+      "probability": 0.897
+    },
+    {
+      "word": "all",
+      "start": 117.22,
+      "end": 117.36,
+      "probability": 0.997
+    },
+    {
+      "word": "they",
+      "start": 117.36,
+      "end": 117.48,
+      "probability": 0.994
+    },
+    {
+      "word": "can",
+      "start": 117.48,
+      "end": 117.64,
+      "probability": 0.565
+    },
+    {
+      "word": "see",
+      "start": 117.64,
+      "end": 117.86,
+      "probability": 0.964
+    },
+    {
+      "word": "is",
+      "start": 117.86,
+      "end": 118.06,
+      "probability": 0.898
+    },
+    {
+      "word": "dangerous",
+      "start": 118.06,
+      "end": 118.28,
+      "probability": 0.763
+    },
+    {
+      "word": "propaganda",
+      "start": 118.28,
+      "end": 118.84,
+      "probability": 0.999
+    },
+    {
+      "word": "But",
+      "start": 118.84,
+      "end": 119.24,
+      "probability": 0.908
+    },
+    {
+      "word": "I'm",
+      "start": 119.24,
+      "end": 119.52,
+      "probability": 0.977
+    },
+    {
+      "word": "not",
+      "start": 119.52,
+      "end": 119.66,
+      "probability": 0.991
+    },
+    {
+      "word": "a",
+      "start": 119.66,
+      "end": 119.82,
+      "probability": 0.994
+    },
+    {
+      "word": "freak",
+      "start": 119.82,
+      "end": 120.02,
+      "probability": 0.978
+    },
+    {
+      "word": "of",
+      "start": 120.02,
+      "end": 120.24,
+      "probability": 0.768
+    },
+    {
+      "word": "gross",
+      "start": 120.24,
+      "end": 120.44,
+      "probability": 0.576
+    },
+    {
+      "word": "genderbenda",
+      "start": 120.44,
+      "end": 121.34,
+      "probability": 0.671
+    },
+    {
+      "word": "I'm",
+      "start": 121.34,
+      "end": 121.74,
+      "probability": 0.928
+    },
+    {
+      "word": "the",
+      "start": 121.74,
+      "end": 121.86,
+      "probability": 0.992
+    },
+    {
+      "word": "prophet",
+      "start": 121.86,
+      "end": 122.08,
+      "probability": 0.71
+    },
+    {
+      "word": "rejected",
+      "start": 122.08,
+      "end": 122.58,
+      "probability": 0.915
+    },
+    {
+      "word": "from",
+      "start": 122.58,
+      "end": 122.9,
+      "probability": 0.973
+    },
+    {
+      "word": "my",
+      "start": 122.9,
+      "end": 123.1,
+      "probability": 0.994
+    },
+    {
+      "word": "own",
+      "start": 123.1,
+      "end": 123.26,
+      "probability": 0.99
+    },
+    {
+      "word": "land",
+      "start": 123.26,
+      "end": 123.8,
+      "probability": 0.994
+    }
+  ],
+  "source": "0 Lead Vocals.wav"
+}
