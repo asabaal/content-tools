@@ -20,6 +20,22 @@ MAX_GAP = 5.0
 
 
 @dataclass
+class WordTiming:
+    word: str
+    start: float
+    end: float
+    source: str
+
+    def to_dict(self) -> dict:
+        return {
+            "word": self.word,
+            "start": round(self.start, 3),
+            "end": round(self.end, 3),
+            "source": self.source,
+        }
+
+
+@dataclass
 class LineMatch:
     lyric_index: int
     lyric_text: str
@@ -30,6 +46,8 @@ class LineMatch:
     transcription_end: Optional[float] = None
     boundary_quality: Optional[float] = None
     is_split: bool = False
+    recovery_method: Optional[str] = None
+    word_timings: Optional[List[WordTiming]] = None
 
     def to_dict(self) -> dict:
         d = {
@@ -40,11 +58,15 @@ class LineMatch:
             "word_match_ratio": round(self.word_match_ratio, 3),
             "is_split": self.is_split,
         }
+        if self.recovery_method is not None:
+            d["recovery_method"] = self.recovery_method
         if self.transcription_start is not None:
             d["transcription_start"] = round(self.transcription_start, 3)
             d["transcription_end"] = round(self.transcription_end, 3)
         if self.boundary_quality is not None:
             d["boundary_quality"] = round(self.boundary_quality, 3)
+        if self.word_timings is not None:
+            d["word_timings"] = [wt.to_dict() for wt in self.word_timings]
         return d
 
 
@@ -57,6 +79,7 @@ class AlignmentAnalysis:
     partial_matches: int
     unmatched_lines: int
     lines_split: int
+    lines_recovered: int
     boundary_avg_quality: float
     recommendation: str
     recommendation_reason: str
@@ -76,6 +99,7 @@ class AlignmentAnalysis:
                 "partial_matches": self.partial_matches,
                 "unmatched_lines": self.unmatched_lines,
                 "lines_split": self.lines_split,
+                "lines_recovered": self.lines_recovered,
                 "boundary_avg_quality": round(self.boundary_avg_quality, 3),
                 "recommendation": self.recommendation,
                 "recommendation_reason": self.recommendation_reason,
@@ -204,6 +228,192 @@ def _align_lyrics_to_segments(
     return ordered_line_to_segs, match_ratios, seg_texts
 
 
+def _count_syllables(text: str) -> int:
+    normalized = _normalize(text)
+    if not normalized:
+        return 0
+    words = normalized.split()
+    count = 0
+    for word in words:
+        vowels = re.findall(r"[aeiouy]+", word)
+        count += max(1, len(vowels)) if vowels else 1
+    return count
+
+
+def _group_onsets_by_gap(onset_times: np.ndarray, gap_threshold: float = 1.0) -> List[np.ndarray]:
+    if len(onset_times) == 0:
+        return []
+    groups = [[float(onset_times[0])]]
+    for i in range(1, len(onset_times)):
+        if float(onset_times[i]) - groups[-1][-1] > gap_threshold:
+            groups.append([])
+        groups[-1].append(float(onset_times[i]))
+    return [np.array(g) for g in groups]
+
+
+def _compute_word_timings(
+    lyric_text: str,
+    matched_segments: List[int],
+    transcription_segments: List[dict],
+    line_start: Optional[float],
+    line_end: Optional[float],
+) -> Optional[List[WordTiming]]:
+    if not matched_segments:
+        return None
+
+    lyric_words_raw = lyric_text.split()
+    if not lyric_words_raw:
+        return None
+
+    lyric_words_norm = [_normalize(w) for w in lyric_words_raw]
+
+    trans_words_raw: List[dict] = []
+    for si in matched_segments:
+        seg = transcription_segments[si]
+        for w in seg.get("words", []):
+            trans_words_raw.append(w)
+
+    if not trans_words_raw:
+        return None
+
+    trans_words_norm = [_normalize(w.get("word", "")) for w in trans_words_raw]
+
+    matcher = SequenceMatcher(None, lyric_words_norm, trans_words_norm)
+
+    lyric_to_trans: Dict[int, int] = {}
+    for i, j, n in matcher.get_matching_blocks():
+        for k in range(n):
+            lyric_to_trans[i + k] = j + k
+
+    timings: List[WordTiming] = []
+    for li, raw_word in enumerate(lyric_words_raw):
+        if li in lyric_to_trans:
+            tw = trans_words_raw[lyric_to_trans[li]]
+            timings.append(WordTiming(
+                word=raw_word,
+                start=float(tw["start"]),
+                end=float(tw["end"]),
+                source="transcription",
+            ))
+        else:
+            prev_end = line_start if line_start is not None else 0.0
+            for pli in range(li - 1, -1, -1):
+                if pli in lyric_to_trans:
+                    prev_end = float(trans_words_raw[lyric_to_trans[pli]]["end"])
+                    break
+
+            next_start = line_end if line_end is not None else prev_end + 0.3
+            for nli in range(li + 1, len(lyric_words_raw)):
+                if nli in lyric_to_trans:
+                    next_start = float(trans_words_raw[lyric_to_trans[nli]]["start"])
+                    break
+
+            if next_start <= prev_end:
+                next_start = prev_end + 0.1
+
+            timings.append(WordTiming(
+                word=raw_word,
+                start=prev_end,
+                end=next_start,
+                source="interpolated",
+            ))
+
+    return timings
+
+
+def _compute_onset_word_timings(
+    lyric_text: str,
+    onset_times: np.ndarray,
+) -> Optional[List[WordTiming]]:
+    if len(onset_times) == 0:
+        return None
+
+    words = lyric_text.split()
+    if not words:
+        return None
+
+    syllable_counts = [_count_syllables(w) for w in words]
+    total_syllables = sum(syllable_counts)
+
+    range_start = float(onset_times[0])
+    range_end = float(onset_times[-1]) + 0.1
+
+    timings: List[WordTiming] = []
+    onset_idx = 0
+    for wi, word in enumerate(words):
+        frac = syllable_counts[wi] / total_syllables
+        word_onset_count = max(1, round(frac * len(onset_times)))
+
+        word_start = float(onset_times[min(onset_idx, len(onset_times) - 1)])
+        end_idx = min(onset_idx + word_onset_count, len(onset_times))
+        if end_idx < len(onset_times):
+            word_end = float(onset_times[end_idx])
+        else:
+            word_end = range_end
+
+        timings.append(WordTiming(
+            word=word,
+            start=word_start,
+            end=word_end,
+            source="onset_syllable",
+        ))
+        onset_idx = end_idx
+
+    return timings
+
+
+def _recover_unmatched_lines(
+    matches: List[LineMatch],
+    vocal_onset_times: Optional[np.ndarray],
+    duration: float,
+) -> None:
+    if vocal_onset_times is None or len(vocal_onset_times) == 0:
+        return
+
+    unmatched_indices = [i for i, m in enumerate(matches) if not m.matched_segments]
+    if not unmatched_indices:
+        return
+
+    for idx in unmatched_indices:
+        m = matches[idx]
+
+        range_start = 0.0
+        for prev_i in range(idx - 1, -1, -1):
+            if matches[prev_i].transcription_end is not None:
+                range_start = matches[prev_i].transcription_end
+                break
+
+        range_end = duration
+        for next_i in range(idx + 1, len(matches)):
+            if matches[next_i].transcription_start is not None:
+                range_end = matches[next_i].transcription_start
+                break
+
+        mask = (vocal_onset_times >= range_start) & (vocal_onset_times <= range_end)
+        range_onsets = vocal_onset_times[mask]
+
+        if len(range_onsets) == 0:
+            continue
+
+        target_syllables = _count_syllables(m.lyric_text)
+        groups = _group_onsets_by_gap(range_onsets)
+
+        best_group = None
+        best_score = float("inf")
+        for g in groups:
+            diff = abs(len(g) - target_syllables)
+            score = diff / max(target_syllables, 1)
+            if score < best_score:
+                best_score = score
+                best_group = g
+
+        if best_group is not None and best_score <= 0.5:
+            m.transcription_start = round(float(best_group[0]), 3)
+            m.transcription_end = round(float(best_group[-1]) + 0.1, 3)
+            m.recovery_method = "onset_syllable"
+            m.word_timings = _compute_onset_word_timings(m.lyric_text, best_group)
+
+
 def analyze_alignment(
     lyrics: List[LyricLine],
     transcription_segments: Optional[List[dict]],
@@ -243,6 +453,9 @@ def analyze_alignment(
                 transcription_start=t_start,
                 transcription_end=t_end,
                 is_split=is_split,
+                word_timings=_compute_word_timings(
+                    line.text, seg_indices, transcription_segments, t_start, t_end
+                ),
             ))
     else:
         for line in non_empty:
@@ -250,6 +463,8 @@ def analyze_alignment(
                 lyric_index=line.index,
                 lyric_text=line.text,
             ))
+
+    _recover_unmatched_lines(matches, vocal_onset_times, audio_features.duration)
 
     for i, m in enumerate(matches):
         if m.transcription_start is not None and m.transcription_end is not None:
@@ -263,8 +478,9 @@ def analyze_alignment(
 
     exact = sum(1 for m in matches if m.word_match_ratio > 0.9)
     partial = sum(1 for m in matches if 0.3 < m.word_match_ratio <= 0.9)
-    unmatched = sum(1 for m in matches if m.word_match_ratio <= 0.3)
+    unmatched = sum(1 for m in matches if m.word_match_ratio <= 0.3 and m.recovery_method is None)
     lines_split = sum(1 for m in matches if m.is_split)
+    lines_recovered = sum(1 for m in matches if m.recovery_method is not None)
 
     quality_scores = [m.boundary_quality for m in matches if m.boundary_quality is not None]
     avg_quality = sum(quality_scores) / len(quality_scores) if quality_scores else 0.0
@@ -294,6 +510,7 @@ def analyze_alignment(
         partial_matches=partial,
         unmatched_lines=unmatched,
         lines_split=lines_split,
+        lines_recovered=lines_recovered,
         boundary_avg_quality=avg_quality,
         recommendation=rec,
         recommendation_reason=reason,

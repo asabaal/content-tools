@@ -303,6 +303,104 @@ class TestAutoSyncEndpoint:
         finally:
             _restore_project(original)
 
+    def test_auto_sync_merges_transcription_word_timings(self, project_with_data):
+        alignment = {
+            "line_matches": [
+                {
+                    "lyric_index": 0,
+                    "lyric_text": "Hello world test",
+                    "matched_segments": [0],
+                    "word_timings": [
+                        {"word": "Hello", "start": 1.1, "end": 1.8, "source": "transcription"},
+                        {"word": "world", "start": 1.8, "end": 2.5, "source": "transcription"},
+                        {"word": "test", "start": 2.5, "end": 3.0, "source": "transcription"},
+                    ],
+                },
+                {
+                    "lyric_index": 1,
+                    "lyric_text": "Second line",
+                    "matched_segments": [1],
+                    "word_timings": [
+                        {"word": "Second", "start": 3.6, "end": 4.3, "source": "transcription"},
+                        {"word": "line", "start": 4.3, "end": 5.0, "source": "transcription"},
+                    ],
+                },
+            ],
+            "summary": {"total_lines": 2},
+        }
+        (project_with_data.data_dir / "alignment_analysis.json").write_text(
+            json.dumps(alignment), encoding="utf-8"
+        )
+
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/auto-sync", method="POST")
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "lines" in data
+            line0 = data["lines"][0]
+            assert line0["words"][0]["source"] == "transcription"
+            assert line0["words"][0]["start"] == 1.1
+            assert line0["words"][0]["end"] == 1.8
+            line1 = data["lines"][1]
+            assert line1["words"][0]["source"] == "transcription"
+        finally:
+            _restore_project(original)
+
+    def test_auto_sync_no_alignment_keeps_onset_timing(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/auto-sync", method="POST")
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "lines" in data
+            line0 = data["lines"][0]
+            assert line0["words"][0]["source"] != "transcription"
+        finally:
+            _restore_project(original)
+
+    def test_auto_sync_word_count_mismatch_keeps_onset(self, project_with_data):
+        alignment = {
+            "line_matches": [
+                {
+                    "lyric_index": 0,
+                    "lyric_text": "Hello world test",
+                    "matched_segments": [0],
+                    "word_timings": [
+                        {"word": "Hello", "start": 1.1, "end": 1.8, "source": "transcription"},
+                    ],
+                },
+            ],
+            "summary": {"total_lines": 2},
+        }
+        (project_with_data.data_dir / "alignment_analysis.json").write_text(
+            json.dumps(alignment), encoding="utf-8"
+        )
+
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/auto-sync", method="POST")
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["lines"][0]["words"][0]["source"] != "transcription"
+        finally:
+            _restore_project(original)
+
+    def test_auto_sync_invalid_alignment_json_keeps_onset(self, project_with_data):
+        (project_with_data.data_dir / "alignment_analysis.json").write_text(
+            "not json", encoding="utf-8"
+        )
+
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/auto-sync", method="POST")
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "lines" in data
+            assert data["lines"][0]["words"][0]["source"] != "transcription"
+        finally:
+            _restore_project(original)
+
 
 class TestSaveSynced:
     def test_save_synced(self, project_with_data):

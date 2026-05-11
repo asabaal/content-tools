@@ -11,7 +11,45 @@
       "is_split": false,
       "transcription_start": 1.2,
       "transcription_end": 5.6,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "I",
+          "start": 1.2,
+          "end": 2.0,
+          "source": "transcription"
+        },
+        {
+          "word": "never",
+          "start": 2.0,
+          "end": 2.5,
+          "source": "transcription"
+        },
+        {
+          "word": "asked",
+          "start": 2.5,
+          "end": 3.48,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 3.48,
+          "end": 4.16,
+          "source": "transcription"
+        },
+        {
+          "word": "be",
+          "start": 4.16,
+          "end": 4.74,
+          "source": "transcription"
+        },
+        {
+          "word": "queer",
+          "start": 4.74,
+          "end": 5.6,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 1,
@@ -24,7 +62,45 @@
       "is_split": false,
       "transcription_start": 5.6,
       "transcription_end": 10.42,
-      "boundary_quality": 0.998
+      "boundary_quality": 0.998,
+      "word_timings": [
+        {
+          "word": "I",
+          "start": 5.6,
+          "end": 6.68,
+          "source": "transcription"
+        },
+        {
+          "word": "never",
+          "start": 6.68,
+          "end": 7.02,
+          "source": "transcription"
+        },
+        {
+          "word": "asked",
+          "start": 7.02,
+          "end": 8.18,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 8.18,
+          "end": 8.82,
+          "source": "transcription"
+        },
+        {
+          "word": "live",
+          "start": 8.82,
+          "end": 9.44,
+          "source": "transcription"
+        },
+        {
+          "word": "here",
+          "start": 9.44,
+          "end": 10.42,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 2,
@@ -37,7 +113,51 @@
       "is_split": false,
       "transcription_start": 11.0,
       "transcription_end": 14.9,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Now",
+          "start": 11.0,
+          "end": 11.68,
+          "source": "transcription"
+        },
+        {
+          "word": "it's",
+          "start": 11.68,
+          "end": 12.12,
+          "source": "transcription"
+        },
+        {
+          "word": "easy",
+          "start": 12.12,
+          "end": 12.42,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 12.42,
+          "end": 12.78,
+          "source": "transcription"
+        },
+        {
+          "word": "live",
+          "start": 12.78,
+          "end": 13.38,
+          "source": "transcription"
+        },
+        {
+          "word": "in",
+          "start": 13.38,
+          "end": 14.1,
+          "source": "transcription"
+        },
+        {
+          "word": "fear",
+          "start": 14.1,
+          "end": 14.9,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 3,
@@ -50,7 +170,63 @@
       "is_split": false,
       "transcription_start": 16.0,
       "transcription_end": 19.4,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "That",
+          "start": 15.92,
+          "end": 16.32,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 16.32,
+          "end": 16.64,
+          "source": "transcription"
+        },
+        {
+          "word": "end",
+          "start": 16.64,
+          "end": 17.02,
+          "source": "transcription"
+        },
+        {
+          "word": "of",
+          "start": 17.02,
+          "end": 17.24,
+          "source": "transcription"
+        },
+        {
+          "word": "folks",
+          "start": 17.24,
+          "end": 17.52,
+          "source": "transcription"
+        },
+        {
+          "word": "like",
+          "start": 17.52,
+          "end": 17.8,
+          "source": "transcription"
+        },
+        {
+          "word": "me",
+          "start": 17.8,
+          "end": 18.2,
+          "source": "transcription"
+        },
+        {
+          "word": "is",
+          "start": 18.2,
+          "end": 18.8,
+          "source": "transcription"
+        },
+        {
+          "word": "near",
+          "start": 18.8,
+          "end": 19.4,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 4,
@@ -63,7 +239,57 @@
       "is_split": false,
       "transcription_start": 20.0,
       "transcription_end": 22.66,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "I",
+          "start": 20.0,
+          "end": 20.9,
+          "source": "transcription"
+        },
+        {
+          "word": "was",
+          "start": 20.9,
+          "end": 21.04,
+          "source": "transcription"
+        },
+        {
+          "word": "such",
+          "start": 21.04,
+          "end": 21.2,
+          "source": "transcription"
+        },
+        {
+          "word": "a",
+          "start": 21.2,
+          "end": 21.32,
+          "source": "transcription"
+        },
+        {
+          "word": "good",
+          "start": 21.32,
+          "end": 21.58,
+          "source": "transcription"
+        },
+        {
+          "word": "little",
+          "start": 21.58,
+          "end": 21.86,
+          "source": "transcription"
+        },
+        {
+          "word": "Christian",
+          "start": 21.86,
+          "end": 22.26,
+          "source": "transcription"
+        },
+        {
+          "word": "kid",
+          "start": 22.26,
+          "end": 22.66,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 5,
@@ -76,7 +302,69 @@
       "is_split": false,
       "transcription_start": 22.66,
       "transcription_end": 24.96,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "At",
+          "start": 22.66,
+          "end": 23.08,
+          "source": "transcription"
+        },
+        {
+          "word": "church",
+          "start": 23.08,
+          "end": 23.3,
+          "source": "transcription"
+        },
+        {
+          "word": "up",
+          "start": 23.3,
+          "end": 23.52,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 23.52,
+          "end": 23.66,
+          "source": "transcription"
+        },
+        {
+          "word": "5",
+          "start": 23.66,
+          "end": 23.88,
+          "source": "interpolated"
+        },
+        {
+          "word": "times",
+          "start": 23.88,
+          "end": 24.12,
+          "source": "transcription"
+        },
+        {
+          "word": "per",
+          "start": 24.12,
+          "end": 24.3,
+          "source": "transcription"
+        },
+        {
+          "word": "week,",
+          "start": 24.3,
+          "end": 24.52,
+          "source": "transcription"
+        },
+        {
+          "word": "I",
+          "start": 24.52,
+          "end": 24.76,
+          "source": "transcription"
+        },
+        {
+          "word": "did",
+          "start": 24.76,
+          "end": 24.96,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 6,
@@ -89,7 +377,45 @@
       "is_split": false,
       "transcription_start": 24.96,
       "transcription_end": 27.46,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Always",
+          "start": 24.96,
+          "end": 25.76,
+          "source": "transcription"
+        },
+        {
+          "word": "despising",
+          "start": 25.76,
+          "end": 26.36,
+          "source": "transcription"
+        },
+        {
+          "word": "it",
+          "start": 26.36,
+          "end": 26.58,
+          "source": "transcription"
+        },
+        {
+          "word": "when",
+          "start": 26.58,
+          "end": 26.76,
+          "source": "transcription"
+        },
+        {
+          "word": "I",
+          "start": 26.76,
+          "end": 26.92,
+          "source": "transcription"
+        },
+        {
+          "word": "backslid",
+          "start": 26.92,
+          "end": 27.46,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 7,
@@ -102,7 +428,57 @@
       "is_split": false,
       "transcription_start": 27.46,
       "transcription_end": 29.76,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Hating",
+          "start": 27.46,
+          "end": 28.04,
+          "source": "transcription"
+        },
+        {
+          "word": "my",
+          "start": 28.04,
+          "end": 28.3,
+          "source": "transcription"
+        },
+        {
+          "word": "sin,",
+          "start": 28.3,
+          "end": 28.58,
+          "source": "transcription"
+        },
+        {
+          "word": "I",
+          "start": 28.58,
+          "end": 28.74,
+          "source": "transcription"
+        },
+        {
+          "word": "just",
+          "start": 28.74,
+          "end": 28.92,
+          "source": "transcription"
+        },
+        {
+          "word": "wanted",
+          "start": 28.92,
+          "end": 29.3,
+          "source": "transcription"
+        },
+        {
+          "word": "it",
+          "start": 29.3,
+          "end": 29.5,
+          "source": "transcription"
+        },
+        {
+          "word": "rid",
+          "start": 29.5,
+          "end": 29.76,
+          "source": "interpolated"
+        }
+      ]
     },
     {
       "lyric_index": 8,
@@ -115,7 +491,51 @@
       "is_split": false,
       "transcription_start": 29.76,
       "transcription_end": 32.12,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "How",
+          "start": 29.76,
+          "end": 30.44,
+          "source": "transcription"
+        },
+        {
+          "word": "could",
+          "start": 30.44,
+          "end": 30.6,
+          "source": "transcription"
+        },
+        {
+          "word": "so",
+          "start": 30.6,
+          "end": 30.9,
+          "source": "transcription"
+        },
+        {
+          "word": "many",
+          "start": 30.9,
+          "end": 31.14,
+          "source": "transcription"
+        },
+        {
+          "word": "things",
+          "start": 31.14,
+          "end": 31.46,
+          "source": "transcription"
+        },
+        {
+          "word": "be",
+          "start": 31.46,
+          "end": 31.66,
+          "source": "transcription"
+        },
+        {
+          "word": "demonic?",
+          "start": 31.66,
+          "end": 32.12,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 9,
@@ -129,7 +549,57 @@
       "is_split": true,
       "transcription_start": 32.12,
       "transcription_end": 35.6,
-      "boundary_quality": 0.5
+      "boundary_quality": 0.5,
+      "word_timings": [
+        {
+          "word": "They",
+          "start": 32.12,
+          "end": 32.4,
+          "source": "transcription"
+        },
+        {
+          "word": "caused",
+          "start": 32.4,
+          "end": 32.62,
+          "source": "interpolated"
+        },
+        {
+          "word": "my",
+          "start": 32.62,
+          "end": 32.86,
+          "source": "transcription"
+        },
+        {
+          "word": "extreme",
+          "start": 32.86,
+          "end": 33.16,
+          "source": "transcription"
+        },
+        {
+          "word": "anxiety,",
+          "start": 33.16,
+          "end": 33.72,
+          "source": "transcription"
+        },
+        {
+          "word": "now",
+          "start": 33.72,
+          "end": 34.02,
+          "source": "transcription"
+        },
+        {
+          "word": "it's",
+          "start": 34.02,
+          "end": 34.18,
+          "source": "transcription"
+        },
+        {
+          "word": "chronic",
+          "start": 34.18,
+          "end": 34.48,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 10,
@@ -143,7 +613,51 @@
       "is_split": true,
       "transcription_start": 33.72,
       "transcription_end": 36.88,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "If",
+          "start": 34.48,
+          "end": 34.76,
+          "source": "transcription"
+        },
+        {
+          "word": "Jesus",
+          "start": 34.76,
+          "end": 35.04,
+          "source": "transcription"
+        },
+        {
+          "word": "with",
+          "start": 35.04,
+          "end": 35.3,
+          "source": "interpolated"
+        },
+        {
+          "word": "sinners",
+          "start": 35.3,
+          "end": 35.6,
+          "source": "transcription"
+        },
+        {
+          "word": "was",
+          "start": 35.6,
+          "end": 35.84,
+          "source": "transcription"
+        },
+        {
+          "word": "gladly",
+          "start": 35.84,
+          "end": 36.22,
+          "source": "transcription"
+        },
+        {
+          "word": "platonic",
+          "start": 36.22,
+          "end": 36.88,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 11,
@@ -156,7 +670,63 @@
       "is_split": false,
       "transcription_start": 37.46,
       "transcription_end": 39.18,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "How",
+          "start": 37.24,
+          "end": 37.5,
+          "source": "transcription"
+        },
+        {
+          "word": "was",
+          "start": 37.5,
+          "end": 37.66,
+          "source": "transcription"
+        },
+        {
+          "word": "that",
+          "start": 37.66,
+          "end": 37.9,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 37.9,
+          "end": 38.1,
+          "source": "transcription"
+        },
+        {
+          "word": "result",
+          "start": 38.1,
+          "end": 38.4,
+          "source": "transcription"
+        },
+        {
+          "word": "when",
+          "start": 38.4,
+          "end": 38.56,
+          "source": "transcription"
+        },
+        {
+          "word": "they",
+          "start": 38.56,
+          "end": 38.7,
+          "source": "transcription"
+        },
+        {
+          "word": "were",
+          "start": 38.7,
+          "end": 38.8,
+          "source": "transcription"
+        },
+        {
+          "word": "sonic?",
+          "start": 38.8,
+          "end": 39.18,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 12,
@@ -169,7 +739,51 @@
       "is_split": false,
       "transcription_start": 39.18,
       "transcription_end": 41.54,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Our",
+          "start": 39.18,
+          "end": 39.88,
+          "source": "transcription"
+        },
+        {
+          "word": "faith",
+          "start": 39.88,
+          "end": 40.22,
+          "source": "transcription"
+        },
+        {
+          "word": "was",
+          "start": 40.22,
+          "end": 40.46,
+          "source": "transcription"
+        },
+        {
+          "word": "supposed",
+          "start": 40.46,
+          "end": 40.74,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 40.74,
+          "end": 41.04,
+          "source": "transcription"
+        },
+        {
+          "word": "be",
+          "start": 41.04,
+          "end": 41.16,
+          "source": "transcription"
+        },
+        {
+          "word": "different",
+          "start": 41.16,
+          "end": 41.54,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 13,
@@ -182,7 +796,51 @@
       "is_split": false,
       "transcription_start": 41.54,
       "transcription_end": 43.46,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Believing",
+          "start": 41.54,
+          "end": 42.06,
+          "source": "transcription"
+        },
+        {
+          "word": "in",
+          "start": 42.06,
+          "end": 42.3,
+          "source": "transcription"
+        },
+        {
+          "word": "life,",
+          "start": 42.3,
+          "end": 42.56,
+          "source": "transcription"
+        },
+        {
+          "word": "love,",
+          "start": 42.66,
+          "end": 42.82,
+          "source": "transcription"
+        },
+        {
+          "word": "truth,",
+          "start": 42.86,
+          "end": 43.06,
+          "source": "transcription"
+        },
+        {
+          "word": "not",
+          "start": 43.16,
+          "end": 43.38,
+          "source": "transcription"
+        },
+        {
+          "word": "belligerent",
+          "start": 43.38,
+          "end": 43.64,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 14,
@@ -195,7 +853,45 @@
       "is_split": false,
       "transcription_start": 44.0,
       "transcription_end": 46.18,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "But",
+          "start": 44.0,
+          "end": 44.22,
+          "source": "transcription"
+        },
+        {
+          "word": "because",
+          "start": 44.22,
+          "end": 44.56,
+          "source": "transcription"
+        },
+        {
+          "word": "God",
+          "start": 44.56,
+          "end": 44.92,
+          "source": "transcription"
+        },
+        {
+          "word": "made",
+          "start": 44.92,
+          "end": 45.2,
+          "source": "transcription"
+        },
+        {
+          "word": "me",
+          "start": 45.2,
+          "end": 45.38,
+          "source": "transcription"
+        },
+        {
+          "word": "intelligent",
+          "start": 45.38,
+          "end": 46.18,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 15,
@@ -208,7 +904,57 @@
       "is_split": false,
       "transcription_start": 46.18,
       "transcription_end": 48.74,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Now",
+          "start": 46.18,
+          "end": 46.8,
+          "source": "transcription"
+        },
+        {
+          "word": "they",
+          "start": 46.8,
+          "end": 46.94,
+          "source": "transcription"
+        },
+        {
+          "word": "see",
+          "start": 46.94,
+          "end": 47.16,
+          "source": "transcription"
+        },
+        {
+          "word": "me",
+          "start": 47.16,
+          "end": 47.28,
+          "source": "transcription"
+        },
+        {
+          "word": "as",
+          "start": 47.28,
+          "end": 47.48,
+          "source": "transcription"
+        },
+        {
+          "word": "an",
+          "start": 47.48,
+          "end": 47.62,
+          "source": "transcription"
+        },
+        {
+          "word": "evil",
+          "start": 47.62,
+          "end": 47.84,
+          "source": "transcription"
+        },
+        {
+          "word": "insurgent",
+          "start": 47.84,
+          "end": 48.74,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 16,
@@ -221,7 +967,51 @@
       "is_split": false,
       "transcription_start": 48.74,
       "transcription_end": 51.3,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "They",
+          "start": 48.74,
+          "end": 49.22,
+          "source": "transcription"
+        },
+        {
+          "word": "warned",
+          "start": 49.22,
+          "end": 49.58,
+          "source": "transcription"
+        },
+        {
+          "word": "me",
+          "start": 49.58,
+          "end": 49.82,
+          "source": "transcription"
+        },
+        {
+          "word": "about",
+          "start": 49.82,
+          "end": 50.06,
+          "source": "transcription"
+        },
+        {
+          "word": "going",
+          "start": 50.06,
+          "end": 50.48,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 50.48,
+          "end": 50.76,
+          "source": "transcription"
+        },
+        {
+          "word": "university",
+          "start": 50.76,
+          "end": 51.3,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 17,
@@ -234,7 +1024,63 @@
       "is_split": false,
       "transcription_start": 51.3,
       "transcription_end": 53.7,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "That",
+          "start": 51.3,
+          "end": 51.78,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 51.78,
+          "end": 51.94,
+          "source": "transcription"
+        },
+        {
+          "word": "stand",
+          "start": 51.94,
+          "end": 52.08,
+          "source": "transcription"
+        },
+        {
+          "word": "for",
+          "start": 52.08,
+          "end": 52.2,
+          "source": "transcription"
+        },
+        {
+          "word": "truth,",
+          "start": 52.2,
+          "end": 52.42,
+          "source": "transcription"
+        },
+        {
+          "word": "I'd",
+          "start": 52.42,
+          "end": 52.86,
+          "source": "interpolated"
+        },
+        {
+          "word": "face",
+          "start": 52.42,
+          "end": 52.86,
+          "source": "interpolated"
+        },
+        {
+          "word": "great",
+          "start": 52.86,
+          "end": 53.22,
+          "source": "transcription"
+        },
+        {
+          "word": "adversity",
+          "start": 53.22,
+          "end": 53.7,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 18,
@@ -247,7 +1093,57 @@
       "is_split": false,
       "transcription_start": 53.7,
       "transcription_end": 56.16,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "The",
+          "start": 53.7,
+          "end": 54.0,
+          "source": "transcription"
+        },
+        {
+          "word": "enemy",
+          "start": 54.0,
+          "end": 54.28,
+          "source": "transcription"
+        },
+        {
+          "word": "had",
+          "start": 54.28,
+          "end": 54.58,
+          "source": "transcription"
+        },
+        {
+          "word": "filled",
+          "start": 54.58,
+          "end": 54.78,
+          "source": "transcription"
+        },
+        {
+          "word": "that",
+          "start": 54.78,
+          "end": 55.0,
+          "source": "transcription"
+        },
+        {
+          "word": "place",
+          "start": 55.0,
+          "end": 55.22,
+          "source": "transcription"
+        },
+        {
+          "word": "with",
+          "start": 55.22,
+          "end": 55.52,
+          "source": "transcription"
+        },
+        {
+          "word": "perversity",
+          "start": 55.52,
+          "end": 56.16,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 19,
@@ -260,7 +1156,51 @@
       "is_split": false,
       "transcription_start": 56.16,
       "transcription_end": 58.42,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "So",
+          "start": 56.16,
+          "end": 56.6,
+          "source": "transcription"
+        },
+        {
+          "word": "I",
+          "start": 56.6,
+          "end": 56.74,
+          "source": "transcription"
+        },
+        {
+          "word": "should",
+          "start": 56.74,
+          "end": 56.86,
+          "source": "transcription"
+        },
+        {
+          "word": "tactfully",
+          "start": 56.86,
+          "end": 57.28,
+          "source": "transcription"
+        },
+        {
+          "word": "manage",
+          "start": 57.28,
+          "end": 57.62,
+          "source": "transcription"
+        },
+        {
+          "word": "my",
+          "start": 57.62,
+          "end": 57.8,
+          "source": "transcription"
+        },
+        {
+          "word": "immersivity",
+          "start": 57.8,
+          "end": 58.42,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 20,
@@ -273,7 +1213,57 @@
       "is_split": false,
       "transcription_start": 58.42,
       "transcription_end": 60.74,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "I",
+          "start": 58.42,
+          "end": 58.88,
+          "source": "transcription"
+        },
+        {
+          "word": "spoke",
+          "start": 58.88,
+          "end": 59.06,
+          "source": "transcription"
+        },
+        {
+          "word": "up",
+          "start": 59.06,
+          "end": 59.22,
+          "source": "transcription"
+        },
+        {
+          "word": "loudly",
+          "start": 59.22,
+          "end": 59.56,
+          "source": "transcription"
+        },
+        {
+          "word": "in",
+          "start": 59.56,
+          "end": 59.8,
+          "source": "transcription"
+        },
+        {
+          "word": "my",
+          "start": 59.8,
+          "end": 59.96,
+          "source": "transcription"
+        },
+        {
+          "word": "religion",
+          "start": 59.96,
+          "end": 60.26,
+          "source": "transcription"
+        },
+        {
+          "word": "classes",
+          "start": 60.26,
+          "end": 60.74,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 21,
@@ -286,7 +1276,57 @@
       "is_split": false,
       "transcription_start": 60.74,
       "transcription_end": 63.3,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Me",
+          "start": 60.74,
+          "end": 61.14,
+          "source": "transcription"
+        },
+        {
+          "word": "and",
+          "start": 61.14,
+          "end": 61.3,
+          "source": "transcription"
+        },
+        {
+          "word": "my",
+          "start": 61.3,
+          "end": 61.44,
+          "source": "transcription"
+        },
+        {
+          "word": "partner",
+          "start": 61.44,
+          "end": 61.88,
+          "source": "transcription"
+        },
+        {
+          "word": "there",
+          "start": 61.88,
+          "end": 62.18,
+          "source": "transcription"
+        },
+        {
+          "word": "looking",
+          "start": 62.18,
+          "end": 62.48,
+          "source": "transcription"
+        },
+        {
+          "word": "like",
+          "start": 62.48,
+          "end": 62.74,
+          "source": "transcription"
+        },
+        {
+          "word": "asses",
+          "start": 62.74,
+          "end": 63.3,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 22,
@@ -299,7 +1339,57 @@
       "is_split": false,
       "transcription_start": 63.3,
       "transcription_end": 65.42,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "So",
+          "start": 63.3,
+          "end": 63.58,
+          "source": "transcription"
+        },
+        {
+          "word": "when",
+          "start": 63.58,
+          "end": 63.74,
+          "source": "transcription"
+        },
+        {
+          "word": "that",
+          "start": 63.74,
+          "end": 63.9,
+          "source": "transcription"
+        },
+        {
+          "word": "fool",
+          "start": 63.9,
+          "end": 64.14,
+          "source": "transcription"
+        },
+        {
+          "word": "with",
+          "start": 64.14,
+          "end": 64.38,
+          "source": "transcription"
+        },
+        {
+          "word": "those",
+          "start": 64.38,
+          "end": 64.56,
+          "source": "transcription"
+        },
+        {
+          "word": "annoying",
+          "start": 64.56,
+          "end": 64.96,
+          "source": "transcription"
+        },
+        {
+          "word": "glasses",
+          "start": 64.96,
+          "end": 65.42,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 23,
@@ -312,7 +1402,63 @@
       "is_split": false,
       "transcription_start": 65.42,
       "transcription_end": 67.78,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Showed",
+          "start": 65.42,
+          "end": 65.76,
+          "source": "interpolated"
+        },
+        {
+          "word": "me",
+          "start": 65.76,
+          "end": 65.9,
+          "source": "transcription"
+        },
+        {
+          "word": "something",
+          "start": 65.9,
+          "end": 66.08,
+          "source": "transcription"
+        },
+        {
+          "word": "new,",
+          "start": 66.08,
+          "end": 66.42,
+          "source": "transcription"
+        },
+        {
+          "word": "it",
+          "start": 66.42,
+          "end": 66.66,
+          "source": "transcription"
+        },
+        {
+          "word": "took",
+          "start": 66.66,
+          "end": 66.88,
+          "source": "transcription"
+        },
+        {
+          "word": "a",
+          "start": 66.88,
+          "end": 67.12,
+          "source": "transcription"
+        },
+        {
+          "word": "few",
+          "start": 67.12,
+          "end": 67.28,
+          "source": "transcription"
+        },
+        {
+          "word": "passes",
+          "start": 67.28,
+          "end": 67.78,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 24,
@@ -325,7 +1471,69 @@
       "is_split": false,
       "transcription_start": 67.78,
       "transcription_end": 70.32,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "If",
+          "start": 67.78,
+          "end": 68.4,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 68.4,
+          "end": 68.56,
+          "source": "transcription"
+        },
+        {
+          "word": "Bible",
+          "start": 68.56,
+          "end": 68.78,
+          "source": "transcription"
+        },
+        {
+          "word": "was",
+          "start": 68.78,
+          "end": 69.0,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 69.0,
+          "end": 69.12,
+          "source": "transcription"
+        },
+        {
+          "word": "word",
+          "start": 69.12,
+          "end": 69.32,
+          "source": "transcription"
+        },
+        {
+          "word": "of",
+          "start": 69.32,
+          "end": 69.42,
+          "source": "transcription"
+        },
+        {
+          "word": "God",
+          "start": 69.42,
+          "end": 69.68,
+          "source": "transcription"
+        },
+        {
+          "word": "and",
+          "start": 69.68,
+          "end": 69.92,
+          "source": "transcription"
+        },
+        {
+          "word": "inerrant",
+          "start": 69.92,
+          "end": 70.32,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 25,
@@ -338,7 +1546,51 @@
       "is_split": false,
       "transcription_start": 70.32,
       "transcription_end": 72.68,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "How",
+          "start": 70.32,
+          "end": 70.78,
+          "source": "transcription"
+        },
+        {
+          "word": "could",
+          "start": 70.78,
+          "end": 71.08,
+          "source": "transcription"
+        },
+        {
+          "word": "it",
+          "start": 71.08,
+          "end": 71.2,
+          "source": "transcription"
+        },
+        {
+          "word": "have",
+          "start": 71.2,
+          "end": 71.3,
+          "source": "transcription"
+        },
+        {
+          "word": "contradiction",
+          "start": 71.3,
+          "end": 71.92,
+          "source": "interpolated"
+        },
+        {
+          "word": "so",
+          "start": 71.92,
+          "end": 72.26,
+          "source": "transcription"
+        },
+        {
+          "word": "blatant?",
+          "start": 72.26,
+          "end": 72.68,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 26,
@@ -351,7 +1603,51 @@
       "is_split": false,
       "transcription_start": 72.68,
       "transcription_end": 74.92,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Even",
+          "start": 72.68,
+          "end": 73.16,
+          "source": "transcription"
+        },
+        {
+          "word": "if",
+          "start": 73.16,
+          "end": 73.36,
+          "source": "transcription"
+        },
+        {
+          "word": "small",
+          "start": 73.36,
+          "end": 73.7,
+          "source": "transcription"
+        },
+        {
+          "word": "or",
+          "start": 73.7,
+          "end": 73.92,
+          "source": "transcription"
+        },
+        {
+          "word": "from",
+          "start": 73.92,
+          "end": 74.04,
+          "source": "transcription"
+        },
+        {
+          "word": "scribes",
+          "start": 74.04,
+          "end": 74.3,
+          "source": "transcription"
+        },
+        {
+          "word": "incompetent",
+          "start": 74.3,
+          "end": 74.92,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 27,
@@ -364,7 +1660,51 @@
       "is_split": false,
       "transcription_start": 74.92,
       "transcription_end": 77.12,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "We",
+          "start": 74.92,
+          "end": 75.36,
+          "source": "transcription"
+        },
+        {
+          "word": "were",
+          "start": 75.36,
+          "end": 75.52,
+          "source": "transcription"
+        },
+        {
+          "word": "missing",
+          "start": 75.52,
+          "end": 75.82,
+          "source": "transcription"
+        },
+        {
+          "word": "something,",
+          "start": 75.82,
+          "end": 76.28,
+          "source": "transcription"
+        },
+        {
+          "word": "it",
+          "start": 76.28,
+          "end": 76.54,
+          "source": "transcription"
+        },
+        {
+          "word": "was",
+          "start": 76.54,
+          "end": 76.66,
+          "source": "transcription"
+        },
+        {
+          "word": "transparent",
+          "start": 76.66,
+          "end": 77.12,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 28,
@@ -377,7 +1717,63 @@
       "is_split": false,
       "transcription_start": 77.12,
       "transcription_end": 79.32,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "We",
+          "start": 77.12,
+          "end": 77.54,
+          "source": "transcription"
+        },
+        {
+          "word": "know",
+          "start": 77.54,
+          "end": 77.76,
+          "source": "transcription"
+        },
+        {
+          "word": "enough",
+          "start": 77.76,
+          "end": 78.06,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 78.06,
+          "end": 78.28,
+          "source": "transcription"
+        },
+        {
+          "word": "know",
+          "start": 78.28,
+          "end": 78.5,
+          "source": "transcription"
+        },
+        {
+          "word": "one",
+          "start": 78.5,
+          "end": 78.72,
+          "source": "transcription"
+        },
+        {
+          "word": "thing",
+          "start": 78.72,
+          "end": 78.9,
+          "source": "transcription"
+        },
+        {
+          "word": "as",
+          "start": 78.9,
+          "end": 79.02,
+          "source": "interpolated"
+        },
+        {
+          "word": "fact",
+          "start": 79.02,
+          "end": 79.32,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 29,
@@ -390,7 +1786,69 @@
       "is_split": false,
       "transcription_start": 79.32,
       "transcription_end": 81.54,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "There",
+          "start": 79.32,
+          "end": 79.74,
+          "source": "transcription"
+        },
+        {
+          "word": "are",
+          "start": 79.74,
+          "end": 79.86,
+          "source": "transcription"
+        },
+        {
+          "word": "things",
+          "start": 79.86,
+          "end": 80.02,
+          "source": "transcription"
+        },
+        {
+          "word": "that",
+          "start": 80.02,
+          "end": 80.2,
+          "source": "transcription"
+        },
+        {
+          "word": "keep",
+          "start": 80.2,
+          "end": 80.36,
+          "source": "transcription"
+        },
+        {
+          "word": "us",
+          "start": 80.36,
+          "end": 80.6,
+          "source": "transcription"
+        },
+        {
+          "word": "from",
+          "start": 80.6,
+          "end": 80.78,
+          "source": "transcription"
+        },
+        {
+          "word": "knowing",
+          "start": 80.78,
+          "end": 81.02,
+          "source": "transcription"
+        },
+        {
+          "word": "as",
+          "start": 81.02,
+          "end": 81.3,
+          "source": "transcription"
+        },
+        {
+          "word": "fact",
+          "start": 81.3,
+          "end": 81.54,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 30,
@@ -403,7 +1861,63 @@
       "is_split": false,
       "transcription_start": 81.54,
       "transcription_end": 83.96,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "What",
+          "start": 81.54,
+          "end": 81.68,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 81.68,
+          "end": 81.82,
+          "source": "transcription"
+        },
+        {
+          "word": "entirety",
+          "start": 81.82,
+          "end": 82.26,
+          "source": "transcription"
+        },
+        {
+          "word": "of",
+          "start": 82.26,
+          "end": 82.48,
+          "source": "transcription"
+        },
+        {
+          "word": "Scripture",
+          "start": 82.48,
+          "end": 82.7,
+          "source": "transcription"
+        },
+        {
+          "word": "is,",
+          "start": 82.7,
+          "end": 83.22,
+          "source": "transcription"
+        },
+        {
+          "word": "it's",
+          "start": 83.22,
+          "end": 83.4,
+          "source": "transcription"
+        },
+        {
+          "word": "not",
+          "start": 83.4,
+          "end": 83.54,
+          "source": "transcription"
+        },
+        {
+          "word": "intact",
+          "start": 83.54,
+          "end": 83.96,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 31,
@@ -416,7 +1930,75 @@
       "is_split": false,
       "transcription_start": 83.96,
       "transcription_end": 86.34,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "So",
+          "start": 83.96,
+          "end": 84.26,
+          "source": "transcription"
+        },
+        {
+          "word": "who",
+          "start": 84.26,
+          "end": 84.46,
+          "source": "transcription"
+        },
+        {
+          "word": "is",
+          "start": 84.46,
+          "end": 84.64,
+          "source": "transcription"
+        },
+        {
+          "word": "this",
+          "start": 84.64,
+          "end": 84.82,
+          "source": "transcription"
+        },
+        {
+          "word": "God",
+          "start": 84.82,
+          "end": 85.1,
+          "source": "transcription"
+        },
+        {
+          "word": "with",
+          "start": 85.1,
+          "end": 85.3,
+          "source": "transcription"
+        },
+        {
+          "word": "whom",
+          "start": 85.3,
+          "end": 85.5,
+          "source": "transcription"
+        },
+        {
+          "word": "we've",
+          "start": 85.5,
+          "end": 85.76,
+          "source": "transcription"
+        },
+        {
+          "word": "made",
+          "start": 85.76,
+          "end": 85.9,
+          "source": "transcription"
+        },
+        {
+          "word": "a",
+          "start": 85.9,
+          "end": 86.02,
+          "source": "transcription"
+        },
+        {
+          "word": "pact?",
+          "start": 86.02,
+          "end": 86.34,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 32,
@@ -429,7 +2011,51 @@
       "is_split": false,
       "transcription_start": 86.34,
       "transcription_end": 88.8,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Some",
+          "start": 86.34,
+          "end": 87.06,
+          "source": "interpolated"
+        },
+        {
+          "word": "think",
+          "start": 86.34,
+          "end": 87.06,
+          "source": "interpolated"
+        },
+        {
+          "word": "Yahweh",
+          "start": 87.06,
+          "end": 87.64,
+          "source": "transcription"
+        },
+        {
+          "word": "emerged",
+          "start": 87.64,
+          "end": 87.82,
+          "source": "transcription"
+        },
+        {
+          "word": "from",
+          "start": 87.82,
+          "end": 88.1,
+          "source": "transcription"
+        },
+        {
+          "word": "other",
+          "start": 88.1,
+          "end": 88.32,
+          "source": "transcription"
+        },
+        {
+          "word": "gods",
+          "start": 88.32,
+          "end": 88.8,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 33,
@@ -442,7 +2068,63 @@
       "is_split": false,
       "transcription_start": 88.8,
       "transcription_end": 91.06,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "That's",
+          "start": 88.8,
+          "end": 89.42,
+          "source": "transcription"
+        },
+        {
+          "word": "a",
+          "start": 89.42,
+          "end": 89.48,
+          "source": "transcription"
+        },
+        {
+          "word": "scary",
+          "start": 89.48,
+          "end": 89.72,
+          "source": "transcription"
+        },
+        {
+          "word": "thought,",
+          "start": 89.72,
+          "end": 90.04,
+          "source": "transcription"
+        },
+        {
+          "word": "so",
+          "start": 90.04,
+          "end": 90.28,
+          "source": "transcription"
+        },
+        {
+          "word": "what",
+          "start": 90.28,
+          "end": 90.46,
+          "source": "transcription"
+        },
+        {
+          "word": "are",
+          "start": 90.46,
+          "end": 90.54,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 90.54,
+          "end": 90.7,
+          "source": "transcription"
+        },
+        {
+          "word": "odds?",
+          "start": 90.7,
+          "end": 91.06,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 34,
@@ -455,7 +2137,63 @@
       "is_split": false,
       "transcription_start": 91.06,
       "transcription_end": 93.58,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Have",
+          "start": 91.06,
+          "end": 91.7,
+          "source": "transcription"
+        },
+        {
+          "word": "you",
+          "start": 91.7,
+          "end": 91.82,
+          "source": "transcription"
+        },
+        {
+          "word": "ever",
+          "start": 91.82,
+          "end": 92.06,
+          "source": "transcription"
+        },
+        {
+          "word": "asked",
+          "start": 92.06,
+          "end": 92.28,
+          "source": "transcription"
+        },
+        {
+          "word": "yourself",
+          "start": 92.28,
+          "end": 92.56,
+          "source": "transcription"
+        },
+        {
+          "word": "if",
+          "start": 92.56,
+          "end": 92.74,
+          "source": "transcription"
+        },
+        {
+          "word": "we're",
+          "start": 92.74,
+          "end": 92.9,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 92.9,
+          "end": 93.0,
+          "source": "transcription"
+        },
+        {
+          "word": "frauds?",
+          "start": 93.0,
+          "end": 93.58,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 35,
@@ -468,7 +2206,51 @@
       "is_split": false,
       "transcription_start": 93.58,
       "transcription_end": 95.66,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "These",
+          "start": 93.58,
+          "end": 93.78,
+          "source": "transcription"
+        },
+        {
+          "word": "are",
+          "start": 93.78,
+          "end": 94.0,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 94.0,
+          "end": 94.12,
+          "source": "transcription"
+        },
+        {
+          "word": "paths",
+          "start": 94.12,
+          "end": 94.42,
+          "source": "transcription"
+        },
+        {
+          "word": "that",
+          "start": 94.42,
+          "end": 94.62,
+          "source": "transcription"
+        },
+        {
+          "word": "philosophers",
+          "start": 94.62,
+          "end": 95.12,
+          "source": "transcription"
+        },
+        {
+          "word": "trod",
+          "start": 95.12,
+          "end": 95.66,
+          "source": "interpolated"
+        }
+      ]
     },
     {
       "lyric_index": 36,
@@ -481,7 +2263,57 @@
       "is_split": false,
       "transcription_start": 95.66,
       "transcription_end": 98.18,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "How",
+          "start": 95.66,
+          "end": 96.16,
+          "source": "transcription"
+        },
+        {
+          "word": "do",
+          "start": 96.16,
+          "end": 96.32,
+          "source": "transcription"
+        },
+        {
+          "word": "we",
+          "start": 96.32,
+          "end": 96.5,
+          "source": "transcription"
+        },
+        {
+          "word": "know",
+          "start": 96.5,
+          "end": 96.7,
+          "source": "transcription"
+        },
+        {
+          "word": "which",
+          "start": 96.7,
+          "end": 96.96,
+          "source": "transcription"
+        },
+        {
+          "word": "ones",
+          "start": 96.96,
+          "end": 97.24,
+          "source": "transcription"
+        },
+        {
+          "word": "are",
+          "start": 97.24,
+          "end": 97.48,
+          "source": "transcription"
+        },
+        {
+          "word": "deceptive?",
+          "start": 97.48,
+          "end": 98.18,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 37,
@@ -494,7 +2326,51 @@
       "is_split": false,
       "transcription_start": 98.18,
       "transcription_end": 100.24,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "We",
+          "start": 98.18,
+          "end": 98.36,
+          "source": "transcription"
+        },
+        {
+          "word": "must",
+          "start": 98.36,
+          "end": 98.54,
+          "source": "transcription"
+        },
+        {
+          "word": "judge",
+          "start": 98.54,
+          "end": 98.76,
+          "source": "transcription"
+        },
+        {
+          "word": "sternly",
+          "start": 98.76,
+          "end": 99.26,
+          "source": "transcription"
+        },
+        {
+          "word": "while",
+          "start": 99.26,
+          "end": 99.4,
+          "source": "transcription"
+        },
+        {
+          "word": "being",
+          "start": 99.4,
+          "end": 99.6,
+          "source": "transcription"
+        },
+        {
+          "word": "receptive",
+          "start": 99.6,
+          "end": 100.24,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 38,
@@ -507,7 +2383,63 @@
       "is_split": false,
       "transcription_start": 100.24,
       "transcription_end": 102.72,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "The",
+          "start": 100.24,
+          "end": 100.6,
+          "source": "transcription"
+        },
+        {
+          "word": "sheep",
+          "start": 100.6,
+          "end": 100.76,
+          "source": "transcription"
+        },
+        {
+          "word": "know",
+          "start": 100.76,
+          "end": 101.02,
+          "source": "transcription"
+        },
+        {
+          "word": "his",
+          "start": 101.02,
+          "end": 101.16,
+          "source": "transcription"
+        },
+        {
+          "word": "voice,",
+          "start": 101.16,
+          "end": 101.38,
+          "source": "transcription"
+        },
+        {
+          "word": "we",
+          "start": 101.38,
+          "end": 101.6,
+          "source": "transcription"
+        },
+        {
+          "word": "must",
+          "start": 101.6,
+          "end": 101.84,
+          "source": "transcription"
+        },
+        {
+          "word": "be",
+          "start": 101.84,
+          "end": 102.02,
+          "source": "transcription"
+        },
+        {
+          "word": "perceptive",
+          "start": 102.02,
+          "end": 102.72,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 39,
@@ -520,7 +2452,57 @@
       "is_split": false,
       "transcription_start": 102.72,
       "transcription_end": 105.2,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "To",
+          "start": 102.72,
+          "end": 102.88,
+          "source": "transcription"
+        },
+        {
+          "word": "what",
+          "start": 102.88,
+          "end": 103.1,
+          "source": "transcription"
+        },
+        {
+          "word": "God",
+          "start": 103.1,
+          "end": 103.38,
+          "source": "transcription"
+        },
+        {
+          "word": "says",
+          "start": 103.38,
+          "end": 103.7,
+          "source": "transcription"
+        },
+        {
+          "word": "as",
+          "start": 103.7,
+          "end": 103.94,
+          "source": "transcription"
+        },
+        {
+          "word": "he's",
+          "start": 103.94,
+          "end": 104.08,
+          "source": "transcription"
+        },
+        {
+          "word": "being",
+          "start": 104.08,
+          "end": 104.26,
+          "source": "transcription"
+        },
+        {
+          "word": "preceptive",
+          "start": 104.26,
+          "end": 105.2,
+          "source": "interpolated"
+        }
+      ]
     },
     {
       "lyric_index": 40,
@@ -533,7 +2515,57 @@
       "is_split": false,
       "transcription_start": 105.2,
       "transcription_end": 107.52,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Our",
+          "start": 105.2,
+          "end": 105.54,
+          "source": "transcription"
+        },
+        {
+          "word": "enemies",
+          "start": 105.54,
+          "end": 105.9,
+          "source": "transcription"
+        },
+        {
+          "word": "aren't",
+          "start": 105.9,
+          "end": 106.3,
+          "source": "transcription"
+        },
+        {
+          "word": "flesh",
+          "start": 106.3,
+          "end": 106.48,
+          "source": "transcription"
+        },
+        {
+          "word": "and",
+          "start": 106.48,
+          "end": 106.68,
+          "source": "transcription"
+        },
+        {
+          "word": "blood,",
+          "start": 106.68,
+          "end": 106.9,
+          "source": "transcription"
+        },
+        {
+          "word": "but",
+          "start": 106.9,
+          "end": 107.12,
+          "source": "transcription"
+        },
+        {
+          "word": "spirit",
+          "start": 107.12,
+          "end": 107.52,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 41,
@@ -546,7 +2578,75 @@
       "is_split": false,
       "transcription_start": 107.52,
       "transcription_end": 109.7,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "So",
+          "start": 107.52,
+          "end": 107.84,
+          "source": "transcription"
+        },
+        {
+          "word": "why",
+          "start": 107.84,
+          "end": 108.02,
+          "source": "transcription"
+        },
+        {
+          "word": "are",
+          "start": 108.02,
+          "end": 108.12,
+          "source": "interpolated"
+        },
+        {
+          "word": "you",
+          "start": 108.02,
+          "end": 108.14,
+          "source": "transcription"
+        },
+        {
+          "word": "fighting",
+          "start": 108.14,
+          "end": 108.38,
+          "source": "transcription"
+        },
+        {
+          "word": "me?",
+          "start": 108.38,
+          "end": 108.6,
+          "source": "transcription"
+        },
+        {
+          "word": "I",
+          "start": 108.6,
+          "end": 108.8,
+          "source": "transcription"
+        },
+        {
+          "word": "don't",
+          "start": 108.8,
+          "end": 109.06,
+          "source": "transcription"
+        },
+        {
+          "word": "wanna",
+          "start": 109.06,
+          "end": 109.3,
+          "source": "interpolated"
+        },
+        {
+          "word": "hear",
+          "start": 109.3,
+          "end": 109.52,
+          "source": "transcription"
+        },
+        {
+          "word": "it",
+          "start": 109.52,
+          "end": 109.7,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 42,
@@ -559,7 +2659,57 @@
       "is_split": false,
       "transcription_start": 109.7,
       "transcription_end": 112.06,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Salvation",
+          "start": 109.7,
+          "end": 110.28,
+          "source": "transcription"
+        },
+        {
+          "word": "exclusive",
+          "start": 110.28,
+          "end": 110.74,
+          "source": "transcription"
+        },
+        {
+          "word": "but",
+          "start": 110.74,
+          "end": 111.12,
+          "source": "transcription"
+        },
+        {
+          "word": "we",
+          "start": 111.12,
+          "end": 111.38,
+          "source": "transcription"
+        },
+        {
+          "word": "are",
+          "start": 111.38,
+          "end": 111.5,
+          "source": "transcription"
+        },
+        {
+          "word": "to",
+          "start": 111.5,
+          "end": 111.64,
+          "source": "transcription"
+        },
+        {
+          "word": "share",
+          "start": 111.64,
+          "end": 111.84,
+          "source": "transcription"
+        },
+        {
+          "word": "it",
+          "start": 111.84,
+          "end": 112.06,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 43,
@@ -572,7 +2722,45 @@
       "is_split": false,
       "transcription_start": 112.06,
       "transcription_end": 114.54,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Maybe",
+          "start": 112.06,
+          "end": 112.56,
+          "source": "transcription"
+        },
+        {
+          "word": "we",
+          "start": 112.56,
+          "end": 112.9,
+          "source": "transcription"
+        },
+        {
+          "word": "are",
+          "start": 112.9,
+          "end": 113.1,
+          "source": "transcription"
+        },
+        {
+          "word": "just",
+          "start": 113.1,
+          "end": 113.3,
+          "source": "transcription"
+        },
+        {
+          "word": "stochastic",
+          "start": 113.3,
+          "end": 113.88,
+          "source": "transcription"
+        },
+        {
+          "word": "parrots",
+          "start": 113.88,
+          "end": 114.54,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 44,
@@ -585,7 +2773,57 @@
       "is_split": false,
       "transcription_start": 114.54,
       "transcription_end": 116.8,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "Now",
+          "start": 114.54,
+          "end": 114.84,
+          "source": "transcription"
+        },
+        {
+          "word": "I'm",
+          "start": 114.84,
+          "end": 115.0,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 115.0,
+          "end": 115.14,
+          "source": "transcription"
+        },
+        {
+          "word": "victim",
+          "start": 115.14,
+          "end": 115.38,
+          "source": "transcription"
+        },
+        {
+          "word": "of",
+          "start": 115.38,
+          "end": 115.64,
+          "source": "transcription"
+        },
+        {
+          "word": "a",
+          "start": 115.64,
+          "end": 115.74,
+          "source": "transcription"
+        },
+        {
+          "word": "theocratic",
+          "start": 115.74,
+          "end": 116.24,
+          "source": "transcription"
+        },
+        {
+          "word": "agenda",
+          "start": 116.24,
+          "end": 116.8,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 45,
@@ -598,7 +2836,51 @@
       "is_split": false,
       "transcription_start": 116.8,
       "transcription_end": 118.84,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "And",
+          "start": 116.8,
+          "end": 117.22,
+          "source": "transcription"
+        },
+        {
+          "word": "all",
+          "start": 117.22,
+          "end": 117.36,
+          "source": "transcription"
+        },
+        {
+          "word": "they",
+          "start": 117.36,
+          "end": 117.48,
+          "source": "transcription"
+        },
+        {
+          "word": "conceive",
+          "start": 117.48,
+          "end": 117.86,
+          "source": "interpolated"
+        },
+        {
+          "word": "is",
+          "start": 117.86,
+          "end": 118.06,
+          "source": "transcription"
+        },
+        {
+          "word": "dangerous",
+          "start": 118.06,
+          "end": 118.28,
+          "source": "transcription"
+        },
+        {
+          "word": "propaganda",
+          "start": 118.28,
+          "end": 118.84,
+          "source": "transcription"
+        }
+      ]
     },
     {
       "lyric_index": 46,
@@ -611,7 +2893,63 @@
       "is_split": false,
       "transcription_start": 118.84,
       "transcription_end": 121.34,
-      "boundary_quality": 1.0
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "But",
+          "start": 118.84,
+          "end": 119.24,
+          "source": "transcription"
+        },
+        {
+          "word": "I'm",
+          "start": 119.24,
+          "end": 119.52,
+          "source": "transcription"
+        },
+        {
+          "word": "not",
+          "start": 119.52,
+          "end": 119.66,
+          "source": "transcription"
+        },
+        {
+          "word": "a",
+          "start": 119.66,
+          "end": 119.82,
+          "source": "transcription"
+        },
+        {
+          "word": "freak,",
+          "start": 119.82,
+          "end": 120.02,
+          "source": "transcription"
+        },
+        {
+          "word": "a",
+          "start": 120.02,
+          "end": 120.24,
+          "source": "interpolated"
+        },
+        {
+          "word": "gross",
+          "start": 120.24,
+          "end": 120.44,
+          "source": "transcription"
+        },
+        {
+          "word": "genda",
+          "start": 120.44,
+          "end": 121.34,
+          "source": "interpolated"
+        },
+        {
+          "word": "benda",
+          "start": 120.44,
+          "end": 121.34,
+          "source": "interpolated"
+        }
+      ]
     },
     {
       "lyric_index": 47,
@@ -624,7 +2962,63 @@
       "is_split": false,
       "transcription_start": 121.34,
       "transcription_end": 123.8,
-      "boundary_quality": 1.0
+      "boundary_quality": 0.992,
+      "word_timings": [
+        {
+          "word": "I'm",
+          "start": 121.34,
+          "end": 121.74,
+          "source": "transcription"
+        },
+        {
+          "word": "the",
+          "start": 121.74,
+          "end": 121.86,
+          "source": "transcription"
+        },
+        {
+          "word": "prophet",
+          "start": 121.86,
+          "end": 122.08,
+          "source": "transcription"
+        },
+        {
+          "word": "rejected",
+          "start": 122.08,
+          "end": 122.58,
+          "source": "transcription"
+        },
+        {
+          "word": "from",
+          "start": 122.58,
+          "end": 122.9,
+          "source": "transcription"
+        },
+        {
+          "word": "my",
+          "start": 122.9,
+          "end": 123.1,
+          "source": "transcription"
+        },
+        {
+          "word": "own",
+          "start": 123.1,
+          "end": 123.26,
+          "source": "transcription"
+        },
+        {
+          "word": "land,",
+          "start": 123.26,
+          "end": 123.8,
+          "source": "transcription"
+        },
+        {
+          "word": "HA!",
+          "start": 123.8,
+          "end": 123.9,
+          "source": "interpolated"
+        }
+      ]
     },
     {
       "lyric_index": 48,
@@ -632,7 +3026,139 @@
       "matched_segments": [],
       "transcription_text": null,
       "word_match_ratio": 0.0,
-      "is_split": false
+      "is_split": false,
+      "recovery_method": "onset_syllable",
+      "transcription_start": 128.885,
+      "transcription_end": 132.772,
+      "boundary_quality": 1.0,
+      "word_timings": [
+        {
+          "word": "HA",
+          "start": 128.885,
+          "end": 129.173,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 129.173,
+          "end": 129.483,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 129.483,
+          "end": 129.771,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 129.771,
+          "end": 130.059,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 130.059,
+          "end": 130.347,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 130.347,
+          "end": 130.624,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 130.624,
+          "end": 130.933,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 130.933,
+          "end": 131.221,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 131.221,
+          "end": 131.509,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 131.509,
+          "end": 131.808,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 131.808,
+          "end": 132.107,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.107,
+          "end": 132.373,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.373,
+          "end": 132.672,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.672,
+          "end": 132.772,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.672,
+          "end": 132.772,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.672,
+          "end": 132.772,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.672,
+          "end": 132.772,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.672,
+          "end": 132.772,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.672,
+          "end": 132.772,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.672,
+          "end": 132.772,
+          "source": "onset_syllable"
+        },
+        {
+          "word": "HA",
+          "start": 132.672,
+          "end": 132.772,
+          "source": "onset_syllable"
+        }
+      ]
     }
   ],
   "summary": {
@@ -642,8 +3168,9 @@
     "onset_cluster_count": 13,
     "exact_matches": 33,
     "partial_matches": 15,
-    "unmatched_lines": 1,
+    "unmatched_lines": 0,
     "lines_split": 2,
+    "lines_recovered": 1,
     "boundary_avg_quality": 0.99,
     "recommendation": "transcription",
     "recommendation_reason": "Transcription-based alignment",

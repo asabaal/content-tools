@@ -274,10 +274,42 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             syncer = LyricSynchronizer(lines, features)
             result = syncer.synchronize()
 
+            self._merge_alignment_word_timings(result)
+
             self._send_json(result.to_dict())
 
         except Exception as e:
             self._send_json({"error": str(e)}, 500)
+
+    def _merge_alignment_word_timings(self, result) -> None:
+        pdd = _project_data_dir()
+        alignment_path = pdd / "alignment_analysis.json"
+        if not alignment_path.exists():
+            return
+
+        try:
+            alignment_data = json.loads(alignment_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return
+
+        alignment_by_index = {}
+        for m in alignment_data.get("line_matches", []):
+            if m.get("word_timings"):
+                alignment_by_index[m["lyric_index"]] = m
+
+        for li, line in enumerate(result.lines):
+            match = alignment_by_index.get(li)
+            if not match:
+                continue
+            wts = match["word_timings"]
+            if len(wts) != len(line.words):
+                continue
+            for w, wt in zip(line.words, wts):
+                w.start = wt["start"]
+                w.end = wt["end"]
+                w.source = wt["source"]
+            line.start = line.words[0].start
+            line.end = line.words[-1].end
 
     def log_message(self, format, *args):
         print(f"{self.address_string()} - {args[0]}")

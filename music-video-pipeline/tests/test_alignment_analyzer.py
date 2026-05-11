@@ -5,9 +5,15 @@ from audio.features import AudioFeatures, BeatInfo
 from lyrics.alignment_analyzer import (
     AlignmentAnalysis,
     LineMatch,
+    WordTiming,
     _align_lyrics_to_segments,
     _cluster_onsets,
+    _compute_onset_word_timings,
+    _compute_word_timings,
+    _count_syllables,
+    _group_onsets_by_gap,
     _normalize,
+    _recover_unmatched_lines,
     _score_boundary_quality,
     analyze_alignment,
 )
@@ -164,6 +170,7 @@ class TestLineMatch:
             transcription_start=1.0, transcription_end=3.0,
             boundary_quality=0.8,
             is_split=True,
+            recovery_method="onset_syllable",
         )
         d = m.to_dict()
         assert d["transcription_start"] == 1.0
@@ -171,6 +178,7 @@ class TestLineMatch:
         assert d["matched_segments"] == [0, 1]
         assert d["word_match_ratio"] == 0.9
         assert d["boundary_quality"] == 0.8
+        assert d["recovery_method"] == "onset_syllable"
 
 
 class TestAlignmentAnalysis:
@@ -183,6 +191,7 @@ class TestAlignmentAnalysis:
             partial_matches=0,
             unmatched_lines=0,
             lines_split=0,
+            lines_recovered=0,
             boundary_avg_quality=0.0,
             recommendation="none",
             recommendation_reason="No data",
@@ -202,6 +211,7 @@ class TestAlignmentAnalysis:
             partial_matches=0,
             unmatched_lines=0,
             lines_split=0,
+            lines_recovered=0,
             boundary_avg_quality=0.0,
             recommendation="none",
             recommendation_reason="No data",
@@ -348,3 +358,377 @@ class TestAnalyzeAlignment:
         assert m.is_split is True
         assert m.transcription_start == 1.0
         assert m.transcription_end == 5.0
+
+
+class TestCountSyllables:
+    def test_single_syllable_words(self):
+        assert _count_syllables("ha ha ha") == 3
+
+    def test_multi_syllable_words(self):
+        n = _count_syllables("laughing crying")
+        assert n >= 3
+
+    def test_empty(self):
+        assert _count_syllables("") == 0
+
+    def test_ha_line(self):
+        text = " ".join(["HA"] * 21)
+        assert _count_syllables(text) == 21
+
+
+class TestGroupOnsetsByGap:
+    def test_empty(self):
+        groups = _group_onsets_by_gap(np.array([]))
+        assert groups == []
+
+    def test_single(self):
+        groups = _group_onsets_by_gap(np.array([1.0]))
+        assert len(groups) == 1
+        assert len(groups[0]) == 1
+
+    def test_two_groups(self):
+        groups = _group_onsets_by_gap(np.array([1.0, 1.2, 5.0, 5.3]))
+        assert len(groups) == 2
+
+    def test_one_group(self):
+        groups = _group_onsets_by_gap(np.array([1.0, 1.1, 1.2, 1.3]))
+        assert len(groups) == 1
+
+
+class TestRecoverUnmatchedLines:
+    def test_recovers_last_line(self):
+        matches = [
+            LineMatch(lyric_index=0, lyric_text="hello world", matched_segments=[0],
+                      transcription_start=1.0, transcription_end=3.0),
+            LineMatch(lyric_index=1, lyric_text="ha ha ha ha ha", matched_segments=[]),
+        ]
+        onsets = np.array([1.5, 1.8, 4.0, 4.2, 4.4, 4.6, 4.8, 5.0])
+        _recover_unmatched_lines(matches, onsets, 10.0)
+        assert matches[1].recovery_method == "onset_syllable"
+        assert matches[1].transcription_start is not None
+        assert matches[1].transcription_end is not None
+
+    def test_no_onsets_leaves_unmatched(self):
+        matches = [
+            LineMatch(lyric_index=0, lyric_text="hello", matched_segments=[0],
+                      transcription_start=1.0, transcription_end=3.0),
+            LineMatch(lyric_index=1, lyric_text="xyz", matched_segments=[]),
+        ]
+        _recover_unmatched_lines(matches, None, 10.0)
+        assert matches[1].recovery_method is None
+
+    def test_no_onsets_in_range_leaves_unmatched(self):
+        matches = [
+            LineMatch(lyric_index=0, lyric_text="hello", matched_segments=[0],
+                      transcription_start=1.0, transcription_end=3.0),
+            LineMatch(lyric_index=1, lyric_text="xyz unique", matched_segments=[]),
+            LineMatch(lyric_index=2, lyric_text="done", matched_segments=[1],
+                      transcription_start=5.0, transcription_end=7.0),
+        ]
+        onsets = np.array([1.5, 8.0, 8.5])
+        _recover_unmatched_lines(matches, onsets, 15.0)
+        assert matches[1].recovery_method is None
+
+    def test_no_unmatched_does_nothing(self):
+        matches = [
+            LineMatch(lyric_index=0, lyric_text="hello", matched_segments=[0],
+                      transcription_start=1.0, transcription_end=3.0),
+        ]
+        _recover_unmatched_lines(matches, np.array([1.5]), 10.0)
+        assert matches[0].recovery_method is None
+
+    def test_recovers_middle_line(self):
+        matches = [
+            LineMatch(lyric_index=0, lyric_text="hello", matched_segments=[0],
+                      transcription_start=1.0, transcription_end=3.0),
+            LineMatch(lyric_index=1, lyric_text="ha ha ha", matched_segments=[]),
+            LineMatch(lyric_index=2, lyric_text="goodbye", matched_segments=[1],
+                      transcription_start=8.0, transcription_end=10.0),
+        ]
+        onsets = np.array([1.5, 4.0, 4.3, 4.6, 7.0, 8.5])
+        _recover_unmatched_lines(matches, onsets, 15.0)
+        assert matches[1].recovery_method == "onset_syllable"
+        assert matches[1].transcription_start >= 3.0
+        assert matches[1].transcription_end <= 8.0
+
+
+class TestAnalyzeAlignmentRecovery:
+    def test_recovers_unmatched_line_with_onsets(self):
+        features = _make_features(duration=30.0)
+        lines = _make_lines(["hello world", "ha ha ha ha ha", "goodbye world"])
+        segments = [
+            {"text": "hello world", "start": 1.0, "end": 3.0},
+            {"text": "goodbye world", "start": 10.0, "end": 12.0},
+        ]
+        onsets = np.array([1.5, 5.0, 5.3, 5.6, 5.9, 6.2, 10.5])
+        result = analyze_alignment(lines, segments, onsets, features)
+        assert result.lines_recovered == 1
+        m = result.line_matches[1]
+        assert m.recovery_method == "onset_syllable"
+        assert m.transcription_start is not None
+
+    def test_no_recovery_without_onsets(self):
+        features = _make_features()
+        lines = _make_lines(["hello world", "ha ha ha", "goodbye"])
+        segments = [
+            {"text": "hello world", "start": 1.0, "end": 3.0},
+            {"text": "goodbye", "start": 8.0, "end": 10.0},
+        ]
+        result = analyze_alignment(lines, segments, None, features)
+        assert result.lines_recovered == 0
+        assert result.unmatched_lines >= 1
+
+
+class TestWordTiming:
+    def test_to_dict(self):
+        wt = WordTiming(word="hello", start=1.0, end=2.0, source="transcription")
+        d = wt.to_dict()
+        assert d["word"] == "hello"
+        assert d["start"] == 1.0
+        assert d["end"] == 2.0
+        assert d["source"] == "transcription"
+
+
+class TestComputeWordTimings:
+    def _make_segments_with_words(self, *specs):
+        segments = []
+        for text, start, end, words in specs:
+            segments.append({"text": text, "start": start, "end": end, "words": words})
+        return segments
+
+    def test_perfect_match(self):
+        segs = self._make_segments_with_words(
+            ("hello world", 1.0, 3.0, [
+                {"word": "hello", "start": 1.0, "end": 2.0, "probability": 0.9},
+                {"word": "world", "start": 2.0, "end": 3.0, "probability": 0.9},
+            ]),
+        )
+        timings = _compute_word_timings("hello world", [0], segs, 1.0, 3.0)
+        assert timings is not None
+        assert len(timings) == 2
+        assert timings[0].word == "hello"
+        assert timings[0].source == "transcription"
+        assert timings[0].start == 1.0
+        assert timings[1].word == "world"
+        assert timings[1].source == "transcription"
+
+    def test_no_matched_segments(self):
+        timings = _compute_word_timings("hello", [], [], 0.0, 1.0)
+        assert timings is None
+
+    def test_empty_lyric_text(self):
+        segs = self._make_segments_with_words(
+            ("hello", 1.0, 2.0, [{"word": "hello", "start": 1.0, "end": 2.0, "probability": 0.9}]),
+        )
+        timings = _compute_word_timings("", [0], segs, 1.0, 2.0)
+        assert timings is None
+
+    def test_no_transcription_words(self):
+        segs = [{"text": "hello", "start": 1.0, "end": 2.0, "words": []}]
+        timings = _compute_word_timings("hello", [0], segs, 1.0, 2.0)
+        assert timings is None
+
+    def test_interpolated_word(self):
+        segs = self._make_segments_with_words(
+            ("cause my extreme", 1.0, 3.0, [
+                {"word": "cause", "start": 1.0, "end": 1.5, "probability": 0.9},
+                {"word": "my", "start": 1.5, "end": 2.0, "probability": 0.9},
+                {"word": "extreme", "start": 2.0, "end": 3.0, "probability": 0.9},
+            ]),
+        )
+        timings = _compute_word_timings("they caused my extreme anxiety", [0], segs, 1.0, 3.0)
+        assert timings is not None
+        assert len(timings) == 5
+        assert timings[0].word == "they"
+        assert timings[0].source == "interpolated"
+        assert timings[1].word == "caused"
+        assert timings[1].source == "interpolated"
+        assert timings[2].word == "my"
+        assert timings[2].source == "transcription"
+        assert timings[3].word == "extreme"
+        assert timings[3].source == "transcription"
+        assert timings[4].word == "anxiety"
+        assert timings[4].source == "interpolated"
+
+    def test_split_line_across_segments(self):
+        segs = self._make_segments_with_words(
+            ("they caused my", 1.0, 3.0, [
+                {"word": "they", "start": 1.0, "end": 1.5, "probability": 0.9},
+                {"word": "caused", "start": 1.5, "end": 2.0, "probability": 0.9},
+                {"word": "my", "start": 2.0, "end": 3.0, "probability": 0.9},
+            ]),
+            ("extreme anxiety", 3.0, 5.0, [
+                {"word": "extreme", "start": 3.0, "end": 4.0, "probability": 0.9},
+                {"word": "anxiety", "start": 4.0, "end": 5.0, "probability": 0.9},
+            ]),
+        )
+        timings = _compute_word_timings("they caused my extreme anxiety", [0, 1], segs, 1.0, 5.0)
+        assert timings is not None
+        assert len(timings) == 5
+        for t in timings:
+            assert t.source == "transcription"
+        assert timings[0].start == 1.0
+        assert timings[4].end == 5.0
+
+    def test_interpolation_first_word(self):
+        segs = self._make_segments_with_words(
+            ("hello world", 1.0, 3.0, [
+                {"word": "hello", "start": 1.0, "end": 2.0, "probability": 0.9},
+                {"word": "world", "start": 2.0, "end": 3.0, "probability": 0.9},
+            ]),
+        )
+        timings = _compute_word_timings("xyz hello world", [0], segs, 1.0, 3.0)
+        assert timings is not None
+        assert timings[0].word == "xyz"
+        assert timings[0].source == "interpolated"
+        assert timings[0].start == 1.0
+        assert timings[0].end == 1.1
+
+    def test_interpolation_last_word(self):
+        segs = self._make_segments_with_words(
+            ("hello world", 1.0, 3.0, [
+                {"word": "hello", "start": 1.0, "end": 2.0, "probability": 0.9},
+                {"word": "world", "start": 2.0, "end": 3.0, "probability": 0.9},
+            ]),
+        )
+        timings = _compute_word_timings("hello world xyz", [0], segs, 1.0, 3.0)
+        assert timings is not None
+        assert timings[2].word == "xyz"
+        assert timings[2].source == "interpolated"
+        assert timings[2].start == 3.0
+        assert timings[2].end == 3.1
+
+
+class TestComputeOnsetWordTimings:
+    def test_basic(self):
+        onsets = np.array([1.0, 1.2, 1.4, 1.6, 1.8])
+        timings = _compute_onset_word_timings("ha ha ha ha ha", onsets)
+        assert timings is not None
+        assert len(timings) == 5
+        for t in timings:
+            assert t.source == "onset_syllable"
+            assert t.word == "ha"
+
+    def test_empty_onsets(self):
+        timings = _compute_onset_word_timings("hello", np.array([]))
+        assert timings is None
+
+    def test_empty_text(self):
+        timings = _compute_onset_word_timings("", np.array([1.0, 2.0]))
+        assert timings is None
+
+    def test_multi_syllable_words(self):
+        onsets = np.array([1.0, 1.3, 1.6, 2.0, 2.5, 3.0])
+        timings = _compute_onset_word_timings("laughing crying", onsets)
+        assert timings is not None
+        assert len(timings) == 2
+        assert timings[0].word == "laughing"
+        assert timings[1].word == "crying"
+
+    def test_single_word(self):
+        onsets = np.array([1.0, 1.5, 2.0, 2.5])
+        timings = _compute_onset_word_timings("supercalifragilistic", onsets)
+        assert timings is not None
+        assert len(timings) == 1
+        assert timings[0].start == 1.0
+
+
+class TestWordTimingsInAnalysis:
+    def test_word_timings_present_for_matched_lines(self):
+        features = _make_features()
+        lines = _make_lines(["hello world", "foo bar"])
+        segments = [
+            {"text": "hello world", "start": 1.0, "end": 3.0, "words": [
+                {"word": "hello", "start": 1.0, "end": 2.0, "probability": 0.9},
+                {"word": "world", "start": 2.0, "end": 3.0, "probability": 0.9},
+            ]},
+            {"text": "foo bar", "start": 4.0, "end": 6.0, "words": [
+                {"word": "foo", "start": 4.0, "end": 5.0, "probability": 0.9},
+                {"word": "bar", "start": 5.0, "end": 6.0, "probability": 0.9},
+            ]},
+        ]
+        result = analyze_alignment(lines, segments, None, features)
+        m0 = result.line_matches[0]
+        assert m0.word_timings is not None
+        assert len(m0.word_timings) == 2
+        assert m0.word_timings[0].source == "transcription"
+
+    def test_word_timings_in_to_dict(self):
+        features = _make_features()
+        lines = _make_lines(["hello world"])
+        segments = [
+            {"text": "hello world", "start": 1.0, "end": 3.0, "words": [
+                {"word": "hello", "start": 1.0, "end": 2.0, "probability": 0.9},
+                {"word": "world", "start": 2.0, "end": 3.0, "probability": 0.9},
+            ]},
+        ]
+        result = analyze_alignment(lines, segments, None, features)
+        d = result.line_matches[0].to_dict()
+        assert "word_timings" in d
+        assert len(d["word_timings"]) == 2
+        assert d["word_timings"][0]["word"] == "hello"
+        assert d["word_timings"][0]["source"] == "transcription"
+
+    def test_word_timings_none_for_unmatched(self):
+        features = _make_features()
+        lines = _make_lines(["unique text xyz"])
+        segments = [{"text": "totally different", "start": 1.0, "end": 3.0, "words": [
+            {"word": "totally", "start": 1.0, "end": 2.0, "probability": 0.9},
+            {"word": "different", "start": 2.0, "end": 3.0, "probability": 0.9},
+        ]}]
+        result = analyze_alignment(lines, segments, None, features)
+        d = result.line_matches[0].to_dict()
+        assert "word_timings" not in d
+
+    def test_word_timings_absent_when_no_transcription(self):
+        features = _make_features()
+        lines = _make_lines(["hello world"])
+        result = analyze_alignment(lines, None, None, features)
+        d = result.line_matches[0].to_dict()
+        assert "word_timings" not in d
+
+    def test_recovered_line_has_onset_word_timings(self):
+        features = _make_features(duration=30.0)
+        lines = _make_lines(["hello world", "ha ha ha ha ha", "goodbye world"])
+        segments = [
+            {"text": "hello world", "start": 1.0, "end": 3.0, "words": [
+                {"word": "hello", "start": 1.0, "end": 2.0, "probability": 0.9},
+                {"word": "world", "start": 2.0, "end": 3.0, "probability": 0.9},
+            ]},
+            {"text": "goodbye world", "start": 10.0, "end": 12.0, "words": [
+                {"word": "goodbye", "start": 10.0, "end": 11.0, "probability": 0.9},
+                {"word": "world", "start": 11.0, "end": 12.0, "probability": 0.9},
+            ]},
+        ]
+        onsets = np.array([1.5, 5.0, 5.3, 5.6, 5.9, 6.2, 10.5])
+        result = analyze_alignment(lines, segments, onsets, features)
+        m = result.line_matches[1]
+        assert m.word_timings is not None
+        assert len(m.word_timings) == 5
+        assert all(t.source == "onset_syllable" for t in m.word_timings)
+
+    def test_split_line_word_timings(self):
+        features = _make_features()
+        lines = _make_lines(["they caused my extreme anxiety now its chronic"])
+        segments = [
+            {"text": "they caused my extreme anxiety", "start": 1.0, "end": 3.0, "words": [
+                {"word": "they", "start": 1.0, "end": 1.3, "probability": 0.9},
+                {"word": "caused", "start": 1.3, "end": 1.6, "probability": 0.9},
+                {"word": "my", "start": 1.6, "end": 1.8, "probability": 0.9},
+                {"word": "extreme", "start": 1.8, "end": 2.2, "probability": 0.9},
+                {"word": "anxiety", "start": 2.2, "end": 3.0, "probability": 0.9},
+            ]},
+            {"text": "now its chronic", "start": 3.0, "end": 5.0, "words": [
+                {"word": "now", "start": 3.0, "end": 3.3, "probability": 0.9},
+                {"word": "its", "start": 3.3, "end": 3.5, "probability": 0.9},
+                {"word": "chronic", "start": 3.5, "end": 5.0, "probability": 0.9},
+            ]},
+        ]
+        result = analyze_alignment(lines, segments, None, features)
+        m = result.line_matches[0]
+        assert m.word_timings is not None
+        assert len(m.word_timings) == 8
+        assert m.word_timings[0].word == "they"
+        assert m.word_timings[0].source == "transcription"
+        assert m.word_timings[7].word == "chronic"
+        assert m.word_timings[7].source == "transcription"

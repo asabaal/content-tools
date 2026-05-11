@@ -38,6 +38,7 @@ tr.split-row td:first-child{border-left:3px solid #f6ad55}
 tr.exact-row td:first-child{border-left:3px solid #48bb78}
 tr.partial-row td:first-child{border-left:3px solid #6c8cff}
 tr.no-match-row td:first-child{border-left:3px solid #666}
+tr.recovered-row td:first-child{border-left:3px solid #4cc9f0}
 
 .match-bar{display:inline-block;height:8px;border-radius:4px;min-width:4px}
 .match-high{background:#48bb78}
@@ -150,6 +151,10 @@ function renderSummary() {
   if (s.lines_split > 0) {
     splitNote = '<span class="split-note">' + s.lines_split + ' lines span multiple segments</span>';
   }
+  let recovNote = '';
+  if (s.lines_recovered > 0) {
+    recovNote = '<span style="color:#4cc9f0;font-weight:600">' + s.lines_recovered + ' recovered via onsets</span>';
+  }
 
   el.innerHTML = `
     <div class="stat"><span class="stat-label">Lines:</span><span class="stat-val">${s.total_lines}</span></div>
@@ -159,6 +164,7 @@ function renderSummary() {
     <div class="stat"><span class="stat-label">Unmatched:</span><span class="stat-val">${s.unmatched_lines}</span></div>
     <div class="stat"><span class="stat-label">Rec:</span><span class="rec">${s.recommendation}</span></div>
     ${splitNote}
+    ${recovNote}
   `;
 }
 
@@ -180,10 +186,13 @@ function renderTable() {
     else { rowClass = 'no-match-row'; matchClass = 'match-low'; }
 
     if (m.is_split) rowClass = 'split-row';
+    if (m.recovery_method) rowClass = 'recovered-row';
 
     const matchBar = `<span class="match-bar ${matchClass}" style="width:${Math.round(ratio * 50)}px"></span>`;
 
-    const segLabel = m.is_split
+    const segLabel = m.recovery_method
+      ? `<span style="color:#4cc9f0">Recovered</span>`
+      : m.is_split
       ? `<span style="color:#f6ad55">Segs ${m.matched_segments[0]}-${m.matched_segments[m.matched_segments.length-1]}</span>`
       : (m.matched_segments.length ? `Seg ${m.matched_segments[0]}` : '-');
 
