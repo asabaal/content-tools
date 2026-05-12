@@ -231,6 +231,8 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_get_structure()
         elif path == "/api/templates":
             self._handle_get_templates()
+        elif path == "/api/caption-style":
+            self._handle_get_caption_style()
         else:
             super().do_GET()
 
@@ -263,6 +265,8 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_save_structure()
         elif path == "/api/auto-generate-structure":
             self._handle_auto_generate_structure()
+        elif path == "/api/caption-style":
+            self._handle_save_caption_style()
         else:
             self.send_response(404)
             self._cors_headers()
@@ -408,6 +412,27 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._send_json({"sections": [s.to_dict() for s in sections]})
         except Exception as e:
             self._send_json({"error": str(e)}, 500)
+
+    def _handle_get_caption_style(self):
+        pdd = _project_data_dir()
+        cs_path = pdd / "caption_style.json"
+        if cs_path.exists():
+            self._send_json(json.loads(cs_path.read_text(encoding="utf-8")))
+        else:
+            self._send_json({})
+
+    def _handle_save_caption_style(self):
+        body = self._read_body()
+        try:
+            data = json.loads(body)
+            json.dumps(data)
+        except json.JSONDecodeError:
+            self._send_json({"error": "Invalid JSON"}, 400)
+            return
+        out_path = _project_data_dir() / "caption_style.json"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(body)
+        self._send_json({"status": "saved"})
 
     def log_message(self, format, *args):
         print(f"{self.address_string()} - {args[0]}")

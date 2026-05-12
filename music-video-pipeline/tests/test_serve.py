@@ -882,6 +882,69 @@ class TestGenerateSectionsFromLyrics:
         sections = _serve._generate_sections_from_lyrics({"lines": []})
         assert sections == []
 
+
+class TestCaptionStyleEndpoints:
+    def test_get_caption_style_not_found(self, project_with_data):
+        import serve as _serve
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/caption-style")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data == {}
+        finally:
+            _restore_project(original)
+
+    def test_get_caption_style_found(self, project_with_data):
+        import serve as _serve
+        cs = {"font_family": 1, "font_size": 52, "highlight_color": "#ff0000"}
+        (project_with_data.data_dir / "caption_style.json").write_text(
+            json.dumps(cs), encoding="utf-8"
+        )
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/caption-style")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["font_family"] == 1
+            assert data["font_size"] == 52
+            assert data["highlight_color"] == "#ff0000"
+        finally:
+            _restore_project(original)
+
+    def test_save_caption_style(self, project_with_data):
+        import serve as _serve
+        cs = {"font_size": 60, "text_position": "top"}
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler(
+                "/api/caption-style", method="POST",
+                headers={"Content-Type": "application/json", "Content-Length": str(len(json.dumps(cs).encode()))},
+                body=json.dumps(cs).encode(),
+            )
+            h.do_POST()
+            assert (project_with_data.data_dir / "caption_style.json").exists()
+            saved = json.loads((project_with_data.data_dir / "caption_style.json").read_text())
+            assert saved["font_size"] == 60
+            assert saved["text_position"] == "top"
+        finally:
+            _restore_project(original)
+
+    def test_save_caption_style_invalid_json(self, project_with_data):
+        import serve as _serve
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler(
+                "/api/caption-style", method="POST",
+                headers={"Content-Type": "application/json", "Content-Length": "5"},
+                body=b"xxxxx",
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+        finally:
+            _restore_project(original)
+
     def test_single_section(self):
         import serve as _serve
         raw = {

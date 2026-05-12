@@ -39,7 +39,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 
 /* Center: timeline + detail */
 .center-panel{display:flex;flex-direction:column;overflow:hidden}
-.waveform-container{flex:2;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;cursor:crosshair;overflow:hidden;min-height:80px}
+.waveform-container{height:100px;min-height:80px;max-height:140px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;cursor:crosshair;overflow:hidden;flex-shrink:0}
 .waveform-container canvas{width:100%;height:100%;display:block}
 .section-overlay{position:absolute;top:0;height:100%;opacity:0.15;pointer-events:none;transition:opacity .1s}
 .section-overlay.active{opacity:0.3}
@@ -49,10 +49,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .beat-marker{position:absolute;top:0;width:1px;height:100%;background:rgba(76,201,240,0.2);pointer-events:none}
 .playhead{position:absolute;top:0;width:2px;height:100%;background:#4cc9f0;z-index:5;pointer-events:none}
 
-.word-zone{flex:1;background:#0a0a1a;border-bottom:1px solid #2a2a4a;position:relative;overflow:hidden;min-height:60px;cursor:crosshair}
+.word-zone{height:36px;background:#0a0a1a;border-bottom:1px solid #2a2a4a;position:relative;overflow:hidden;cursor:crosshair;flex-shrink:0}
 .word-zone-inner{position:relative;height:100%}
 
-.word{position:absolute;height:40px;background:#2a4a6a;border-radius:4px;padding:0 10px;display:flex;align-items:center;cursor:grab;user-select:none;font-size:12px;color:#fff;white-space:nowrap;transition:background .1s}
+.word{position:absolute;height:24px;background:#2a4a6a;border-radius:3px;padding:0 6px;display:flex;align-items:center;cursor:grab;user-select:none;font-size:11px;color:#fff;white-space:nowrap;transition:background .1s}
 .word:hover{background:#3a5a8a}
 .word.active{background:#4cc9f0;color:#0f0f1a}
 .word.dragging{cursor:grabbing;background:#4a6a9a;z-index:100}
@@ -135,6 +135,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 
 .empty-state{padding:40px 20px;text-align:center;color:#666;font-size:13px}
 
+.preview-panel{background:#0f0f1a;border-top:1px solid #2a2a4a;display:flex;gap:12px;padding:10px 12px;flex:1;overflow:hidden}
+.preview-canvas-wrap{position:relative;flex-shrink:0;background:#000;border-radius:4px;overflow:hidden;border:1px solid #2a2a4a;height:100%;aspect-ratio:16/9}
+.preview-canvas-wrap canvas{display:block;width:100%;height:100%;object-fit:contain}
+.preview-controls{flex:1;overflow-y:auto;min-width:0}
+.preview-controls .ctrl-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.preview-controls .ctrl-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px;min-width:70px;flex-shrink:0}
+.preview-controls .ctrl-value{flex:1;min-width:0}
+.preview-controls select,.preview-controls input[type="number"]{width:100%;background:#16213e;border:1px solid #2a2a4a;color:#e0e0e0;padding:3px 6px;border-radius:3px;font-size:11px}
+.preview-controls select:focus,.preview-controls input:focus{border-color:#4cc9f0;outline:none}
+.preview-controls input[type="color"]{width:32px;height:22px;border:1px solid #2a2a4a;border-radius:3px;cursor:pointer;padding:0;background:none}
+.preview-controls input[type="color"]::-webkit-color-swatch{border:none;border-radius:2px}
+.preview-controls input[type="color"]::-webkit-color-swatch-wrapper{padding:1px}
+.preview-controls input[type="range"]{width:100%;accent-color:#4cc9f0}
+.preview-controls input[type="checkbox"]{accent-color:#4cc9f0}
+.preview-title{font-size:11px;color:#4cc9f0;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+
 ::-webkit-scrollbar{width:8px}
 ::-webkit-scrollbar-track{background:#1a1a2e}
 ::-webkit-scrollbar-thumb{background:#3a3a5a;border-radius:4px}
@@ -157,15 +173,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   <div class="section-list" id="sectionList"></div>
 
   <div class="center-panel">
-    <div style="flex:1;display:flex;flex-direction:column;min-height:0">
+    <div style="display:flex;flex-direction:column;flex-shrink:0">
+      <div class="word-zone" id="wordZone">
+        <div class="word-zone-inner" id="wordOverlay"></div>
+        <div id="playheadWords" class="playhead" style="left:0"></div>
+      </div>
       <div class="waveform-container" id="waveformContainer">
         <canvas id="waveformCanvas"></canvas>
         <div id="sectionOverlays"></div>
         <div id="playheadWave" class="playhead" style="left:0"></div>
-      </div>
-      <div class="word-zone" id="wordZone">
-        <div class="word-zone-inner" id="wordOverlay"></div>
-        <div id="playheadWords" class="playhead" style="left:0"></div>
       </div>
       <div class="time-axis" id="timeAxis"></div>
       <div class="scrollbar-track" id="scrollbarTrack">
@@ -193,8 +209,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
       <span class="current-lyric" id="currentLyric"></span>
     </div>
 
-    <div class="detail-panel" id="detailPanel">
-      <p style="color:#666;font-size:13px">Select a line or section to edit</p>
+    <div class="preview-panel" id="previewPanel">
+      <div class="preview-canvas-wrap" id="previewCanvasWrap">
+        <canvas id="previewCanvas" width="480" height="270"></canvas>
+      </div>
+      <div class="preview-controls" id="previewControls"></div>
     </div>
   </div>
 
@@ -214,6 +233,10 @@ const CORE_TYPES = ['verse','chorus','bridge','intro','outro','pre_chorus','hook
 const ANIM_TYPES = ['fade','slide','scale','typewriter','pulse','none'];
 const TEXTURE_TYPES = ['none','noise_fine','noise_coarse','grain_film','paper_subtle','vignette_soft','vignette_heavy'];
 const GRADIENT_DIRS = ['vertical_top_bottom','vertical_bottom_top','horizontal_left_right','horizontal_right_left','diagonal_tl_br','diagonal_tr_bl','radial_center','radial_top','radial_bottom'];
+const FONT_FAMILIES = ['system-ui','Georgia,"Times New Roman",serif','"Courier New",monospace','Impact,"Arial Black",sans-serif','"Trebuchet MS",sans-serif'];
+const FONT_LABELS = ['System','Serif','Mono','Display','Clean'];
+const CAPTION_MODES = ['word-by-word','line-by-line'];
+const TEXT_POSITIONS = ['top','center','bottom'];
 
 let audioCtx, audioBuffer, sourceNode;
 let lyricsRaw = null;
@@ -252,6 +275,21 @@ let thumbDragStartX = 0;
 let thumbDragStartViewStart = 0;
 let loopLine = false;
 
+let captionStyle = {
+  font_family: 0,
+  font_size: 48,
+  text_color: '#ffffff',
+  highlight_color: '#4cc9f0',
+  text_position: 'center',
+  caption_mode: 'word-by-word',
+  letter_spacing: 1,
+  text_shadow: false,
+  text_shadow_color: '#000000',
+  outline: false,
+  outline_color: '#000000',
+  outline_width: 2
+};
+
 // ===== INIT =====
 
 async function init() {
@@ -265,6 +303,10 @@ async function init() {
       fetch(`${API}/api/structure`).then(r => r.json()).catch(() => null),
       fetch(`${API}/api/templates`).then(r => r.json()),
     ]);
+    try {
+      const csRes = await fetch(`${API}/api/caption-style`).then(r => r.json());
+      if (csRes && !csRes.error) captionStyle = {...captionStyle, ...csRes};
+    } catch (_) {}
 
     if (projRes.error) { setStatus('No project loaded'); return; }
     lyricsRaw = rawRes;
@@ -299,8 +341,10 @@ async function init() {
     renderWordLayer();
     renderSectionOverlays();
     updateScrollbar();
+    renderPreviewControls();
     setStatus(`Loaded: ${getLines().length} lines, ${structureData.sections.length} sections`);
     if (audioPath) await loadAudio();
+    setTimeout(resizePreviewCanvas, 50);
   } catch (e) {
     setStatus('Error: ' + e.message);
   }
@@ -706,8 +750,26 @@ function zoomToLine(lineIdx, context) {
   redrawAll();
 }
 
-function zoomIn() { if (isZoomed && zoomContext > 0) { zoomContext--; zoomToLine(selectedLineIdx, zoomContext); } }
-function zoomOut() { if (isZoomed) { zoomContext++; zoomToLine(selectedLineIdx, zoomContext); } }
+function zoomIn() {
+  const mid = (viewStart + viewEnd) / 2;
+  const newRange = Math.max(2.0, (viewEnd - viewStart) * 0.7);
+  viewStart = mid - newRange / 2;
+  viewEnd = mid + newRange / 2;
+  if (viewStart < 0) { viewStart = 0; viewEnd = newRange; }
+  if (viewEnd > analysisData.duration) { viewEnd = analysisData.duration; viewStart = viewEnd - newRange; }
+  isZoomed = true;
+  redrawAll();
+}
+function zoomOut() {
+  const mid = (viewStart + viewEnd) / 2;
+  const newRange = Math.min(analysisData.duration, (viewEnd - viewStart) * 1.4);
+  viewStart = mid - newRange / 2;
+  viewEnd = mid + newRange / 2;
+  if (viewStart < 0) { viewStart = 0; viewEnd = newRange; }
+  if (viewEnd > analysisData.duration) { viewEnd = analysisData.duration; viewStart = Math.max(0, viewEnd - newRange); }
+  isZoomed = (viewEnd - viewStart) < analysisData.duration * 0.95;
+  redrawAll();
+}
 function fitAll() { viewStart = 0; viewEnd = analysisData.duration; isZoomed = false; document.getElementById('totalTime').textContent = fmtTime(analysisData.duration); redrawAll(); }
 
 function redrawAll() { drawWaveform(); renderTimeAxis(); renderWordLayer(); renderSectionOverlays(); updateScrollbar(); repositionPlayhead(); }
@@ -782,90 +844,88 @@ function renderWordLayer() {
   if (!syncedData || !syncedData.lines.length || !analysisData) return;
   const lines = syncedData.lines;
   const overlay = document.getElementById('wordOverlay');
+  const containerW = overlay.offsetWidth;
   overlay.innerHTML = '';
+  const wordTop = 2;
 
-  if (isZoomed && selectedLineIdx >= 0) {
-    const first = Math.max(0, selectedLineIdx - zoomContext);
-    const last = Math.min(lines.length - 1, selectedLineIdx + zoomContext);
-    let topOffset = 4;
+  structureData.sections.forEach((sec, si) => {
+    const startLine = lines[sec.start_line];
+    const endLine = lines[sec.end_line];
+    if (!startLine || !endLine) return;
+    const left = timeToPct(startLine.start);
+    const right = timeToPct(endLine.end);
+    if (right <= left) return;
+    const color = getLineColor(si);
 
-    for (let i = first; i <= last; i++) {
-      const line = lines[i];
-      const leftPct = timeToPct(line.start);
-      const rightPct = timeToPct(line.end);
-      const lineLeft = leftPct / 100 * overlay.offsetWidth;
-      const lineRight = rightPct / 100 * overlay.offsetWidth;
-      const lineW = lineRight - lineLeft;
-      if (lineW <= 0) continue;
+    const band = document.createElement('div');
+    band.style.cssText = `position:absolute;left:${left}%;width:${right-left}%;top:0;height:100%;background:${color};opacity:0.06;pointer-events:none`;
+    overlay.appendChild(band);
 
-      if (editMode === 'line') {
-        const lhL = document.createElement('div');
-        lhL.className = 'line-handle';
-        lhL.style.cssText = `left:${leftPct}%;top:${topOffset}px;background:rgba(76,201,240,0.1)`;
-        lhL.innerHTML = `<span class="line-handle-time">${fmtTime(line.start)}</span>`;
-        lhL.dataset.lineIdx = i;
-        lhL.dataset.boundary = 'start';
-        lhL.addEventListener('mousedown', handleLineMouseDown);
-        overlay.appendChild(lhL);
-
-        const lhR = document.createElement('div');
-        lhR.className = 'line-handle';
-        lhR.style.cssText = `left:${rightPct}%;top:${topOffset}px;background:rgba(76,201,240,0.1)`;
-        lhR.innerHTML = `<span class="line-handle-time">${fmtTime(line.end)}</span>`;
-        lhR.dataset.lineIdx = i;
-        lhR.dataset.boundary = 'end';
-        lhR.addEventListener('mousedown', handleLineMouseDown);
-        overlay.appendChild(lhR);
-      }
-
-      line.words.forEach((w, j) => {
-        const wL = timeToPct(w.start) / 100 * overlay.offsetWidth;
-        const wR = timeToPct(w.end) / 100 * overlay.offsetWidth;
-        const wW = Math.max(20, wR - wL);
-        const wordEl = document.createElement('div');
-        const src = w.source || 'interpolated';
-        const selClass = i === selectedLineIdx ? ' selected-line' : '';
-        const roClass = editMode === 'line' ? ' readonly' : '';
-        wordEl.className = `word${selClass}${roClass}`;
-        wordEl.style.cssText = `left:${wL}px;width:${wW}px;top:${topOffset}px`;
-        wordEl.dataset.line = i;
-        wordEl.dataset.word = j;
-        wordEl.dataset.start = w.start;
-        wordEl.dataset.end = w.end;
-        wordEl.innerHTML = `<span class="source-dot ${src}"></span><span>${escHtml(w.text)}</span>`;
-        if (editMode === 'word') {
-          const handleL = document.createElement('div');
-          handleL.className = 'word-handle word-handle-left';
-          wordEl.appendChild(handleL);
-          const handleR = document.createElement('div');
-          handleR.className = 'word-handle word-handle-right';
-          wordEl.appendChild(handleR);
-          wordEl.addEventListener('mousedown', handleWordMouseDown);
-        }
-        overlay.appendChild(wordEl);
-      });
-
-      topOffset += 46;
+    if (si > 0) {
+      const bnd = document.createElement('div');
+      bnd.style.cssText = `position:absolute;left:${left}%;top:0;width:2px;height:100%;background:${color};opacity:0.5;pointer-events:none;z-index:4`;
+      overlay.appendChild(bnd);
     }
-  } else {
-    if (isZoomed && selectedLineIdx >= 0 && syncedData) {
-      for (let j = 0; j < lines[selectedLineIdx].words.length; j++) {
-        const w = lines[selectedLineIdx].words[j];
-        const wL = timeToPct(w.start) / 100 * overlay.offsetWidth;
-        const wR = timeToPct(w.end) / 100 * overlay.offsetWidth;
-        const wW = Math.max(20, wR - wL);
-        const wordEl = document.createElement('div');
-        const src = w.source || 'interpolated';
-        wordEl.className = 'word selected-line';
-        wordEl.style.cssText = `left:${wL}px;width:${wW}px;top:10px`;
-        wordEl.dataset.line = selectedLineIdx;
-        wordEl.dataset.word = j;
-        wordEl.dataset.start = w.start;
-        wordEl.dataset.end = w.end;
-        wordEl.innerHTML = `<span class="source-dot ${src}"></span><span>${escHtml(w.text)}</span>`;
-        overlay.appendChild(wordEl);
-      }
+  });
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const leftPct = timeToPct(line.start);
+    const rightPct = timeToPct(line.end);
+    const lineLeft = leftPct / 100 * containerW;
+    const lineRight = rightPct / 100 * containerW;
+    const lineW = lineRight - lineLeft;
+    if (lineW <= 0) continue;
+
+    if (editMode === 'line') {
+      const lhL = document.createElement('div');
+      lhL.className = 'line-handle';
+      lhL.style.cssText = `left:${leftPct}%;top:${wordTop}px;background:rgba(76,201,240,0.1)`;
+      lhL.innerHTML = `<span class="line-handle-time">${fmtTime(line.start)}</span>`;
+      lhL.dataset.lineIdx = i;
+      lhL.dataset.boundary = 'start';
+      lhL.addEventListener('mousedown', handleLineMouseDown);
+      overlay.appendChild(lhL);
+
+      const lhR = document.createElement('div');
+      lhR.className = 'line-handle';
+      lhR.style.cssText = `left:${rightPct}%;top:${wordTop}px;background:rgba(76,201,240,0.1)`;
+      lhR.innerHTML = `<span class="line-handle-time">${fmtTime(line.end)}</span>`;
+      lhR.dataset.lineIdx = i;
+      lhR.dataset.boundary = 'end';
+      lhR.addEventListener('mousedown', handleLineMouseDown);
+      overlay.appendChild(lhR);
     }
+
+    const isSelected = i === selectedLineIdx;
+    const dimClass = selectedLineIdx >= 0 && !isSelected ? ' dim' : '';
+
+    line.words.forEach((w, j) => {
+      const wL = timeToPct(w.start) / 100 * containerW;
+      const wR = timeToPct(w.end) / 100 * containerW;
+      const wW = Math.max(20, wR - wL);
+      const wordEl = document.createElement('div');
+      const src = w.source || 'interpolated';
+      const selClass = isSelected ? ' selected-line' : '';
+      const roClass = editMode === 'line' ? ' readonly' : '';
+      wordEl.className = `word${selClass}${roClass}${dimClass}`;
+      wordEl.style.cssText = `left:${wL}px;width:${wW}px;top:${wordTop}px`;
+      wordEl.dataset.line = i;
+      wordEl.dataset.word = j;
+      wordEl.dataset.start = w.start;
+      wordEl.dataset.end = w.end;
+      wordEl.innerHTML = `<span class="source-dot ${src}"></span><span>${escHtml(w.text)}</span>`;
+      if (editMode === 'word') {
+        const handleL = document.createElement('div');
+        handleL.className = 'word-handle word-handle-left';
+        wordEl.appendChild(handleL);
+        const handleR = document.createElement('div');
+        handleR.className = 'word-handle word-handle-right';
+        wordEl.appendChild(handleR);
+        wordEl.addEventListener('mousedown', handleWordMouseDown);
+      }
+      overlay.appendChild(wordEl);
+    });
   }
 }
 
@@ -877,11 +937,189 @@ function highlightAtTime(t) {
     for (let j = 0; j < words.length; j++) {
       if (t >= words[j].start && t <= words[j].end) {
         document.getElementById('currentLyric').textContent = lines[i].text;
+        renderPreviewFrame(t, i, j);
         return;
       }
     }
   }
+  renderPreviewFrame(t, -1, -1);
   document.getElementById('currentLyric').textContent = '';
+}
+
+function renderPreviewFrame(t, lineIdx, wordIdx) {
+  const canvas = document.getElementById('previewCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  const secIdx = lineIdx >= 0 ? findSectionForLine(lineIdx) : selectedSectionIdx;
+  const sec = secIdx >= 0 && secIdx < structureData.sections.length ? structureData.sections[secIdx] : null;
+  const v = sec ? (sec.visual || {}) : {};
+
+  drawPreviewBackground(ctx, W, H, v);
+
+  if (!syncedData || lineIdx < 0 || lineIdx >= syncedData.lines.length) return;
+  const line = syncedData.lines[lineIdx];
+
+  const fontSize = Math.round((v.font_size || captionStyle.font_size || 48) * (H / 1080));
+  const fontFamily = FONT_FAMILIES[captionStyle.font_family || 0];
+  ctx.font = `bold ${fontSize}px ${fontFamily}`;
+  ctx.textAlign = 'center';
+
+  const posY = captionStyle.text_position === 'top' ? H * 0.2
+    : captionStyle.text_position === 'bottom' ? H * 0.8
+    : H * 0.5;
+
+  const spacing = captionStyle.letter_spacing || 1;
+
+  if (captionStyle.caption_mode === 'line-by-line') {
+    const text = line.text;
+    if (captionStyle.outline) {
+      ctx.strokeStyle = captionStyle.outline_color || '#000000';
+      ctx.lineWidth = (captionStyle.outline_width || 2) * (H / 1080);
+      ctx.lineJoin = 'round';
+      drawSpacedText(ctx, text, W / 2, posY, spacing, true);
+    }
+    if (captionStyle.text_shadow) {
+      ctx.fillStyle = captionStyle.text_shadow_color || '#000000';
+      drawSpacedText(ctx, text, W / 2 + 2, posY + 2, spacing, false);
+    }
+    ctx.fillStyle = v.text_auto_contrast !== false ? getContrastColor(v.background_color || '#1a1a2e') : (v.text_color || captionStyle.text_color);
+    drawSpacedText(ctx, text, W / 2, posY, spacing, false);
+  } else {
+    drawKaraokeWords(ctx, line, wordIdx, W, posY, fontSize, spacing, v, H);
+  }
+}
+
+function drawPreviewBackground(ctx, W, H, v) {
+  if (v.background_type === 'gradient') {
+    const c1 = v.background_color || '#1a1a2e';
+    const c2 = (v.gradient_colors && v.gradient_colors[1]) || '#8E44AD';
+    let grad;
+    const dir = v.gradient_direction || 'vertical_top_bottom';
+    if (dir === 'vertical_top_bottom') grad = ctx.createLinearGradient(0, 0, 0, H);
+    else if (dir === 'vertical_bottom_top') grad = ctx.createLinearGradient(0, H, 0, 0);
+    else if (dir === 'horizontal_left_right') grad = ctx.createLinearGradient(0, 0, W, 0);
+    else if (dir === 'horizontal_right_left') grad = ctx.createLinearGradient(W, 0, 0, 0);
+    else if (dir === 'diagonal_tl_br') grad = ctx.createLinearGradient(0, 0, W, H);
+    else if (dir === 'diagonal_tr_bl') grad = ctx.createLinearGradient(W, 0, 0, H);
+    else if (dir === 'radial_center') grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H)/2);
+    else if (dir === 'radial_top') grad = ctx.createRadialGradient(W/2, 0, 0, W/2, 0, Math.max(W, H)/2);
+    else if (dir === 'radial_bottom') grad = ctx.createRadialGradient(W/2, H, 0, W/2, H, Math.max(W, H)/2);
+    else grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, c1);
+    grad.addColorStop(1, c2);
+    ctx.fillStyle = grad;
+  } else {
+    ctx.fillStyle = v.background_color || '#1a1a2e';
+  }
+  ctx.fillRect(0, 0, W, H);
+}
+
+function drawKaraokeWords(ctx, line, activeWordIdx, W, posY, fontSize, spacing, v, H) {
+  const words = line.words;
+  const fontFamily = FONT_FAMILIES[captionStyle.font_family || 0];
+  const scaleFactor = H / 1080;
+
+  const totalWidth = words.reduce((sum, w) => {
+    ctx.font = `bold ${fontSize}px ${fontFamily}`;
+    return sum + ctx.measureText(w.text).width + (words.length > 1 ? spacing * scaleFactor * 4 : 0);
+  }, 0);
+
+  let x = (W - totalWidth) / 2;
+  const baseColor = v.text_auto_contrast !== false ? getContrastColor(v.background_color || '#1a1a2e') : (v.text_color || captionStyle.text_color);
+  const dimColor = baseColor + '44';
+  const hlColor = captionStyle.highlight_color || '#4cc9f0';
+  const gap = words.length > 1 ? spacing * scaleFactor * 4 : 0;
+
+  words.forEach((w, j) => {
+    ctx.font = `bold ${fontSize}px ${fontFamily}`;
+    const wW = ctx.measureText(w.text).width;
+    const isActive = j === activeWordIdx;
+
+    if (captionStyle.outline) {
+      ctx.strokeStyle = captionStyle.outline_color || '#000000';
+      ctx.lineWidth = (captionStyle.outline_width || 2) * scaleFactor;
+      ctx.lineJoin = 'round';
+      ctx.strokeText(w.text, x + wW / 2, posY);
+    }
+    if (captionStyle.text_shadow) {
+      ctx.fillStyle = captionStyle.text_shadow_color || '#000000';
+      ctx.fillText(w.text, x + wW / 2 + 2 * scaleFactor, posY + 2 * scaleFactor);
+    }
+
+    ctx.fillStyle = isActive ? hlColor : dimColor;
+    ctx.fillText(w.text, x + wW / 2, posY);
+    x += wW + gap;
+  });
+}
+
+function drawSpacedText(ctx, text, cx, cy, spacing, strokeOnly) {
+  if (spacing <= 1) {
+    if (strokeOnly) ctx.strokeText(text, cx, cy);
+    else ctx.fillText(text, cx, cy);
+    return;
+  }
+  const chars = [...text];
+  const charW = chars.map(c => ctx.measureText(c).width);
+  const totalW = charW.reduce((a, b) => a + b, 0) + (chars.length - 1) * spacing;
+  let x = cx - totalW / 2;
+  chars.forEach((c, i) => {
+    if (strokeOnly) ctx.strokeText(c, x + charW[i] / 2, cy);
+    else ctx.fillText(c, x + charW[i] / 2, cy);
+    x += charW[i] + spacing;
+  });
+}
+
+function getContrastColor(bgColor) {
+  const hex = bgColor.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return lum > 0.5 ? '#000000' : '#ffffff';
+}
+
+function renderPreviewControls() {
+  const el = document.getElementById('previewControls');
+  const cs = captionStyle;
+  const fontOpts = FONT_LABELS.map((l, i) => `<option value="${i}"${cs.font_family === i ? ' selected' : ''}>${l}</option>`).join('');
+  const posOpts = TEXT_POSITIONS.map(p => `<option value="${p}"${cs.text_position === p ? ' selected' : ''}>${p}</option>`).join('');
+  const modeOpts = CAPTION_MODES.map(m => `<option value="${m}"${cs.caption_mode === m ? ' selected' : ''}>${m}</option>`).join('');
+
+  el.innerHTML = `
+    <div class="preview-title">Caption Style</div>
+    <div class="ctrl-row"><span class="ctrl-label">Font</span><div class="ctrl-value"><select onchange="csField('font_family',parseInt(this.value))">${fontOpts}</select></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Size</span><div class="ctrl-value"><input type="number" min="24" max="96" value="${cs.font_size}" onchange="csField('font_size',parseInt(this.value))"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Highlight</span><div class="ctrl-value"><input type="color" value="${cs.highlight_color}" onchange="csField('highlight_color',this.value)"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Position</span><div class="ctrl-value"><select onchange="csField('text_position',this.value)">${posOpts}</select></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Mode</span><div class="ctrl-value"><select onchange="csField('caption_mode',this.value)">${modeOpts}</select></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Spacing</span><div class="ctrl-value"><input type="range" min="0" max="8" step="1" value="${cs.letter_spacing}" onchange="csField('letter_spacing',parseInt(this.value))"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Shadow</span><div class="ctrl-value"><input type="checkbox" ${cs.text_shadow?'checked':''} onchange="csField('text_shadow',this.checked)"> ${cs.text_shadow ? `<input type="color" value="${cs.text_shadow_color}" onchange="csField('text_shadow_color',this.value)">` : ''}</div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Outline</span><div class="ctrl-value"><input type="checkbox" ${cs.outline?'checked':''} onchange="csField('outline',this.checked)"> ${cs.outline ? `<input type="color" value="${cs.outline_color}" onchange="csField('outline_color',this.value)"> <input type="number" min="1" max="6" value="${cs.outline_width}" style="width:40px" onchange="csField('outline_width',parseInt(this.value))">` : ''}</div></div>
+  `;
+}
+
+function csField(field, value) {
+  captionStyle[field] = value;
+  markUnsaved();
+  renderPreviewControls();
+  renderPreviewFrame(getPlaybackTime(), -1, -1);
+}
+
+function resizePreviewCanvas() {
+  const wrap = document.getElementById('previewCanvasWrap');
+  const canvas = document.getElementById('previewCanvas');
+  if (!wrap || !canvas) return;
+  const wrapH = wrap.clientHeight;
+  if (wrapH <= 0) return;
+  const h = wrapH;
+  const w = Math.round(h * 16 / 9);
+  canvas.width = w;
+  canvas.height = h;
+  renderPreviewFrame(getPlaybackTime(), -1, -1);
 }
 
 // ===== INTERACTION =====
@@ -890,11 +1128,19 @@ function selectLine(idx) {
   selectedLineIdx = idx;
   selectedSectionIdx = findSectionForLine(idx);
   if (syncedData && idx >= 0 && idx < syncedData.lines.length) {
-    zoomToLine(idx, zoomContext);
-    seekToTime(syncedData.lines[idx].start);
-    renderDetail(syncedData.lines[idx]);
+    const line = syncedData.lines[idx];
+    const lineDur = line.end - line.start;
+    const range = Math.max(lineDur * 3, 10);
+    const mid = (line.start + line.end) / 2;
+    viewStart = Math.max(0, mid - range / 2);
+    viewEnd = Math.min(analysisData.duration, mid + range / 2);
+    isZoomed = (viewEnd - viewStart) < analysisData.duration * 0.95;
+    seekToTime(line.start);
+    redrawAll();
+    renderDetail(line);
     renderSectionList();
     renderPropsPanel();
+    renderPreviewFrame(line.start, idx, 0);
   }
 }
 
@@ -914,6 +1160,7 @@ function selectSection(idx) {
   renderSectionList();
   renderPropsPanel();
   renderDetail(syncedData.lines[midLine]);
+  renderPreviewFrame(syncedData.lines[midLine].start, midLine, 0);
 }
 
 function setMode(mode) {
@@ -925,10 +1172,6 @@ function setMode(mode) {
 }
 
 function renderDetail(line) {
-  const el = document.getElementById('detailPanel');
-  if (!line) { el.innerHTML = ''; return; }
-  if (editMode === 'word') renderDetailWordMode(line, el);
-  else renderDetailLineMode(line, el);
 }
 
 function renderDetailLineMode(line, el) {
@@ -1172,6 +1415,13 @@ async function saveAll() {
       const data = await res.json();
       if (data.error) { setStatus('Error saving structure: ' + data.error); return; }
     }
+    try {
+      await fetch(`${API}/api/caption-style`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(captionStyle),
+      });
+    } catch (_) {}
     markSaved();
   } catch (e) {
     setStatus('Save error: ' + e.message);
@@ -1229,8 +1479,19 @@ document.getElementById('wordZone').addEventListener('click', e => {
 });
 
 document.querySelector('.center-panel').addEventListener('wheel', e => {
-  if (e.deltaY > 0) zoomOut(); else zoomIn();
   e.preventDefault();
+  const container = document.getElementById('waveformContainer');
+  const rect = container.getBoundingClientRect();
+  const xPct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  const cursorTime = viewStart + xPct * (viewEnd - viewStart);
+  const factor = e.deltaY > 0 ? 1.15 : 0.87;
+  const curRange = viewEnd - viewStart;
+  const newRange = Math.max(2.0, Math.min(analysisData.duration, curRange * factor));
+  const newStart = cursorTime - xPct * newRange;
+  viewStart = Math.max(0, Math.min(newStart, analysisData.duration - newRange));
+  viewEnd = viewStart + newRange;
+  isZoomed = (viewEnd - viewStart) < analysisData.duration * 0.95;
+  redrawAll();
 }, {passive: false});
 
 document.getElementById('scrollbarThumb').addEventListener('mousedown', e => {
@@ -1258,11 +1519,11 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'l') toggleLoopLine();
   else if (e.code === 'ArrowLeft') skipBack();
   else if (e.code === 'ArrowRight') skipForward();
-  else if (e.code === 'Escape') { selectedLineIdx = -1; selectedSectionIdx = -1; loopLine = false; fitAll(); renderSectionList(); renderPropsPanel(); document.getElementById('detailPanel').innerHTML = '<p style="color:#666;font-size:13px">Select a line or section to edit</p>'; }
+  else if (e.code === 'Escape') { selectedLineIdx = -1; selectedSectionIdx = -1; loopLine = false; fitAll(); renderSectionList(); renderPropsPanel(); }
 });
 
 window.addEventListener('beforeunload', e => { if (hasUnsavedChanges) { e.preventDefault(); e.returnValue = ''; } });
-window.addEventListener('resize', redrawAll);
+window.addEventListener('resize', () => { redrawAll(); resizePreviewCanvas(); });
 
 init();
 </script>
