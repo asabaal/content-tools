@@ -23,10 +23,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .btn-danger:hover{background:#e55}
 .btn-small{padding:4px 10px;font-size:12px}
 
-.main{display:grid;grid-template-columns:220px 1fr 260px;flex:1;overflow:hidden}
+.main{display:grid;grid-template-columns:260px 1fr 220px;flex:1}
 
-/* Left: section list */
-.section-list{overflow-y:auto;background:#0f0f1a;border-right:1px solid #2a2a4a}
+/* Left: props panel */
+.section-list{overflow-y:auto;background:#0f0f1a;border-left:1px solid #2a2a4a}
 .section-item{padding:8px 12px;cursor:pointer;border-left:3px solid transparent;font-size:13px;transition:background .1s}
 .section-item:hover{background:#16213e}
 .section-item.active{background:#16213e;border-left-color:#4cc9f0}
@@ -115,7 +115,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .source-badge.onset_syllable{background:rgba(76,201,240,0.2);color:#4cc9f0}
 
 /* Right: properties panel */
-.props-panel{overflow-y:auto;background:#0f0f1a;border-left:1px solid #2a2a4a;padding:12px}
+.props-panel{overflow-y:auto;background:#0f0f1a;border-right:1px solid #2a2a4a;padding:12px}
 .props-section{margin-bottom:16px}
 .props-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .props-value{margin-bottom:8px}
@@ -123,9 +123,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .props-input:focus{border-color:#4cc9f0;outline:none}
 .props-select{width:100%;background:#16213e;border:1px solid #2a2a4a;color:#e0e0e0;padding:4px 8px;border-radius:3px;font-size:12px;cursor:pointer}
 .props-select:focus{border-color:#4cc9f0;outline:none}
-.props-color{width:40px;height:28px;border:1px solid #2a2a4a;border-radius:3px;cursor:pointer;padding:0;background:none}
-.props-color::-webkit-color-swatch{border:none;border-radius:2px}
-.props-color::-webkit-color-swatch-wrapper{padding:2px}
+.color-swatch{-webkit-appearance:none;appearance:none;width:36px;height:24px;border:1px solid #2a2a4a;border-radius:3px;cursor:pointer;padding:0;background:none;flex-shrink:0}
+.color-swatch::-webkit-color-swatch-wrapper{padding:2px}
+.color-swatch::-webkit-color-swatch{border:none;border-radius:2px}
+.color-swatch::-moz-color-swatch{border:none;border-radius:2px}
+.color-swatch:hover{border-color:#4cc9f0}
 .props-range{width:100%;accent-color:#4cc9f0}
 .props-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .props-row .props-label{margin-bottom:0;min-width:70px}
@@ -144,9 +146,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .preview-controls .ctrl-value{flex:1;min-width:0}
 .preview-controls select,.preview-controls input[type="number"]{width:100%;background:#16213e;border:1px solid #2a2a4a;color:#e0e0e0;padding:3px 6px;border-radius:3px;font-size:11px}
 .preview-controls select:focus,.preview-controls input:focus{border-color:#4cc9f0;outline:none}
-.preview-controls input[type="color"]{width:32px;height:22px;border:1px solid #2a2a4a;border-radius:3px;cursor:pointer;padding:0;background:none}
-.preview-controls input[type="color"]::-webkit-color-swatch{border:none;border-radius:2px}
-.preview-controls input[type="color"]::-webkit-color-swatch-wrapper{padding:1px}
+.preview-controls .color-swatch{width:28px;height:20px}
 .preview-controls input[type="range"]{width:100%;accent-color:#4cc9f0}
 .preview-controls input[type="checkbox"]{accent-color:#4cc9f0}
 .preview-title{font-size:11px;color:#4cc9f0;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
@@ -170,7 +170,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 </div>
 
 <div class="main">
-  <div class="section-list" id="sectionList"></div>
+  <div class="props-panel" id="propsPanel">
+    <p style="color:#666;font-size:13px">Select a section to edit its properties</p>
+  </div>
 
   <div class="center-panel">
     <div style="display:flex;flex-direction:column;flex-shrink:0">
@@ -217,9 +219,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
     </div>
   </div>
 
-  <div class="props-panel" id="propsPanel">
-    <p style="color:#666;font-size:13px">Select a section to edit its properties</p>
-  </div>
+  <div class="section-list" id="sectionList"></div>
 </div>
 
 </div>
@@ -231,12 +231,32 @@ const MIN_LINE_DURATION = 0.5;
 const SECTION_COLORS = ['#4cc9f0','#48bb78','#f6ad55','#6c8cff','#f66','#e056a0','#56e0c0','#c0e056','#ff8c42','#42c6ff'];
 const CORE_TYPES = ['verse','chorus','bridge','intro','outro','pre_chorus','hook','interlude','instrumental'];
 const ANIM_TYPES = ['fade','slide','scale','typewriter','pulse','none'];
+const BG_ANIM_TYPES = ['none','drift','flow','pulse','distortion','parallax'];
 const TEXTURE_TYPES = ['none','noise_fine','noise_coarse','grain_film','paper_subtle','vignette_soft','vignette_heavy'];
+const TEXTURE_BLEND_MODES = ['normal','multiply','overlay'];
 const GRADIENT_DIRS = ['vertical_top_bottom','vertical_bottom_top','horizontal_left_right','horizontal_right_left','diagonal_tl_br','diagonal_tr_bl','radial_center','radial_top','radial_bottom'];
 const FONT_FAMILIES = ['system-ui','Georgia,"Times New Roman",serif','"Courier New",monospace','Impact,"Arial Black",sans-serif','"Trebuchet MS",sans-serif'];
 const FONT_LABELS = ['System','Serif','Mono','Display','Clean'];
 const CAPTION_MODES = ['word-by-word','line-by-line'];
 const TEXT_POSITIONS = ['top','center','bottom'];
+
+const COLOR_PRESETS = [
+  {name:'Blue',bg:'#4A90E2'},
+  {name:'Warm',bg:'#E67E22'},
+  {name:'Teal',bg:'#27AE60'},
+  {name:'Purple',bg:'#8E44AD'},
+  {name:'Red',bg:'#C0392B'},
+  {name:'Navy',bg:'#1A1A2E'},
+  {name:'Charcoal',bg:'#2D2D2D'},
+  {name:'Cream',bg:'#F5E6CC'},
+];
+
+const RECIPES = {
+  cinematic: {name:'Cinematic',background_type:'gradient',background_color:'#1A1A2E',gradient_colors:['#1A1A2E','#16213E','#0F3460'],gradient_direction:'diagonal_tl_br',texture_type:'vignette_heavy',texture_opacity:0.6,texture_blend_mode:'multiply'},
+  editorial: {name:'Editorial',background_type:'solid',background_color:'#E67E22',texture_type:'paper_subtle',texture_opacity:0.25,texture_blend_mode:'multiply'},
+  ambient_loop: {name:'Ambient',background_type:'gradient',background_color:'#27AE60',gradient_colors:['#27AE60','#1A7A4A','#0D3B25'],gradient_direction:'radial_center',texture_type:'none'},
+  high_contrast: {name:'Contrast',background_type:'solid',background_color:'#C0392B',texture_type:'grain_film',texture_opacity:0.20,texture_blend_mode:'overlay'},
+};
 
 let audioCtx, audioBuffer, sourceNode;
 let lyricsRaw = null;
@@ -247,11 +267,41 @@ let beatTimes = [];
 let audioPath = '';
 let structureData = {sections:[]};
 let templates = {};
+let bgImageCache = {};
 let isPlaying = false;
 let startTime = 0;
 let pauseOffset = 0;
 let selectedLineIdx = -1;
 let selectedSectionIdx = -1;
+let globalVisual = {
+  background_type: 'solid',
+  background_color: '#1a1a2e',
+  texture_type: 'none',
+  texture_opacity: 0.15,
+  texture_blend_mode: 'multiply',
+  text_auto_contrast: true,
+  font_size: 48,
+  animation_type: 'fade',
+  animation_speed: 1,
+  bg_animation_type: 'none',
+  bg_animation_intensity: 0.2,
+  bg_animation_speed: 1,
+};
+
+function getEffectiveVisual() {
+  if (selectedSectionIdx >= 0 && structureData.sections[selectedSectionIdx]) {
+    return { ...globalVisual, ...(structureData.sections[selectedSectionIdx].visual || {}) };
+  }
+  return { ...globalVisual };
+}
+
+function visualTarget() {
+  if (selectedSectionIdx >= 0 && structureData.sections[selectedSectionIdx]) {
+    if (!structureData.sections[selectedSectionIdx].visual) structureData.sections[selectedSectionIdx].visual = {};
+    return structureData.sections[selectedSectionIdx].visual;
+  }
+  return globalVisual;
+}
 let animFrame = null;
 let hasUnsavedChanges = false;
 let viewStart = 0;
@@ -305,7 +355,10 @@ async function init() {
     ]);
     try {
       const csRes = await fetch(`${API}/api/caption-style`).then(r => r.json());
-      if (csRes && !csRes.error) captionStyle = {...captionStyle, ...csRes};
+      if (csRes && !csRes.error) {
+        captionStyle = {...captionStyle, ...csRes};
+        if (csRes.globalVisual) globalVisual = {...globalVisual, ...csRes.globalVisual};
+      }
     } catch (_) {}
 
     if (projRes.error) { setStatus('No project loaded'); return; }
@@ -335,13 +388,16 @@ async function init() {
     viewStart = 0;
     viewEnd = analysisData.duration || 0;
     document.getElementById('totalTime').textContent = fmtTime(analysisData.duration || 0);
+    if (structureData.sections.length > 0 && selectedSectionIdx < 0) selectedSectionIdx = 0;
     renderSectionList();
     drawWaveform();
     renderTimeAxis();
     renderWordLayer();
     renderSectionOverlays();
     updateScrollbar();
+    renderPropsPanel();
     renderPreviewControls();
+    renderPreviewFrame(0, 0, 0);
     setStatus(`Loaded: ${getLines().length} lines, ${structureData.sections.length} sections`);
     if (audioPath) await loadAudio();
     setTimeout(resizePreviewCanvas, 50);
@@ -501,146 +557,282 @@ function renderSectionOverlays() {
 
 function renderPropsPanel() {
   const el = document.getElementById('propsPanel');
-  if (selectedSectionIdx < 0 || selectedSectionIdx >= structureData.sections.length) {
-    el.innerHTML = '<p style="color:#666;font-size:13px">Select a section to edit its properties</p>';
-    return;
-  }
-  const sec = structureData.sections[selectedSectionIdx];
-  const v = sec.visual || {};
-  const color = getLineColor(selectedSectionIdx);
+  const v = getEffectiveVisual();
+  const hasSec = selectedSectionIdx >= 0 && selectedSectionIdx < structureData.sections.length;
+  const si = selectedSectionIdx;
+  const sec = hasSec ? structureData.sections[si] : null;
+  const color = hasSec ? getLineColor(si) : '#4cc9f0';
+  const header = hasSec ? escHtml(sec.name) : 'Global Style';
 
-  let typeOptions = CORE_TYPES.map(t =>
-    `<option value="${t}"${sec.type === t ? ' selected' : ''}>${t.replace(/_/g,' ')}</option>`
-  ).join('') + `<option value="custom"${sec.type === 'custom' ? ' selected' : ''}>Custom...</option>`;
+  const animOpts = ANIM_TYPES.map(t => `<option value="${t}"${v.animation_type===t?' selected':''}>${t}</option>`).join('');
+  const bgAnimOpts = BG_ANIM_TYPES.map(t => `<option value="${t}"${v.bg_animation_type===t?' selected':''}>${t.replace(/_/g,' ')}</option>`).join('');
+  const texOpts = TEXTURE_TYPES.map(t => `<option value="${t}"${v.texture_type===t?' selected':''}>${t.replace(/_/g,' ')}</option>`).join('');
+  const blendOpts = TEXTURE_BLEND_MODES.map(t => `<option value="${t}"${v.texture_blend_mode===t?' selected':''}>${t}</option>`).join('');
+  const gradOpts = GRADIENT_DIRS.map(t => `<option value="${t}"${v.gradient_direction===t?' selected':''}>${t.replace(/_/g,' ')}</option>`).join('');
+  const gradColors = v.gradient_colors || [v.background_color||'#1a1a2e', '#8E44AD'];
+  const isGrad = v.background_type === 'gradient';
+  const hasBgImage = !!v.background_image;
 
-  let templateOptions = Object.keys(templates).map(t =>
-    `<option value="${t}">${t}</option>`
+  const presetSwatches = COLOR_PRESETS.map(p =>
+    `<div style="width:22px;height:22px;border-radius:3px;background:${p.bg};cursor:pointer;border:1px solid #2a2a4a;flex-shrink:0" title="${p.name}" onclick="applyPreset('${p.bg}')"></div>`
+  ).join('');
+  const recipeBtns = Object.entries(RECIPES).map(([k,r]) =>
+    `<button class="btn btn-small" onclick="applyRecipe('${k}')">${r.name}</button>`
   ).join('');
 
-  let animOptions = ANIM_TYPES.map(t =>
-    `<option value="${t}"${v.animation_type === t ? ' selected' : ''}>${t}</option>`
-  ).join('');
-
-  let textureOptions = TEXTURE_TYPES.map(t =>
-    `<option value="${t}"${v.texture_type === t ? ' selected' : ''}>${t.replace(/_/g,' ')}</option>`
-  ).join('');
-
-  let gradDirOptions = GRADIENT_DIRS.map(t =>
-    `<option value="${t}"${v.gradient_direction === t ? ' selected' : ''}>${t.replace(/_/g,' ')}</option>`
-  ).join('');
-
-  el.innerHTML = `
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-      <span style="width:14px;height:14px;border-radius:3px;background:${color};flex-shrink:0"></span>
-      <div class="detail-header" style="margin:0">${escHtml(sec.name)}</div>
-    </div>
+  let secHeader = '';
+  if (hasSec) {
+    const typeOpts = CORE_TYPES.map(t => `<option value="${t}"${sec.type===t?' selected':''}>${t.replace(/_/g,' ')}</option>`).join('') + `<option value="custom"${sec.type==='custom'?' selected':''}>Custom...</option>`;
+    const tmplOpts = Object.keys(templates).map(t => `<option value="${t}">${t}</option>`).join('');
+    secHeader = `
     <div class="props-section">
       <div class="props-label">Section Type</div>
       <div class="props-value">
-        <select class="props-select" onchange="updateSectionType(${selectedSectionIdx},this.value)">${typeOptions}</select>
-        ${sec.type === 'custom' ? `<input class="props-input" style="margin-top:4px" value="${escHtml(sec.custom_type||'')}" onchange="structureData.sections[${selectedSectionIdx}].custom_type=this.value;structureData.sections[${selectedSectionIdx}].name=this.value;markUnsaved();renderSectionList()">` : ''}
+        <select class="props-select" onchange="updateSectionType(${si},this.value)">${typeOpts}</select>
+        ${sec.type==='custom'?`<input class="props-input" style="margin-top:4px" value="${escHtml(sec.custom_type||'')}" onchange="structureData.sections[${si}].custom_type=this.value;structureData.sections[${si}].name=this.value;markUnsaved();renderSectionList()">`:''}
       </div>
       <div class="props-label">Template</div>
       <div class="props-value">
-        <select class="props-select" onchange="applyTemplate(${selectedSectionIdx},this.value)"><option value="">-- pick template --</option>${templateOptions}</select>
+        <select class="props-select" onchange="applyTemplate(${si},this.value)"><option value="">-- pick --</option>${tmplOpts}</select>
       </div>
     </div>
-    <hr class="props-divider">
-    <div class="props-section">
-      <div class="props-label">Background</div>
-      <div class="props-row">
-        <span class="props-label">Type</span>
-        <div class="props-value"><select class="props-select" onchange="secField(${selectedSectionIdx},'background_type',this.value);renderPropsPanel()">
-          <option value="solid"${v.background_type!=='gradient'?' selected':''}>Solid</option>
-          <option value="gradient"${v.background_type==='gradient'?' selected':''}>Gradient</option>
-        </select></div>
-      </div>
-      <div class="props-row">
-        <span class="props-label">Color</span>
-        <div class="props-value"><input type="color" class="props-color" value="${v.background_color||'#1a1a2e'}" onchange="secField(${selectedSectionIdx},'background_color',this.value);renderSectionOverlays()"></div>
-      </div>
-      ${v.background_type === 'gradient' ? `
-      <div class="props-row">
-        <span class="props-label">Grad 2</span>
-        <div class="props-value"><input type="color" class="props-color" value="${(v.gradient_colors&&v.gradient_colors[1])||'#8E44AD'}" onchange="setGradientColor2(${selectedSectionIdx},this.value);renderSectionOverlays()"></div>
-      </div>
-      <div class="props-row">
-        <span class="props-label">Direction</span>
-        <div class="props-value"><select class="props-select" onchange="secField(${selectedSectionIdx},'gradient_direction',this.value)">${gradDirOptions}</select></div>
-      </div>
-      ` : ''}
-    </div>
-    <hr class="props-divider">
-    <div class="props-section">
-      <div class="props-label">Texture</div>
-      <div class="props-value"><select class="props-select" onchange="secField(${selectedSectionIdx},'texture_type',this.value)">${textureOptions}</select></div>
-      <div class="props-row" style="margin-top:4px">
-        <span class="props-label">Opacity</span>
-        <div class="props-value"><input type="range" class="props-range" min="0" max="0.5" step="0.05" value="${v.texture_opacity||0.15}" onchange="secField(${selectedSectionIdx},'texture_opacity',parseFloat(this.value))"></div>
-      </div>
-    </div>
-    <hr class="props-divider">
-    <div class="props-section">
-      <div class="props-label">Text</div>
-      <div class="props-row">
-        <span class="props-label">Auto</span>
-        <div class="props-value"><input type="checkbox" ${v.text_auto_contrast !== false ? 'checked' : ''} onchange="secField(${selectedSectionIdx},'text_auto_contrast',this.checked);renderPropsPanel()"></div>
-      </div>
-      ${!v.text_auto_contrast ? `<div class="props-row"><span class="props-label">Color</span><div class="props-value"><input type="color" class="props-color" value="${v.text_color||'#ffffff'}" onchange="secField(${selectedSectionIdx},'text_color',this.value)"></div></div>` : ''}
-      <div class="props-row">
-        <span class="props-label">Size</span>
-        <div class="props-value"><input class="props-input" type="number" min="24" max="96" value="${v.font_size||48}" onchange="secField(${selectedSectionIdx},'font_size',parseInt(this.value))"></div>
-      </div>
-    </div>
-    <hr class="props-divider">
-    <div class="props-section">
-      <div class="props-label">Animation</div>
-      <div class="props-value"><select class="props-select" onchange="secField(${selectedSectionIdx},'animation_type',this.value)">${animOptions}</select></div>
-      <div class="props-row" style="margin-top:4px">
-        <span class="props-label">Speed</span>
-        <div class="props-value"><input type="range" class="props-range" min="0.1" max="2" step="0.1" value="${v.animation_speed||1}" onchange="secField(${selectedSectionIdx},'animation_speed',parseFloat(this.value))"></div>
-      </div>
-    </div>
-    <hr class="props-divider">
-    <div class="props-section">
-      <div class="props-label">Reactivity</div>
-      ${['vocals','drums','bass','synth','energy'].map(r => {
-        const checked = (v.reactivity || ['vocals']).includes(r);
-        return `<div class="props-row"><span class="props-label">${r}</span><div class="props-value"><input type="checkbox" ${checked?'checked':''} onchange="toggleReactivity(${selectedSectionIdx},'${r}',this.checked)"></div></div>`;
-      }).join('')}
-    </div>
+    <hr class="props-divider">`;
+  }
+
+  let gradColorRows = '';
+  if (isGrad) {
+    for (let ci = 0; ci < Math.max(2, gradColors.length); ci++) {
+      const cv = gradColors[ci] || '#888888';
+      gradColorRows += `<div class="props-row"><span class="props-label">Color ${ci+1}</span><div class="props-value" style="display:flex;gap:4px;align-items:center"><input type="color" class="color-swatch" value="${cv}" onchange="setGradientColor(${ci},this.value)">${ci>=2?`<button class="btn btn-small btn-danger" style="padding:2px 6px;font-size:10px" onclick="removeGradientColor(${ci})">×</button>`:''}</div></div>`;
+    }
+    gradColorRows += `<div class="props-row"><span class="props-label"></span><div class="props-value"><button class="btn btn-small" style="font-size:10px" onclick="addGradientColor()">+ Add color</button> <button class="btn btn-small" style="font-size:10px" onclick="autoCompanion()">Auto companion</button></div></div>`;
+    gradColorRows += `<div class="props-row"><span class="props-label">Direction</span><div class="props-value"><select class="props-select" onchange="visField('gradient_direction',this.value)">${gradOpts}</select></div></div>`;
+  }
+
+  let secActions = '';
+  if (hasSec) {
+    secActions = `
     <hr class="props-divider">
     <div class="props-section">
       <div class="props-label">Actions</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="btn btn-small" onclick="addSection(${selectedSectionIdx})">Split Here</button>
-        <button class="btn btn-small btn-danger" onclick="if(confirm('Delete this section?'))deleteSection(${selectedSectionIdx})">Delete</button>
+        <button class="btn btn-small" onclick="addSection(${si})">Split Here</button>
+        <button class="btn btn-small btn-danger" onclick="if(confirm('Delete this section?'))deleteSection(${si})">Delete</button>
+      </div>
+    </div>`;
+  }
+
+  el.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <span style="width:14px;height:14px;border-radius:3px;background:${color};flex-shrink:0"></span>
+      <div class="detail-header" style="margin:0">${header}</div>
+      ${hasSec ? '' : '<span style="font-size:10px;color:#888;margin-left:auto">applies to all sections</span>'}
+    </div>
+
+    ${secHeader}
+
+    <div class="props-section">
+      <div class="props-label">Style Presets</div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px">${presetSwatches}</div>
+      <div class="props-label">Recipes</div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap">${recipeBtns}</div>
+    </div>
+    <hr class="props-divider">
+
+    <div class="props-section">
+      <div class="props-label">Background</div>
+      <div class="props-row">
+        <span class="props-label">Type</span>
+        <div class="props-value"><select class="props-select" onchange="visField('background_type',this.value);initGradColors();renderPropsPanel()">
+          <option value="solid"${!isGrad&&!hasBgImage?' selected':''}>Solid</option>
+          <option value="gradient"${isGrad?' selected':''}>Gradient</option>
+          <option value="image"${hasBgImage?' selected':''}>Image</option>
+        </select></div>
+      </div>
+      <div class="props-row">
+        <span class="props-label">Color</span>
+        <div class="props-value"><input type="color" class="color-swatch" value="${v.background_color||'#1a1a2e'}" onchange="visField('background_color',this.value);renderPropsPanel()"></div>
+      </div>
+      ${isGrad ? gradColorRows : ''}
+      ${v.background_type==='image' ? `
+      <div class="props-row">
+        <span class="props-label">Image</span>
+        <div class="props-value"><input type="file" accept="image/*" onchange="uploadBgImage(this)" style="font-size:11px"></div>
+      </div>
+      ${hasBgImage ? `
+      <div class="props-row"><span class="props-label">Opacity</span><div class="props-value"><input type="range" class="props-range" min="0" max="1" step="0.05" value="${v.background_image_opacity||1}" onchange="visField('background_image_opacity',parseFloat(this.value))"></div></div>
+      <div class="props-row"><span class="props-label">Fit</span><div class="props-value"><select class="props-select" onchange="visField('background_image_fit',this.value)">
+        <option value="cover"${v.background_image_fit!=='contain'?' selected':''}>Cover</option>
+        <option value="contain"${v.background_image_fit==='contain'?' selected':''}>Contain</option>
+      </select></div></div>
+      ` : ''}
+      ` : ''}
+    </div>
+    <hr class="props-divider">
+
+    <div class="props-section">
+      <div class="props-label">Texture</div>
+      <div class="props-value"><select class="props-select" onchange="visField('texture_type',this.value);renderPropsPanel()">${texOpts}</select></div>
+      ${v.texture_type && v.texture_type !== 'none' ? `
+      <div class="props-row"><span class="props-label">Opacity</span><div class="props-value"><input type="range" class="props-range" min="0" max="0.6" step="0.05" value="${v.texture_opacity||0.15}" onchange="visField('texture_opacity',parseFloat(this.value))"></div></div>
+      <div class="props-row"><span class="props-label">Blend</span><div class="props-value"><select class="props-select" onchange="visField('texture_blend_mode',this.value)">${blendOpts}</select></div></div>
+      ` : ''}
+    </div>
+    <hr class="props-divider">
+
+    <div class="props-section">
+      <div class="props-label">Text</div>
+      <div class="props-row">
+        <span class="props-label">Auto</span>
+        <div class="props-value"><input type="checkbox" ${v.text_auto_contrast!==false?'checked':''} onchange="visField('text_auto_contrast',this.checked);renderPropsPanel()"></div>
+      </div>
+      ${v.text_auto_contrast===false?`<div class="props-row"><span class="props-label">Color</span><div class="props-value"><input type="color" class="color-swatch" value="${v.text_color||'#ffffff'}" onchange="visField('text_color',this.value)"></div></div>`:''}
+      <div class="props-row">
+        <span class="props-label">Size</span>
+        <div class="props-value"><input class="props-input" type="number" min="24" max="96" value="${v.font_size||48}" onchange="visField('font_size',parseInt(this.value))"></div>
       </div>
     </div>
+    <hr class="props-divider">
+
+    <div class="props-section">
+      <div class="props-label">Caption Animation</div>
+      <div class="props-value"><select class="props-select" onchange="visField('animation_type',this.value)">${animOpts}</select></div>
+      <div class="props-row"><span class="props-label">Speed</span><div class="props-value"><input type="range" class="props-range" min="0.1" max="2" step="0.1" value="${v.animation_speed||1}" onchange="visField('animation_speed',parseFloat(this.value))"></div></div>
+    </div>
+    <hr class="props-divider">
+
+    <div class="props-section">
+      <div class="props-label">Background Animation</div>
+      <div class="props-value"><select class="props-select" onchange="visField('bg_animation_type',this.value);renderPropsPanel()">${bgAnimOpts}</select></div>
+      ${v.bg_animation_type && v.bg_animation_type !== 'none' ? `
+      <div class="props-row"><span class="props-label">Intensity</span><div class="props-value"><input type="range" class="props-range" min="0.05" max="0.5" step="0.05" value="${v.bg_animation_intensity||0.2}" onchange="visField('bg_animation_intensity',parseFloat(this.value))"></div></div>
+      <div class="props-row"><span class="props-label">Speed</span><div class="props-value"><input type="range" class="props-range" min="0.1" max="2" step="0.1" value="${v.bg_animation_speed||1}" onchange="visField('bg_animation_speed',parseFloat(this.value))"></div></div>
+      ` : ''}
+    </div>
+    <hr class="props-divider">
+
+    <div class="props-section">
+      <div class="props-label">Reactivity</div>
+      ${['vocals','drums','bass','synth','energy'].map(r => {
+        const checked = (v.reactivity||['vocals']).includes(r);
+        return `<div class="props-row"><span class="props-label">${r}</span><div class="props-value"><input type="checkbox" ${checked?'checked':''} onchange="toggleReactivity('${r}',this.checked)"></div></div>`;
+      }).join('')}
+    </div>
+    ${secActions}
   `;
 }
 
-function secField(idx, field, value) {
-  if (!structureData.sections[idx]) return;
-  if (!structureData.sections[idx].visual) structureData.sections[idx].visual = {};
-  structureData.sections[idx].visual[field] = value;
+function visField(field, value) {
+  const t = visualTarget();
+  t[field] = value;
+  markUnsaved();
+  renderPreviewFrame(getPlaybackTime(), -1, -1);
+}
+
+function toggleReactivity(stem, checked) {
+  const t = visualTarget();
+  if (!t.reactivity) t.reactivity = [];
+  if (checked && !t.reactivity.includes(stem)) t.reactivity.push(stem);
+  if (!checked) t.reactivity = t.reactivity.filter(r => r !== stem);
   markUnsaved();
 }
 
-function toggleReactivity(idx, stem, checked) {
-  if (!structureData.sections[idx]) return;
-  const v = structureData.sections[idx].visual;
-  if (!v.reactivity) v.reactivity = [];
-  if (checked && !v.reactivity.includes(stem)) v.reactivity.push(stem);
-  if (!checked) v.reactivity = v.reactivity.filter(r => r !== stem);
+function setGradientColor(ci, color) {
+  const t = visualTarget();
+  if (!t.gradient_colors) t.gradient_colors = [t.background_color || '#1a1a2e', '#8E44AD'];
+  while (t.gradient_colors.length <= ci) t.gradient_colors.push('#888888');
+  t.gradient_colors[ci] = color;
   markUnsaved();
+  renderPropsPanel();
 }
 
-function setGradientColor2(idx, color) {
-  if (!structureData.sections[idx]) return;
-  const v = structureData.sections[idx].visual;
-  v.gradient_colors = [v.background_color || '#1a1a2e', color];
+function addGradientColor() {
+  const t = visualTarget();
+  if (!t.gradient_colors) t.gradient_colors = [t.background_color || '#1a1a2e', '#8E44AD'];
+  t.gradient_colors.push(companionColor(t.gradient_colors[t.gradient_colors.length - 1]));
   markUnsaved();
+  renderPropsPanel();
+}
+
+function removeGradientColor(ci) {
+  const t = visualTarget();
+  if (t.gradient_colors && t.gradient_colors.length > 2) {
+    t.gradient_colors.splice(ci, 1);
+    markUnsaved();
+    renderPropsPanel();
+  }
+}
+
+function initGradColors() {
+  const t = visualTarget();
+  if (t.background_type === 'gradient' && !t.gradient_colors) {
+    t.gradient_colors = [t.background_color || '#1a1a2e', companionColor(t.background_color || '#1a1a2e')];
+  }
+}
+
+function autoCompanion() {
+  const t = visualTarget();
+  if (!t.gradient_colors) t.gradient_colors = [t.background_color || '#1a1a2e'];
+  t.gradient_colors[1] = companionColor(t.gradient_colors[0]);
+  markUnsaved();
+  renderPropsPanel();
+}
+
+function companionColor(hex, shift) {
+  shift = shift || 40;
+  let r = parseInt(hex.slice(1,3),16)/255;
+  let g = parseInt(hex.slice(3,5),16)/255;
+  let b = parseInt(hex.slice(5,7),16)/255;
+  let max = Math.max(r,g,b), min = Math.min(r,g,b);
+  let h, s, l = (max+min)/2;
+  if (max===min) { h=s=0; } else {
+    let d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+    if (max===r) h=((g-b)/d+(g<b?6:0))/6;
+    else if (max===g) h=((b-r)/d+2)/6;
+    else h=((r-g)/d+4)/6;
+  }
+  h = (h + shift/360) % 1;
+  s = Math.min(1, s * 1.1);
+  l = Math.max(0.2, Math.min(0.8, l * 0.9));
+  function h2r(p,q,t) { if(t<0)t+=1; if(t>1)t-=1; if(t<1/6)return p+(q-p)*6*t; if(t<1/2)return q; if(t<2/3)return p+(q-p)*(2/3-t)*6; return p; }
+  let q2=l<0.5?l*(1+s):l+s-l*s, p2=2*l-q2;
+  r=h2r(p2,q2,h+1/3); g=h2r(p2,q2,h); b=h2r(p2,q2,h-1/3);
+  return '#'+[r,g,b].map(x=>Math.round(x*255).toString(16).padStart(2,'0')).join('');
+}
+
+function applyPreset(bgColor) {
+  const t = visualTarget();
+  t.background_type = 'solid';
+  t.background_color = bgColor;
+  t.gradient_colors = undefined;
+  markUnsaved();
+  renderPropsPanel();
+  renderPreviewFrame(getPlaybackTime(), -1, -1);
+}
+
+function applyRecipe(recipeKey) {
+  const recipe = RECIPES[recipeKey];
+  if (!recipe) return;
+  const t = visualTarget();
+  Object.keys(recipe).forEach(k => { if (k !== 'name') t[k] = JSON.parse(JSON.stringify(recipe[k])); });
+  markUnsaved();
+  renderPropsPanel();
+  renderPreviewFrame(getPlaybackTime(), -1, -1);
+}
+
+function uploadBgImage(input) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const t = visualTarget();
+    t.background_image = e.target.result;
+    t.background_image_opacity = 1;
+    t.background_image_fit = 'cover';
+    markUnsaved();
+    renderPropsPanel();
+    renderPreviewFrame(getPlaybackTime(), -1, -1);
+  };
+  reader.readAsDataURL(input.files[0]);
 }
 
 // ===== AUDIO =====
@@ -930,13 +1122,19 @@ function renderWordLayer() {
 }
 
 function highlightAtTime(t) {
-  if (!syncedData) return;
+  if (!syncedData) { renderPreviewFrame(t, -1, -1); return; }
   const lines = syncedData.lines;
   for (let i = 0; i < lines.length; i++) {
     const words = lines[i].words;
     for (let j = 0; j < words.length; j++) {
       if (t >= words[j].start && t <= words[j].end) {
         document.getElementById('currentLyric').textContent = lines[i].text;
+        const autoSec = findSectionForLine(i);
+        if (autoSec >= 0 && autoSec !== selectedSectionIdx) {
+          selectedSectionIdx = autoSec;
+          renderSectionList();
+          renderPropsPanel();
+        }
         renderPreviewFrame(t, i, j);
         return;
       }
@@ -954,13 +1152,16 @@ function renderPreviewFrame(t, lineIdx, wordIdx) {
   const H = canvas.height;
   ctx.clearRect(0, 0, W, H);
 
-  const secIdx = lineIdx >= 0 ? findSectionForLine(lineIdx) : selectedSectionIdx;
-  const sec = secIdx >= 0 && secIdx < structureData.sections.length ? structureData.sections[secIdx] : null;
-  const v = sec ? (sec.visual || {}) : {};
+  const v = getEffectiveVisual();
 
   drawPreviewBackground(ctx, W, H, v);
 
-  if (!syncedData || lineIdx < 0 || lineIdx >= syncedData.lines.length) return;
+  if (!syncedData || lineIdx < 0 || lineIdx >= syncedData.lines.length) {
+    if (syncedData && syncedData.lines.length > 0) {
+      lineIdx = 0;
+      wordIdx = 0;
+    } else return;
+  }
   const line = syncedData.lines[lineIdx];
 
   const fontSize = Math.round((v.font_size || captionStyle.font_size || 48) * (H / 1080));
@@ -994,28 +1195,110 @@ function renderPreviewFrame(t, lineIdx, wordIdx) {
 }
 
 function drawPreviewBackground(ctx, W, H, v) {
-  if (v.background_type === 'gradient') {
-    const c1 = v.background_color || '#1a1a2e';
-    const c2 = (v.gradient_colors && v.gradient_colors[1]) || '#8E44AD';
-    let grad;
+  if (v.background_type === 'image' && v.background_image) {
+    ctx.fillStyle = v.background_color || '#000000';
+    ctx.fillRect(0, 0, W, H);
+    const img = bgImageCache[v.background_image];
+    if (img && img.complete) {
+      ctx.globalAlpha = v.background_image_opacity != null ? v.background_image_opacity : 1;
+      const fit = v.background_image_fit || 'cover';
+      const iw = img.width, ih = img.height;
+      if (fit === 'cover') {
+        const scale = Math.max(W/iw, H/ih);
+        const sw = iw*scale, sh = ih*scale;
+        ctx.drawImage(img, (W-sw)/2, (H-sh)/2, sw, sh);
+      } else {
+        const scale = Math.min(W/iw, H/ih);
+        const sw = iw*scale, sh = ih*scale;
+        ctx.drawImage(img, (W-sw)/2, (H-sh)/2, sw, sh);
+      }
+      ctx.globalAlpha = 1;
+    } else if (img) {
+      img.onload = () => renderPreviewFrame(getPlaybackTime(), -1, -1);
+    } else {
+      bgImageCache[v.background_image] = new Image();
+      bgImageCache[v.background_image].src = v.background_image;
+      bgImageCache[v.background_image].onload = () => renderPreviewFrame(getPlaybackTime(), -1, -1);
+    }
+  } else if (v.background_type === 'gradient') {
+    const colors = v.gradient_colors || [v.background_color || '#1a1a2e', '#8E44AD'];
     const dir = v.gradient_direction || 'vertical_top_bottom';
-    if (dir === 'vertical_top_bottom') grad = ctx.createLinearGradient(0, 0, 0, H);
-    else if (dir === 'vertical_bottom_top') grad = ctx.createLinearGradient(0, H, 0, 0);
-    else if (dir === 'horizontal_left_right') grad = ctx.createLinearGradient(0, 0, W, 0);
-    else if (dir === 'horizontal_right_left') grad = ctx.createLinearGradient(W, 0, 0, 0);
-    else if (dir === 'diagonal_tl_br') grad = ctx.createLinearGradient(0, 0, W, H);
-    else if (dir === 'diagonal_tr_bl') grad = ctx.createLinearGradient(W, 0, 0, H);
-    else if (dir === 'radial_center') grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H)/2);
-    else if (dir === 'radial_top') grad = ctx.createRadialGradient(W/2, 0, 0, W/2, 0, Math.max(W, H)/2);
-    else if (dir === 'radial_bottom') grad = ctx.createRadialGradient(W/2, H, 0, W/2, H, Math.max(W, H)/2);
-    else grad = ctx.createLinearGradient(0, 0, 0, H);
-    grad.addColorStop(0, c1);
-    grad.addColorStop(1, c2);
+    let grad;
+    if (dir === 'vertical_top_bottom') grad = ctx.createLinearGradient(0,0,0,H);
+    else if (dir === 'vertical_bottom_top') grad = ctx.createLinearGradient(0,H,0,0);
+    else if (dir === 'horizontal_left_right') grad = ctx.createLinearGradient(0,0,W,0);
+    else if (dir === 'horizontal_right_left') grad = ctx.createLinearGradient(W,0,0,0);
+    else if (dir === 'diagonal_tl_br') grad = ctx.createLinearGradient(0,0,W,H);
+    else if (dir === 'diagonal_tr_bl') grad = ctx.createLinearGradient(W,0,0,H);
+    else if (dir === 'radial_center') grad = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)/2);
+    else if (dir === 'radial_top') grad = ctx.createRadialGradient(W/2,0,0,W/2,0,Math.max(W,H)/2);
+    else if (dir === 'radial_bottom') grad = ctx.createRadialGradient(W/2,H,0,W/2,H,Math.max(W,H)/2);
+    else grad = ctx.createLinearGradient(0,0,0,H);
+    colors.forEach((c, i) => grad.addColorStop(i / Math.max(1, colors.length - 1), c));
     ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
   } else {
     ctx.fillStyle = v.background_color || '#1a1a2e';
+    ctx.fillRect(0, 0, W, H);
   }
-  ctx.fillRect(0, 0, W, H);
+
+  drawPreviewTexture(ctx, W, H, v);
+}
+
+function drawPreviewTexture(ctx, W, H, v) {
+  const texType = v.texture_type;
+  if (!texType || texType === 'none') return;
+  const opacity = v.texture_opacity || 0.15;
+
+  ctx.save();
+  ctx.globalAlpha = opacity;
+
+  if (texType === 'vignette_soft') {
+    const grad = ctx.createRadialGradient(W/2,H/2,W*0.2,W/2,H/2,W*0.7);
+    grad.addColorStop(0, 'rgba(0,0,0,0)');
+    grad.addColorStop(1, 'rgba(0,0,0,0.7)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,W,H);
+  } else if (texType === 'vignette_heavy') {
+    const grad = ctx.createRadialGradient(W/2,H/2,W*0.1,W/2,H/2,W*0.6);
+    grad.addColorStop(0, 'rgba(0,0,0,0)');
+    grad.addColorStop(1, 'rgba(0,0,0,0.9)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,W,H);
+  } else {
+    const imageData = ctx.getImageData(0,0,W,H);
+    const data = imageData.data;
+    const seed = 42;
+    let rng = seed;
+    function nextRng() { rng = (rng * 16807 + 0) % 2147483647; return rng / 2147483647; }
+
+    for (let i = 0; i < data.length; i += 4) {
+      const noise = nextRng();
+      let val = 0;
+      if (texType === 'noise_fine') val = noise * 60;
+      else if (texType === 'noise_coarse') val = (noise > 0.5 ? 1 : 0) * 40;
+      else if (texType === 'grain_film') val = noise * 50;
+      else if (texType === 'paper_subtle') val = noise * 20;
+
+      const blend = v.texture_blend_mode || 'multiply';
+      if (blend === 'multiply') {
+        data[i] = Math.round(data[i] * (1 - val/255));
+        data[i+1] = Math.round(data[i+1] * (1 - val/255));
+        data[i+2] = Math.round(data[i+2] * (1 - val/255));
+      } else if (blend === 'overlay') {
+        const f = val/255;
+        data[i] = Math.round(data[i] < 128 ? 2*data[i]*f : 255 - 2*(255-data[i])*(1-f));
+        data[i+1] = Math.round(data[i+1] < 128 ? 2*data[i+1]*f : 255 - 2*(255-data[i+1])*(1-f));
+        data[i+2] = Math.round(data[i+2] < 128 ? 2*data[i+2]*f : 255 - 2*(255-data[i+2])*(1-f));
+      } else {
+        data[i] = Math.min(255, data[i] + val);
+        data[i+1] = Math.min(255, data[i+1] + val);
+        data[i+2] = Math.min(255, data[i+2] + val);
+      }
+    }
+    ctx.putImageData(imageData, 0, 0);
+  }
+  ctx.restore();
 }
 
 function drawKaraokeWords(ctx, line, activeWordIdx, W, posY, fontSize, spacing, v, H) {
@@ -1093,12 +1376,12 @@ function renderPreviewControls() {
     <div class="preview-title">Caption Style</div>
     <div class="ctrl-row"><span class="ctrl-label">Font</span><div class="ctrl-value"><select onchange="csField('font_family',parseInt(this.value))">${fontOpts}</select></div></div>
     <div class="ctrl-row"><span class="ctrl-label">Size</span><div class="ctrl-value"><input type="number" min="24" max="96" value="${cs.font_size}" onchange="csField('font_size',parseInt(this.value))"></div></div>
-    <div class="ctrl-row"><span class="ctrl-label">Highlight</span><div class="ctrl-value"><input type="color" value="${cs.highlight_color}" onchange="csField('highlight_color',this.value)"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Highlight</span><div class="ctrl-value"><input type="color" class="color-swatch" value="${cs.highlight_color}" onchange="csField('highlight_color',this.value)"></div></div>
     <div class="ctrl-row"><span class="ctrl-label">Position</span><div class="ctrl-value"><select onchange="csField('text_position',this.value)">${posOpts}</select></div></div>
     <div class="ctrl-row"><span class="ctrl-label">Mode</span><div class="ctrl-value"><select onchange="csField('caption_mode',this.value)">${modeOpts}</select></div></div>
     <div class="ctrl-row"><span class="ctrl-label">Spacing</span><div class="ctrl-value"><input type="range" min="0" max="8" step="1" value="${cs.letter_spacing}" onchange="csField('letter_spacing',parseInt(this.value))"></div></div>
-    <div class="ctrl-row"><span class="ctrl-label">Shadow</span><div class="ctrl-value"><input type="checkbox" ${cs.text_shadow?'checked':''} onchange="csField('text_shadow',this.checked)"> ${cs.text_shadow ? `<input type="color" value="${cs.text_shadow_color}" onchange="csField('text_shadow_color',this.value)">` : ''}</div></div>
-    <div class="ctrl-row"><span class="ctrl-label">Outline</span><div class="ctrl-value"><input type="checkbox" ${cs.outline?'checked':''} onchange="csField('outline',this.checked)"> ${cs.outline ? `<input type="color" value="${cs.outline_color}" onchange="csField('outline_color',this.value)"> <input type="number" min="1" max="6" value="${cs.outline_width}" style="width:40px" onchange="csField('outline_width',parseInt(this.value))">` : ''}</div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Shadow</span><div class="ctrl-value"><input type="checkbox" ${cs.text_shadow?'checked':''} onchange="csField('text_shadow',this.checked)"> ${cs.text_shadow ? `<input type="color" class="color-swatch" value="${cs.text_shadow_color}" onchange="csField('text_shadow_color',this.value)">` : ''}</div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Outline</span><div class="ctrl-value"><input type="checkbox" ${cs.outline?'checked':''} onchange="csField('outline',this.checked)"> ${cs.outline ? `<input type="color" class="color-swatch" value="${cs.outline_color}" onchange="csField('outline_color',this.value)"> <input type="number" min="1" max="6" value="${cs.outline_width}" style="width:40px" onchange="csField('outline_width',parseInt(this.value))">` : ''}</div></div>
   `;
 }
 
@@ -1419,7 +1702,7 @@ async function saveAll() {
       await fetch(`${API}/api/caption-style`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(captionStyle),
+        body: JSON.stringify({...captionStyle, globalVisual}),
       });
     } catch (_) {}
     markSaved();
