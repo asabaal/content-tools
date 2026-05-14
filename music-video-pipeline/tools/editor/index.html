@@ -23,10 +23,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .btn-danger:hover{background:#e55}
 .btn-small{padding:4px 10px;font-size:12px}
 
-.main{display:grid;grid-template-columns:260px 1fr 220px;flex:1}
+.main{display:grid;grid-template-columns:260px 1fr 220px;flex:1;min-height:0}
 
 /* Left: props panel */
-.section-list{overflow-y:auto;background:#0f0f1a;border-left:1px solid #2a2a4a}
+.section-list{overflow-y:auto;background:#0f0f1a;border-left:1px solid #2a2a4a;min-height:0}
 .section-item{padding:8px 12px;cursor:pointer;border-left:3px solid transparent;font-size:13px;transition:background .1s}
 .section-item:hover{background:#16213e}
 .section-item.active{background:#16213e;border-left-color:#4cc9f0}
@@ -115,7 +115,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .source-badge.onset_syllable{background:rgba(76,201,240,0.2);color:#4cc9f0}
 
 /* Right: properties panel */
-.props-panel{overflow-y:auto;background:#0f0f1a;border-right:1px solid #2a2a4a;padding:12px}
+.props-panel{overflow-y:auto;background:#0f0f1a;border-right:1px solid #2a2a4a;padding:12px;min-height:0}
 .props-section{margin-bottom:16px}
 .props-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .props-value{margin-bottom:8px}
@@ -138,7 +138,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .empty-state{padding:40px 20px;text-align:center;color:#666;font-size:13px}
 
 .preview-panel{background:#0f0f1a;border-top:1px solid #2a2a4a;display:flex;gap:12px;padding:10px 12px;flex:1;overflow:hidden}
-.preview-canvas-wrap{position:relative;flex-shrink:0;background:#000;border-radius:4px;overflow:hidden;border:1px solid #2a2a4a;height:100%;aspect-ratio:16/9}
+.preview-canvas-wrap{position:relative;background:#000;border-radius:4px;overflow:hidden;border:1px solid #2a2a4a;height:100%;aspect-ratio:16/9;max-width:calc(100% - 200px);flex-shrink:1;min-width:0}
 .preview-canvas-wrap canvas{display:block;width:100%;height:100%;object-fit:contain}
 .preview-controls{flex:1;overflow-y:auto;min-width:0}
 .preview-controls .ctrl-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
