@@ -164,6 +164,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   <h1>MVP Editor</h1>
   <div class="header-actions">
     <span class="save-status" id="saveStatus"></span>
+    <input type="file" id="scriptFileInput" accept=".json" style="display:none" onchange="loadScript(this)">
+    <button class="btn" onclick="document.getElementById('scriptFileInput').click()">Load Script</button>
     <button class="btn" onclick="autoSync()">Auto-Sync</button>
     <button class="btn btn-primary" onclick="saveAll()">Save</button>
   </div>
@@ -237,7 +239,7 @@ const TEXTURE_BLEND_MODES = ['normal','multiply','overlay'];
 const GRADIENT_DIRS = ['vertical_top_bottom','vertical_bottom_top','horizontal_left_right','horizontal_right_left','diagonal_tl_br','diagonal_tr_bl','radial_center','radial_top','radial_bottom'];
 const FONT_FAMILIES = ['system-ui','Georgia,"Times New Roman",serif','"Courier New",monospace','Impact,"Arial Black",sans-serif','"Trebuchet MS",sans-serif'];
 const FONT_LABELS = ['System','Serif','Mono','Display','Clean'];
-const CAPTION_MODES = ['word-by-word','line-by-line'];
+const REVEAL_MODES = ['progressive','karaoke','line-by-line','custom'];
 const TEXT_POSITIONS = ['top','center','bottom'];
 
 const COLOR_PRESETS = [
@@ -266,6 +268,7 @@ let waveformPeaks = [];
 let beatTimes = [];
 let audioPath = '';
 let structureData = {sections:[]};
+let scriptData = null;
 let templates = {};
 let bgImageCache = {};
 let isPlaying = false;
@@ -286,6 +289,9 @@ let globalVisual = {
   bg_animation_type: 'none',
   bg_animation_intensity: 0.2,
   bg_animation_speed: 1,
+  reveal_mode: 'progressive',
+  reveal_words: 1,
+  reveal_slide: false,
 };
 
 function getEffectiveVisual() {
@@ -302,6 +308,36 @@ function visualTarget() {
   }
   return globalVisual;
 }
+
+function findScriptSection(lineIdx) {
+  if (!scriptData || !scriptData.sections) return null;
+  for (const sec of scriptData.sections) {
+    if (sec.lines && Array.isArray(sec.lines)) {
+      if (lineIdx >= sec.lines[0] && lineIdx <= sec.lines[sec.lines.length - 1]) return sec;
+    }
+  }
+  return null;
+}
+
+function getVisualForWord(lineIdx, wordIdx) {
+  let v = { ...globalVisual };
+  const sec = findScriptSection(lineIdx);
+  if (sec) {
+    if (sec.visual) v = { ...v, ...sec.visual };
+    if (sec.lines_overrides && sec.lines_overrides[String(lineIdx)]) v = { ...v, ...sec.lines_overrides[String(lineIdx)] };
+    if (sec.words_overrides && sec.words_overrides[lineIdx + '.' + wordIdx]) v = { ...v, ...sec.words_overrides[lineIdx + '.' + wordIdx] };
+  } else if (selectedSectionIdx >= 0 && structureData.sections[selectedSectionIdx]) {
+    v = { ...v, ...(structureData.sections[selectedSectionIdx].visual || {}) };
+  }
+  return v;
+}
+
+function getRevealMode(v) {
+  if (v.reveal_mode) return v.reveal_mode;
+  if (captionStyle.caption_mode === 'line-by-line') return 'line-by-line';
+  return 'karaoke';
+}
+
 let animFrame = null;
 let hasUnsavedChanges = false;
 let viewStart = 0;
@@ -358,6 +394,14 @@ async function init() {
       if (csRes && !csRes.error) {
         captionStyle = {...captionStyle, ...csRes};
         if (csRes.globalVisual) globalVisual = {...globalVisual, ...csRes.globalVisual};
+      }
+    } catch (_) {}
+    try {
+      const scriptRes = await fetch(`${API}/api/script`).then(r => r.json());
+      if (scriptRes && !scriptRes.error) {
+        scriptData = scriptRes;
+        if (scriptRes.defaults) globalVisual = {...globalVisual, ...scriptRes.defaults};
+        if (scriptRes.caption_style) captionStyle = {...captionStyle, ...scriptRes.caption_style};
       }
     } catch (_) {}
 
@@ -691,6 +735,18 @@ function renderPropsPanel() {
         <span class="props-label">Size</span>
         <div class="props-value"><input class="props-input" type="number" min="24" max="96" value="${v.font_size||48}" onchange="visField('font_size',parseInt(this.value))"></div>
       </div>
+    </div>
+    <hr class="props-divider">
+
+    <div class="props-section">
+      <div class="props-label">Reveal Mode</div>
+      <div class="props-value"><select class="props-select" onchange="visField('reveal_mode',this.value);renderPropsPanel()">
+        ${REVEAL_MODES.map(m => `<option value="${m}"${getRevealMode(v)===m?' selected':''}>${m.replace(/-/g,' ')}</option>`).join('')}
+      </select></div>
+      ${getRevealMode(v)==='progressive'?`
+      <div class="props-row"><span class="props-label">Words/step</span><div class="props-value"><input class="props-input" type="number" min="1" max="8" value="${v.reveal_words||1}" onchange="visField('reveal_words',parseInt(this.value))"></div></div>
+      <div class="props-row"><span class="props-label">Slide</span><div class="props-value"><input type="checkbox" ${v.reveal_slide?'checked':''} onchange="visField('reveal_slide',this.checked)"></div></div>
+      `:''}
     </div>
     <hr class="props-divider">
 
@@ -1152,7 +1208,7 @@ function renderPreviewFrame(t, lineIdx, wordIdx) {
   const H = canvas.height;
   ctx.clearRect(0, 0, W, H);
 
-  const v = getEffectiveVisual();
+  const v = lineIdx >= 0 && wordIdx >= 0 ? getVisualForWord(lineIdx, wordIdx) : getEffectiveVisual();
 
   drawPreviewBackground(ctx, W, H, v);
 
@@ -1174,8 +1230,9 @@ function renderPreviewFrame(t, lineIdx, wordIdx) {
     : H * 0.5;
 
   const spacing = captionStyle.letter_spacing || 1;
+  const mode = getRevealMode(v);
 
-  if (captionStyle.caption_mode === 'line-by-line') {
+  if (mode === 'line-by-line') {
     const text = line.text;
     if (captionStyle.outline) {
       ctx.strokeStyle = captionStyle.outline_color || '#000000';
@@ -1189,6 +1246,8 @@ function renderPreviewFrame(t, lineIdx, wordIdx) {
     }
     ctx.fillStyle = v.text_auto_contrast !== false ? getContrastColor(v.background_color || '#1a1a2e') : (v.text_color || captionStyle.text_color);
     drawSpacedText(ctx, text, W / 2, posY, spacing, false);
+  } else if (mode === 'progressive') {
+    drawProgressiveWords(ctx, line, wordIdx, W, posY, fontSize, spacing, v, H);
   } else {
     drawKaraokeWords(ctx, line, wordIdx, W, posY, fontSize, spacing, v, H);
   }
@@ -1339,6 +1398,57 @@ function drawKaraokeWords(ctx, line, activeWordIdx, W, posY, fontSize, spacing, 
   });
 }
 
+function drawProgressiveWords(ctx, line, activeWordIdx, W, posY, fontSize, spacing, v, H) {
+  const words = line.words;
+  const fontFamily = FONT_FAMILIES[captionStyle.font_family || 0];
+  const scaleFactor = H / 1080;
+  const step = v.reveal_words || 1;
+  const slide = v.reveal_slide || false;
+
+  if (slide) {
+    const windowSize = step * 2;
+    let start = Math.max(0, activeWordIdx - step + 1);
+    if (start + windowSize > words.length) start = Math.max(0, words.length - windowSize);
+    const end = Math.min(words.length, start + windowSize);
+    const vis = words.slice(start, end);
+    const tw = vis.reduce((s, w) => { ctx.font = `bold ${fontSize}px ${fontFamily}`; return s + ctx.measureText(w.text).width + (vis.length > 1 ? spacing * scaleFactor * 4 : 0); }, 0);
+    let x = (W - tw) / 2;
+    const baseColor = v.text_auto_contrast !== false ? getContrastColor(v.background_color || '#1a1a2e') : (v.text_color || captionStyle.text_color);
+    const hlColor = captionStyle.highlight_color || '#4cc9f0';
+    const gap = vis.length > 1 ? spacing * scaleFactor * 4 : 0;
+    vis.forEach((w, j) => {
+      const origIdx = start + j;
+      ctx.font = `bold ${fontSize}px ${fontFamily}`;
+      const wW = ctx.measureText(w.text).width;
+      if (captionStyle.outline) { ctx.strokeStyle = captionStyle.outline_color || '#000000'; ctx.lineWidth = (captionStyle.outline_width || 2) * scaleFactor; ctx.lineJoin = 'round'; ctx.strokeText(w.text, x + wW / 2, posY); }
+      if (captionStyle.text_shadow) { ctx.fillStyle = captionStyle.text_shadow_color || '#000000'; ctx.fillText(w.text, x + wW / 2 + 2 * scaleFactor, posY + 2 * scaleFactor); }
+      ctx.fillStyle = origIdx === activeWordIdx ? hlColor : baseColor;
+      ctx.fillText(w.text, x + wW / 2, posY);
+      x += wW + gap;
+    });
+    return;
+  }
+
+  const visibleCount = activeWordIdx + 1;
+  const groupStart = Math.floor(activeWordIdx / step) * step;
+  const vis = words.slice(0, visibleCount);
+  const tw = vis.reduce((s, w) => { ctx.font = `bold ${fontSize}px ${fontFamily}`; return s + ctx.measureText(w.text).width + (vis.length > 1 ? spacing * scaleFactor * 4 : 0); }, 0);
+  let x = (W - tw) / 2;
+  const baseColor = v.text_auto_contrast !== false ? getContrastColor(v.background_color || '#1a1a2e') : (v.text_color || captionStyle.text_color);
+  const hlColor = captionStyle.highlight_color || '#4cc9f0';
+  const gap = vis.length > 1 ? spacing * scaleFactor * 4 : 0;
+  vis.forEach((w, j) => {
+    ctx.font = `bold ${fontSize}px ${fontFamily}`;
+    const wW = ctx.measureText(w.text).width;
+    const isActive = j >= groupStart && j <= activeWordIdx;
+    if (captionStyle.outline) { ctx.strokeStyle = captionStyle.outline_color || '#000000'; ctx.lineWidth = (captionStyle.outline_width || 2) * scaleFactor; ctx.lineJoin = 'round'; ctx.strokeText(w.text, x + wW / 2, posY); }
+    if (captionStyle.text_shadow) { ctx.fillStyle = captionStyle.text_shadow_color || '#000000'; ctx.fillText(w.text, x + wW / 2 + 2 * scaleFactor, posY + 2 * scaleFactor); }
+    ctx.fillStyle = isActive ? hlColor : baseColor;
+    ctx.fillText(w.text, x + wW / 2, posY);
+    x += wW + gap;
+  });
+}
+
 function drawSpacedText(ctx, text, cx, cy, spacing, strokeOnly) {
   if (spacing <= 1) {
     if (strokeOnly) ctx.strokeText(text, cx, cy);
@@ -1370,7 +1480,6 @@ function renderPreviewControls() {
   const cs = captionStyle;
   const fontOpts = FONT_LABELS.map((l, i) => `<option value="${i}"${cs.font_family === i ? ' selected' : ''}>${l}</option>`).join('');
   const posOpts = TEXT_POSITIONS.map(p => `<option value="${p}"${cs.text_position === p ? ' selected' : ''}>${p}</option>`).join('');
-  const modeOpts = CAPTION_MODES.map(m => `<option value="${m}"${cs.caption_mode === m ? ' selected' : ''}>${m}</option>`).join('');
 
   el.innerHTML = `
     <div class="preview-title">Caption Style</div>
@@ -1378,7 +1487,6 @@ function renderPreviewControls() {
     <div class="ctrl-row"><span class="ctrl-label">Size</span><div class="ctrl-value"><input type="number" min="24" max="96" value="${cs.font_size}" onchange="csField('font_size',parseInt(this.value))"></div></div>
     <div class="ctrl-row"><span class="ctrl-label">Highlight</span><div class="ctrl-value"><input type="color" class="color-swatch" value="${cs.highlight_color}" onchange="csField('highlight_color',this.value)"></div></div>
     <div class="ctrl-row"><span class="ctrl-label">Position</span><div class="ctrl-value"><select onchange="csField('text_position',this.value)">${posOpts}</select></div></div>
-    <div class="ctrl-row"><span class="ctrl-label">Mode</span><div class="ctrl-value"><select onchange="csField('caption_mode',this.value)">${modeOpts}</select></div></div>
     <div class="ctrl-row"><span class="ctrl-label">Spacing</span><div class="ctrl-value"><input type="range" min="0" max="8" step="1" value="${cs.letter_spacing}" onchange="csField('letter_spacing',parseInt(this.value))"></div></div>
     <div class="ctrl-row"><span class="ctrl-label">Shadow</span><div class="ctrl-value"><input type="checkbox" ${cs.text_shadow?'checked':''} onchange="csField('text_shadow',this.checked)"> ${cs.text_shadow ? `<input type="color" class="color-swatch" value="${cs.text_shadow_color}" onchange="csField('text_shadow_color',this.value)">` : ''}</div></div>
     <div class="ctrl-row"><span class="ctrl-label">Outline</span><div class="ctrl-value"><input type="checkbox" ${cs.outline?'checked':''} onchange="csField('outline',this.checked)"> ${cs.outline ? `<input type="color" class="color-swatch" value="${cs.outline_color}" onchange="csField('outline_color',this.value)"> <input type="number" min="1" max="6" value="${cs.outline_width}" style="width:40px" onchange="csField('outline_width',parseInt(this.value))">` : ''}</div></div>
@@ -1674,6 +1782,55 @@ async function autoSync() {
     setStatus('Auto-sync: ' + (data.lines ? data.lines.length : 0) + ' lines');
   } catch (e) {
     setStatus('Auto-sync error: ' + e.message);
+  }
+}
+
+async function loadScript(input) {
+  if (!input.files || !input.files[0]) return;
+  try {
+    const text = await input.files[0].text();
+    const data = JSON.parse(text);
+    if (!data.name && !data.sections) { setStatus('Invalid script: missing name or sections'); return; }
+
+    scriptData = data;
+
+    if (data.defaults) {
+      globalVisual = { ...globalVisual, ...data.defaults };
+    }
+    if (data.caption_style) {
+      captionStyle = { ...captionStyle, ...data.caption_style };
+    }
+
+    if (data.sections && data.sections.length > 0 && syncedData) {
+      structureData.sections = data.sections.map((sec, i) => ({
+        name: sec.name || ('Section ' + (i + 1)),
+        type: sec.type || 'custom',
+        start_line: Array.isArray(sec.lines) ? sec.lines[0] : (sec.start_line || 0),
+        end_line: Array.isArray(sec.lines) ? sec.lines[sec.lines.length - 1] : (sec.end_line || 0),
+        visual: sec.visual || {},
+        lines_overrides: sec.lines_overrides || {},
+        words_overrides: sec.words_overrides || {},
+      }));
+    }
+
+    renderPropsPanel();
+    renderSectionList();
+    renderPreviewControls();
+    renderPreviewFrame(getPlaybackTime(), -1, -1);
+    renderSectionOverlays();
+    markUnsaved();
+
+    try {
+      await fetch(`${API}/api/load-script`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+    } catch (_) {}
+
+    setStatus('Script loaded: ' + (data.name || 'untitled') + ' (' + (data.sections ? data.sections.length : 0) + ' sections)');
+  } catch (e) {
+    setStatus('Script load error: ' + e.message);
   }
 }
 

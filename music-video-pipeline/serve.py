@@ -233,6 +233,8 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_get_templates()
         elif path == "/api/caption-style":
             self._handle_get_caption_style()
+        elif path == "/api/script":
+            self._handle_get_script()
         else:
             super().do_GET()
 
@@ -267,6 +269,8 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_auto_generate_structure()
         elif path == "/api/caption-style":
             self._handle_save_caption_style()
+        elif path == "/api/load-script":
+            self._handle_load_script()
         else:
             self.send_response(404)
             self._cors_headers()
@@ -433,6 +437,30 @@ class PipelineHandler(SimpleHTTPRequestHandler):
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_bytes(body)
         self._send_json({"status": "saved"})
+
+    def _handle_get_script(self):
+        pdd = _project_data_dir()
+        script_path = pdd / "script.json"
+        if script_path.exists():
+            self._send_json(json.loads(script_path.read_text(encoding="utf-8")))
+        else:
+            self._send_json({"error": "No script loaded"}, 404)
+
+    def _handle_load_script(self):
+        body = self._read_body()
+        try:
+            data = json.loads(body)
+            if not isinstance(data, dict) or ("name" not in data and "sections" not in data):
+                self._send_json({"error": "Invalid script: must have 'name' or 'sections'"}, 400)
+                return
+            json.dumps(data)
+        except json.JSONDecodeError:
+            self._send_json({"error": "Invalid JSON"}, 400)
+            return
+        out_path = _project_data_dir() / "script.json"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(body)
+        self._send_json({"status": "saved", "sections": len(data.get("sections", []))})
 
     def log_message(self, format, *args):
         print(f"{self.address_string()} - {args[0]}")

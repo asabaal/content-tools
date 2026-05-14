@@ -945,6 +945,83 @@ class TestCaptionStyleEndpoints:
         finally:
             _restore_project(original)
 
+
+class TestScriptEndpoints:
+    def test_get_script_not_found(self, project_with_data):
+        import serve as _serve
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/script")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+        finally:
+            _restore_project(original)
+
+    def test_load_script(self, project_with_data):
+        import serve as _serve
+        script = {"name": "Test Script", "sections": [{"name": "Verse", "type": "verse", "lines": [0, 1]}]}
+        body = json.dumps(script).encode()
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler(
+                "/api/load-script", method="POST",
+                headers={"Content-Type": "application/json", "Content-Length": str(len(body))},
+                body=body,
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["status"] == "saved"
+            assert data["sections"] == 1
+            saved = json.loads((project_with_data.data_dir / "script.json").read_text())
+            assert saved["name"] == "Test Script"
+        finally:
+            _restore_project(original)
+
+    def test_load_script_get_after_save(self, project_with_data):
+        import serve as _serve
+        script = {"name": "My Song", "sections": []}
+        (project_with_data.data_dir / "script.json").write_text(json.dumps(script), encoding="utf-8")
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/script")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["name"] == "My Song"
+        finally:
+            _restore_project(original)
+
+    def test_load_script_invalid_json(self, project_with_data):
+        import serve as _serve
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler(
+                "/api/load-script", method="POST",
+                headers={"Content-Type": "application/json", "Content-Length": "5"},
+                body=b"xxxxx",
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+        finally:
+            _restore_project(original)
+
+    def test_load_script_missing_fields(self, project_with_data):
+        import serve as _serve
+        body = json.dumps({"foo": "bar"}).encode()
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler(
+                "/api/load-script", method="POST",
+                headers={"Content-Type": "application/json", "Content-Length": str(len(body))},
+                body=body,
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+        finally:
+            _restore_project(original)
+
     def test_single_section(self):
         import serve as _serve
         raw = {
