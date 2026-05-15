@@ -478,6 +478,49 @@ class VideoRenderer:
 
         return img
 
+    def _render_text_on_bg(self, bg: Image.Image, line_idx: int, word_idx: int) -> Image.Image:
+        img = bg.copy()
+        if line_idx < 0:
+            return img
+
+        line = self.synced["lines"][line_idx]
+        v = self.get_visual(line_idx, word_idx)
+        font_size = int((v.get("font_size", self.caption_style.get("font_size", 48))) * (self.height / 1080))
+
+        pos = self.caption_style.get("text_position", "center")
+        if pos == "top":
+            y = int(self.height * 0.2)
+        elif pos == "bottom":
+            y = int(self.height * 0.8)
+        else:
+            y = self.height // 2
+
+        mode = self._get_reveal_mode(v)
+
+        if mode == "line-by-line":
+            self._draw_text_line(img, line["text"], v, y, font_size)
+        elif mode == "progressive":
+            self._draw_progressive(img, line, word_idx, v, y, font_size)
+        else:
+            self._draw_karaoke(img, line, word_idx, v, y, font_size)
+
+        return img
+
+    def _get_bg_for_section(self, line_idx: int, bg_cache: dict) -> Image.Image:
+        sec = self._find_section(line_idx) if line_idx >= 0 else None
+        sec_key = sec.get("name", "__none__") if sec else "__default__"
+
+        if sec_key not in bg_cache:
+            bg = Image.new("RGB", (self.width, self.height), (10, 10, 30))
+            if line_idx >= 0:
+                v = self.get_visual(line_idx, 0)
+            else:
+                v = dict(self.defaults)
+            self._draw_background(bg, v)
+            bg_cache[sec_key] = bg
+
+        return bg_cache[sec_key]
+
     def render(self, output_path: str | Path, audio_path: Optional[str | Path] = None) -> Path:
         from render.encoder import VideoEncoder
 
@@ -488,6 +531,12 @@ class VideoRenderer:
 
         total_frames = int(self.duration * self.fps) + 1
 
+        bg_cache: dict = {}
+        prev_bytes: Optional[bytes] = None
+        prev_key: Optional[tuple] = None
+        rendered = 0
+        reused = 0
+
         with VideoEncoder(output_path, self.width, self.height, self.fps, audio) as enc:
             pbar = tqdm(
                 range(total_frames),
@@ -497,11 +546,23 @@ class VideoRenderer:
             )
             for frame_idx in pbar:
                 t = frame_idx / self.fps
-                img = self.render_frame(t)
-                enc.write_frame(img.tobytes())
+                line_idx, word_idx = self._find_active_word(t)
+                key = (line_idx, word_idx)
+
+                if key == prev_key and prev_bytes is not None:
+                    enc.write_frame(prev_bytes)
+                    reused += 1
+                else:
+                    bg = self._get_bg_for_section(line_idx, bg_cache)
+                    img = self._render_text_on_bg(bg, line_idx, word_idx)
+                    frame_bytes = img.tobytes()
+                    enc.write_frame(frame_bytes)
+                    prev_bytes = frame_bytes
+                    rendered += 1
+
+                prev_key = key
 
                 if frame_idx % self.fps == 0:
-                    line_idx, word_idx = self._find_active_word(t)
                     sec = self._find_section(line_idx) if line_idx >= 0 else None
                     sec_name = sec["name"] if sec else "—"
                     lyric = ""
@@ -509,4 +570,6 @@ class VideoRenderer:
                         lyric = self.synced["lines"][line_idx]["text"][:40]
                     pbar.set_postfix_str(f"{sec_name} | {lyric}")
 
+        unique_pct = rendered / max(1, total_frames) * 100
+        tqdm.write(f"  Rendered {rendered} unique frames, reused {reused} ({unique_pct:.0f}% unique)")
         return output_path

@@ -64,7 +64,8 @@ class VideoEncoder:
         if self._process is None:
             raise RuntimeError("Encoder not opened")
         self._process.stdin.close()
-        _, stderr = self._process.communicate()
+        self._process.wait()
+        stderr = self._process.stderr.read() if self._process.stderr else b""
         code = self._process.returncode
         self._process = None
         if code != 0:
