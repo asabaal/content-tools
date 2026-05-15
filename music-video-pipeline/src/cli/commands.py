@@ -571,5 +571,62 @@ def serve(project_dir, port):
     subprocess.run(cmd)
 
 
+@cli.command()
+@click.option("--project", "-p", "project_dir", default=None, help="Path to project directory")
+@click.option("--output", "-o", default=None, help="Output video path (default: project_dir/output/video.mp4)")
+@click.option("--fps", default=30, type=int, help="Frames per second (default: 30)")
+@click.option("--width", default=1920, type=int, help="Video width (default: 1920)")
+@click.option("--height", default=1080, type=int, help="Video height (default: 1080)")
+def render(project_dir, output, fps, width, height):
+    """Render the final video (Stage 6)."""
+    from render.renderer import VideoRenderer
+
+    proj_dir = _find_project(project_dir)
+    proj = MusicVideoProject.load(proj_dir)
+
+    data_dir = proj.data_dir
+    if not (data_dir / "lyrics_synced.json").exists():
+        raise click.ClickException("lyrics_synced.json not found. Run sync first.")
+
+    if output:
+        out_path = Path(output)
+    else:
+        out_dir = proj_dir / "output"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out_path = out_dir / "video.mp4"
+
+    click.echo(f"\n  Rendering video...")
+    click.echo(f"    Resolution: {width}x{height}")
+    click.echo(f"    FPS: {fps}")
+    click.echo(f"    Output: {out_path}")
+
+    renderer = VideoRenderer(proj_dir, width=width, height=height, fps=fps)
+    renderer.load()
+
+    audio_path = renderer.audio_path
+    if not audio_path:
+        audio_rel = proj.paths.audio
+        if audio_rel:
+            candidate = Path(audio_rel)
+            if not candidate.is_absolute():
+                candidate = proj_dir / audio_rel
+            if candidate.exists():
+                audio_path = candidate
+
+    click.echo(f"    Duration: {_format_duration(renderer.duration)} ({renderer.duration:.1f}s)")
+    click.echo(f"    Audio: {audio_path.name if audio_path else 'none'}")
+
+    total_frames = int(renderer.duration * fps) + 1
+    click.echo(f"    Frames: {total_frames}")
+    click.echo()
+
+    renderer.render(out_path, audio_path=audio_path)
+
+    size_mb = out_path.stat().st_size / (1024 * 1024)
+    click.echo(f"\n  Done! {out_path} ({size_mb:.1f} MB)")
+    proj.stages.mark_complete("render")
+    proj.save()
+
+
 if __name__ == "__main__":  # pragma: no cover
     cli()

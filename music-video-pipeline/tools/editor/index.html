@@ -1212,12 +1212,7 @@ function renderPreviewFrame(t, lineIdx, wordIdx) {
 
   drawPreviewBackground(ctx, W, H, v);
 
-  if (!syncedData || lineIdx < 0 || lineIdx >= syncedData.lines.length) {
-    if (syncedData && syncedData.lines.length > 0) {
-      lineIdx = 0;
-      wordIdx = 0;
-    } else return;
-  }
+  if (!syncedData || lineIdx < 0 || lineIdx >= syncedData.lines.length) return;
   const line = syncedData.lines[lineIdx];
 
   const fontSize = Math.round((v.font_size || captionStyle.font_size || 48) * (H / 1080));
