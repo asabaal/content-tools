@@ -577,7 +577,10 @@ def serve(project_dir, port):
 @click.option("--fps", default=30, type=int, help="Frames per second (default: 30)")
 @click.option("--width", default=1920, type=int, help="Video width (default: 1920)")
 @click.option("--height", default=1080, type=int, help="Video height (default: 1080)")
-def render(project_dir, output, fps, width, height):
+@click.option("--mood", default=None, type=click.Choice(["dark_moody", "bright_poppy", "warm_intimate", "cool_ethereal", "high_energy"]), help="Generate script with mood preset before rendering")
+@click.option("--base-color", default=None, help="Generate script with base color hex before rendering")
+@click.option("--variance", default=None, type=click.Choice(["auto", "low", "medium", "high"]), help="Section variation level (default: auto)")
+def render(project_dir, output, fps, width, height, mood, base_color, variance):
     """Render the final video (Stage 6)."""
     from render.renderer import VideoRenderer
 
@@ -587,6 +590,22 @@ def render(project_dir, output, fps, width, height):
     data_dir = proj.data_dir
     if not (data_dir / "lyrics_synced.json").exists():
         raise click.ClickException("lyrics_synced.json not found. Run sync first.")
+
+    needs_script = mood or base_color or variance or not (data_dir / "script.json").exists()
+    if needs_script:
+        from scriptgen import generate_script as gen
+
+        click.echo(f"\n  Generating visual script...")
+        click.echo(f"    Mood: {mood or 'auto (dark_moody)'}")
+        if base_color:
+            click.echo(f"    Base color: {base_color}")
+        click.echo(f"    Variance: {variance or 'auto'}")
+
+        result = gen(proj_dir, mood=mood, base_color=base_color, variance=variance or "auto")
+        script_path = data_dir / "script.json"
+        script_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
+
+        click.echo(f"    Sections: {result.sections_profiled} | Variance: {result.variance_detected} | Mood: {result.mood_used}")
 
     if output:
         out_path = Path(output)

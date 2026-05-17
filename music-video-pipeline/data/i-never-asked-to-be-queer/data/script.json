@@ -1,1 +1,814 @@
-{"name":"I Never Asked To Be Queer","artist":"","defaults":{"background_type":"gradient","background_color":"#1a1a2e","gradient_colors":["#0a0a2e","#1a1a4e"],"gradient_direction":"diagonal_tl_br","texture_type":"vignette_soft","texture_opacity":0.4,"texture_blend_mode":"multiply","text_auto_contrast":true,"font_size":48,"animation_type":"fade","animation_speed":1,"reveal_mode":"progressive","reveal_words":1,"reveal_slide":false},"caption_style":{"font_family":0,"highlight_color":"#4cc9f0","text_position":"center","letter_spacing":1,"text_shadow":false,"outline":false},"sections":[{"name":"Intro","type":"intro","lines":[0,1,2,3],"visual":{"background_type":"gradient","background_color":"#0a0a2e","gradient_colors":["#0a0a2e","#1a1a4e"],"gradient_direction":"diagonal_tl_br","texture_type":"vignette_soft","texture_opacity":0.4}},{"name":"Verse 1","type":"verse","lines":[4,5,6,7],"visual":{"background_type":"solid","background_color":"#0a2a3e","texture_type":"none"}},{"name":"Verse 2","type":"verse","lines":[8,9,10,11,12,13,14,15],"visual":{"background_type":"gradient","background_color":"#1a1a2e","gradient_colors":["#1a1a2e","#2e1a3e"],"gradient_direction":"vertical_top_bottom","texture_type":"vignette_soft","texture_opacity":0.3},"reveal_words":2},{"name":"Verse 3","type":"verse","lines":[16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],"visual":{"background_type":"gradient","background_color":"#1a0a1e","gradient_colors":["#1a0a1e","#2e0a1e","#1a0a2e"],"gradient_direction":"diagonal_tl_br","texture_type":"vignette_soft","texture_opacity":0.35}},{"name":"Verse 4","type":"verse","lines":[32,33,34,35,36,37,38,39],"visual":{"background_type":"solid","background_color":"#0a2a2e","texture_type":"none"}},{"name":"Verse 5","type":"verse","lines":[40,41,42,43],"visual":{"background_type":"solid","background_color":"#8B0000","texture_type":"vignette_heavy","texture_opacity":0.5,"font_size":56}},{"name":"Outro","type":"outro","lines":[44,45,46,47],"visual":{"background_type":"solid","background_color":"#1a1a1a","texture_type":"none"},"reveal_words":2},{"name":"Laughter","type":"outro","lines":[48],"visual":{"background_type":"solid","background_color":"#0a0a0a","texture_type":"none"}}]}
+{
+  "name": "I Never Asked To Be Queer",
+  "defaults": {
+    "background_type": "gradient",
+    "background_color": "#171114",
+    "gradient_colors": [
+      "#171114",
+      "#291e21"
+    ],
+    "gradient_direction": "diagonal_tl_br",
+    "texture_type": "vignette_heavy",
+    "texture_opacity": 0.2,
+    "texture_blend_mode": "multiply",
+    "text_auto_contrast": true,
+    "font_size": 48,
+    "animation_type": "fade",
+    "animation_speed": 1.0,
+    "reveal_mode": "progressive",
+    "reveal_words": 1,
+    "reveal_slide": false,
+    "reactivity": [
+      "vocals"
+    ]
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#4cc9f0",
+    "text_position": "center",
+    "letter_spacing": 1,
+    "text_shadow": false,
+    "outline": false
+  },
+  "sections": [
+    {
+      "name": "Intro",
+      "type": "intro",
+      "lines": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#171114",
+        "gradient_colors": [
+          "#171114",
+          "#291e21"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 47,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [],
+        "text_position": "top"
+      },
+      "lines_overrides": {
+        "0": {
+          "font_size": 57,
+          "background_color": "#1a1316",
+          "gradient_colors": [
+            "#1a1316",
+            "#2a2023"
+          ]
+        },
+        "1": {
+          "background_color": "#140e11",
+          "gradient_colors": [
+            "#140e11",
+            "#251c1e"
+          ]
+        },
+        "2": {
+          "background_color": "#1b1418",
+          "gradient_colors": [
+            "#1b1418",
+            "#2c2224"
+          ]
+        },
+        "3": {
+          "background_color": "#120d0f",
+          "gradient_colors": [
+            "#120d0f",
+            "#231b1c"
+          ]
+        }
+      },
+      "words_overrides": {
+        "0.5": {
+          "text_position": "bottom"
+        },
+        "1.5": {
+          "text_position": "bottom"
+        },
+        "2.6": {
+          "text_position": "bottom"
+        },
+        "3.8": {
+          "text_position": "bottom"
+        }
+      }
+    },
+    {
+      "name": "Verse",
+      "type": "verse",
+      "lines": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#22161a",
+        "gradient_colors": [
+          "#22161a",
+          "#332324"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 47,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [],
+        "text_position": "center"
+      },
+      "lines_overrides": {
+        "4": {
+          "background_color": "#25171c",
+          "gradient_colors": [
+            "#25171c",
+            "#362526"
+          ]
+        },
+        "5": {
+          "background_color": "#1f1317",
+          "gradient_colors": [
+            "#1f1317",
+            "#302122"
+          ]
+        },
+        "6": {
+          "background_color": "#27181d",
+          "gradient_colors": [
+            "#27181d",
+            "#382627"
+          ]
+        },
+        "7": {
+          "background_color": "#1d1216",
+          "gradient_colors": [
+            "#1d1216",
+            "#2e1f20"
+          ]
+        }
+      },
+      "words_overrides": {
+        "4.0": {
+          "text_position": "top"
+        },
+        "4.7": {
+          "text_position": "bottom"
+        },
+        "5.9": {
+          "text_position": "bottom"
+        },
+        "6.5": {
+          "text_position": "bottom"
+        },
+        "7.7": {
+          "text_position": "bottom"
+        }
+      }
+    },
+    {
+      "name": "Verse 2",
+      "type": "verse",
+      "lines": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#241619",
+        "gradient_colors": [
+          "#241619",
+          "#352524"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 47,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [],
+        "text_position": "center"
+      },
+      "lines_overrides": {
+        "8": {
+          "background_color": "#27181b",
+          "gradient_colors": [
+            "#27181b",
+            "#382725"
+          ]
+        },
+        "9": {
+          "background_color": "#211417",
+          "gradient_colors": [
+            "#211417",
+            "#322322"
+          ]
+        },
+        "10": {
+          "background_color": "#27191b",
+          "gradient_colors": [
+            "#27191b",
+            "#392826"
+          ]
+        },
+        "11": {
+          "background_color": "#201416",
+          "gradient_colors": [
+            "#201416",
+            "#322321"
+          ]
+        },
+        "12": {
+          "background_color": "#28191c",
+          "gradient_colors": [
+            "#28191c",
+            "#392826"
+          ]
+        },
+        "13": {
+          "background_color": "#1f1416",
+          "gradient_colors": [
+            "#1f1416",
+            "#312321"
+          ]
+        },
+        "14": {
+          "background_color": "#29191c",
+          "gradient_colors": [
+            "#29191c",
+            "#3a2927"
+          ]
+        },
+        "15": {
+          "background_color": "#1f1315",
+          "gradient_colors": [
+            "#1f1315",
+            "#302220"
+          ]
+        }
+      },
+      "words_overrides": {
+        "8.0": {
+          "text_position": "top"
+        },
+        "8.6": {
+          "text_position": "bottom"
+        },
+        "9.7": {
+          "text_position": "bottom"
+        },
+        "10.6": {
+          "text_position": "bottom"
+        },
+        "11.8": {
+          "text_position": "bottom"
+        },
+        "12.6": {
+          "text_position": "bottom"
+        },
+        "13.6": {
+          "text_position": "bottom"
+        },
+        "14.5": {
+          "text_position": "bottom"
+        },
+        "15.7": {
+          "text_position": "bottom"
+        }
+      }
+    },
+    {
+      "name": "Verse 3, double time, female",
+      "type": "verse",
+      "lines": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#271718",
+        "gradient_colors": [
+          "#271718",
+          "#372924"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 48,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center"
+      },
+      "lines_overrides": {
+        "16": {
+          "background_color": "#29191a",
+          "gradient_colors": [
+            "#29191a",
+            "#3b2b26"
+          ]
+        },
+        "17": {
+          "background_color": "#241616",
+          "gradient_colors": [
+            "#241616",
+            "#352723"
+          ]
+        },
+        "18": {
+          "background_color": "#2a191a",
+          "gradient_colors": [
+            "#2a191a",
+            "#3b2c27"
+          ]
+        },
+        "19": {
+          "background_color": "#231516",
+          "gradient_colors": [
+            "#231516",
+            "#352723"
+          ]
+        },
+        "20": {
+          "background_color": "#2a1a1a",
+          "gradient_colors": [
+            "#2a1a1a",
+            "#3b2c27"
+          ]
+        },
+        "21": {
+          "background_color": "#231516",
+          "gradient_colors": [
+            "#231516",
+            "#342722"
+          ]
+        },
+        "22": {
+          "background_color": "#2a1a1a",
+          "gradient_colors": [
+            "#2a1a1a",
+            "#3c2d27"
+          ]
+        },
+        "23": {
+          "background_color": "#231515",
+          "gradient_colors": [
+            "#231515",
+            "#342722"
+          ]
+        },
+        "24": {
+          "background_color": "#2b1a1a",
+          "gradient_colors": [
+            "#2b1a1a",
+            "#3c2d27"
+          ]
+        },
+        "25": {
+          "background_color": "#221515",
+          "gradient_colors": [
+            "#221515",
+            "#342722"
+          ]
+        },
+        "26": {
+          "background_color": "#2b1a1a",
+          "gradient_colors": [
+            "#2b1a1a",
+            "#3c2d28"
+          ]
+        },
+        "27": {
+          "background_color": "#221515",
+          "gradient_colors": [
+            "#221515",
+            "#332722"
+          ]
+        },
+        "28": {
+          "background_color": "#2b1a1a",
+          "gradient_colors": [
+            "#2b1a1a",
+            "#3d2e28"
+          ]
+        },
+        "29": {
+          "background_color": "#221414",
+          "gradient_colors": [
+            "#221414",
+            "#332722"
+          ]
+        },
+        "30": {
+          "background_color": "#2c1b1b",
+          "gradient_colors": [
+            "#2c1b1b",
+            "#3d2e28"
+          ]
+        },
+        "31": {
+          "background_color": "#211414",
+          "gradient_colors": [
+            "#211414",
+            "#332621"
+          ]
+        }
+      },
+      "words_overrides": {
+        "16.0": {
+          "text_position": "top"
+        },
+        "16.6": {
+          "text_position": "bottom"
+        },
+        "17.8": {
+          "text_position": "bottom"
+        },
+        "18.7": {
+          "text_position": "bottom"
+        },
+        "19.6": {
+          "text_position": "bottom"
+        },
+        "20.7": {
+          "text_position": "bottom"
+        },
+        "21.7": {
+          "text_position": "bottom"
+        },
+        "22.7": {
+          "text_position": "bottom"
+        },
+        "23.8": {
+          "text_position": "bottom"
+        },
+        "24.9": {
+          "text_position": "bottom"
+        },
+        "25.6": {
+          "text_position": "bottom"
+        },
+        "26.6": {
+          "text_position": "bottom"
+        },
+        "27.6": {
+          "text_position": "bottom"
+        },
+        "28.8": {
+          "text_position": "bottom"
+        },
+        "29.9": {
+          "text_position": "bottom"
+        },
+        "30.8": {
+          "text_position": "bottom"
+        },
+        "31.10": {
+          "text_position": "bottom"
+        }
+      }
+    },
+    {
+      "name": "Verse 4",
+      "type": "verse",
+      "lines": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#261917",
+        "gradient_colors": [
+          "#261917",
+          "#372c24"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 48,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center"
+      },
+      "lines_overrides": {
+        "32": {
+          "background_color": "#281b19",
+          "gradient_colors": [
+            "#281b19",
+            "#3a2e26"
+          ]
+        },
+        "33": {
+          "background_color": "#231715",
+          "gradient_colors": [
+            "#231715",
+            "#342a22"
+          ]
+        },
+        "34": {
+          "background_color": "#291b19",
+          "gradient_colors": [
+            "#291b19",
+            "#3a2f27"
+          ]
+        },
+        "35": {
+          "background_color": "#221715",
+          "gradient_colors": [
+            "#221715",
+            "#332922"
+          ]
+        },
+        "36": {
+          "background_color": "#2a1c1a",
+          "gradient_colors": [
+            "#2a1c1a",
+            "#3b3027"
+          ]
+        },
+        "37": {
+          "background_color": "#211614",
+          "gradient_colors": [
+            "#211614",
+            "#332921"
+          ]
+        },
+        "38": {
+          "background_color": "#2b1d1a",
+          "gradient_colors": [
+            "#2b1d1a",
+            "#3c3128"
+          ]
+        },
+        "39": {
+          "background_color": "#201614",
+          "gradient_colors": [
+            "#201614",
+            "#322921"
+          ]
+        }
+      },
+      "words_overrides": {
+        "32.0": {
+          "text_position": "top"
+        },
+        "32.6": {
+          "text_position": "bottom"
+        },
+        "33.8": {
+          "text_position": "bottom"
+        },
+        "34.8": {
+          "text_position": "bottom"
+        },
+        "35.6": {
+          "text_position": "bottom"
+        },
+        "36.7": {
+          "text_position": "bottom"
+        },
+        "37.6": {
+          "text_position": "bottom"
+        },
+        "38.8": {
+          "text_position": "bottom"
+        },
+        "39.7": {
+          "text_position": "bottom"
+        }
+      }
+    },
+    {
+      "name": "Verse 5, BIG",
+      "type": "verse",
+      "lines": [
+        40,
+        41,
+        42,
+        43
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#261c17",
+        "gradient_colors": [
+          "#261c17",
+          "#372f24"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 56,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center"
+      },
+      "lines_overrides": {
+        "40": {
+          "font_size": 68,
+          "background_color": "#291e19",
+          "gradient_colors": [
+            "#291e19",
+            "#3a3226"
+          ]
+        },
+        "41": {
+          "font_size": 68,
+          "background_color": "#231915",
+          "gradient_colors": [
+            "#231915",
+            "#342d22"
+          ]
+        },
+        "42": {
+          "font_size": 68,
+          "background_color": "#2b1f1a",
+          "gradient_colors": [
+            "#2b1f1a",
+            "#3c3427"
+          ]
+        },
+        "43": {
+          "font_size": 68,
+          "background_color": "#211814",
+          "gradient_colors": [
+            "#211814",
+            "#322c21"
+          ]
+        }
+      },
+      "words_overrides": {
+        "40.0": {
+          "text_position": "top"
+        },
+        "40.7": {
+          "text_position": "bottom"
+        },
+        "41.10": {
+          "text_position": "bottom"
+        },
+        "42.7": {
+          "text_position": "bottom"
+        },
+        "43.5": {
+          "text_position": "bottom"
+        }
+      }
+    },
+    {
+      "name": "Outro",
+      "type": "outro",
+      "lines": [
+        44,
+        45,
+        46,
+        47
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#191116",
+        "gradient_colors": [
+          "#191116",
+          "#2a1f23"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 48,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom"
+      },
+      "lines_overrides": {
+        "44": {
+          "background_color": "#1c1319",
+          "gradient_colors": [
+            "#1c1319",
+            "#2d2125"
+          ]
+        },
+        "45": {
+          "background_color": "#160f13",
+          "gradient_colors": [
+            "#160f13",
+            "#271d20"
+          ]
+        },
+        "46": {
+          "background_color": "#1d141a",
+          "gradient_colors": [
+            "#1d141a",
+            "#2e2226"
+          ]
+        },
+        "47": {
+          "background_color": "#140e12",
+          "gradient_colors": [
+            "#140e12",
+            "#251b1e"
+          ]
+        }
+      },
+      "words_overrides": {
+        "44.0": {
+          "text_position": "top"
+        }
+      }
+    },
+    {
+      "name": "Overexaggerated tyrannical laughter",
+      "type": "overexaggerated_tyrannical_laughter",
+      "lines": [
+        48
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#291a19",
+        "gradient_colors": [
+          "#291a19",
+          "#372a24"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 44,
+        "reveal_mode": "progressive",
+        "reveal_words": 3,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center"
+      },
+      "lines_overrides": {
+        "48": {
+          "background_color": "#291a19",
+          "gradient_colors": [
+            "#291a19",
+            "#372a24"
+          ]
+        }
+      },
+      "words_overrides": {
+        "48.0": {
+          "text_position": "top"
+        },
+        "48.20": {
+          "text_position": "bottom"
+        }
+      }
+    }
+  ]
+}

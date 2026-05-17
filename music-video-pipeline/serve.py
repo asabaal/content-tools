@@ -271,6 +271,8 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_save_caption_style()
         elif path == "/api/load-script":
             self._handle_load_script()
+        elif path == "/api/generate-script":
+            self._handle_generate_script()
         else:
             self.send_response(404)
             self._cors_headers()
@@ -461,6 +463,43 @@ class PipelineHandler(SimpleHTTPRequestHandler):
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_bytes(body)
         self._send_json({"status": "saved", "sections": len(data.get("sections", []))})
+
+    def _handle_generate_script(self):
+        body = self._read_body()
+        try:
+            opts = json.loads(body) if body else {}
+        except json.JSONDecodeError:
+            opts = {}
+
+        from scriptgen import generate_script
+
+        proj_dir = _project_dir()
+        if not proj_dir:
+            self._send_json({"error": "No project loaded"}, 400)
+            return
+
+        try:
+            result = generate_script(
+                proj_dir,
+                mood=opts.get("mood"),
+                base_color=opts.get("base_color"),
+                variance=opts.get("variance", "auto"),
+            )
+        except Exception as e:
+            self._send_json({"error": str(e)}, 500)
+            return
+
+        out_path = _project_data_dir() / "script.json"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
+
+        self._send_json({
+            "status": "saved",
+            "script": result.script,
+            "sections_profiled": result.sections_profiled,
+            "variance_detected": result.variance_detected,
+            "mood_used": result.mood_used,
+        })
 
     def log_message(self, format, *args):
         print(f"{self.address_string()} - {args[0]}")

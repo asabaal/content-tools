@@ -318,6 +318,13 @@ class VideoRenderer:
         result = Image.blend(img, overlay, opacity)
         img.paste(result)
 
+    def _y_for_pos(self, pos: str) -> int:
+        if pos == "top":
+            return int(self.height * 0.2)
+        elif pos == "bottom":
+            return int(self.height * 0.8)
+        return self.height // 2
+
     def _draw_text_line(self, img: Image.Image, text: str, v: Dict, y: int, font_size: int) -> None:
         draw = ImageDraw.Draw(img)
         font = self._get_font(font_size)
@@ -353,7 +360,7 @@ class VideoRenderer:
         tx = (self.width - tw) // 2
         draw.text((tx, y), text, fill=rgb, font=font)
 
-    def _draw_karaoke(self, img: Image.Image, line: Dict, word_idx: int, v: Dict, y: int, font_size: int) -> None:
+    def _draw_karaoke(self, img: Image.Image, line: Dict, line_idx: int, word_idx: int, v: Dict, font_size: int) -> None:
         draw = ImageDraw.Draw(img)
         font = self._get_font(font_size)
         words = line["words"]
@@ -375,6 +382,8 @@ class VideoRenderer:
             cx = x + wW / 2
             is_active = j == word_idx
             rgb = hl_rgb if is_active else base_rgb
+            word_v = self.get_visual(line_idx, j)
+            word_y = self._y_for_pos(word_v.get("text_position", cs.get("text_position", "center")))
             if cs.get("outline"):
                 ow = cs.get("outline_width", 2)
                 oc = _hex_to_rgb(cs.get("outline_color", "#000000"))
@@ -382,15 +391,15 @@ class VideoRenderer:
                     for dy in range(-ow, ow + 1):
                         if dx == 0 and dy == 0:
                             continue
-                        draw.text((cx - wW / 2 + dx, y + dy), w["text"], fill=oc, font=font, anchor="lm")
+                        draw.text((cx - wW / 2 + dx, word_y + dy), w["text"], fill=oc, font=font, anchor="lm")
             if cs.get("text_shadow"):
                 sc = _hex_to_rgb(cs.get("text_shadow_color", "#000000"))
                 sf = self.height / 1080
-                draw.text((cx - wW / 2 + 2 * sf, y + 2 * sf), w["text"], fill=sc, font=font, anchor="lm")
-            draw.text((cx - wW / 2, y), w["text"], fill=rgb, font=font, anchor="lm")
+                draw.text((cx - wW / 2 + 2 * sf, word_y + 2 * sf), w["text"], fill=sc, font=font, anchor="lm")
+            draw.text((cx - wW / 2, word_y), w["text"], fill=rgb, font=font, anchor="lm")
             x += wW + spacing
 
-    def _draw_progressive(self, img: Image.Image, line: Dict, word_idx: int, v: Dict, y: int, font_size: int) -> None:
+    def _draw_progressive(self, img: Image.Image, line: Dict, line_idx: int, word_idx: int, v: Dict, font_size: int) -> None:
         draw = ImageDraw.Draw(img)
         font = self._get_font(font_size)
         words = line["words"]
@@ -429,6 +438,8 @@ class VideoRenderer:
             is_active = orig_idx >= group_start and orig_idx <= word_idx
             rgb = hl_rgb if is_active else base_rgb
             cx = x + wW / 2
+            word_v = self.get_visual(line_idx, orig_idx)
+            word_y = self._y_for_pos(word_v.get("text_position", cs.get("text_position", "center")))
             if cs.get("outline"):
                 ow = cs.get("outline_width", 2)
                 oc = _hex_to_rgb(cs.get("outline_color", "#000000"))
@@ -436,12 +447,12 @@ class VideoRenderer:
                     for dy in range(-ow, ow + 1):
                         if dx == 0 and dy == 0:
                             continue
-                        draw.text((cx - wW / 2 + dx, y + dy), w["text"], fill=oc, font=font, anchor="lm")
+                        draw.text((cx - wW / 2 + dx, word_y + dy), w["text"], fill=oc, font=font, anchor="lm")
             if cs.get("text_shadow"):
                 sc = _hex_to_rgb(cs.get("text_shadow_color", "#000000"))
                 sf = self.height / 1080
-                draw.text((cx - wW / 2 + 2 * sf, y + 2 * sf), w["text"], fill=sc, font=font, anchor="lm")
-            draw.text((cx - wW / 2, y), w["text"], fill=rgb, font=font, anchor="lm")
+                draw.text((cx - wW / 2 + 2 * sf, word_y + 2 * sf), w["text"], fill=sc, font=font, anchor="lm")
+            draw.text((cx - wW / 2, word_y), w["text"], fill=rgb, font=font, anchor="lm")
             x += wW + spacing
 
     def render_frame(self, t: float) -> Image.Image:
@@ -459,22 +470,16 @@ class VideoRenderer:
         line = self.synced["lines"][line_idx]
         font_size = int((v.get("font_size", self.caption_style.get("font_size", 48))) * (self.height / 1080))
 
-        pos = self.caption_style.get("text_position", "center")
-        if pos == "top":
-            y = int(self.height * 0.2)
-        elif pos == "bottom":
-            y = int(self.height * 0.8)
-        else:
-            y = self.height // 2
-
         mode = self._get_reveal_mode(v)
 
         if mode == "line-by-line":
+            pos = v.get("text_position", self.caption_style.get("text_position", "center"))
+            y = self._y_for_pos(pos)
             self._draw_text_line(img, line["text"], v, y, font_size)
         elif mode == "progressive":
-            self._draw_progressive(img, line, word_idx, v, y, font_size)
+            self._draw_progressive(img, line, line_idx, word_idx, v, font_size)
         else:
-            self._draw_karaoke(img, line, word_idx, v, y, font_size)
+            self._draw_karaoke(img, line, line_idx, word_idx, v, font_size)
 
         return img
 
@@ -487,22 +492,16 @@ class VideoRenderer:
         v = self.get_visual(line_idx, word_idx)
         font_size = int((v.get("font_size", self.caption_style.get("font_size", 48))) * (self.height / 1080))
 
-        pos = self.caption_style.get("text_position", "center")
-        if pos == "top":
-            y = int(self.height * 0.2)
-        elif pos == "bottom":
-            y = int(self.height * 0.8)
-        else:
-            y = self.height // 2
-
         mode = self._get_reveal_mode(v)
 
         if mode == "line-by-line":
+            pos = v.get("text_position", self.caption_style.get("text_position", "center"))
+            y = self._y_for_pos(pos)
             self._draw_text_line(img, line["text"], v, y, font_size)
         elif mode == "progressive":
-            self._draw_progressive(img, line, word_idx, v, y, font_size)
+            self._draw_progressive(img, line, line_idx, word_idx, v, font_size)
         else:
-            self._draw_karaoke(img, line, word_idx, v, y, font_size)
+            self._draw_karaoke(img, line, line_idx, word_idx, v, font_size)
 
         return img
 

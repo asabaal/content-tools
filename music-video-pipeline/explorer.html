@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVP Feature Explorer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    line-height: 1.5;
+}
+.topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px;
+    background: #010409;
+    border-bottom: 1px solid #30363d;
+    display: flex; align-items: center;
+    padding: 0 24px;
+    font-size: 18px; font-weight: 600;
+    z-index: 100;
+    color: #e6edf3;
+}
+.sidebar {
+    position: fixed; top: 56px; left: 0; bottom: 0;
+    width: 240px;
+    background: #010409;
+    border-right: 1px solid #30363d;
+    padding: 16px 0;
+    overflow-y: auto;
+    z-index: 50;
+}
+.sidebar a {
+    display: block;
+    padding: 8px 20px;
+    color: #8b949e;
+    text-decoration: none;
+    font-size: 13px;
+    border-left: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.sidebar a:hover, .sidebar a.active {
+    color: #e6edf3;
+    border-left-color: #4cc9f0;
+    background: rgba(76, 201, 240, 0.05);
+}
+.main-content {
+    margin-left: 240px;
+    margin-top: 56px;
+    padding: 40px;
+    max-width: 1400px;
+}
+.gallery-section {
+    margin-bottom: 64px;
+}
+.gallery-section h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #30363d;
+}
+.section-desc {
+    color: #8b949e;
+    margin-bottom: 24px;
+    font-size: 14px;
+    max-width: 700px;
+}
+.subgroup-header {
+    font-size: 16px;
+    color: #8b949e;
+    margin: 32px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #30363d;
+    grid-column: 1 / -1;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+.card {
+    background: #161b22;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    overflow: hidden;
+    transition: border-color 0.15s;
+}
+.card:hover {
+    border-color: #4cc9f0;
+}
+.card-preview {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #0d1117;
+}
+.card-preview img, .card-preview video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.card-body {
+    padding: 12px 16px;
+}
+.card-label {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+.card-desc {
+    font-size: 12px;
+    color: #8b949e;
+    margin-bottom: 8px;
+}
+details {
+    margin-top: 8px;
+}
+summary {
+    cursor: pointer;
+    font-size: 12px;
+    color: #4cc9f0;
+    user-select: none;
+}
+details pre {
+    margin-top: 8px;
+    padding: 8px;
+    background: #0d1117;
+    border-radius: 4px;
+    font-size: 11px;
+    overflow-x: auto;
+    color: #e6edf3;
+}
+.info-card {
+    background: #161b22;
+    border-left: 4px solid #4cc9f0;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    grid-column: 1 / -1;
+}
+.info-card h4 {
+    margin-bottom: 4px;
+    color: #4cc9f0;
+}
+.info-card p {
+    color: #8b949e;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.info-card .field-names {
+    font-size: 12px;
+    color: #8b949e;
+}
+.info-card .field-names code {
+    color: #e6edf3;
+    background: #0d1117;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+.footer {
+    margin-top: 64px;
+    padding-top: 16px;
+    border-top: 1px solid #30363d;
+    color: #484f58;
+    font-size: 12px;
+}
+@media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 24px; }
+    .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="topbar">MVP Feature Explorer</div>
+<nav class="sidebar">
+<a href="#sec-01" data-section="sec-01">01 Default Render</a>
+<a href="#sec-02" data-section="sec-02">02 Style Templates</a>
+<a href="#sec-03" data-section="sec-03">03 Background Colors</a>
+<a href="#sec-04" data-section="sec-04">04 Gradient Directions</a>
+<a href="#sec-05" data-section="sec-05">05 Gradient Multi-Stop</a>
+<a href="#sec-06" data-section="sec-06">06 Texture Overlays</a>
+<a href="#sec-07" data-section="sec-07">07 Reveal Modes</a>
+<a href="#sec-08" data-section="sec-08">08 Text Styling</a>
+<a href="#sec-09" data-section="sec-09">09 Style Recipes</a>
+<a href="#sec-10" data-section="sec-10">10 Coming Soon</a>
+
+</nav>
+<main class="main-content">
+<section id="sec-01" class="gallery-section">
+<h2>01 &middot; Default Render</h2>
+<p class="section-desc">Out of the box with default template settings. No customization applied.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/default.png"><source src="explorer_assets/video/default.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Default</div><details><summary>Config</summary><pre><code>{
+  "background_type": "solid",
+  "background_color": "#1a1a2e",
+  "gradient_direction": "vertical_top_bottom",
+  "texture_type": "none",
+  "texture_opacity": 0.15,
+  "text_auto_contrast": true,
+  "font_size": 48,
+  "animation_type": "fade",
+  "animation_speed": 1.0,
+  "reactivity": [
+    "vocals"
+  ]
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-02" class="gallery-section">
+<h2>02 &middot; Style Templates</h2>
+<p class="section-desc">The six built-in visual templates, each combining background, texture, and animation settings.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tmpl_default.png"><source src="explorer_assets/video/tmpl_default.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Default</div><details><summary>Config</summary><pre><code>{
+  "background_type": "solid",
+  "background_color": "#1a1a2e",
+  "gradient_direction": "vertical_top_bottom",
+  "texture_type": "none",
+  "texture_opacity": 0.15,
+  "text_auto_contrast": true,
+  "font_size": 48,
+  "animation_type": "fade",
+  "animation_speed": 1.0,
+  "reactivity": [
+    "vocals"
+  ]
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tmpl_dynamic.png"><source src="explorer_assets/video/tmpl_dynamic.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Dynamic</div><details><summary>Config</summary><pre><code>{
+  "background_type": "gradient",
+  "background_color": "#4A90E2",
+  "gradient_colors": [
+    "#4A90E2",
+    "#8E44AD"
+  ],
+  "gradient_direction": "horizontal_left_right",
+  "texture_type": "none",
+  "texture_opacity": 0.15,
+  "text_auto_contrast": true,
+  "font_size": 48,
+  "animation_type": "scale",
+  "animation_speed": 1.2,
+  "reactivity": [
+    "energy"
+  ]
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tmpl_elegant.png"><source src="explorer_assets/video/tmpl_elegant.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Elegant</div><details><summary>Config</summary><pre><code>{
+  "background_type": "gradient",
+  "background_color": "#1a1a2e",
+  "gradient_colors": [
+    "#1a1a2e",
+    "#16213e"
+  ],
+  "gradient_direction": "diagonal_tl_br",
+  "texture_type": "vignette_soft",
+  "texture_opacity": 0.2,
+  "text_auto_contrast": true,
+  "font_size": 44,
+  "animation_type": "fade",
+  "animation_speed": 0.8,
+  "reactivity": [
+    "energy"
+  ]
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tmpl_energetic.png"><source src="explorer_assets/video/tmpl_energetic.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Energetic</div><details><summary>Config</summary><pre><code>{
+  "background_type": "gradient",
+  "background_color": "#E67E22",
+  "gradient_colors": [
+    "#E67E22",
+    "#C0392B"
+  ],
+  "gradient_direction": "diagonal_tr_bl",
+  "texture_type": "noise_fine",
+  "texture_opacity": 0.1,
+  "text_auto_contrast": true,
+  "font_size": 48,
+  "animation_type": "pulse",
+  "animation_speed": 1.5,
+  "reactivity": [
+    "drums",
+    "bass"
+  ]
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tmpl_extreme.png"><source src="explorer_assets/video/tmpl_extreme.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Extreme</div><details><summary>Config</summary><pre><code>{
+  "background_type": "gradient",
+  "background_color": "#8E44AD",
+  "gradient_colors": [
+    "#8E44AD",
+    "#C0392B"
+  ],
+  "gradient_direction": "radial_center",
+  "texture_type": "grain_film",
+  "texture_opacity": 0.15,
+  "text_auto_contrast": true,
+  "font_size": 54,
+  "animation_type": "pulse",
+  "animation_speed": 1.8,
+  "reactivity": [
+    "vocals",
+    "drums",
+    "bass",
+    "energy"
+  ]
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tmpl_modern.png"><source src="explorer_assets/video/tmpl_modern.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Modern</div><details><summary>Config</summary><pre><code>{
+  "background_type": "solid",
+  "background_color": "#16213e",
+  "gradient_direction": "vertical_top_bottom",
+  "texture_type": "none",
+  "texture_opacity": 0.15,
+  "text_auto_contrast": true,
+  "font_size": 52,
+  "animation_type": "slide",
+  "animation_speed": 1.0,
+  "reactivity": []
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-03" class="gallery-section">
+<h2>03 &middot; Background Colors</h2>
+<p class="section-desc">Solid background colors with auto-contrast text. Notice cream (#F5E6CC) gets dark text while navy (#1A1A2E) gets light text automatically.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/color_blue.png"><source src="explorer_assets/video/color_blue.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Blue (#4A90E2)</div><details><summary>Config</summary><pre><code>{
+  "background_color": "#4A90E2"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/color_warm.png"><source src="explorer_assets/video/color_warm.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Warm (#E67E22)</div><details><summary>Config</summary><pre><code>{
+  "background_color": "#E67E22"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/color_teal.png"><source src="explorer_assets/video/color_teal.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Teal (#27AE60)</div><details><summary>Config</summary><pre><code>{
+  "background_color": "#27AE60"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/color_purple.png"><source src="explorer_assets/video/color_purple.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Purple (#8E44AD)</div><details><summary>Config</summary><pre><code>{
+  "background_color": "#8E44AD"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/color_red.png"><source src="explorer_assets/video/color_red.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Red (#C0392B)</div><details><summary>Config</summary><pre><code>{
+  "background_color": "#C0392B"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/color_navy.png"><source src="explorer_assets/video/color_navy.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Navy (#1A1A2E)</div><details><summary>Config</summary><pre><code>{
+  "background_color": "#1A1A2E"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/color_charcoal.png"><source src="explorer_assets/video/color_charcoal.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Charcoal (#2D2D2D)</div><details><summary>Config</summary><pre><code>{
+  "background_color": "#2D2D2D"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/color_cream.png"><source src="explorer_assets/video/color_cream.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Cream (#F5E6CC)</div><details><summary>Config</summary><pre><code>{
+  "background_color": "#F5E6CC"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-04" class="gallery-section">
+<h2>04 &middot; Gradient Directions</h2>
+<p class="section-desc">All nine gradient directions using a blue-to-red two-color gradient.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_vert_tb.png"><source src="explorer_assets/video/grad_vert_tb.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">vertical top bottom</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "vertical_top_bottom"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_vert_bt.png"><source src="explorer_assets/video/grad_vert_bt.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">vertical bottom top</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "vertical_bottom_top"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_horiz_lr.png"><source src="explorer_assets/video/grad_horiz_lr.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">horizontal left right</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "horizontal_left_right"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_horiz_rl.png"><source src="explorer_assets/video/grad_horiz_rl.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">horizontal right left</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "horizontal_right_left"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_diag_tlbr.png"><source src="explorer_assets/video/grad_diag_tlbr.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">diagonal tl br</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "diagonal_tl_br"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_diag_trbl.png"><source src="explorer_assets/video/grad_diag_trbl.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">diagonal tr bl</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "diagonal_tr_bl"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_rad_ctr.png"><source src="explorer_assets/video/grad_rad_ctr.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">radial center</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "radial_center"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_rad_top.png"><source src="explorer_assets/video/grad_rad_top.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">radial top</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "radial_top"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/grad_rad_bot.png"><source src="explorer_assets/video/grad_rad_bot.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">radial bottom</div><details><summary>Config</summary><pre><code>{
+  "gradient_direction": "radial_bottom"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-05" class="gallery-section">
+<h2>05 &middot; Gradient Multi-Stop</h2>
+<p class="section-desc">Gradients with 2, 3, and 4 color stops on a diagonal. Colors interpolate smoothly across the frame.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/gradstop_2.png"><source src="explorer_assets/video/gradstop_2.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">2-color</div><details><summary>Config</summary><pre><code>{
+  "gradient_colors": [
+    "#4A90E2",
+    "#C0392B"
+  ]
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/gradstop_3.png"><source src="explorer_assets/video/gradstop_3.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">3-color</div><details><summary>Config</summary><pre><code>{
+  "gradient_colors": [
+    "#4A90E2",
+    "#8E44AD",
+    "#C0392B"
+  ]
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/gradstop_4.png"><source src="explorer_assets/video/gradstop_4.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">4-color</div><details><summary>Config</summary><pre><code>{
+  "gradient_colors": [
+    "#4A90E2",
+    "#27AE60",
+    "#8E44AD",
+    "#C0392B"
+  ]
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-06" class="gallery-section">
+<h2>06 &middot; Texture Overlays</h2>
+<p class="section-desc">Seven texture types, an opacity series using grain_film, and blend mode comparison using noise_coarse.</p>
+<div class="card-grid">
+<h3 class="subgroup-header">Texture Types</h3>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tex_none.png"><source src="explorer_assets/video/tex_none.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">None</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "none",
+  "texture_opacity": 0.3
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tex_noise_fine.png"><source src="explorer_assets/video/tex_noise_fine.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Noise Fine</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "noise_fine",
+  "texture_opacity": 0.3
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tex_noise_coarse.png"><source src="explorer_assets/video/tex_noise_coarse.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Noise Coarse</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "noise_coarse",
+  "texture_opacity": 0.3
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tex_grain_film.png"><source src="explorer_assets/video/tex_grain_film.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Grain Film</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "grain_film",
+  "texture_opacity": 0.3
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tex_paper_subtle.png"><source src="explorer_assets/video/tex_paper_subtle.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Paper Subtle</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "paper_subtle",
+  "texture_opacity": 0.3
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tex_vignette_soft.png"><source src="explorer_assets/video/tex_vignette_soft.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Vignette Soft</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "vignette_soft",
+  "texture_opacity": 0.3
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tex_vignette_heavy.png"><source src="explorer_assets/video/tex_vignette_heavy.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Vignette Heavy</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "vignette_heavy",
+  "texture_opacity": 0.3
+}</code></pre></details></div></div>
+<h3 class="subgroup-header">Opacity Series (grain_film)</h3>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/texop_0.1.png"><source src="explorer_assets/video/texop_0.1.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">grain_film @ 0.1</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "grain_film",
+  "texture_opacity": 0.1
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/texop_0.3.png"><source src="explorer_assets/video/texop_0.3.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">grain_film @ 0.3</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "grain_film",
+  "texture_opacity": 0.3
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/texop_0.5.png"><source src="explorer_assets/video/texop_0.5.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">grain_film @ 0.5</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "grain_film",
+  "texture_opacity": 0.5
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/texop_0.8.png"><source src="explorer_assets/video/texop_0.8.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">grain_film @ 0.8</div><details><summary>Config</summary><pre><code>{
+  "texture_type": "grain_film",
+  "texture_opacity": 0.8
+}</code></pre></details></div></div>
+<h3 class="subgroup-header">Blend Mode Comparison (noise_coarse)</h3>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/texbl_normal.png"><source src="explorer_assets/video/texbl_normal.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">blend: normal</div><details><summary>Config</summary><pre><code>{
+  "texture_blend_mode": "normal",
+  "texture_opacity": 0.5
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/texbl_multiply.png"><source src="explorer_assets/video/texbl_multiply.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">blend: multiply</div><details><summary>Config</summary><pre><code>{
+  "texture_blend_mode": "multiply",
+  "texture_opacity": 0.5
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-07" class="gallery-section">
+<h2>07 &middot; Reveal Modes</h2>
+<p class="section-desc">How lyrics appear during playback. Each card has a static snapshot and a 5-second video clip.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/reveal_progressive.png"><source src="explorer_assets/video/reveal_progressive.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">progressive</div><p class="card-desc">Words appear one-by-one, highlighted as active</p><details><summary>Config</summary><pre><code>{
+  "reveal_mode": "progressive"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/reveal_karaoke.png"><source src="explorer_assets/video/reveal_karaoke.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">karaoke</div><p class="card-desc">All words shown, active word highlighted</p><details><summary>Config</summary><pre><code>{
+  "reveal_mode": "karaoke"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/reveal_linebyline.png"><source src="explorer_assets/video/reveal_linebyline.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">line-by-line</div><p class="card-desc">Full line appears at once</p><details><summary>Config</summary><pre><code>{
+  "reveal_mode": "line-by-line"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-08" class="gallery-section">
+<h2>08 &middot; Text Styling</h2>
+<p class="section-desc">Font sizes (shown on a longer verse line), text positions, shadow, outline, and auto-contrast toggle.</p>
+<div class="card-grid">
+<h3 class="subgroup-header">Font Sizes</h3>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_size_32.png"><source src="explorer_assets/video/txt_size_32.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">font_size: 32</div><details><summary>Config</summary><pre><code>{
+  "font_size": 32
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_size_48.png"><source src="explorer_assets/video/txt_size_48.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">font_size: 48</div><details><summary>Config</summary><pre><code>{
+  "font_size": 48
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_size_64.png"><source src="explorer_assets/video/txt_size_64.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">font_size: 64</div><details><summary>Config</summary><pre><code>{
+  "font_size": 64
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_size_80.png"><source src="explorer_assets/video/txt_size_80.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">font_size: 80</div><details><summary>Config</summary><pre><code>{
+  "font_size": 80
+}</code></pre></details></div></div>
+<h3 class="subgroup-header">Text Positions</h3>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_pos_top.png"><source src="explorer_assets/video/txt_pos_top.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">position: top</div><details><summary>Config</summary><pre><code>{
+  "caption_style": {
+    "text_position": "top"
+  }
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_pos_center.png"><source src="explorer_assets/video/txt_pos_center.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">position: center</div><details><summary>Config</summary><pre><code>{
+  "caption_style": {
+    "text_position": "center"
+  }
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_pos_bottom.png"><source src="explorer_assets/video/txt_pos_bottom.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">position: bottom</div><details><summary>Config</summary><pre><code>{
+  "caption_style": {
+    "text_position": "bottom"
+  }
+}</code></pre></details></div></div>
+<h3 class="subgroup-header">Text Shadow</h3>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_shadow_off.png"><source src="explorer_assets/video/txt_shadow_off.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">shadow: off</div><details><summary>Config</summary><pre><code>{
+  "text_shadow": false
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_shadow_on.png"><source src="explorer_assets/video/txt_shadow_on.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">shadow: on</div><details><summary>Config</summary><pre><code>{
+  "text_shadow": true
+}</code></pre></details></div></div>
+<h3 class="subgroup-header">Text Outline</h3>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_outline_off.png"><source src="explorer_assets/video/txt_outline_off.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">outline: off</div><details><summary>Config</summary><pre><code>{
+  "outline": false,
+  "outline_width": 2
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_outline_on.png"><source src="explorer_assets/video/txt_outline_on.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">outline: on</div><details><summary>Config</summary><pre><code>{
+  "outline": true,
+  "outline_width": 2
+}</code></pre></details></div></div>
+<h3 class="subgroup-header">Auto Contrast</h3>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_autocontrast_on.png"><source src="explorer_assets/video/txt_autocontrast_on.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">auto_contrast: on</div><details><summary>Config</summary><pre><code>{
+  "text_auto_contrast": true
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/txt_autocontrast_off.png"><source src="explorer_assets/video/txt_autocontrast_off.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">auto_contrast: off</div><details><summary>Config</summary><pre><code>{
+  "text_auto_contrast": false,
+  "text_color": "#ff6b6b"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-09" class="gallery-section">
+<h2>09 &middot; Style Recipes</h2>
+<p class="section-desc">Named combinations of settings that produce distinct visual moods.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/recipe_cinematic.png"><source src="explorer_assets/video/recipe_cinematic.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Cinematic</div><details><summary>Config</summary><pre><code>{
+  "background_type": "gradient",
+  "background_color": "#0a0a2e",
+  "gradient_colors": [
+    "#0a0a2e",
+    "#1a1a4e"
+  ],
+  "gradient_direction": "diagonal_tl_br",
+  "texture_type": "vignette_heavy",
+  "texture_opacity": 0.5
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/recipe_editorial.png"><source src="explorer_assets/video/recipe_editorial.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Editorial</div><details><summary>Config</summary><pre><code>{
+  "background_type": "solid",
+  "background_color": "#F5E6CC",
+  "texture_type": "paper_subtle",
+  "texture_opacity": 0.2
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/recipe_ambient_loop.png"><source src="explorer_assets/video/recipe_ambient_loop.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Ambient Loop</div><details><summary>Config</summary><pre><code>{
+  "background_type": "gradient",
+  "background_color": "#1a1a2e",
+  "gradient_colors": [
+    "#1a1a2e",
+    "#4A90E2",
+    "#8E44AD"
+  ],
+  "gradient_direction": "radial_center",
+  "texture_type": "none"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/recipe_high_contrast.png"><source src="explorer_assets/video/recipe_high_contrast.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">High Contrast</div><details><summary>Config</summary><pre><code>{
+  "background_type": "solid",
+  "background_color": "#C0392B",
+  "texture_type": "grain_film",
+  "texture_opacity": 0.2
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-10" class="gallery-section">
+<h2>10 &middot; Coming Soon</h2>
+<p class="section-desc">These features are defined in the data model and templates but not yet implemented in the renderer.</p>
+<div class="card-grid">
+<div class="info-card"><h4>Animation Types</h4><p>Text entrance/exit animations: fade, slide, scale, typewriter, pulse. Each animates how lyrics appear and disappear on screen.</p><div class="field-names">Fields: <code>animation_type, animation_speed</code></div></div>
+<div class="info-card"><h4>Background Animations</h4><p>Background movement effects: drift (slow pan), flow (color movement), pulse (beat-synced), distortion (wave), parallax (depth scroll).</p><div class="field-names">Fields: <code>bg_animation_type, bg_animation_intensity, bg_animation_speed</code></div></div>
+<div class="info-card"><h4>Audio Reactivity</h4><p>Audio-driven visual changes using stem energy profiles: vocals, drums, bass, synth, overall energy. Could modulate background intensity, text scale, or color shifts in real-time.</p><div class="field-names">Fields: <code>reactivity (list of stems)</code></div></div>
+<div class="info-card"><h4>Custom Reveal Mode</h4><p>A fully customizable reveal mode (reveal_mode: 'custom') with user-defined behavior for how lyrics are shown.</p><div class="field-names">Fields: <code>reveal_mode: 'custom'</code></div></div>
+</div>
+</section>
+
+
+<div class="footer">Generated 2026-05-15 16:12 by <code>scripts/feature_explorer.py</code></div>
+</main>
+<script>
+const links = document.querySelectorAll('.sidebar a');
+const sections = document.querySelectorAll('.gallery-section');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            links.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+            });
+        }
+    });
+}, { rootMargin: '-80px 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
