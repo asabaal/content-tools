@@ -188,7 +188,13 @@ details pre {
 <a href="#sec-07" data-section="sec-07">07 Reveal Modes</a>
 <a href="#sec-08" data-section="sec-08">08 Text Styling</a>
 <a href="#sec-09" data-section="sec-09">09 Style Recipes</a>
-<a href="#sec-10" data-section="sec-10">10 Coming Soon</a>
+<a href="#sec-10" data-section="sec-10">10 Text Animations</a>
+<a href="#sec-11" data-section="sec-11">11 Professional Text Styles</a>
+<a href="#sec-12" data-section="sec-12">12 Procedural Font Styles</a>
+<a href="#sec-13" data-section="sec-13">13 Audio-Reactive Effects</a>
+<a href="#sec-14" data-section="sec-14">14 Motion Effect Presets</a>
+<a href="#sec-15" data-section="sec-15">15 Mood Compositions</a>
+<a href="#sec-16" data-section="sec-16">16 Coming Soon</a>
 
 </nav>
 <main class="main-content">
@@ -595,18 +601,234 @@ details pre {
 </section>
 
 <section id="sec-10" class="gallery-section">
-<h2>10 &middot; Coming Soon</h2>
-<p class="section-desc">These features are defined in the data model and templates but not yet implemented in the renderer.</p>
+<h2>10 &middot; Text Animations</h2>
+<p class="section-desc">13 animation types controlling how lyrics enter and exit the frame. Each card shows a 5-second clip with the animation applied.</p>
 <div class="card-grid">
-<div class="info-card"><h4>Animation Types</h4><p>Text entrance/exit animations: fade, slide, scale, typewriter, pulse. Each animates how lyrics appear and disappear on screen.</p><div class="field-names">Fields: <code>animation_type, animation_speed</code></div></div>
-<div class="info-card"><h4>Background Animations</h4><p>Background movement effects: drift (slow pan), flow (color movement), pulse (beat-synced), distortion (wave), parallax (depth scroll).</p><div class="field-names">Fields: <code>bg_animation_type, bg_animation_intensity, bg_animation_speed</code></div></div>
-<div class="info-card"><h4>Audio Reactivity</h4><p>Audio-driven visual changes using stem energy profiles: vocals, drums, bass, synth, overall energy. Could modulate background intensity, text scale, or color shifts in real-time.</p><div class="field-names">Fields: <code>reactivity (list of stems)</code></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_fade_in.png"><source src="explorer_assets/video/anim_fade_in.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Fade In</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "fade_in",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_fade_out.png"><source src="explorer_assets/video/anim_fade_out.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Fade Out</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "fade_out",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_slide_in.png"><source src="explorer_assets/video/anim_slide_in.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Slide In</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "slide_in",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_slide_out.png"><source src="explorer_assets/video/anim_slide_out.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Slide Out</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "slide_out",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_scale_in.png"><source src="explorer_assets/video/anim_scale_in.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Scale In</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "scale_in",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_scale_out.png"><source src="explorer_assets/video/anim_scale_out.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Scale Out</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "scale_out",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_rotate_in.png"><source src="explorer_assets/video/anim_rotate_in.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Rotate In</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "rotate_in",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_typewriter.png"><source src="explorer_assets/video/anim_typewriter.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Typewriter</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "typewriter",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_bounce_in.png"><source src="explorer_assets/video/anim_bounce_in.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Bounce In</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "bounce_in",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_elastic_in.png"><source src="explorer_assets/video/anim_elastic_in.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Elastic In</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "elastic_in",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_wave.png"><source src="explorer_assets/video/anim_wave.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Wave</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "wave",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_shake.png"><source src="explorer_assets/video/anim_shake.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Shake</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "shake",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/anim_glow_pulse.png"><source src="explorer_assets/video/anim_glow_pulse.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Glow Pulse</div><details><summary>Config</summary><pre><code>{
+  "animation_type": "glow_pulse",
+  "animation_speed": 1.0
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-11" class="gallery-section">
+<h2>11 &middot; Professional Text Styles</h2>
+<p class="section-desc">6 multi-pass text rendering styles with shadow, glow, outline, and fill layers powered by OpenCV.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tstyle_modern_bold.png"><source src="explorer_assets/video/tstyle_modern_bold.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Modern Bold</div><details><summary>Config</summary><pre><code>{
+  "text_style": "modern_bold"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tstyle_neon_glow.png"><source src="explorer_assets/video/tstyle_neon_glow.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Neon Glow</div><details><summary>Config</summary><pre><code>{
+  "text_style": "neon_glow"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tstyle_elegant_gold.png"><source src="explorer_assets/video/tstyle_elegant_gold.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Elegant Gold</div><details><summary>Config</summary><pre><code>{
+  "text_style": "elegant_gold"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tstyle_hip_hop.png"><source src="explorer_assets/video/tstyle_hip_hop.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Hip Hop</div><details><summary>Config</summary><pre><code>{
+  "text_style": "hip_hop"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tstyle_clean_white.png"><source src="explorer_assets/video/tstyle_clean_white.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Clean White</div><details><summary>Config</summary><pre><code>{
+  "text_style": "clean_white"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/tstyle_dramatic_red.png"><source src="explorer_assets/video/tstyle_dramatic_red.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Dramatic Red</div><details><summary>Config</summary><pre><code>{
+  "text_style": "dramatic_red"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-12" class="gallery-section">
+<h2>12 &middot; Procedural Font Styles</h2>
+<p class="section-desc">9 algorithmically-generated text styles with gradients, glow layers, wave distortion, and special effects.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_neon.png"><source src="explorer_assets/video/fstyle_neon.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Neon</div><p class="card-desc">Multi-layer magenta/purple glow with bright white core</p><details><summary>Config</summary><pre><code>{
+  "font_style": "neon"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_graffiti.png"><source src="explorer_assets/video/fstyle_graffiti.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Graffiti</div><p class="card-desc">Red-to-yellow gradient with black outline and shadow</p><details><summary>Config</summary><pre><code>{
+  "font_style": "graffiti"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_chrome.png"><source src="explorer_assets/video/fstyle_chrome.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Chrome</div><p class="card-desc">Metallic silver gradient with horizontal highlight bands</p><details><summary>Config</summary><pre><code>{
+  "font_style": "chrome"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_fire.png"><source src="explorer_assets/video/fstyle_fire.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Fire</div><p class="card-desc">Red-orange-yellow flame layers with wave distortion</p><details><summary>Config</summary><pre><code>{
+  "font_style": "fire"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_ice.png"><source src="explorer_assets/video/fstyle_ice.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Ice</div><p class="card-desc">Blue-to-white gradient with sparkle highlights</p><details><summary>Config</summary><pre><code>{
+  "font_style": "ice"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_gold.png"><source src="explorer_assets/video/fstyle_gold.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Gold</div><p class="card-desc">Sinusoidal gold gradient with outer golden glow</p><details><summary>Config</summary><pre><code>{
+  "font_style": "gold"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_hologram.png"><source src="explorer_assets/video/fstyle_hologram.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Hologram</div><p class="card-desc">Cyan fill with scan lines and transparency noise</p><details><summary>Config</summary><pre><code>{
+  "font_style": "hologram"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_matrix.png"><source src="explorer_assets/video/fstyle_matrix.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Matrix</div><p class="card-desc">Green vertical gradient with random bright artifacts</p><details><summary>Config</summary><pre><code>{
+  "font_style": "matrix"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/fstyle_basic.png"><source src="explorer_assets/video/fstyle_basic.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Basic Rainbow</div><p class="card-desc">Horizontal rainbow gradient with magenta glow</p><details><summary>Config</summary><pre><code>{
+  "font_style": "basic"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-13" class="gallery-section">
+<h2>13 &middot; Audio-Reactive Effects</h2>
+<p class="section-desc">Real-time audio-driven visual effects using RMS energy, spectral centroid, and beat detection from analysis.json.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/react_energy.png"><source src="explorer_assets/video/react_energy.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Energy</div><p class="card-desc">Energy-driven glow and color shift</p><details><summary>Config</summary><pre><code>{
+  "reactivity": [
+    "energy"
+  ],
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/react_drums.png"><source src="explorer_assets/video/react_drums.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Drums</div><p class="card-desc">Beat flash and energy burst on hits</p><details><summary>Config</summary><pre><code>{
+  "reactivity": [
+    "drums"
+  ],
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/react_vocals.png"><source src="explorer_assets/video/react_vocals.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Vocals</div><p class="card-desc">Chromatic aberration on vocal energy</p><details><summary>Config</summary><pre><code>{
+  "reactivity": [
+    "vocals"
+  ],
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/react_all.png"><source src="explorer_assets/video/react_all.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Full Mix</div><p class="card-desc">All audio-reactive effects combined</p><details><summary>Config</summary><pre><code>{
+  "reactivity": [
+    "energy",
+    "drums",
+    "vocals"
+  ],
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-14" class="gallery-section">
+<h2>14 &middot; Motion Effect Presets</h2>
+<p class="section-desc">8 named presets combining frame-level motion effects with audio reactivity settings, assigned automatically by section type and mood.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mpreset_cinematic.png"><source src="explorer_assets/video/mpreset_cinematic.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Cinematic</div><p class="card-desc">Slow zoom, subtle color shift, vignette pulse</p><details><summary>Config</summary><pre><code>{
+  "bg_animation_preset": "cinematic",
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mpreset_energetic.png"><source src="explorer_assets/video/mpreset_energetic.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Energetic</div><p class="card-desc">Camera shake, brightness pulse, beat-synced</p><details><summary>Config</summary><pre><code>{
+  "bg_animation_preset": "energetic",
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mpreset_dreamy.png"><source src="explorer_assets/video/mpreset_dreamy.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Dreamy</div><p class="card-desc">Wave distortion, zoom blur, soft vignette</p><details><summary>Config</summary><pre><code>{
+  "bg_animation_preset": "dreamy",
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mpreset_glitch.png"><source src="explorer_assets/video/mpreset_glitch.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Glitch</div><p class="card-desc">Digital glitch, contrast pulse, line displacement</p><details><summary>Config</summary><pre><code>{
+  "bg_animation_preset": "glitch",
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mpreset_minimal.png"><source src="explorer_assets/video/mpreset_minimal.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Minimal</div><p class="card-desc">No effects, clean output</p><details><summary>Config</summary><pre><code>{
+  "bg_animation_preset": "minimal",
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mpreset_psychedelic.png"><source src="explorer_assets/video/mpreset_psychedelic.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Psychedelic</div><p class="card-desc">Rainbow color shift, heavy wave distortion</p><details><summary>Config</summary><pre><code>{
+  "bg_animation_preset": "psychedelic",
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mpreset_smooth.png"><source src="explorer_assets/video/mpreset_smooth.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Smooth</div><p class="card-desc">Gentle zoom, soft vignette</p><details><summary>Config</summary><pre><code>{
+  "bg_animation_preset": "smooth",
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mpreset_intense.png"><source src="explorer_assets/video/mpreset_intense.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Intense</div><p class="card-desc">Heavy shake, rapid zoom, glitch, all stems</p><details><summary>Config</summary><pre><code>{
+  "bg_animation_preset": "intense",
+  "animation_type": "fade_in"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-15" class="gallery-section">
+<h2>15 &middot; Mood Compositions</h2>
+<p class="section-desc">Full mood-driven renders combining font styles, animation types, motion presets, and audio reactivity into cohesive visual themes.</p>
+<div class="card-grid">
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mood_dark_moody.png"><source src="explorer_assets/video/mood_dark_moody.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Dark Moody</div><p class="card-desc">Neon font, cinematic/dreamy presets, fade animations</p><details><summary>Config</summary><pre><code>{
+  "mood": "dark_moody",
+  "bg_animation_preset": "energetic"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mood_bright_poppy.png"><source src="explorer_assets/video/mood_bright_poppy.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Bright Poppy</div><p class="card-desc">Graffiti/chrome font, energetic presets, scale animations</p><details><summary>Config</summary><pre><code>{
+  "mood": "bright_poppy",
+  "bg_animation_preset": "energetic"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mood_warm_intimate.png"><source src="explorer_assets/video/mood_warm_intimate.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Warm Intimate</div><p class="card-desc">Gold font, smooth presets, gentle fade animations</p><details><summary>Config</summary><pre><code>{
+  "mood": "warm_intimate",
+  "bg_animation_preset": "cinematic"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mood_cool_ethereal.png"><source src="explorer_assets/video/mood_cool_ethereal.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">Cool Ethereal</div><p class="card-desc">Ice/hologram font, dreamy presets, wave distortion</p><details><summary>Config</summary><pre><code>{
+  "mood": "cool_ethereal",
+  "bg_animation_preset": "cinematic"
+}</code></pre></details></div></div>
+<div class="card video-card"><div class="card-preview"><video autoplay loop muted playsinline poster="explorer_assets/static/mood_high_energy.png"><source src="explorer_assets/video/mood_high_energy.mp4" type="video/mp4"></video></div><div class="card-body"><div class="card-label">High Energy</div><p class="card-desc">Fire font, intense presets, elastic/bounce animations</p><details><summary>Config</summary><pre><code>{
+  "mood": "high_energy",
+  "bg_animation_preset": "energetic"
+}</code></pre></details></div></div>
+</div>
+</section>
+
+<section id="sec-16" class="gallery-section">
+<h2>16 &middot; Coming Soon</h2>
+<p class="section-desc">Features defined but not yet fully integrated into the explorer pipeline.</p>
+<div class="card-grid">
+<div class="info-card"><h4>Background Video</h4><p>Load MP4/image backgrounds with beat-synced clip switching. Supports video files and image directories with automatic format detection.</p><div class="field-names">Fields: <code>background_video (path), beat-synced switching</code></div></div>
 <div class="info-card"><h4>Custom Reveal Mode</h4><p>A fully customizable reveal mode (reveal_mode: 'custom') with user-defined behavior for how lyrics are shown.</p><div class="field-names">Fields: <code>reveal_mode: 'custom'</code></div></div>
+<div class="info-card"><h4>GPU Compositing</h4><p>CUDA-accelerated glow, blur, and remap operations for real-time preview and faster rendering on supported hardware.</p><div class="field-names">Fields: <code>gpu compositing toggle</code></div></div>
 </div>
 </section>
 
 
-<div class="footer">Generated 2026-05-15 16:12 by <code>scripts/feature_explorer.py</code></div>
+<div class="footer">Generated 2026-05-18 11:01 by <code>scripts/feature_explorer.py</code></div>
 </main>
 <script>
 const links = document.querySelectorAll('.sidebar a');

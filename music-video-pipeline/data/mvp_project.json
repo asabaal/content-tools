@@ -3,7 +3,7 @@
   "name": "I Never Asked To Be Queer",
   "artist": "",
   "created": "2026-05-06T17:07:33",
-  "modified": "2026-05-11T16:57:24",
+  "modified": "2026-05-16T20:22:49",
   "paths": {
     "audio": "i-never-asked-to-be-queer/I Never Asked To Be Queer.wav",
     "lyrics": "i-never-asked-to-be-queer/lyrics.txt",
@@ -33,6 +33,6 @@
     "sync": "complete",
     "structure": "pending",
     "design": "pending",
-    "render": "pending"
+    "render": "complete"
   }
 }

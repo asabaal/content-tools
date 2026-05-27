@@ -227,12 +227,17 @@ def _render_clip(
     total = int((t_end - t_start) * fps) + 1
     prev_bytes: bytes | None = None
     prev_key: tuple | None = None
+    has_anim = (
+        defaults.get("animation_type", "none") != "none"
+        or bool(defaults.get("bg_animation_preset", ""))
+        or defaults.get("animation_type", "") in ("wave", "shake", "glow_pulse")
+    )
     try:
         with VideoEncoder(out_path, r.width, r.height, fps) as enc:
             for i in range(total):
                 t = t_start + i / fps
                 li, wi = r._find_active_word(t)
-                key = (li, wi)
+                key = (li, wi) if not has_anim else (li, wi, i)
                 if key == prev_key and prev_bytes is not None:
                     enc.write_frame(prev_bytes)
                 else:
@@ -491,15 +496,218 @@ def gen_09_recipes(r: Any, force: List[str]) -> dict:
     }
 
 
-def gen_10_coming_soon() -> dict:
+ANIMATION_TYPES = [
+    "fade_in", "fade_out", "slide_in", "slide_out",
+    "scale_in", "scale_out", "rotate_in",
+    "typewriter", "bounce_in", "elastic_in",
+    "wave", "shake", "glow_pulse",
+]
+
+ANIMATION_LABELS = {
+    "fade_in": "Fade In", "fade_out": "Fade Out",
+    "slide_in": "Slide In", "slide_out": "Slide Out",
+    "scale_in": "Scale In", "scale_out": "Scale Out",
+    "rotate_in": "Rotate In",
+    "typewriter": "Typewriter", "bounce_in": "Bounce In",
+    "elastic_in": "Elastic In",
+    "wave": "Wave", "shake": "Shake", "glow_pulse": "Glow Pulse",
+}
+
+
+def gen_10_animations(r: Any, force: List[str]) -> dict:
+    cards = []
+    for anim in ANIMATION_TYPES:
+        stem = f"anim_{anim}"
+        defaults = {**BASE_DEFAULTS, "animation_type": anim, "animation_speed": 1.0}
+        img, vid = _gen_variant(r, defaults, stem, force)
+        label = ANIMATION_LABELS.get(anim, anim)
+        print(f"  [10] animation: {anim}")
+        cards.append({
+            "img": img, "video": vid, "label": label,
+            "config": {"animation_type": anim, "animation_speed": 1.0},
+        })
     return {
-        "id": "10", "number": "10", "title": "Coming Soon",
-        "desc": "These features are defined in the data model and templates but not yet implemented in the renderer.",
+        "id": "10", "number": "10", "title": "Text Animations",
+        "desc": "13 animation types controlling how lyrics enter and exit the frame. Each card shows a 5-second clip with the animation applied.",
+        "cards": cards, "has_video": True,
+    }
+
+
+def gen_11_text_styles(r: Any, force: List[str]) -> dict:
+    cards = []
+    text_style_configs = [
+        ("modern_bold", "Modern Bold", {}),
+        ("neon_glow", "Neon Glow", {}),
+        ("elegant_gold", "Elegant Gold", {}),
+        ("hip_hop", "Hip Hop", {}),
+        ("clean_white", "Clean White", {}),
+        ("dramatic_red", "Dramatic Red", {}),
+    ]
+    for style_name, label, _ in text_style_configs:
+        stem = f"tstyle_{style_name}"
+        defaults = {**BASE_DEFAULTS, "text_style": style_name}
+        img, vid = _gen_variant(r, defaults, stem, force)
+        print(f"  [11] text_style: {style_name}")
+        cards.append({
+            "img": img, "video": vid, "label": label,
+            "config": {"text_style": style_name},
+        })
+    return {
+        "id": "11", "number": "11", "title": "Professional Text Styles",
+        "desc": "6 multi-pass text rendering styles with shadow, glow, outline, and fill layers powered by OpenCV.",
+        "cards": cards, "has_video": True,
+    }
+
+
+FONT_STYLES = [
+    ("neon", "Neon", "Multi-layer magenta/purple glow with bright white core"),
+    ("graffiti", "Graffiti", "Red-to-yellow gradient with black outline and shadow"),
+    ("chrome", "Chrome", "Metallic silver gradient with horizontal highlight bands"),
+    ("fire", "Fire", "Red-orange-yellow flame layers with wave distortion"),
+    ("ice", "Ice", "Blue-to-white gradient with sparkle highlights"),
+    ("gold", "Gold", "Sinusoidal gold gradient with outer golden glow"),
+    ("hologram", "Hologram", "Cyan fill with scan lines and transparency noise"),
+    ("matrix", "Matrix", "Green vertical gradient with random bright artifacts"),
+    ("basic", "Basic Rainbow", "Horizontal rainbow gradient with magenta glow"),
+]
+
+
+def gen_12_font_styles(r: Any, force: List[str]) -> dict:
+    cards = []
+    for style_name, label, desc in FONT_STYLES:
+        stem = f"fstyle_{style_name}"
+        defaults = {**BASE_DEFAULTS, "font_style": style_name}
+        img, vid = _gen_variant(r, defaults, stem, force)
+        print(f"  [12] font_style: {style_name}")
+        cards.append({
+            "img": img, "video": vid, "label": label, "desc": desc,
+            "config": {"font_style": style_name},
+        })
+    return {
+        "id": "12", "number": "12", "title": "Procedural Font Styles",
+        "desc": "9 algorithmically-generated text styles with gradients, glow layers, wave distortion, and special effects.",
+        "cards": cards, "has_video": True,
+    }
+
+
+REACTIVITY_CONFIGS = [
+    ("react_energy", "Energy", ["energy"], "Energy-driven glow and color shift"),
+    ("react_drums", "Drums", ["drums"], "Beat flash and energy burst on hits"),
+    ("react_vocals", "Vocals", ["vocals"], "Chromatic aberration on vocal energy"),
+    ("react_all", "Full Mix", ["energy", "drums", "vocals"], "All audio-reactive effects combined"),
+]
+
+
+def gen_13_audio_reactive(r: Any, force: List[str]) -> dict:
+    cards = []
+    for stem, label, reactivity, desc in REACTIVITY_CONFIGS:
+        defaults = {**BASE_DEFAULTS, "reactivity": reactivity, "animation_type": "fade_in"}
+        img, vid = _gen_variant(r, defaults, stem, force)
+        print(f"  [13] reactivity: {label}")
+        cards.append({
+            "img": img, "video": vid, "label": label, "desc": desc,
+            "config": {"reactivity": reactivity, "animation_type": "fade_in"},
+        })
+    return {
+        "id": "13", "number": "13", "title": "Audio-Reactive Effects",
+        "desc": "Real-time audio-driven visual effects using RMS energy, spectral centroid, and beat detection from analysis.json.",
+        "cards": cards, "has_video": True,
+    }
+
+
+MOTION_PRESETS = [
+    "cinematic", "energetic", "dreamy", "glitch",
+    "minimal", "psychedelic", "smooth", "intense",
+]
+
+PRESET_DESCS = {
+    "cinematic": "Slow zoom, subtle color shift, vignette pulse",
+    "energetic": "Camera shake, brightness pulse, beat-synced",
+    "dreamy": "Wave distortion, zoom blur, soft vignette",
+    "glitch": "Digital glitch, contrast pulse, line displacement",
+    "minimal": "No effects, clean output",
+    "psychedelic": "Rainbow color shift, heavy wave distortion",
+    "smooth": "Gentle zoom, soft vignette",
+    "intense": "Heavy shake, rapid zoom, glitch, all stems",
+}
+
+
+def gen_14_motion_presets(r: Any, force: List[str]) -> dict:
+    cards = []
+    for preset_name in MOTION_PRESETS:
+        stem = f"mpreset_{preset_name}"
+        defaults = {**BASE_DEFAULTS, "bg_animation_preset": preset_name, "animation_type": "fade_in"}
+        img, vid = _gen_variant(r, defaults, stem, force)
+        desc = PRESET_DESCS.get(preset_name, "")
+        print(f"  [14] preset: {preset_name}")
+        cards.append({
+            "img": img, "video": vid, "label": preset_name.capitalize(),
+            "desc": desc,
+            "config": {"bg_animation_preset": preset_name, "animation_type": "fade_in"},
+        })
+    return {
+        "id": "14", "number": "14", "title": "Motion Effect Presets",
+        "desc": "8 named presets combining frame-level motion effects with audio reactivity settings, assigned automatically by section type and mood.",
+        "cards": cards, "has_video": True,
+    }
+
+
+MOOD_RENDERS = [
+    ("dark_moody", "Dark Moody", "Neon font, cinematic/dreamy presets, fade animations"),
+    ("bright_poppy", "Bright Poppy", "Graffiti/chrome font, energetic presets, scale animations"),
+    ("warm_intimate", "Warm Intimate", "Gold font, smooth presets, gentle fade animations"),
+    ("cool_ethereal", "Cool Ethereal", "Ice/hologram font, dreamy presets, wave distortion"),
+    ("high_energy", "High Energy", "Fire font, intense presets, elastic/bounce animations"),
+]
+
+
+def gen_15_mood_renders(r: Any, force: List[str]) -> dict:
+    cards = []
+    for mood_id, label, desc in MOOD_RENDERS:
+        stem = f"mood_{mood_id}"
+        from scriptgen.generator import ScriptGenerator
+        from scriptgen.moods import MOODS
+
+        mood = MOODS.get(mood_id)
+        if mood is None:
+            continue
+
+        defaults = {**BASE_DEFAULTS, "animation_type": "fade_in", "animation_speed": 1.0}
+        if mood_id == "dark_moody":
+            defaults.update({"background_type": "gradient", "background_color": "#1a1a2e", "gradient_colors": ["#1a1a2e", "#16213e"]})
+        elif mood_id == "bright_poppy":
+            defaults.update({"background_type": "gradient", "background_color": "#E67E22", "gradient_colors": ["#E67E22", "#C0392B"]})
+        elif mood_id == "warm_intimate":
+            defaults.update({"background_type": "gradient", "background_color": "#8B4513", "gradient_colors": ["#8B4513", "#D2691E"]})
+        elif mood_id == "cool_ethereal":
+            defaults.update({"background_type": "gradient", "background_color": "#1a1a4e", "gradient_colors": ["#1a1a4e", "#4A90E2"]})
+        elif mood_id == "high_energy":
+            defaults.update({"background_type": "gradient", "background_color": "#C0392B", "gradient_colors": ["#C0392B", "#8E44AD"]})
+
+        defaults["reactivity"] = ["energy", "vocals"]
+        defaults["bg_animation_preset"] = "cinematic" if mood_id in ("warm_intimate", "cool_ethereal") else "energetic"
+
+        img, vid = _gen_variant(r, defaults, stem, force)
+        print(f"  [15] mood: {mood_id}")
+        cards.append({
+            "img": img, "video": vid, "label": label, "desc": desc,
+            "config": {"mood": mood_id, "bg_animation_preset": defaults["bg_animation_preset"]},
+        })
+    return {
+        "id": "15", "number": "15", "title": "Mood Compositions",
+        "desc": "Full mood-driven renders combining font styles, animation types, motion presets, and audio reactivity into cohesive visual themes.",
+        "cards": cards, "has_video": True,
+    }
+
+
+def gen_16_coming_soon() -> dict:
+    return {
+        "id": "16", "number": "16", "title": "Coming Soon",
+        "desc": "Features defined but not yet fully integrated into the explorer pipeline.",
         "cards": [
-            {"info": True, "title": "Animation Types", "desc": "Text entrance/exit animations: fade, slide, scale, typewriter, pulse. Each animates how lyrics appear and disappear on screen.", "fields": "animation_type, animation_speed"},
-            {"info": True, "title": "Background Animations", "desc": "Background movement effects: drift (slow pan), flow (color movement), pulse (beat-synced), distortion (wave), parallax (depth scroll).", "fields": "bg_animation_type, bg_animation_intensity, bg_animation_speed"},
-            {"info": True, "title": "Audio Reactivity", "desc": "Audio-driven visual changes using stem energy profiles: vocals, drums, bass, synth, overall energy. Could modulate background intensity, text scale, or color shifts in real-time.", "fields": "reactivity (list of stems)"},
+            {"info": True, "title": "Background Video", "desc": "Load MP4/image backgrounds with beat-synced clip switching. Supports video files and image directories with automatic format detection.", "fields": "background_video (path), beat-synced switching"},
             {"info": True, "title": "Custom Reveal Mode", "desc": "A fully customizable reveal mode (reveal_mode: 'custom') with user-defined behavior for how lyrics are shown.", "fields": "reveal_mode: 'custom'"},
+            {"info": True, "title": "GPU Compositing", "desc": "CUDA-accelerated glow, blur, and remap operations for real-time preview and faster rendering on supported hardware.", "fields": "gpu compositing toggle"},
         ],
     }
 
@@ -822,7 +1030,13 @@ def main():
         gen_07_reveal_modes(r, force),
         gen_08_text_styling(r, force),
         gen_09_recipes(r, force),
-        gen_10_coming_soon(),
+        gen_10_animations(r, force),
+        gen_11_text_styles(r, force),
+        gen_12_font_styles(r, force),
+        gen_13_audio_reactive(r, force),
+        gen_14_motion_presets(r, force),
+        gen_15_mood_renders(r, force),
+        gen_16_coming_soon(),
     ]
 
     html = build_html(sections)

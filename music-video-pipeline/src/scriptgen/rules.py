@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from .moods import MoodProfile
 from .palette import SectionColor
+from render.effect_presets import get_preset_for_section
 
 
 @dataclass
@@ -299,6 +300,53 @@ def assign_reactivity(energy: float, section_type: str) -> list[str]:
     return ["vocals", "drums"]
 
 
+def assign_animation(section_type: str, mood_name: str) -> dict:
+    _ANIM_MAP = {
+        "intro": "scale_in",
+        "verse": "fade_in",
+        "chorus": "bounce_in",
+        "hook": "bounce_in",
+        "bridge": "slide_in",
+        "pre_chorus": "fade_in",
+        "outro": "fade_out",
+    }
+    anim = _ANIM_MAP.get(section_type, "fade_in")
+    if mood_name == "high_energy":
+        if section_type == "chorus":
+            anim = "elastic_in"
+        elif section_type == "intro":
+            anim = "bounce_in"
+    elif mood_name == "cool_ethereal":
+        anim = "fade_in"
+    elif mood_name == "bright_poppy":
+        if section_type in ("chorus", "hook"):
+            anim = "scale_in"
+    speed = 1.0
+    if mood_name == "high_energy":
+        speed = 1.3
+    elif mood_name == "cool_ethereal":
+        speed = 0.7
+    return {"animation_type": anim, "animation_speed": speed}
+
+
+def assign_text_style(section_type: str, mood_name: str) -> str:
+    _MOOD_STYLE = {
+        "dark_moody": "neon",
+        "bright_poppy": "graffiti",
+        "warm_intimate": "gold",
+        "cool_ethereal": "ice",
+        "high_energy": "fire",
+    }
+    _SECTION_OVERRIDE = {
+        "chorus": {"dark_moody": "neon", "high_energy": "fire", "bright_poppy": "chrome"},
+        "bridge": {"dark_moody": "hologram", "cool_ethereal": "hologram"},
+    }
+    override = _SECTION_OVERRIDE.get(section_type, {}).get(mood_name)
+    if override:
+        return override
+    return _MOOD_STYLE.get(mood_name, "basic")
+
+
 def assign_section_visual(
     profile: SectionProfile,
     color: SectionColor,
@@ -319,6 +367,12 @@ def assign_section_visual(
     v.update(assign_reveal(profile.section_type, profile.pace))
     v["reactivity"] = assign_reactivity(profile.energy, profile.section_type)
     v["text_position"] = assign_text_position(profile.section_type, section_index, mood_name)
+    v.update(assign_animation(profile.section_type, mood_name))
+    preset = get_preset_for_section(profile.section_type, mood_name)
+    v["bg_animation_preset"] = preset.name
+    if preset.audio_reactivity and not v.get("reactivity"):
+        v["reactivity"] = preset.audio_reactivity
+    v["text_style"] = assign_text_style(profile.section_type, mood_name)
     return v
 
 

@@ -215,6 +215,8 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_get_json("analysis.json")
         elif path == "/api/waveforms":
             self._handle_get_json("waveforms.json")
+        elif path == "/api/vocal-waveforms":
+            self._handle_get_json("vocal_waveforms.json")
         elif path == "/api/lyrics-raw":
             self._handle_get_json("lyrics_raw.json")
         elif path == "/api/lyrics-synced":

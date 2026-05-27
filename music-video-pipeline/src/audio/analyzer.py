@@ -152,21 +152,28 @@ class AudioAnalyzer:
 
         return StemFeatures(stem_type=stem_type, name=name, energy=energy, onset_count=onset_count)
 
-    def generate_waveforms(self) -> tuple[list[float], float]:
-        if self._audio is None:
-            raise ValueError("No audio loaded")
-
-        duration = len(self._audio) / self._sr
+    def _compute_peaks(self, audio: np.ndarray, sr: int) -> tuple[list[float], float]:
+        duration = len(audio) / sr
         num_peaks = int(duration * PEAKS_PER_SECOND)
         if num_peaks == 0:
             return [], duration
-        samples_per_peak = max(1, len(self._audio) // num_peaks)
+        samples_per_peak = max(1, len(audio) // num_peaks)
 
         peaks = []
         for i in range(num_peaks):
             start = i * samples_per_peak
-            end = min(start + samples_per_peak, len(self._audio))
-            chunk = self._audio[start:end]
+            end = min(start + samples_per_peak, len(audio))
+            chunk = audio[start:end]
             peaks.append(round(float(np.max(np.abs(chunk))), 4))
 
         return peaks, duration
+
+    def generate_waveforms(self) -> tuple[list[float], float]:
+        if self._audio is None:
+            raise ValueError("No audio loaded")
+        return self._compute_peaks(self._audio, self._sr)
+
+    def generate_waveforms_for_file(self, audio_path: Union[str, Path]) -> tuple[list[float], float]:
+        import librosa
+        audio, sr = librosa.load(str(audio_path), sr=None, mono=True)
+        return self._compute_peaks(audio, sr)

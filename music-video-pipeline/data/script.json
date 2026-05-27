@@ -51,41 +51,57 @@
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.5,
         "texture_blend_mode": "multiply",
-        "font_size": 47,
+        "font_size": 42,
         "reveal_mode": "progressive",
-        "reveal_words": 1,
+        "reveal_words": 3,
         "reactivity": [],
-        "text_position": "top"
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0
       },
       "lines_overrides": {
         "0": {
-          "font_size": 57,
-          "background_color": "#121219",
-          "gradient_colors": [
-            "#121219",
-            "#221f2a"
-          ]
-        },
-        "1": {
-          "background_color": "#0f0f15",
-          "gradient_colors": [
-            "#0f0f15",
-            "#1f1c26"
-          ]
-        },
-        "2": {
+          "font_size": 52,
           "background_color": "#13131a",
           "gradient_colors": [
             "#13131a",
-            "#23202b"
+            "#23212a"
+          ]
+        },
+        "1": {
+          "background_color": "#0e0e13",
+          "gradient_colors": [
+            "#0e0e13",
+            "#1f1c24"
+          ]
+        },
+        "2": {
+          "background_color": "#14141b",
+          "gradient_colors": [
+            "#14141b",
+            "#25222c"
           ]
         },
         "3": {
-          "background_color": "#0e0e14",
+          "background_color": "#0d0d12",
           "gradient_colors": [
-            "#0e0e14",
-            "#1e1c25"
+            "#0d0d12",
+            "#1d1b23"
           ]
+        }
+      },
+      "words_overrides": {
+        "0.5": {
+          "text_position": "bottom"
+        },
+        "1.5": {
+          "text_position": "bottom"
+        },
+        "2.6": {
+          "text_position": "bottom"
+        },
+        "3.8": {
+          "text_position": "bottom"
         }
       }
     },
@@ -101,53 +117,67 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "vertical_top_bottom",
-        "background_color": "#181724",
+        "background_color": "#171521",
         "gradient_colors": [
-          "#181724",
-          "#2b2436"
+          "#171521",
+          "#292232"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.35,
         "texture_blend_mode": "multiply",
-        "font_size": 47,
+        "font_size": 43,
         "reveal_mode": "progressive",
-        "reveal_words": 1,
+        "reveal_words": 3,
         "reactivity": [],
-        "text_position": "center"
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0
       },
       "lines_overrides": {
         "4": {
-          "background_color": "#1a1826",
+          "background_color": "#191724",
           "gradient_colors": [
-            "#1a1826",
-            "#2c2537"
+            "#191724",
+            "#2c2435"
           ]
         },
         "5": {
-          "background_color": "#171522",
+          "background_color": "#15131d",
           "gradient_colors": [
-            "#171522",
-            "#292233"
+            "#15131d",
+            "#27202e"
           ]
         },
         "6": {
-          "background_color": "#1b1827",
+          "background_color": "#1b1825",
           "gradient_colors": [
-            "#1b1827",
-            "#2e2639"
+            "#1b1825",
+            "#2e2536"
           ]
         },
         "7": {
-          "background_color": "#171421",
+          "background_color": "#14111b",
           "gradient_colors": [
-            "#171421",
-            "#292232"
+            "#14111b",
+            "#261f2d"
           ]
         }
       },
       "words_overrides": {
         "4.0": {
           "text_position": "top"
+        },
+        "4.7": {
+          "text_position": "bottom"
+        },
+        "5.9": {
+          "text_position": "bottom"
+        },
+        "6.5": {
+          "text_position": "bottom"
+        },
+        "7.7": {
+          "text_position": "bottom"
         }
       }
     },
@@ -167,81 +197,107 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "diagonal_tr_bl",
-        "background_color": "#1b1726",
+        "background_color": "#191521",
         "gradient_colors": [
-          "#1b1726",
-          "#2e2437"
+          "#191521",
+          "#2c2232"
         ],
         "texture_type": "vignette_heavy",
-        "texture_opacity": 0.2,
+        "texture_opacity": 0.35,
         "texture_blend_mode": "multiply",
-        "font_size": 48,
+        "font_size": 43,
         "reveal_mode": "progressive",
-        "reveal_words": 1,
+        "reveal_words": 3,
         "reactivity": [],
-        "text_position": "center"
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0
       },
       "lines_overrides": {
         "8": {
-          "background_color": "#1c1827",
+          "background_color": "#1b1723",
           "gradient_colors": [
-            "#1c1827",
-            "#302639"
+            "#1b1723",
+            "#2e2435"
           ]
         },
         "9": {
-          "background_color": "#1a1624",
+          "background_color": "#17131d",
           "gradient_colors": [
-            "#1a1624",
-            "#2d2335"
+            "#17131d",
+            "#29202f"
           ]
         },
         "10": {
-          "background_color": "#1d1828",
+          "background_color": "#1c1724",
           "gradient_colors": [
-            "#1d1828",
-            "#302639"
+            "#1c1724",
+            "#2f2535"
           ]
         },
         "11": {
-          "background_color": "#1a1523",
+          "background_color": "#16121d",
           "gradient_colors": [
-            "#1a1523",
-            "#2c2334"
+            "#16121d",
+            "#29202e"
           ]
         },
         "12": {
-          "background_color": "#1e1928",
+          "background_color": "#1d1825",
           "gradient_colors": [
-            "#1e1928",
-            "#31263a"
+            "#1d1825",
+            "#302536"
           ]
         },
         "13": {
-          "background_color": "#191523",
+          "background_color": "#16121c",
           "gradient_colors": [
-            "#191523",
-            "#2c2234"
+            "#16121c",
+            "#291f2d"
           ]
         },
         "14": {
-          "background_color": "#1e1929",
+          "background_color": "#1e1826",
           "gradient_colors": [
-            "#1e1929",
-            "#32273a"
+            "#1e1826",
+            "#312637"
           ]
         },
         "15": {
-          "background_color": "#191522",
+          "background_color": "#15111b",
           "gradient_colors": [
-            "#191522",
-            "#2c2233"
+            "#15111b",
+            "#281f2c"
           ]
         }
       },
       "words_overrides": {
         "8.0": {
           "text_position": "top"
+        },
+        "8.6": {
+          "text_position": "bottom"
+        },
+        "9.7": {
+          "text_position": "bottom"
+        },
+        "10.6": {
+          "text_position": "bottom"
+        },
+        "11.8": {
+          "text_position": "bottom"
+        },
+        "12.6": {
+          "text_position": "bottom"
+        },
+        "13.6": {
+          "text_position": "bottom"
+        },
+        "14.5": {
+          "text_position": "bottom"
+        },
+        "15.7": {
+          "text_position": "bottom"
         }
       }
     },
@@ -269,10 +325,10 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "horizontal_left_right",
-        "background_color": "#1e1827",
+        "background_color": "#1e1725",
         "gradient_colors": [
-          "#1e1827",
-          "#312437"
+          "#1e1725",
+          "#332437"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.2,
@@ -283,125 +339,175 @@
         "reactivity": [
           "vocals"
         ],
-        "text_position": "center"
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0
       },
       "lines_overrides": {
         "16": {
-          "background_color": "#201929",
+          "background_color": "#211928",
           "gradient_colors": [
-            "#201929",
-            "#34263a"
+            "#211928",
+            "#362639"
           ]
         },
         "17": {
-          "background_color": "#1d1725",
+          "background_color": "#1c1522",
           "gradient_colors": [
-            "#1d1725",
-            "#312437"
+            "#1c1522",
+            "#302234"
           ]
         },
         "18": {
-          "background_color": "#201929",
+          "background_color": "#211929",
           "gradient_colors": [
-            "#201929",
-            "#34263b"
+            "#211929",
+            "#36263a"
           ]
         },
         "19": {
-          "background_color": "#1d1625",
+          "background_color": "#1c1522",
           "gradient_colors": [
-            "#1d1625",
-            "#312437"
+            "#1c1522",
+            "#302233"
           ]
         },
         "20": {
-          "background_color": "#20192a",
+          "background_color": "#221929",
           "gradient_colors": [
-            "#20192a",
-            "#35273b"
+            "#221929",
+            "#37273a"
           ]
         },
         "21": {
-          "background_color": "#1d1625",
+          "background_color": "#1c1522",
           "gradient_colors": [
-            "#1d1625",
-            "#302436"
+            "#1c1522",
+            "#302233"
           ]
         },
         "22": {
-          "background_color": "#21192a",
+          "background_color": "#221929",
           "gradient_colors": [
-            "#21192a",
-            "#35273b"
+            "#221929",
+            "#37273b"
           ]
         },
         "23": {
-          "background_color": "#1d1625",
+          "background_color": "#1b1421",
           "gradient_colors": [
-            "#1d1625",
-            "#302336"
+            "#1b1421",
+            "#302233"
           ]
         },
         "24": {
-          "background_color": "#21192a",
+          "background_color": "#221a2a",
           "gradient_colors": [
-            "#21192a",
-            "#35273b"
+            "#221a2a",
+            "#38273b"
           ]
         },
         "25": {
-          "background_color": "#1d1624",
+          "background_color": "#1b1421",
           "gradient_colors": [
-            "#1d1624",
-            "#302336"
+            "#1b1421",
+            "#302132"
           ]
         },
         "26": {
-          "background_color": "#211a2a",
+          "background_color": "#231a2a",
           "gradient_colors": [
-            "#211a2a",
-            "#36273c"
+            "#231a2a",
+            "#38273b"
           ]
         },
         "27": {
-          "background_color": "#1c1624",
+          "background_color": "#1b1421",
           "gradient_colors": [
-            "#1c1624",
-            "#302336"
+            "#1b1421",
+            "#2f2132"
           ]
         },
         "28": {
-          "background_color": "#221a2b",
+          "background_color": "#231a2b",
           "gradient_colors": [
-            "#221a2b",
-            "#36273c"
+            "#231a2b",
+            "#39283c"
           ]
         },
         "29": {
-          "background_color": "#1c1624",
+          "background_color": "#1b1420",
           "gradient_colors": [
-            "#1c1624",
-            "#302335"
+            "#1b1420",
+            "#2f2132"
           ]
         },
         "30": {
-          "background_color": "#221a2b",
+          "background_color": "#241a2b",
           "gradient_colors": [
-            "#221a2b",
-            "#36273c"
+            "#241a2b",
+            "#39283c"
           ]
         },
         "31": {
-          "background_color": "#1c1624",
+          "background_color": "#1a1320",
           "gradient_colors": [
-            "#1c1624",
-            "#302335"
+            "#1a1320",
+            "#2f2131"
           ]
         }
       },
       "words_overrides": {
         "16.0": {
           "text_position": "top"
+        },
+        "16.6": {
+          "text_position": "bottom"
+        },
+        "17.8": {
+          "text_position": "bottom"
+        },
+        "18.7": {
+          "text_position": "bottom"
+        },
+        "19.6": {
+          "text_position": "bottom"
+        },
+        "20.7": {
+          "text_position": "bottom"
+        },
+        "21.7": {
+          "text_position": "bottom"
+        },
+        "22.7": {
+          "text_position": "bottom"
+        },
+        "23.8": {
+          "text_position": "bottom"
+        },
+        "24.9": {
+          "text_position": "bottom"
+        },
+        "25.6": {
+          "text_position": "bottom"
+        },
+        "26.6": {
+          "text_position": "bottom"
+        },
+        "27.6": {
+          "text_position": "bottom"
+        },
+        "28.8": {
+          "text_position": "bottom"
+        },
+        "29.9": {
+          "text_position": "bottom"
+        },
+        "30.8": {
+          "text_position": "bottom"
+        },
+        "31.10": {
+          "text_position": "bottom"
         }
       }
     },
@@ -421,83 +527,109 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "diagonal_tl_br",
-        "background_color": "#201827",
+        "background_color": "#231828",
         "gradient_colors": [
-          "#201827",
-          "#332437"
+          "#231828",
+          "#362437"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.2,
         "texture_blend_mode": "multiply",
-        "font_size": 48,
+        "font_size": 44,
         "reveal_mode": "progressive",
-        "reveal_words": 1,
+        "reveal_words": 3,
         "reactivity": [
           "vocals"
         ],
-        "text_position": "center"
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0
       },
       "lines_overrides": {
         "32": {
-          "background_color": "#221929",
+          "background_color": "#251a2a",
           "gradient_colors": [
-            "#221929",
-            "#36263a"
+            "#251a2a",
+            "#3b273c"
           ]
         },
         "33": {
-          "background_color": "#1f1625",
+          "background_color": "#201624",
           "gradient_colors": [
-            "#1f1625",
-            "#332436"
+            "#201624",
+            "#352336"
           ]
         },
         "34": {
-          "background_color": "#221929",
+          "background_color": "#261a2b",
           "gradient_colors": [
-            "#221929",
-            "#37263a"
+            "#261a2b",
+            "#3c273c"
           ]
         },
         "35": {
-          "background_color": "#1e1624",
+          "background_color": "#1f1523",
           "gradient_colors": [
-            "#1e1624",
-            "#332336"
+            "#1f1523",
+            "#352335"
           ]
         },
         "36": {
-          "background_color": "#23192a",
+          "background_color": "#271b2c",
           "gradient_colors": [
-            "#23192a",
-            "#38273b"
+            "#271b2c",
+            "#3d283d"
           ]
         },
         "37": {
-          "background_color": "#1e1624",
+          "background_color": "#1f1523",
           "gradient_colors": [
-            "#1e1624",
-            "#322335"
+            "#1f1523",
+            "#342234"
           ]
         },
         "38": {
-          "background_color": "#241a2a",
+          "background_color": "#281b2d",
           "gradient_colors": [
-            "#241a2a",
-            "#38273b"
+            "#281b2d",
+            "#3e283e"
           ]
         },
         "39": {
-          "background_color": "#1e1523",
+          "background_color": "#1e1422",
           "gradient_colors": [
-            "#1e1523",
-            "#322335"
+            "#1e1422",
+            "#332133"
           ]
         }
       },
       "words_overrides": {
         "32.0": {
           "text_position": "top"
+        },
+        "32.6": {
+          "text_position": "bottom"
+        },
+        "33.8": {
+          "text_position": "bottom"
+        },
+        "34.8": {
+          "text_position": "bottom"
+        },
+        "35.6": {
+          "text_position": "bottom"
+        },
+        "36.7": {
+          "text_position": "bottom"
+        },
+        "37.6": {
+          "text_position": "bottom"
+        },
+        "38.8": {
+          "text_position": "bottom"
+        },
+        "39.7": {
+          "text_position": "bottom"
         }
       }
     },
@@ -513,10 +645,10 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "vertical_top_bottom",
-        "background_color": "#231827",
+        "background_color": "#241726",
         "gradient_colors": [
-          "#231827",
-          "#362437"
+          "#241726",
+          "#372434"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.2,
@@ -527,45 +659,59 @@
         "reactivity": [
           "vocals"
         ],
-        "text_position": "center"
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0
       },
       "lines_overrides": {
         "40": {
           "font_size": 68,
-          "background_color": "#241929",
+          "background_color": "#261929",
           "gradient_colors": [
-            "#241929",
-            "#39263a"
+            "#261929",
+            "#3a2637"
           ]
         },
         "41": {
           "font_size": 68,
-          "background_color": "#211625",
+          "background_color": "#201522",
           "gradient_colors": [
-            "#211625",
-            "#352336"
+            "#201522",
+            "#332231"
           ]
         },
         "42": {
           "font_size": 68,
-          "background_color": "#26192a",
+          "background_color": "#291a2b",
           "gradient_colors": [
-            "#26192a",
-            "#3b273b"
+            "#291a2b",
+            "#3c2738"
           ]
         },
         "43": {
           "font_size": 68,
-          "background_color": "#201523",
+          "background_color": "#1f1420",
           "gradient_colors": [
-            "#201523",
-            "#352335"
+            "#1f1420",
+            "#32212e"
           ]
         }
       },
       "words_overrides": {
         "40.0": {
           "text_position": "top"
+        },
+        "40.7": {
+          "text_position": "bottom"
+        },
+        "41.10": {
+          "text_position": "bottom"
+        },
+        "42.7": {
+          "text_position": "bottom"
+        },
+        "43.5": {
+          "text_position": "bottom"
         }
       }
     },
@@ -581,49 +727,49 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "diagonal_tr_bl",
-        "background_color": "#12131a",
+        "background_color": "#111218",
         "gradient_colors": [
-          "#12131a",
-          "#21202b"
+          "#111218",
+          "#201e29"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.35,
         "texture_blend_mode": "multiply",
-        "font_size": 48,
+        "font_size": 43,
         "reveal_mode": "progressive",
-        "reveal_words": 1,
-        "reactivity": [
-          "vocals"
-        ],
-        "text_position": "bottom"
+        "reveal_words": 3,
+        "reactivity": [],
+        "text_position": "bottom",
+        "animation_type": "fade_out",
+        "animation_speed": 1.0
       },
       "lines_overrides": {
         "44": {
-          "background_color": "#13141c",
+          "background_color": "#13141a",
           "gradient_colors": [
-            "#13141c",
-            "#22212d"
+            "#13141a",
+            "#22202b"
           ]
         },
         "45": {
-          "background_color": "#101118",
+          "background_color": "#0e0f14",
           "gradient_colors": [
-            "#101118",
-            "#1f1e29"
+            "#0e0f14",
+            "#1e1c25"
           ]
         },
         "46": {
-          "background_color": "#14151d",
+          "background_color": "#14151c",
           "gradient_colors": [
-            "#14151d",
-            "#24222e"
+            "#14151c",
+            "#24222d"
           ]
         },
         "47": {
-          "background_color": "#101017",
+          "background_color": "#0d0d12",
           "gradient_colors": [
-            "#101017",
-            "#1f1d28"
+            "#0d0d12",
+            "#1c1a24"
           ]
         }
       },
@@ -642,34 +788,37 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "horizontal_left_right",
-        "background_color": "#231829",
+        "background_color": "#16111a",
         "gradient_colors": [
-          "#231829",
-          "#342437"
+          "#16111a",
+          "#291f2b"
         ],
         "texture_type": "vignette_heavy",
-        "texture_opacity": 0.2,
+        "texture_opacity": 0.35,
         "texture_blend_mode": "multiply",
-        "font_size": 44,
+        "font_size": 41,
         "reveal_mode": "progressive",
         "reveal_words": 3,
-        "reactivity": [
-          "vocals"
-        ],
-        "text_position": "center"
+        "reactivity": [],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0
       },
       "lines_overrides": {
         "48": {
-          "background_color": "#231829",
+          "background_color": "#16111a",
           "gradient_colors": [
-            "#231829",
-            "#342437"
+            "#16111a",
+            "#291f2b"
           ]
         }
       },
       "words_overrides": {
         "48.0": {
           "text_position": "top"
+        },
+        "48.20": {
+          "text_position": "bottom"
         }
       }
     }

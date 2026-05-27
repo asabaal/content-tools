@@ -8,8 +8,20 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
+import cv2
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from tqdm import tqdm
+
+from .animations import (
+    AnimationEasing,
+    AnimationState,
+    AnimationType,
+    calculate_animation_state,
+)
+from .audio_reactive import apply_audio_effects
+from .frame_effects import apply_frame_effect
+from .effect_presets import get_preset, get_preset_for_section
+from .background_video import create_background_source
 
 
 def _hex_to_rgb(hex_color: str) -> Tuple[int, int, int]:
@@ -70,6 +82,11 @@ class VideoRenderer:
         self._bg_cache: Dict[str, Image.Image] = {}
         self._font_cache: Dict[int, ImageFont.FreeTypeFont] = {}
         self.font = self._get_font(48)
+        self._rms_energy: list[float] = []
+        self._spectral_centroids: list[float] = []
+        self._beat_times: list[float] = []
+        self._audio_fps: float = 93.75
+        self._bg_source = None
 
     def _get_font(self, size: int) -> ImageFont.FreeTypeFont:
         if size not in self._font_cache:
@@ -92,6 +109,12 @@ class VideoRenderer:
         if analysis_path.exists():
             analysis = json.loads(analysis_path.read_text(encoding="utf-8"))
             self.duration = analysis.get("duration", 0.0)
+            self._rms_energy = analysis.get("rms_energy", [])
+            self._spectral_centroids = analysis.get("spectral_centroids", [])
+            self._beat_times = analysis.get("beat_times", [])
+            sr = analysis.get("sample_rate", 48000)
+            hop = analysis.get("hop_length", 512)
+            self._audio_fps = sr / hop
         elif self.synced.get("lines"):
             last = self.synced["lines"][-1]
             self.duration = last.get("end", 0.0) + 2.0
@@ -150,6 +173,91 @@ class VideoRenderer:
                     return i, j
         return -1, -1
 
+    def _get_audio_at(self, t: float) -> Dict[str, Any]:
+        energy = 0.0
+        centroid = 0.5
+        if self._rms_energy:
+            idx = int(t * self._audio_fps)
+            idx = max(0, min(idx, len(self._rms_energy) - 1))
+            energy = self._rms_energy[idx]
+        if self._spectral_centroids:
+            idx = int(t * self._audio_fps)
+            idx = max(0, min(idx, len(self._spectral_centroids) - 1))
+            centroid = self._spectral_centroids[idx]
+        is_beat = False
+        if self._beat_times:
+            for bt in self._beat_times:
+                if abs(t - bt) < 0.05:
+                    is_beat = True
+                    break
+        return {"energy": energy, "centroid": centroid, "is_beat": is_beat}
+
+    def _compute_animation_progress(self, t: float, line_idx: int) -> AnimationState:
+        if line_idx < 0 or line_idx >= len(self.synced.get("lines", [])):
+            return AnimationState()
+        line = self.synced["lines"][line_idx]
+        line_start = line.get("start", 0.0)
+        line_end = line.get("end", 0.0)
+        duration = max(0.001, line_end - line_start)
+        progress = (t - line_start) / duration
+        progress = max(0.0, min(1.0, progress))
+
+        v = self.get_visual(line_idx, 0)
+        anim_type_str = v.get("animation_type", "fade")
+        anim_speed = v.get("animation_speed", 1.0)
+
+        try:
+            anim_type = AnimationType(anim_type_str)
+        except ValueError:
+            anim_type = AnimationType.FADE_IN
+
+        enter_end = 0.3 / anim_speed
+        exit_start = 1.0 - 0.2 / anim_speed
+
+        if progress < enter_end:
+            p = progress / enter_end
+            return calculate_animation_state(
+                anim_type, p, AnimationEasing.EASE_OUT,
+                width=self.width, height=self.height,
+            )
+        elif progress > exit_start:
+            p = (progress - exit_start) / (1.0 - exit_start)
+            if anim_type == AnimationType.FADE_IN:
+                exit_type = AnimationType.FADE_OUT
+            elif anim_type == AnimationType.SLIDE_IN:
+                exit_type = AnimationType.SLIDE_OUT
+            elif anim_type == AnimationType.SCALE_IN:
+                exit_type = AnimationType.SCALE_OUT
+            else:
+                exit_type = AnimationType.FADE_OUT
+            return calculate_animation_state(
+                exit_type, p, AnimationEasing.EASE_IN,
+                width=self.width, height=self.height,
+            )
+        else:
+            return AnimationState()
+
+    def _apply_animation_transforms(
+        self, text_img: Image.Image, anim: AnimationState
+    ) -> Image.Image:
+        sx, sy = anim.scale
+        if abs(sx - 1.0) > 0.001 or abs(sy - 1.0) > 0.001:
+            new_w = max(1, int(self.width * sx))
+            new_h = max(1, int(self.height * sy))
+            text_img = text_img.resize((new_w, new_h), Image.LANCZOS)
+            canvas = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+            paste_x = (self.width - new_w) // 2
+            paste_y = (self.height - new_h) // 2
+            canvas.paste(text_img, (paste_x, paste_y), text_img)
+            text_img = canvas
+
+        if abs(anim.rotation) > 0.1:
+            text_img = text_img.rotate(
+                -anim.rotation, resample=Image.BICUBIC, expand=False, fillcolor=None
+            )
+
+        return text_img
+
     def _draw_background(self, img: Image.Image, v: Dict) -> None:
         draw = ImageDraw.Draw(img)
         bg_type = v.get("background_type", "solid")
@@ -165,6 +273,20 @@ class VideoRenderer:
             draw.rectangle([0, 0, self.width, self.height], fill=color)
 
         self._draw_texture(img, v)
+
+    def _init_bg_source(self) -> None:
+        if self._bg_source is not None:
+            return
+        bg_video = self.defaults.get("background_video", "")
+        if not bg_video:
+            return
+        path = Path(bg_video)
+        if not path.is_absolute():
+            path = self.project_dir / bg_video
+        if path.exists():
+            self._bg_source = create_background_source(
+                str(path), self.width, self.height, self._beat_times
+            )
 
     def _draw_gradient(self, img: Image.Image, colors: List[str], direction: str) -> None:
         arr = np.zeros((self.height, self.width, 3), dtype=np.uint8)
@@ -325,6 +447,16 @@ class VideoRenderer:
             return int(self.height * 0.8)
         return self.height // 2
 
+    def _frame_is_unique(self, line_idx: int) -> bool:
+        if line_idx < 0:
+            return False
+        v = self.get_visual(line_idx, 0)
+        if v.get("animation_type", "none") != "none":
+            return True
+        if v.get("bg_animation_preset", ""):
+            return True
+        return False
+
     def _draw_text_line(self, img: Image.Image, text: str, v: Dict, y: int, font_size: int) -> None:
         draw = ImageDraw.Draw(img)
         font = self._get_font(font_size)
@@ -470,20 +602,61 @@ class VideoRenderer:
         line = self.synced["lines"][line_idx]
         font_size = int((v.get("font_size", self.caption_style.get("font_size", 48))) * (self.height / 1080))
 
+        anim = self._compute_animation_progress(t, line_idx)
+
+        text_img = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
         mode = self._get_reveal_mode(v)
 
         if mode == "line-by-line":
             pos = v.get("text_position", self.caption_style.get("text_position", "center"))
             y = self._y_for_pos(pos)
-            self._draw_text_line(img, line["text"], v, y, font_size)
+            self._draw_text_line(text_img, line["text"], v, y, font_size)
         elif mode == "progressive":
-            self._draw_progressive(img, line, line_idx, word_idx, v, font_size)
+            self._draw_progressive(text_img, line, line_idx, word_idx, v, font_size)
         else:
-            self._draw_karaoke(img, line, line_idx, word_idx, v, font_size)
+            self._draw_karaoke(text_img, line, line_idx, word_idx, v, font_size)
+
+        text_img = self._apply_animation_transforms(text_img, anim)
+
+        if anim.opacity < 1.0:
+            alpha = text_img.split()[3]
+            alpha = alpha.point(lambda a: int(a * anim.opacity))
+            text_img.putalpha(alpha)
+
+        ox = int(anim.position[0])
+        oy = int(anim.position[1])
+        if ox != 0 or oy != 0:
+            canvas = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+            canvas.paste(text_img, (ox, oy))
+            text_img = canvas
+
+        img_rgba = img.convert("RGBA")
+        img_rgba = Image.alpha_composite(img_rgba, text_img)
+        img = img_rgba.convert("RGB")
+
+        reactivity = v.get("reactivity", [])
+        bg_preset = v.get("bg_animation_preset", "")
+        needs_cv2 = bool(reactivity) or bool(bg_preset)
+
+        if needs_cv2:
+            audio = self._get_audio_at(t)
+            arr = np.array(img)
+            arr = cv2.cvtColor(arr, cv2.COLOR_RGB2BGR)
+
+            if reactivity:
+                arr = apply_audio_effects(arr, audio, t, reactivity)
+
+            if bg_preset:
+                preset = get_preset(bg_preset)
+                for eff in preset.effects:
+                    arr = apply_frame_effect(arr, eff["effect"], t, eff.get("params"))
+
+            arr = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
+            img = Image.fromarray(arr)
 
         return img
 
-    def _render_text_on_bg(self, bg: Image.Image, line_idx: int, word_idx: int) -> Image.Image:
+    def _render_text_on_bg(self, bg: Image.Image, line_idx: int, word_idx: int, t: float = 0.0) -> Image.Image:
         img = bg.copy()
         if line_idx < 0:
             return img
@@ -492,20 +665,70 @@ class VideoRenderer:
         v = self.get_visual(line_idx, word_idx)
         font_size = int((v.get("font_size", self.caption_style.get("font_size", 48))) * (self.height / 1080))
 
+        anim = self._compute_animation_progress(t, line_idx)
+
+        text_img = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
         mode = self._get_reveal_mode(v)
 
         if mode == "line-by-line":
             pos = v.get("text_position", self.caption_style.get("text_position", "center"))
             y = self._y_for_pos(pos)
-            self._draw_text_line(img, line["text"], v, y, font_size)
+            self._draw_text_line(text_img, line["text"], v, y, font_size)
         elif mode == "progressive":
-            self._draw_progressive(img, line, line_idx, word_idx, v, font_size)
+            self._draw_progressive(text_img, line, line_idx, word_idx, v, font_size)
         else:
-            self._draw_karaoke(img, line, line_idx, word_idx, v, font_size)
+            self._draw_karaoke(text_img, line, line_idx, word_idx, v, font_size)
+
+        text_img = self._apply_animation_transforms(text_img, anim)
+
+        if anim.opacity < 1.0:
+            alpha = text_img.split()[3]
+            alpha = alpha.point(lambda a: int(a * anim.opacity))
+            text_img.putalpha(alpha)
+
+        ox = int(anim.position[0])
+        oy = int(anim.position[1])
+        if ox != 0 or oy != 0:
+            canvas = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+            canvas.paste(text_img, (ox, oy))
+            text_img = canvas
+
+        img_rgba = img.convert("RGBA")
+        img_rgba = Image.alpha_composite(img_rgba, text_img)
+        img = img_rgba.convert("RGB")
+
+        reactivity = v.get("reactivity", [])
+        bg_preset = v.get("bg_animation_preset", "")
+        needs_cv2 = bool(reactivity) or bool(bg_preset)
+
+        if needs_cv2:
+            audio = self._get_audio_at(t)
+            arr = np.array(img)
+            arr = cv2.cvtColor(arr, cv2.COLOR_RGB2BGR)
+
+            if reactivity:
+                arr = apply_audio_effects(arr, audio, t, reactivity)
+
+            if bg_preset:
+                preset = get_preset(bg_preset)
+                for eff in preset.effects:
+                    arr = apply_frame_effect(arr, eff["effect"], t, eff.get("params"))
+
+            arr = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
+            img = Image.fromarray(arr)
 
         return img
 
-    def _get_bg_for_section(self, line_idx: int, bg_cache: dict) -> Image.Image:
+    def _get_bg_for_section(self, line_idx: int, bg_cache: dict, t: float = 0.0) -> Image.Image:
+        self._init_bg_source()
+
+        if self._bg_source is not None:
+            bg_frame = self._bg_source.get_frame_pil(t)
+            if bg_frame is not None:
+                if bg_frame.size != (self.width, self.height):
+                    bg_frame = bg_frame.resize((self.width, self.height), Image.LANCZOS)
+                return bg_frame
+
         sec = self._find_section(line_idx) if line_idx >= 0 else None
         sec_key = sec.get("name", "__none__") if sec else "__default__"
 
@@ -546,14 +769,15 @@ class VideoRenderer:
             for frame_idx in pbar:
                 t = frame_idx / self.fps
                 line_idx, word_idx = self._find_active_word(t)
-                key = (line_idx, word_idx)
+                has_animation = self._frame_is_unique(line_idx)
+                key = (line_idx, word_idx) if not has_animation else (line_idx, word_idx, frame_idx)
 
                 if key == prev_key and prev_bytes is not None:
                     enc.write_frame(prev_bytes)
                     reused += 1
                 else:
-                    bg = self._get_bg_for_section(line_idx, bg_cache)
-                    img = self._render_text_on_bg(bg, line_idx, word_idx)
+                    bg = self._get_bg_for_section(line_idx, bg_cache, t)
+                    img = self._render_text_on_bg(bg, line_idx, word_idx, t)
                     frame_bytes = img.tobytes()
                     enc.write_frame(frame_bytes)
                     prev_bytes = frame_bytes

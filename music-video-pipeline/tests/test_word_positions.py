@@ -6,6 +6,8 @@ from scriptgen.rules import (
     assign_text_position,
     assign_word_positions,
     assign_section_visual,
+    assign_animation,
+    assign_text_style,
 )
 from scriptgen.palette import SectionColor, generate_line_colors
 
@@ -238,3 +240,113 @@ class TestGenerateLineColors:
                 assert len(lc.primary) == 7
                 assert lc.companion.startswith("#")
                 assert len(lc.companion) == 7
+
+
+class TestAssignAnimation:
+    def test_verse_returns_fade_in(self):
+        result = assign_animation("verse", "dark_moody")
+        assert result["animation_type"] == "fade_in"
+        assert result["animation_speed"] == 1.0
+
+    def test_chorus_returns_bounce_in(self):
+        result = assign_animation("chorus", "dark_moody")
+        assert result["animation_type"] == "bounce_in"
+
+    def test_intro_returns_scale_in(self):
+        result = assign_animation("intro", "dark_moody")
+        assert result["animation_type"] == "scale_in"
+
+    def test_bridge_returns_slide_in(self):
+        result = assign_animation("bridge", "dark_moody")
+        assert result["animation_type"] == "slide_in"
+
+    def test_outro_returns_fade_out(self):
+        result = assign_animation("outro", "dark_moody")
+        assert result["animation_type"] == "fade_out"
+
+    def test_high_energy_chorus_elastic(self):
+        result = assign_animation("chorus", "high_energy")
+        assert result["animation_type"] == "elastic_in"
+
+    def test_high_energy_intro_bounce(self):
+        result = assign_animation("intro", "high_energy")
+        assert result["animation_type"] == "bounce_in"
+
+    def test_high_energy_speed_faster(self):
+        result = assign_animation("verse", "high_energy")
+        assert result["animation_speed"] == 1.3
+
+    def test_cool_ethereal_speed_slower(self):
+        result = assign_animation("verse", "cool_ethereal")
+        assert result["animation_speed"] == 0.7
+
+    def test_cool_ethereal_uses_fade(self):
+        result = assign_animation("chorus", "cool_ethereal")
+        assert result["animation_type"] == "fade_in"
+
+    def test_bright_poppy_chorus_scale_in(self):
+        result = assign_animation("chorus", "bright_poppy")
+        assert result["animation_type"] == "scale_in"
+
+    def test_unknown_section_returns_default(self):
+        result = assign_animation("breakdown", "dark_moody")
+        assert result["animation_type"] == "fade_in"
+
+    def test_section_visual_includes_animation(self):
+        sc = SectionColor(primary="#1a1a2e", companion="#16213e", hue=0.6, sat=0.2, lit=0.15)
+        mood = MOODS["dark_moody"]
+        v = assign_section_visual(_profile("chorus"), sc, mood, "dark_moody", 0.5, 0)
+        assert "animation_type" in v
+        assert "animation_speed" in v
+
+    def test_section_visual_includes_bg_preset(self):
+        sc = SectionColor(primary="#1a1a2e", companion="#16213e", hue=0.6, sat=0.2, lit=0.15)
+        mood = MOODS["dark_moody"]
+        v = assign_section_visual(_profile("verse"), sc, mood, "dark_moody", 0.5, 0)
+        assert "bg_animation_preset" in v
+        assert v["bg_animation_preset"] != ""
+
+    def test_chorus_gets_energetic_preset(self):
+        sc = SectionColor(primary="#1a1a2e", companion="#16213e", hue=0.6, sat=0.2, lit=0.15)
+        mood = MOODS["dark_moody"]
+        v = assign_section_visual(_profile("chorus"), sc, mood, "dark_moody", 0.5, 0)
+        assert v["bg_animation_preset"] == "energetic"
+
+    def test_high_energy_chorus_gets_intense_preset(self):
+        sc = SectionColor(primary="#1a1a2e", companion="#16213e", hue=0.6, sat=0.2, lit=0.15)
+        mood = MOODS["high_energy"]
+        v = assign_section_visual(_profile("chorus"), sc, mood, "high_energy", 0.5, 0)
+        assert v["bg_animation_preset"] == "intense"
+
+
+class TestAssignTextStyle:
+    def test_dark_moody_verse_is_neon(self):
+        assert assign_text_style("verse", "dark_moody") == "neon"
+
+    def test_bright_poppy_verse_is_graffiti(self):
+        assert assign_text_style("verse", "bright_poppy") == "graffiti"
+
+    def test_warm_intimate_verse_is_gold(self):
+        assert assign_text_style("verse", "warm_intimate") == "gold"
+
+    def test_cool_ethereal_verse_is_ice(self):
+        assert assign_text_style("verse", "cool_ethereal") == "ice"
+
+    def test_high_energy_verse_is_fire(self):
+        assert assign_text_style("verse", "high_energy") == "fire"
+
+    def test_unknown_mood_falls_back_to_basic(self):
+        assert assign_text_style("verse", "unknown_mood") == "basic"
+
+    def test_chorus_dark_moody_override(self):
+        assert assign_text_style("chorus", "dark_moody") == "neon"
+
+    def test_bridge_cool_ethereal_is_hologram(self):
+        assert assign_text_style("bridge", "cool_ethereal") == "hologram"
+
+    def test_section_visual_includes_text_style(self):
+        sc = SectionColor(primary="#1a1a2e", companion="#16213e", hue=0.6, sat=0.2, lit=0.15)
+        mood = MOODS["dark_moody"]
+        v = assign_section_visual(_profile("verse"), sc, mood, "dark_moody", 0.5, 0)
+        assert "text_style" in v
+        assert v["text_style"] in ("neon", "graffiti", "chrome", "fire", "ice", "gold", "hologram", "matrix", "basic")

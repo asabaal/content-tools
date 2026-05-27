@@ -12,6 +12,7 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from render.renderer import VideoRenderer, _hex_to_rgb, _contrast_color, _companion_color, _find_font
+from render.animations import AnimationState
 
 
 class TestHexToRgb:
@@ -322,3 +323,141 @@ class TestEncoder:
         enc = VideoEncoder(tmp_path / "test.mp4")
         with pytest.raises(RuntimeError):
             enc.write_frame(b"\x00")
+
+
+class TestVideoRendererGetAudioAt:
+    @pytest.fixture
+    def renderer_with_audio(self, tmp_path):
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        synced = {
+            "lines": [
+                {"index": 0, "text": "A", "start": 0, "end": 1, "words": [{"text": "A", "start": 0, "end": 1}]},
+            ]
+        }
+        (data_dir / "lyrics_synced.json").write_text(json.dumps(synced))
+        analysis = {"duration": 2.0, "sample_rate": 48000, "hop_length": 512}
+        (data_dir / "analysis.json").write_text(json.dumps(analysis))
+        r = VideoRenderer(tmp_path, width=64, height=64)
+        r.load()
+        r._rms_energy = [0.1, 0.5, 0.9]
+        r._spectral_centroids = [0.2, 0.4, 0.6]
+        r._beat_times = [0.5, 1.0]
+        r._audio_fps = 1.0
+        return r
+
+    def test_returns_energy(self, renderer_with_audio):
+        audio = renderer_with_audio._get_audio_at(0)
+        assert audio["energy"] == 0.1
+
+    def test_returns_centroid(self, renderer_with_audio):
+        audio = renderer_with_audio._get_audio_at(2)
+        assert audio["centroid"] == 0.6
+
+    def test_beat_detection(self, renderer_with_audio):
+        audio = renderer_with_audio._get_audio_at(0.5)
+        assert audio["is_beat"] is True
+
+    def test_no_beat(self, renderer_with_audio):
+        audio = renderer_with_audio._get_audio_at(0.2)
+        assert audio["is_beat"] is False
+
+    def test_no_audio_features(self, tmp_path):
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        synced = {"lines": [{"index": 0, "text": "A", "start": 0, "end": 1, "words": [{"text": "A", "start": 0, "end": 1}]}]}
+        (data_dir / "lyrics_synced.json").write_text(json.dumps(synced))
+        (data_dir / "analysis.json").write_text(json.dumps({"duration": 2.0}))
+        r = VideoRenderer(tmp_path, width=64, height=64)
+        r.load()
+        r._rms_energy = []
+        r._spectral_centroids = []
+        r._beat_times = []
+        audio = r._get_audio_at(0.5)
+        assert audio["energy"] == 0.0
+        assert audio["centroid"] == 0.5
+        assert audio["is_beat"] is False
+
+
+class TestVideoRendererComputeAnimationProgress:
+    @pytest.fixture
+    def renderer(self, tmp_path):
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        synced = {
+            "lines": [
+                {"index": 0, "text": "Hello", "start": 1.0, "end": 3.0,
+                 "words": [{"text": "Hello", "start": 1.0, "end": 3.0}]},
+            ]
+        }
+        (data_dir / "lyrics_synced.json").write_text(json.dumps(synced))
+        (data_dir / "analysis.json").write_text(json.dumps({"duration": 5.0}))
+        r = VideoRenderer(tmp_path, width=64, height=64)
+        r.load()
+        return r
+
+    def test_invalid_line_idx(self, renderer):
+        state = renderer._compute_animation_progress(0.0, -1)
+        assert isinstance(state, AnimationState)
+        assert state.opacity == 1.0
+
+    def test_enter_phase(self, renderer):
+        state = renderer._compute_animation_progress(1.01, 0)
+        assert state.opacity < 1.0
+
+    def test_sustain_phase(self, renderer):
+        state = renderer._compute_animation_progress(2.0, 0)
+        assert state.opacity == 1.0
+        assert state.position == (0.0, 0.0)
+
+    def test_exit_phase(self, renderer):
+        state = renderer._compute_animation_progress(2.95, 0)
+        assert state.opacity < 1.0
+
+    def test_custom_animation_type(self, renderer):
+        renderer.script = {
+            "sections": [
+                {"name": "S", "lines": [0], "visual": {"animation_type": "scale_in", "animation_speed": 1.0}},
+            ]
+        }
+        state = renderer._compute_animation_progress(1.01, 0)
+        assert state.scale[0] < 1.0
+
+
+class TestVideoRendererFrameIsUnique:
+    @pytest.fixture
+    def renderer(self, tmp_path):
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        synced = {
+            "lines": [
+                {"index": 0, "text": "A", "start": 0, "end": 1, "words": [{"text": "A", "start": 0, "end": 1}]},
+            ]
+        }
+        (data_dir / "lyrics_synced.json").write_text(json.dumps(synced))
+        (data_dir / "analysis.json").write_text(json.dumps({"duration": 2.0}))
+        r = VideoRenderer(tmp_path, width=64, height=64)
+        r.load()
+        return r
+
+    def test_no_animation_default(self, renderer):
+        assert renderer._frame_is_unique(0) is False
+
+    def test_negative_idx(self, renderer):
+        assert renderer._frame_is_unique(-1) is False
+
+    def test_with_animation(self, renderer):
+        renderer.script = {
+            "sections": [
+                {"name": "S", "lines": [0], "visual": {"animation_type": "fade_in"}},
+            ]
+        }
+        assert renderer._frame_is_unique(0) is True
+
+    def test_with_bg_preset(self, renderer):
+        renderer.script = {
+            "sections": [
+                {"name": "S", "lines": [0], "visual": {"bg_animation_preset": "cinematic"}},
+            ]
+        }
+        assert renderer._frame_is_unique(0) is True

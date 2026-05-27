@@ -128,15 +128,62 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
                     break
 
     vocal_stem_path = None
+    stem_validation = {}
     if ingest_data and ingest_data.get("stems"):
         stem_features = []
+        song_duration = features.duration
+        full_mix_onset_count = len(features.onset_times)
+
+        vocal_candidates = []
         for sf in ingest_data["stems"]:
             spath = sf.get("path", "")
-            if spath and Path(spath).exists():
-                sf_result = analyzer.analyze_stem(spath, sf.get("stem_type", ""), sf.get("name", ""))
+            stem_type = sf.get("stem_type", "").lower()
+            stem_name = sf.get("name", "")
+            if not spath or not Path(spath).exists():
+                continue
+
+            try:
+                import librosa
+                stem_dur = float(librosa.get_duration(path=str(spath)))
+            except Exception:
+                stem_dur = 0.0
+
+            dur_ratio = stem_dur / song_duration if song_duration > 0 else 0
+            verdict = "ok"
+            reason = ""
+
+            if dur_ratio < 0.1:
+                verdict = "truncated"
+                reason = f"Stem duration {stem_dur:.1f}s is {dur_ratio*100:.1f}% of song duration {song_duration:.1f}s (expected >10%)"
+
+            stem_validation[stem_type] = {
+                "file": Path(spath).name,
+                "stem_duration": round(stem_dur, 1),
+                "song_duration": round(song_duration, 1),
+                "duration_ratio": round(dur_ratio, 4),
+                "verdict": verdict,
+            }
+            if reason:
+                stem_validation[stem_type]["reason"] = reason
+
+            if "vocal" in stem_type and verdict == "ok":
+                sf_result = analyzer.analyze_stem(spath, stem_type, stem_name)
                 stem_features.append(sf_result)
-                if not vocal_stem_path and "vocal" in sf.get("stem_type", "").lower():
-                    vocal_stem_path = spath
+                vocal_candidates.append(spath)
+            elif "vocal" in stem_type:
+                click.echo(f"    WARNING: {stem_name} stem skipped: {reason}", err=True)
+            else:
+                sf_result = analyzer.analyze_stem(spath, stem_type, stem_name)
+                stem_features.append(sf_result)
+
+        if vocal_candidates:
+            vocal_stem_path = vocal_candidates[0]
+        elif any(sv.get("verdict") == "truncated" for k, sv in stem_validation.items() if "vocal" in k):
+            click.echo(f"    WARNING: All vocal stems truncated, using full-mix onsets as fallback", err=True)
+            stem_validation["fallback"] = "full_mix"
+            stem_validation["full_mix_onset_count"] = full_mix_onset_count
+            stem_validation["note"] = "Full-mix onsets include non-vocal events. Sync accuracy may be lower."
+
         features.stem_features = stem_features
 
     if midi_tempo is not None:
@@ -156,20 +203,50 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
             "onset_count": len(vocal_onsets),
             "onset_times": vocal_onsets.tolist(),
         }
+        if stem_validation:
+            vocal_onset_data["stem_validation"] = stem_validation
+
         (proj.data_dir / "vocal_onsets.json").write_text(
             json.dumps(vocal_onset_data, indent=2, ensure_ascii=False), encoding="utf-8"
         )
+
+        click.echo(f"    Generating vocal stem waveform...")
+        try:
+            vocal_peaks, vocal_dur = analyzer.generate_waveforms_for_file(vocal_stem_path)
+            vocal_waveform_data = {
+                "peaks_per_second": 100,
+                "duration": vocal_dur,
+                "total_peaks": len(vocal_peaks),
+                "peaks": vocal_peaks,
+                "source": Path(vocal_stem_path).name,
+            }
+            (proj.data_dir / "vocal_waveforms.json").write_text(
+                json.dumps(vocal_waveform_data, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+        except Exception as e:
+            click.echo(f"    WARNING: Vocal waveform generation failed: {e}", err=True)
 
         click.echo(f"    Transcribing vocal stem...")
         try:
             transcription = analyzer.transcribe_vocal_stem(vocal_stem_path)
             transcription["source"] = Path(vocal_stem_path).name
+            if stem_validation:
+                transcription["stem_validation"] = stem_validation
             (proj.data_dir / "vocal_transcription.json").write_text(
                 json.dumps(transcription, indent=2, ensure_ascii=False), encoding="utf-8"
             )
             analysis_data["vocal_transcription_word_count"] = len(transcription.get("words", []))
         except Exception as e:
             click.echo(f"    WARNING: Transcription failed: {e}", err=True)
+    elif stem_validation.get("fallback") == "full_mix":
+        vocal_onset_data = {
+            "source": "full_mix (fallback)",
+            "onset_count": stem_validation.get("full_mix_onset_count", 0),
+            "stem_validation": stem_validation,
+        }
+        (proj.data_dir / "vocal_onsets.json").write_text(
+            json.dumps(vocal_onset_data, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
 
     proj.analysis_file.write_text(json.dumps(analysis_data, indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -335,6 +412,10 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
     click.echo(f"    Lines synced: {len(result.lines)}")
     click.echo(f"    Source: {result.source}")
     click.echo(f"    Avg confidence: {result.avg_confidence:.0%}")
+
+    if result.vocal_stem_quality != "ok":
+        click.echo(f"    Vocal stem quality: {result.vocal_stem_quality}")
+        click.echo(f"      Onset source: {result.onset_source} ({result.onset_count} onsets, {result.cluster_count} clusters)")
 
     if alignment.transcription_segment_count > 0:
         click.echo(f"    Alignment analysis:")

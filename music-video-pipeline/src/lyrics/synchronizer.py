@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from dataclasses import dataclass, field
 from typing import List, Optional
 
@@ -63,13 +64,26 @@ class SyncResult:
     lines: List[SyncedLine]
     source: str = "full_mix"
     avg_confidence: float = 0.0
+    vocal_stem_quality: str = "ok"
+    onset_source: str = "vocal_stem"
+    cluster_count: int = 0
+    onset_count: int = 0
 
     def to_dict(self) -> dict:
-        return {
+        d = {
             "lines": [l.to_dict() for l in self.lines],
             "source": self.source,
             "avg_confidence": round(self.avg_confidence, 3),
         }
+        if self.vocal_stem_quality != "ok":
+            d["vocal_stem_quality"] = self.vocal_stem_quality
+        if self.onset_source != "vocal_stem":
+            d["onset_source"] = self.onset_source
+        if self.cluster_count > 0:
+            d["cluster_count"] = self.cluster_count
+        if self.onset_count > 0:
+            d["onset_count"] = self.onset_count
+        return d
 
     def save(self, path) -> None:
         import json
@@ -95,10 +109,17 @@ class LyricSynchronizer:
         self.vocal_onset_times = vocal_onset_times
         self.midi_note_starts = midi_note_starts
         self.transcription_segments = transcription_segments
+        self._alignment_result = None
+        self._vocal_stem_quality = "ok"
+        self._effective_onset_source = "vocal_stem"
 
     def synchronize(self, snap_to_beats: bool = True, snap_to_onsets: bool = True) -> SyncResult:
+        self._check_vocal_stem_quality()
         source = self._determine_source()
         onset_times = self._get_onset_times(source)
+        effective_onset_count = len(onset_times)
+
+        clusters = self._cluster_onsets(onset_times) if len(onset_times) > 0 else []
 
         lines = self.lyrics
         used_transcription = False
@@ -109,10 +130,14 @@ class LyricSynchronizer:
             elif len(onset_times) > 0:
                 lines = self._rough_align_lines(lines, onset_times)
 
+        if self._alignment_result is None and self.transcription_segments:
+            self._ensure_alignment_result()
+
         effective_snap_beats = snap_to_beats and not used_transcription
 
         synced_lines: List[SyncedLine] = []
         total_confidence = 0.0
+        non_empty_idx = 0
 
         for line in lines:
             if not line.text.strip():
@@ -128,7 +153,16 @@ class LyricSynchronizer:
             if end <= start:
                 end = start + line.duration if line.duration > 0 else start + 3.0
 
-            words = self._align_words(line.words, start, end, onset_times, snap_to_onsets)
+            whisper_match = self._get_whisper_match(non_empty_idx)
+            words = self._align_words(line.words, start, end, onset_times, snap_to_onsets, whisper_match)
+
+            if words and words[0].start > start + 0.1:
+                min_start = synced_lines[-1].end if synced_lines else 0.0
+                start = max(words[0].start - 0.05, min_start)
+
+            if words and words[-1].end < end - 0.1:
+                end = words[-1].end + 0.05
+
             confidence = self._compute_confidence(words)
 
             synced_lines.append(
@@ -142,10 +176,19 @@ class LyricSynchronizer:
                 )
             )
             total_confidence += confidence
+            non_empty_idx += 1
 
         avg_confidence = total_confidence / len(synced_lines) if synced_lines else 0.0
 
-        return SyncResult(lines=synced_lines, source=source, avg_confidence=avg_confidence)
+        return SyncResult(
+            lines=synced_lines,
+            source=source,
+            avg_confidence=avg_confidence,
+            vocal_stem_quality=self._vocal_stem_quality,
+            onset_source=self._effective_onset_source,
+            cluster_count=len(clusters),
+            onset_count=effective_onset_count,
+        )
 
     def _has_naive_timing(self, lines: List[LyricLine]) -> bool:
         if not lines:
@@ -159,13 +202,68 @@ class LyricSynchronizer:
             return True
         return False
 
+    def _check_vocal_stem_quality(self) -> None:
+        if self.vocal_onset_times is None or len(self.vocal_onset_times) == 0:
+            self._vocal_stem_quality = "none"
+            self._effective_onset_source = "full_mix"
+            return
+
+        duration = self.audio_features.duration
+        if duration <= 0:
+            return
+
+        n_onsets = len(self.vocal_onset_times)
+        onset_range = float(self.vocal_onset_times[-1]) - float(self.vocal_onset_times[0])
+        total_lyric_words = sum(max(1, len(l.text.split())) for l in self.lyrics if l.text.strip())
+
+        vocal_coverage = onset_range / duration if duration > 0 else 0
+        sparse = n_onsets < total_lyric_words * 0.05
+        narrow = vocal_coverage < 0.1
+        few = n_onsets < 30
+
+        full_mix_onsets = self.audio_features.onset_times
+        full_mix_coverage = 0.0
+        if len(full_mix_onsets) > 1:
+            fm_range = float(full_mix_onsets[-1]) - float(full_mix_onsets[0])
+            full_mix_coverage = fm_range / duration if duration > 0 else 0
+
+        degraded = False
+        reasons = []
+
+        if narrow and full_mix_coverage > 0.5:
+            degraded = True
+            reasons.append(
+                f"Vocal onset coverage {vocal_coverage*100:.1f}% vs full-mix coverage {full_mix_coverage*100:.1f}%"
+            )
+
+        if sparse and few:
+            degraded = True
+            reasons.append(
+                f"Only {n_onsets} onsets for {total_lyric_words} lyric words"
+            )
+
+        if degraded:
+            full_mix_count = len(full_mix_onsets)
+            reason_str = "; ".join(reasons)
+            logger.warning(
+                f"Vocal stem quality degraded: {n_onsets} onsets in {onset_range:.1f}s range "
+                f"({vocal_coverage*100:.1f}% of {duration:.0f}s). {reason_str}. "
+                f"Falling back to full-mix onsets ({full_mix_count}, {full_mix_coverage*100:.1f}% coverage)"
+            )
+            self._vocal_stem_quality = "degraded"
+            self._effective_onset_source = "full_mix"
+            self.vocal_onset_times = None
+        else:
+            self._vocal_stem_quality = "ok"
+            self._effective_onset_source = "vocal_stem"
+
     def _rough_align_lines(self, lines: List[LyricLine], onset_times: np.ndarray) -> List[LyricLine]:
         clusters = self._cluster_onsets(onset_times)
         non_empty = [l for l in lines if l.text.strip()]
         if not clusters or not non_empty:
             return lines
 
-        mapped = self._map_lines_to_clusters(non_empty, clusters)
+        mapped = self._assign_clusters_to_lines(clusters, non_empty, onset_times)
 
         result = []
         line_idx = 0
@@ -199,10 +297,12 @@ class LyricSynchronizer:
         elif len(segments) > len(non_empty):
             boundaries = self._merge_transcription_segments(segments, len(non_empty))
         else:
-            return self._rough_align_lines(
-                lines,
-                self.vocal_onset_times if self.vocal_onset_times is not None else np.array([]),
-            )
+            boundaries = self._align_via_analyzer(lines, non_empty)
+            if boundaries is None:
+                return self._rough_align_lines(
+                    lines,
+                    self.vocal_onset_times if self.vocal_onset_times is not None else np.array([]),
+                )
 
         result = []
         line_idx = 0
@@ -221,6 +321,100 @@ class LyricSynchronizer:
             )
             result.append(new_line)
             line_idx += 1
+
+        return result
+
+    def _align_via_analyzer(
+        self, lines: List[LyricLine], non_empty: List[LyricLine]
+    ) -> Optional[List[tuple]]:
+        try:
+            from lyrics.alignment_analyzer import analyze_alignment
+        except ImportError:
+            logger.warning("alignment_analyzer not available, falling back to onset clustering")
+            return None
+
+        alignment = analyze_alignment(
+            lyrics=non_empty,
+            transcription_segments=self.transcription_segments,
+            vocal_onset_times=self.vocal_onset_times,
+            audio_features=self.audio_features,
+        )
+
+        self._alignment_result = alignment
+
+        raw_boundaries: List[tuple] = []
+        for match in alignment.line_matches:
+            if match.transcription_start is not None and match.transcription_end is not None:
+                start = match.transcription_start
+                end = match.transcription_end
+                if end <= start:
+                    end = start + MIN_LINE_DURATION
+                raw_boundaries.append((start, min(end, self.audio_features.duration)))
+            else:
+                if raw_boundaries:
+                    prev_end = raw_boundaries[-1][1]
+                    raw_boundaries.append((prev_end, min(prev_end + MIN_LINE_DURATION, self.audio_features.duration)))
+                else:
+                    raw_boundaries.append((0.0, MIN_LINE_DURATION))
+
+        if len(raw_boundaries) != len(non_empty):
+            logger.warning(
+                f"Analyzer returned {len(raw_boundaries)} boundaries for {len(non_empty)} lines, falling back"
+            )
+            return None
+
+        return self._subdivide_shared_boundaries(raw_boundaries, non_empty)
+
+    def _ensure_alignment_result(self) -> None:
+        if self._alignment_result is not None:
+            return
+        try:
+            from lyrics.alignment_analyzer import analyze_alignment
+        except ImportError:
+            return
+        non_empty = [l for l in self.lyrics if l.text.strip()]
+        if not non_empty:
+            return
+        self._alignment_result = analyze_alignment(
+            lyrics=non_empty,
+            transcription_segments=self.transcription_segments,
+            vocal_onset_times=self.vocal_onset_times,
+            audio_features=self.audio_features,
+        )
+
+    def _subdivide_shared_boundaries(
+        self, boundaries: List[tuple], lines: List[LyricLine]
+    ) -> List[tuple]:
+        groups: List[List[int]] = []
+        current_group: List[int] = [0]
+
+        for i in range(1, len(boundaries)):
+            if abs(boundaries[i][0] - boundaries[i - 1][0]) < 0.01 and abs(
+                boundaries[i][1] - boundaries[i - 1][1]
+            ) < 0.01:
+                current_group.append(i)
+            else:
+                groups.append(current_group)
+                current_group = [i]
+        groups.append(current_group)
+
+        result = list(boundaries)
+        for group in groups:
+            if len(group) <= 1:
+                continue
+            seg_start = boundaries[group[0]][0]
+            seg_end = boundaries[group[0]][1]
+            seg_duration = seg_end - seg_start
+            word_counts = [max(1, len(lines[i].text.split())) for i in group]
+            total_words = sum(word_counts)
+            cursor = seg_start
+            for j, idx in enumerate(group):
+                share = seg_duration * (word_counts[j] / total_words)
+                line_end = min(cursor + share, self.audio_features.duration)
+                if line_end - cursor < MIN_LINE_DURATION:
+                    line_end = min(cursor + MIN_LINE_DURATION, self.audio_features.duration)
+                result[idx] = (cursor, line_end)
+                cursor = line_end
 
         return result
 
@@ -268,87 +462,109 @@ class LyricSynchronizer:
         clusters.append((cluster_start, cluster_end + median_gap * 0.5))
         return clusters
 
-    def _map_lines_to_clusters(
-        self, lines: List[LyricLine], clusters: List[tuple]
+    def _assign_clusters_to_lines(
+        self, clusters: List[tuple], lines: List[LyricLine], onset_times: np.ndarray
     ) -> List[tuple]:
+        duration = self.audio_features.duration
         n_lines = len(lines)
         n_clusters = len(clusters)
 
-        if n_clusters == n_lines:
-            return list(clusters)
+        if n_clusters == 0:
+            return [(0.0, MIN_LINE_DURATION)] * n_lines
 
-        if n_clusters > n_lines:
-            return self._merge_clusters_to_lines(clusters, n_lines)
+        word_counts = [max(1, len(l.text.split())) for l in lines]
+        total_words = sum(word_counts)
 
-        return self._split_clusters_to_lines(clusters, n_lines)
+        onset_counts = []
+        for cl_start, cl_end in clusters:
+            count = int(np.sum((onset_times >= cl_start) & (onset_times <= cl_end)))
+            onset_counts.append(max(1, count))
+        total_onset_capacity = sum(onset_counts)
 
-    def _merge_clusters_to_lines(
-        self, clusters: List[tuple], n_lines: int
-    ) -> List[tuple]:
-        duration = self.audio_features.duration
-        n_clusters = len(clusters)
-        result = []
-        per_line = n_clusters / n_lines
+        cum_words = [0.0]
+        for wc in word_counts:
+            cum_words.append(cum_words[-1] + wc)
 
-        for line_i in range(n_lines):
-            start_cluster = int(line_i * per_line)
-            end_cluster = min(int((line_i + 1) * per_line), n_clusters - 1)
-            if line_i == n_lines - 1:
-                end_cluster = n_clusters - 1
+        cum_capacity = [0.0]
+        for oc in onset_counts:
+            cum_capacity.append(cum_capacity[-1] + oc)
 
-            start = clusters[start_cluster][0]
-            end = clusters[end_cluster][1]
-            if line_i == n_lines - 1:
-                end = min(end, duration)
+        line_clusters: List[tuple] = []
+        for li in range(n_lines):
+            target_start_frac = cum_words[li] / total_words
+            target_end_frac = cum_words[li + 1] / total_words
 
-            if end - start < MIN_LINE_DURATION:
-                end = start + MIN_LINE_DURATION
+            target_cap_start = target_start_frac * total_onset_capacity
+            target_cap_end = target_end_frac * total_onset_capacity
 
-            result.append((start, min(end, duration)))
+            start_ci = 0
+            for ci in range(n_clusters):
+                if cum_capacity[ci + 1] >= target_cap_start:
+                    start_ci = ci
+                    break
 
-        return result
+            end_ci = start_ci
+            for ci in range(start_ci, n_clusters):
+                if cum_capacity[ci + 1] >= target_cap_end:
+                    end_ci = ci
+                    break
+            if li == n_lines - 1:
+                end_ci = n_clusters - 1
 
-    def _split_clusters_to_lines(
-        self, clusters: List[tuple], n_lines: int
-    ) -> List[tuple]:
-        duration = self.audio_features.duration
-        n_clusters = len(clusters)
-        cluster_sizes = [max(1, round(n_lines / n_clusters)) for _ in range(n_clusters)]
+            line_clusters.append((start_ci, end_ci))
 
-        total = sum(cluster_sizes)
-        diff = n_lines - total
-        idx = 0
-        while diff > 0:
-            cluster_sizes[idx % n_clusters] += 1
-            diff -= 1
-            idx += 1
-        while diff < 0:
-            cluster_sizes[idx % n_clusters] -= 1
-            diff += 1
-            idx += 1
+        result: List[tuple] = []
+        for li in range(n_lines):
+            start_ci, end_ci = line_clusters[li]
 
-        result = []
-        for ci, cluster in enumerate(clusters):
-            n = cluster_sizes[ci]
-            cl_start, cl_end = cluster
-            cl_duration = cl_end - cl_start
+            if start_ci == end_ci:
+                cl_start = clusters[start_ci][0]
+                cl_end = clusters[start_ci][1]
+                lines_sharing = []
+                for lj in range(n_lines):
+                    if line_clusters[lj] == (start_ci, end_ci):
+                        lines_sharing.append(lj)
+                if len(lines_sharing) > 1:
+                    my_idx = lines_sharing.index(li)
+                    my_words = word_counts[li]
+                    total_sharing_words = sum(word_counts[lj] for lj in lines_sharing)
+                    share = (cl_end - cl_start) * (my_words / total_sharing_words)
+                    ls = cl_start + sum(
+                        (cl_end - cl_start) * (word_counts[lines_sharing[k]] / total_sharing_words)
+                        for k in range(my_idx)
+                    )
+                    le = ls + share
+                    if le - ls < MIN_LINE_DURATION:
+                        le = ls + MIN_LINE_DURATION
+                    result.append((ls, min(le, duration)))
+                else:
+                    s = clusters[start_ci][0]
+                    e = clusters[start_ci][1]
+                    if e - s < MIN_LINE_DURATION:
+                        e = s + MIN_LINE_DURATION
+                    result.append((s, min(e, duration)))
+            else:
+                s = clusters[start_ci][0]
+                e = clusters[end_ci][1]
+                if li == n_lines - 1:
+                    e = min(e, duration)
+                if e - s < MIN_LINE_DURATION:
+                    e = s + MIN_LINE_DURATION
+                result.append((s, min(e, duration)))
 
-            if ci == n_clusters - 1:
-                cl_end = min(cl_end, duration)
-                cl_duration = cl_end - cl_start
+        for i in range(1, len(result)):
+            if result[i][0] < result[i - 1][1]:
+                mid = (result[i][0] + result[i - 1][1]) / 2
+                prev = list(result[i - 1])
+                prev[1] = mid
+                result[i - 1] = tuple(prev)
+                curr = list(result[i])
+                curr[0] = mid
+                result[i] = tuple(curr)
 
-            per_line = cl_duration / n if n > 0 else MIN_LINE_DURATION
-
-            for li in range(n):
-                ls = cl_start + li * per_line
-                le = ls + per_line
-                if le - ls < MIN_LINE_DURATION:
-                    le = ls + MIN_LINE_DURATION
-                result.append((ls, min(le, duration)))
-
-        if len(result) > n_lines:  # pragma: no cover
+        if len(result) > n_lines:
             result = result[:n_lines]
-        while len(result) < n_lines:  # pragma: no cover
+        while len(result) < n_lines:
             last_end = result[-1][1] if result else 0.0
             result.append((last_end, min(last_end + MIN_LINE_DURATION, duration)))
 
@@ -385,11 +601,17 @@ class LyricSynchronizer:
         end: float,
         onset_times: np.ndarray,
         snap_to_onsets: bool,
+        whisper_match: Optional[object] = None,
     ) -> List[SyncedWord]:
         if not words:
             return []
 
         texts = [w.text for w in words]
+
+        if whisper_match is not None:
+            whisper_words = self._build_words_from_whisper(texts, start, end, whisper_match)
+            if whisper_words is not None:
+                return whisper_words
 
         if not snap_to_onsets or len(onset_times) == 0:
             return self._interpolate_words(texts, start, end, "interpolated")
@@ -476,3 +698,64 @@ class LyricSynchronizer:
             return 0.0
         onset_count = sum(1 for w in words if w.source != "interpolated")
         return onset_count / len(words)
+
+    def _get_whisper_match(self, non_empty_idx: int) -> Optional[object]:
+        if self._alignment_result is None:
+            return None
+        matches = self._alignment_result.line_matches
+        if non_empty_idx >= len(matches):
+            return None
+        match = matches[non_empty_idx]
+        if not match.word_timings or len(match.word_timings) == 0:
+            return None
+        if match.word_match_ratio < 0.2:
+            return None
+        return match
+
+    def _build_words_from_whisper(
+        self, texts: List[str], start: float, end: float, match: object
+    ) -> Optional[List[SyncedWord]]:
+        wt_list = match.word_timings
+        if not wt_list:
+            return None
+
+        from difflib import SequenceMatcher
+
+        def _norm(s: str) -> str:
+            return re.sub(r"[^a-z0-9]", "", s.lower())
+
+        lyric_norm = [_norm(t) for t in texts]
+        whisper_norm = [_norm(w.word) for w in wt_list]
+
+        matcher = SequenceMatcher(None, lyric_norm, whisper_norm)
+        matched_pairs: List[Optional[int]] = [None] * len(texts)
+        for i, j, n in matcher.get_matching_blocks():
+            for k in range(n):
+                matched_pairs[i + k] = j + k
+
+        result: List[SyncedWord] = []
+        last_end = start
+
+        for li, text in enumerate(texts):
+            wi = matched_pairs[li]
+            if wi is not None and wi < len(wt_list):
+                wt = wt_list[wi]
+                ws = max(float(wt.start), last_end)
+                we = min(float(wt.end), end)
+                if we <= ws:
+                    we = min(ws + 0.3, end)
+                result.append(SyncedWord(text=text, start=ws, end=we, source="transcription"))
+                last_end = we
+            else:
+                if result:
+                    gap_start = result[-1].end
+                else:
+                    gap_start = start
+                remaining = len(texts) - li
+                per_word = (end - gap_start) / remaining if remaining > 0 else 0.3
+                ws = gap_start
+                we = min(ws + per_word, end)
+                result.append(SyncedWord(text=text, start=ws, end=we, source="interpolated"))
+                last_end = we
+
+        return result

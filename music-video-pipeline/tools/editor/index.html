@@ -137,7 +137,41 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 
 .empty-state{padding:40px 20px;text-align:center;color:#666;font-size:13px}
 
+.alignment-panel{background:#0f0f1a;border-top:1px solid #2a2a4a;flex:1;overflow-y:auto;padding:0;display:none}
+.alignment-panel.active{display:block}
+.alignment-panel.hidden{display:none}
+.alignment-table{width:100%;border-collapse:collapse;font-size:12px}
+.alignment-table thead{position:sticky;top:0;z-index:2;background:#16213e}
+.alignment-table th{text-align:left;padding:6px 10px;font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #2a2a4a}
+.alignment-table td{padding:5px 10px;border-bottom:1px solid #1a1a2e;vertical-align:top}
+.alignment-table tr.al-row{cursor:pointer;transition:background .1s}
+.alignment-table tr.al-row:hover{background:#16213e}
+.alignment-table tr.al-row.selected{background:#1a2a4a;border-left:3px solid #4cc9f0}
+.alignment-table tr.al-row.match-good td:first-child{border-left:3px solid #48bb78}
+.alignment-table tr.al-row.match-partial td:first-child{border-left:3px solid #f6ad55}
+.alignment-table tr.al-row.match-poor td:first-child{border-left:3px solid #f66}
+.alignment-table tr.al-row.match-none td:first-cell{border-left:3px solid #555}
+.al-match{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600}
+.al-match.good{background:rgba(72,187,120,0.2);color:#48bb78}
+.al-match.partial{background:rgba(246,173,85,0.2);color:#f6ad55}
+.al-match.poor{background:rgba(255,102,102,0.2);color:#f66}
+.al-match.none{background:rgba(102,102,102,0.2);color:#888}
+.al-whisper{color:#999;font-size:11px;font-style:italic;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.al-time{font-family:monospace;font-size:11px;color:#666;white-space:nowrap}
+.al-expand{font-size:10px;color:#4cc9f0;cursor:pointer;padding:2px 6px;border-radius:3px;border:1px solid #2a2a4a;background:transparent}
+.al-expand:hover{background:#16213e}
+.al-word-detail{display:none;background:#0a0a1a}
+.al-word-detail.open{display:table-row}
+.al-word-table{width:100%;border-collapse:collapse;font-size:11px;margin:4px 0}
+.al-word-table th{font-size:9px;color:#666;padding:2px 8px;text-align:left;border-bottom:1px solid #1a1a2e}
+.al-word-table td{padding:2px 8px;border-bottom:1px solid #0f0f1a}
+.al-word-table .whisper-word{color:#4cc9f0}
+.al-word-table .synced-word{color:#f6ad55}
+.al-section-header{background:#16213e;padding:6px 10px;font-size:11px;font-weight:600;color:#4cc9f0;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:2}
+.alignment-summary{padding:8px 10px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;font-size:11px;color:#888;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:3}
+
 .preview-panel{background:#0f0f1a;border-top:1px solid #2a2a4a;display:flex;gap:12px;padding:10px 12px;flex:1;overflow:hidden}
+.preview-panel.hidden{display:none}
 .preview-canvas-wrap{position:relative;background:#000;border-radius:4px;overflow:hidden;border:1px solid #2a2a4a;height:100%;aspect-ratio:16/9;max-width:calc(100% - 200px);flex-shrink:1;min-width:0}
 .preview-canvas-wrap canvas{display:block;width:100%;height:100%;object-fit:contain}
 .preview-controls{flex:1;overflow-y:auto;min-width:0}
@@ -199,6 +233,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
         <button id="modeWordBtn" onclick="setMode('word')">Word</button>
       </div>
       <span class="divider">|</span>
+      <div class="mode-toggle">
+        <button id="bottomPreviewBtn" class="active" onclick="setBottomMode('preview')">Preview</button>
+        <button id="bottomAlignBtn" onclick="setBottomMode('alignment')">Alignment</button>
+      </div>
+      <span class="divider">|</span>
       <button class="btn btn-small" onclick="zoomIn()">&#x2212;</button>
       <button class="btn btn-small" onclick="fitAll()">Fit All</button>
       <button class="btn btn-small" onclick="zoomOut()">+</button>
@@ -219,6 +258,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
       </div>
       <div class="preview-controls" id="previewControls"></div>
     </div>
+    <div class="alignment-panel" id="alignmentPanel"></div>
   </div>
 
   <div class="section-list" id="sectionList"></div>
@@ -343,6 +383,9 @@ let hasUnsavedChanges = false;
 let viewStart = 0;
 let viewEnd = 0;
 let editMode = 'line';
+let bottomMode = 'preview';
+let alignmentData = null;
+let autoExpandLine = -1;
 let zoomContext = 1;
 let isZoomed = false;
 let draggingWord = null;
@@ -360,6 +403,7 @@ let draggingThumb = false;
 let thumbDragStartX = 0;
 let thumbDragStartViewStart = 0;
 let loopLine = false;
+let autoFollowAnchor = null;
 
 let captionStyle = {
   font_family: 0,
@@ -384,17 +428,32 @@ async function init() {
       fetch(`${API}/api/project`).then(r => r.json()),
       fetch(`${API}/api/lyrics-raw`).then(r => r.json()),
       fetch(`${API}/api/analysis`).then(r => r.json()),
-      fetch(`${API}/api/waveforms`).then(r => r.json()),
+      fetch(`${API}/api/vocal-waveforms`).then(r => r.json()).catch(() => null).then(r => r && !r.error && r.peaks ? r : null),
       fetch(`${API}/api/lyrics-synced`).then(r => r.json()).catch(() => null),
       fetch(`${API}/api/structure`).then(r => r.json()).catch(() => null),
       fetch(`${API}/api/templates`).then(r => r.json()),
     ]);
+    try {
+      if (!waveRes || !waveRes.peaks || !waveRes.peaks.length) {
+        const fullMixRes = await fetch(`${API}/api/waveforms`).then(r => r.json());
+        waveformData = fullMixRes;
+      } else {
+        waveformData = waveRes;
+      }
+    } catch(_) {
+      const fullMixRes = await fetch(`${API}/api/waveforms`).then(r => r.json());
+      waveformData = fullMixRes;
+    }
     try {
       const csRes = await fetch(`${API}/api/caption-style`).then(r => r.json());
       if (csRes && !csRes.error) {
         captionStyle = {...captionStyle, ...csRes};
         if (csRes.globalVisual) globalVisual = {...globalVisual, ...csRes.globalVisual};
       }
+    } catch (_) {}
+    try {
+      const alRes = await fetch(`${API}/api/alignment-analysis`).then(r => r.json());
+      if (alRes && !alRes.error) alignmentData = alRes;
     } catch (_) {}
     try {
       const scriptRes = await fetch(`${API}/api/script`).then(r => r.json());
@@ -408,7 +467,7 @@ async function init() {
     if (projRes.error) { setStatus('No project loaded'); return; }
     lyricsRaw = rawRes;
     analysisData = analysisRes;
-    waveformPeaks = waveRes.peaks || [];
+    waveformPeaks = waveformData.peaks || [];
     beatTimes = analysisRes.beat_times || [];
     syncedData = syncedRes && !syncedRes.error ? syncedRes : null;
     templates = templRes || {};
@@ -900,16 +959,25 @@ function togglePlay() {
     sourceNode.onended = null;
     sourceNode.stop();
     isPlaying = false;
+    autoFollowAnchor = null;
     document.getElementById('playBtn').textContent = '\u25B6';
   } else {
     sourceNode = audioCtx.createBufferSource();
     sourceNode.buffer = audioBuffer;
     sourceNode.connect(audioCtx.destination);
-    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').textContent = '\u25B6'; };
+    sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; autoFollowAnchor = null; document.getElementById('playBtn').textContent = '\u25B6'; };
     startTime = audioCtx.currentTime;
     sourceNode.start(0, pauseOffset);
     isPlaying = true;
     document.getElementById('playBtn').textContent = '\u23F8';
+    if (isZoomed) {
+      const pct = timeToPct(getPlaybackTime());
+      autoFollowAnchor = pct >= 50 ? pct : 50;
+      console.log('[autoFollow] PLAY START isZoomed:', isZoomed, 'pct:', pct.toFixed(1), 'anchor:', autoFollowAnchor, 'viewStart:', viewStart.toFixed(2), 'viewEnd:', viewEnd.toFixed(2), 'playbackTime:', getPlaybackTime().toFixed(2));
+    } else {
+      autoFollowAnchor = null;
+      console.log('[autoFollow] PLAY START not zoomed, isZoomed:', isZoomed);
+    }
     updatePlayhead();
   }
 }
@@ -936,6 +1004,10 @@ function seekToTime(t) {
   }
   updatePlayheadVisual(t);
   highlightAtTime(t);
+  if (isPlaying && isZoomed) {
+    const pct = timeToPct(t);
+    autoFollowAnchor = pct >= 50 ? pct : 50;
+  }
 }
 
 function updatePlayheadVisual(t) {
@@ -959,6 +1031,21 @@ function updatePlayhead() {
   updatePlayheadVisual(t);
   document.getElementById('currentTime').textContent = fmtTime(t);
   highlightAtTime(t);
+
+  if (autoFollowAnchor !== null) {
+    const range = viewEnd - viewStart;
+    const anchorTime = viewStart + (autoFollowAnchor / 100) * range;
+    if (t > anchorTime) {
+      const shift = t - anchorTime;
+      const dur = analysisData.duration;
+      viewStart = Math.max(0, viewStart + shift);
+      viewEnd = Math.min(dur, viewStart + range);
+      if (viewEnd >= dur) viewStart = Math.max(0, dur - range);
+      console.log('[autoFollow] SCROLL t:', t.toFixed(3), 'anchorTime:', anchorTime.toFixed(3), 'shift:', shift.toFixed(3), 'new viewStart:', viewStart.toFixed(2), 'new viewEnd:', viewEnd.toFixed(2));
+      redrawAll();
+    }
+  }
+
   animFrame = requestAnimationFrame(updatePlayhead);
 }
 
@@ -1018,7 +1105,7 @@ function zoomOut() {
   isZoomed = (viewEnd - viewStart) < analysisData.duration * 0.95;
   redrawAll();
 }
-function fitAll() { viewStart = 0; viewEnd = analysisData.duration; isZoomed = false; document.getElementById('totalTime').textContent = fmtTime(analysisData.duration); redrawAll(); }
+function fitAll() { console.log('[autoFollow] CLEARED by fitAll'); autoFollowAnchor = null; viewStart = 0; viewEnd = analysisData.duration; isZoomed = false; document.getElementById('totalTime').textContent = fmtTime(analysisData.duration); redrawAll(); }
 
 function redrawAll() { drawWaveform(); renderTimeAxis(); renderWordLayer(); renderSectionOverlays(); updateScrollbar(); repositionPlayhead(); }
 
@@ -1527,6 +1614,7 @@ function selectLine(idx) {
     renderSectionList();
     renderPropsPanel();
     renderPreviewFrame(line.start, idx, 0);
+    if (bottomMode === 'alignment') renderAlignmentTable();
   }
 }
 
@@ -1555,6 +1643,171 @@ function setMode(mode) {
   document.getElementById('modeWordBtn').className = mode === 'word' ? 'active' : '';
   renderWordLayer();
   if (selectedLineIdx >= 0 && syncedData) renderDetail(syncedData.lines[selectedLineIdx]);
+}
+
+function setBottomMode(mode) {
+  bottomMode = mode;
+  const preview = document.getElementById('previewPanel');
+  const alignment = document.getElementById('alignmentPanel');
+  document.getElementById('bottomPreviewBtn').className = mode === 'preview' ? 'active' : '';
+  document.getElementById('bottomAlignBtn').className = mode === 'alignment' ? 'active' : '';
+  if (mode === 'preview') {
+    preview.classList.remove('hidden');
+    preview.style.display = 'flex';
+    alignment.classList.remove('active');
+    alignment.style.display = 'none';
+  } else {
+    preview.classList.add('hidden');
+    preview.style.display = 'none';
+    alignment.classList.add('active');
+    alignment.style.display = 'block';
+    renderAlignmentTable();
+  }
+}
+
+function renderAlignmentTable() {
+  const panel = document.getElementById('alignmentPanel');
+  if (!syncedData || !syncedData.lines) {
+    panel.innerHTML = '<div class="empty-state">No synced data</div>';
+    return;
+  }
+  const lines = syncedData.lines;
+  const matches = alignmentData ? alignmentData.line_matches || [] : [];
+
+  let summaryHtml = '';
+  if (alignmentData) {
+    const good = matches.filter(m => m.word_match_ratio > 0.9).length;
+    const partial = matches.filter(m => m.word_match_ratio > 0.3 && m.word_match_ratio <= 0.9).length;
+    const poor = matches.filter(m => m.word_match_ratio <= 0.3 && m.word_match_ratio > 0).length;
+    const none = matches.filter(m => m.word_match_ratio === 0).length;
+    summaryHtml = `<div class="alignment-summary">
+      <span>${lines.length} lines | ${alignmentData.transcription_segment_count || 0} whisper segments</span>
+      <span class="al-match good">${good} good</span>
+      <span class="al-match partial">${partial} partial</span>
+      <span class="al-match poor">${poor} poor</span>
+      <span class="al-match none">${none} no match</span>
+      <span style="flex:1"></span>
+      <span style="color:#666">Confidence: ${syncedData.avg_confidence ? (syncedData.avg_confidence * 100).toFixed(0) + '%' : 'N/A'}</span>
+    </div>`;
+  } else {
+    summaryHtml = `<div class="alignment-summary"><span>No alignment analysis data</span></div>`;
+  }
+
+  let rowsHtml = '';
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const match = matches[i] || null;
+    const ratio = match ? match.word_match_ratio : 0;
+    const hasMatch = match && match.transcription_start != null;
+
+    let matchClass = 'none';
+    if (ratio > 0.9) matchClass = 'good';
+    else if (ratio > 0.3) matchClass = 'partial';
+    else if (ratio > 0) matchClass = 'poor';
+
+    const selClass = i === selectedLineIdx ? ' selected' : '';
+    const whisperText = match && match.transcription_text ? escHtml(match.transcription_text.substring(0, 80)) : '<span style="color:#555">—</span>';
+    const whisperTime = hasMatch ? `<span class="al-time">${fmtTimeShort(match.transcription_start)}–${fmtTimeShort(match.transcription_end)}</span>` : '';
+    const splitBadge = match && match.is_split ? ' <span style="color:#f6ad55;font-size:9px">SPLIT</span>' : '';
+    const recoverBadge = match && match.recovery_method ? ` <span style="color:#888;font-size:9px">[${match.recovery_method}]</span>` : '';
+
+    rowsHtml += `<tr class="al-row match-${matchClass}${selClass}" data-line="${i}" onclick="selectAlignmentRow(${i})">
+      <td style="width:30px;text-align:right;color:#555">${i + 1}</td>
+      <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(line.text)}</td>
+      <td><span class="al-time">${fmtTimeShort(line.start)}–${fmtTimeShort(line.end)}</span></td>
+      <td class="al-whisper">${whisperText}${splitBadge}${recoverBadge}</td>
+      <td>${whisperTime}</td>
+      <td><span class="al-match ${matchClass}">${ratio > 0 ? (ratio * 100).toFixed(0) + '%' : '—'}</span></td>
+      <td style="width:50px"><button class="al-expand" onclick="event.stopPropagation();toggleWordDetail(${i})">&#x25BC;</button></td>
+    </tr>`;
+
+    rowsHtml += `<tr class="al-word-detail" id="wordDetail${i}">
+      <td colspan="7" style="padding:0">
+        <div id="wordDetailInner${i}" style="padding:8px 12px"></div>
+      </td>
+    </tr>`;
+  }
+
+  panel.innerHTML = `${summaryHtml}
+    <table class="alignment-table">
+      <thead><tr>
+        <th style="width:30px">#</th>
+        <th>Lyric Line</th>
+        <th>Synced Time</th>
+        <th>Whisper Text</th>
+        <th>Whisper Time</th>
+        <th>Match</th>
+        <th style="width:50px"></th>
+      </tr></thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>`;
+
+  if (autoExpandLine >= 0) {
+    const row = document.getElementById(`wordDetail${autoExpandLine}`);
+    const inner = document.getElementById(`wordDetailInner${autoExpandLine}`);
+    if (row && inner) {
+      row.classList.add('open');
+      inner.innerHTML = buildWordDetailHtml(autoExpandLine);
+      const el = document.querySelector(`tr.al-row[data-line="${autoExpandLine}"]`);
+      if (el) el.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+    autoExpandLine = -1;
+  }
+}
+
+function selectAlignmentRow(lineIdx) {
+  selectedLineIdx = lineIdx;
+  autoExpandLine = lineIdx;
+  if (syncedData && syncedData.lines[lineIdx]) {
+    seekToTime(syncedData.lines[lineIdx].start);
+  }
+  renderWordLayer();
+  renderAlignmentTable();
+  if (selectedLineIdx >= 0 && syncedData) renderDetail(syncedData.lines[selectedLineIdx]);
+}
+
+function toggleWordDetail(lineIdx) {
+  document.querySelectorAll('.al-word-detail.open').forEach(el => {
+    if (el.id !== `wordDetail${lineIdx}`) el.classList.remove('open');
+  });
+  const row = document.getElementById(`wordDetail${lineIdx}`);
+  if (!row) return;
+  const isOpen = row.classList.contains('open');
+  row.classList.toggle('open');
+  if (!isOpen) {
+    const inner = document.getElementById(`wordDetailInner${lineIdx}`);
+    if (inner) {
+      inner.innerHTML = buildWordDetailHtml(lineIdx);
+    }
+  }
+}
+
+function buildWordDetailHtml(lineIdx) {
+  const line = syncedData.lines[lineIdx];
+  const match = alignmentData && alignmentData.line_matches ? alignmentData.line_matches[lineIdx] : null;
+  if (!line) return '';
+
+  const whisperWords = match && match.word_timings ? match.word_timings : [];
+  const syncedWords = line.words || [];
+  const maxLen = Math.max(whisperWords.length, syncedWords.length);
+
+  let html = '<table class="al-word-table"><thead><tr><th style="width:20px"></th><th>Word</th><th>Whisper Start</th><th>Whisper End</th><th>Synced Start</th><th>Synced End</th><th>Source</th></tr></thead><tbody>';
+  for (let j = 0; j < maxLen; j++) {
+    const ww = j < whisperWords.length ? whisperWords[j] : null;
+    const sw = j < syncedWords.length ? syncedWords[j] : null;
+    const src = sw ? (sw.source || 'interpolated') : '';
+    html += '<tr>';
+    html += `<td style="color:#555;font-size:10px">${j + 1}</td>`;
+    html += `<td>${escHtml(sw ? sw.text : (ww ? ww.word : ''))}</td>`;
+    html += `<td class="whisper-word">${ww ? ww.start.toFixed(3) : '—'}</td>`;
+    html += `<td class="whisper-word">${ww ? ww.end.toFixed(3) : '—'}</td>`;
+    html += `<td class="synced-word">${sw ? sw.start.toFixed(3) : '—'}</td>`;
+    html += `<td class="synced-word">${sw ? sw.end.toFixed(3) : '—'}</td>`;
+    html += `<td><span class="source-badge ${src}">${src}</span></td>`;
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  return html;
 }
 
 function renderDetail(line) {
@@ -1915,6 +2168,8 @@ document.getElementById('wordZone').addEventListener('click', e => {
 
 document.querySelector('.center-panel').addEventListener('wheel', e => {
   e.preventDefault();
+  console.log('[autoFollow] CLEARED by wheel');
+  autoFollowAnchor = null;
   const container = document.getElementById('waveformContainer');
   const rect = container.getBoundingClientRect();
   const xPct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -1930,6 +2185,8 @@ document.querySelector('.center-panel').addEventListener('wheel', e => {
 }, {passive: false});
 
 document.getElementById('scrollbarThumb').addEventListener('mousedown', e => {
+  console.log('[autoFollow] CLEARED by scrollbar thumb');
+  autoFollowAnchor = null;
   draggingThumb = true;
   thumbDragStartX = e.clientX;
   thumbDragStartViewStart = viewStart;
@@ -1939,6 +2196,8 @@ document.getElementById('scrollbarThumb').addEventListener('mousedown', e => {
 
 document.getElementById('scrollbarTrack').addEventListener('mousedown', e => {
   if (e.target.id === 'scrollbarThumb') return;
+  console.log('[autoFollow] CLEARED by scrollbar track');
+  autoFollowAnchor = null;
   const dur = analysisData.duration || 1;
   const rect = e.currentTarget.getBoundingClientRect();
   const pct = (e.clientX - rect.left) / rect.width;
