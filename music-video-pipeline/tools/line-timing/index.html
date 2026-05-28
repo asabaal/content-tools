@@ -48,6 +48,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .li-conf.partial{background:rgba(246,173,85,0.2);color:#f6ad55}
 .li-conf.poor{background:rgba(255,102,102,0.2);color:#f66}
 .li-conf.none{color:#555}
+.seg-list{margin:0 12px 4px 47px;border-left:2px solid #e879f9;border-radius:0 4px 4px 0;overflow:hidden}
+.seg-item{padding:3px 8px;cursor:pointer;font-size:11px;font-family:monospace;display:flex;justify-content:space-between;gap:12px;color:#888;background:rgba(232,121,249,0.03);border-bottom:1px solid rgba(232,121,249,0.08)}
+.seg-item:hover{background:rgba(232,121,249,0.1);color:#e879f9}
+.seg-item:last-child{border-bottom:none}
+.seg-time{color:#aaa}
+.seg-dur{color:#666}
+.seg-item:hover .seg-time{color:#e879f9}
+.seg-item:hover .seg-dur{color:#c060d0}
 .line-list-nav{padding:8px 12px;border-top:1px solid #2a2a4a;display:flex;gap:8px;justify-content:space-between;flex-shrink:0}
 
 .center-panel{display:flex;flex-direction:column;overflow:hidden}
@@ -213,8 +221,13 @@ let analysisData = null;
 let waveformPeaks = [];
 let beatTimes = [];
 let audioPath = '';
+let fullMixAudioPath = '';
+let vocalAudioPath = '';
+let activeAudioSource = 'full_mix';
 let alignmentData = null;
 let alignmentConfidence = {};
+let vocalOnsetTimes = [];
+let showVocalOnsets = true;
 
 let isPlaying = false;
 let startTime = 0;
@@ -300,12 +313,22 @@ async function init() {
             }
         } catch (_) {}
 
+        let onsetsRes = null;
+        try {
+            onsetsRes = await fetch(`${API}/api/vocal-onsets`).then(r => r.json());
+        } catch (_) {}
+
         if (projRes.error) { setStatus('No project loaded'); return; }
 
         analysisData = analysisRes;
         waveformPeaks = waveformData && waveformData.peaks ? waveformData.peaks : [];
         beatTimes = analysisRes.beat_times || [];
         syncedData = syncedRes && !syncedRes.error ? syncedRes : null;
+
+        if (onsetsRes && !onsetsRes.error) {
+            if (onsetsRes.onset_times) vocalOnsetTimes = onsetsRes.onset_times;
+            else if (Array.isArray(onsetsRes)) vocalOnsetTimes = onsetsRes;
+        }
 
         if (!syncedData) {
             setStatus('No synced lyrics found. Run auto-sync in the editor first.');
@@ -314,6 +337,11 @@ async function init() {
 
         if (projRes.paths && projRes.paths.audio) {
             audioPath = `/data/${projRes.paths.audio}`;
+            fullMixAudioPath = audioPath;
+        }
+
+        if (waveformData && waveformData.vocal_audio_path) {
+            vocalAudioPath = `/data/${waveformData.vocal_audio_path}`;
         }
 
         viewStart = 0;
@@ -356,6 +384,73 @@ async function loadAudio() {
     }
 }
 
+async function toggleAudioSource() {
+    if (isPlaying) {
+        if (sourceNode) { try { sourceNode.stop(); } catch(_){} }
+        isPlaying = false;
+        cancelAnimationFrame(animFrame);
+        document.getElementById('playBtn').textContent = '\u25B6';
+    }
+    sourceNode = null;
+    pauseOffset = 0;
+
+    if (activeAudioSource === 'full_mix') {
+        activeAudioSource = 'vocal_stem';
+        audioPath = vocalAudioPath;
+    } else {
+        activeAudioSource = 'full_mix';
+        audioPath = fullMixAudioPath;
+    }
+
+    const btn = document.getElementById('audioSrcBtn');
+    if (btn) btn.textContent = 'Hear: ' + (activeAudioSource === 'full_mix' ? 'Full Mix' : 'Vocal Stem');
+
+    await loadAudio();
+}
+
+// ===== SEGMENT HELPERS =====
+
+function getLineSegments(lineIdx) {
+    if (!syncedData || lineIdx < 0 || lineIdx >= syncedData.lines.length) return [];
+    const line = syncedData.lines[lineIdx];
+    const lineOnsets = vocalOnsetTimes.filter(t => t > line.start + 0.01 && t < line.end - 0.01);
+    const boundaries = [line.start, ...lineOnsets, line.end];
+    const segs = [];
+    for (let i = 0; i < boundaries.length - 1; i++) {
+        const s = boundaries[i];
+        const e = boundaries[i + 1];
+        if (e - s > 0.005) segs.push({ start: s, end: e, dur: e - s, index: i });
+    }
+    return segs;
+}
+
+function playSegment(start, end) {
+    if (!audioBuffer) return;
+    if (isPlaying) {
+        sourceNode.onended = null;
+        try { sourceNode.stop(); } catch(_) {}
+        isPlaying = false;
+    }
+    pauseOffset = start;
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioCtx.destination);
+    const stopTimer = setTimeout(() => {
+        try { sourceNode.stop(); } catch(_) {}
+        isPlaying = false;
+        document.getElementById('playBtn').textContent = '\u25B6';
+    }, (end - start) * 1000);
+    sourceNode.onended = () => {
+        clearTimeout(stopTimer);
+        isPlaying = false;
+        document.getElementById('playBtn').textContent = '\u25B6';
+    };
+    sourceNode.start(0, start, end - start);
+    startTime = audioCtx.currentTime;
+    isPlaying = true;
+    document.getElementById('playBtn').textContent = '\u25A0';
+}
+
 // ===== LINE LIST =====
 
 function renderLineList() {
@@ -382,6 +477,21 @@ function renderLineList() {
             </div>
           </span>
         </div>`;
+        if (i === selectedLineIdx) {
+            const segs = getLineSegments(i);
+            if (segs.length > 0) {
+                html += '<div class="seg-list">';
+                segs.forEach(seg => {
+                    const isPre = seg.index === 0 && vocalOnsetTimes.filter(t => t > line.start + 0.01 && t < line.end - 0.01).length > 0;
+                    const label = isPre ? 'pre-onset' : `seg ${seg.index}${isPre ? '' : ''}`;
+                    html += `<div class="seg-item" onclick="event.stopPropagation();playSegment(${seg.start.toFixed(3)},${seg.end.toFixed(3)})">
+                      <span class="seg-time">${seg.start.toFixed(2)} - ${seg.end.toFixed(2)}</span>
+                      <span class="seg-dur">${seg.dur.toFixed(2)}s</span>
+                    </div>`;
+                });
+                html += '</div>';
+            }
+        }
     }
     el.innerHTML = html;
     document.getElementById('lineCount').textContent = syncedData.lines.length + ' lines';
@@ -473,6 +583,16 @@ function renderControls() {
           <button class="btn btn-small" onclick="playLineContext(-0.5)">&#x25C0; -0.5s</button>
           <button class="btn btn-small" onclick="playLineContext(0.5)">+0.5s &#x25B6;</button>
         </div>
+        ${vocalAudioPath ? `<div class="play-btns" style="margin-top:6px">
+          <button class="btn btn-small" id="audioSrcBtn" onclick="toggleAudioSource()" style="width:100%">Hear: ${activeAudioSource === 'full_mix' ? 'Full Mix' : 'Vocal Stem'}</button>
+        </div>` : ''}
+      </div>
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">Display</div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:#aaa;cursor:pointer">
+          <input type="checkbox" ${showVocalOnsets ? 'checked' : ''} onchange="showVocalOnsets=this.checked;drawWaveform()"> Vocal Onsets${vocalOnsetTimes.length ? ` (${vocalOnsetTimes.length})` : ''}
+        </label>
       </div>
 
       <div class="ctrl-section">
@@ -1051,6 +1171,20 @@ function drawWaveform() {
         ctx.fillStyle = 'rgba(255,255,255,0.35)';
         ctx.fillRect(lx, 0, 2, waveH);
         ctx.fillRect(rx - 2, 0, 2, waveH);
+    }
+
+    if (showVocalOnsets && vocalOnsetTimes.length) {
+        ctx.strokeStyle = 'rgba(232,121,249,0.4)';
+        ctx.lineWidth = 1;
+        vocalOnsetTimes.forEach(ot => {
+            if (ot >= viewStart && ot <= viewEnd) {
+                const x = timeToPct(ot) / 100 * w;
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, waveH);
+                ctx.stroke();
+            }
+        });
     }
 
     for (let i = 0; i < count; i++) {
