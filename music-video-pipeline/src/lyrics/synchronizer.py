@@ -41,6 +41,9 @@ class SyncedLine:
     words: List[SyncedWord] = field(default_factory=list)
     section: Optional[LyricSection] = None
     alignment_confidence: float = 0.0
+    warnings: List[str] = field(default_factory=list)
+    onset_segments: List[dict] = field(default_factory=list)
+    word_segment_assignments: List[dict] = field(default_factory=list)
 
     @property
     def duration(self) -> float:
@@ -56,6 +59,12 @@ class SyncedLine:
         }
         if self.section:
             d["section"] = self.section.to_dict()
+        if self.warnings:
+            d["warnings"] = self.warnings
+        if self.onset_segments:
+            d["onset_segments"] = self.onset_segments
+        if self.word_segment_assignments:
+            d["word_segment_assignments"] = self.word_segment_assignments
         return d
 
 

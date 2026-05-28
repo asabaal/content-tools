@@ -559,6 +559,19 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
     )
     result = syncer.synchronize()
 
+    vocal_onset_arr = np.array(analysis_data.get("vocal_onset_times", []), dtype=float) if analysis_data.get("vocal_onset_times") else np.array([], dtype=float)
+    if len(vocal_onset_arr) > 0:
+        from lyrics.onset_refiner import refine_synced_lines
+        waveform_peaks = None
+        vw_path = proj.data_dir / "vocal_waveforms.json"
+        if vw_path.exists():
+            try:
+                vw_data = json.loads(vw_path.read_text(encoding="utf-8"))
+                waveform_peaks = vw_data.get("peaks")
+            except Exception:
+                pass
+        result = refine_synced_lines(result, vocal_onset_arr, waveform_peaks)
+
     result.save(proj.data_dir / "lyrics_synced.json")
 
     from lyrics.alignment_analyzer import analyze_alignment
