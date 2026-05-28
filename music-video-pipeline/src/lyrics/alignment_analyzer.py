@@ -251,12 +251,62 @@ def _group_onsets_by_gap(onset_times: np.ndarray, gap_threshold: float = 1.0) ->
     return [np.array(g) for g in groups]
 
 
+def _snap_word_starts_to_onsets(
+    timings: List[WordTiming],
+    onset_times: Optional[np.ndarray],
+    first_segment_words: Optional[set] = None,
+    prev_line_end: float = 0.0,
+) -> None:
+    if onset_times is None or len(onset_times) == 0 or not timings:
+        return
+
+    if first_segment_words is None:
+        first_segment_words = set()
+
+    for i, wt in enumerate(timings):
+        if wt.source != "transcription":
+            continue
+
+        is_first_in_seg = (_normalize(wt.word), round(wt.start, 3)) in first_segment_words
+
+        window_start = wt.start - 0.3
+        window_end = wt.end
+        mask = (onset_times >= window_start) & (onset_times <= window_end)
+        candidates = onset_times[mask]
+
+        if len(candidates) == 0:
+            continue
+
+        nearest = candidates[np.argmin(np.abs(candidates - wt.start))]
+        gap = float(nearest) - wt.start
+
+        if abs(gap) <= 0.1:
+            continue
+
+        if gap > 0:
+            if not is_first_in_seg:
+                continue
+            new_start = float(nearest)
+        else:
+            boundary = prev_line_end if i == 0 else timings[i - 1].end
+            if float(nearest) < boundary:
+                continue
+            new_start = float(nearest)
+
+        if wt.end - new_start < 0.05:
+            continue
+
+        wt.start = new_start
+
+
 def _compute_word_timings(
     lyric_text: str,
     matched_segments: List[int],
     transcription_segments: List[dict],
     line_start: Optional[float],
     line_end: Optional[float],
+    onset_times: Optional[np.ndarray] = None,
+    prev_line_end: float = 0.0,
 ) -> Optional[List[WordTiming]]:
     if not matched_segments:
         return None
@@ -275,6 +325,14 @@ def _compute_word_timings(
 
     if not trans_words_raw:
         return None
+
+    first_segment_words: set = set()
+    for si in matched_segments:
+        seg = transcription_segments[si]
+        seg_words = seg.get("words", [])
+        if seg_words:
+            fw = seg_words[0]
+            first_segment_words.add((_normalize(fw.get("word", "")), round(float(fw.get("start", 0)), 3)))
 
     trans_words_norm = [_normalize(w.get("word", "")) for w in trans_words_raw]
 
@@ -317,6 +375,8 @@ def _compute_word_timings(
                 end=next_start,
                 source="interpolated",
             ))
+
+    _snap_word_starts_to_onsets(timings, onset_times, first_segment_words, prev_line_end)
 
     return timings
 
@@ -444,6 +504,13 @@ def analyze_alignment(
                 t_start = transcription_segments[seg_indices[0]].get("start")
                 t_end = transcription_segments[seg_indices[-1]].get("end")
 
+            prev_end = 0.0
+            for pi in range(i - 1, -1, -1):
+                prev_match = matches[pi]
+                if prev_match.transcription_end is not None:
+                    prev_end = prev_match.transcription_end
+                    break
+
             matches.append(LineMatch(
                 lyric_index=line.index,
                 lyric_text=line.text,
@@ -454,7 +521,9 @@ def analyze_alignment(
                 transcription_end=t_end,
                 is_split=is_split,
                 word_timings=_compute_word_timings(
-                    line.text, seg_indices, transcription_segments, t_start, t_end
+                    line.text, seg_indices, transcription_segments, t_start, t_end,
+                    onset_times=vocal_onset_times,
+                    prev_line_end=prev_end,
                 ),
             ))
     else:

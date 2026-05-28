@@ -88,7 +88,7 @@ def _data_dir() -> Path:
 
 def _project_data_dir() -> Path:
     if PROJECT and PROJECT.paths.data_dir:
-        p = Path(PROJECT.paths.data_dir) / "data"
+        p = Path(PROJECT.paths.data_dir)
         if p.exists():
             return p
     return _data_dir()
@@ -101,6 +101,9 @@ class PipelineHandler(SimpleHTTPRequestHandler):
 
         if rel_path == "editor" or rel_path == "editor/":
             return str(REPO_ROOT / "tools" / "editor" / "index.html")
+
+        if rel_path == "line-timing" or rel_path == "line-timing/":
+            return str(REPO_ROOT / "tools" / "line-timing" / "index.html")
 
         if rel_path.startswith("data/"):
             file_part = rel_path[len("data/"):]
@@ -275,6 +278,10 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_load_script()
         elif path == "/api/generate-script":
             self._handle_generate_script()
+        elif path == "/api/resync-line":
+            self._handle_resync_line()
+        elif path == "/api/resync-lines":
+            self._handle_resync_lines()
         else:
             self.send_response(404)
             self._cors_headers()
@@ -503,6 +510,105 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             "mood_used": result.mood_used,
         })
 
+    def _handle_resync_line(self):
+        body = self._read_body()
+        try:
+            data = json.loads(body)
+        except json.JSONDecodeError:
+            self._send_json({"error": "Invalid JSON"}, 400)
+            return
+
+        line_idx = data.get("line_idx")
+        line_start = data.get("line_start")
+        line_end = data.get("line_end")
+        current_words = data.get("current_words", [])
+
+        if line_start is None or line_end is None:
+            self._send_json({"error": "Missing line_start or line_end"}, 400)
+            return
+
+        if line_end <= line_start:
+            self._send_json({"error": "line_end must be after line_start"}, 400)
+            return
+
+        dur = line_end - line_start
+        warnings = []
+
+        if not current_words:
+            self._send_json({"line_idx": line_idx, "words": [], "warnings": []})
+            return
+
+        total_chars = sum(len(w.get("text", "")) for w in current_words)
+        if total_chars == 0:
+            total_chars = len(current_words)
+
+        t = line_start
+        new_words = []
+        for i, w in enumerate(current_words):
+            text = w.get("text", "")
+            char_count = len(text) if text else 1
+            w_dur = (char_count / total_chars) * dur
+            new_words.append({
+                "text": text,
+                "start": round(t, 4),
+                "end": round(t + w_dur if i < len(current_words) - 1 else line_end, 4),
+                "source": "line_resync",
+            })
+            t += w_dur
+
+        self._send_json({"line_idx": line_idx, "words": new_words, "warnings": warnings})
+
+    def _handle_resync_lines(self):
+        body = self._read_body()
+        try:
+            data = json.loads(body)
+        except json.JSONDecodeError:
+            self._send_json({"error": "Invalid JSON"}, 400)
+            return
+
+        lines_data = data.get("lines", [])
+        if not lines_data:
+            self._send_json({"error": "No lines provided"}, 400)
+            return
+
+        results = []
+        for ld in lines_data:
+            line_idx = ld.get("line_idx")
+            line_start = ld.get("line_start")
+            line_end = ld.get("line_end")
+            current_words = ld.get("current_words", [])
+
+            if line_start is None or line_end is None or line_end <= line_start:
+                results.append({"line_idx": line_idx, "words": current_words, "warnings": ["Invalid line timing"]})
+                continue
+
+            dur = line_end - line_start
+            if not current_words:
+                results.append({"line_idx": line_idx, "words": [], "warnings": []})
+                continue
+
+            total_chars = sum(len(w.get("text", "")) for w in current_words)
+            if total_chars == 0:
+                total_chars = len(current_words)
+
+            t = line_start
+            new_words = []
+            for i, w in enumerate(current_words):
+                text = w.get("text", "")
+                char_count = len(text) if text else 1
+                w_dur = (char_count / total_chars) * dur
+                new_words.append({
+                    "text": text,
+                    "start": round(t, 4),
+                    "end": round(t + w_dur if i < len(current_words) - 1 else line_end, 4),
+                    "source": "line_resync",
+                })
+                t += w_dur
+
+            results.append({"line_idx": line_idx, "words": new_words, "warnings": []})
+
+        self._send_json({"results": results})
+
     def log_message(self, format, *args):
         print(f"{self.address_string()} - {args[0]}")
 
@@ -521,6 +627,7 @@ def run_server(project_dir: Optional[str] = None, port: int = 8900):  # pragma: 
 
     print(f"\nServing at http://localhost:{port}/")
     print(f"Editor:          http://localhost:{port}/editor")
+    print(f"Line Timing:     http://localhost:{port}/line-timing")
     print(f"Analysis Review: http://localhost:{port}/tools/analysis/")
     print("Press Ctrl+C to stop\n")
 

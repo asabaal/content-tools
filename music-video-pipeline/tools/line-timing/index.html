@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Line Timing Correction</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+.header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:#16213e;border-bottom:1px solid #2a2a4a}
+.header h1{font-size:16px;font-weight:600;color:#4cc9f0}
+.header-actions{display:flex;gap:8px;align-items:center}
+.save-status{font-size:12px;padding:4px 8px;border-radius:3px}
+.save-status.saved{color:#48bb78}
+.save-status.unsaved{color:#f6ad55}
+
+.btn{padding:6px 14px;border:1px solid #2a2a4a;border-radius:4px;background:#2a2a4a;color:#e0e0e0;cursor:pointer;font-size:13px}
+.btn:hover{background:#3a3a5a}
+.btn-primary{background:#4cc9f0;border-color:#4cc9f0;color:#0f0f1a;font-weight:600}
+.btn-primary:hover{background:#3ab8df}
+.btn-warn{background:#f6ad55;border-color:#f6ad55;color:#0f0f1a;font-weight:600}
+.btn-warn:hover{background:#e59d45}
+.btn-small{padding:4px 10px;font-size:12px}
+.btn:disabled{opacity:0.4;cursor:default}
+
+.main{display:grid;grid-template-columns:260px 1fr 280px;flex:1;min-height:0}
+
+.line-list-panel{overflow-y:auto;background:#0f0f1a;border-right:1px solid #2a2a4a;display:flex;flex-direction:column;min-height:0}
+.line-list-header{padding:10px 12px;border-bottom:1px solid #2a2a4a;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.5px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.line-list{overflow-y:auto;flex:1;min-height:0}
+.line-item{padding:6px 12px;cursor:pointer;border-left:3px solid transparent;font-size:13px;transition:background .1s;display:flex;align-items:flex-start;gap:8px}
+.line-item:hover{background:#16213e}
+.line-item.active{background:#16213e;border-left-color:#4cc9f0}
+.line-item .li-num{color:#666;font-size:11px;font-family:monospace;min-width:24px;flex-shrink:0;padding-top:1px}
+.line-item .li-body{flex:1;min-width:0}
+.line-item .li-text{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#ccc}
+.line-item .li-meta{font-size:10px;color:#666;font-family:monospace;margin-top:2px;display:flex;gap:6px;align-items:center}
+.line-item .li-status{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:600;text-transform:uppercase;flex-shrink:0}
+.li-status.unchecked{color:#666}
+.li-status.line_adjusted{background:rgba(246,173,85,0.2);color:#f6ad55}
+.li-status.needs_resync{background:rgba(255,102,102,0.2);color:#f66}
+.li-status.words_resynced{background:rgba(72,187,120,0.2);color:#48bb78}
+.li-status.manual_edit{background:rgba(76,201,240,0.2);color:#4cc9f0}
+.li-status.warning{background:rgba(255,102,102,0.3);color:#f66}
+.li-conf{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:600}
+.li-conf.good{background:rgba(72,187,120,0.2);color:#48bb78}
+.li-conf.partial{background:rgba(246,173,85,0.2);color:#f6ad55}
+.li-conf.poor{background:rgba(255,102,102,0.2);color:#f66}
+.li-conf.none{color:#555}
+.line-list-nav{padding:8px 12px;border-top:1px solid #2a2a4a;display:flex;gap:8px;justify-content:space-between;flex-shrink:0}
+
+.center-panel{display:flex;flex-direction:column;overflow:hidden}
+
+.waveform-container{flex:1;min-height:120px;background:#0f0f1a;position:relative;cursor:crosshair;overflow:hidden;border-bottom:1px solid #2a2a4a}
+.waveform-container canvas{width:100%;height:100%;display:block}
+.ref-line{position:absolute;top:0;width:2px;height:100%;pointer-events:none;z-index:3}
+.ref-line.prev{background:rgba(255,255,255,0.15)}
+.ref-line.next{background:rgba(255,255,255,0.15)}
+.playhead{position:absolute;top:0;width:2px;height:100%;background:#4cc9f0;z-index:5;pointer-events:none}
+
+.word-overlay{position:absolute;bottom:0;left:0;right:0;height:56px;z-index:4}
+.word-overlay .line-handle{position:absolute;height:100%;width:10px;cursor:ew-resize;z-index:20;border-radius:2px}
+.word-overlay .line-handle:hover{background:rgba(76,201,240,0.4)!important}
+.word-overlay .line-handle .lh-time{display:none;position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#4cc9f0;background:#16213e;padding:1px 4px;border-radius:2px;white-space:nowrap;pointer-events:none;z-index:30}
+.word-overlay .line-handle:hover .lh-time{display:block}
+
+.word{position:absolute;height:36px;background:#2a4a6a;border-radius:3px;padding:0 8px;display:flex;align-items:center;cursor:grab;user-select:none;font-size:13px;color:#fff;white-space:nowrap;transition:background .1s}
+.word:hover{background:#3a5a8a}
+.word.active{background:#4cc9f0;color:#0f0f1a}
+.word.dragging{cursor:grabbing;background:#4a6a9a;z-index:100}
+.word-handle{position:absolute;top:0;bottom:0;width:8px;cursor:ew-resize;z-index:10}
+.word-handle-left{left:0;border-radius:4px 0 0 4px}
+.word-handle-left:hover{background:rgba(76,201,240,0.3)}
+.word-handle-right{right:0;border-radius:0 4px 4px 0}
+.word-handle-right:hover{background:rgba(76,201,240,0.3)}
+.word .source-dot{width:6px;height:6px;border-radius:50%;margin-right:4px;flex-shrink:0}
+.source-dot.onset{background:#48bb78}
+.source-dot.midi{background:#6c8cff}
+.source-dot.vocal_onset{background:#f6ad55}
+.source-dot.interpolated{background:#666}
+.source-dot.transcription{background:#4cc9f0}
+.source-dot.onset_syllable{background:#4cc9f0}
+.source-dot.line_resync{background:#e056a0}
+
+.time-axis{height:20px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;position:relative;font-size:10px;color:#666;font-family:monospace;flex-shrink:0}
+.time-axis .tick{position:absolute;top:0;height:100%;border-left:1px solid #2a2a4a;padding-left:3px;display:flex;align-items:flex-end;padding-bottom:2px}
+
+.scrollbar-track{height:14px;background:#0a0a18;border-top:1px solid #2a2a4a;border-bottom:1px solid #2a2a4a;position:relative;cursor:pointer;flex-shrink:0;box-shadow:inset 0 1px 3px rgba(0,0,0,0.5)}
+.scrollbar-thumb{position:absolute;top:2px;height:10px;background:rgba(76,201,240,0.35);border:1px solid rgba(76,201,240,0.6);border-radius:5px;cursor:grab;min-width:20px}
+.scrollbar-thumb:hover{background:rgba(76,201,240,0.5)}
+.scrollbar-thumb.dragging{background:rgba(76,201,240,0.65);cursor:grabbing}
+
+.transport{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#16213e;border-bottom:1px solid #2a2a4a;font-size:13px;flex-wrap:wrap;flex-shrink:0}
+.transport .time{color:#4cc9f0;font-family:monospace;min-width:60px}
+.transport .divider{color:#444}
+.current-lyric{color:#888;margin-left:16px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:italic}
+
+.warning-area{padding:6px 12px;background:#0f0f1a;border-bottom:1px solid #2a2a4a;font-size:12px;max-height:60px;overflow-y:auto;flex-shrink:0}
+.warning-area:empty{display:none}
+.warning-msg{color:#f6ad55;padding:2px 0}
+.warning-msg.error{color:#f66}
+
+.controls-panel{overflow-y:auto;background:#0f0f1a;border-left:1px solid #2a2a4a;padding:12px;min-height:0}
+.ctrl-section{margin-bottom:16px}
+.ctrl-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.ctrl-value{margin-bottom:8px}
+.ctrl-input{width:100%;background:#16213e;border:1px solid #2a2a4a;color:#e0e0e0;padding:4px 8px;border-radius:3px;font-size:12px}
+.ctrl-input:focus{border-color:#4cc9f0;outline:none}
+.ctrl-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ctrl-row .ctrl-label{margin-bottom:0;min-width:60px}
+.ctrl-row .ctrl-value{flex:1;margin-bottom:0}
+.ctrl-divider{border:none;border-top:1px solid #2a2a4a;margin:12px 0}
+
+.word-table{width:100%;border-collapse:collapse}
+.word-table th{text-align:left;font-size:10px;color:#888;padding:2px 6px;border-bottom:1px solid #2a2a4a;text-transform:uppercase;letter-spacing:.5px}
+.word-table td{padding:3px 6px;font-size:12px;border-bottom:1px solid #1a1a2e}
+.word-table tr.active td{background:#16213e}
+.time-input{width:70px;background:#16213e;border:1px solid #2a2a4a;color:#e0e0e0;padding:2px 4px;border-radius:3px;font-size:11px;font-family:monospace;text-align:right}
+.time-input:focus{border-color:#4cc9f0;outline:none}
+.source-badge{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:600;text-transform:uppercase}
+.source-badge.onset{background:rgba(72,187,120,0.2);color:#48bb78}
+.source-badge.midi{background:rgba(108,140,255,0.2);color:#6c8cff}
+.source-badge.vocal_onset{background:rgba(246,173,85,0.2);color:#f6ad55}
+.source-badge.interpolated{background:rgba(102,102,102,0.2);color:#888}
+.source-badge.transcription{background:rgba(76,201,240,0.2);color:#4cc9f0}
+.source-badge.onset_syllable{background:rgba(76,201,240,0.2);color:#4cc9f0}
+.source-badge.line_resync{background:rgba(224,86,160,0.2);color:#e056a0}
+
+.play-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:#1a1a2e}
+::-webkit-scrollbar-thumb{background:#3a3a5a;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#4a4a6a}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Line Timing Correction</h1>
+  <div class="header-actions">
+    <span class="save-status" id="saveStatus"></span>
+    <button class="btn btn-primary" onclick="saveAll()">Save All</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="line-list-panel">
+    <div class="line-list-header">
+      <span>Lines</span>
+      <span id="lineCount"></span>
+    </div>
+    <div class="line-list" id="lineList"></div>
+    <div class="line-list-nav">
+      <button class="btn btn-small" onclick="prevLine()">&#x25B2; Prev</button>
+      <button class="btn btn-small" onclick="nextLine()">Next &#x25BC;</button>
+    </div>
+  </div>
+
+  <div class="center-panel">
+    <div style="display:flex;flex-direction:column;flex:1;min-height:0">
+      <div class="waveform-container" id="waveformContainer">
+        <canvas id="waveformCanvas"></canvas>
+        <div class="word-overlay" id="wordOverlay"></div>
+        <div id="refPrevLine" class="ref-line prev" style="display:none"></div>
+        <div id="refNextLine" class="ref-line next" style="display:none"></div>
+        <div id="playhead" class="playhead" style="left:0"></div>
+      </div>
+      <div class="time-axis" id="timeAxis"></div>
+      <div class="scrollbar-track" id="scrollbarTrack">
+        <div class="scrollbar-thumb" id="scrollbarThumb"></div>
+      </div>
+    </div>
+
+    <div class="warning-area" id="warningArea"></div>
+
+    <div class="transport">
+      <button class="btn btn-small" onclick="zoomIn()">&#x2212;</button>
+      <button class="btn btn-small" onclick="fitAll()">Fit All</button>
+      <button class="btn btn-small" onclick="zoomOut()">+</button>
+      <span class="divider">|</span>
+      <button class="btn btn-small" onclick="skipBack()">&#x25C0; 5s</button>
+      <button class="btn btn-small" id="playBtn" onclick="togglePlay()">&#x25B6;</button>
+      <button class="btn btn-small" onclick="skipForward()">5s &#x25B6;</button>
+      <button class="btn btn-small" id="loopBtn" onclick="toggleLoopLine()">&#x21BB; Loop</button>
+      <span class="divider">|</span>
+      <span class="time" id="currentTime">0:00.0</span>
+      <span class="divider">/</span>
+      <span class="time" id="totalTime">0:00.0</span>
+      <span class="current-lyric" id="currentLyric"></span>
+    </div>
+  </div>
+
+  <div class="controls-panel" id="controlsPanel">
+    <p style="color:#666;font-size:13px">Select a line to begin</p>
+  </div>
+</div>
+
+<script>
+const API = '';
+const MIN_WORD_DURATION = 0.15;
+const MIN_LINE_DURATION = 0.3;
+const WORD_HEIGHT = 36;
+const WORD_TOP = 4;
+const WORD_COLORS = [
+  '#48bb78','#f6ad55','#6c8cff','#e056a0','#56e0c0',
+  '#ff8c42','#c0e056','#8b5cf6','#f66','#4cc9f0'
+];
+
+let audioCtx, audioBuffer, sourceNode;
+let syncedData = null;
+let analysisData = null;
+let waveformPeaks = [];
+let beatTimes = [];
+let audioPath = '';
+let alignmentData = null;
+let alignmentConfidence = {};
+
+let isPlaying = false;
+let startTime = 0;
+let pauseOffset = 0;
+let animFrame = null;
+let autoFollowAnchor = null;
+
+let selectedLineIdx = -1;
+let viewStart = 0;
+let viewEnd = 0;
+let isZoomed = false;
+
+let hasUnsavedChanges = false;
+let loopLine = false;
+
+const lineState = {};
+let boundaryChanged = { start: false, end: false };
+
+let draggingWord = null;
+let wordDragStartX = 0;
+let wordDragStartTime = 0;
+let wordDragEndTime = 0;
+let dragType = null;
+
+let draggingLine = null;
+let lineDragStartX = 0;
+let lineDragOrigTime = 0;
+
+let draggingThumb = false;
+let thumbDragStartX = 0;
+let thumbDragStartViewStart = 0;
+
+function getLineStatus(idx) {
+    if (!lineState[idx]) return 'unchecked';
+    const s = lineState[idx];
+    if (s.warnings && s.warnings.length) return 'warning';
+    if (s.manualWordEdit) return 'manual_edit';
+    if (s.wordsResynced) return 'words_resynced';
+    if (s.needsWordResync) return 'needs_resync';
+    if (s.lineAdjusted) return 'line_adjusted';
+    return 'unchecked';
+}
+
+function setLineState(idx, key, val) {
+    if (!lineState[idx]) lineState[idx] = {};
+    lineState[idx][key] = val;
+}
+
+function clearLineState(idx, key) {
+    if (!lineState[idx]) return;
+    delete lineState[idx][key];
+}
+
+// ===== INIT =====
+
+async function init() {
+    try {
+        const [projRes, analysisRes, syncedRes] = await Promise.all([
+            fetch(`${API}/api/project`).then(r => r.json()),
+            fetch(`${API}/api/analysis`).then(r => r.json()),
+            fetch(`${API}/api/lyrics-synced`).then(r => r.json()).catch(() => null),
+        ]);
+
+        let waveformData = null;
+        try {
+            const vocalWaveRes = await fetch(`${API}/api/vocal-waveforms`).then(r => r.json()).catch(() => null);
+            if (vocalWaveRes && !vocalWaveRes.error && vocalWaveRes.peaks && vocalWaveRes.peaks.length) {
+                waveformData = vocalWaveRes;
+            }
+        } catch(_) {}
+        if (!waveformData) {
+            try {
+                const fullMixRes = await fetch(`${API}/api/waveforms`).then(r => r.json());
+                waveformData = fullMixRes;
+            } catch(_) {}
+        }
+
+        try {
+            const alRes = await fetch(`${API}/api/alignment-analysis`).then(r => r.json());
+            if (alRes && !alRes.error) {
+                alignmentData = alRes;
+                buildAlignmentConfidence();
+            }
+        } catch (_) {}
+
+        if (projRes.error) { setStatus('No project loaded'); return; }
+
+        analysisData = analysisRes;
+        waveformPeaks = waveformData && waveformData.peaks ? waveformData.peaks : [];
+        beatTimes = analysisRes.beat_times || [];
+        syncedData = syncedRes && !syncedRes.error ? syncedRes : null;
+
+        if (!syncedData) {
+            setStatus('No synced lyrics found. Run auto-sync in the editor first.');
+            return;
+        }
+
+        if (projRes.paths && projRes.paths.audio) {
+            audioPath = `/data/${projRes.paths.audio}`;
+        }
+
+        viewStart = 0;
+        viewEnd = analysisData.duration || 0;
+        document.getElementById('totalTime').textContent = fmtTime(analysisData.duration || 0);
+
+        renderLineList();
+        drawWaveform();
+        renderTimeAxis();
+        updateScrollbar();
+
+        if (audioPath) loadAudio();
+
+        setStatus('Loaded ' + syncedData.lines.length + ' lines');
+    } catch (e) {
+        setStatus('Init error: ' + e.message);
+    }
+}
+
+function buildAlignmentConfidence() {
+    alignmentConfidence = {};
+    if (!alignmentData || !alignmentData.line_matches) return;
+    for (const m of alignmentData.line_matches) {
+        const idx = m.lyric_index;
+        const ratio = m.word_match_ratio || 0;
+        if (ratio > 0.9) alignmentConfidence[idx] = 'good';
+        else if (ratio > 0.3) alignmentConfidence[idx] = 'partial';
+        else alignmentConfidence[idx] = 'poor';
+    }
+}
+
+async function loadAudio() {
+    try {
+        const res = await fetch(audioPath);
+        const arrayBuf = await res.arrayBuffer();
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        audioBuffer = await audioCtx.decodeAudioData(arrayBuf);
+    } catch (e) {
+        console.warn('Audio load failed:', e);
+    }
+}
+
+// ===== LINE LIST =====
+
+function renderLineList() {
+    const el = document.getElementById('lineList');
+    if (!syncedData) { el.innerHTML = ''; return; }
+    let html = '';
+    for (let i = 0; i < syncedData.lines.length; i++) {
+        const line = syncedData.lines[i];
+        const active = i === selectedLineIdx ? ' active' : '';
+        const status = getLineStatus(i);
+        const statusLabel = status === 'unchecked' ? '' : status.replace(/_/g, ' ');
+        const confKey = alignmentConfidence[i] || 'none';
+        const confLabel = alignmentConfidence[i] ? (alignmentConfidence[i] === 'good' ? 'good' : alignmentConfidence[i] === 'partial' ? 'partial' : 'poor') : '';
+        const dur = (line.end - line.start).toFixed(2);
+        html += `<div class="line-item${active}" onclick="selectTimingLine(${i})">
+          <span class="li-num">${i + 1}</span>
+          <span class="li-body">
+            <div class="li-text">${escHtml(line.text)}</div>
+            <div class="li-meta">
+              <span>${fmtTime(line.start)} - ${fmtTime(line.end)}</span>
+              <span>${dur}s</span>
+              ${confLabel ? `<span class="li-conf ${confKey}">${confLabel}</span>` : ''}
+              ${statusLabel ? `<span class="li-status ${status}">${statusLabel}</span>` : ''}
+            </div>
+          </span>
+        </div>`;
+    }
+    el.innerHTML = html;
+    document.getElementById('lineCount').textContent = syncedData.lines.length + ' lines';
+}
+
+function selectTimingLine(idx) {
+    selectedLineIdx = idx;
+    boundaryChanged = { start: false, end: false };
+    if (!syncedData || idx < 0 || idx >= syncedData.lines.length) return;
+
+    const line = syncedData.lines[idx];
+    const lineDur = line.end - line.start;
+    const padding = Math.max(lineDur * 0.6, 1.5);
+    viewStart = Math.max(0, line.start - padding);
+    viewEnd = Math.min(analysisData.duration, line.end + padding);
+    isZoomed = true;
+
+    seekToTime(line.start);
+    redrawAll();
+    renderLineList();
+    renderControls();
+    updateRefLines();
+    updateWarnings();
+}
+
+function prevLine() {
+    if (selectedLineIdx > 0) selectTimingLine(selectedLineIdx - 1);
+}
+
+function nextLine() {
+    if (syncedData && selectedLineIdx < syncedData.lines.length - 1) selectTimingLine(selectedLineIdx + 1);
+}
+
+// ===== CONTROLS PANEL =====
+
+function renderControls() {
+    const el = document.getElementById('controlsPanel');
+    if (selectedLineIdx < 0 || !syncedData) {
+        el.innerHTML = '<p style="color:#666;font-size:13px">Select a line to begin</p>';
+        return;
+    }
+    const line = syncedData.lines[selectedLineIdx];
+    const dur = (line.end - line.start).toFixed(3);
+    const status = getLineStatus(selectedLineIdx);
+
+    let wordTableHtml = '';
+    if (line.words && line.words.length) {
+        wordTableHtml = `<table class="word-table"><thead><tr><th>#</th><th>Word</th><th>Start</th><th>End</th><th>Source</th></tr></thead><tbody>`;
+        line.words.forEach((w, wi) => {
+            const src = w.source || 'interpolated';
+            wordTableHtml += `<tr>
+              <td>${wi + 1}</td>
+              <td>${escHtml(w.text)}</td>
+              <td><input class="time-input" type="number" step="0.01" value="${w.start.toFixed(3)}" data-wi="${wi}" data-field="start" onchange="updateWordFromInput(${wi},'start',this.value)"></td>
+              <td><input class="time-input" type="number" step="0.01" value="${w.end.toFixed(3)}" data-wi="${wi}" data-field="end" onchange="updateWordFromInput(${wi},'end',this.value)"></td>
+              <td><span class="source-badge ${src}">${src}</span></td>
+            </tr>`;
+        });
+        wordTableHtml += '</tbody></table>';
+    }
+
+    el.innerHTML = `
+      <div class="ctrl-section">
+        <div class="ctrl-label">Line ${selectedLineIdx + 1}</div>
+        <div style="font-size:14px;margin-bottom:8px;color:#ccc">${escHtml(line.text)}</div>
+      </div>
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">Timing</div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Start</span>
+          <input class="ctrl-input" type="number" step="0.01" value="${line.start.toFixed(3)}" onchange="updateLineBoundary('start',parseFloat(this.value))">
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">End</span>
+          <input class="ctrl-input" type="number" step="0.01" value="${line.end.toFixed(3)}" onchange="updateLineBoundary('end',parseFloat(this.value))">
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Duration</span>
+          <span style="font-family:monospace;font-size:13px">${dur}s</span>
+        </div>
+      </div>
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">Playback</div>
+        <div class="play-btns">
+          <button class="btn btn-small" onclick="playLine()">&#x25B6; Play Line</button>
+          <button class="btn btn-small" id="loopLineBtn" onclick="toggleLoopLine()">&#x21BB; Loop</button>
+          <button class="btn btn-small" onclick="playLineContext(-0.5)">&#x25C0; -0.5s</button>
+          <button class="btn btn-small" onclick="playLineContext(0.5)">+0.5s &#x25B6;</button>
+        </div>
+      </div>
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">Re-Sync Words</div>
+        ${renderResyncPanel(line)}
+      </div>
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">Warnings</div>
+        <div id="ctrlWarnings"></div>
+      </div>
+
+      <hr class="ctrl-divider">
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">Word Timings</div>
+        ${wordTableHtml}
+      </div>
+
+      <hr class="ctrl-divider">
+
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary" style="flex:1" onclick="saveAll()">Save All</button>
+      </div>
+    `;
+
+    updateCtrlWarnings();
+}
+
+function updateLineBoundary(boundary, newTime) {
+    if (selectedLineIdx < 0 || !syncedData) return;
+    const line = syncedData.lines[selectedLineIdx];
+    if (isNaN(newTime)) return;
+
+    if (boundary === 'start') {
+        newTime = Math.max(0, Math.min(newTime, line.end - MIN_LINE_DURATION));
+        line.start = newTime;
+        boundaryChanged.start = true;
+    } else {
+        newTime = Math.min(analysisData.duration, Math.max(newTime, line.start + MIN_LINE_DURATION));
+        line.end = newTime;
+        boundaryChanged.end = true;
+    }
+
+    setLineState(selectedLineIdx, 'lineAdjusted', true);
+    setLineState(selectedLineIdx, 'needsWordResync', true);
+    clearLineState(selectedLineIdx, 'wordsResynced');
+    clearLineState(selectedLineIdx, 'manualWordEdit');
+    markUnsaved();
+    redrawAll();
+    renderLineList();
+    renderControls();
+    updateRefLines();
+    updateWarnings();
+}
+
+function updateWordFromInput(wi, field, val) {
+    if (selectedLineIdx < 0 || !syncedData) return;
+    const line = syncedData.lines[selectedLineIdx];
+    if (!line.words || wi >= line.words.length) return;
+    const numVal = parseFloat(val);
+    if (isNaN(numVal)) return;
+
+    const word = line.words[wi];
+    if (field === 'start') {
+        word.start = Math.max(line.start, Math.min(numVal, word.end - MIN_WORD_DURATION));
+    } else {
+        word.end = Math.min(line.end, Math.max(numVal, word.start + MIN_WORD_DURATION));
+    }
+
+    setLineState(selectedLineIdx, 'manualWordEdit', true);
+    clearLineState(selectedLineIdx, 'wordsResynced');
+    clearLineState(selectedLineIdx, 'needsWordResync');
+    markUnsaved();
+    renderWordLayer();
+    renderLineList();
+    updateWarnings();
+}
+
+function updateCtrlWarnings() {
+    const el = document.getElementById('ctrlWarnings');
+    if (!el) return;
+    const warnings = validateTimingLine(selectedLineIdx);
+    if (!warnings.length) {
+        el.innerHTML = '<div style="color:#48bb78;font-size:11px">No warnings</div>';
+        return;
+    }
+    el.innerHTML = warnings.map(w => `<div class="warning-msg">${escHtml(w)}</div>`).join('');
+}
+
+// ===== VALIDATION =====
+
+function validateTimingLine(idx) {
+    const warnings = [];
+    if (!syncedData || idx < 0 || idx >= syncedData.lines.length) return warnings;
+    const line = syncedData.lines[idx];
+
+    if (line.end <= line.start) warnings.push('Line end must be after line start');
+
+    if (idx > 0) {
+        const prev = syncedData.lines[idx - 1];
+        const overlap = prev.end - line.start;
+        if (overlap > 0) warnings.push(`Overlaps previous line by ${overlap.toFixed(2)}s`);
+    }
+    if (idx < syncedData.lines.length - 1) {
+        const next = syncedData.lines[idx + 1];
+        const overlap = line.end - next.start;
+        if (overlap > 0) warnings.push(`Overlaps next line by ${overlap.toFixed(2)}s`);
+    }
+
+    if (line.words) {
+        for (let i = 0; i < line.words.length; i++) {
+            const w = line.words[i];
+            if (w.start < line.start) warnings.push(`Word "${w.text}" starts before line start`);
+            if (w.end > line.end) warnings.push(`Word "${w.text}" ends after line end`);
+            if (w.end <= w.start) warnings.push(`Word "${w.text}" has end <= start`);
+            if (i > 0) {
+                const prev = line.words[i - 1];
+                if (w.start < prev.end) warnings.push(`Word "${w.text}" overlaps "${prev.text}"`);
+            }
+        }
+    }
+    return warnings;
+}
+
+function updateWarnings() {
+    if (selectedLineIdx < 0) return;
+    const warnings = validateTimingLine(selectedLineIdx);
+    const el = document.getElementById('warningArea');
+    if (lineState[selectedLineIdx]) lineState[selectedLineIdx].warnings = warnings;
+    if (!warnings.length) {
+        el.innerHTML = '';
+        return;
+    }
+    el.innerHTML = warnings.map(w => `<div class="warning-msg">${escHtml(w)}</div>`).join('');
+    renderLineList();
+}
+
+// ===== RE-SYNC =====
+
+function renderResyncPanel(line) {
+    if (!line) return '<div style="font-size:11px;color:#666">Select a line first</div>';
+    const hasChanges = boundaryChanged.start || boundaryChanged.end;
+    let html = '';
+
+    if (!hasChanges) {
+        html += `<div style="margin-bottom:6px">
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer">
+            <input type="checkbox" checked disabled style="accent-color:#4cc9f0">
+            <span>Line ${selectedLineIdx + 1}: <span style="color:#ccc">${escHtml(line.text.slice(0, 40))}${line.text.length > 40 ? '...' : ''}</span></span>
+          </label>
+        </div>`;
+        html += `<button class="btn btn-warn" style="width:100%" onclick="resyncLines([${selectedLineIdx}])" id="resyncBtn">Re-Sync Line ${selectedLineIdx + 1}</button>`;
+        html += `<div style="font-size:10px;color:#666;margin-top:4px">Redistributes words proportionally across the line window.</div>`;
+        return html;
+    }
+
+    const lines = syncedData.lines;
+    html += '<div style="font-size:10px;color:#f6ad55;margin-bottom:6px">Boundary changed. Select lines to re-sync:</div>';
+
+    if (boundaryChanged.start && selectedLineIdx > 0) {
+        const prev = lines[selectedLineIdx - 1];
+        html += `<div style="margin-bottom:4px">
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer">
+            <input type="checkbox" checked class="resync-check" data-line="${selectedLineIdx - 1}" style="accent-color:#4cc9f0">
+            <span style="color:#666">Line ${selectedLineIdx}: <span style="color:#999">${escHtml(prev.text.slice(0, 35))}${prev.text.length > 35 ? '...' : ''}</span></span>
+          </label>
+        </div>`;
+    }
+
+    html += `<div style="margin-bottom:4px">
+      <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer">
+        <input type="checkbox" checked disabled style="accent-color:#4cc9f0">
+        <span style="color:#4cc9f0;font-weight:600">Line ${selectedLineIdx + 1}: <span style="color:#ccc">${escHtml(line.text.slice(0, 35))}${line.text.length > 35 ? '...' : ''}</span></span>
+      </label>
+    </div>`;
+
+    if (boundaryChanged.end && selectedLineIdx < lines.length - 1) {
+        const next = lines[selectedLineIdx + 1];
+        html += `<div style="margin-bottom:4px">
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer">
+            <input type="checkbox" checked class="resync-check" data-line="${selectedLineIdx + 1}" style="accent-color:#4cc9f0">
+            <span style="color:#666">Line ${selectedLineIdx + 2}: <span style="color:#999">${escHtml(next.text.slice(0, 35))}${next.text.length > 35 ? '...' : ''}</span></span>
+          </label>
+        </div>`;
+    }
+
+    html += `<button class="btn btn-warn" style="width:100%;margin-top:6px" onclick="resyncCheckedLines()" id="resyncBtn">Re-Sync Selected Lines</button>`;
+    html += `<div style="font-size:10px;color:#666;margin-top:4px">Redistributes words proportionally in each selected line.</div>`;
+    return html;
+}
+
+function getResyncLineIndices() {
+    const indices = [selectedLineIdx];
+    document.querySelectorAll('.resync-check').forEach(cb => {
+        if (cb.checked) indices.push(parseInt(cb.dataset.line));
+    });
+    return [...new Set(indices)].sort((a, b) => a - b);
+}
+
+async function resyncCheckedLines() {
+    const indices = getResyncLineIndices();
+    await resyncLines(indices);
+}
+
+async function resyncLines(indices) {
+    if (!indices.length || !syncedData) return;
+    const btn = document.getElementById('resyncBtn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Re-syncing...'; }
+
+    try {
+        const linesData = indices.map(idx => {
+            const line = syncedData.lines[idx];
+            const prev = idx > 0 ? { text: syncedData.lines[idx - 1].text, start: syncedData.lines[idx - 1].start, end: syncedData.lines[idx - 1].end } : null;
+            const next = idx < syncedData.lines.length - 1 ? { text: syncedData.lines[idx + 1].text, start: syncedData.lines[idx + 1].start, end: syncedData.lines[idx + 1].end } : null;
+            return {
+                line_idx: idx,
+                line_text: line.text,
+                line_start: line.start,
+                line_end: line.end,
+                current_words: line.words.map(w => ({text: w.text, start: w.start, end: w.end})),
+                context: { previous_line: prev, next_line: next }
+            };
+        });
+
+        const res = await fetch(`${API}/api/resync-lines`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ lines: linesData })
+        });
+        const data = await res.json();
+        if (data.error) {
+            setStatus('Re-sync error: ' + data.error);
+            return;
+        }
+
+        for (const result of data.results) {
+            syncedData.lines[result.line_idx].words = result.words;
+            setLineState(result.line_idx, 'wordsResynced', true);
+            clearLineState(result.line_idx, 'needsWordResync');
+            clearLineState(result.line_idx, 'manualWordEdit');
+        }
+
+        boundaryChanged = { start: false, end: false };
+        markUnsaved();
+        renderWordLayer();
+        drawWaveform();
+        renderLineList();
+        renderControls();
+        updateWarnings();
+        setStatus('Re-synced ' + data.results.length + ' line(s)');
+    } catch (e) {
+        setStatus('Re-sync error: ' + e.message);
+    } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Re-Sync Selected Lines'; }
+    }
+}
+
+// ===== AUDIO =====
+
+function togglePlay() {
+    if (!audioBuffer) return;
+    if (isPlaying) {
+        pauseOffset += audioCtx.currentTime - startTime;
+        sourceNode.onended = null;
+        sourceNode.stop();
+        isPlaying = false;
+        autoFollowAnchor = null;
+        document.getElementById('playBtn').textContent = '\u25B6';
+    } else {
+        sourceNode = audioCtx.createBufferSource();
+        sourceNode.buffer = audioBuffer;
+        sourceNode.connect(audioCtx.destination);
+        sourceNode.onended = () => {
+            isPlaying = false;
+            pauseOffset = 0;
+            autoFollowAnchor = null;
+            document.getElementById('playBtn').textContent = '\u25B6';
+        };
+        startTime = audioCtx.currentTime;
+        sourceNode.start(0, pauseOffset);
+        isPlaying = true;
+        document.getElementById('playBtn').textContent = '\u23F8';
+        if (isZoomed) {
+            const pct = timeToPct(getPlaybackTime());
+            autoFollowAnchor = pct >= 50 ? pct : 50;
+        } else {
+            autoFollowAnchor = null;
+        }
+        updatePlayhead();
+    }
+}
+
+function getPlaybackTime() {
+    return isPlaying ? pauseOffset + (audioCtx.currentTime - startTime) : pauseOffset;
+}
+
+function seekToTime(t) {
+    if (!audioBuffer) return;
+    t = Math.max(0, Math.min(t, analysisData.duration));
+    if (isPlaying) {
+        sourceNode.onended = null;
+        sourceNode.stop();
+        sourceNode = audioCtx.createBufferSource();
+        sourceNode.buffer = audioBuffer;
+        sourceNode.connect(audioCtx.destination);
+        sourceNode.onended = () => { isPlaying = false; pauseOffset = 0; document.getElementById('playBtn').textContent = '\u25B6'; };
+        pauseOffset = t;
+        startTime = audioCtx.currentTime;
+        sourceNode.start(0, t);
+    } else {
+        pauseOffset = t;
+    }
+    updatePlayheadVisual(t);
+    highlightAtTime(t);
+    if (isPlaying && isZoomed) {
+        const pct = timeToPct(t);
+        autoFollowAnchor = pct >= 50 ? pct : 50;
+    }
+}
+
+function updatePlayheadVisual(t) {
+    document.getElementById('playhead').style.left = timeToPct(t) + '%';
+}
+
+function updatePlayhead() {
+    if (!isPlaying) return;
+    const t = getPlaybackTime();
+
+    if (loopLine && selectedLineIdx >= 0 && syncedData) {
+        const line = syncedData.lines[selectedLineIdx];
+        if (t >= line.end) {
+            seekToTime(line.start);
+            return updatePlayhead();
+        }
+    }
+
+    updatePlayheadVisual(t);
+    document.getElementById('currentTime').textContent = fmtTime(t);
+    highlightAtTime(t);
+
+    if (autoFollowAnchor !== null) {
+        const range = viewEnd - viewStart;
+        const anchorTime = viewStart + (autoFollowAnchor / 100) * range;
+        if (t > anchorTime) {
+            const shift = t - anchorTime;
+            const dur = analysisData.duration;
+            viewStart = Math.max(0, viewStart + shift);
+            viewEnd = Math.min(dur, viewStart + range);
+            if (viewEnd >= dur) viewStart = Math.max(0, dur - range);
+            redrawAll();
+        }
+    }
+
+    animFrame = requestAnimationFrame(updatePlayhead);
+}
+
+function skipBack() { seekToTime(getPlaybackTime() - 5); }
+function skipForward() { seekToTime(getPlaybackTime() + 5); }
+
+function toggleLoopLine() {
+    loopLine = !loopLine;
+    const btn = document.getElementById('loopBtn');
+    const lbtn = document.getElementById('loopLineBtn');
+    btn.style.background = loopLine ? '#4cc9f0' : '';
+    btn.style.color = loopLine ? '#0f0f1a' : '';
+    if (lbtn) { lbtn.style.background = loopLine ? '#4cc9f0' : ''; lbtn.style.color = loopLine ? '#0f0f1a' : ''; }
+    if (loopLine && selectedLineIdx >= 0 && syncedData) {
+        seekToTime(syncedData.lines[selectedLineIdx].start);
+        if (!isPlaying) togglePlay();
+    }
+}
+
+function playLine() {
+    if (selectedLineIdx < 0 || !syncedData) return;
+    const line = syncedData.lines[selectedLineIdx];
+    loopLine = false;
+    const btn = document.getElementById('loopBtn');
+    btn.style.background = '';
+    btn.style.color = '';
+    seekToTime(line.start);
+    if (!isPlaying) togglePlay();
+    setTimeout(() => {
+        if (isPlaying && !loopLine) {
+            const checkStop = () => {
+                if (!isPlaying) return;
+                if (getPlaybackTime() >= line.end) {
+                    sourceNode.onended = null;
+                    sourceNode.stop();
+                    isPlaying = false;
+                    pauseOffset = line.end;
+                    document.getElementById('playBtn').textContent = '\u25B6';
+                    return;
+                }
+                requestAnimationFrame(checkStop);
+            };
+            checkStop();
+        }
+    }, 50);
+}
+
+function playLineContext(extraBefore) {
+    if (selectedLineIdx < 0 || !syncedData) return;
+    const line = syncedData.lines[selectedLineIdx];
+    const startAt = Math.max(0, line.start + (extraBefore < 0 ? extraBefore : 0));
+    loopLine = false;
+    const btn = document.getElementById('loopBtn');
+    btn.style.background = '';
+    btn.style.color = '';
+    seekToTime(startAt);
+    if (!isPlaying) togglePlay();
+
+    const endTime = line.end + (extraBefore > 0 ? extraBefore : 0);
+    setTimeout(() => {
+        if (isPlaying && !loopLine) {
+            const checkStop = () => {
+                if (!isPlaying) return;
+                if (getPlaybackTime() >= endTime) {
+                    sourceNode.onended = null;
+                    sourceNode.stop();
+                    isPlaying = false;
+                    pauseOffset = endTime;
+                    document.getElementById('playBtn').textContent = '\u25B6';
+                    return;
+                }
+                requestAnimationFrame(checkStop);
+            };
+            checkStop();
+        }
+    }, 50);
+}
+
+function highlightAtTime(t) {
+    if (!syncedData) return;
+    const lines = syncedData.lines;
+    for (let i = 0; i < lines.length; i++) {
+        const words = lines[i].words;
+        for (let j = 0; j < words.length; j++) {
+            if (t >= words[j].start && t <= words[j].end) {
+                document.getElementById('currentLyric').textContent = lines[i].text;
+                return;
+            }
+        }
+    }
+    document.getElementById('currentLyric').textContent = '';
+}
+
+// ===== VIEW =====
+
+function timeToPct(t) {
+    const range = viewEnd - viewStart;
+    return range > 0 ? ((t - viewStart) / range) * 100 : 0;
+}
+
+function pctToTime(pct) {
+    return viewStart + (pct / 100) * (viewEnd - viewStart);
+}
+
+function zoomIn() {
+    const mid = (viewStart + viewEnd) / 2;
+    const newRange = Math.max(1.0, (viewEnd - viewStart) * 0.7);
+    viewStart = mid - newRange / 2;
+    viewEnd = mid + newRange / 2;
+    if (viewStart < 0) { viewStart = 0; viewEnd = newRange; }
+    if (viewEnd > analysisData.duration) { viewEnd = analysisData.duration; viewStart = Math.max(0, viewEnd - newRange); }
+    isZoomed = true;
+    redrawAll();
+}
+
+function zoomOut() {
+    const mid = (viewStart + viewEnd) / 2;
+    const newRange = Math.min(analysisData.duration, (viewEnd - viewStart) * 1.4);
+    viewStart = mid - newRange / 2;
+    viewEnd = mid + newRange / 2;
+    if (viewStart < 0) { viewStart = 0; viewEnd = newRange; }
+    if (viewEnd > analysisData.duration) { viewEnd = analysisData.duration; viewStart = Math.max(0, viewEnd - newRange); }
+    isZoomed = (viewEnd - viewStart) < analysisData.duration * 0.95;
+    redrawAll();
+}
+
+function fitAll() {
+    autoFollowAnchor = null;
+    viewStart = 0;
+    viewEnd = analysisData.duration;
+    isZoomed = false;
+    document.getElementById('totalTime').textContent = fmtTime(analysisData.duration);
+    redrawAll();
+}
+
+function redrawAll() {
+    drawWaveform();
+    renderTimeAxis();
+    renderWordLayer();
+    updateRefLines();
+    updateScrollbar();
+    updatePlayheadVisual(getPlaybackTime());
+}
+
+function updateScrollbar() {
+    const dur = analysisData.duration || 1;
+    const thumb = document.getElementById('scrollbarThumb');
+    const track = document.getElementById('scrollbarTrack');
+    const tw = track.offsetWidth;
+    const left = (viewStart / dur) * tw;
+    const width = ((viewEnd - viewStart) / dur) * tw;
+    thumb.style.left = left + 'px';
+    thumb.style.width = Math.max(20, width) + 'px';
+}
+
+function updateRefLines() {
+    const prev = document.getElementById('refPrevLine');
+    const next = document.getElementById('refNextLine');
+    prev.style.display = 'none';
+    next.style.display = 'none';
+
+    if (selectedLineIdx < 0 || !syncedData) return;
+
+    if (selectedLineIdx > 0) {
+        const pLine = syncedData.lines[selectedLineIdx - 1];
+        const pct = timeToPct(pLine.end);
+        if (pct >= 0 && pct <= 100) {
+            prev.style.display = 'block';
+            prev.style.left = pct + '%';
+        }
+    }
+    if (selectedLineIdx < syncedData.lines.length - 1) {
+        const nLine = syncedData.lines[selectedLineIdx + 1];
+        const pct = timeToPct(nLine.start);
+        if (pct >= 0 && pct <= 100) {
+            next.style.display = 'block';
+            next.style.left = pct + '%';
+        }
+    }
+}
+
+// ===== DRAW: WAVEFORM =====
+
+function drawWaveform() {
+    const canvas = document.getElementById('waveformCanvas');
+    const container = document.getElementById('waveformContainer');
+    canvas.width = container.offsetWidth;
+    canvas.height = container.offsetHeight;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    if (!waveformPeaks.length) return;
+    const dur = analysisData.duration || 1;
+    const startIdx = Math.floor((viewStart / dur) * waveformPeaks.length);
+    const endIdx = Math.ceil((viewEnd / dur) * waveformPeaks.length);
+    const count = endIdx - startIdx;
+    if (count <= 0) return;
+    const overlayH = 56;
+    const waveH = h - overlayH;
+    const midY = waveH / 2;
+
+    if (selectedLineIdx >= 0 && syncedData) {
+        const line = syncedData.lines[selectedLineIdx];
+        if (line.words) {
+            line.words.forEach((word, wi) => {
+                const wx1 = timeToPct(word.start) / 100 * w;
+                const wx2 = timeToPct(word.end) / 100 * w;
+                const color = WORD_COLORS[wi % WORD_COLORS.length];
+                ctx.fillStyle = color;
+                ctx.globalAlpha = 0.10;
+                ctx.fillRect(wx1, 0, wx2 - wx1, waveH);
+                ctx.globalAlpha = 0.30;
+                ctx.fillRect(wx1, 0, 1, waveH);
+                ctx.fillRect(wx2 - 1, 0, 1, waveH);
+                ctx.globalAlpha = 1.0;
+            });
+        }
+        const lx = timeToPct(line.start) / 100 * w;
+        const rx = timeToPct(line.end) / 100 * w;
+        ctx.fillStyle = 'rgba(255,255,255,0.35)';
+        ctx.fillRect(lx, 0, 2, waveH);
+        ctx.fillRect(rx - 2, 0, 2, waveH);
+    }
+
+    for (let i = 0; i < count; i++) {
+        const val = waveformPeaks[startIdx + i] || 0;
+        if (val < 0.001) continue;
+        const barH = val * midY;
+        const x0 = (i / count) * w;
+        const x1 = ((i + 1) / count) * w;
+        ctx.fillStyle = '#4cc9f0';
+        ctx.fillRect(x0, midY - barH, Math.max(1, x1 - x0), barH * 2);
+    }
+
+    beatTimes.forEach(bt => {
+        if (bt >= viewStart && bt <= viewEnd) {
+            const x = timeToPct(bt) / 100 * w;
+            ctx.fillStyle = 'rgba(76,201,240,0.2)';
+            ctx.fillRect(x, 0, 1, waveH);
+        }
+    });
+
+    ctx.fillStyle = 'rgba(10,10,26,0.6)';
+    ctx.fillRect(0, waveH, w, overlayH);
+    ctx.strokeStyle = '#2a2a4a';
+    ctx.beginPath();
+    ctx.moveTo(0, waveH);
+    ctx.lineTo(w, waveH);
+    ctx.stroke();
+}
+
+// ===== DRAW: TIME AXIS =====
+
+function renderTimeAxis() {
+    const el = document.getElementById('timeAxis');
+    const dur = viewEnd - viewStart;
+    let interval = 0.5;
+    if (dur > 120) interval = 10;
+    else if (dur > 60) interval = 5;
+    else if (dur > 30) interval = 2;
+    else if (dur > 15) interval = 1;
+    else if (dur > 5) interval = 0.5;
+    else interval = 0.1;
+    let html = '';
+    const first = Math.ceil(viewStart / interval) * interval;
+    for (let t = first; t <= viewEnd; t += interval) {
+        const pct = timeToPct(t);
+        html += `<div class="tick" style="left:${pct}%">${fmtTime(t)}</div>`;
+    }
+    el.innerHTML = html;
+}
+
+// ===== DRAW: WORD LAYER =====
+
+function renderWordLayer() {
+    if (!syncedData || !syncedData.lines.length || !analysisData) return;
+    const overlay = document.getElementById('wordOverlay');
+    const containerW = overlay.offsetWidth;
+    overlay.innerHTML = '';
+
+    if (selectedLineIdx < 0) return;
+
+    const line = syncedData.lines[selectedLineIdx];
+    if (!line) return;
+
+    const leftPct = timeToPct(line.start);
+    const rightPct = timeToPct(line.end);
+
+    const lhL = document.createElement('div');
+    lhL.className = 'line-handle';
+    lhL.style.cssText = `left:${leftPct}%;background:rgba(76,201,240,0.15)`;
+    lhL.innerHTML = `<span class="lh-time">${fmtTime(line.start)}</span>`;
+    lhL.dataset.lineIdx = selectedLineIdx;
+    lhL.dataset.boundary = 'start';
+    lhL.addEventListener('mousedown', handleLineMouseDown);
+    overlay.appendChild(lhL);
+
+    const lhR = document.createElement('div');
+    lhR.className = 'line-handle';
+    lhR.style.cssText = `left:${rightPct}%;background:rgba(76,201,240,0.15)`;
+    lhR.innerHTML = `<span class="lh-time">${fmtTime(line.end)}</span>`;
+    lhR.dataset.lineIdx = selectedLineIdx;
+    lhR.dataset.boundary = 'end';
+    lhR.addEventListener('mousedown', handleLineMouseDown);
+    overlay.appendChild(lhR);
+
+    if (line.words) {
+        line.words.forEach((w, j) => {
+            const wL = timeToPct(w.start) / 100 * containerW;
+            const wR = timeToPct(w.end) / 100 * containerW;
+            const wW = Math.max(20, wR - wL);
+            const color = WORD_COLORS[j % WORD_COLORS.length];
+            const wordEl = document.createElement('div');
+            const src = w.source || 'interpolated';
+            wordEl.className = 'word';
+            wordEl.style.cssText = `left:${wL}px;width:${wW}px;top:${WORD_TOP}px;height:${WORD_HEIGHT}px;background:${color}`;
+            wordEl.dataset.line = selectedLineIdx;
+            wordEl.dataset.word = j;
+            wordEl.dataset.start = w.start;
+            wordEl.dataset.end = w.end;
+            wordEl.innerHTML = `<span class="source-dot ${src}"></span><span>${escHtml(w.text)}</span>`;
+
+            const handleL = document.createElement('div');
+            handleL.className = 'word-handle word-handle-left';
+            wordEl.appendChild(handleL);
+            const handleR = document.createElement('div');
+            handleR.className = 'word-handle word-handle-right';
+            wordEl.appendChild(handleR);
+            wordEl.addEventListener('mousedown', handleWordMouseDown);
+            overlay.appendChild(wordEl);
+        });
+    }
+}
+
+// ===== DRAG: WORDS =====
+
+function handleWordMouseDown(e) {
+    const wordEl = e.currentTarget;
+    draggingWord = wordEl;
+    wordDragStartX = e.clientX;
+    wordDragStartTime = parseFloat(wordEl.dataset.start);
+    wordDragEndTime = parseFloat(wordEl.dataset.end);
+    if (e.target.classList.contains('word-handle-left')) dragType = 'left';
+    else if (e.target.classList.contains('word-handle-right')) dragType = 'right';
+    else dragType = 'move';
+    wordEl.classList.add('dragging');
+    e.preventDefault();
+}
+
+function handleWordMouseMove(e) {
+    if (!draggingWord || !syncedData || !analysisData) return;
+    const overlay = document.getElementById('wordOverlay');
+    const zoneW = overlay.offsetWidth;
+    const dx = e.clientX - wordDragStartX;
+    const dt = (dx / zoneW) * (viewEnd - viewStart);
+    const li = parseInt(draggingWord.dataset.line);
+    const wi = parseInt(draggingWord.dataset.word);
+    const word = syncedData.lines[li].words[wi];
+    const line = syncedData.lines[li];
+    const wordDur = wordDragEndTime - wordDragStartTime;
+
+    if (dragType === 'move') {
+        let newStart = Math.max(line.start, Math.min(wordDragStartTime + dt, line.end - wordDur));
+        word.start = newStart;
+        word.end = newStart + wordDur;
+    } else if (dragType === 'left') {
+        let newStart = Math.max(line.start, Math.min(wordDragStartTime + dt, word.end - MIN_WORD_DURATION));
+        if (wi > 0) newStart = Math.max(newStart, line.words[wi - 1].end);
+        word.start = newStart;
+    } else if (dragType === 'right') {
+        let newEnd = Math.min(line.end, Math.max(wordDragEndTime + dt, word.start + MIN_WORD_DURATION));
+        if (wi < line.words.length - 1) newEnd = Math.min(newEnd, line.words[wi + 1].start);
+        word.end = newEnd;
+    }
+
+    draggingWord.dataset.start = word.start;
+    draggingWord.dataset.end = word.end;
+    const left = timeToPct(word.start) / 100 * zoneW;
+    const right = timeToPct(word.end) / 100 * zoneW;
+    draggingWord.style.left = left + 'px';
+    draggingWord.style.width = Math.max(20, right - left) + 'px';
+
+    setLineState(li, 'manualWordEdit', true);
+    clearLineState(li, 'wordsResynced');
+    clearLineState(li, 'needsWordResync');
+    markUnsaved();
+    updateWarnings();
+}
+
+function handleWordMouseUp() {
+    if (draggingWord) {
+        draggingWord.classList.remove('dragging');
+        draggingWord = null;
+        renderLineList();
+    }
+}
+
+// ===== DRAG: LINE BOUNDARIES (ISOLATED) =====
+
+function handleLineMouseDown(e) {
+    const handle = e.currentTarget;
+    draggingLine = { lineIdx: parseInt(handle.dataset.lineIdx), boundary: handle.dataset.boundary };
+    lineDragStartX = e.clientX;
+    lineDragOrigTime = draggingLine.boundary === 'start'
+        ? syncedData.lines[draggingLine.lineIdx].start
+        : syncedData.lines[draggingLine.lineIdx].end;
+    e.preventDefault();
+}
+
+function handleLineMouseMove(e) {
+    if (!draggingLine || !syncedData || !analysisData) return;
+    const overlay = document.getElementById('wordOverlay');
+    const zoneW = overlay.offsetWidth;
+    const dx = e.clientX - lineDragStartX;
+    const dt = (dx / zoneW) * (viewEnd - viewStart);
+    const li = draggingLine.lineIdx;
+    const line = syncedData.lines[li];
+    let newTime = lineDragOrigTime + dt;
+
+    if (draggingLine.boundary === 'start') {
+        newTime = Math.max(0, newTime);
+        newTime = Math.min(newTime, line.end - MIN_LINE_DURATION);
+        line.start = newTime;
+        boundaryChanged.start = true;
+    } else {
+        newTime = Math.min(analysisData.duration, newTime);
+        newTime = Math.max(newTime, line.start + MIN_LINE_DURATION);
+        line.end = newTime;
+        boundaryChanged.end = true;
+    }
+
+    setLineState(li, 'lineAdjusted', true);
+    setLineState(li, 'needsWordResync', true);
+    clearLineState(li, 'wordsResynced');
+    clearLineState(li, 'manualWordEdit');
+    markUnsaved();
+    renderWordLayer();
+    drawWaveform();
+    renderTimeAxis();
+    updateRefLines();
+    updateWarnings();
+    renderLineList();
+}
+
+function handleLineMouseUp() {
+    if (draggingLine) {
+        draggingLine = null;
+        renderControls();
+    }
+}
+
+// ===== SAVE =====
+
+async function saveAll() {
+    if (!syncedData) { setStatus('Nothing to save'); return; }
+    try {
+        const res = await fetch(`${API}/api/lyrics-synced`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(syncedData),
+        });
+        const data = await res.json();
+        if (data.error) { setStatus('Error saving: ' + data.error); return; }
+        markSaved();
+        setStatus('Saved');
+    } catch (e) {
+        setStatus('Save error: ' + e.message);
+    }
+}
+
+// ===== UTILS =====
+
+function fmtTime(s) {
+    if (s == null || isNaN(s)) return '0:00.0';
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    if (sec < 10) return m + ':0' + sec.toFixed(1);
+    return m + ':' + sec.toFixed(1);
+}
+
+function escHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+}
+
+function setStatus(msg) {
+    const el = document.getElementById('currentLyric');
+    if (!isPlaying) el.textContent = msg;
+}
+
+function markUnsaved() {
+    hasUnsavedChanges = true;
+    const el = document.getElementById('saveStatus');
+    el.textContent = 'Unsaved';
+    el.className = 'save-status unsaved';
+}
+
+function markSaved() {
+    hasUnsavedChanges = false;
+    const el = document.getElementById('saveStatus');
+    el.textContent = 'Saved';
+    el.className = 'save-status saved';
+    setTimeout(() => { el.textContent = ''; }, 2000);
+}
+
+// ===== EVENTS =====
+
+document.addEventListener('mousemove', e => {
+    handleWordMouseMove(e);
+    handleLineMouseMove(e);
+    if (draggingThumb) {
+        const dur = analysisData.duration || 1;
+        const tw = document.getElementById('scrollbarTrack').offsetWidth;
+        const dx = e.clientX - thumbDragStartX;
+        const dTime = (dx / tw) * dur;
+        let newStart = Math.max(0, Math.min(thumbDragStartViewStart + dTime, dur - (viewEnd - viewStart)));
+        const range = viewEnd - viewStart;
+        viewStart = newStart;
+        viewEnd = newStart + range;
+        redrawAll();
+    }
+});
+
+document.addEventListener('mouseup', () => {
+    handleWordMouseUp();
+    handleLineMouseUp();
+    if (draggingThumb) {
+        draggingThumb = false;
+        document.getElementById('scrollbarThumb').classList.remove('dragging');
+    }
+});
+
+document.getElementById('waveformContainer').addEventListener('click', e => {
+    if (e.target.closest('.word') || e.target.closest('.line-handle')) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width * 100;
+    seekToTime(pctToTime(pct));
+});
+
+document.querySelector('.center-panel').addEventListener('wheel', e => {
+    e.preventDefault();
+    autoFollowAnchor = null;
+    const container = document.getElementById('waveformContainer');
+    const rect = container.getBoundingClientRect();
+    const xPct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const cursorTime = viewStart + xPct * (viewEnd - viewStart);
+    const factor = e.deltaY > 0 ? 1.15 : 0.87;
+    const curRange = viewEnd - viewStart;
+    const newRange = Math.max(1.0, Math.min(analysisData.duration, curRange * factor));
+    const newStart = cursorTime - xPct * newRange;
+    viewStart = Math.max(0, Math.min(newStart, analysisData.duration - newRange));
+    viewEnd = viewStart + newRange;
+    isZoomed = (viewEnd - viewStart) < analysisData.duration * 0.95;
+    redrawAll();
+}, {passive: false});
+
+document.getElementById('scrollbarThumb').addEventListener('mousedown', e => {
+    autoFollowAnchor = null;
+    draggingThumb = true;
+    thumbDragStartX = e.clientX;
+    thumbDragStartViewStart = viewStart;
+    e.currentTarget.classList.add('dragging');
+    e.preventDefault();
+});
+
+document.getElementById('scrollbarTrack').addEventListener('mousedown', e => {
+    if (e.target.id === 'scrollbarThumb') return;
+    autoFollowAnchor = null;
+    const dur = analysisData.duration || 1;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    const range = viewEnd - viewStart;
+    viewStart = Math.max(0, pct * dur - range / 2);
+    viewEnd = viewStart + range;
+    redrawAll();
+});
+
+document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+    else if (e.key === 'l') toggleLoopLine();
+    else if (e.code === 'ArrowLeft') skipBack();
+    else if (e.code === 'ArrowRight') skipForward();
+    else if (e.code === 'ArrowUp') { e.preventDefault(); prevLine(); }
+    else if (e.code === 'ArrowDown') { e.preventDefault(); nextLine(); }
+    else if (e.code === 'Escape') { selectedLineIdx = -1; loopLine = false; fitAll(); renderLineList(); renderControls(); document.getElementById('refPrevLine').style.display = 'none'; document.getElementById('refNextLine').style.display = 'none'; document.getElementById('warningArea').innerHTML = ''; }
+});
+
+window.addEventListener('beforeunload', e => { if (hasUnsavedChanges) { e.preventDefault(); e.returnValue = ''; } });
+window.addEventListener('resize', () => { redrawAll(); });
+
+init();
+</script>
+</body>
+</html>

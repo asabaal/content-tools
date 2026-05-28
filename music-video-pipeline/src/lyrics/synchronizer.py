@@ -156,12 +156,21 @@ class LyricSynchronizer:
             whisper_match = self._get_whisper_match(non_empty_idx)
             words = self._align_words(line.words, start, end, onset_times, snap_to_onsets, whisper_match)
 
-            if words and words[0].start > start + 0.1:
-                min_start = synced_lines[-1].end if synced_lines else 0.0
-                start = max(words[0].start - 0.05, min_start)
-
-            if words and words[-1].end < end - 0.1:
-                end = words[-1].end + 0.05
+            if words:
+                has_transcription = any(w.source == "transcription" for w in words)
+                if has_transcription:
+                    word_start = words[0].start - 0.05
+                    word_end = words[-1].end + 0.05
+                    if synced_lines and synced_lines[-1].end > word_start:
+                        prev_last_end = synced_lines[-1].words[-1].end if synced_lines[-1].words else 0.0
+                        synced_lines[-1].end = max(prev_last_end + 0.01, word_start)
+                    start = word_start
+                    end = word_end
+                elif words[0].start > start + 0.1:
+                    min_start = synced_lines[-1].end if synced_lines else 0.0
+                    start = max(words[0].start - 0.05, min_start)
+                if words[-1].end < end - 0.1:
+                    end = words[-1].end + 0.05
 
             confidence = self._compute_confidence(words)
 
@@ -734,16 +743,18 @@ class LyricSynchronizer:
                 matched_pairs[i + k] = j + k
 
         result: List[SyncedWord] = []
-        last_end = start
+        last_end = 0.0
 
         for li, text in enumerate(texts):
             wi = matched_pairs[li]
             if wi is not None and wi < len(wt_list):
                 wt = wt_list[wi]
-                ws = max(float(wt.start), last_end)
-                we = min(float(wt.end), end)
+                ws = float(wt.start)
+                we = float(wt.end)
+                if ws < last_end:
+                    ws = last_end
                 if we <= ws:
-                    we = min(ws + 0.3, end)
+                    we = ws + 0.1
                 result.append(SyncedWord(text=text, start=ws, end=we, source="transcription"))
                 last_end = we
             else:
