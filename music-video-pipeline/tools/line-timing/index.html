@@ -452,6 +452,7 @@ function getLineSegments(lineIdx) {
 function playSegment(start, end) {
     if (!audioBuffer) return;
     if (isPlaying) {
+        cancelAnimationFrame(animFrame);
         sourceNode.onended = null;
         try { sourceNode.stop(); } catch(_) {}
         isPlaying = false;
@@ -460,20 +461,35 @@ function playSegment(start, end) {
     sourceNode = audioCtx.createBufferSource();
     sourceNode.buffer = audioBuffer;
     sourceNode.connect(audioCtx.destination);
-    const stopTimer = setTimeout(() => {
-        try { sourceNode.stop(); } catch(_) {}
-        isPlaying = false;
-        document.getElementById('playBtn').textContent = '\u25B6';
-    }, (end - start) * 1000);
     sourceNode.onended = () => {
         clearTimeout(stopTimer);
+        cancelAnimationFrame(animFrame);
         isPlaying = false;
+        pauseOffset = end;
         document.getElementById('playBtn').textContent = '\u25B6';
+        updatePlayheadVisual(end);
+        document.getElementById('currentTime').textContent = fmtTime(end);
     };
+    const stopTimer = setTimeout(() => {
+        try { sourceNode.stop(); } catch(_) {}
+        cancelAnimationFrame(animFrame);
+        isPlaying = false;
+        pauseOffset = end;
+        document.getElementById('playBtn').textContent = '\u25B6';
+        updatePlayheadVisual(end);
+        document.getElementById('currentTime').textContent = fmtTime(end);
+    }, (end - start) * 1000);
     sourceNode.start(0, start, end - start);
     startTime = audioCtx.currentTime;
     isPlaying = true;
     document.getElementById('playBtn').textContent = '\u25A0';
+    if (isZoomed) {
+        const pct = timeToPct(getPlaybackTime());
+        autoFollowAnchor = pct >= 50 ? pct : 50;
+    } else {
+        autoFollowAnchor = null;
+    }
+    updatePlayhead();
 }
 
 // ===== LINE LIST =====

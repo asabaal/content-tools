@@ -15,6 +15,7 @@ SNAP_TOLERANCE_TRANSCRIPTION = 0.15
 SNAP_TOLERANCE_INTERPOLATED = 0.25
 MIN_SEGMENT_DURATION = 0.005
 BREATH_DURATION_THRESHOLD = 0.12
+MIN_WORD_DURATION = 0.04
 
 
 def refine_synced_lines(
@@ -39,6 +40,15 @@ def refine_synced_lines(
         line.onset_segments = [s.to_dict() for s in onset_segs]
         line.word_segment_assignments = [a.to_dict() for a in word_assigns]
         line.warnings = warnings
+    for line in sync_result.lines:
+        for w in line.words:
+            if w.end - w.start < MIN_WORD_DURATION:
+                w.end = w.start + MIN_WORD_DURATION
+        for i in range(len(line.words) - 1):
+            if line.words[i].end > line.words[i + 1].start:
+                line.words[i + 1].start = line.words[i].end
+        if line.words:
+            line.words[-1].end = line.end
     return sync_result
 
 
@@ -132,6 +142,8 @@ def snap_words_to_onsets(
         if best_oi is not None:
             used_onsets.add(best_oi)
             nw.start = onsets[best_oi]
+            if nw.start >= nw.end:
+                nw.end = nw.start + MIN_WORD_DURATION
             if nw.source in ("transcription", "vocal_onset"):
                 nw.source = "whisper_plus_vocal_onset"
         new_words.append(nw)
@@ -139,8 +151,9 @@ def snap_words_to_onsets(
     for i in range(len(new_words) - 1):
         if new_words[i].end > new_words[i + 1].start:
             mid = (new_words[i].end + new_words[i + 1].start) / 2
-            new_words[i].end = mid
-            new_words[i + 1].start = mid
+            boundary = max(mid, new_words[i].start + MIN_WORD_DURATION)
+            new_words[i].end = boundary
+            new_words[i + 1].start = boundary
     if new_words:
         new_words[-1].end = line_end
 

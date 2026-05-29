@@ -106,12 +106,6 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
     if audio_path is None:
         raise click.ClickException("No audio file found in project. Set one with --audio.")
 
-    click.echo(f"\n  Analyzing audio: {audio_path.name}")
-
-    analyzer = AudioAnalyzer()
-    features = analyzer.analyze(audio_path)
-    peaks, _ = analyzer.generate_waveforms()
-
     midi_tempo = None
     ingest_data = None
     if proj.ingest_file.exists():
@@ -127,63 +121,93 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
                     midi_tempo = t
                     break
 
-    vocal_stem_path = None
     stem_validation = {}
     vocal_candidates_info = []
-    if ingest_data and ingest_data.get("stems"):
-        stem_features = []
-        song_duration = features.duration
-        full_mix_onset_count = len(features.onset_times)
+    stem_features = []
+    all_stem_paths = []
+    combined_mix_path = None
 
-        vocal_candidates = []
-        for sf in ingest_data["stems"]:
-            spath = sf.get("path", "")
-            stem_type = sf.get("stem_type", "").lower()
-            stem_name = sf.get("name", "")
+    if ingest_data and ingest_data.get("stems"):
+        import librosa
+
+        click.echo(f"\n  Validating stems...")
+        for sf_entry in ingest_data["stems"]:
+            spath = sf_entry.get("path", "")
+            stem_type = sf_entry.get("stem_type", "").lower()
+            stem_name = sf_entry.get("name", "")
             if not spath or not Path(spath).exists():
                 continue
 
             try:
-                import librosa
                 stem_dur = float(librosa.get_duration(path=str(spath)))
             except Exception:
                 stem_dur = 0.0
 
-            dur_ratio = stem_dur / song_duration if song_duration > 0 else 0
             verdict = "ok"
             reason = ""
+            dur_ratio = 1.0
 
-            if dur_ratio < 0.1:
+            if stem_dur < 1.0:
                 verdict = "truncated"
-                reason = f"Stem duration {stem_dur:.1f}s is {dur_ratio*100:.1f}% of song duration {song_duration:.1f}s (expected >10%)"
+                reason = f"Stem duration {stem_dur:.1f}s is too short"
 
             stem_validation[stem_type] = {
                 "file": Path(spath).name,
                 "stem_duration": round(stem_dur, 1),
-                "song_duration": round(song_duration, 1),
-                "duration_ratio": round(dur_ratio, 4),
                 "verdict": verdict,
             }
             if reason:
                 stem_validation[stem_type]["reason"] = reason
 
-            if "vocal" in stem_type and verdict == "ok":
-                sf_result = analyzer.analyze_stem(spath, stem_type, stem_name)
-                stem_features.append(sf_result)
-                vocal_candidates.append(spath)
-                vocal_candidates_info.append({"path": spath, "stem_type": stem_type, "name": stem_name})
-            elif "vocal" in stem_type:
-                click.echo(f"    WARNING: {stem_name} stem skipped: {reason}", err=True)
-            else:
-                sf_result = analyzer.analyze_stem(spath, stem_type, stem_name)
-                stem_features.append(sf_result)
+            if verdict == "ok":
+                all_stem_paths.append({"path": spath, "stem_type": stem_type, "name": stem_name})
 
-        if vocal_candidates:
-            vocal_stem_path = vocal_candidates[0]
-        elif any(sv.get("verdict") == "truncated" for k, sv in stem_validation.items() if "vocal" in k):
+            if "vocal" in stem_type and verdict == "ok":
+                vocal_candidates_info.append({"path": spath, "stem_type": stem_type, "name": stem_name})
+
+        if all_stem_paths:
+            click.echo(f"    Generating combined mix from {len(all_stem_paths)} stems...")
+            combined_audio = None
+            combined_sr = None
+            for sp in all_stem_paths:
+                audio, sr = librosa.load(str(sp["path"]), sr=None, mono=True)
+                if combined_audio is None:
+                    combined_audio = audio
+                    combined_sr = sr
+                else:
+                    min_len = min(len(combined_audio), len(audio))
+                    combined_audio[:min_len] += audio[:min_len]
+            if combined_audio is not None:
+                import numpy as np
+                peak = np.max(np.abs(combined_audio))
+                if peak > 0:
+                    combined_audio = combined_audio / peak
+                combined_mix_path = proj.data_dir / "cache" / "stems" / "combined_mix.wav"
+                combined_mix_path.parent.mkdir(parents=True, exist_ok=True)
+                import soundfile as sf_write
+                sf_write.write(str(combined_mix_path), combined_audio, combined_sr)
+                click.echo(f"    Combined mix: {len(combined_audio)/combined_sr:.1f}s -> {combined_mix_path.name}")
+
+    if combined_mix_path is not None:
+        click.echo(f"\n  Analyzing combined mix (from stems): {combined_mix_path.name}")
+        analysis_audio_path = combined_mix_path
+        proj.paths.audio = f"cache/stems/combined_mix.wav"
+    else:
+        click.echo(f"\n  Analyzing audio: {audio_path.name}")
+        analysis_audio_path = audio_path
+
+    analyzer = AudioAnalyzer()
+    features = analyzer.analyze(analysis_audio_path)
+    peaks, _ = analyzer.generate_waveforms()
+
+    if all_stem_paths:
+        for sp in all_stem_paths:
+            sf_result = analyzer.analyze_stem(sp["path"], sp["stem_type"], sp["name"])
+            stem_features.append(sf_result)
+
+        if not vocal_candidates_info and any(sv.get("verdict") == "truncated" for k, sv in stem_validation.items() if "vocal" in k):
             click.echo(f"    WARNING: All vocal stems truncated, using full-mix onsets as fallback", err=True)
             stem_validation["fallback"] = "full_mix"
-            stem_validation["full_mix_onset_count"] = full_mix_onset_count
             stem_validation["note"] = "Full-mix onsets include non-vocal events. Sync accuracy may be lower."
 
         features.stem_features = stem_features
@@ -395,8 +419,8 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
 
     elif stem_validation.get("fallback") == "full_mix":
         vocal_onset_data = {
-            "source": "full_mix (fallback)",
-            "onset_count": stem_validation.get("full_mix_onset_count", 0),
+            "source": "combined_mix (fallback)",
+            "onset_count": len(features.onset_times),
             "stem_validation": stem_validation,
         }
         (proj.data_dir / "vocal_onsets.json").write_text(
@@ -551,26 +575,31 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
         if trans_data.get("segments"):
             transcription_segments = trans_data["segments"]
 
+    vocal_waveform_peaks = None
+    vocal_waveform_pps = 100
+    vw_path = proj.data_dir / "vocal_waveforms.json"
+    if vw_path.exists():
+        try:
+            vw_data = json.loads(vw_path.read_text(encoding="utf-8"))
+            vocal_waveform_peaks = vw_data.get("peaks")
+            vocal_waveform_pps = vw_data.get("peaks_per_second", 100)
+        except Exception:
+            pass
+
     syncer = LyricSynchronizer(
         lines,
         features,
         vocal_onset_times=np.array(analysis_data.get("vocal_onset_times", []), dtype=float) if analysis_data.get("vocal_onset_times") else None,
         transcription_segments=transcription_segments,
+        vocal_waveform_peaks=vocal_waveform_peaks,
+        vocal_waveform_pps=vocal_waveform_pps,
     )
     result = syncer.synchronize()
 
     vocal_onset_arr = np.array(analysis_data.get("vocal_onset_times", []), dtype=float) if analysis_data.get("vocal_onset_times") else np.array([], dtype=float)
     if len(vocal_onset_arr) > 0:
         from lyrics.onset_refiner import refine_synced_lines
-        waveform_peaks = None
-        vw_path = proj.data_dir / "vocal_waveforms.json"
-        if vw_path.exists():
-            try:
-                vw_data = json.loads(vw_path.read_text(encoding="utf-8"))
-                waveform_peaks = vw_data.get("peaks")
-            except Exception:
-                pass
-        result = refine_synced_lines(result, vocal_onset_arr, waveform_peaks)
+        result = refine_synced_lines(result, vocal_onset_arr, vocal_waveform_peaks)
 
     result.save(proj.data_dir / "lyrics_synced.json")
 

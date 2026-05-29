@@ -112,12 +112,16 @@ class LyricSynchronizer:
         vocal_onset_times: Optional[np.ndarray] = None,
         midi_note_starts: Optional[np.ndarray] = None,
         transcription_segments: Optional[List[dict]] = None,
+        vocal_waveform_peaks: Optional[List[float]] = None,
+        vocal_waveform_pps: int = 100,
     ):
         self.lyrics = lyrics
         self.audio_features = audio_features
         self.vocal_onset_times = vocal_onset_times
         self.midi_note_starts = midi_note_starts
         self.transcription_segments = transcription_segments
+        self.vocal_waveform_peaks = vocal_waveform_peaks
+        self.vocal_waveform_pps = vocal_waveform_pps
         self._alignment_result = None
         self._vocal_stem_quality = "ok"
         self._effective_onset_source = "vocal_stem"
@@ -198,6 +202,8 @@ class LyricSynchronizer:
 
         avg_confidence = total_confidence / len(synced_lines) if synced_lines else 0.0
 
+        self._reconcile_boundaries(synced_lines)
+
         return SyncResult(
             lines=synced_lines,
             source=source,
@@ -219,6 +225,47 @@ class LyricSynchronizer:
         if len(set(round(d, 1) for d in durations)) == 1:
             return True
         return False
+
+    def _reconcile_boundaries(self, lines: List[SyncedLine]) -> None:
+        for i in range(len(lines) - 1):
+            curr = lines[i]
+            nxt = lines[i + 1]
+
+            curr_last_end = curr.words[-1].end if curr.words else curr.end
+            nxt_first_start = nxt.words[0].start if nxt.words else nxt.start
+
+            if curr_last_end <= nxt_first_start:
+                boundary = self._find_lowest_energy_point(curr_last_end, nxt_first_start)
+                curr.end = boundary
+                nxt.start = boundary
+            else:
+                boundary = min(curr_last_end, nxt_first_start)
+                curr.end = boundary
+                nxt.start = boundary
+                if curr.words:
+                    curr.words[-1].end = boundary
+                if nxt.words:
+                    nxt.words[0].start = boundary
+
+    def _find_lowest_energy_point(self, start: float, end: float) -> float:
+        if self.vocal_waveform_peaks is None or len(self.vocal_waveform_peaks) == 0:
+            return (start + end) / 2
+
+        pps = self.vocal_waveform_pps
+        si = max(0, int(start * pps))
+        ei = min(len(self.vocal_waveform_peaks), int(end * pps) + 1)
+
+        if si >= ei:
+            return (start + end) / 2
+
+        min_val = self.vocal_waveform_peaks[si]
+        min_idx = si
+        for idx in range(si, ei):
+            if self.vocal_waveform_peaks[idx] < min_val:
+                min_val = self.vocal_waveform_peaks[idx]
+                min_idx = idx
+
+        return min_idx / pps
 
     def _check_vocal_stem_quality(self) -> None:
         if self.vocal_onset_times is None or len(self.vocal_onset_times) == 0:

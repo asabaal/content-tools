@@ -343,6 +343,43 @@ def _compute_word_timings(
         for k in range(n):
             lyric_to_trans[i + k] = j + k
 
+    used_trans = set(lyric_to_trans.values())
+    unmatched = [li for li in range(len(lyric_words_raw)) if li not in lyric_to_trans]
+    changed = True
+    while changed and unmatched:
+        changed = False
+        still_unmatched = []
+        for li in unmatched:
+            prev_trans = lyric_to_trans.get(li - 1)
+            next_trans = lyric_to_trans.get(li + 1)
+            if prev_trans is not None and next_trans is not None:
+                expected = prev_trans + 1
+                if expected == next_trans - 1 and expected not in used_trans and expected < len(trans_words_raw):
+                    lyric_to_trans[li] = expected
+                    used_trans.add(expected)
+                    changed = True
+                else:
+                    still_unmatched.append(li)
+            elif prev_trans is not None and li == len(lyric_words_raw) - 1:
+                expected = prev_trans + 1
+                if expected not in used_trans and expected < len(trans_words_raw):
+                    lyric_to_trans[li] = expected
+                    used_trans.add(expected)
+                    changed = True
+                else:
+                    still_unmatched.append(li)
+            elif next_trans is not None and li == 0:
+                expected = next_trans - 1
+                if expected >= 0 and expected not in used_trans:
+                    lyric_to_trans[li] = expected
+                    used_trans.add(expected)
+                    changed = True
+                else:
+                    still_unmatched.append(li)
+            else:
+                still_unmatched.append(li)
+        unmatched = still_unmatched
+
     timings: List[WordTiming] = []
     for li, raw_word in enumerate(lyric_words_raw):
         if li in lyric_to_trans:
