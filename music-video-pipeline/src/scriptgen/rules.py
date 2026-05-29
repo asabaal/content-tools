@@ -142,11 +142,11 @@ def assign_font_size(
     tags: list[str],
     variance: float,
 ) -> int:
-    base = 56
+    base = 112
     if section_type in ("chorus", "hook"):
-        base = 62 + int(variance * 6)
+        base = 124 + int(variance * 6)
     elif section_type == "bridge":
-        base = 50
+        base = 100
     energy_mod = int((energy - 0.5) * 8 * variance)
     if "BIG" in tags or "big" in tags:
         energy_mod += 8
@@ -382,13 +382,6 @@ def assign_animation(section_type: str, mood_name: str) -> dict:
 
 
 def assign_text_style(section_type: str, mood_name: str) -> str:
-    _MOOD_STYLE = {
-        "dark_moody": "neon",
-        "bright_poppy": "graffiti",
-        "warm_intimate": "gold",
-        "cool_ethereal": "ice",
-        "high_energy": "fire",
-    }
     _SECTION_STYLE = {
         "intro": {"dark_moody": "neon", "bright_poppy": "graffiti", "warm_intimate": "gold", "cool_ethereal": "ice", "high_energy": "fire"},
         "verse": {"dark_moody": "neon", "bright_poppy": "chrome", "warm_intimate": "gold", "cool_ethereal": "ice", "high_energy": "fire"},
@@ -401,7 +394,31 @@ def assign_text_style(section_type: str, mood_name: str) -> str:
     override = _SECTION_STYLE.get(section_type, {}).get(mood_name)
     if override:
         return override
+    _MOOD_STYLE = {
+        "dark_moody": "neon",
+        "bright_poppy": "graffiti",
+        "warm_intimate": "gold",
+        "cool_ethereal": "ice",
+        "high_energy": "fire",
+    }
     return _MOOD_STYLE.get(mood_name, "basic")
+
+
+_STYLE_FONT_MAP = {
+    "ice": 1,
+    "neon": 2,
+    "chrome": 3,
+    "hologram": 4,
+    "gold": 5,
+    "fire": 6,
+    "graffiti": 2,
+    "matrix": 4,
+    "basic": 0,
+}
+
+
+def assign_font_family(text_style: str) -> int:
+    return _STYLE_FONT_MAP.get(text_style, 0)
 
 
 def _energy_preset_override(section_type: str, energy: float, mood_name: str) -> str | None:
@@ -456,6 +473,7 @@ def assign_section_visual(
     if preset.audio_reactivity and not v.get("reactivity"):
         v["reactivity"] = preset.audio_reactivity
     v["text_style"] = assign_text_style(st, mood_name)
+    v["font_family"] = assign_font_family(v["text_style"])
     return v
 
 
@@ -469,7 +487,7 @@ def compute_emphasis_overrides(
     num_lines_in_section: int = 1,
 ) -> dict:
     overrides = {}
-    base_font = visual.get("font_size", 56)
+    base_font = visual.get("font_size", 112)
     st = profile.resolved_type or profile.section_type
     variance = 0.5
 
@@ -509,6 +527,17 @@ def compute_emphasis_overrides(
 
     if st == "verse" and num_lines_in_section >= 4 and line_index_in_section == num_lines_in_section - 1:
         overrides["text_position"] = "bottom"
+
+    reveal = visual.get("reveal_mode", "progressive")
+    word_count = profile.word_count
+    if word_count > 0:
+        words_per_line = word_count / max(1, num_lines_in_section)
+    else:
+        words_per_line = 4
+    if reveal == "progressive" and words_per_line > 5:
+        overrides["text_align"] = "left"
+    elif reveal == "line-by-line":
+        overrides["text_align"] = "center"
 
     return overrides if overrides else {}
 

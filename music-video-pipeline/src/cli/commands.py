@@ -866,7 +866,16 @@ def serve(project_dir, port):
 @click.option("--mood", default=None, type=click.Choice(["dark_moody", "bright_poppy", "warm_intimate", "cool_ethereal", "high_energy"]), help="Generate script with mood preset before rendering")
 @click.option("--base-color", default=None, help="Generate script with base color hex before rendering")
 @click.option("--variance", default=None, type=click.Choice(["auto", "low", "medium", "high"]), help="Section variation level (default: auto)")
-def render(project_dir, output, fps, width, height, mood, base_color, variance):
+@click.option("--start", "time_start", default=None, type=float, help="Start time in seconds (for previewing a section)")
+@click.option("--end", "time_end", default=None, type=float, help="End time in seconds (for previewing a section)")
+@click.option("--intro-image", default=None, help="Branded intro image path (shown before lyrics)")
+@click.option("--intro-title", default=None, help="Title text overlaid on intro image (default: project name)")
+@click.option("--intro-subtitle", default=None, help="Subtitle text shown after intro fades")
+@click.option("--broll", "broll_images", multiple=True, help="B-roll image path(s), layered under gradients/animations")
+@click.option("--broll-mode", "broll_mode", default="section", type=click.Choice(["section", "beat"]), help="B-roll distribution: section (round-robin) or beat (cycle on beats)")
+@click.option("--broll-blend", "broll_blend", default=0.35, type=float, help="B-roll blend opacity under section gradients (default: 0.35)")
+def render(project_dir, output, fps, width, height, mood, base_color, variance, time_start, time_end,
+           intro_image, intro_title, intro_subtitle, broll_images, broll_mode, broll_blend):
     """Render the final video (Stage 6)."""
     from render.renderer import VideoRenderer
 
@@ -877,7 +886,7 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance):
     if not (data_dir / "lyrics_synced.json").exists():
         raise click.ClickException("lyrics_synced.json not found. Run sync first.")
 
-    needs_script = mood or base_color or variance or not (data_dir / "script.json").exists()
+    needs_script = mood or base_color or variance or intro_image or broll_images or not (data_dir / "script.json").exists()
     if needs_script:
         from scriptgen import generate_script as gen
 
@@ -887,7 +896,35 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance):
             click.echo(f"    Base color: {base_color}")
         click.echo(f"    Variance: {variance or 'auto'}")
 
-        result = gen(proj_dir, mood=mood, base_color=base_color, variance=variance or "auto")
+        intro_cfg = None
+        if intro_image:
+            p = Path(intro_image)
+            if not p.is_absolute():
+                p = (proj_dir / intro_image).resolve()
+            intro_cfg = {
+                "image": str(p),
+                "title": intro_title,
+                "subtitle": intro_subtitle or "",
+            }
+            click.echo(f"    Intro: {p.name}")
+
+        broll_cfg = None
+        if broll_images:
+            resolved = []
+            for bp in broll_images:
+                p = Path(bp)
+                if not p.is_absolute():
+                    p = (proj_dir / bp).resolve()
+                resolved.append(str(p))
+            broll_cfg = {
+                "images": resolved,
+                "mode": broll_mode,
+                "blend": broll_blend,
+            }
+            click.echo(f"    B-roll: {len(resolved)} image(s), mode={broll_mode}, blend={broll_blend}")
+
+        result = gen(proj_dir, mood=mood, base_color=base_color, variance=variance or "auto",
+                     intro=intro_cfg, broll=broll_cfg)
         script_path = data_dir / "script.json"
         script_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -895,6 +932,12 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance):
 
     if output:
         out_path = Path(output)
+    elif time_start is not None or time_end is not None:
+        out_dir = proj_dir / "output"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        s = f"{time_start:.1f}" if time_start is not None else "0"
+        e = f"{time_end:.1f}" if time_end is not None else "end"
+        out_path = out_dir / f"preview_{s}-{e}.mp4"
     else:
         out_dir = proj_dir / "output"
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -903,6 +946,8 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance):
     click.echo(f"\n  Rendering video...")
     click.echo(f"    Resolution: {width}x{height}")
     click.echo(f"    FPS: {fps}")
+    if time_start is not None or time_end is not None:
+        click.echo(f"    Time range: {time_start or 0:.1f}s - {time_end or 'end'}s")
     click.echo(f"    Output: {out_path}")
 
     renderer = VideoRenderer(proj_dir, width=width, height=height, fps=fps)
@@ -925,7 +970,7 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance):
     click.echo(f"    Frames: {total_frames}")
     click.echo()
 
-    renderer.render(out_path, audio_path=audio_path)
+    renderer.render(out_path, audio_path=audio_path, time_start=time_start, time_end=time_end)
 
     size_mb = out_path.stat().st_size / (1024 * 1024)
     click.echo(f"\n  Done! {out_path} ({size_mb:.1f} MB)")

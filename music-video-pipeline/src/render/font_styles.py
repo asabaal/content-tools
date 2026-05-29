@@ -24,7 +24,25 @@ class FontStyle(Enum):
     BASIC = "basic"
 
 
-def _find_font(size: int, bold: bool = True) -> ImageFont.FreeTypeFont:
+_FONTS_DIR = Path(__file__).resolve().parent.parent.parent / "fonts"
+
+_FONT_FILES = {
+    1: ("Exo2-Bold.ttf", "Exo2-Regular.ttf"),
+    2: ("Bangers-Regular.ttf", "Bangers-Regular.ttf"),
+    3: ("BebasNeue-Regular.ttf", "BebasNeue-Regular.ttf"),
+    4: ("JetBrainsMono-Regular.ttf", "JetBrainsMono-Regular.ttf"),
+    5: ("Lora-Bold.ttf", "Lora-Regular.ttf"),
+    6: ("Oswald-Bold.ttf", "Oswald-Regular.ttf"),
+}
+
+
+def _find_font(size: int, bold: bool = True, family: int = 0) -> ImageFont.FreeTypeFont:
+    if family > 0 and family in _FONT_FILES:
+        bold_name, regular_name = _FONT_FILES[family]
+        name = bold_name if bold else regular_name
+        path = _FONTS_DIR / name
+        if path.exists():
+            return ImageFont.truetype(str(path), size)
     candidates = [
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
         "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
@@ -44,8 +62,8 @@ def _find_font(size: int, bold: bool = True) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default()
 
 
-def _create_base_text(text: str, size: int, bold: bool = True) -> np.ndarray:
-    font = _find_font(size, bold)
+def _create_base_text(text: str, size: int, bold: bool = True, family: int = 0) -> np.ndarray:
+    font = _find_font(size, bold, family)
     tmp = Image.new("RGBA", (1, 1), (0, 0, 0, 0))
     draw = ImageDraw.Draw(tmp)
     bbox = draw.textbbox((0, 0), text, font=font)
@@ -114,8 +132,8 @@ def _apply_wave_distortion(image: np.ndarray, amplitude: float, frequency: float
     return cv2.remap(image, x_map, y_map, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0, 0))
 
 
-def _generate_neon(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, int(size * 1.2))
+def _generate_neon(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, int(size * 1.2), family=family)
     pad = 100
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -136,8 +154,8 @@ def _generate_neon(text: str, size: int) -> np.ndarray:
     return canvas
 
 
-def _generate_graffiti(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, size)
+def _generate_graffiti(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, size, family=family)
     pad = 60
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -165,8 +183,8 @@ def _generate_graffiti(text: str, size: int) -> np.ndarray:
     return canvas
 
 
-def _generate_chrome(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, size)
+def _generate_chrome(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, size, family=family)
     pad = 40
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -190,8 +208,8 @@ def _generate_chrome(text: str, size: int) -> np.ndarray:
     return canvas
 
 
-def _generate_fire(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, size)
+def _generate_fire(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, size, family=family)
     pad = 80
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -219,8 +237,8 @@ def _generate_fire(text: str, size: int) -> np.ndarray:
     return canvas
 
 
-def _generate_ice(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, size)
+def _generate_ice(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, size, family=family)
     pad = 60
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -247,8 +265,8 @@ def _generate_ice(text: str, size: int) -> np.ndarray:
     return canvas
 
 
-def _generate_gold(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, size)
+def _generate_gold(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, size, family=family)
     pad = 40
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -269,8 +287,8 @@ def _generate_gold(text: str, size: int) -> np.ndarray:
     return canvas
 
 
-def _generate_hologram(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, size)
+def _generate_hologram(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, size, family=family)
     pad = 60
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -296,8 +314,8 @@ def _generate_hologram(text: str, size: int) -> np.ndarray:
     return canvas
 
 
-def _generate_matrix(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, size)
+def _generate_matrix(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, size, family=family)
     pad = 60
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -326,8 +344,8 @@ def _generate_matrix(text: str, size: int) -> np.ndarray:
     return canvas
 
 
-def _generate_basic(text: str, size: int) -> np.ndarray:
-    base = _create_base_text(text, size)
+def _generate_basic(text: str, size: int, family: int = 0) -> np.ndarray:
+    base = _create_base_text(text, size, family=family)
     pad = 60
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
@@ -367,6 +385,7 @@ def generate_styled_text(
     size: int = 72,
     target_width: Optional[int] = None,
     target_height: Optional[int] = None,
+    family: int = 0,
 ) -> Image.Image:
     if isinstance(style, str):
         try:
@@ -375,7 +394,7 @@ def generate_styled_text(
             style = FontStyle.BASIC
 
     generator = _STYLE_GENERATORS.get(style, _generate_basic)
-    arr = generator(text, size)
+    arr = generator(text, size, family)
 
     if target_width and target_height:
         h, w = arr.shape[:2]

@@ -47,15 +47,42 @@ def _companion_color(hex_color: str, shift: float = 40) -> str:
     return "#%02x%02x%02x" % (int(r2 * 255), int(g2 * 255), int(b2 * 255))
 
 
-def _find_font(size: int) -> ImageFont.FreeTypeFont:
-    candidates = [
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
-        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
-        "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
-        "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf",
-    ]
-    for path in candidates:
+_FONTS_DIR = Path(__file__).resolve().parent.parent.parent / "fonts"
+
+_FONT_FILES = {
+    0: None,
+    1: ("Exo2-Bold.ttf", "Exo2-Regular.ttf"),
+    2: ("Bangers-Regular.ttf", "Bangers-Regular.ttf"),
+    3: ("BebasNeue-Regular.ttf", "BebasNeue-Regular.ttf"),
+    4: ("JetBrainsMono-Regular.ttf", "JetBrainsMono-Regular.ttf"),
+    5: ("Lora-Bold.ttf", "Lora-Regular.ttf"),
+    6: ("Oswald-Bold.ttf", "Oswald-Regular.ttf"),
+}
+
+_SYSTEM_FALLBACKS = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+    "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf",
+]
+
+_SYSTEM_FALLBACKS_REGULAR = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+]
+
+
+def _find_font(size: int, bold: bool = True, family: int = 0) -> ImageFont.FreeTypeFont:
+    if family > 0 and family in _FONT_FILES:
+        bold_name, regular_name = _FONT_FILES[family]
+        name = bold_name if bold else regular_name
+        path = _FONTS_DIR / name
+        if path.exists():
+            return ImageFont.truetype(str(path), size)
+    fallbacks = _SYSTEM_FALLBACKS if bold else _SYSTEM_FALLBACKS_REGULAR
+    for path in fallbacks:
         if Path(path).exists():
             return ImageFont.truetype(path, size)
     return ImageFont.load_default()
@@ -81,18 +108,16 @@ class VideoRenderer:
         self.audio_path: Optional[Path] = None
         self.duration: float = 0.0
         self._bg_cache: Dict[str, Image.Image] = {}
-        self._font_cache: Dict[int, ImageFont.FreeTypeFont] = {}
-        self.font = self._get_font(48)
-        self._rms_energy: list[float] = []
-        self._spectral_centroids: list[float] = []
-        self._beat_times: list[float] = []
-        self._audio_fps: float = 93.75
+        self._font_cache: Dict[tuple, ImageFont.FreeTypeFont] = {}
         self._bg_source = None
+        self._styled_cache: Dict[tuple, Image.Image] = {}
+        self.font = self._get_font(48)
 
-    def _get_font(self, size: int) -> ImageFont.FreeTypeFont:
-        if size not in self._font_cache:
-            self._font_cache[size] = _find_font(size)
-        return self._font_cache[size]
+    def _get_font(self, size: int, family: int = 0) -> ImageFont.FreeTypeFont:
+        key = (family, size)
+        if key not in self._font_cache:
+            self._font_cache[key] = _find_font(size, family=family)
+        return self._font_cache[key]
     def load(self) -> None:
         script_path = self.data_dir / "script.json"
         if script_path.exists():
@@ -462,9 +487,32 @@ class VideoRenderer:
         ts = v.get("text_style", "")
         return bool(ts) and ts != "basic"
 
+    def _get_styled_text(self, text: str, style: str, size: int, family: int = 0) -> Image.Image:
+        key = (text, style, size, family)
+        if key not in self._styled_cache:
+            self._styled_cache[key] = generate_styled_text(text, style, size, family=family)
+        return self._styled_cache[key]
+
+    def _compute_line_layout(self, words: list, font: ImageFont.FreeTypeFont, spacing: float, text_align: str = "center") -> list:
+        widths = [font.getbbox(w["text"])[2] for w in words]
+        total_w = sum(widths) + spacing * max(0, len(words) - 1)
+        if text_align == "left":
+            x = self.width * 0.1
+        elif text_align == "right":
+            x = self.width * 0.9 - total_w
+        else:
+            x = (self.width - total_w) / 2
+        positions = []
+        for j in range(len(words)):
+            cx = x + widths[j] / 2
+            positions.append((cx, widths[j]))
+            x += widths[j] + spacing
+        return positions
+
     def _draw_text_line(self, img: Image.Image, text: str, v: Dict, y: int, font_size: int) -> None:
         if self._has_styled_text(v):
-            styled = generate_styled_text(text, v["text_style"], font_size)
+            family = v.get("font_family", 0)
+            styled = self._get_styled_text(text, v["text_style"], font_size, family)
             sw, sh = styled.size
             px = (self.width - sw) // 2
             py = int(y - sh / 2)
@@ -475,7 +523,7 @@ class VideoRenderer:
             return
 
         draw = ImageDraw.Draw(img)
-        font = self._get_font(font_size)
+        font = self._get_font(font_size, v.get("font_family", 0))
         auto_contrast = v.get("text_auto_contrast", True)
         if auto_contrast is not False:
             color = _contrast_color(v.get("background_color", "#1a1a2e"))
@@ -512,10 +560,11 @@ class VideoRenderer:
         words = line["words"]
         cs = self.caption_style
         text_style = v.get("text_style", "")
+        font_family = v.get("font_family", 0)
 
         if self._has_styled_text(v):
             draw_plain = ImageDraw.Draw(img)
-            font = self._get_font(font_size)
+            font = self._get_font(font_size, font_family)
             spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
             widths = [draw_plain.textbbox((0, 0), w["text"], font=font)[2] for w in words]
             total_w = sum(widths) + spacing * max(0, len(words) - 1)
@@ -532,7 +581,7 @@ class VideoRenderer:
                 if delta:
                     word_size = max(24, word_size + int(delta * (self.height / 1080)))
                 opacity = 1.0 if is_active else 0.5
-                styled = generate_styled_text(w["text"], text_style, word_size)
+                styled = self._get_styled_text(w["text"], text_style, word_size, font_family)
                 sw, sh = styled.size
                 tmp = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
                 px = int(cx - sw / 2)
@@ -548,7 +597,7 @@ class VideoRenderer:
             return
 
         draw = ImageDraw.Draw(img)
-        font = self._get_font(font_size)
+        font = self._get_font(font_size, font_family)
         words = line["words"]
         cs = self.caption_style
         auto_contrast = v.get("text_auto_contrast", True)
@@ -589,6 +638,7 @@ class VideoRenderer:
         words = line["words"]
         cs = self.caption_style
         text_style = v.get("text_style", "")
+        font_family = v.get("font_family", 0)
 
         step = v.get("reveal_words", 1)
         slide = v.get("reveal_slide", False)
@@ -607,27 +657,28 @@ class VideoRenderer:
 
         group_start = (word_idx // step) * step if not slide else start
 
-        if self._has_styled_text(v):
-            draw_plain = ImageDraw.Draw(img)
-            font = self._get_font(font_size)
-            spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
-            widths = [draw_plain.textbbox((0, 0), w["text"], font=font)[2] for w in vis]
-            total_w = sum(widths) + spacing * max(0, len(vis) - 1)
-            x = (self.width - total_w) / 2
+        font = self._get_font(font_size, font_family)
+        spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
+        text_align = v.get("text_align", "center")
+        all_positions = self._compute_line_layout(words, font, spacing, text_align)
 
-            for j, w in enumerate(vis):
-                wW = widths[j]
-                orig_idx = start + j if slide else j
-                is_active = orig_idx >= group_start and orig_idx <= word_idx
-                cx = x + wW / 2
-                word_v = self.get_visual(line_idx, orig_idx)
+        if not slide:
+            visible_range = range(0, min(word_idx + 1, len(words)))
+        else:
+            visible_range = range(start, min(start + step * 2, len(words)))
+
+        if self._has_styled_text(v):
+            for idx in visible_range:
+                cx, wW = all_positions[idx]
+                is_active = idx >= group_start and idx <= word_idx
+                word_v = self.get_visual(line_idx, idx)
                 word_y = self._y_for_pos(word_v.get("text_position", cs.get("text_position", "center")))
                 word_size = font_size
                 delta = word_v.get("font_size_delta", 0)
                 if delta:
                     word_size = max(24, word_size + int(delta * (self.height / 1080)))
                 opacity = 1.0 if is_active else 0.6
-                styled = generate_styled_text(w["text"], text_style, word_size)
+                styled = self._get_styled_text(words[idx]["text"], text_style, word_size, font_family)
                 sw, sh = styled.size
                 tmp = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
                 px = int(cx - sw / 2)
@@ -639,48 +690,20 @@ class VideoRenderer:
                 tmp.paste(styled, (px, py), styled)
                 composite = Image.alpha_composite(img.convert("RGBA"), tmp)
                 img.paste(composite.convert("RGB"), (0, 0))
-                x += wW + spacing
             return
 
         draw = ImageDraw.Draw(img)
-        font = self._get_font(font_size)
-        words = line["words"]
-        cs = self.caption_style
         auto_contrast = v.get("text_auto_contrast", True)
         base_hex = _contrast_color(v.get("background_color", "#1a1a2e")) if auto_contrast is not False else v.get("text_color", cs.get("text_color", "#ffffff"))
         hl_hex = cs.get("highlight_color", "#4cc9f0")
         base_rgb = _hex_to_rgb(base_hex)
         hl_rgb = _hex_to_rgb(hl_hex)
 
-        step = v.get("reveal_words", 1)
-        slide = v.get("reveal_slide", False)
-
-        if slide:
-            window_size = step * 2
-            start = max(0, word_idx - step + 1)
-            if start + window_size > len(words):
-                start = max(0, len(words) - window_size)
-            end = min(len(words), start + window_size)
-            vis = words[start:end]
-        else:
-            visible_count = word_idx + 1
-            vis = words[:visible_count]
-            start = 0
-
-        group_start = (word_idx // step) * step if not slide else start
-
-        spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
-        widths = [draw.textbbox((0, 0), w["text"], font=font)[2] for w in vis]
-        total_w = sum(widths) + spacing * max(0, len(vis) - 1)
-        x = (self.width - total_w) / 2
-
-        for j, w in enumerate(vis):
-            wW = widths[j]
-            orig_idx = start + j if slide else j
-            is_active = orig_idx >= group_start and orig_idx <= word_idx
+        for idx in visible_range:
+            cx, wW = all_positions[idx]
+            is_active = idx >= group_start and idx <= word_idx
             rgb = hl_rgb if is_active else base_rgb
-            cx = x + wW / 2
-            word_v = self.get_visual(line_idx, orig_idx)
+            word_v = self.get_visual(line_idx, idx)
             word_y = self._y_for_pos(word_v.get("text_position", cs.get("text_position", "center")))
             if cs.get("outline"):
                 ow = cs.get("outline_width", 2)
@@ -689,19 +712,115 @@ class VideoRenderer:
                     for dy in range(-ow, ow + 1):
                         if dx == 0 and dy == 0:
                             continue
-                        draw.text((cx - wW / 2 + dx, word_y + dy), w["text"], fill=oc, font=font, anchor="lm")
+                        draw.text((cx - wW / 2 + dx, word_y + dy), words[idx]["text"], fill=oc, font=font, anchor="lm")
             if cs.get("text_shadow"):
                 sc = _hex_to_rgb(cs.get("text_shadow_color", "#000000"))
                 sf = self.height / 1080
-                draw.text((cx - wW / 2 + 2 * sf, word_y + 2 * sf), w["text"], fill=sc, font=font, anchor="lm")
-            draw.text((cx - wW / 2, word_y), w["text"], fill=rgb, font=font, anchor="lm")
-            x += wW + spacing
+                draw.text((cx - wW / 2 + 2 * sf, word_y + 2 * sf), words[idx]["text"], fill=sc, font=font, anchor="lm")
+            draw.text((cx - wW / 2, word_y), words[idx]["text"], fill=rgb, font=font, anchor="lm")
+
+    def _render_intro_frame(self, t: float) -> Optional[Image.Image]:
+        intro = self.script.get("intro")
+        if not intro:
+            return None
+        duration = intro.get("duration", 0.0)
+        if duration <= 0 or t >= duration:
+            return None
+
+        img = Image.new("RGB", (self.width, self.height), (10, 10, 30))
+
+        phase1_end = duration * 0.60
+        phase1_fade_in = duration * 0.12
+        phase1_fade_out_start = duration * 0.52
+        phase2_start = duration * 0.65
+        phase2_fade_in = phase2_start + duration * 0.04
+        phase2_fade_out_start = duration * 0.88
+
+        if t < phase1_end:
+            image_path = intro.get("image", "")
+            if image_path:
+                v_img = {
+                    "background_type": "image",
+                    "background_image": image_path,
+                    "background_image_opacity": 1.0,
+                    "background_image_fit": "cover",
+                    "background_color": "#000000",
+                }
+                self._draw_background(img, v_img)
+
+            opacity = 1.0
+            if t < phase1_fade_in:
+                opacity = t / max(0.01, phase1_fade_in)
+            elif t > phase1_fade_out_start:
+                opacity = 1.0 - (t - phase1_fade_out_start) / max(0.01, phase1_end - phase1_fade_out_start)
+            opacity = max(0.0, min(1.0, opacity))
+
+            title = intro.get("title", "")
+            if title and opacity > 0.01:
+                font_size = int(80 * (self.height / 1080))
+                font = self._get_font(font_size, family=3)
+                txt_layer = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+                draw = ImageDraw.Draw(txt_layer)
+                bbox = draw.textbbox((0, 0), title, font=font)
+                tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+                cx = (self.width - tw) / 2
+                cy = self.height * 0.78
+                shadow_offset = max(2, int(3 * (self.height / 1080)))
+                draw.text((cx + shadow_offset, cy + shadow_offset), title, fill=(0, 0, 0, int(200 * opacity)), font=font)
+                draw.text((cx, cy), title, fill=(255, 255, 255, int(255 * opacity)), font=font)
+                img_rgba = img.convert("RGBA")
+                img_rgba = Image.alpha_composite(img_rgba, txt_layer)
+                img = img_rgba.convert("RGB")
+
+            if opacity < 1.0:
+                black = Image.new("RGB", (self.width, self.height), (10, 10, 30))
+                img = Image.blend(black, img, opacity)
+
+        elif t >= phase2_start:
+            v_bg = dict(self.defaults)
+            self._draw_background(img, v_bg)
+
+            opacity = 1.0
+            if t < phase2_fade_in:
+                opacity = (t - phase2_start) / max(0.01, phase2_fade_in - phase2_start)
+            elif t > phase2_fade_out_start:
+                opacity = 1.0 - (t - phase2_fade_out_start) / max(0.01, duration - phase2_fade_out_start)
+            opacity = max(0.0, min(1.0, opacity))
+
+            subtitle = intro.get("subtitle", "")
+            if subtitle and opacity > 0.01:
+                font_size = int(44 * (self.height / 1080))
+                font = self._get_font(font_size, family=5)
+                txt_layer = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+                draw = ImageDraw.Draw(txt_layer)
+                bbox = draw.textbbox((0, 0), subtitle, font=font)
+                tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+                cx = (self.width - tw) / 2
+                cy = (self.height - th) / 2
+                shadow_offset = max(2, int(2 * (self.height / 1080)))
+                draw.text((cx + shadow_offset, cy + shadow_offset), subtitle, fill=(0, 0, 0, int(180 * opacity)), font=font)
+                draw.text((cx, cy), subtitle, fill=(220, 220, 230, int(255 * opacity)), font=font)
+                img_rgba = img.convert("RGBA")
+                img_rgba = Image.alpha_composite(img_rgba, txt_layer)
+                img = img_rgba.convert("RGB")
+
+            if opacity < 1.0:
+                black = Image.new("RGB", (self.width, self.height), (10, 10, 30))
+                img = Image.blend(black, img, opacity)
+        else:
+            v_bg = dict(self.defaults)
+            self._draw_background(img, v_bg)
+
+        return img
 
     def render_frame(self, t: float) -> Image.Image:
         img = Image.new("RGB", (self.width, self.height), (10, 10, 30))
         line_idx, word_idx = self._find_active_word(t)
 
         if line_idx < 0:
+            intro_frame = self._render_intro_frame(t)
+            if intro_frame is not None:
+                return intro_frame
             v = dict(self.defaults)
             self._draw_background(img, v)
             return img
@@ -710,7 +829,7 @@ class VideoRenderer:
         self._draw_background(img, v)
 
         line = self.synced["lines"][line_idx]
-        font_size = int((v.get("font_size", self.caption_style.get("font_size", 48))) * (self.height / 1080))
+        font_size = int((v.get("font_size", self.caption_style.get("font_size", 112))) * (self.height / 1080))
 
         anim = self._compute_animation_progress(t, line_idx)
 
@@ -767,13 +886,17 @@ class VideoRenderer:
         return img
 
     def _render_text_on_bg(self, bg: Image.Image, line_idx: int, word_idx: int, t: float = 0.0) -> Image.Image:
-        img = bg.copy()
         if line_idx < 0:
-            return img
+            intro_frame = self._render_intro_frame(t)
+            if intro_frame is not None:
+                return intro_frame
+            return bg.copy()
+
+        img = bg.copy()
 
         line = self.synced["lines"][line_idx]
         v = self.get_visual(line_idx, word_idx)
-        font_size = int((v.get("font_size", self.caption_style.get("font_size", 48))) * (self.height / 1080))
+        font_size = int((v.get("font_size", self.caption_style.get("font_size", 112))) * (self.height / 1080))
 
         anim = self._compute_animation_progress(t, line_idx)
 
@@ -844,16 +967,38 @@ class VideoRenderer:
 
         if sec_key not in bg_cache:
             bg = Image.new("RGB", (self.width, self.height), (10, 10, 30))
+
             if line_idx >= 0:
                 v = self.get_visual(line_idx, 0)
             else:
                 v = dict(self.defaults)
-            self._draw_background(bg, v)
+
+            broll_image = v.get("broll_image", "")
+            broll_blend = v.get("broll_blend", 0.35)
+
+            if broll_image:
+                base_v = {
+                    "background_type": "image",
+                    "background_image": broll_image,
+                    "background_image_opacity": 1.0,
+                    "background_image_fit": "cover",
+                    "background_color": v.get("background_color", "#000000"),
+                }
+                self._draw_background(bg, base_v)
+
+                section_bg = Image.new("RGB", (self.width, self.height), (10, 10, 30))
+                self._draw_background(section_bg, v)
+                bg = Image.blend(bg, section_bg, broll_blend)
+            else:
+                self._draw_background(bg, v)
+
+            self._draw_texture(bg, v)
             bg_cache[sec_key] = bg
 
         return bg_cache[sec_key]
 
-    def render(self, output_path: str | Path, audio_path: Optional[str | Path] = None) -> Path:
+    def render(self, output_path: str | Path, audio_path: Optional[str | Path] = None,
+               time_start: Optional[float] = None, time_end: Optional[float] = None) -> Path:
         from render.encoder import VideoEncoder
 
         output_path = Path(output_path)
@@ -861,7 +1006,12 @@ class VideoRenderer:
 
         audio = audio_path or self.audio_path
 
-        total_frames = int(self.duration * self.fps) + 1
+        t_start = time_start if time_start is not None else 0.0
+        t_end = time_end if time_end is not None else self.duration
+
+        start_frame = int(t_start * self.fps)
+        end_frame = int(t_end * self.fps)
+        total_frames = end_frame - start_frame + 1
 
         bg_cache: dict = {}
         prev_bytes: Optional[bytes] = None
@@ -876,10 +1026,15 @@ class VideoRenderer:
                 desc="Rendering",
                 bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}] {postfix}",
             )
-            for frame_idx in pbar:
+            for offset_idx in pbar:
+                frame_idx = start_frame + offset_idx
                 t = frame_idx / self.fps
                 line_idx, word_idx = self._find_active_word(t)
-                has_animation = self._frame_is_unique(line_idx)
+
+                intro_duration = self.script.get("intro", {}).get("duration", 0.0)
+                in_intro = line_idx < 0 and t < intro_duration
+
+                has_animation = self._frame_is_unique(line_idx) or in_intro
                 key = (line_idx, word_idx) if not has_animation else (line_idx, word_idx, frame_idx)
 
                 if key == prev_key and prev_bytes is not None:
