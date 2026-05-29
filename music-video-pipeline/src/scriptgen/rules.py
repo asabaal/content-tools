@@ -142,11 +142,11 @@ def assign_font_size(
     tags: list[str],
     variance: float,
 ) -> int:
-    base = 48
+    base = 56
     if section_type in ("chorus", "hook"):
-        base = 52 + int(variance * 6)
+        base = 62 + int(variance * 6)
     elif section_type == "bridge":
-        base = 44
+        base = 50
     energy_mod = int((energy - 0.5) * 8 * variance)
     if "BIG" in tags or "big" in tags:
         energy_mod += 8
@@ -389,11 +389,16 @@ def assign_text_style(section_type: str, mood_name: str) -> str:
         "cool_ethereal": "ice",
         "high_energy": "fire",
     }
-    _SECTION_OVERRIDE = {
-        "chorus": {"dark_moody": "neon", "high_energy": "fire", "bright_poppy": "chrome"},
-        "bridge": {"dark_moody": "hologram", "cool_ethereal": "hologram"},
+    _SECTION_STYLE = {
+        "intro": {"dark_moody": "neon", "bright_poppy": "graffiti", "warm_intimate": "gold", "cool_ethereal": "ice", "high_energy": "fire"},
+        "verse": {"dark_moody": "neon", "bright_poppy": "chrome", "warm_intimate": "gold", "cool_ethereal": "ice", "high_energy": "fire"},
+        "chorus": {"dark_moody": "neon", "bright_poppy": "chrome", "warm_intimate": "gold", "cool_ethereal": "neon", "high_energy": "fire"},
+        "hook": {"dark_moody": "neon", "bright_poppy": "chrome", "warm_intimate": "gold", "cool_ethereal": "neon", "high_energy": "fire"},
+        "bridge": {"dark_moody": "hologram", "bright_poppy": "hologram", "warm_intimate": "hologram", "cool_ethereal": "hologram", "high_energy": "hologram"},
+        "pre_chorus": {"dark_moody": "neon", "bright_poppy": "chrome", "warm_intimate": "gold", "cool_ethereal": "chrome", "high_energy": "chrome"},
+        "outro": {"dark_moody": "neon", "bright_poppy": "graffiti", "warm_intimate": "gold", "cool_ethereal": "gold", "high_energy": "fire"},
     }
-    override = _SECTION_OVERRIDE.get(section_type, {}).get(mood_name)
+    override = _SECTION_STYLE.get(section_type, {}).get(mood_name)
     if override:
         return override
     return _MOOD_STYLE.get(mood_name, "basic")
@@ -464,7 +469,7 @@ def compute_emphasis_overrides(
     num_lines_in_section: int = 1,
 ) -> dict:
     overrides = {}
-    base_font = visual.get("font_size", 48)
+    base_font = visual.get("font_size", 56)
     st = profile.resolved_type or profile.section_type
     variance = 0.5
 

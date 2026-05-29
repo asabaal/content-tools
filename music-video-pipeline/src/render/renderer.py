@@ -22,6 +22,7 @@ from .audio_reactive import apply_audio_effects
 from .frame_effects import apply_frame_effect
 from .effect_presets import get_preset, get_preset_for_section
 from .background_video import create_background_source
+from .font_styles import generate_styled_text
 
 
 def _hex_to_rgb(hex_color: str) -> Tuple[int, int, int]:
@@ -457,7 +458,22 @@ class VideoRenderer:
             return True
         return False
 
+    def _has_styled_text(self, v: Dict) -> bool:
+        ts = v.get("text_style", "")
+        return bool(ts) and ts != "basic"
+
     def _draw_text_line(self, img: Image.Image, text: str, v: Dict, y: int, font_size: int) -> None:
+        if self._has_styled_text(v):
+            styled = generate_styled_text(text, v["text_style"], font_size)
+            sw, sh = styled.size
+            px = (self.width - sw) // 2
+            py = int(y - sh / 2)
+            tmp = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+            tmp.paste(styled, (px, py), styled)
+            composite = Image.alpha_composite(img.convert("RGBA"), tmp)
+            img.paste(composite.convert("RGB"), (0, 0))
+            return
+
         draw = ImageDraw.Draw(img)
         font = self._get_font(font_size)
         auto_contrast = v.get("text_auto_contrast", True)
@@ -493,6 +509,44 @@ class VideoRenderer:
         draw.text((tx, y), text, fill=rgb, font=font)
 
     def _draw_karaoke(self, img: Image.Image, line: Dict, line_idx: int, word_idx: int, v: Dict, font_size: int) -> None:
+        words = line["words"]
+        cs = self.caption_style
+        text_style = v.get("text_style", "")
+
+        if self._has_styled_text(v):
+            draw_plain = ImageDraw.Draw(img)
+            font = self._get_font(font_size)
+            spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
+            widths = [draw_plain.textbbox((0, 0), w["text"], font=font)[2] for w in words]
+            total_w = sum(widths) + spacing * max(0, len(words) - 1)
+            x = (self.width - total_w) / 2
+
+            for j, w in enumerate(words):
+                wW = widths[j]
+                cx = x + wW / 2
+                word_v = self.get_visual(line_idx, j)
+                word_y = self._y_for_pos(word_v.get("text_position", cs.get("text_position", "center")))
+                is_active = j == word_idx
+                word_size = font_size
+                delta = word_v.get("font_size_delta", 0)
+                if delta:
+                    word_size = max(24, word_size + int(delta * (self.height / 1080)))
+                opacity = 1.0 if is_active else 0.5
+                styled = generate_styled_text(w["text"], text_style, word_size)
+                sw, sh = styled.size
+                tmp = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+                px = int(cx - sw / 2)
+                py = int(word_y - sh / 2)
+                if opacity < 1.0:
+                    alpha = styled.split()[3]
+                    alpha = alpha.point(lambda a: int(a * opacity))
+                    styled.putalpha(alpha)
+                tmp.paste(styled, (px, py), styled)
+                composite = Image.alpha_composite(img.convert("RGBA"), tmp)
+                img.paste(composite.convert("RGB"), (0, 0))
+                x += wW + spacing
+            return
+
         draw = ImageDraw.Draw(img)
         font = self._get_font(font_size)
         words = line["words"]
@@ -532,6 +586,62 @@ class VideoRenderer:
             x += wW + spacing
 
     def _draw_progressive(self, img: Image.Image, line: Dict, line_idx: int, word_idx: int, v: Dict, font_size: int) -> None:
+        words = line["words"]
+        cs = self.caption_style
+        text_style = v.get("text_style", "")
+
+        step = v.get("reveal_words", 1)
+        slide = v.get("reveal_slide", False)
+
+        if slide:
+            window_size = step * 2
+            start = max(0, word_idx - step + 1)
+            if start + window_size > len(words):
+                start = max(0, len(words) - window_size)
+            end = min(len(words), start + window_size)
+            vis = words[start:end]
+        else:
+            visible_count = word_idx + 1
+            vis = words[:visible_count]
+            start = 0
+
+        group_start = (word_idx // step) * step if not slide else start
+
+        if self._has_styled_text(v):
+            draw_plain = ImageDraw.Draw(img)
+            font = self._get_font(font_size)
+            spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
+            widths = [draw_plain.textbbox((0, 0), w["text"], font=font)[2] for w in vis]
+            total_w = sum(widths) + spacing * max(0, len(vis) - 1)
+            x = (self.width - total_w) / 2
+
+            for j, w in enumerate(vis):
+                wW = widths[j]
+                orig_idx = start + j if slide else j
+                is_active = orig_idx >= group_start and orig_idx <= word_idx
+                cx = x + wW / 2
+                word_v = self.get_visual(line_idx, orig_idx)
+                word_y = self._y_for_pos(word_v.get("text_position", cs.get("text_position", "center")))
+                word_size = font_size
+                delta = word_v.get("font_size_delta", 0)
+                if delta:
+                    word_size = max(24, word_size + int(delta * (self.height / 1080)))
+                opacity = 1.0 if is_active else 0.6
+                styled = generate_styled_text(w["text"], text_style, word_size)
+                sw, sh = styled.size
+                tmp = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+                px = int(cx - sw / 2)
+                py = int(word_y - sh / 2)
+                if opacity < 1.0:
+                    alpha = styled.split()[3]
+                    alpha = alpha.point(lambda a: int(a * opacity))
+                    styled.putalpha(alpha)
+                tmp.paste(styled, (px, py), styled)
+                composite = Image.alpha_composite(img.convert("RGBA"), tmp)
+                img.paste(composite.convert("RGB"), (0, 0))
+                x += wW + spacing
+            return
+
         draw = ImageDraw.Draw(img)
         font = self._get_font(font_size)
         words = line["words"]

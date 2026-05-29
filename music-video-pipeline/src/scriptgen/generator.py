@@ -124,12 +124,54 @@ class ScriptGenerator:
             "sections": script_sections,
         }
 
+        self._apply_gap_reveal_overrides(script)
+
         return GenerateResult(
             script=script,
             sections_profiled=len(profiles),
             variance_detected=variance_label,
             mood_used=mood_key,
         )
+
+    def _apply_gap_reveal_overrides(self, script: dict) -> None:
+        synced_lines = self.lyrics_synced.get("lines", [])
+        if len(synced_lines) < 2:
+            return
+
+        GAP_THRESHOLD = 0.5
+        FIRST_WORD_DELAY = 0.3
+
+        for sec in script.get("sections", []):
+            lo = sec.get("lines_overrides", {})
+            section_reveal = sec.get("visual", {}).get("reveal_mode", "progressive")
+
+            for line_idx in sec.get("lines", []):
+                if line_idx >= len(synced_lines):
+                    continue
+                line = synced_lines[line_idx]
+                words = line.get("words", [])
+                if not words:
+                    continue
+
+                needs_progressive = False
+
+                if line_idx > 0 and line_idx - 1 < len(synced_lines):
+                    prev_end = synced_lines[line_idx - 1].get("end", 0)
+                    curr_start = line.get("start", 0)
+                    if curr_start - prev_end > GAP_THRESHOLD:
+                        needs_progressive = True
+
+                if words[0].get("start", 0) - line.get("start", 0) > FIRST_WORD_DELAY:
+                    needs_progressive = True
+
+                if needs_progressive and section_reveal != "progressive":
+                    key = str(line_idx)
+                    if key not in lo:
+                        lo[key] = {}
+                    lo[key]["reveal_mode"] = "progressive"
+                    lo[key]["reveal_words"] = 1
+
+            sec["lines_overrides"] = lo
 
     def _build_sections(self) -> list[dict]:
         raw_lines = self.lyrics_raw.get("lines", [])
@@ -297,7 +339,7 @@ class ScriptGenerator:
             "texture_opacity": 0.2,
             "texture_blend_mode": "multiply",
             "text_auto_contrast": True,
-            "font_size": 48,
+            "font_size": 56,
             "animation_type": "fade",
             "animation_speed": 1.0,
             "reveal_mode": "progressive",
