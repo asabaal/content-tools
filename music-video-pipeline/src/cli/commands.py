@@ -1114,7 +1114,7 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
             word_entries.append(entry)
 
             if not json_only:
-                t = start + 0.01
+                t = start + 0.08
                 try:
                     img = renderer.render_frame(t)
                     safe_text = "".join(c if c.isalnum() else "_" for c in text).strip("_")

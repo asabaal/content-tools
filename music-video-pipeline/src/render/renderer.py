@@ -256,7 +256,14 @@ class VideoRenderer:
                 anim_type, p, AnimationEasing.EASE_OUT,
                 width=self.width, height=self.height,
             )
-            anim_state.opacity = max(anim_state.opacity, 0.85)
+            if anim_type == AnimationType.FADE_IN and p < 0.2:
+                anim_state.opacity = 1.0
+            else:
+                anim_state.opacity = max(anim_state.opacity, 0.85)
+            sx, sy = anim_state.scale
+            min_s = 0.5
+            if sx < min_s:
+                anim_state.scale = (min_s, min_s)
             return anim_state
         elif progress > exit_start:
             exit_range = max(0.001, 1.0 - exit_start)
@@ -592,7 +599,7 @@ class VideoRenderer:
                 if delta:
                     word_size = max(24, word_size + int(delta * (self.height / 1080)))
                 opacity = 1.0 if is_active else 0.5
-                styled = self._get_styled_text(w["text"], text_style, word_size, font_family)
+                styled = self._get_styled_text(w["text"], text_style, word_size, font_family).copy()
                 sw, sh = styled.size
                 px = int(cx - sw / 2)
                 py = int(word_y - sh / 2)
@@ -686,7 +693,7 @@ class VideoRenderer:
                 if delta:
                     word_size = max(24, word_size + int(delta * (self.height / 1080)))
                 opacity = 1.0 if is_active else 0.6
-                styled = self._get_styled_text(words[idx]["text"], text_style, word_size, font_family)
+                styled = self._get_styled_text(words[idx]["text"], text_style, word_size, font_family).copy()
                 sw, sh = styled.size
                 px = int(cx - sw / 2)
                 py = int(word_y - sh / 2)

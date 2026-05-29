@@ -243,7 +243,7 @@ def _generate_ice(text: str, size: int, family: int = 0) -> np.ndarray:
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
-    glow = _apply_glow(base, (100, 150, 255), 15, 80)
+    glow = _apply_glow(base, (100, 150, 255), 15, 140)
     _composite(canvas, glow, pad, pad)
 
     colored = base.copy()
@@ -271,7 +271,7 @@ def _generate_gold(text: str, size: int, family: int = 0) -> np.ndarray:
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
-    glow = _apply_glow(base, (255, 200, 50), 20, 100)
+    glow = _apply_glow(base, (255, 200, 50), 20, 160)
     _composite(canvas, glow, pad, pad)
 
     colored = base.copy()
@@ -293,7 +293,7 @@ def _generate_hologram(text: str, size: int, family: int = 0) -> np.ndarray:
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
-    glow = _apply_glow(base, (0, 255, 255), 25, 60)
+    glow = _apply_glow(base, (0, 255, 255), 25, 120)
     _composite(canvas, glow, pad, pad)
 
     colored = base.copy()
@@ -301,13 +301,13 @@ def _generate_hologram(text: str, size: int, family: int = 0) -> np.ndarray:
     colored[alpha_mask, 0] = 0
     colored[alpha_mask, 1] = 255
     colored[alpha_mask, 2] = 255
-    colored[alpha_mask, 3] = 200
+    colored[alpha_mask, 3] = 255
 
     for row in range(0, h, 3):
-        colored[row, alpha_mask[row], 3] = 100
+        colored[row, alpha_mask[row], 3] = 180
 
     rng = random.Random(42)
-    noise = np.array([rng.random() * 0.3 + 0.7 for _ in range(colored.size // 4)], dtype=np.float32).reshape(colored.shape[:2])
+    noise = np.array([rng.random() * 0.15 + 0.85 for _ in range(colored.size // 4)], dtype=np.float32).reshape(colored.shape[:2])
     colored[:, :, 3] = (colored[:, :, 3].astype(np.float32) * noise).clip(0, 255).astype(np.uint8)
 
     _composite(canvas, colored, pad, pad)
