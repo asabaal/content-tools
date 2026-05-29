@@ -874,8 +874,9 @@ def serve(project_dir, port):
 @click.option("--broll", "broll_images", multiple=True, help="B-roll image path(s), layered under gradients/animations")
 @click.option("--broll-mode", "broll_mode", default="section", type=click.Choice(["section", "beat"]), help="B-roll distribution: section (round-robin) or beat (cycle on beats)")
 @click.option("--broll-blend", "broll_blend", default=0.35, type=float, help="B-roll blend opacity under section gradients (default: 0.35)")
+@click.option("--bare", is_flag=True, help="Bare timing render: no script, plain text, shows raw sync data")
 def render(project_dir, output, fps, width, height, mood, base_color, variance, time_start, time_end,
-           intro_image, intro_title, intro_subtitle, broll_images, broll_mode, broll_blend):
+           intro_image, intro_title, intro_subtitle, broll_images, broll_mode, broll_blend, bare):
     """Render the final video (Stage 6)."""
     from render.renderer import VideoRenderer
 
@@ -886,49 +887,72 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance, 
     if not (data_dir / "lyrics_synced.json").exists():
         raise click.ClickException("lyrics_synced.json not found. Run sync first.")
 
-    needs_script = mood or base_color or variance or intro_image or broll_images or not (data_dir / "script.json").exists()
-    if needs_script:
-        from scriptgen import generate_script as gen
+    if bare:
+        script = {
+            "name": proj.name,
+            "defaults": {
+                "background_type": "solid",
+                "background_color": "#0a0a0a",
+                "font_size": 112,
+                "animation_type": "none",
+                "reveal_mode": "karaoke",
+                "text_auto_contrast": False,
+            },
+            "caption_style": {
+                "font_family": 0,
+                "highlight_color": "#ffff00",
+                "text_color": "#ffffff",
+                "text_position": "center",
+            },
+            "sections": [],
+        }
+        script_path = data_dir / "script_bare.json"
+        script_path.write_text(json.dumps(script, indent=2, ensure_ascii=False), encoding="utf-8")
+        click.echo(f"\n  Bare timing render (no script generation)")
+    else:
+        needs_script = mood or base_color or variance or intro_image or broll_images or not (data_dir / "script.json").exists()
+        if needs_script:
+            from scriptgen import generate_script as gen
 
-        click.echo(f"\n  Generating visual script...")
-        click.echo(f"    Mood: {mood or 'auto (dark_moody)'}")
-        if base_color:
-            click.echo(f"    Base color: {base_color}")
-        click.echo(f"    Variance: {variance or 'auto'}")
+            click.echo(f"\n  Generating visual script...")
+            click.echo(f"    Mood: {mood or 'auto (dark_moody)'}")
+            if base_color:
+                click.echo(f"    Base color: {base_color}")
+            click.echo(f"    Variance: {variance or 'auto'}")
 
-        intro_cfg = None
-        if intro_image:
-            p = Path(intro_image)
-            if not p.is_absolute():
-                p = (proj_dir / intro_image).resolve()
-            intro_cfg = {
-                "image": str(p),
-                "title": intro_title,
-                "subtitle": intro_subtitle or "",
-            }
-            click.echo(f"    Intro: {p.name}")
-
-        broll_cfg = None
-        if broll_images:
-            resolved = []
-            for bp in broll_images:
-                p = Path(bp)
+            intro_cfg = None
+            if intro_image:
+                p = Path(intro_image)
                 if not p.is_absolute():
-                    p = (proj_dir / bp).resolve()
-                resolved.append(str(p))
-            broll_cfg = {
-                "images": resolved,
-                "mode": broll_mode,
-                "blend": broll_blend,
-            }
-            click.echo(f"    B-roll: {len(resolved)} image(s), mode={broll_mode}, blend={broll_blend}")
+                    p = (proj_dir / intro_image).resolve()
+                intro_cfg = {
+                    "image": str(p),
+                    "title": intro_title,
+                    "subtitle": intro_subtitle or "",
+                }
+                click.echo(f"    Intro: {p.name}")
 
-        result = gen(proj_dir, mood=mood, base_color=base_color, variance=variance or "auto",
-                     intro=intro_cfg, broll=broll_cfg)
-        script_path = data_dir / "script.json"
-        script_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
+            broll_cfg = None
+            if broll_images:
+                resolved = []
+                for bp in broll_images:
+                    p = Path(bp)
+                    if not p.is_absolute():
+                        p = (proj_dir / bp).resolve()
+                    resolved.append(str(p))
+                broll_cfg = {
+                    "images": resolved,
+                    "mode": broll_mode,
+                    "blend": broll_blend,
+                }
+                click.echo(f"    B-roll: {len(resolved)} image(s), mode={broll_mode}, blend={broll_blend}")
 
-        click.echo(f"    Sections: {result.sections_profiled} | Variance: {result.variance_detected} | Mood: {result.mood_used}")
+            result = gen(proj_dir, mood=mood, base_color=base_color, variance=variance or "auto",
+                         intro=intro_cfg, broll=broll_cfg)
+            script_path = data_dir / "script.json"
+            script_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
+
+            click.echo(f"    Sections: {result.sections_profiled} | Variance: {result.variance_detected} | Mood: {result.mood_used}")
 
     if output:
         out_path = Path(output)
@@ -951,7 +975,10 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance, 
     click.echo(f"    Output: {out_path}")
 
     renderer = VideoRenderer(proj_dir, width=width, height=height, fps=fps)
-    renderer.load()
+    if bare:
+        renderer.load(script_path=data_dir / "script_bare.json")
+    else:
+        renderer.load()
 
     audio_path = renderer.audio_path
     if not audio_path:
@@ -976,6 +1003,193 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance, 
     click.echo(f"\n  Done! {out_path} ({size_mb:.1f} MB)")
     proj.stages.mark_complete("render")
     proj.save()
+
+
+@cli.command()
+@click.option("--project", "-p", "project_dir", default=None, help="Path to project directory")
+@click.option("--output", "-o", default=None, help="Output directory (default: project_dir/output/audit/)")
+@click.option("--mood", default=None, type=click.Choice(["dark_moody", "bright_poppy", "warm_intimate", "cool_ethereal", "high_energy"]), help="Generate script with mood preset")
+@click.option("--intro-image", default=None, help="Branded intro image path")
+@click.option("--intro-title", default=None, help="Intro title text")
+@click.option("--intro-subtitle", default=None, help="Intro subtitle text")
+@click.option("--broll", "broll_images", multiple=True, help="B-roll image path(s)")
+@click.option("--broll-mode", "broll_mode", default="section", type=click.Choice(["section", "beat"]))
+@click.option("--broll-blend", "broll_blend", default=0.35, type=float)
+@click.option("--width", default=960, type=int, help="Frame width (default: 960)")
+@click.option("--height", default=540, type=int, help="Frame height (default: 540)")
+@click.option("--no-contacts", is_flag=True, help="Skip contact sheet generation")
+@click.option("--json-only", is_flag=True, help="Only generate summary.json, skip frame rendering")
+def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
+          broll_images, broll_mode, broll_blend, width, height, no_contacts, json_only):
+    """Audit word timing by rendering frame previews."""
+    from render.renderer import VideoRenderer
+
+    proj_dir = _find_project(project_dir)
+    proj = MusicVideoProject.load(proj_dir)
+    data_dir = proj.data_dir
+
+    if not (data_dir / "lyrics_synced.json").exists():
+        raise click.ClickException("lyrics_synced.json not found. Run sync first.")
+
+    needs_script = mood or broll_images or intro_image or not (data_dir / "script.json").exists()
+    if needs_script:
+        from scriptgen import generate_script as gen
+
+        intro_cfg = None
+        if intro_image:
+            p = Path(intro_image)
+            if not p.is_absolute():
+                p = (proj_dir / intro_image).resolve()
+            intro_cfg = {"image": str(p), "title": intro_title, "subtitle": intro_subtitle or ""}
+
+        broll_cfg = None
+        if broll_images:
+            resolved = []
+            for bp in broll_images:
+                p = Path(bp)
+                if not p.is_absolute():
+                    p = (proj_dir / bp).resolve()
+                resolved.append(str(p))
+            broll_cfg = {"images": resolved, "mode": broll_mode, "blend": broll_blend}
+
+        result = gen(proj_dir, mood=mood, intro=intro_cfg, broll=broll_cfg)
+        script_path = data_dir / "script.json"
+        script_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    if output:
+        audit_dir = Path(output)
+    else:
+        audit_dir = proj_dir / "output" / "audit"
+    audit_dir.mkdir(parents=True, exist_ok=True)
+
+    renderer = VideoRenderer(proj_dir, width=width, height=height)
+    renderer.load()
+
+    synced_lines = renderer.synced.get("lines", [])
+    if not synced_lines:
+        raise click.ClickException("No synced lines found.")
+
+    total_words = sum(len(line.get("words", [])) for line in synced_lines)
+    click.echo(f"\n  Auditing {len(synced_lines)} lines, {total_words} words...")
+    click.echo(f"    Resolution: {width}x{height}")
+    click.echo(f"    Output: {audit_dir}")
+
+    issues = []
+    word_entries = []
+
+    for li, line in enumerate(synced_lines):
+        words = line.get("words", [])
+        for wi, word in enumerate(words):
+            text = word.get("text", "")
+            start = word.get("start", 0.0)
+            end = word.get("end", 0.0)
+            duration = end - start
+
+            entry = {
+                "line": li,
+                "word": wi,
+                "text": text,
+                "start": round(start, 3),
+                "end": round(end, 3),
+                "duration": round(duration, 3),
+            }
+
+            if start >= end:
+                entry["issue"] = "start >= end"
+                issues.append(entry)
+            elif duration < 0.04:
+                entry["issue"] = f"duration {duration:.3f}s < 0.04s"
+                issues.append(entry)
+            elif duration > 1.5:
+                entry["issue"] = f"duration {duration:.1f}s > 1.5s"
+                issues.append(entry)
+
+            if wi > 0:
+                prev = words[wi - 1]
+                gap = start - prev.get("end", 0.0)
+                if gap > 0.5:
+                    entry["gap_from_prev"] = round(gap, 3)
+                    issues.append({**entry, "issue": f"gap {gap:.2f}s from previous word"})
+
+            word_entries.append(entry)
+
+            if not json_only:
+                t = start + 0.01
+                try:
+                    img = renderer.render_frame(t)
+                    safe_text = "".join(c if c.isalnum() else "_" for c in text).strip("_")
+                    filename = f"line{li:02d}_word{wi:02d}_{safe_text}.png"
+                    img.save(str(audit_dir / filename))
+                except Exception as e:
+                    entry["render_error"] = str(e)
+
+    if not json_only and not no_contacts and word_entries:
+        _generate_contact_sheet(audit_dir, word_entries, width, height, synced_lines)
+
+    summary = {
+        "project": proj.name,
+        "total_lines": len(synced_lines),
+        "total_words": total_words,
+        "issues": issues,
+        "words": word_entries,
+    }
+    summary_path = audit_dir / "summary.json"
+    summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    click.echo(f"\n  Words audited: {total_words}")
+    if issues:
+        click.echo(f"  Issues found: {len(issues)}")
+        for iss in issues[:20]:
+            loc = f"line {iss['line']} word {iss['word']} (\"{iss['text']}\")"
+            click.echo(f"    {loc}: {iss['issue']}")
+        if len(issues) > 20:
+            click.echo(f"    ... and {len(issues) - 20} more")
+    else:
+        click.echo(f"  Issues found: 0")
+
+    click.echo(f"\n  Saved: {audit_dir}")
+    click.echo(f"    summary.json ({total_words} word entries, {len(issues)} issues)")
+    if not json_only:
+        click.echo(f"    {total_words} frame PNGs")
+        if not no_contacts:
+            click.echo(f"    contact_sheet.png")
+
+
+def _generate_contact_sheet(audit_dir: Path, word_entries: list, frame_w: int, frame_h: int,
+                            synced_lines: list) -> None:
+    from PIL import Image, ImageDraw, ImageFont
+
+    cols = 10
+    rows = (len(word_entries) + cols - 1) // cols
+    label_h = 24
+    cell_w = frame_w // 3
+    cell_h = frame_h // 3 + label_h
+    sheet_w = cols * cell_w
+    sheet_h = rows * cell_h
+
+    sheet = Image.new("RGB", (sheet_w, sheet_h), (20, 20, 30))
+    draw = ImageDraw.Draw(sheet)
+    font = ImageFont.load_default()
+
+    for idx, entry in enumerate(word_entries):
+        col = idx % cols
+        row = idx // cols
+        x = col * cell_w
+        y = row * cell_h
+
+        safe_text = "".join(c if c.isalnum() else "_" for c in entry["text"]).strip("_")
+        filename = f"line{entry['line']:02d}_word{entry['word']:02d}_{safe_text}.png"
+        frame_path = audit_dir / filename
+
+        if frame_path.exists():
+            thumb = Image.open(frame_path).resize((cell_w, frame_h // 3), Image.LANCZOS)
+            sheet.paste(thumb, (x, y))
+
+        label_color = (255, 80, 80) if "issue" in entry else (180, 180, 190)
+        label = f"L{entry['line']}W{entry['word']} {entry['text'][:8]} @{entry['start']:.1f}s"
+        draw.text((x + 2, y + frame_h // 3 + 2), label, fill=label_color, font=font)
+
+    sheet.save(str(audit_dir / "contact_sheet.png"))
 
 
 if __name__ == "__main__":  # pragma: no cover

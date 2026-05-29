@@ -118,8 +118,9 @@ class VideoRenderer:
         if key not in self._font_cache:
             self._font_cache[key] = _find_font(size, family=family)
         return self._font_cache[key]
-    def load(self) -> None:
-        script_path = self.data_dir / "script.json"
+    def load(self, script_path: Optional[Path] = None) -> None:
+        if script_path is None:
+            script_path = self.data_dir / "script.json"
         if script_path.exists():
             self.script = json.loads(script_path.read_text(encoding="utf-8"))
         else:
@@ -237,17 +238,30 @@ class VideoRenderer:
         except ValueError:
             anim_type = AnimationType.FADE_IN
 
-        enter_end = 0.3 / anim_speed
-        exit_start = 1.0 - 0.2 / anim_speed
+        enter_duration = 0.25 / anim_speed
+        enter_end = min(0.3, enter_duration / duration)
+
+        words = line.get("words", [])
+        last_word_start = words[-1].get("start", line_start) if words else line_start
+        last_word_progress = (last_word_start - line_start) / duration
+        exit_start = max(last_word_progress, 1.0 - 0.2 / anim_speed)
 
         if progress < enter_end:
-            p = progress / enter_end
-            return calculate_animation_state(
+            elapsed = t - line_start
+            if elapsed < enter_duration:
+                p = min(1.0, elapsed / enter_duration)
+            else:
+                p = 1.0
+            anim_state = calculate_animation_state(
                 anim_type, p, AnimationEasing.EASE_OUT,
                 width=self.width, height=self.height,
             )
+            anim_state.opacity = max(anim_state.opacity, 0.85)
+            return anim_state
         elif progress > exit_start:
-            p = (progress - exit_start) / (1.0 - exit_start)
+            exit_range = max(0.001, 1.0 - exit_start)
+            p = (progress - exit_start) / exit_range
+            p = min(1.0, p)
             if anim_type == AnimationType.FADE_IN:
                 exit_type = AnimationType.FADE_OUT
             elif anim_type == AnimationType.SLIDE_IN:
@@ -516,10 +530,7 @@ class VideoRenderer:
             sw, sh = styled.size
             px = (self.width - sw) // 2
             py = int(y - sh / 2)
-            tmp = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
-            tmp.paste(styled, (px, py), styled)
-            composite = Image.alpha_composite(img.convert("RGBA"), tmp)
-            img.paste(composite.convert("RGB"), (0, 0))
+            img.paste(styled, (px, py), styled)
             return
 
         draw = ImageDraw.Draw(img)
@@ -583,16 +594,13 @@ class VideoRenderer:
                 opacity = 1.0 if is_active else 0.5
                 styled = self._get_styled_text(w["text"], text_style, word_size, font_family)
                 sw, sh = styled.size
-                tmp = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
                 px = int(cx - sw / 2)
                 py = int(word_y - sh / 2)
                 if opacity < 1.0:
                     alpha = styled.split()[3]
                     alpha = alpha.point(lambda a: int(a * opacity))
                     styled.putalpha(alpha)
-                tmp.paste(styled, (px, py), styled)
-                composite = Image.alpha_composite(img.convert("RGBA"), tmp)
-                img.paste(composite.convert("RGB"), (0, 0))
+                img.paste(styled, (px, py), styled)
                 x += wW + spacing
             return
 
@@ -680,16 +688,13 @@ class VideoRenderer:
                 opacity = 1.0 if is_active else 0.6
                 styled = self._get_styled_text(words[idx]["text"], text_style, word_size, font_family)
                 sw, sh = styled.size
-                tmp = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
                 px = int(cx - sw / 2)
                 py = int(word_y - sh / 2)
                 if opacity < 1.0:
                     alpha = styled.split()[3]
                     alpha = alpha.point(lambda a: int(a * opacity))
                     styled.putalpha(alpha)
-                tmp.paste(styled, (px, py), styled)
-                composite = Image.alpha_composite(img.convert("RGBA"), tmp)
-                img.paste(composite.convert("RGB"), (0, 0))
+                img.paste(styled, (px, py), styled)
             return
 
         draw = ImageDraw.Draw(img)

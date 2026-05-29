@@ -166,6 +166,7 @@ def apply_vignette_pulse(
     xs = xs.astype(np.float32)
     dist = np.sqrt((xs - cx) ** 2 + (ys - cy) ** 2) / max_r
     alpha = np.clip((dist - inner) / max(0.01, outer - inner), 0, 1) * intensity
+    alpha = np.clip(alpha, 0, 0.7)
 
     result = frame.astype(np.float32)
     for c in range(3):
