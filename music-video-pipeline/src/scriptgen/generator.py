@@ -12,6 +12,7 @@ from .rules import (
     assign_section_visual,
     assign_word_positions,
     compute_emphasis_overrides,
+    resolve_section_type,
 )
 
 
@@ -67,7 +68,7 @@ class ScriptGenerator:
         )
 
         colors = generate_palette(
-            section_types=[p.section_type for p in profiles],
+            section_types=[p.resolved_type or p.section_type for p in profiles],
             energies=energies,
             mood=mood_profile,
             variance=variance_float,
@@ -87,6 +88,8 @@ class ScriptGenerator:
                 is_start = line_idx == profile.start_line
                 ov = compute_emphasis_overrides(
                     profile, visual, self.song_name, is_title, is_start,
+                    line_index_in_section=li,
+                    num_lines_in_section=num_lines,
                 )
                 ov["background_color"] = line_colors[li].primary
                 if visual.get("background_type") == "gradient":
@@ -202,6 +205,8 @@ class ScriptGenerator:
             energy = self._section_energy(start_time, end_time)
             centroid = self._section_centroid(start_time, end_time)
 
+            resolved = resolve_section_type(stype, sname, tags, energy)
+
             profiles.append(SectionProfile(
                 section_type=stype,
                 name=sname,
@@ -214,6 +219,7 @@ class ScriptGenerator:
                 pace=pace,
                 tags=tags,
                 word_count=word_count,
+                resolved_type=resolved,
             ))
 
         return profiles
