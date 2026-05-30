@@ -1080,6 +1080,18 @@ class VideoRenderer:
             pos = v.get("text_position", self.caption_style.get("text_position", "center"))
             y = self._y_for_pos(pos)
             self._draw_text_line(text_img, line["text"], v, y, font_size)
+        elif mode == "stacking":
+            sec = self._find_section(line_idx)
+            if sec:
+                section_pos = v.get("text_position", self.caption_style.get("text_position", "center"))
+                for li in sec["lines"]:
+                    if li > line_idx:
+                        break
+                    ld = self.synced["lines"][li]
+                    lv = self.get_visual(li, 0)
+                    line_y = int(self._resolve_word_y(lv, section_pos) * self.height)
+                    line_fs = int((lv.get("font_size", self.caption_style.get("font_size", 112))) * (self.height / 1080))
+                    self._draw_text_line(text_img, ld["text"], lv, line_y, line_fs)
         elif mode == "progressive":
             self._draw_progressive(text_img, line, line_idx, word_idx, v, font_size)
         else:
@@ -1146,6 +1158,18 @@ class VideoRenderer:
             pos = v.get("text_position", self.caption_style.get("text_position", "center"))
             y = self._y_for_pos(pos)
             self._draw_text_line(text_img, line["text"], v, y, font_size)
+        elif mode == "stacking":
+            sec = self._find_section(line_idx)
+            if sec:
+                section_pos = v.get("text_position", self.caption_style.get("text_position", "center"))
+                for li in sec["lines"]:
+                    if li > line_idx:
+                        break
+                    ld = self.synced["lines"][li]
+                    lv = self.get_visual(li, 0)
+                    line_y = int(self._resolve_word_y(lv, section_pos) * self.height)
+                    line_fs = int((lv.get("font_size", self.caption_style.get("font_size", 112))) * (self.height / 1080))
+                    self._draw_text_line(text_img, ld["text"], lv, line_y, line_fs)
         elif mode == "progressive":
             self._draw_progressive(text_img, line, line_idx, word_idx, v, font_size)
         else:

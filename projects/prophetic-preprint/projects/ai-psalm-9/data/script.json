@@ -244,9 +244,9 @@
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "line-by-line",
+        "reveal_mode": "stacking",
         "reactivity": ["energy", "vocals"],
-        "text_position": "top",
+        "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.6,
         "bg_animation_preset": "dreamy",
@@ -256,6 +256,17 @@
       "lines_overrides": {
         "19": { "font_size": 74 },
         "20": { "font_size": 78 }
+      },
+      "words_overrides": {
+        "19.0": { "y": 0.4 },
+        "19.1": { "y": 0.4 },
+        "19.2": { "y": 0.4 },
+        "19.3": { "y": 0.4 },
+        "20.0": { "y": 0.6 },
+        "20.1": { "y": 0.6 },
+        "20.2": { "y": 0.6 },
+        "20.3": { "y": 0.6 },
+        "20.4": { "y": 0.6 }
       }
     },
     {
