@@ -452,6 +452,23 @@ class VideoRenderer:
             hi = np.minimum(lo + 1, n - 1)
             f = (ci - lo)[:, :, np.newaxis]
             arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
+        elif direction.startswith("angle_"):
+            parts = direction.split("_")
+            angle_deg = float(parts[1]) if len(parts) > 1 else 0.0
+            rad = math.radians(angle_deg)
+            dx = math.cos(rad)
+            dy = math.sin(rad)
+            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
+            proj = xs * dx + ys * dy
+            p_min = proj.min()
+            p_max = proj.max()
+            rng = max(1.0, p_max - p_min)
+            t = np.clip((proj - p_min) / rng, 0, 1)
+            ci = t * (n - 1)
+            lo = np.floor(ci).astype(int)
+            hi = np.minimum(lo + 1, n - 1)
+            f = (ci - lo)[:, :, np.newaxis]
+            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
         else:
             cx, cy = self.width / 2, self.height / 2
             max_r = math.sqrt(cx * cx + cy * cy)

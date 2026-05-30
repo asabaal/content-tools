@@ -814,7 +814,7 @@ Styled text images are wider than tight font metrics due to glow padding. The la
 
 ## 11. Background System
 
-### Gradient Types (16 geometries)
+### Gradient Types (17+ geometries)
 
 | Type | Direction String | Description |
 |------|-----------------|-------------|
@@ -835,6 +835,7 @@ Styled text images are wider than tight font metrics due to glow padding. The la
 | Bands | `bands` | Horizontal color bands |
 | Cross | `cross` | Cruciform pattern from center |
 | Spiral | `spiral` | Spiral pattern from center |
+| Angular | `angle_<degrees>` | Freeform linear gradient at any angle (0-360). `angle_0` = left→right, `angle_90` = top→bottom, `angle_45` = diagonal |
 
 All gradients support 2-5 color stops with linear interpolation.
 

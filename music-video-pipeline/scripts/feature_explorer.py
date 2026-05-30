@@ -91,6 +91,21 @@ GRADIENT_DIRECTIONS = [
     "radial_center",
     "radial_top",
     "radial_bottom",
+    "radial_tl",
+    "radial_br",
+    "conic",
+    "conic_0.8",
+    "cross",
+    "diamond",
+    "spiral",
+    "bands",
+    "dual_spot_0.3_0.3_0.7_0.7",
+    "dual_spot_0.3_0.4_0.7_0.6",
+    "angle_0",
+    "angle_30",
+    "angle_45",
+    "angle_90",
+    "angle_135",
 ]
 
 GRAD_DIR_SHORT = {
@@ -103,6 +118,21 @@ GRAD_DIR_SHORT = {
     "radial_center": "rad_ctr",
     "radial_top": "rad_top",
     "radial_bottom": "rad_bot",
+    "radial_tl": "rad_tl",
+    "radial_br": "rad_br",
+    "conic": "conic",
+    "conic_0.8": "conic_08",
+    "cross": "cross",
+    "diamond": "diamond",
+    "spiral": "spiral",
+    "bands": "bands",
+    "dual_spot_0.3_0.3_0.7_0.7": "dual_sym",
+    "dual_spot_0.3_0.4_0.7_0.6": "dual_asym",
+    "angle_0": "ang_0",
+    "angle_30": "ang_30",
+    "angle_45": "ang_45",
+    "angle_90": "ang_90",
+    "angle_135": "ang_135",
 }
 
 TEXTURES = [
@@ -335,17 +365,26 @@ def gen_03_colors(r: Any, force: List[str]) -> dict:
 
 def gen_04_gradients(r: Any, force: List[str]) -> dict:
     cards = []
-    base = {**BASE_DEFAULTS, "background_type": "gradient", "gradient_colors": ["#4A90E2", "#C0392B"], "texture_type": "none"}
+    two_color = ["#4A90E2", "#C0392B"]
+    five_color = ["#0a0a2e", "#4A90E2", "#8E44AD", "#C0392B", "#1a1a4e"]
+    geometric = {
+        "conic", "conic_0.8", "cross", "diamond", "spiral", "bands",
+        "dual_spot_0.3_0.3_0.7_0.7", "dual_spot_0.3_0.4_0.7_0.6",
+    }
     for direction in GRADIENT_DIRECTIONS:
         short = GRAD_DIR_SHORT[direction]
         stem = f"grad_{short}"
-        defaults = {**base, "gradient_direction": direction}
+        if direction in geometric:
+            colors = five_color
+        else:
+            colors = two_color
+        defaults = {**BASE_DEFAULTS, "background_type": "gradient", "gradient_colors": colors, "texture_type": "none", "gradient_direction": direction}
         img, vid = _gen_variant(r, defaults, stem, force)
         print(f"  [04] {direction}")
         cards.append({"img": img, "video": vid, "label": direction.replace("_", " "), "config": {"gradient_direction": direction}})
     return {
-        "id": "04", "number": "04", "title": "Gradient Directions",
-        "desc": "All nine gradient directions using a blue-to-red two-color gradient.",
+        "id": "04", "number": "04", "title": "Gradient Geometries",
+        "desc": "All gradient geometries: linear, radial, conic, and geometric patterns. Geometric types use 5-color palettes for clarity.",
         "cards": cards,
     }
 
