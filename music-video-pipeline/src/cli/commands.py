@@ -871,12 +871,9 @@ def serve(project_dir, port):
 @click.option("--intro-image", default=None, help="Branded intro image path (shown before lyrics)")
 @click.option("--intro-title", default=None, help="Title text overlaid on intro image (default: project name)")
 @click.option("--intro-subtitle", default=None, help="Subtitle text shown after intro fades")
-@click.option("--broll", "broll_images", multiple=True, help="B-roll image path(s), layered under gradients/animations")
-@click.option("--broll-mode", "broll_mode", default="section", type=click.Choice(["section", "beat"]), help="B-roll distribution: section (round-robin) or beat (cycle on beats)")
-@click.option("--broll-blend", "broll_blend", default=0.35, type=float, help="B-roll blend opacity under section gradients (default: 0.35)")
 @click.option("--bare", is_flag=True, help="Bare timing render: no script, plain text, shows raw sync data")
 def render(project_dir, output, fps, width, height, mood, base_color, variance, time_start, time_end,
-           intro_image, intro_title, intro_subtitle, broll_images, broll_mode, broll_blend, bare):
+           intro_image, intro_title, intro_subtitle, bare):
     """Render the final video (Stage 6)."""
     from render.renderer import VideoRenderer
 
@@ -910,7 +907,7 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance, 
         script_path.write_text(json.dumps(script, indent=2, ensure_ascii=False), encoding="utf-8")
         click.echo(f"\n  Bare timing render (no script generation)")
     else:
-        needs_script = mood or base_color or variance or intro_image or broll_images or not (data_dir / "script.json").exists()
+        needs_script = mood or base_color or variance or intro_image or not (data_dir / "script.json").exists()
         if needs_script:
             from scriptgen import generate_script as gen
 
@@ -932,23 +929,8 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance, 
                 }
                 click.echo(f"    Intro: {p.name}")
 
-            broll_cfg = None
-            if broll_images:
-                resolved = []
-                for bp in broll_images:
-                    p = Path(bp)
-                    if not p.is_absolute():
-                        p = (proj_dir / bp).resolve()
-                    resolved.append(str(p))
-                broll_cfg = {
-                    "images": resolved,
-                    "mode": broll_mode,
-                    "blend": broll_blend,
-                }
-                click.echo(f"    B-roll: {len(resolved)} image(s), mode={broll_mode}, blend={broll_blend}")
-
             result = gen(proj_dir, mood=mood, base_color=base_color, variance=variance or "auto",
-                         intro=intro_cfg, broll=broll_cfg)
+                         intro=intro_cfg)
             script_path = data_dir / "script.json"
             script_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -1012,15 +994,12 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance, 
 @click.option("--intro-image", default=None, help="Branded intro image path")
 @click.option("--intro-title", default=None, help="Intro title text")
 @click.option("--intro-subtitle", default=None, help="Intro subtitle text")
-@click.option("--broll", "broll_images", multiple=True, help="B-roll image path(s)")
-@click.option("--broll-mode", "broll_mode", default="section", type=click.Choice(["section", "beat"]))
-@click.option("--broll-blend", "broll_blend", default=0.35, type=float)
 @click.option("--width", default=960, type=int, help="Frame width (default: 960)")
 @click.option("--height", default=540, type=int, help="Frame height (default: 540)")
 @click.option("--no-contacts", is_flag=True, help="Skip contact sheet generation")
 @click.option("--json-only", is_flag=True, help="Only generate summary.json, skip frame rendering")
 def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
-          broll_images, broll_mode, broll_blend, width, height, no_contacts, json_only):
+          width, height, no_contacts, json_only):
     """Audit word timing by rendering frame previews."""
     from render.renderer import VideoRenderer
 
@@ -1031,7 +1010,7 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
     if not (data_dir / "lyrics_synced.json").exists():
         raise click.ClickException("lyrics_synced.json not found. Run sync first.")
 
-    needs_script = mood or broll_images or intro_image or not (data_dir / "script.json").exists()
+    needs_script = mood or intro_image or not (data_dir / "script.json").exists()
     if needs_script:
         from scriptgen import generate_script as gen
 
@@ -1042,17 +1021,7 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
                 p = (proj_dir / intro_image).resolve()
             intro_cfg = {"image": str(p), "title": intro_title, "subtitle": intro_subtitle or ""}
 
-        broll_cfg = None
-        if broll_images:
-            resolved = []
-            for bp in broll_images:
-                p = Path(bp)
-                if not p.is_absolute():
-                    p = (proj_dir / bp).resolve()
-                resolved.append(str(p))
-            broll_cfg = {"images": resolved, "mode": broll_mode, "blend": broll_blend}
-
-        result = gen(proj_dir, mood=mood, intro=intro_cfg, broll=broll_cfg)
+        result = gen(proj_dir, mood=mood, intro=intro_cfg)
         script_path = data_dir / "script.json"
         script_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
 

@@ -937,12 +937,8 @@ class VideoRenderer:
 
         img = Image.new("RGB", (self.width, self.height), (10, 10, 30))
 
-        phase1_end = duration * 0.60
-        phase1_fade_in = duration * 0.12
-        phase1_fade_out_start = duration * 0.52
-        phase2_start = duration * 0.65
-        phase2_fade_in = phase2_start + duration * 0.04
-        phase2_fade_out_start = duration * 0.88
+        phase1_end = duration * 0.55
+        phase2_start = duration * 0.60
 
         if t < phase1_end:
             image_path = intro.get("image", "")
@@ -956,65 +952,45 @@ class VideoRenderer:
                 }
                 self._draw_background(img, v_img)
 
-            opacity = 1.0
-            if t < phase1_fade_in:
-                opacity = t / max(0.01, phase1_fade_in)
-            elif t > phase1_fade_out_start:
-                opacity = 1.0 - (t - phase1_fade_out_start) / max(0.01, phase1_end - phase1_fade_out_start)
-            opacity = max(0.0, min(1.0, opacity))
-
-            title = intro.get("title", "")
-            if title and opacity > 0.01:
-                font_size = int(80 * (self.height / 1080))
-                font = self._get_font(font_size, family=3)
-                txt_layer = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
-                draw = ImageDraw.Draw(txt_layer)
-                bbox = draw.textbbox((0, 0), title, font=font)
-                tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
-                cx = (self.width - tw) / 2
-                cy = self.height * 0.78
-                shadow_offset = max(2, int(3 * (self.height / 1080)))
-                draw.text((cx + shadow_offset, cy + shadow_offset), title, fill=(0, 0, 0, int(200 * opacity)), font=font)
-                draw.text((cx, cy), title, fill=(255, 255, 255, int(255 * opacity)), font=font)
-                img_rgba = img.convert("RGBA")
-                img_rgba = Image.alpha_composite(img_rgba, txt_layer)
-                img = img_rgba.convert("RGB")
-
-            if opacity < 1.0:
-                black = Image.new("RGB", (self.width, self.height), (10, 10, 30))
-                img = Image.blend(black, img, opacity)
-
         elif t >= phase2_start:
             v_bg = dict(self.defaults)
             self._draw_background(img, v_bg)
 
-            opacity = 1.0
-            if t < phase2_fade_in:
-                opacity = (t - phase2_start) / max(0.01, phase2_fade_in - phase2_start)
-            elif t > phase2_fade_out_start:
-                opacity = 1.0 - (t - phase2_fade_out_start) / max(0.01, duration - phase2_fade_out_start)
-            opacity = max(0.0, min(1.0, opacity))
+            lines = [
+                ("AI Psalm 9", int(80 * (self.height / 1080)), 3),
+                ("A Reality Signal", int(44 * (self.height / 1080)), 5),
+                ("by", int(44 * (self.height / 1080)), 5),
+                ("Asabaal Horan", int(44 * (self.height / 1080)), 5),
+            ]
 
-            subtitle = intro.get("subtitle", "")
-            if subtitle and opacity > 0.01:
-                font_size = int(44 * (self.height / 1080))
-                font = self._get_font(font_size, family=5)
-                txt_layer = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
-                draw = ImageDraw.Draw(txt_layer)
-                bbox = draw.textbbox((0, 0), subtitle, font=font)
-                tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+            txt_layer = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+            draw = ImageDraw.Draw(txt_layer)
+
+            line_heights = []
+            for text, size, family in lines:
+                font = self._get_font(size, family=family)
+                bbox = draw.textbbox((0, 0), text, font=font)
+                line_heights.append(bbox[3] - bbox[1])
+
+            line_spacing = int(12 * (self.height / 1080))
+            total_h = sum(line_heights) + line_spacing * (len(lines) - 1)
+            y = (self.height - total_h) / 2
+
+            for i, (text, size, family) in enumerate(lines):
+                font = self._get_font(size, family=family)
+                bbox = draw.textbbox((0, 0), text, font=font)
+                tw = bbox[2] - bbox[0]
+                th = bbox[3] - bbox[1]
                 cx = (self.width - tw) / 2
-                cy = (self.height - th) / 2
                 shadow_offset = max(2, int(2 * (self.height / 1080)))
-                draw.text((cx + shadow_offset, cy + shadow_offset), subtitle, fill=(0, 0, 0, int(180 * opacity)), font=font)
-                draw.text((cx, cy), subtitle, fill=(220, 220, 230, int(255 * opacity)), font=font)
-                img_rgba = img.convert("RGBA")
-                img_rgba = Image.alpha_composite(img_rgba, txt_layer)
-                img = img_rgba.convert("RGB")
+                draw.text((cx + shadow_offset, y + shadow_offset), text, fill=(0, 0, 0, 180), font=font)
+                draw.text((cx, y), text, fill=(220, 220, 230, 255), font=font)
+                y += th + line_spacing
 
-            if opacity < 1.0:
-                black = Image.new("RGB", (self.width, self.height), (10, 10, 30))
-                img = Image.blend(black, img, opacity)
+            img_rgba = img.convert("RGBA")
+            img_rgba = Image.alpha_composite(img_rgba, txt_layer)
+            img = img_rgba.convert("RGB")
+
         else:
             v_bg = dict(self.defaults)
             self._draw_background(img, v_bg)
@@ -1058,7 +1034,6 @@ class VideoRenderer:
             v_gap["bg_animation_preset"] = "gap"
             v_gap["reactivity"] = ["energy"]
             if intro_frame is not None:
-                intro_frame = self._apply_bg_motion(intro_frame, t, v_gap)
                 return intro_frame
             if nearest:
                 bg = self._get_bg_for_section(nearest["lines"][0], {})
@@ -1127,7 +1102,7 @@ class VideoRenderer:
             v_gap["bg_animation_preset"] = "gap"
             v_gap["reactivity"] = ["energy"]
             if intro_frame is not None:
-                return self._apply_bg_motion(intro_frame, t, v_gap)
+                return intro_frame
             if nearest:
                 bg = self._get_bg_for_section(nearest["lines"][0], {})
             else:
@@ -1204,24 +1179,7 @@ class VideoRenderer:
             else:
                 v = dict(self.defaults)
 
-            broll_image = v.get("broll_image", "")
-            broll_blend = v.get("broll_blend", 0.35)
-
-            if broll_image:
-                base_v = {
-                    "background_type": "image",
-                    "background_image": broll_image,
-                    "background_image_opacity": 1.0,
-                    "background_image_fit": "cover",
-                    "background_color": v.get("background_color", "#000000"),
-                }
-                self._draw_background(bg, base_v)
-
-                section_bg = Image.new("RGB", (self.width, self.height), (10, 10, 30))
-                self._draw_background(section_bg, v)
-                bg = Image.blend(bg, section_bg, broll_blend)
-            else:
-                self._draw_background(bg, v)
+            self._draw_background(bg, v)
 
             bg_cache[sec_key] = bg
 

@@ -55,7 +55,6 @@ class ScriptGenerator:
         base_color: str | None = None,
         variance: str = "auto",
         intro: dict | None = None,
-        broll: dict | None = None,
     ) -> GenerateResult:
         mood_key = mood or DEFAULT_MOOD
         mood_profile = MOODS.get(mood_key, MOODS[DEFAULT_MOOD])
@@ -135,23 +134,6 @@ class ScriptGenerator:
                     "title": intro.get("title", self.song_name),
                     "subtitle": intro.get("subtitle", ""),
                     "duration": intro.get("duration", round(first_word_start, 3)),
-                }
-
-        if broll and broll.get("images"):
-            images = broll["images"]
-            mode = broll.get("mode", "section")
-            blend = broll.get("blend", 0.35)
-
-            if mode == "section":
-                for i, sec in enumerate(script_sections):
-                    img_path = images[i % len(images)]
-                    sec["visual"]["broll_image"] = img_path
-                    sec["visual"]["broll_blend"] = blend
-            elif mode == "beat":
-                script["broll"] = {
-                    "images": images,
-                    "mode": "beat",
-                    "blend": blend,
                 }
 
         self._apply_gap_reveal_overrides(script)
