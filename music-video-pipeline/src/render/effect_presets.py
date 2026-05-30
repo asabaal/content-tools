@@ -116,6 +116,17 @@ PRESETS: Dict[str, EffectPreset] = {
         ],
         audio_reactivity=["energy"],
     ),
+    "gap": EffectPreset(
+        name="gap",
+        effects=[
+            {"effect": "ken_burns", "params": {"speed": 0.18, "max_zoom": 1.06, "drift": 25.0}},
+            {"effect": "color_drift", "params": {"speed": 0.2, "hue_range": 15.0, "sat_pulse": 0.15}},
+            {"effect": "bokeh_particles", "params": {"count": 12, "speed": 0.5, "color": [255, 255, 255], "max_radius": 40, "max_alpha": 0.25}},
+            {"effect": "brightness_pulse", "params": {"speed": 1.5}},
+            {"effect": "radial_pulse", "params": {"speed": 0.6, "max_alpha": 0.15}},
+        ],
+        audio_reactivity=["energy"],
+    ),
 }
 
 PRESET_BY_SECTION = {

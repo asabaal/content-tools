@@ -426,7 +426,7 @@ class VideoRenderer:
             ci = np.clip(ys / band_h, 0, n - 1.001)
             lo = np.floor(ci).astype(int)
             hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, np.newaxis, np.newaxis]
+            f = (ci - lo)[:, np.newaxis]
             row_colors = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
             arr = np.broadcast_to(row_colors[:, np.newaxis, :], (self.height, self.width, 3)).copy()
         elif direction == "cross":
@@ -989,27 +989,54 @@ class VideoRenderer:
 
         return img
 
+    def _find_nearest_section(self, t: float) -> Optional[Dict]:
+        best_sec = None
+        best_dist = float("inf")
+        for sec in self.script.get("sections", []):
+            lines = sec.get("lines", [])
+            if not lines:
+                continue
+            first_line = self.synced["lines"][lines[0]]
+            last_line = self.synced["lines"][lines[-1]]
+            sec_start = first_line.get("words", [{}])[0].get("start", 0)
+            last_words = last_line.get("words", [{}])
+            sec_end = last_words[-1].get("end", 0) if last_words else 0
+            if t < sec_start:
+                dist = sec_start - t
+            elif t > sec_end:
+                dist = t - sec_end
+            else:
+                return sec
+            if dist < best_dist:
+                best_dist = dist
+                best_sec = sec
+        return best_sec
+
     def render_frame(self, t: float) -> Image.Image:
         img = Image.new("RGB", (self.width, self.height), (10, 10, 30))
         line_idx, word_idx = self._find_active_word(t)
 
         if line_idx < 0:
             intro_frame = self._render_intro_frame(t)
+            nearest = self._find_nearest_section(t)
+            v_gap = dict(self.defaults)
+            if nearest:
+                nv = nearest.get("visual", {})
+                v_gap.update(nv)
+            v_gap["bg_animation_preset"] = "gap"
+            v_gap["reactivity"] = ["energy"]
             if intro_frame is not None:
-                intro_frame = self._apply_bg_motion(intro_frame, t, dict(self.defaults))
+                intro_frame = self._apply_bg_motion(intro_frame, t, v_gap)
                 return intro_frame
-            v = dict(self.defaults)
-            if not v.get("bg_animation_preset"):
-                sections = self.script.get("sections", [])
-                if sections:
-                    sv = sections[0].get("visual", {})
-                    v["bg_animation_preset"] = sv.get("bg_animation_preset", "ambient")
-                    v["reactivity"] = sv.get("reactivity", ["energy"])
-                else:
-                    v["bg_animation_preset"] = "ambient"
-                    v["reactivity"] = ["energy"]
-            self._draw_background(img, v)
-            img = self._apply_bg_motion(img, t, v)
+            if nearest:
+                bg = self._get_bg_for_section(nearest["lines"][0], {})
+            else:
+                bg = img
+                self._draw_background(bg, v_gap)
+            arr = np.array(bg, dtype=np.float32)
+            arr = np.clip(arr * 2.5, 0, 255).astype(np.uint8)
+            img = Image.fromarray(arr)
+            img = self._apply_bg_motion(img, t, v_gap)
             return img
 
         v = self.get_visual(line_idx, word_idx)
@@ -1060,19 +1087,22 @@ class VideoRenderer:
     def _render_text_on_bg(self, bg: Image.Image, line_idx: int, word_idx: int, t: float = 0.0) -> Image.Image:
         if line_idx < 0:
             intro_frame = self._render_intro_frame(t)
+            nearest = self._find_nearest_section(t)
             v_gap = dict(self.defaults)
-            if not v_gap.get("bg_animation_preset"):
-                sections = self.script.get("sections", [])
-                if sections:
-                    sv = sections[0].get("visual", {})
-                    v_gap["bg_animation_preset"] = sv.get("bg_animation_preset", "ambient")
-                    v_gap["reactivity"] = sv.get("reactivity", ["energy"])
-                else:
-                    v_gap["bg_animation_preset"] = "ambient"
-                    v_gap["reactivity"] = ["energy"]
+            if nearest:
+                nv = nearest.get("visual", {})
+                v_gap.update(nv)
+            v_gap["bg_animation_preset"] = "gap"
+            v_gap["reactivity"] = ["energy"]
             if intro_frame is not None:
                 return self._apply_bg_motion(intro_frame, t, v_gap)
-            img = bg.copy()
+            if nearest:
+                bg = self._get_bg_for_section(nearest["lines"][0], {})
+            else:
+                bg = bg.copy()
+            arr = np.array(bg, dtype=np.float32)
+            arr = np.clip(arr * 2.5, 0, 255).astype(np.uint8)
+            img = Image.fromarray(arr)
             img = self._apply_bg_motion(img, t, v_gap)
             return img
 
@@ -1161,7 +1191,6 @@ class VideoRenderer:
             else:
                 self._draw_background(bg, v)
 
-            self._draw_texture(bg, v)
             bg_cache[sec_key] = bg
 
         return bg_cache[sec_key]
