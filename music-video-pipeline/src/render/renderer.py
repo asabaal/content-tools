@@ -339,6 +339,7 @@ class VideoRenderer:
         arr = np.zeros((self.height, self.width, 3), dtype=np.uint8)
         rgbs = [_hex_to_rgb(c) for c in colors]
         n = len(rgbs)
+        rgb_arr = np.array(rgbs, dtype=np.float32)
 
         if direction in ("vertical_top_bottom", "vertical_bottom_top"):
             for y in range(self.height):
@@ -380,6 +381,77 @@ class VideoRenderer:
                     g = int(rgbs[lo][1] * (1 - f) + rgbs[hi][1] * f)
                     b = int(rgbs[lo][2] * (1 - f) + rgbs[hi][2] * f)
                     arr[y, x] = [r, g, b]
+        elif direction.startswith("conic"):
+            cx, cy = self.width / 2.0, self.height / 2.0
+            parts = direction.split("_")
+            offset = float(parts[2]) if len(parts) > 2 else 0.0
+            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
+            angles = np.arctan2(ys - cy, xs - cx) + np.pi + offset
+            t = (angles % (2 * np.pi)) / (2 * np.pi)
+            ci = t * (n - 1)
+            lo = np.floor(ci).astype(int)
+            hi = np.minimum(lo + 1, n - 1)
+            f = (ci - lo)[:, :, np.newaxis]
+            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
+        elif direction == "diamond":
+            cx, cy = self.width / 2.0, self.height / 2.0
+            max_d = (cx + cy)
+            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
+            dist = np.abs(xs - cx) + np.abs(ys - cy)
+            t = np.clip(dist / max_d, 0, 1)
+            ci = t * (n - 1)
+            lo = np.floor(ci).astype(int)
+            hi = np.minimum(lo + 1, n - 1)
+            f = (ci - lo)[:, :, np.newaxis]
+            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
+        elif direction.startswith("dual_spot"):
+            parts = direction.split("_")
+            sx1 = float(parts[2]) if len(parts) > 2 else 0.25
+            sy1 = float(parts[3]) if len(parts) > 3 else 0.25
+            sx2 = float(parts[4]) if len(parts) > 4 else 0.75
+            sy2 = float(parts[5]) if len(parts) > 5 else 0.75
+            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
+            max_r = math.sqrt((self.width / 2) ** 2 + (self.height / 2) ** 2)
+            d1 = np.sqrt((xs / self.width - sx1) ** 2 + (ys / self.height - sy1) ** 2)
+            d2 = np.sqrt((xs / self.width - sx2) ** 2 + (ys / self.height - sy2) ** 2)
+            t = np.clip(np.minimum(d1, d2) * 2, 0, 1)
+            ci = t * (n - 1)
+            lo = np.floor(ci).astype(int)
+            hi = np.minimum(lo + 1, n - 1)
+            f = (ci - lo)[:, :, np.newaxis]
+            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
+        elif direction == "bands":
+            ys = np.arange(self.height, dtype=np.float32)
+            band_h = self.height / max(1, n - 1)
+            ci = np.clip(ys / band_h, 0, n - 1.001)
+            lo = np.floor(ci).astype(int)
+            hi = np.minimum(lo + 1, n - 1)
+            f = (ci - lo)[:, np.newaxis, np.newaxis]
+            row_colors = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
+            arr = np.broadcast_to(row_colors[:, np.newaxis, :], (self.height, self.width, 3)).copy()
+        elif direction == "cross":
+            cx, cy = self.width / 2.0, self.height / 2.0
+            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
+            dx = np.abs(xs - cx) / cx
+            dy = np.abs(ys - cy) / cy
+            t = np.clip(np.minimum(dx, dy) * 1.5, 0, 1)
+            ci = t * (n - 1)
+            lo = np.floor(ci).astype(int)
+            hi = np.minimum(lo + 1, n - 1)
+            f = (ci - lo)[:, :, np.newaxis]
+            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
+        elif direction == "spiral":
+            cx, cy = self.width / 2.0, self.height / 2.0
+            max_r = math.sqrt(cx * cx + cy * cy)
+            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
+            dist = np.sqrt((xs - cx) ** 2 + (ys - cy) ** 2) / max_r
+            angles = np.arctan2(ys - cy, xs - cx)
+            t = np.clip((dist + angles / (2 * np.pi) * 0.5) % 1.0, 0, 1)
+            ci = t * (n - 1)
+            lo = np.floor(ci).astype(int)
+            hi = np.minimum(lo + 1, n - 1)
+            f = (ci - lo)[:, :, np.newaxis]
+            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
         else:
             cx, cy = self.width / 2, self.height / 2
             max_r = math.sqrt(cx * cx + cy * cy)
@@ -388,6 +460,10 @@ class VideoRenderer:
                 dist = np.sqrt((xs - cx) ** 2 + ys ** 2)
             elif direction == "radial_bottom":
                 dist = np.sqrt((xs - cx) ** 2 + (ys - self.height) ** 2)
+            elif direction == "radial_tl":
+                dist = np.sqrt(xs ** 2 + ys ** 2)
+            elif direction == "radial_br":
+                dist = np.sqrt((xs - self.width) ** 2 + (ys - self.height) ** 2)
             else:
                 dist = np.sqrt((xs - cx) ** 2 + (ys - cy) ** 2)
             t = np.clip(dist / max_r, 0, 1)
@@ -399,7 +475,6 @@ class VideoRenderer:
                 f = f[:, :, np.newaxis]
             elif f.ndim == 0:
                 f = np.array([[[float(f)]]])
-            rgb_arr = np.array(rgbs, dtype=np.float32)
             blended = rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f
             arr = np.clip(blended, 0, 255).astype(np.uint8)
 
