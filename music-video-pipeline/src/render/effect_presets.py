@@ -25,7 +25,7 @@ PRESETS: Dict[str, EffectPreset] = {
         effects=[
             {"effect": "zoom_pulse", "params": {"intensity": 0.03, "speed": 0.5}},
             {"effect": "color_shift", "params": {"hue_shift": 5.0}},
-            {"effect": "vignette_pulse", "params": {"intensity": 0.3}},
+            {"effect": "vignette_pulse", "params": {"intensity": 0.15}},
         ],
         audio_reactivity=["energy"],
     ),
@@ -42,7 +42,7 @@ PRESETS: Dict[str, EffectPreset] = {
         effects=[
             {"effect": "wave_distortion", "params": {"intensity": 2.0, "speed": 0.5}},
             {"effect": "zoom_blur", "params": {"intensity": 0.01}},
-            {"effect": "vignette_pulse", "params": {"intensity": 0.4}},
+            {"effect": "vignette_pulse", "params": {"intensity": 0.2}},
         ],
         audio_reactivity=["energy"],
     ),
@@ -71,7 +71,7 @@ PRESETS: Dict[str, EffectPreset] = {
         name="smooth",
         effects=[
             {"effect": "zoom_pulse", "params": {"intensity": 0.02, "speed": 0.3}},
-            {"effect": "vignette_pulse", "params": {"intensity": 0.2}},
+            {"effect": "vignette_pulse", "params": {"intensity": 0.1}},
         ],
         audio_reactivity=["energy"],
     ),

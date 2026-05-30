@@ -673,7 +673,7 @@ class VideoRenderer:
                 delta = word_v.get("font_size_delta", 0)
                 if delta:
                     word_size = max(24, word_size + int(delta * (self.height / 1080)))
-                opacity = 1.0 if is_active else 0.5
+                opacity = 1.0 if is_active else 0.75
                 styled = self._get_styled_text(w["text"], text_style, word_size, font_family).copy()
                 sw, sh = styled.size
                 px = int(cx - sw / 2)
@@ -755,7 +755,7 @@ class VideoRenderer:
                 delta = word_v.get("font_size_delta", 0)
                 if delta:
                     word_size = max(24, word_size + int(delta * (self.height / 1080)))
-                opacity = 1.0 if is_active else 0.6
+                opacity = 1.0 if is_active else 0.8
                 styled = self._get_styled_text(words[idx]["text"], text_style, word_size, font_family).copy()
                 sw, sh = styled.size
                 px = int(cx - sw / 2)

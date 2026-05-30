@@ -139,18 +139,21 @@ def _generate_neon(text: str, size: int, family: int = 0) -> np.ndarray:
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
     layers = [
-        ((100, 0, 100), 25, 40),
-        ((200, 0, 200), 15, 60),
-        ((255, 100, 255), 8, 80),
-        ((255, 0, 255), 3, 100),
+        ((100, 0, 100), 18, 100),
+        ((200, 0, 200), 10, 140),
+        ((255, 80, 220), 5, 180),
+        ((255, 40, 200), 2, 220),
     ]
     for color, blur_r, alpha_val in reversed(layers):
         glow = _apply_glow(base, color, blur_r, alpha_val)
         _composite(canvas, glow, pad, pad)
 
-    white = base.copy()
-    white[:, :, :3] = 255
-    _composite(canvas, white, pad, pad)
+    core = base.copy()
+    core[:, :, 0] = 255
+    core[:, :, 1] = 120
+    core[:, :, 2] = 230
+    core[:, :, 3] = np.where(core[:, :, 3] > 0, 255, 0)
+    _composite(canvas, core, pad, pad)
     return canvas
 
 
@@ -189,20 +192,27 @@ def _generate_chrome(text: str, size: int, family: int = 0) -> np.ndarray:
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
+    glow = _apply_glow(base, (160, 60, 255), 14, 160)
+    _composite(canvas, glow, pad, pad)
+
     colored = base.copy()
     alpha_mask = colored[:, :, 3] > 0
     for row in range(colored.shape[0]):
         progress = row / max(1, colored.shape[0] - 1)
-        val = int(80 + 120 * math.sin(progress * math.pi))
-        colored[row, alpha_mask[row], 0] = val
-        colored[row, alpha_mask[row], 1] = val
-        colored[row, alpha_mask[row], 2] = min(255, val + 20)
+        sin_val = math.sin(progress * math.pi)
+        colored[row, alpha_mask[row], 0] = int(180 + 75 * sin_val)
+        colored[row, alpha_mask[row], 1] = int(60 + 40 * sin_val)
+        colored[row, alpha_mask[row], 2] = int(220 + 35 * sin_val)
 
     if h > 4:
         q1 = h // 4
         q3 = 3 * h // 4
-        colored[q1, alpha_mask[q1], :3] = 255
-        colored[q3, alpha_mask[q3], :3] = 255
+        colored[q1, alpha_mask[q1], 0] = 255
+        colored[q1, alpha_mask[q1], 1] = 200
+        colored[q1, alpha_mask[q1], 2] = 255
+        colored[q3, alpha_mask[q3], 0] = 255
+        colored[q3, alpha_mask[q3], 1] = 200
+        colored[q3, alpha_mask[q3], 2] = 255
 
     _composite(canvas, colored, pad, pad)
     return canvas
@@ -243,23 +253,16 @@ def _generate_ice(text: str, size: int, family: int = 0) -> np.ndarray:
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
-    glow = _apply_glow(base, (100, 150, 255), 15, 140)
+    glow = _apply_glow(base, (40, 100, 255), 18, 180)
     _composite(canvas, glow, pad, pad)
 
     colored = base.copy()
     alpha_mask = colored[:, :, 3] > 0
     for row in range(colored.shape[0]):
         progress = row / max(1, colored.shape[0] - 1)
-        colored[row, alpha_mask[row], 0] = int(150 + 105 * progress)
-        colored[row, alpha_mask[row], 1] = int(200 + 55 * progress)
+        colored[row, alpha_mask[row], 0] = int(40 + 40 * progress)
+        colored[row, alpha_mask[row], 1] = int(140 + 40 * progress)
         colored[row, alpha_mask[row], 2] = 255
-
-    rng = random.Random(42)
-    for _ in range(h // 10):
-        rx = rng.randint(0, w - 1)
-        ry = rng.randint(0, h - 1)
-        if alpha_mask[ry, rx]:
-            cv2.circle(colored, (rx, ry), 2, (255, 255, 255, 255), -1)
 
     _composite(canvas, colored, pad, pad)
     return canvas
@@ -271,7 +274,7 @@ def _generate_gold(text: str, size: int, family: int = 0) -> np.ndarray:
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
-    glow = _apply_glow(base, (255, 200, 50), 20, 160)
+    glow = _apply_glow(base, (255, 220, 80), 18, 200)
     _composite(canvas, glow, pad, pad)
 
     colored = base.copy()
@@ -279,9 +282,9 @@ def _generate_gold(text: str, size: int, family: int = 0) -> np.ndarray:
     for row in range(colored.shape[0]):
         progress = row / max(1, colored.shape[0] - 1)
         sin_val = math.sin(progress * math.pi)
-        colored[row, alpha_mask[row], 0] = int(200 + 55 * sin_val)
-        colored[row, alpha_mask[row], 1] = int(150 + 55 * sin_val)
-        colored[row, alpha_mask[row], 2] = int(50 + 30 * sin_val)
+        colored[row, alpha_mask[row], 0] = int(230 + 25 * sin_val)
+        colored[row, alpha_mask[row], 1] = int(200 + 40 * sin_val)
+        colored[row, alpha_mask[row], 2] = int(80 + 40 * sin_val)
 
     _composite(canvas, colored, pad, pad)
     return canvas
@@ -289,25 +292,25 @@ def _generate_gold(text: str, size: int, family: int = 0) -> np.ndarray:
 
 def _generate_hologram(text: str, size: int, family: int = 0) -> np.ndarray:
     base = _create_base_text(text, size, family=family)
-    pad = 60
+    pad = 50
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
-    glow = _apply_glow(base, (0, 255, 255), 25, 120)
+    glow = _apply_glow(base, (0, 255, 180), 14, 180)
     _composite(canvas, glow, pad, pad)
 
     colored = base.copy()
     alpha_mask = colored[:, :, 3] > 0
-    colored[alpha_mask, 0] = 0
+    colored[alpha_mask, 0] = 50
     colored[alpha_mask, 1] = 255
-    colored[alpha_mask, 2] = 255
+    colored[alpha_mask, 2] = 180
     colored[alpha_mask, 3] = 255
 
-    for row in range(0, h, 3):
-        colored[row, alpha_mask[row], 3] = 180
+    for row in range(0, h, 4):
+        colored[row, alpha_mask[row], 3] = 240
 
     rng = random.Random(42)
-    noise = np.array([rng.random() * 0.15 + 0.85 for _ in range(colored.size // 4)], dtype=np.float32).reshape(colored.shape[:2])
+    noise = np.array([rng.random() * 0.05 + 0.95 for _ in range(colored.size // 4)], dtype=np.float32).reshape(colored.shape[:2])
     colored[:, :, 3] = (colored[:, :, 3].astype(np.float32) * noise).clip(0, 255).astype(np.uint8)
 
     _composite(canvas, colored, pad, pad)
