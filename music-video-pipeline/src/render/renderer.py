@@ -494,15 +494,41 @@ class VideoRenderer:
             return int(self.height * 0.8)
         return self.height // 2
 
+    def _apply_bg_motion(self, img: Image.Image, t: float, v: Dict) -> Image.Image:
+        preset_name = v.get("bg_animation_preset", "")
+        if not preset_name:
+            return img
+        preset = get_preset(preset_name)
+        reactivity = v.get("reactivity", [])
+        audio = self._get_audio_at(t)
+
+        full_h, full_w = self.height, self.width
+        scale = 2
+        small_h, small_w = full_h // scale, full_w // scale
+
+        arr = np.array(img)
+        arr = cv2.cvtColor(arr, cv2.COLOR_RGB2BGR)
+        arr = cv2.resize(arr, (small_w, small_h), interpolation=cv2.INTER_AREA)
+
+        for eff in preset.effects:
+            arr = apply_frame_effect(arr, eff["effect"], t, eff.get("params"))
+
+        if reactivity:
+            arr = apply_audio_effects(arr, audio, t, reactivity)
+
+        arr = cv2.resize(arr, (full_w, full_h), interpolation=cv2.INTER_LINEAR)
+        arr = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
+        return Image.fromarray(arr)
+
     def _frame_is_unique(self, line_idx: int) -> bool:
         if line_idx < 0:
-            return False
+            return True
         v = self.get_visual(line_idx, 0)
         if v.get("animation_type", "none") != "none":
             return True
         if v.get("bg_animation_preset", ""):
             return True
-        return False
+        return True
 
     def _has_styled_text(self, v: Dict) -> bool:
         ts = v.get("text_style", "")
@@ -895,13 +921,25 @@ class VideoRenderer:
         if line_idx < 0:
             intro_frame = self._render_intro_frame(t)
             if intro_frame is not None:
+                intro_frame = self._apply_bg_motion(intro_frame, t, dict(self.defaults))
                 return intro_frame
             v = dict(self.defaults)
+            if not v.get("bg_animation_preset"):
+                sections = self.script.get("sections", [])
+                if sections:
+                    sv = sections[0].get("visual", {})
+                    v["bg_animation_preset"] = sv.get("bg_animation_preset", "ambient")
+                    v["reactivity"] = sv.get("reactivity", ["energy"])
+                else:
+                    v["bg_animation_preset"] = "ambient"
+                    v["reactivity"] = ["energy"]
             self._draw_background(img, v)
+            img = self._apply_bg_motion(img, t, v)
             return img
 
         v = self.get_visual(line_idx, word_idx)
         self._draw_background(img, v)
+        img = self._apply_bg_motion(img, t, v)
 
         line = self.synced["lines"][line_idx]
         font_size = int((v.get("font_size", self.caption_style.get("font_size", 112))) * (self.height / 1080))
@@ -942,39 +980,32 @@ class VideoRenderer:
         img_rgba = Image.alpha_composite(img_rgba, text_img)
         img = img_rgba.convert("RGB")
 
-        reactivity = v.get("reactivity", [])
-        bg_preset = v.get("bg_animation_preset", "")
-        needs_cv2 = bool(reactivity) or bool(bg_preset)
-
-        if needs_cv2:
-            audio = self._get_audio_at(t)
-            arr = np.array(img)
-            arr = cv2.cvtColor(arr, cv2.COLOR_RGB2BGR)
-
-            if reactivity:
-                arr = apply_audio_effects(arr, audio, t, reactivity)
-
-            if bg_preset:
-                preset = get_preset(bg_preset)
-                for eff in preset.effects:
-                    arr = apply_frame_effect(arr, eff["effect"], t, eff.get("params"))
-
-            arr = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
-            img = Image.fromarray(arr)
-
         return img
 
     def _render_text_on_bg(self, bg: Image.Image, line_idx: int, word_idx: int, t: float = 0.0) -> Image.Image:
         if line_idx < 0:
             intro_frame = self._render_intro_frame(t)
+            v_gap = dict(self.defaults)
+            if not v_gap.get("bg_animation_preset"):
+                sections = self.script.get("sections", [])
+                if sections:
+                    sv = sections[0].get("visual", {})
+                    v_gap["bg_animation_preset"] = sv.get("bg_animation_preset", "ambient")
+                    v_gap["reactivity"] = sv.get("reactivity", ["energy"])
+                else:
+                    v_gap["bg_animation_preset"] = "ambient"
+                    v_gap["reactivity"] = ["energy"]
             if intro_frame is not None:
-                return intro_frame
-            return bg.copy()
+                return self._apply_bg_motion(intro_frame, t, v_gap)
+            img = bg.copy()
+            img = self._apply_bg_motion(img, t, v_gap)
+            return img
 
         img = bg.copy()
+        v = self.get_visual(line_idx, word_idx)
+        img = self._apply_bg_motion(img, t, v)
 
         line = self.synced["lines"][line_idx]
-        v = self.get_visual(line_idx, word_idx)
         font_size = int((v.get("font_size", self.caption_style.get("font_size", 112))) * (self.height / 1080))
         font_family = v.get("font_family", 0)
         _, font_size = self._scale_font_to_fill(
@@ -1012,26 +1043,6 @@ class VideoRenderer:
         img_rgba = img.convert("RGBA")
         img_rgba = Image.alpha_composite(img_rgba, text_img)
         img = img_rgba.convert("RGB")
-
-        reactivity = v.get("reactivity", [])
-        bg_preset = v.get("bg_animation_preset", "")
-        needs_cv2 = bool(reactivity) or bool(bg_preset)
-
-        if needs_cv2:
-            audio = self._get_audio_at(t)
-            arr = np.array(img)
-            arr = cv2.cvtColor(arr, cv2.COLOR_RGB2BGR)
-
-            if reactivity:
-                arr = apply_audio_effects(arr, audio, t, reactivity)
-
-            if bg_preset:
-                preset = get_preset(bg_preset)
-                for eff in preset.effects:
-                    arr = apply_frame_effect(arr, eff["effect"], t, eff.get("params"))
-
-            arr = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
-            img = Image.fromarray(arr)
 
         return img
 
@@ -1118,7 +1129,13 @@ class VideoRenderer:
                 in_intro = line_idx < 0 and t < intro_duration
 
                 has_animation = self._frame_is_unique(line_idx) or in_intro
-                key = (line_idx, word_idx) if not has_animation else (line_idx, word_idx, frame_idx)
+                if line_idx < 0 and has_animation:
+                    gap_bucket = frame_idx // max(1, self.fps // 4)
+                    key = (line_idx, word_idx, gap_bucket)
+                elif has_animation:
+                    key = (line_idx, word_idx, frame_idx)
+                else:
+                    key = (line_idx, word_idx)
 
                 if key == prev_key and prev_bytes is not None:
                     enc.write_frame(prev_bytes)

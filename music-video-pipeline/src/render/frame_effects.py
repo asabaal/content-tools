@@ -207,6 +207,138 @@ def apply_motion_blur(
     return cv2.filter2D(frame, -1, kernel)
 
 
+def apply_ken_burns(
+    frame: np.ndarray,
+    t: float,
+    speed: float = 0.12,
+    max_zoom: float = 1.04,
+    drift: float = 15.0,
+) -> np.ndarray:
+    h, w = frame.shape[:2]
+    cycle = math.sin(t * speed * 2 * math.pi)
+    scale = 1.0 + (max_zoom - 1.0) * (0.5 + 0.5 * cycle)
+    dx = drift * math.sin(t * speed * math.pi * 0.7)
+    dy = drift * math.cos(t * speed * math.pi * 0.5)
+    cx, cy = w / 2, h / 2
+    M = np.float32([[scale, 0, -cx * (scale - 1) + dx],
+                    [0, scale, -cy * (scale - 1) + dy]])
+    return cv2.warpAffine(frame, M, (w, h), borderMode=cv2.BORDER_REFLECT)
+
+
+def apply_color_drift(
+    frame: np.ndarray,
+    t: float,
+    speed: float = 0.15,
+    hue_range: float = 8.0,
+    sat_pulse: float = 0.08,
+) -> np.ndarray:
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV).astype(np.float32)
+    shift = hue_range * math.sin(t * speed * 2 * math.pi)
+    hsv[:, :, 0] = (hsv[:, :, 0] + shift) % 180
+    sat_factor = 1.0 + sat_pulse * math.sin(t * speed * 2 * math.pi * 1.3)
+    hsv[:, :, 1] = np.clip(hsv[:, :, 1] * sat_factor, 0, 255)
+    return cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2BGR)
+
+
+def apply_bokeh_particles(
+    frame: np.ndarray,
+    t: float,
+    count: int = 12,
+    speed: float = 0.3,
+    color: Tuple[int, int, int] = (255, 255, 255),
+    max_radius: int = 30,
+    max_alpha: float = 0.15,
+) -> np.ndarray:
+    h, w = frame.shape[:2]
+    overlay = np.zeros((h, w, 3), dtype=np.float32)
+    rng = np.random.RandomState(42)
+
+    seeds = []
+    for i in range(count):
+        seeds.append((
+            rng.uniform(0.1, 0.9),
+            rng.uniform(0.1, 0.9),
+            rng.uniform(0, 2 * math.pi),
+            rng.uniform(0.4, 1.0),
+            rng.uniform(0.5, 1.0),
+        ))
+
+    radii = [1, 3, 5, 8, 12, 16, 20, 25, 30, 40]
+    stamp_cache: Dict[int, np.ndarray] = {}
+
+    for seed_x, seed_y, seed_phase, seed_size, seed_bright in seeds:
+        drift_x = math.sin(t * speed + seed_phase) * 0.05
+        drift_y = (-t * speed * 0.02 - seed_phase * 0.1) % 1.0
+
+        cx = int(((seed_x + drift_x) % 1.0) * w)
+        cy = int(((seed_y + drift_y) % 1.0) * h)
+        radius = int(max_radius * seed_size * (0.7 + 0.3 * math.sin(t * speed * 2 + seed_phase)))
+        alpha = max_alpha * seed_bright * (0.5 + 0.5 * math.sin(t * speed * 1.5 + seed_phase))
+
+        if radius < 2:
+            continue
+
+        quantized = min(radii, key=lambda r: abs(r - radius))
+        if quantized not in stamp_cache:
+            sz = quantized * 2
+            yy, xx = np.mgrid[-quantized:quantized, -quantized:quantized].astype(np.float32)
+            d = np.sqrt(xx * xx + yy * yy)
+            s = np.clip(1.0 - d / quantized, 0, 1) ** 2
+            stamp_cache[quantized] = s
+
+        stamp = stamp_cache[quantized]
+
+        y1 = cy - quantized
+        y2 = cy + quantized
+        x1 = cx - quantized
+        x2 = cx + quantized
+
+        sy1 = max(0, -y1)
+        sx1 = max(0, -x1)
+        ty1 = max(0, y1)
+        ty2 = min(h, y2)
+        tx1 = max(0, x1)
+        tx2 = min(w, x2)
+
+        if ty1 >= ty2 or tx1 >= tx2:
+            continue
+
+        crop = stamp[sy1:sy1 + (ty2 - ty1), sx1:sx1 + (tx2 - tx1)]
+        for c in range(3):
+            overlay[ty1:ty2, tx1:tx2, c] += crop * alpha * color[c]
+
+    result = frame.astype(np.float32) + overlay
+    return np.clip(result, 0, 255).astype(np.uint8)
+
+
+def apply_radial_pulse(
+    frame: np.ndarray,
+    t: float,
+    speed: float = 0.5,
+    max_alpha: float = 0.12,
+) -> np.ndarray:
+    h, w = frame.shape[:2]
+    cx, cy = w / 2.0, h / 2.0
+    max_r = math.sqrt(cx * cx + cy * cy)
+
+    phase = (t * speed) % 1.0
+    ring_r = phase * max_r
+    ring_w = max_r * 0.15
+
+    ys, xs = np.ogrid[:h, :w]
+    ys = ys.astype(np.float32)
+    xs = xs.astype(np.float32)
+    dist = np.sqrt((xs - cx) ** 2 + (ys - cy) ** 2)
+    ring = np.exp(-0.5 * ((dist - ring_r) / max(ring_w, 1.0)) ** 2)
+    alpha = ring * max_alpha * (1.0 - phase * 0.5)
+
+    result = frame.astype(np.float32)
+    for c in range(3):
+        result[:, :, c] = np.clip(result[:, :, c] + alpha * 80, 0, 255)
+
+    return result.astype(np.uint8)
+
+
 _FRAME_EFFECTS = {
     "zoom_pulse": apply_zoom_pulse,
     "camera_shake": apply_camera_shake,
@@ -218,6 +350,10 @@ _FRAME_EFFECTS = {
     "glitch": apply_glitch,
     "vignette_pulse": apply_vignette_pulse,
     "motion_blur": apply_motion_blur,
+    "ken_burns": apply_ken_burns,
+    "color_drift": apply_color_drift,
+    "bokeh_particles": apply_bokeh_particles,
+    "radial_pulse": apply_radial_pulse,
 }
 
 
