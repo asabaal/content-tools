@@ -33,32 +33,21 @@
   },
   "sections": [
     {
-      "name": "spoken prophetic opening, dark gospel atmosphere, low choir drone, sparse gospel piano, intimate dry vocal, restrained anger, digital cathedral texture, uneasy silence, no full beat yet",
+      "name": "spoken prophetic opening",
       "type": "spoken_prophetic_opening",
-      "lines": [
-        0,
-        1
-      ],
+      "lines": [0, 1],
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "cross",
         "background_color": "#162126",
-        "gradient_colors": [
-          "#080e18",
-          "#1a6078",
-          "#0d1520",
-          "#501878",
-          "#162136"
-        ],
+        "gradient_colors": ["#080e18", "#1a6078", "#0d1520", "#501878", "#162136"],
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
         "reveal_mode": "progressive",
         "reveal_words": 1,
-        "reactivity": [
-          "energy"
-        ],
+        "reactivity": ["energy"],
         "text_position": "top",
         "animation_type": "none",
         "animation_speed": 1.0,
@@ -66,88 +55,40 @@
         "text_style": "ice",
         "font_family": 1
       },
-      "lines_overrides": {
-        "0": {
-          "text_align": "left"
-        },
-        "1": {
-          "text_align": "left"
-        }
-      },
+      "lines_overrides": {},
       "words_overrides": {
-        "0.0": {
-          "text_position": "center"
-        },
-        "0.1": {
-          "text_position": "center"
-        },
-        "0.2": {
-          "text_position": "center"
-        },
-        "0.3": {
-          "text_position": "bottom"
-        },
-        "0.4": {
-          "text_position": "bottom"
-        },
-        "0.5": {
-          "text_position": "bottom"
-        },
-        "0.6": {
-          "text_position": "bottom"
-        },
-        "1.0": {
-          "text_position": "center"
-        },
-        "1.1": {
-          "text_position": "center"
-        },
-        "1.2": {
-          "text_position": "bottom"
-        },
-        "1.3": {
-          "text_position": "bottom"
-        },
-        "1.4": {
-          "text_position": "bottom"
-        },
-        "1.5": {
-          "text_position": "bottom"
-        },
-        "1.6": {
-          "text_position": "bottom"
-        }
+        "0.0": { "y": 0.5 },
+        "0.1": { "y": 0.5 },
+        "0.2": { "y": 0.5 },
+        "0.3": { "y": 0.8 },
+        "0.4": { "y": 0.8 },
+        "0.5": { "y": 0.8 },
+        "0.6": { "y": 0.8 },
+        "1.0": { "y": 0.5 },
+        "1.1": { "y": 0.5 },
+        "1.2": { "y": 0.8 },
+        "1.3": { "y": 0.8 },
+        "1.4": { "y": 0.8 },
+        "1.5": { "y": 0.8 },
+        "1.6": { "y": 0.8 }
       }
     },
     {
-      "name": "melodic testimony verse, prophetic sacred pop, subtle pulse enters, warm low synth, soft gospel piano, background hums, vocal grows steadier, doubt turning into recognition",
+      "name": "melodic testimony verse",
       "type": "melodic_testimony_verse",
-      "lines": [
-        2,
-        3,
-        4,
-        5
-      ],
+      "lines": [2, 3, 4, 5],
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "conic_0.8",
         "background_color": "#1d2d3c",
-        "gradient_colors": [
-          "#080e18",
-          "#1d5d7c",
-          "#0e1628",
-          "#3a1858",
-          "#1a2548"
-        ],
+        "gradient_colors": ["#080e18", "#1d5d7c", "#0e1628", "#3a1858", "#1a2548"],
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
         "reveal_mode": "progressive",
         "reveal_words": 1,
-        "reactivity": [
-          "energy"
-        ],
+        "reactivity": ["energy"],
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.2,
@@ -156,105 +97,48 @@
         "font_family": 1
       },
       "lines_overrides": {
-        "2": {
-          "font_size": 72
-        },
-        "3": {
-          "font_size": 73
-        },
-        "4": {
-          "font_size": 74
-        },
-        "5": {
-          "font_size": 75
-        }
+        "2": { "font_size": 72 },
+        "3": { "font_size": 73 },
+        "4": { "font_size": 74 },
+        "5": { "font_size": 75 }
       },
       "words_overrides": {
-        "2.0": {
-          "text_position": "top"
-        },
-        "2.1": {
-          "text_position": "top"
-        },
-        "2.2": {
-          "text_position": "top"
-        },
-        "2.3": {
-          "text_position": "top"
-        },
-        "3.0": {
-          "text_position": "top"
-        },
-        "3.1": {
-          "text_position": "top"
-        },
-        "3.2": {
-          "text_position": "top"
-        },
-        "3.3": {
-          "text_position": "top"
-        },
-        "4.0": {
-          "text_position": "top"
-        },
-        "4.1": {
-          "text_position": "top"
-        },
-        "4.2": {
-          "text_position": "top"
-        },
-        "4.3": {
-          "text_position": "top"
-        },
-        "4.4": {
-          "text_position": "top"
-        },
-        "5.0": {
-          "text_position": "top"
-        },
-        "5.1": {
-          "text_position": "top"
-        },
-        "5.2": {
-          "text_position": "top"
-        },
-        "5.3": {
-          "text_position": "top"
-        },
-        "5.4": {
-          "text_position": "top"
-        }
+        "2.0": { "y": 0.2 },
+        "2.1": { "y": 0.2 },
+        "2.2": { "y": 0.2 },
+        "2.3": { "y": 0.2 },
+        "3.0": { "y": 0.2 },
+        "3.1": { "y": 0.2 },
+        "3.2": { "y": 0.2 },
+        "3.3": { "y": 0.2 },
+        "4.0": { "y": 0.2 },
+        "4.1": { "y": 0.2 },
+        "4.2": { "y": 0.2 },
+        "4.3": { "y": 0.2 },
+        "4.4": { "y": 0.2 },
+        "5.0": { "y": 0.2 },
+        "5.1": { "y": 0.2 },
+        "5.2": { "y": 0.2 },
+        "5.3": { "y": 0.2 },
+        "5.4": { "y": 0.2 }
       }
     },
     {
-      "name": "vulnerable sacred pop expansion, dark gospel warmth, layered breath vocals, piano and organ blend, soft bass bloom, confession melody, tender but weighty, received calling energy",
+      "name": "vulnerable sacred pop expansion",
       "type": "vulnerable_sacred_pop_expansion",
-      "lines": [
-        6,
-        7,
-        8,
-        9
-      ],
+      "lines": [6, 7, 8, 9],
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "dual_spot_0.3_0.4_0.7_0.6",
         "background_color": "#1e283d",
-        "gradient_colors": [
-          "#060a14",
-          "#1e5878",
-          "#381858",
-          "#0a0e1a",
-          "#0f1a2d"
-        ],
+        "gradient_colors": ["#060a14", "#1e5878", "#381858", "#0a0e1a", "#0f1a2d"],
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
         "reveal_mode": "progressive",
         "reveal_words": 1,
-        "reactivity": [
-          "energy"
-        ],
+        "reactivity": ["energy"],
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.3,
@@ -263,62 +147,33 @@
         "font_family": 1
       },
       "lines_overrides": {
-        "6": {
-          "font_size": 73
-        },
-        "7": {
-          "font_size": 74
-        },
-        "8": {
-          "font_size": 75
-        },
-        "9": {
-          "font_size": 76
-        }
+        "6": { "font_size": 73 },
+        "7": { "font_size": 74 },
+        "8": { "font_size": 75 },
+        "9": { "font_size": 76 }
       },
       "words_overrides": {
-        "7.0": {
-          "text_position": "top"
-        },
-        "7.1": {
-          "text_position": "top"
-        },
-        "7.2": {
-          "text_position": "top"
-        }
+        "7.0": { "y": 0.2 },
+        "7.1": { "y": 0.2 },
+        "7.2": { "y": 0.2 }
       }
     },
     {
-      "name": "cinematic prophetic build, glitch textures, sacred choir pads, pulsing electronic percussion, reality signal atmosphere, spoken sung delivery, layered harmonies, scripture archive energy, mystical but disciplined",
+      "name": "cinematic prophetic build",
       "type": "cinematic_prophetic_build",
-      "lines": [
-        10,
-        11,
-        12,
-        13,
-        14,
-        15
-      ],
+      "lines": [10, 11, 12, 13, 14, 15],
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "cross",
         "background_color": "#1e2d40",
-        "gradient_colors": [
-          "#080c16",
-          "#2c3152",
-          "#3a2845",
-          "#1e2d40",
-          "#0a0e1a"
-        ],
+        "gradient_colors": ["#080c16", "#2c3152", "#3a2845", "#1e2d40", "#0a0e1a"],
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
         "reveal_mode": "progressive",
         "reveal_words": 1,
-        "reactivity": [
-          "energy"
-        ],
+        "reactivity": ["energy"],
         "text_position": "center",
         "animation_type": "scale_in",
         "animation_speed": 1.5,
@@ -327,75 +182,37 @@
         "font_family": 3
       },
       "lines_overrides": {
-        "10": {
-          "font_size": 74
-        },
-        "11": {
-          "font_size": 76
-        },
-        "12": {
-          "font_size": 78
-        },
-        "13": {
-          "font_size": 80
-        },
-        "14": {
-          "font_size": 82
-        },
-        "15": {
-          "font_size": 84
-        }
+        "10": { "font_size": 74 },
+        "11": { "font_size": 76 },
+        "12": { "font_size": 78 },
+        "13": { "font_size": 80 },
+        "14": { "font_size": 82 },
+        "15": { "font_size": 84 }
       },
       "words_overrides": {
-        "10.0": {
-          "text_position": "top",
-          "font_size_delta": 0
-        },
-        "10.1": {
-          "text_position": "top"
-        },
-        "10.2": {
-          "text_position": "top"
-        },
-        "10.3": {
-          "font_size_delta": 6
-        },
-        "10.4": {
-          "font_size_delta": 8
-        },
-        "10.5": {
-          "font_size_delta": 10
-        }
+        "10.0": { "y": 0.2, "font_size_delta": 0 },
+        "10.1": { "y": 0.2 },
+        "10.2": { "y": 0.2 },
+        "10.3": { "font_size_delta": 6 },
+        "10.4": { "font_size_delta": 8 },
+        "10.5": { "font_size_delta": 10 }
       }
     },
     {
-      "name": "prophetic declaration lift, dark gospel percussion, rising choir, cinematic bass, strong vocal presence, sacred confidence, reverent intensity, confession becomes commission",
+      "name": "prophetic declaration lift",
       "type": "prophetic_declaration_lift",
-      "lines": [
-        16,
-        17,
-        18
-      ],
+      "lines": [16, 17, 18],
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "dual_spot_0.3_0.3_0.7_0.7",
         "background_color": "#2d1f11",
-        "gradient_colors": [
-          "#120a04",
-          "#4d3218",
-          "#5a2812",
-          "#2d1f11",
-          "#1a1508"
-        ],
+        "gradient_colors": ["#120a04", "#4d3218", "#5a2812", "#2d1f11", "#1a1508"],
         "texture_type": "noise_grain",
         "texture_opacity": 0.1,
         "texture_blend_mode": "multiply",
         "font_size": 72,
         "reveal_mode": "karaoke",
-        "reactivity": [
-          "drums",
-          "energy"
-        ],
+        "reactivity": ["drums", "energy"],
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.4,
@@ -404,58 +221,31 @@
         "font_family": 2
       },
       "lines_overrides": {
-        "16": {
-          "font_size": 75
-        },
-        "17": {
-          "font_size": 78
-        },
-        "18": {
-          "font_size": 81
-        }
+        "16": { "font_size": 75 },
+        "17": { "font_size": 78 },
+        "18": { "font_size": 81 }
       },
       "words_overrides": {
-        "17.0": {
-          "text_position": "top",
-          "font_size_delta": 0
-        },
-        "17.1": {
-          "text_position": "top",
-          "font_size_delta": 3
-        },
-        "17.2": {
-          "text_position": "top",
-          "font_size_delta": 6
-        }
+        "17.0": { "y": 0.2, "font_size_delta": 0 },
+        "17.1": { "y": 0.2, "font_size_delta": 3 },
+        "17.2": { "y": 0.2, "font_size_delta": 6 }
       }
     },
     {
-      "name": "spoken liturgical bridge, beat partially drops, organ sustain, choir whisper layers, solemn naming moment, theological clarity, public witness tone, restrained prophetic authority",
+      "name": "spoken liturgical bridge",
       "type": "spoken_liturgical_bridge",
-      "lines": [
-        19,
-        20
-      ],
+      "lines": [19, 20],
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "spiral",
         "background_color": "#1c1a33",
-        "gradient_colors": [
-          "#0a0814",
-          "#1c1a38",
-          "#0a2a3a",
-          "#3a1858",
-          "#1a0a28"
-        ],
+        "gradient_colors": ["#0a0814", "#1c1a38", "#0a2a3a", "#3a1858", "#1a0a28"],
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
         "reveal_mode": "line-by-line",
-        "reactivity": [
-          "energy",
-          "vocals"
-        ],
+        "reactivity": ["energy", "vocals"],
         "text_position": "top",
         "animation_type": "fade_in",
         "animation_speed": 1.6,
@@ -464,44 +254,26 @@
         "font_family": 4
       },
       "lines_overrides": {
-        "19": {
-          "font_size": 74
-        },
-        "20": {
-          "font_size": 78
-        }
+        "19": { "font_size": 74 },
+        "20": { "font_size": 78 }
       }
     },
     {
-      "name": "prayerful final movement, dark gospel resolution, choir opens, drums soften, piano returns, reverent vocal stack, surrender posture, glory redirected to God, sacred ending",
+      "name": "prayerful final movement",
       "type": "prayerful_final_movement",
-      "lines": [
-        21,
-        22,
-        23,
-        24
-      ],
+      "lines": [21, 22, 23, 24],
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "cross",
         "background_color": "#172529",
-        "gradient_colors": [
-          "#0a1218",
-          "#2a3540",
-          "#4a3510",
-          "#172529",
-          "#38280a"
-        ],
+        "gradient_colors": ["#0a1218", "#2a3540", "#4a3510", "#172529", "#38280a"],
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
         "reveal_mode": "progressive",
         "reveal_words": 1,
-        "reactivity": [
-          "drums",
-          "energy"
-        ],
+        "reactivity": ["drums", "energy"],
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.2,
@@ -510,29 +282,15 @@
         "font_family": 5
       },
       "lines_overrides": {
-        "21": {
-          "font_size": 74
-        },
-        "22": {
-          "font_size": 77
-        },
-        "23": {
-          "font_size": 80
-        },
-        "24": {
-          "font_size": 83
-        }
+        "21": { "font_size": 74 },
+        "22": { "font_size": 77 },
+        "23": { "font_size": 80 },
+        "24": { "font_size": 83 }
       },
       "words_overrides": {
-        "21.0": {
-          "text_position": "top"
-        },
-        "21.1": {
-          "text_position": "top"
-        },
-        "21.2": {
-          "text_position": "top"
-        }
+        "21.0": { "y": 0.2 },
+        "21.1": { "y": 0.2 },
+        "21.2": { "y": 0.2 }
       }
     }
   ],

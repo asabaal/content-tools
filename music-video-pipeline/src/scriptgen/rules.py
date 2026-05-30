@@ -249,6 +249,8 @@ _POSITION_ROWS: dict[str, list[str]] = {
     "bottom": ["center", "bottom"],
 }
 
+_POS_TO_Y = {"top": 0.2, "center": 0.5, "bottom": 0.8}
+
 _MOOD_ROW_STRATEGIES: dict[str, list[str]] = {
     "dark_moody": ["center", "bottom"],
     "bright_poppy": ["top", "center", "bottom"],
@@ -297,7 +299,7 @@ def assign_word_positions(
             if row == section_position:
                 continue
             for w_idx in phrase_word_indices:
-                overrides[f"{line_idx}.{w_idx}"] = {"text_position": row}
+                overrides[f"{line_idx}.{w_idx}"] = {"y": _POS_TO_Y[row]}
 
         for w_idx, word_data in enumerate(words):
             word_text = word_data.get("text", "") if isinstance(word_data, dict) else str(word_data)
