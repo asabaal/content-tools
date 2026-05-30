@@ -530,6 +530,86 @@ class VideoRenderer:
             x += widths[j] + spacing
         return positions
 
+    def _scale_font_to_fill(
+        self,
+        words: list,
+        base_font_size: int,
+        font_family: int,
+        target_fill: float = 0.75,
+        max_scale: float = 1.8,
+    ) -> tuple:
+        min_size = base_font_size
+        spacing = self.caption_style.get("letter_spacing", 1) * (self.height / 1080) * 4
+        target_w = self.width * target_fill
+        for _ in range(8):
+            font = self._get_font(min_size, font_family)
+            widths = [font.getbbox(w["text"])[2] for w in words]
+            total_w = sum(widths) + spacing * max(0, len(words) - 1)
+            if total_w >= target_w:
+                break
+            scale = target_w / max(1, total_w)
+            min_size = min(int(min_size * scale), int(base_font_size * max_scale))
+            if min_size <= base_font_size:
+                break
+        font = self._get_font(min_size, font_family)
+        return font, min_size
+
+    def _compute_multirow_layout(
+        self,
+        words: list,
+        line_idx: int,
+        font: ImageFont.FreeTypeFont,
+        spacing: float,
+        text_align: str = "center",
+        target_fill: float = 0.70,
+    ) -> list:
+        cs = self.caption_style
+        default_pos = cs.get("text_position", "center")
+        word_positions = []
+        for wi in range(len(words)):
+            v = self.get_visual(line_idx, wi)
+            pos = v.get("text_position", default_pos)
+            word_positions.append(pos)
+
+        unique_rows = []
+        seen = set()
+        for p in word_positions:
+            if p not in seen:
+                unique_rows.append(p)
+                seen.add(p)
+
+        if len(unique_rows) <= 1:
+            return self._compute_line_layout(words, font, spacing, text_align)
+
+        groups: list[list[int]] = []
+        current_group = [0]
+        for i in range(1, len(words)):
+            if word_positions[i] == word_positions[i - 1]:
+                current_group.append(i)
+            else:
+                groups.append(current_group)
+                current_group = [i]
+        groups.append(current_group)
+
+        widths = [font.getbbox(w["text"])[2] for w in words]
+        target_w = self.width * target_fill
+        result = [(0.0, 0)] * len(words)
+
+        for group in groups:
+            group_widths = [widths[i] for i in group]
+            text_w = sum(group_widths)
+            n_gaps = max(1, len(group) - 1)
+            gap_count = n_gaps if n_gaps > 0 else 1
+            group_spacing = max(spacing, (target_w - text_w) / gap_count)
+            total_w = text_w + group_spacing * n_gaps
+            x = (self.width - total_w) / 2
+            for j, wi in enumerate(group):
+                cx = x + group_widths[j] / 2
+                result[wi] = (cx, group_widths[j])
+                x += group_widths[j] + group_spacing
+
+        return result
+
     def _draw_text_line(self, img: Image.Image, text: str, v: Dict, y: int, font_size: int) -> None:
         if self._has_styled_text(v):
             family = v.get("font_family", 0)
@@ -579,18 +659,13 @@ class VideoRenderer:
         cs = self.caption_style
         text_style = v.get("text_style", "")
         font_family = v.get("font_family", 0)
+        font = self._get_font(font_size, font_family)
+        spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
+        all_positions = self._compute_multirow_layout(words, line_idx, font, spacing)
 
         if self._has_styled_text(v):
-            draw_plain = ImageDraw.Draw(img)
-            font = self._get_font(font_size, font_family)
-            spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
-            widths = [draw_plain.textbbox((0, 0), w["text"], font=font)[2] for w in words]
-            total_w = sum(widths) + spacing * max(0, len(words) - 1)
-            x = (self.width - total_w) / 2
-
             for j, w in enumerate(words):
-                wW = widths[j]
-                cx = x + wW / 2
+                cx, wW = all_positions[j]
                 word_v = self.get_visual(line_idx, j)
                 word_y = self._y_for_pos(word_v.get("text_position", cs.get("text_position", "center")))
                 is_active = j == word_idx
@@ -608,28 +683,17 @@ class VideoRenderer:
                     alpha = alpha.point(lambda a: int(a * opacity))
                     styled.putalpha(alpha)
                 img.paste(styled, (px, py), styled)
-                x += wW + spacing
             return
 
         draw = ImageDraw.Draw(img)
-        font = self._get_font(font_size, font_family)
-        words = line["words"]
-        cs = self.caption_style
         auto_contrast = v.get("text_auto_contrast", True)
         base_hex = _contrast_color(v.get("background_color", "#1a1a2e")) if auto_contrast is not False else v.get("text_color", cs.get("text_color", "#ffffff"))
         hl_hex = cs.get("highlight_color", "#4cc9f0")
-        dim_hex = base_hex + "44" if len(base_hex) == 7 else base_hex
         base_rgb = _hex_to_rgb(base_hex)
         hl_rgb = _hex_to_rgb(hl_hex)
 
-        spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
-        widths = [draw.textbbox((0, 0), w["text"], font=font)[2] for w in words]
-        total_w = sum(widths) + spacing * max(0, len(words) - 1)
-        x = (self.width - total_w) / 2
-
         for j, w in enumerate(words):
-            wW = widths[j]
-            cx = x + wW / 2
+            cx, wW = all_positions[j]
             is_active = j == word_idx
             rgb = hl_rgb if is_active else base_rgb
             word_v = self.get_visual(line_idx, j)
@@ -647,7 +711,6 @@ class VideoRenderer:
                 sf = self.height / 1080
                 draw.text((cx - wW / 2 + 2 * sf, word_y + 2 * sf), w["text"], fill=sc, font=font, anchor="lm")
             draw.text((cx - wW / 2, word_y), w["text"], fill=rgb, font=font, anchor="lm")
-            x += wW + spacing
 
     def _draw_progressive(self, img: Image.Image, line: Dict, line_idx: int, word_idx: int, v: Dict, font_size: int) -> None:
         words = line["words"]
@@ -675,7 +738,7 @@ class VideoRenderer:
         font = self._get_font(font_size, font_family)
         spacing = cs.get("letter_spacing", 1) * (self.height / 1080) * 4
         text_align = v.get("text_align", "center")
-        all_positions = self._compute_line_layout(words, font, spacing, text_align)
+        all_positions = self._compute_multirow_layout(words, line_idx, font, spacing, text_align)
 
         if not slide:
             visible_range = range(0, min(word_idx + 1, len(words)))
@@ -842,6 +905,10 @@ class VideoRenderer:
 
         line = self.synced["lines"][line_idx]
         font_size = int((v.get("font_size", self.caption_style.get("font_size", 112))) * (self.height / 1080))
+        font_family = v.get("font_family", 0)
+        scaled_font, font_size = self._scale_font_to_fill(
+            line["words"], font_size, font_family, target_fill=0.75, max_scale=1.8,
+        )
 
         anim = self._compute_animation_progress(t, line_idx)
 
@@ -909,6 +976,10 @@ class VideoRenderer:
         line = self.synced["lines"][line_idx]
         v = self.get_visual(line_idx, word_idx)
         font_size = int((v.get("font_size", self.caption_style.get("font_size", 112))) * (self.height / 1080))
+        font_family = v.get("font_family", 0)
+        _, font_size = self._scale_font_to_fill(
+            line["words"], font_size, font_family, target_fill=0.75, max_scale=1.8,
+        )
 
         anim = self._compute_animation_progress(t, line_idx)
 

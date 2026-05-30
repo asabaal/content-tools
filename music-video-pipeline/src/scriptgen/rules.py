@@ -207,6 +207,57 @@ def assign_text_position(
     return base
 
 
+_PHRASE_BREAK_PUNCT = {",", ";", ":", "—", "–"}
+_PHRASE_BREAK_WORDS = {"that", "when", "while", "where", "which", "because", "although"}
+
+
+def _split_into_phrases(words: list[dict]) -> list[list[int]]:
+    if len(words) <= 3:
+        return [list(range(len(words)))]
+
+    groups: list[list[int]] = []
+    current: list[int] = []
+
+    for i, w in enumerate(words):
+        text = w.get("text", "") if isinstance(w, dict) else str(w)
+        clean = text.rstrip(".,;:!?—–")
+        current.append(i)
+
+        breaks_after = False
+        if any(c in text for c in _PHRASE_BREAK_PUNCT):
+            breaks_after = True
+        elif i < len(words) - 1 and clean.lower() in _PHRASE_BREAK_WORDS:
+            breaks_after = True
+
+        if breaks_after and i < len(words) - 1:
+            groups.append(current)
+            current = []
+
+    if current:
+        groups.append(current)
+
+    if len(groups) == 1 and len(words) > 5:
+        mid = len(words) // 2
+        groups = [list(range(mid)), list(range(mid, len(words)))]
+
+    return groups
+
+
+_POSITION_ROWS: dict[str, list[str]] = {
+    "top": ["top", "center"],
+    "center": ["top", "center", "bottom"],
+    "bottom": ["center", "bottom"],
+}
+
+_MOOD_ROW_STRATEGIES: dict[str, list[str]] = {
+    "dark_moody": ["center", "bottom"],
+    "bright_poppy": ["top", "center", "bottom"],
+    "warm_intimate": ["center", "bottom"],
+    "cool_ethereal": ["center", "bottom"],
+    "high_energy": ["top", "center", "bottom"],
+}
+
+
 def assign_word_positions(
     profile: SectionProfile,
     section_position: str,
@@ -223,123 +274,44 @@ def assign_word_positions(
     overrides: dict[str, dict] = {}
     st = profile.resolved_type or profile.section_type
 
+    rows = _MOOD_ROW_STRATEGIES.get(mood_name, [section_position])
+
     for line_idx in range(profile.start_line, min(profile.end_line + 1, len(synced_lines))):
         line = synced_lines[line_idx]
         words = line.get("words", [])
         if not words:
             continue
 
+        phrases = _split_into_phrases(words)
+
+        if len(phrases) <= 1:
+            continue
+
+        _ROW_ORDER = {"top": 0, "center": 1, "bottom": 2}
+        available_rows = sorted(rows, key=lambda r: _ROW_ORDER.get(r, 1))
+        while len(available_rows) < len(phrases):
+            available_rows.append(available_rows[-1])
+
+        for p_idx, phrase_word_indices in enumerate(phrases):
+            row = available_rows[p_idx]
+            if row == section_position:
+                continue
+            for w_idx in phrase_word_indices:
+                overrides[f"{line_idx}.{w_idx}"] = {"text_position": row}
+
         for w_idx, word_data in enumerate(words):
-            word_ov = {}
-            pos = _word_position(
-                w_idx, len(words), line_idx, profile, mood_name, variance, section_position,
-            )
-            if pos != section_position:
-                word_ov["text_position"] = pos
-
             word_text = word_data.get("text", "") if isinstance(word_data, dict) else str(word_data)
-
+            key = f"{line_idx}.{w_idx}"
+            if key not in overrides:
+                overrides[key] = {}
             if variance > 0.4 and w_idx == 0 and st in ("chorus", "pre_chorus"):
-                word_ov["font_size_delta"] = 2
+                overrides[key]["font_size_delta"] = 2
             if variance > 0.5 and w_idx == len(words) - 1 and len(word_text) <= 4 and len(words) <= 3:
-                word_ov["font_size_delta"] = -2
-
-            if word_ov:
-                overrides[f"{line_idx}.{w_idx}"] = word_ov
+                overrides[key]["font_size_delta"] = -2
+            if not overrides[key]:
+                del overrides[key]
 
     return overrides
-
-
-def _word_position(
-    word_idx: int,
-    word_count: int,
-    line_idx: int,
-    profile: SectionProfile,
-    mood_name: str,
-    variance: float,
-    section_position: str,
-) -> str:
-    if mood_name == "dark_moody":
-        return _dark_moody_word_pos(word_idx, word_count, line_idx, profile, variance, section_position)
-    elif mood_name == "bright_poppy":
-        return _bright_poppy_word_pos(word_idx, word_count, variance, section_position)
-    elif mood_name == "warm_intimate":
-        return _warm_intimate_word_pos(word_idx, word_count, variance, section_position)
-    elif mood_name == "cool_ethereal":
-        return _cool_ethereal_word_pos(word_idx, word_count, line_idx, variance, section_position)
-    elif mood_name == "high_energy":
-        return _high_energy_word_pos(word_idx, word_count, variance, section_position)
-    return section_position
-
-
-def _dark_moody_word_pos(
-    word_idx: int,
-    word_count: int,
-    line_idx: int,
-    profile: SectionProfile,
-    variance: float,
-    section_position: str,
-) -> str:
-    if word_idx == 0 and line_idx == profile.start_line and section_position != "top":
-        return "top"
-    if word_idx == word_count - 1 and variance > 0.6 and section_position != "bottom":
-        return "bottom"
-    return section_position
-
-
-def _bright_poppy_word_pos(
-    word_idx: int,
-    word_count: int,
-    variance: float,
-    section_position: str,
-) -> str:
-    density = 2 if variance < 0.6 else 1
-    if word_idx % density != 0:
-        return section_position
-    cycle = ("top", "center", "bottom", "center")
-    return cycle[word_idx % len(cycle)]
-
-
-def _warm_intimate_word_pos(
-    word_idx: int,
-    word_count: int,
-    variance: float,
-    section_position: str,
-) -> str:
-    density = 3 if variance < 0.6 else 2
-    if word_idx % density != 0:
-        return section_position
-    return "bottom" if section_position != "bottom" else "center"
-
-
-def _cool_ethereal_word_pos(
-    word_idx: int,
-    word_count: int,
-    line_idx: int,
-    variance: float,
-    section_position: str,
-) -> str:
-    skip = 2 if variance < 0.5 else 1
-    seed = (line_idx * 7 + word_idx * 13) % 5
-    if seed >= skip + 1:
-        return section_position
-    if section_position == "center":
-        return ("top", "bottom")[seed % 2]
-    return "center"
-
-
-def _high_energy_word_pos(
-    word_idx: int,
-    word_count: int,
-    variance: float,
-    section_position: str,
-) -> str:
-    density = 1 if variance > 0.7 else 2
-    if word_idx % density != 0:
-        return section_position
-    pair = word_idx // 2
-    cycle = ("top", "bottom", "center")
-    return cycle[pair % len(cycle)]
 
 
 def assign_reactivity(energy: float, section_type: str) -> list[str]:
