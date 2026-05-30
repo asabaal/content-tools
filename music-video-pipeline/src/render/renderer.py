@@ -918,6 +918,100 @@ class VideoRenderer:
 
         return img
 
+    def _get_last_word_end(self) -> float:
+        if not self.synced.get("lines"):
+            return 0.0
+        last_line = self.synced["lines"][-1]
+        words = last_line.get("words", [])
+        if not words:
+            return 0.0
+        return words[-1].get("end", 0.0)
+
+    def _render_outro_frame(self, t: float) -> Optional[Image.Image]:
+        outro = self.script.get("outro")
+        if not outro:
+            return None
+        last_end = self._get_last_word_end()
+        if last_end <= 0 or t < last_end:
+            return None
+        outro_start = last_end
+        outro_duration = self.duration - outro_start
+        if outro_duration <= 0:
+            return None
+        elapsed = t - outro_start
+        if elapsed >= outro_duration:
+            elapsed = outro_duration - 0.001
+
+        img = Image.new("RGB", (self.width, self.height), (10, 10, 30))
+
+        phase1_end = outro_duration * 0.45
+        phase2_start = outro_duration * 0.50
+
+        if elapsed < phase1_end:
+            image_path = outro.get("image", "")
+            if image_path:
+                v_img = {
+                    "background_type": "image",
+                    "background_image": image_path,
+                    "background_image_opacity": 1.0,
+                    "background_image_fit": "cover",
+                    "background_color": "#000000",
+                }
+                self._draw_background(img, v_img)
+
+        elif elapsed >= phase2_start:
+            v_bg = dict(self.defaults)
+            self._draw_background(img, v_bg)
+
+            txt_layer = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+            draw = ImageDraw.Draw(txt_layer)
+
+            label = outro.get("text", "Presented by")
+            label_size = int(36 * (self.height / 1080))
+            label_font = self._get_font(label_size, family=5)
+            lbbox = draw.textbbox((0, 0), label, font=label_font)
+            lw = lbbox[2] - lbbox[0]
+            lh = lbbox[3] - lbbox[1]
+            lcx = (self.width - lw) / 2
+
+            logo_path = outro.get("logo", "")
+            logo_img = None
+            logo_h = 0
+            logo_w = 0
+            if logo_path:
+                try:
+                    logo_img = Image.open(logo_path).convert("RGBA")
+                    max_logo_w = int(self.width * 0.5)
+                    if logo_img.size[0] > max_logo_w:
+                        scale = max_logo_w / logo_img.size[0]
+                        logo_img = logo_img.resize((int(logo_img.size[0] * scale), int(logo_img.size[1] * scale)), Image.LANCZOS)
+                    logo_w, logo_h = logo_img.size
+                except Exception:
+                    logo_img = None
+
+            gap = int(30 * (self.height / 1080))
+            total_h = lh + gap + logo_h
+            y = (self.height - total_h) / 2
+
+            shadow_offset = max(2, int(2 * (self.height / 1080)))
+            draw.text((lcx + shadow_offset, y + shadow_offset), label, fill=(0, 0, 0, 180), font=label_font)
+            draw.text((lcx, y), label, fill=(180, 180, 190, 255), font=label_font)
+
+            if logo_img:
+                logo_x = (self.width - logo_w) // 2
+                logo_y = int(y + lh + gap)
+                txt_layer.paste(logo_img, (logo_x, logo_y), logo_img)
+
+            img_rgba = img.convert("RGBA")
+            img_rgba = Image.alpha_composite(img_rgba, txt_layer)
+            img = img_rgba.convert("RGB")
+
+        else:
+            v_bg = dict(self.defaults)
+            self._draw_background(img, v_bg)
+
+        return img
+
     def _find_nearest_section(self, t: float) -> Optional[Dict]:
         best_sec = None
         best_dist = float("inf")
@@ -947,6 +1041,11 @@ class VideoRenderer:
 
         if line_idx < 0:
             intro_frame = self._render_intro_frame(t)
+            if intro_frame is not None:
+                return intro_frame
+            outro_frame = self._render_outro_frame(t)
+            if outro_frame is not None:
+                return outro_frame
             nearest = self._find_nearest_section(t)
             v_gap = dict(self.defaults)
             if nearest:
@@ -954,8 +1053,6 @@ class VideoRenderer:
                 v_gap.update(nv)
             v_gap["bg_animation_preset"] = "gap"
             v_gap["reactivity"] = ["energy"]
-            if intro_frame is not None:
-                return intro_frame
             if nearest:
                 bg = self._get_bg_for_section(nearest["lines"][0], {})
             else:
@@ -1011,6 +1108,11 @@ class VideoRenderer:
     def _render_text_on_bg(self, bg: Image.Image, line_idx: int, word_idx: int, t: float = 0.0) -> Image.Image:
         if line_idx < 0:
             intro_frame = self._render_intro_frame(t)
+            if intro_frame is not None:
+                return intro_frame
+            outro_frame = self._render_outro_frame(t)
+            if outro_frame is not None:
+                return outro_frame
             nearest = self._find_nearest_section(t)
             v_gap = dict(self.defaults)
             if nearest:
@@ -1018,8 +1120,6 @@ class VideoRenderer:
                 v_gap.update(nv)
             v_gap["bg_animation_preset"] = "gap"
             v_gap["reactivity"] = ["energy"]
-            if intro_frame is not None:
-                return intro_frame
             if nearest:
                 bg = self._get_bg_for_section(nearest["lines"][0], {})
             else:

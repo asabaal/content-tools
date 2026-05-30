@@ -299,5 +299,10 @@
     "title": "",
     "subtitle": "",
     "duration": 4.789
+  },
+  "outro": {
+    "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/intro_brand.png",
+    "logo": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/outro_logo.png",
+    "text": "Presented by"
   }
 }
