@@ -1,0 +1,605 @@
+# Font Library System
+
+## Product and Technical Concept Spec
+
+## 1. Core Concept
+
+The Font Library System is a local asset management and preview system for organizing, searching, tagging, licensing, comparing, and selecting fonts for creative projects.
+
+The purpose is to turn a large folder of fonts into a usable typography asset library.
+
+The system should help answer:
+
+What fonts do I have?
+What licenses do they have?
+What do they look like?
+Which fonts fit a specific vibe or project?
+Which fonts pair well together?
+Which fonts are safe to use in public or commercial assets?
+Which fonts have the glyph coverage I need?
+Which fonts have already been used in my projects?
+
+This system is the first practical step before building a full font generator.
+
+## 2. Business Purpose
+
+The user already has access to approximately 1,800 fonts. The immediate business need is not necessarily to generate more fonts. The immediate need is to make the existing font library usable.
+
+A large font collection only becomes valuable when it can be searched, previewed, filtered, and reused consistently.
+
+The Font Library System supports:
+
+Brand development
+Music release artwork
+Lyric videos
+Music videos
+Prophetic Preprint visuals
+AI Psalm visual systems
+Asabaal’s Academic Adventures
+Social media templates
+Title cards
+Presentation graphics
+Meaning systems
+Client facing design assets
+
+The system should reduce design friction by making font choice faster, more intentional, and more legally trackable.
+
+## 3. Primary Deliverable
+
+The first deliverable is a local font inventory and preview system.
+
+It should produce:
+
+A searchable font manifest
+License tracking
+Generated preview images
+Font specimen sheets
+Project based collections
+Vibe tags
+Font comparison views
+Glyph coverage reports
+Recommended font shortlists
+
+## 4. System Inputs
+
+The system should accept:
+
+A local folder of font files
+A Google Fonts repository folder
+License files
+Optional project names
+Optional user tags
+Optional sample text presets
+Optional reference images or mood categories later
+
+Supported font formats:
+
+`.ttf`
+`.otf`
+`.woff` if useful later
+`.woff2` if useful later
+
+The first version should prioritize `.ttf` and `.otf`.
+
+## 5. Core Data Model
+
+Each font record should track:
+
+Font family
+Font style
+Font weight
+Font width if available
+Italic or upright status
+File path
+File format
+Source folder
+License type
+License file path
+Copyright string
+Designer or foundry metadata if available
+Glyph count
+Supported characters
+Supported scripts if detectable
+Preview image paths
+Specimen sheet path
+User tags
+Project tags
+Usage history
+Favorite status
+Archived status
+Notes
+
+## 6. License Tracking
+
+License tracking is a core feature, not an afterthought.
+
+For each font, the system should attempt to identify:
+
+License type
+License file
+Whether commercial use appears allowed
+Whether modification appears allowed
+Whether redistribution appears allowed
+Attribution requirements if present
+Source location
+
+The system does not need to provide legal advice, but it should preserve license evidence and make the source license visible.
+
+Recommended license status labels:
+
+Clear
+Needs review
+Unknown
+Do not use
+Commercial safe
+Internal only
+
+Google Fonts under the `ofl` directory should be easier to classify because each family usually includes license metadata.
+
+## 7. Preview Generation
+
+The system should render preview images for each font.
+
+Preview types:
+
+## 7.1 Quick Preview
+
+Shows the font name rendered in its own font.
+
+Example text:
+
+Asabaal
+Prophetic Preprint
+The quick brown fox jumps over the lazy dog
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+
+## 7.2 Alphabet Sheet
+
+Shows:
+
+Uppercase letters
+Lowercase letters
+Numbers
+Basic punctuation
+
+## 7.3 Brand Phrase Sheet
+
+Uses project relevant phrases:
+
+ASABAAL
+ASABAAL VENTURES
+PROPHETIC PREPRINT
+AS GOD HAS SAID
+I NEVER ASKED TO BE QUEER
+ACADEMIC ADVENTURES
+RECONCILIATION
+MEANING SYSTEMS
+
+## 7.4 Use Case Preview
+
+Renders the font in actual design contexts:
+
+Title card
+Subtitle
+Caption
+Album title
+Scripture quote
+Lyric line
+Academic heading
+Logo wordmark
+
+## 8. Tagging System
+
+The system should allow manual and automated tags.
+
+Useful tags:
+
+Serif
+Sans serif
+Slab serif
+Display
+Script
+Handwritten
+Monospace
+Condensed
+Expanded
+Geometric
+Humanist
+Editorial
+Academic
+Sacred
+Ancient
+Modern
+Soft
+Sharp
+Formal
+Playful
+Brutalist
+Minimal
+Ornamental
+Futuristic
+Readable
+Dramatic
+Quiet
+Elegant
+Heavy
+Light
+All caps friendly
+Body text friendly
+Title friendly
+Subtitle friendly
+Logo friendly
+Lyric video friendly
+
+Project tags:
+
+Asabaal
+Prophetic Preprint
+AI Psalm
+Academic Adventures
+Elasticamory
+Music video
+Lyric video
+Album art
+Social media
+Presentation
+Client work
+
+## 9. Search and Filter
+
+The system should support searching and filtering by:
+
+Font family
+Style
+Weight
+Tag
+License status
+Project use
+Glyph coverage
+Favorite status
+Recently added
+Recently used
+Use case
+File format
+Source directory
+
+Example searches:
+
+Sacred serif with commercial safe license
+Academic body text fonts
+Sharp display fonts for title cards
+Soft sans fonts for subtitles
+Fonts used in Prophetic Preprint
+Fonts with full uppercase and number coverage
+Fonts safe for album art
+
+## 10. Font Comparison
+
+The system should support comparing fonts side by side.
+
+Comparison views:
+
+Same phrase across multiple fonts
+Alphabet sheets across multiple fonts
+Title card preview across multiple fonts
+Font A versus Font B
+Serif candidates
+Subtitle candidates
+Logo candidates
+
+Comparison should help answer:
+
+Which one feels more sacred?
+Which one is more readable?
+Which one fits the project better?
+Which one pairs better with the heading font?
+Which one works at small sizes?
+Which one has better numbers?
+
+## 11. Font Pairing
+
+The system should eventually support font pairing.
+
+A pairing record might include:
+
+Heading font
+Body font
+Caption font
+Subtitle font
+Logo font
+Use case
+Project
+Notes
+
+Example pairings:
+
+Prophetic Preprint title font plus academic body font
+AI Psalm display font plus readable subtitle font
+Academic Adventures playful heading plus clean body font
+Album art title font plus lyric caption font
+
+Font pairing can start manually and later become AI assisted.
+
+## 12. Project Collections
+
+The system should support collections.
+
+A collection is a curated group of fonts for a project or use case.
+
+Examples:
+
+Prophetic Preprint Candidates
+AI Psalm Title Fonts
+Academic Adventures Fonts
+Asabaal Brand Serif Candidates
+Lyric Video Subtitle Fonts
+Sacred Editorial Fonts
+Warm Humanist Sans Fonts
+High Contrast Display Fonts
+
+Collections should allow notes and rankings.
+
+## 13. Usage Tracking
+
+The system should track where fonts are used.
+
+For each font, store:
+
+Project used in
+Asset type
+Date used
+Output file if known
+Notes
+Whether it worked well
+Whether it should be reused
+
+This prevents losing track of typography decisions across projects.
+
+## 14. Favorite and Archive System
+
+The system should distinguish between:
+
+Favorite fonts
+Candidate fonts
+Rejected fonts
+Archived fonts
+Unknown fonts
+
+Not all 1,800 fonts will be useful.
+
+The goal is not to treat every font equally. The goal is to progressively identify the fonts that matter.
+
+Useful workflow:
+
+Import all fonts
+Generate previews
+Tag obvious categories
+Favorite strong candidates
+Archive weak or irrelevant fonts
+Build shortlists for actual projects
+
+## 15. AI Assistance Layer
+
+The first version does not require AI, but AI can help.
+
+AI can assist with:
+
+Suggesting vibe tags from preview sheets
+Ranking fonts for a project brief
+Comparing two fonts
+Recommending pairings
+Identifying similar fonts
+Summarizing font personality
+Detecting which fonts look ceremonial, academic, playful, etc.
+Generating collection names
+Suggesting which fonts should be used for headings, body text, or captions
+
+AI should not replace the manifest and preview system. It should sit on top of it.
+
+## 16. User Interface Concept
+
+The system could start as a CLI and static HTML gallery before becoming a full app.
+
+## 16.1 CLI First
+
+Useful commands:
+
+Scan font folder
+Generate manifest
+Generate previews
+Generate specimen sheets
+Search fonts
+Add tag
+Add to collection
+Mark favorite
+Mark archived
+Export collection
+
+Example conceptual commands:
+
+scan fonts
+render previews
+list sacred serif candidates
+compare fonts
+create project collection
+export Prophetic Preprint shortlist
+
+## 16.2 Static HTML Gallery
+
+A static HTML gallery could show:
+
+Font cards
+Preview images
+License status
+Tags
+Favorite button later
+Collection grouping
+Searchable index
+
+This is probably the fastest useful visual interface.
+
+## 16.3 Future Web App
+
+Later, the system could become a proper local web app with:
+
+Search
+Filters
+Comparison mode
+Tag editing
+Collection management
+AI recommendations
+Project usage tracking
+Preview customization
+
+## 17. File Structure Concept
+
+Example structure:
+
+font-library
+input
+fonts
+licenses
+data
+manifest.jsonl
+tags.json
+collections.json
+usage.json
+previews
+quick
+alphabet
+brand_phrases
+comparisons
+exports
+collections
+reports
+
+Each font should have stable IDs so previews, metadata, and usage records stay linked.
+
+## 18. Reports and Exports
+
+The system should generate useful reports:
+
+Full font inventory
+License status report
+Unknown license report
+Commercial safe shortlist
+Favorite fonts list
+Project collection export
+Glyph coverage report
+Unused fonts report
+Archived fonts report
+
+Exports could include:
+
+CSV
+JSONL
+HTML gallery
+PDF specimen sheet later
+Markdown shortlist
+
+## 19. Relationship to Font Generator System
+
+The Font Library System is the foundation for the future Bespoke Font Generator.
+
+It provides:
+
+Source font inventory
+License tracking
+Base font candidates
+Style tags
+Project collections
+Known good typography examples
+Font pairing records
+Usage history
+Training or transformation candidates
+
+Before generating new fonts, the system should know which existing fonts are already available and which gaps still remain.
+
+The font generator becomes necessary when the library reveals repeated gaps, such as:
+
+A font is almost right but not sharp enough
+A font has the right mood but wrong numerals
+A font has the right structure but wrong serifs
+A project needs a distinct custom type system
+A drawn glyph needs to become part of a full font
+A hybrid of several fonts would solve the design problem
+
+## 20. First Version Scope
+
+The first version should focus on immediate usability.
+
+## Font Library v0.1
+
+Required features:
+
+Scan local font folder
+Identify `.ttf` and `.otf` files
+Extract basic metadata
+Detect or attach license files
+Generate quick previews
+Generate alphabet sheets
+Create manifest
+Create static HTML gallery
+Allow manual tags in a simple data file
+Allow favorites in a simple data file
+Export a shortlist
+
+Not required in v0.1:
+
+Full AI tagging
+Full web app
+Automated legal analysis
+Font generation
+Font transformation
+Advanced pairing engine
+Kerning analysis
+Custom glyph ingestion
+
+## 21. Success Criteria
+
+The v0.1 system is successful if it can:
+
+Scan the font collection
+Create a trustworthy manifest
+Render previews for the fonts
+Show the fonts in a browsable gallery
+Track license status
+Let the user identify favorites
+Let the user create project shortlists
+Make the 1,800 fonts meaningfully easier to use
+
+## 22. Strategic Value
+
+The Font Library System converts a raw asset pile into a creative infrastructure layer.
+
+Instead of having 1,800 fonts sitting in a folder, the user gains:
+
+Searchable typography inventory
+Licensing clarity
+Project based font selection
+Reusable visual identity decisions
+Better brand consistency
+Faster asset creation
+A foundation for future font generation
+
+This is the right first step because it creates immediate value while also preparing the ground for a more advanced Bespoke Font Generator later.
+
+## 23. Key Insight
+
+The font generator is not necessary simply because more fonts are possible.
+
+The font generator becomes necessary when the font library reveals specific creative gaps.
+
+Therefore the Font Library System should come first.
+
+It helps answer:
+
+What do we already have?
+What is actually useful?
+What can be safely used?
+What fits the current projects?
+What gaps keep appearing?
+
+Once those gaps are visible, the Bespoke Font Generator can be built around real creative demand instead of abstract possibility.

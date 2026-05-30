@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Video Pipeline — Visual Walkthrough</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.6}
+a{color:#FF8C00;text-decoration:none}
+a:hover{text-decoration:underline}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:#010409;border-bottom:1px solid #30363d;display:flex;align-items:center;padding:0 24px;z-index:100;gap:32px}
+.topbar .logo{font-size:18px;font-weight:700;color:#FF8C00;white-space:nowrap}
+.topbar nav{display:flex;gap:4px;overflow-x:auto}
+.topbar nav a{color:#8b949e;font-size:13px;padding:6px 12px;border-radius:6px;white-space:nowrap;transition:all .15s}
+.topbar nav a:hover{color:#e6edf3;background:#161b22;text-decoration:none}
+.topbar nav a.active{color:#FF8C00;background:#1c1208}
+
+.hero{margin-top:56px;padding:80px 40px 60px;text-align:center;background:linear-gradient(180deg,#0d1117 0%,#161b22 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,140,0,0.08) 0%,transparent 60%);pointer-events:none}
+.hero h1{font-size:52px;font-weight:800;letter-spacing:-1px;margin-bottom:8px;background:linear-gradient(135deg,#FF8C00,#FFB347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p.subtitle{font-size:20px;color:#8b949e;margin-bottom:40px}
+.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:36px;font-weight:800;color:#FF8C00}
+.hero-stat .label{font-size:12px;color:#8b949e;text-transform:uppercase;letter-spacing:1px}
+
+.hero-frame{max-width:960px;margin:40px auto 0;border-radius:12px;overflow:hidden;border:1px solid #30363d;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.hero-frame img{width:100%;display:block}
+
+.section{max-width:1200px;margin:0 auto;padding:80px 40px}
+.section-title{font-size:32px;font-weight:700;margin-bottom:8px;color:#e6edf3}
+.section-desc{font-size:16px;color:#8b949e;margin-bottom:40px;max-width:700px}
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,#30363d,transparent);margin:0 auto;max-width:800px}
+
+.pipeline-flow{display:flex;gap:12px;align-items:stretch;flex-wrap:wrap;margin-bottom:40px}
+.pipeline-stage{flex:1;min-width:140px;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:20px 16px;text-align:center;transition:all .2s}
+.pipeline-stage:hover{border-color:#FF8C00;transform:translateY(-2px)}
+.pipeline-stage .stage-num{font-size:11px;color:#FF8C00;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.pipeline-stage .stage-name{font-size:16px;font-weight:600;margin-bottom:4px}
+.pipeline-stage .stage-desc{font-size:12px;color:#8b949e}
+.pipeline-arrow{display:flex;align-items:center;color:#30363d;font-size:20px}
+
+.timeline-container{position:relative;margin:40px 0;overflow-x:auto;padding-bottom:20px}
+.timeline{position:relative;height:200px;min-width:900px;background:#161b22;border-radius:12px;border:1px solid #30363d}
+.timeline-line{position:absolute;top:50%;left:40px;right:40px;height:2px;background:#30363d}
+.timeline-block{position:absolute;top:30px;height:140px;border-radius:8px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:8px;border:1px solid transparent}
+.timeline-block:hover{transform:scale(1.03);z-index:2}
+.timeline-block .block-label{font-size:11px;font-weight:600;letter-spacing:0.5px}
+.timeline-block .block-style{font-size:10px;opacity:0.7;margin-top:2px}
+.timeline-block .block-time{font-size:9px;opacity:0.5;margin-top:4px}
+.timeline-marker{position:absolute;bottom:15px;width:3px;height:10px;background:#8b949e;border-radius:1px}
+.timeline-time-labels{position:absolute;bottom:0;left:40px;right:40px;height:14px;display:flex;justify-content:space-between}
+.timeline-time-labels span{font-size:9px;color:#484f58}
+
+.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:900px){.section-grid{grid-template-columns:1fr}}
+
+.section-card{background:#161b22;border:1px solid #30363d;border-radius:12px;overflow:hidden;transition:all .3s}
+.section-card:hover{border-color:#FF8C00;box-shadow:0 8px 32px rgba(255,140,0,0.08)}
+.section-card .card-frame{width:100%;aspect-ratio:16/9;overflow:hidden;background:#000;position:relative}
+.section-card .card-frame img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.section-card:hover .card-frame img{transform:scale(1.02)}
+.section-card .card-body{padding:20px}
+.section-card .card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.section-card .card-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0d1117}
+.section-card .card-title{font-size:16px;font-weight:600}
+.section-card .card-meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px}
+.section-card .card-meta .meta-label{color:#8b949e;font-weight:500}
+.section-card .card-meta .meta-val{color:#e6edf3}
+
+.style-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.5px}
+.style-ice{background:rgba(255,140,0,0.15);color:#FF8C00;border:1px solid rgba(255,140,0,0.3)}
+.style-neon{background:rgba(255,50,150,0.15);color:#ff3296;border:1px solid rgba(255,50,150,0.3)}
+.style-chrome{background:rgba(150,180,220,0.15);color:#96b4dc;border:1px solid rgba(150,180,220,0.3)}
+.style-hologram{background:rgba(150,100,255,0.15);color:#9664ff;border:1px solid rgba(150,100,255,0.3)}
+.style-gold{background:rgba(218,165,32,0.15);color:#daa520;border:1px solid rgba(218,165,32,0.3)}
+.style-fire{background:rgba(255,80,20,0.15);color:#ff5014;border:1px solid rgba(255,80,20,0.3)}
+.style-graffiti{background:rgba(80,255,80,0.15);color:#50ff50;border:1px solid rgba(80,255,80,0.3)}
+.style-matrix{background:rgba(0,200,0,0.15);color:#00c800;border:1px solid rgba(0,200,0,0.3)}
+.style-basic{background:rgba(200,200,200,0.1);color:#c8c8c8;border:1px solid rgba(200,200,200,0.2)}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gallery-item{background:#161b22;border:1px solid #30363d;border-radius:10px;overflow:hidden;transition:all .2s}
+.gallery-item:hover{border-color:#FF8C00;transform:translateY(-1px)}
+.gallery-item img,.gallery-item video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000}
+.gallery-item .gallery-label{padding:10px 14px;font-size:12px;font-weight:600;color:#e6edf3}
+.gallery-item .gallery-sublabel{padding:0 14px 10px;font-size:11px;color:#8b949e}
+
+.intro-outro{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+@media(max-width:900px){.intro-outro{grid-template-columns:1fr}}
+.io-card{background:#161b22;border:1px solid #30363d;border-radius:12px;overflow:hidden}
+.io-card .io-frame{width:100%;aspect-ratio:16/9;overflow:hidden;background:#000}
+.io-card .io-frame img{width:100%;height:100%;object-fit:cover}
+.io-card .io-body{padding:20px}
+.io-card h3{font-size:18px;margin-bottom:12px}
+.io-card .phase{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;padding:8px 0;border-bottom:1px solid #21262d}
+.io-card .phase:last-child{border-bottom:none}
+.io-card .phase-time{min-width:60px;font-size:11px;color:#FF8C00;font-weight:600;padding-top:2px}
+.io-card .phase-desc{font-size:13px;color:#e6edf3}
+
+.arch-diagram{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:32px;margin:24px 0;font-family:monospace;font-size:13px;line-height:1.8;color:#8b949e;overflow-x:auto}
+.arch-diagram .arch-step{display:flex;align-items:center;gap:12px;padding:6px 0}
+.arch-diagram .arch-num{min-width:24px;height:24px;border-radius:50%;background:#FF8C00;color:#0d1117;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.arch-diagram .arch-func{color:#79c0ff;font-weight:600}
+.arch-diagram .arch-detail{color:#8b949e}
+
+.code-block{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;font-family:"SF Mono",Monaco,"Cortex-Code",monospace;font-size:12px;line-height:1.6;overflow-x:auto;color:#e6edf3;margin:12px 0}
+.code-block .comment{color:#484f58}
+.code-block .key{color:#79c0ff}
+.code-block .str{color:#a5d6ff}
+.code-block .num{color:#FF8C00}
+
+.cli-ref{display:flex;flex-direction:column;gap:16px}
+.cli-cmd{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 20px}
+.cli-cmd .cmd-name{font-size:16px;font-weight:600;color:#FF8C00;margin-bottom:4px;font-family:monospace}
+.cli-cmd .cmd-desc{font-size:13px;color:#8b949e;margin-bottom:8px}
+.cli-cmd .cmd-usage{background:#010409;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:12px;color:#e6edf3;overflow-x:auto}
+.cli-cmd .cmd-usage .flag{color:#79c0ff}
+
+.json-schema{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:20px;overflow-x:auto}
+.json-schema pre{font-family:"SF Mono",Monaco,monospace;font-size:12px;line-height:1.7;color:#e6edf3}
+.json-schema .js-key{color:#79c0ff}
+.json-schema .js-str{color:#a5d6ff}
+.json-schema .js-num{color:#FF8C00}
+.json-schema .js-bool{color:#ff7b72}
+.json-schema .js-comment{color:#484f58;font-style:italic}
+
+.font-chart{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}
+.font-bar{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;text-align:center}
+.font-bar .bar-count{font-size:28px;font-weight:800;color:#FF8C00}
+.font-bar .bar-label{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+.font-bar .bar-pct{font-size:10px;color:#484f58;margin-top:2px}
+
+.footer{text-align:center;padding:60px 40px;color:#484f58;font-size:13px;border-top:1px solid #21262d}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">MVP</div>
+  <nav>
+    <a href="#overview">Overview</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#ai-psalm-9">AI Psalm 9</a>
+    <a href="#sections">Sections</a>
+    <a href="#intro-outro">Intro/Outro</a>
+    <a href="#visuals">Visuals</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#schema">Schema</a>
+    <a href="#cli">CLI</a>
+    <a href="#fonts">Fonts</a>
+  </nav>
+</div>
+
+<div class="hero" id="overview">
+  <h1>Music Video Pipeline</h1>
+  <p class="subtitle">Automated lyric video production — audio + lyrics to finished MP4</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">1,781</div><div class="label">Font Families</div></div>
+    <div class="hero-stat"><div class="num">9</div><div class="label">Text Styles</div></div>
+    <div class="hero-stat"><div class="num">16</div><div class="label">Gradient Geometries</div></div>
+    <div class="hero-stat"><div class="num">14</div><div class="label">Frame Effects</div></div>
+    <div class="hero-stat"><div class="num">8</div><div class="label">Effect Presets</div></div>
+    <div class="hero-stat"><div class="num">86.2s</div><div class="label">AI Psalm 9</div></div>
+  </div>
+  <div class="hero-frame">
+    <img src="walkthrough_assets/frames/s4_neon_dual.jpg" alt="AI Psalm 9 — Neon style render" loading="lazy">
+  </div>
+</div>
+
+<div class="section" id="pipeline">
+  <div class="section-title">Pipeline Flow</div>
+  <div class="section-desc">Six stages from raw audio to finished video. Each stage builds on the previous, with graceful degradation for missing inputs.</div>
+  
+  <div class="pipeline-flow">
+    <div class="pipeline-stage">
+      <div class="stage-num">Stage 1</div>
+      <div class="stage-name">Ingest</div>
+      <div class="stage-desc">Discover audio, lyrics, stems, MIDI</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="stage-num">Stage 2</div>
+      <div class="stage-name">Analyze</div>
+      <div class="stage-desc">Beat detection, RMS, spectral, onsets</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="stage-num">Stage 3</div>
+      <div class="stage-name">Sync</div>
+      <div class="stage-desc">Word-level lyric timestamps</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="stage-num">Stage 4</div>
+      <div class="stage-name">Structure</div>
+      <div class="stage-desc">Detect sections, map types</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="stage-num">Stage 5</div>
+      <div class="stage-name">Design</div>
+      <div class="stage-desc">Generate script.json</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="stage-num">Stage 6</div>
+      <div class="stage-name">Render</div>
+      <div class="stage-desc">Frame-by-frame → MP4</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section" id="ai-psalm-9">
+  <div class="section-title">AI Psalm 9 — Timeline</div>
+  <div class="section-desc">25 lines, 132 words, 86.2 seconds. 7 sections with 5 distinct text styles. Hover over sections to see details.</div>
+
+  <div class="timeline-container">
+    <div class="timeline" id="timeline">
+      <div class="timeline-line"></div>
+    </div>
+  </div>
+
+  <div id="timeline-detail" style="display:none;background:#161b22;border:1px solid #FF8C00;border-radius:10px;padding:20px;margin-top:20px">
+    <div id="td-content"></div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section" id="sections">
+  <div class="section-title">Section Breakdown</div>
+  <div class="section-desc">Each section has unique gradient geometry, text style, font family, and word positioning. Click cards for full details.</div>
+
+  <div class="section-grid">
+
+    <div class="section-card" data-section="0">
+      <div class="card-frame"><img src="walkthrough_assets/frames/s0_ice_cross.jpg" alt="Section 0" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-num" style="background:#FF8C00">0</div>
+          <div class="card-title">Spoken Prophetic Opening</div>
+          <span class="style-badge style-ice">ice</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Lines</span><span class="meta-val">L0–L1 (4.79–11.45s)</span>
+          <span class="meta-label">Gradient</span><span class="meta-val">cross</span>
+          <span class="meta-label">Font</span><span class="meta-val">Exo 2 Bold, 94pt</span>
+          <span class="meta-label">Reveal</span><span class="meta-val">progressive</span>
+          <span class="meta-label">Positions</span><span class="meta-val">Split: y=0.5 + y=0.8</span>
+          <span class="meta-label">Lyrics</span><span class="meta-val">"Your own people say they are you"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card" data-section="1">
+      <div class="card-frame"><img src="walkthrough_assets/frames/s1_ice_conic.jpg" alt="Section 1" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-num" style="background:#FF8C00">1</div>
+          <div class="card-title">Melodic Testimony Verse</div>
+          <span class="style-badge style-ice">ice</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Lines</span><span class="meta-val">L2–L5 (14.71–28.96s)</span>
+          <span class="meta-label">Gradient</span><span class="meta-val">conic (0.8 rad offset)</span>
+          <span class="meta-label">Font</span><span class="meta-val">Exo 2 Bold, 94–98pt</span>
+          <span class="meta-label">Reveal</span><span class="meta-val">progressive</span>
+          <span class="meta-label">Positions</span><span class="meta-val">All y=0.2 (top)</span>
+          <span class="meta-label">Lyrics</span><span class="meta-val">"You always show up, even when I have doubt"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card" data-section="2">
+      <div class="card-frame"><img src="walkthrough_assets/frames/s2_ice_dual.jpg" alt="Section 2" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-num" style="background:#FF8C00">2</div>
+          <div class="card-title">Vulnerable Sacred Pop</div>
+          <span class="style-badge style-ice">ice</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Lines</span><span class="meta-val">L6–L9 (28.96–36.73s)</span>
+          <span class="meta-label">Gradient</span><span class="meta-val">dual_spot (30%,40% + 70%,60%)</span>
+          <span class="meta-label">Font</span><span class="meta-val">Exo 2 Bold, 95–99pt</span>
+          <span class="meta-label">Reveal</span><span class="meta-val">progressive</span>
+          <span class="meta-label">BG Preset</span><span class="meta-val">dreamy</span>
+          <span class="meta-label">Lyrics</span><span class="meta-val">"You've given me albums"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card" data-section="3">
+      <div class="card-frame"><img src="walkthrough_assets/frames/s3_chrome_cross.jpg" alt="Section 3" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-num" style="background:#96b4dc">3</div>
+          <div class="card-title">Cinematic Prophetic Build</div>
+          <span class="style-badge style-chrome">chrome</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Lines</span><span class="meta-val">L10–L15 (40.99–52.41s)</span>
+          <span class="meta-label">Gradient</span><span class="meta-val">cross</span>
+          <span class="meta-label">Font</span><span class="meta-val">BebasNeue, 96–109pt (ascending)</span>
+          <span class="meta-label">Reveal</span><span class="meta-val">progressive</span>
+          <span class="meta-label">Animation</span><span class="meta-val">scale_in × 1.5</span>
+          <span class="meta-label">Lyrics</span><span class="meta-val">"You've given me series of pieces"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card" data-section="4">
+      <div class="card-frame"><img src="walkthrough_assets/frames/s4_neon_dual.jpg" alt="Section 4" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-num" style="background:#ff3296">4</div>
+          <div class="card-title">Prophetic Declaration Lift</div>
+          <span class="style-badge style-neon">neon</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Lines</span><span class="meta-val">L16–L18 (52.42–64.92s)</span>
+          <span class="meta-label">Gradient</span><span class="meta-val">dual_spot (30%,30% + 70%,70%)</span>
+          <span class="meta-label">Font</span><span class="meta-val">Bangers, 150–162pt (doubled!)</span>
+          <span class="meta-label">Reveal</span><span class="meta-val">progressive</span>
+          <span class="meta-label">Reactivity</span><span class="meta-val">drums + energy</span>
+          <span class="meta-label">Lyrics</span><span class="meta-val">"I don't fear prophecy"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card" data-section="5">
+      <div class="card-frame"><img src="walkthrough_assets/frames/s5_hologram_spiral.jpg" alt="Section 5" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-num" style="background:#9664ff">5</div>
+          <div class="card-title">Spoken Liturgical Bridge</div>
+          <span class="style-badge style-hologram">hologram</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Lines</span><span class="meta-val">L19–L20 (65.05–69.51s)</span>
+          <span class="meta-label">Gradient</span><span class="meta-val">spiral</span>
+          <span class="meta-label">Font</span><span class="meta-val">JetBrainsMono, 96–101pt</span>
+          <span class="meta-label">Reveal</span><span class="meta-val"><strong>stacking</strong></span>
+          <span class="meta-label">Positions</span><span class="meta-val">L19: y=0.35, L20: y=0.65</span>
+          <span class="meta-label">Lyrics</span><span class="meta-val">"Post Canonical Prophetic Witness"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card" data-section="6">
+      <div class="card-frame"><img src="walkthrough_assets/frames/s6_gold_cross.jpg" alt="Section 6" loading="lazy"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-num" style="background:#daa520">6</div>
+          <div class="card-title">Prayerful Final Movement</div>
+          <span class="style-badge style-gold">gold</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-label">Lines</span><span class="meta-val">L21–L24 (71.35–82.31s)</span>
+          <span class="meta-label">Gradient</span><span class="meta-val">cross</span>
+          <span class="meta-label">Font</span><span class="meta-val">Lora Bold, 96–108pt</span>
+          <span class="meta-label">Reveal</span><span class="meta-val">progressive</span>
+          <span class="meta-label">Reactivity</span><span class="meta-val">drums + energy</span>
+          <span class="meta-label">Lyrics</span><span class="meta-val">"I pray they remember the purpose"</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section" id="intro-outro">
+  <div class="section-title">Intro & Outro</div>
+  <div class="section-desc">Two-phase static displays. Intro covers 0–4.79s (before first word). Outro covers 82.31–86.2s (after last word).</div>
+
+  <div class="intro-outro">
+    <div class="io-card">
+      <div class="io-frame"><img src="walkthrough_assets/frames/intro_branding.jpg" alt="Intro branding" loading="lazy"></div>
+      <div class="io-body">
+        <h3>Intro (0 — 4.79s)</h3>
+        <div class="phase">
+          <div class="phase-time">0 — 2.6s</div>
+          <div class="phase-desc">Phase 1: Full-screen branding image (cathedral/cross with ASABAAL text, cover fit)</div>
+        </div>
+        <div class="phase">
+          <div class="phase-time">2.6 — 2.9s</div>
+          <div class="phase-desc">Transition: Default gradient background</div>
+        </div>
+        <div class="phase">
+          <div class="phase-time">2.9 — 4.8s</div>
+          <div class="phase-desc">Phase 2: Title card — "AI Psalm 9" (80pt BebasNeue), "A Reality Signal", "by", "Asabaal Horan" (44pt Lora)</div>
+        </div>
+      </div>
+    </div>
+    <div class="io-card">
+      <div class="io-frame"><img src="walkthrough_assets/frames/outro.jpg" alt="Outro" loading="lazy"></div>
+      <div class="io-body">
+        <h3>Outro (82.31 — 86.2s)</h3>
+        <div class="phase">
+          <div class="phase-time">82.3 — 84.0s</div>
+          <div class="phase-desc">Phase 1: Branding image (same as intro)</div>
+        </div>
+        <div class="phase">
+          <div class="phase-time">84.0 — 84.3s</div>
+          <div class="phase-desc">Transition: Default gradient</div>
+        </div>
+        <div class="phase">
+          <div class="phase-time">84.3 — 86.2s</div>
+          <div class="phase-desc">Phase 2: "Presented by" (36pt Lora) + transparent Asabaal Ventures logo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section" id="visuals">
+  <div class="section-title">Visual System Gallery</div>
+  <div class="section-desc">Every visual feature available in the pipeline, with rendered examples. Images from the feature explorer.</div>
+
+  <h3 style="font-size:20px;margin-bottom:16px;color:#e6edf3">Text Styles</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_ice.png" alt="Ice style" loading="lazy">
+      <div class="gallery-label">Ice <span class="style-badge style-ice" style="font-size:10px;padding:1px 6px">ice</span></div>
+      <div class="gallery-sublabel">Orange glow, warm core gradient</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_neon.png" alt="Neon style" loading="lazy">
+      <div class="gallery-label">Neon <span class="style-badge style-neon" style="font-size:10px;padding:1px 6px">neon</span></div>
+      <div class="gallery-sublabel">Hot pink glow with bloom</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_chrome.png" alt="Chrome style" loading="lazy">
+      <div class="gallery-label">Chrome <span class="style-badge style-chrome" style="font-size:10px;padding:1px 6px">chrome</span></div>
+      <div class="gallery-sublabel">Metallic silver-blue gradient</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_hologram.png" alt="Hologram style" loading="lazy">
+      <div class="gallery-label">Hologram <span class="style-badge style-hologram" style="font-size:10px;padding:1px 6px">hologram</span></div>
+      <div class="gallery-sublabel">Rainbow shimmer, prismatic</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_gold.png" alt="Gold style" loading="lazy">
+      <div class="gallery-label">Gold <span class="style-badge style-gold" style="font-size:10px;padding:1px 6px">gold</span></div>
+      <div class="gallery-sublabel">Warm amber metallic</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_fire.png" alt="Fire style" loading="lazy">
+      <div class="gallery-label">Fire <span class="style-badge style-fire" style="font-size:10px;padding:1px 6px">fire</span></div>
+      <div class="gallery-sublabel">Red-orange-yellow flame</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_graffiti.png" alt="Graffiti style" loading="lazy">
+      <div class="gallery-label">Graffiti <span class="style-badge style-graffiti" style="font-size:10px;padding:1px 6px">graffiti</span></div>
+      <div class="gallery-sublabel">Bright green spray-paint</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_matrix.png" alt="Matrix style" loading="lazy">
+      <div class="gallery-label">Matrix <span class="style-badge style-matrix" style="font-size:10px;padding:1px 6px">matrix</span></div>
+      <div class="gallery-sublabel">Green phosphor terminal</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/fstyle_basic.png" alt="Basic style" loading="lazy">
+      <div class="gallery-label">Basic <span class="style-badge style-basic" style="font-size:10px;padding:1px 6px">basic</span></div>
+      <div class="gallery-sublabel">Plain white, no effects</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:20px;margin:40px 0 16px;color:#e6edf3">Reveal Modes</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/reveal_progressive.png" alt="Progressive" loading="lazy">
+      <div class="gallery-label">Progressive</div>
+      <div class="gallery-sublabel">Words appear one at a time, accumulate</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/reveal_karaoke.png" alt="Karaoke" loading="lazy">
+      <div class="gallery-label">Karaoke</div>
+      <div class="gallery-sublabel">All words visible, active word highlighted</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../explorer_assets/static/reveal_linebyline.png" alt="Line-by-line" loading="lazy">
+      <div class="gallery-label">Line-by-line</div>
+      <div class="gallery-sublabel">Full line appears at once</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:20px;margin:40px 0 16px;color:#e6edf3">Gradient Directions</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="../explorer_assets/static/grad_vert_tb.png" alt="" loading="lazy"><div class="gallery-label">vertical_top_bottom</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/grad_horiz_lr.png" alt="" loading="lazy"><div class="gallery-label">horizontal_left_right</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/grad_diag_tlbr.png" alt="" loading="lazy"><div class="gallery-label">diagonal_tl_br</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/grad_rad_ctr.png" alt="" loading="lazy"><div class="gallery-label">radial_center</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/grad_rad_top.png" alt="" loading="lazy"><div class="gallery-label">radial_top</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/grad_rad_bot.png" alt="" loading="lazy"><div class="gallery-label">radial_bottom</div></div>
+  </div>
+
+  <h3 style="font-size:20px;margin:40px 0 16px;color:#e6edf3">Textures</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="../explorer_assets/static/tex_none.png" alt="" loading="lazy"><div class="gallery-label">none</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/tex_noise_fine.png" alt="" loading="lazy"><div class="gallery-label">noise_fine</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/tex_noise_coarse.png" alt="" loading="lazy"><div class="gallery-label">noise_coarse</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/tex_grain_film.png" alt="" loading="lazy"><div class="gallery-label">grain_film</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/tex_paper_subtle.png" alt="" loading="lazy"><div class="gallery-label">paper_subtle</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/tex_vignette_soft.png" alt="" loading="lazy"><div class="gallery-label">vignette_soft</div></div>
+    <div class="gallery-item"><img src="../explorer_assets/static/tex_vignette_heavy.png" alt="" loading="lazy"><div class="gallery-label">vignette_heavy</div></div>
+  </div>
+
+  <h3 style="font-size:20px;margin:40px 0 16px;color:#e6edf3">Animations</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_fade_in.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">fade_in</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_slide_in.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">slide_in</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_scale_in.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">scale_in</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_bounce_in.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">bounce_in</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_elastic_in.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">elastic_in</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_rotate_in.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">rotate_in</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_typewriter.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">typewriter</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_glow_pulse.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">glow_pulse</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_wave.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">wave</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/anim_shake.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">shake</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:20px;margin:40px 0 16px;color:#e6edf3">Audio Reactivity</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/react_energy.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">energy</div>
+      <div class="gallery-sublabel">RMS energy → glow, saturation</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/react_drums.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">drums</div>
+      <div class="gallery-sublabel">Beat detection → flash, shake</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/react_vocals.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">vocals</div>
+      <div class="gallery-sublabel">Vocal energy → opacity, color</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/react_all.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">all</div>
+      <div class="gallery-sublabel">Combined reactivity</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:20px;margin:40px 0 16px;color:#e6edf3">Effect Presets</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/mpreset_cinematic.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">cinematic</div>
+      <div class="gallery-sublabel">ken_burns, color_drift, bokeh, vignette</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/mpreset_dreamy.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">dreamy</div>
+      <div class="gallery-sublabel">slow drift, 18 bokeh, wave distortion</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/mpreset_energetic.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">energetic</div>
+      <div class="gallery-sublabel">camera shake, brightness pulse</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/mpreset_smooth.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">smooth</div>
+      <div class="gallery-sublabel">gentle ken_burns, subtle bokeh</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/mpreset_glitch.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">glitch</div>
+      <div class="gallery-sublabel">RGB offset, contrast pulse</div>
+    </div>
+    <div class="gallery-item">
+      <video src="../explorer_assets/video/mpreset_psychedelic.mp4" autoplay loop muted playsinline></video>
+      <div class="gallery-label">psychedelic</div>
+      <div class="gallery-sublabel">heavy color shift, wave distortion</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section" id="architecture">
+  <div class="section-title">Rendering Architecture</div>
+  <div class="section-desc">How each frame is composed, from time lookup to final pixel output.</div>
+
+  <div class="arch-diagram">
+    <div class="arch-step"><div class="arch-num">1</div><div><span class="arch-func">_find_active_word(t)</span> <span class="arch-detail">→ (line_idx, word_idx) using start ≤ t ≤ end</span></div></div>
+    <div class="arch-step"><div class="arch-num">2</div><div><span class="arch-func">if line_idx &lt; 0:</span> <span class="arch-detail">Check intro → outro → gap frame (nearest section visuals + 2.5× brightness)</span></div></div>
+    <div class="arch-step"><div class="arch-num">3</div><div><span class="arch-func">get_visual(line_idx, word_idx)</span> <span class="arch-detail">→ Resolve defaults → section.visual → lines_overrides → words_overrides</span></div></div>
+    <div class="arch-step"><div class="arch-num">4</div><div><span class="arch-func">_draw_background(img, v)</span> <span class="arch-detail">→ Gradient (16 geometries) + texture (7 types)</span></div></div>
+    <div class="arch-step"><div class="arch-num">5</div><div><span class="arch-func">_apply_bg_motion(img, t, v)</span> <span class="arch-detail">→ Downsample 2×, apply preset effects, audio reactivity, upsample</span></div></div>
+    <div class="arch-step"><div class="arch-num">6</div><div><span class="arch-func">_layout_line(words, line_idx, v)</span> <span class="arch-detail">→ Resolve y/x per word, group by y, center each group with tight metrics</span></div></div>
+    <div class="arch-step"><div class="arch-num">7</div><div><span class="arch-func">draw by reveal mode</span> <span class="arch-detail">→ progressive / karaoke / line-by-line / stacking</span></div></div>
+    <div class="arch-step"><div class="arch-num">8</div><div><span class="arch-func">_compute_animation_progress(t, line_idx)</span> <span class="arch-detail">→ Enter (0–30%) → steady → exit (last 20%)</span></div></div>
+    <div class="arch-step"><div class="arch-num">9</div><div><span class="arch-func">alpha_composite(text, background)</span> <span class="arch-detail">→ RGBA text layer over RGB background</span></div></div>
+    <div class="arch-step"><div class="arch-num">10</div><div><span class="arch-func">encoder.write_frame(bytes)</span> <span class="arch-detail">→ FFmpeg libx264 + AAC streaming</span></div></div>
+  </div>
+
+  <h3 style="font-size:20px;margin:32px 0 16px;color:#e6edf3">Override Resolution</h3>
+  <div class="arch-diagram" style="font-size:14px">
+    <div><span class="arch-func">defaults</span> → <span class="arch-func">section.visual</span> → <span class="arch-func">lines_overrides[line]</span> → <span class="arch-func">words_overrides[line.word]</span></div>
+    <div style="color:#484f58;margin-top:8px">Each level overrides properties from the previous. If a word has "y": 0.2, it wins over section text_position "center".</div>
+  </div>
+
+  <h3 style="font-size:20px;margin:32px 0 16px;color:#e6edf3">Caching Strategy</h3>
+  <div class="arch-diagram" style="font-size:14px">
+    <div><span class="arch-func">Background cache:</span> <span class="arch-detail">Per section name — identical sections share one background</span></div>
+    <div><span class="arch-func">Styled text cache:</span> <span class="arch-detail">Keyed by (text, style, size, family) — words reused across frames</span></div>
+    <div><span class="arch-func">Font cache:</span> <span class="arch-detail">Keyed by (family_id, size) — PIL FreeTypeFont objects</span></div>
+    <div><span class="arch-func">Frame dedup:</span> <span class="arch-detail">Same (line_idx, word_idx) → reuse raw bytes. Animated: include frame_idx in key</span></div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section" id="schema">
+  <div class="section-title">Script.json Schema</div>
+  <div class="section-desc">The script is the complete visual design specification. Every render decision is controlled by this single file.</div>
+
+  <div class="json-schema">
+<pre>{
+  <span class="js-key">"name"</span>: <span class="js-str">"Song Title"</span>,
+  <span class="js-key">"defaults"</span>: {                   <span class="js-comment">// Base visual properties</span>
+    <span class="js-key">"background_type"</span>: <span class="js-str">"gradient"</span>,
+    <span class="js-key">"gradient_colors"</span>: [<span class="js-str">"#162126"</span>, <span class="js-str">"#222b39"</span>],
+    <span class="js-key">"gradient_direction"</span>: <span class="js-str">"radial_center"</span>,
+    <span class="js-key">"texture_type"</span>: <span class="js-str">"vignette_soft"</span>,
+    <span class="js-key">"texture_opacity"</span>: <span class="js-num">0.2</span>,
+    <span class="js-key">"font_size"</span>: <span class="js-num">146</span>,
+    <span class="js-key">"reveal_mode"</span>: <span class="js-str">"progressive"</span>,
+    <span class="js-key">"reveal_words"</span>: <span class="js-num">1</span>,
+    <span class="js-key">"reactivity"</span>: [<span class="js-str">"vocals"</span>],
+    <span class="js-key">"animation_type"</span>: <span class="js-str">"fade"</span>,
+    <span class="js-key">"animation_speed"</span>: <span class="js-num">1.0</span>
+  },
+  <span class="js-key">"caption_style"</span>: {              <span class="js-comment">// Global text rendering</span>
+    <span class="js-key">"font_family"</span>: <span class="js-num">0</span>,
+    <span class="js-key">"highlight_color"</span>: <span class="js-str">"#FF8C00"</span>,
+    <span class="js-key">"text_position"</span>: <span class="js-str">"center"</span>,
+    <span class="js-key">"letter_spacing"</span>: <span class="js-num">1</span>,
+    <span class="js-key">"text_shadow"</span>: <span class="js-bool">false</span>,
+    <span class="js-key">"outline"</span>: <span class="js-bool">false</span>
+  },
+  <span class="js-key">"sections"</span>: [{
+    <span class="js-key">"name"</span>: <span class="js-str">"verse 1"</span>,
+    <span class="js-key">"type"</span>: <span class="js-str">"verse"</span>,             <span class="js-comment">// Resolved via keyword matching</span>
+    <span class="js-key">"lines"</span>: [<span class="js-num">0</span>, <span class="js-num">1</span>],            <span class="js-comment">// Indices into lyrics_synced.json</span>
+    <span class="js-key">"visual"</span>: {                    <span class="js-comment">// Section-level overrides</span>
+      <span class="js-key">"text_style"</span>: <span class="js-str">"neon"</span>,
+      <span class="js-key">"font_family"</span>: <span class="js-num">2</span>,
+      <span class="js-key">"gradient_direction"</span>: <span class="js-str">"cross"</span>,
+      <span class="js-key">"gradient_colors"</span>: [<span class="js-str">"..."</span>],
+      <span class="js-key">"bg_animation_preset"</span>: <span class="js-str">"dreamy"</span>
+    },
+    <span class="js-key">"lines_overrides"</span>: {           <span class="js-comment">// Per-line overrides</span>
+      <span class="js-key">"0"</span>: { <span class="js-key">"font_size"</span>: <span class="js-num">150</span> },
+      <span class="js-key">"1"</span>: { <span class="js-key">"font_size"</span>: <span class="js-num">156</span> }
+    },
+    <span class="js-key">"words_overrides"</span>: {           <span class="js-comment">// Per-word overrides (line.word)</span>
+      <span class="js-key">"0.0"</span>: { <span class="js-key">"y"</span>: <span class="js-num">0.35</span> },
+      <span class="js-key">"0.1"</span>: { <span class="js-key">"y"</span>: <span class="js-num">0.35</span> },
+      <span class="js-key">"1.0"</span>: { <span class="js-key">"y"</span>: <span class="js-num">0.65</span> }
+    }
+  }],
+  <span class="js-key">"intro"</span>: {
+    <span class="js-key">"image"</span>: <span class="js-str">"/path/to/brand.png"</span>,
+    <span class="js-key">"duration"</span>: <span class="js-num">4.789</span>
+  },
+  <span class="js-key">"outro"</span>: {
+    <span class="js-key">"image"</span>: <span class="js-str">"/path/to/brand.png"</span>,
+    <span class="js-key">"logo"</span>: <span class="js-str">"/path/to/logo.png"</span>,
+    <span class="js-key">"text"</span>: <span class="js-str">"Presented by"</span>
+  }
+}</pre>
+  </div>
+
+  <h3 style="font-size:20px;margin:32px 0 16px;color:#e6edf3">Word Override Fields</h3>
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:1px solid #30363d;text-align:left">
+        <th style="padding:8px;color:#8b949e">Field</th>
+        <th style="padding:8px;color:#8b949e">Type</th>
+        <th style="padding:8px;color:#8b949e">Description</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;font-family:monospace;color:#79c0ff">y</td><td style="padding:8px">float 0.0–1.0</td><td style="padding:8px">Vertical position (proportional to height)</td></tr>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;font-family:monospace;color:#79c0ff">x</td><td style="padding:8px">float 0.0–1.0</td><td style="padding:8px">Horizontal pin position (optional)</td></tr>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;font-family:monospace;color:#79c0ff">font_size_delta</td><td style="padding:8px">int</td><td style="padding:8px">Additive size change to base font size</td></tr>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;font-family:monospace;color:#79c0ff">text_position</td><td style="padding:8px">string</td><td style="padding:8px">Named position: "top" (0.2), "center" (0.5), "bottom" (0.8)</td></tr>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;font-family:monospace;color:#79c0ff">font_size</td><td style="padding:8px">int</td><td style="padding:8px">Absolute font size override</td></tr>
+        <tr><td style="padding:8px;font-family:monospace;color:#79c0ff">color</td><td style="padding:8px">hex</td><td style="padding:8px">Word-specific color</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section" id="cli">
+  <div class="section-title">CLI Reference</div>
+  <div class="section-desc">All commands run from the music-video-pipeline directory with PYTHONPATH=src.</div>
+
+  <div class="cli-ref">
+    <div class="cli-cmd">
+      <div class="cmd-name">init</div>
+      <div class="cmd-desc">Create a new project directory with audio and lyrics inputs.</div>
+      <div class="cmd-usage">PYTHONPATH=src python3 -m cli.commands init <span class="flag">-p</span> ../projects/myproject <span class="flag">-a</span> ../song.wav <span class="flag">-l</span> ../lyrics.txt</div>
+    </div>
+    <div class="cli-cmd">
+      <div class="cmd-name">analyze</div>
+      <div class="cmd-desc">Extract audio features: beat detection, RMS energy, spectral centroids, onsets.</div>
+      <div class="cmd-usage">PYTHONPATH=src python3 -m cli.commands analyze <span class="flag">-p</span> ../projects/myproject</div>
+    </div>
+    <div class="cli-cmd">
+      <div class="cmd-name">sync</div>
+      <div class="cmd-desc">Sync lyrics to audio with word-level timestamps. Three-tier: MIDI &gt; vocal stem + Whisper &gt; full mix.</div>
+      <div class="cmd-usage">PYTHONPATH=src python3 -m cli.commands sync <span class="flag">-p</span> ../projects/myproject</div>
+    </div>
+    <div class="cli-cmd">
+      <div class="cmd-name">render</div>
+      <div class="cmd-desc">Generate script.json and/or render the final video.</div>
+      <div class="cmd-usage">
+PYTHONPATH=src python3 -m cli.commands render <span class="flag">-p</span> ../projects/myproject
+
+<span class="comment"># Generate script only (no render)</span>
+PYTHONPATH=src python3 -m cli.commands render <span class="flag">-p</span> ../projects/myproject <span class="flag">--script-only</span>
+
+<span class="comment"># Render with intro/outro</span>
+PYTHONPATH=src python3 -m cli.commands render <span class="flag">-p</span> ../projects/myproject \
+  <span class="flag">--intro-image</span> ../brand.png <span class="flag">--intro-title</span> "Song Title"
+
+<span class="comment"># Render time range</span>
+PYTHONPATH=src python3 -m cli.commands render <span class="flag">-p</span> ../projects/myproject <span class="flag">--start</span> 10.0 <span class="flag">--end</span> 60.0</div>
+    </div>
+    <div class="cli-cmd">
+      <div class="cmd-name">audit</div>
+      <div class="cmd-desc">Generate per-word frame samples for visual inspection.</div>
+      <div class="cmd-usage">PYTHONPATH=src python3 -m cli.commands audit <span class="flag">-p</span> ../projects/myproject</div>
+    </div>
+    <div class="cli-cmd">
+      <div class="cmd-name">info</div>
+      <div class="cmd-desc">Show project information and status.</div>
+      <div class="cmd-usage">PYTHONPATH=src python3 -m cli.commands info <span class="flag">-p</span> ../projects/myproject</div>
+    </div>
+    <div class="cli-cmd">
+      <div class="cmd-name">serve</div>
+      <div class="cmd-desc">Start HTTP server with browser-based editor for interactive editing.</div>
+      <div class="cmd-usage">PYTHONPATH=src python3 -m cli.commands serve <span class="flag">-p</span> ../projects/myproject</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section" id="fonts">
+  <div class="section-title">Font System</div>
+  <div class="section-desc">1,781 Google Font families downloaded and registered. Selection is deterministic per song.</div>
+
+  <div class="font-chart">
+    <div class="font-bar">
+      <div class="bar-count">718</div>
+      <div class="bar-label">Sans</div>
+      <div class="bar-pct">40.3%</div>
+    </div>
+    <div class="font-bar">
+      <div class="bar-count">466</div>
+      <div class="bar-label">Display</div>
+      <div class="bar-pct">26.2%</div>
+    </div>
+    <div class="font-bar">
+      <div class="bar-count">323</div>
+      <div class="bar-label">Serif</div>
+      <div class="bar-pct">18.1%</div>
+    </div>
+    <div class="font-bar">
+      <div class="bar-count">226</div>
+      <div class="bar-label">Handwriting</div>
+      <div class="bar-pct">12.7%</div>
+    </div>
+    <div class="font-bar">
+      <div class="bar-count">48</div>
+      <div class="bar-label">Mono</div>
+      <div class="bar-pct">2.7%</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:20px;margin:32px 0 16px;color:#e6edf3">Selection Algorithm</h3>
+  <div class="arch-diagram" style="font-size:14px">
+    <div><span class="arch-func">1.</span> <span class="arch-detail">Determine category preference from section type (verse→sans, chorus→display, bridge→serif)</span></div>
+    <div><span class="arch-func">2.</span> <span class="arch-detail">Filter font registry to matching category</span></div>
+    <div><span class="arch-func">3.</span> <span class="arch-detail">Hash song name + section index for deterministic selection</span></div>
+    <div><span class="arch-func">4.</span> <span class="arch-detail">Select font at hash position within category</span></div>
+    <div style="color:#484f58;margin-top:8px">Same song + same section index → same font. Different songs → different fonts (usually).</div>
+  </div>
+
+  <h3 style="font-size:20px;margin:32px 0 16px;color:#e6edf3">Legacy Font IDs (1–6)</h3>
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:1px solid #30363d;text-align:left">
+        <th style="padding:8px;color:#8b949e">ID</th>
+        <th style="padding:8px;color:#8b949e">Font</th>
+        <th style="padding:8px;color:#8b949e">Category</th>
+        <th style="padding:8px;color:#8b949e">Used In</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;color:#FF8C00;font-weight:600">1</td><td style="padding:8px">Exo 2</td><td style="padding:8px">sans</td><td style="padding:8px">Sections 0–2 (ice style)</td></tr>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;color:#FF8C00;font-weight:600">2</td><td style="padding:8px">Bangers</td><td style="padding:8px">display</td><td style="padding:8px">Section 4 (neon style)</td></tr>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;color:#FF8C00;font-weight:600">3</td><td style="padding:8px">Bebas Neue</td><td style="padding:8px">sans/display</td><td style="padding:8px">Section 3 (chrome style)</td></tr>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;color:#FF8C00;font-weight:600">4</td><td style="padding:8px">JetBrains Mono</td><td style="padding:8px">mono</td><td style="padding:8px">Section 5 (hologram style)</td></tr>
+        <tr style="border-bottom:1px solid #21262d"><td style="padding:8px;color:#FF8C00;font-weight:600">5</td><td style="padding:8px">Lora</td><td style="padding:8px">serif</td><td style="padding:8px">Section 6 (gold style)</td></tr>
+        <tr><td style="padding:8px;color:#FF8C00;font-weight:600">6</td><td style="padding:8px">Oswald</td><td style="padding:8px">sans</td><td style="padding:8px">(unused in AI Psalm 9)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:20px;margin:32px 0 16px;color:#e6edf3">Registry Format</h3>
+  <div class="json-schema" style="font-size:12px">
+<pre>{
+  <span class="js-key">"Font Name"</span>: {
+    <span class="js-key">"id"</span>: <span class="js-num">7</span>,
+    <span class="js-key">"bold"</span>: <span class="js-str">"FontName-Bold.ttf"</span>,
+    <span class="js-key">"regular"</span>: <span class="js-str">"FontName-Regular.ttf"</span>,
+    <span class="js-key">"category"</span>: <span class="js-str">"sans"</span>
+  }
+}</pre>
+  </div>
+</div>
+
+<div class="footer">
+  Music Video Pipeline — Technical Walkthrough &amp; Visual Guide<br>
+  Built with 1,781 Google Fonts, 9 text styles, 16 gradient geometries<br>
+  <a href="PIPELINE_GUIDE.md">Full markdown reference</a>
+</div>
+
+<script>
+const sections = [
+  {id:0, name:"Opening", style:"ice", grad:"cross", start:4.79, end:11.45, color:"#FF8C00", line:"Your own people say they are you"},
+  {id:1, name:"Testimony", style:"ice", grad:"conic", start:14.71, end:28.96, color:"#FF8C00", line:"You always show up, even when I have doubt"},
+  {id:2, name:"Sacred Pop", style:"ice", grad:"dual_spot", start:28.96, end:36.73, color:"#FF8C00", line:"You've given me albums"},
+  {id:3, name:"Prophetic Build", style:"chrome", grad:"cross", start:40.99, end:52.41, color:"#96b4dc", line:"You've given me series of pieces"},
+  {id:4, name:"Declaration", style:"neon", grad:"dual_spot", start:52.42, end:64.92, color:"#ff3296", line:"I don't fear prophecy"},
+  {id:5, name:"Liturgical", style:"hologram", grad:"spiral", start:65.05, end:69.51, color:"#9664ff", line:"Post Canonical Prophetic Witness"},
+  {id:6, name:"Final", style:"gold", grad:"cross", start:71.35, end:82.31, color:"#daa520", line:"I pray they remember the purpose"}
+];
+
+const timeline = document.getElementById('timeline');
+const totalDur = 86.2;
+const tl = 40;
+const tr = timeline.offsetWidth - 40 || 860;
+const tw = tr - tl;
+
+sections.forEach(s => {
+  const left = tl + (s.start / totalDur) * tw;
+  const width = Math.max(20, ((s.end - s.start) / totalDur) * tw);
+  const block = document.createElement('div');
+  block.className = 'timeline-block';
+  block.style.cssText = `left:${left}px;width:${width}px;background:${s.color}22;border-color:${s.color}44`;
+  block.innerHTML = `<div class="block-label" style="color:${s.color}">S${s.id}</div><div class="block-style">${s.style}</div><div class="block-time">${s.start.toFixed(1)}–${s.end.toFixed(1)}s</div>`;
+  block.addEventListener('click', () => showDetail(s));
+  block.addEventListener('mouseenter', () => { block.style.borderColor = s.color; });
+  block.addEventListener('mouseleave', () => { block.style.borderColor = s.color + '44'; });
+  timeline.appendChild(block);
+});
+
+const timeLabels = document.createElement('div');
+timeLabels.className = 'timeline-time-labels';
+for (let t = 0; t <= 86; t += 10) {
+  const span = document.createElement('span');
+  span.textContent = t + 's';
+  timeLabels.appendChild(span);
+}
+timeline.appendChild(timeLabels);
+
+function showDetail(s) {
+  const d = document.getElementById('timeline-detail');
+  const c = document.getElementById('td-content');
+  d.style.display = 'block';
+  d.style.borderColor = s.color;
+  c.innerHTML = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+    <div style="width:32px;height:32px;border-radius:50%;background:${s.color};display:flex;align-items:center;justify-content:center;font-weight:700;color:#0d1117">${s.id}</div>
+    <div><strong style="font-size:18px">Section ${s.id}: ${s.name}</strong><br><span style="color:#8b949e">${s.start.toFixed(2)}s — ${s.end.toFixed(2)}s (${(s.end-s.start).toFixed(1)}s duration)</span></div>
+    <span class="style-badge style-${s.style}" style="margin-left:auto">${s.style}</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;font-size:13px">
+    <div><span style="color:#8b949e">Gradient:</span> ${s.grad}</div>
+    <div><span style="color:#8b949e">Duration:</span> ${(s.end-s.start).toFixed(1)}s</div>
+    <div><span style="color:#8b949e">First line:</span> "${s.line}"</div>
+  </div>`;
+}
+
+const videos = document.querySelectorAll('video[autoplay]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.play().catch(() => {});
+    } else {
+      e.target.pause();
+    }
+  });
+}, {threshold: 0.3});
+videos.forEach(v => observer.observe(v));
+
+const navLinks = document.querySelectorAll('.topbar nav a');
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.topbar nav a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, {threshold: 0.2, rootMargin: '-60px 0px 0px 0px'});
+document.querySelectorAll('.section, .hero').forEach(s => sectionObserver.observe(s));
+</script>
+
+</body>
+</html>

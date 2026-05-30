@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import colorsys
+import json
 import math
 import random
 from enum import Enum
@@ -25,8 +26,8 @@ class FontStyle(Enum):
 
 
 _FONTS_DIR = Path(__file__).resolve().parent.parent.parent / "fonts"
-
-_FONT_FILES = {
+_REGISTRY_PATH = Path(__file__).resolve().parent / "font_registry.json"
+_LEGACY_FONT_FILES = {
     1: ("Exo2-Bold.ttf", "Exo2-Regular.ttf"),
     2: ("Bangers-Regular.ttf", "Bangers-Regular.ttf"),
     3: ("BebasNeue-Regular.ttf", "BebasNeue-Regular.ttf"),
@@ -34,11 +35,40 @@ _FONT_FILES = {
     5: ("Lora-Bold.ttf", "Lora-Regular.ttf"),
     6: ("Oswald-Bold.ttf", "Oswald-Regular.ttf"),
 }
+_font_registry = None
+
+
+def _load_registry() -> dict:
+    global _font_registry
+    if _font_registry is not None:
+        return _font_registry
+    _font_registry = dict(_LEGACY_FONT_FILES)
+    if _REGISTRY_PATH.exists():
+        try:
+            data = json.loads(_REGISTRY_PATH.read_text(encoding="utf-8"))
+            for name, info in data.items():
+                fid = info["id"]
+                if fid not in _font_registry:
+                    _font_registry[fid] = (info["bold"], info["regular"])
+        except Exception:
+            pass
+    return _font_registry
+
+
+def _get_categories() -> dict:
+    if not _REGISTRY_PATH.exists():
+        return {}
+    try:
+        data = json.loads(_REGISTRY_PATH.read_text(encoding="utf-8"))
+        return {info["id"]: info["category"] for info in data.values()}
+    except Exception:
+        return {}
 
 
 def _find_font(size: int, bold: bool = True, family: int = 0) -> ImageFont.FreeTypeFont:
-    if family > 0 and family in _FONT_FILES:
-        bold_name, regular_name = _FONT_FILES[family]
+    reg = _load_registry()
+    if family > 0 and family in reg:
+        bold_name, regular_name = reg[family]
         name = bold_name if bold else regular_name
         path = _FONTS_DIR / name
         if path.exists():

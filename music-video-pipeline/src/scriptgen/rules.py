@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 
 from .moods import MoodProfile
 from .palette import SectionColor
@@ -390,9 +391,57 @@ _STYLE_FONT_MAP = {
     "basic": 0,
 }
 
+_SECTION_CATEGORY_PREF = {
+    "intro": "display",
+    "verse": "sans",
+    "pre_chorus": "sans",
+    "chorus": "display",
+    "hook": "display",
+    "bridge": "serif",
+    "outro": "serif",
+    "breakdown": "handwriting",
+    "interlude": "handwriting",
+}
 
-def assign_font_family(text_style: str) -> int:
-    return _STYLE_FONT_MAP.get(text_style, 0)
+_font_pool_cache = None
+
+
+def _load_font_pool() -> dict:
+    global _font_pool_cache
+    if _font_pool_cache is not None:
+        return _font_pool_cache
+    _font_pool_cache = {"sans": [], "serif": [], "display": [], "handwriting": [], "mono": []}
+    reg_path = Path(__file__).resolve().parent.parent / "render" / "font_registry.json"
+    if reg_path.exists():
+        try:
+            import json as _json
+            data = _json.loads(reg_path.read_text(encoding="utf-8"))
+            for name, info in data.items():
+                cat = info.get("category", "sans")
+                fid = info["id"]
+                if cat in _font_pool_cache:
+                    _font_pool_cache[cat].append(fid)
+        except Exception:
+            pass
+    for cat in _font_pool_cache:
+        _font_pool_cache[cat].sort()
+    return _font_pool_cache
+
+
+def assign_font_family(text_style: str, section_type: str = "", song_name: str = "", section_index: int = 0) -> int:
+    legacy = _STYLE_FONT_MAP.get(text_style, 0)
+    pool = _load_font_pool()
+    if not any(pool.values()):
+        return legacy
+
+    pref_cat = _SECTION_CATEGORY_PREF.get(section_type, "sans")
+    candidates = pool.get(pref_cat, pool.get("sans", []))
+    if not candidates:
+        return legacy
+
+    song_hash = hash(song_name) if song_name else 0
+    seed = abs(song_hash + section_index * 7919) % len(candidates)
+    return candidates[seed]
 
 
 def _energy_preset_override(section_type: str, energy: float, mood_name: str) -> str | None:
@@ -447,7 +496,7 @@ def assign_section_visual(
     if preset.audio_reactivity and not v.get("reactivity"):
         v["reactivity"] = preset.audio_reactivity
     v["text_style"] = assign_text_style(st, mood_name)
-    v["font_family"] = assign_font_family(v["text_style"])
+    v["font_family"] = assign_font_family(v["text_style"], st, "", section_index)
     return v
 
 
