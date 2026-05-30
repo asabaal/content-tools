@@ -12,7 +12,7 @@
     "texture_opacity": 0.2,
     "texture_blend_mode": "multiply",
     "text_auto_contrast": true,
-    "font_size": 112,
+    "font_size": 146,
     "animation_type": "fade",
     "animation_speed": 1.0,
     "reveal_mode": "progressive",
@@ -25,7 +25,7 @@
   },
   "caption_style": {
     "font_family": 0,
-    "highlight_color": "#4cc9f0",
+    "highlight_color": "#FF8C00",
     "text_position": "center",
     "letter_spacing": 1,
     "text_shadow": false,
@@ -44,7 +44,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 94,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": ["energy"],
@@ -85,7 +85,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 94,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": ["energy"],
@@ -97,10 +97,10 @@
         "font_family": 1
       },
       "lines_overrides": {
-        "2": { "font_size": 72 },
-        "3": { "font_size": 73 },
-        "4": { "font_size": 74 },
-        "5": { "font_size": 75 }
+        "2": { "font_size": 94 },
+        "3": { "font_size": 95 },
+        "4": { "font_size": 96 },
+        "5": { "font_size": 98 }
       },
       "words_overrides": {
         "2.0": { "y": 0.2 },
@@ -135,7 +135,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 94,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": ["energy"],
@@ -147,10 +147,10 @@
         "font_family": 1
       },
       "lines_overrides": {
-        "6": { "font_size": 73 },
-        "7": { "font_size": 74 },
-        "8": { "font_size": 75 },
-        "9": { "font_size": 76 }
+        "6": { "font_size": 95 },
+        "7": { "font_size": 96 },
+        "8": { "font_size": 98 },
+        "9": { "font_size": 99 }
       },
       "words_overrides": {
         "7.0": { "y": 0.2 },
@@ -170,7 +170,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 94,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": ["energy"],
@@ -182,12 +182,12 @@
         "font_family": 3
       },
       "lines_overrides": {
-        "10": { "font_size": 74 },
-        "11": { "font_size": 76 },
-        "12": { "font_size": 78 },
-        "13": { "font_size": 80 },
-        "14": { "font_size": 82 },
-        "15": { "font_size": 84 }
+        "10": { "font_size": 96 },
+        "11": { "font_size": 99 },
+        "12": { "font_size": 101 },
+        "13": { "font_size": 104 },
+        "14": { "font_size": 107 },
+        "15": { "font_size": 109 }
       },
       "words_overrides": {
         "10.0": { "y": 0.2, "font_size_delta": 0 },
@@ -210,8 +210,9 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.1,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
-        "reveal_mode": "karaoke",
+        "font_size": 94,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
         "reactivity": ["drums", "energy"],
         "text_position": "center",
         "animation_type": "fade_in",
@@ -221,9 +222,9 @@
         "font_family": 2
       },
       "lines_overrides": {
-        "16": { "font_size": 75 },
-        "17": { "font_size": 78 },
-        "18": { "font_size": 81 }
+        "16": { "font_size": 150 },
+        "17": { "font_size": 156 },
+        "18": { "font_size": 162 }
       },
       "words_overrides": {
         "17.0": { "y": 0.2, "font_size_delta": 0 },
@@ -243,7 +244,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 94,
         "reveal_mode": "stacking",
         "reactivity": ["energy", "vocals"],
         "text_position": "center",
@@ -254,19 +255,19 @@
         "font_family": 4
       },
       "lines_overrides": {
-        "19": { "font_size": 74 },
-        "20": { "font_size": 78 }
+        "19": { "font_size": 96 },
+        "20": { "font_size": 101 }
       },
       "words_overrides": {
-        "19.0": { "y": 0.4 },
-        "19.1": { "y": 0.4 },
-        "19.2": { "y": 0.4 },
-        "19.3": { "y": 0.4 },
-        "20.0": { "y": 0.6 },
-        "20.1": { "y": 0.6 },
-        "20.2": { "y": 0.6 },
-        "20.3": { "y": 0.6 },
-        "20.4": { "y": 0.6 }
+        "19.0": { "y": 0.35 },
+        "19.1": { "y": 0.35 },
+        "19.2": { "y": 0.35 },
+        "19.3": { "y": 0.35 },
+        "20.0": { "y": 0.65 },
+        "20.1": { "y": 0.65 },
+        "20.2": { "y": 0.65 },
+        "20.3": { "y": 0.65 },
+        "20.4": { "y": 0.65 }
       }
     },
     {
@@ -281,7 +282,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 94,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": ["drums", "energy"],
@@ -293,10 +294,10 @@
         "font_family": 5
       },
       "lines_overrides": {
-        "21": { "font_size": 74 },
-        "22": { "font_size": 77 },
-        "23": { "font_size": 80 },
-        "24": { "font_size": 83 }
+        "21": { "font_size": 96 },
+        "22": { "font_size": 100 },
+        "23": { "font_size": 104 },
+        "24": { "font_size": 108 }
       },
       "words_overrides": {
         "21.0": { "y": 0.2 },

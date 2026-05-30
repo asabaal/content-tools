@@ -647,11 +647,8 @@ class VideoRenderer:
             word_x = wv.get("x", None)
             delta = wv.get("font_size_delta", 0)
             word_size = max(24, base_font_size + int(delta * sf))
-            if use_styled:
-                wW = self._get_styled_text(words[wi]["text"], style, word_size, font_family).size[0]
-            else:
-                f = self._get_font(word_size, font_family)
-                wW = f.getbbox(words[wi]["text"])[2]
+            f = self._get_font(word_size, font_family)
+            wW = f.getbbox(words[wi]["text"])[2]
             resolved.append({"px_x": None, "px_y": int(word_y * self.height), "wW": wW, "word_size": word_size, "x": word_x})
 
         pinned = [(i, r) for i, r in enumerate(resolved) if r["x"] is not None]
@@ -672,6 +669,8 @@ class VideoRenderer:
 
             for group in groups:
                 spacing = self._base_spacing(base_font_size)
+                if use_styled:
+                    spacing = max(spacing, base_font_size * 0.35)
                 gw = [resolved[i]["wW"] for i in group]
                 total_w = sum(gw) + spacing * max(0, len(group) - 1)
                 x = (self.width - total_w) / 2

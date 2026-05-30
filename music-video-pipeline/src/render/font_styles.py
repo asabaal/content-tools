@@ -253,16 +253,16 @@ def _generate_ice(text: str, size: int, family: int = 0) -> np.ndarray:
     h, w = base.shape[:2]
     canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
 
-    glow = _apply_glow(base, (40, 100, 255), 18, 180)
+    glow = _apply_glow(base, (255, 140, 0), 18, 180)
     _composite(canvas, glow, pad, pad)
 
     colored = base.copy()
     alpha_mask = colored[:, :, 3] > 0
     for row in range(colored.shape[0]):
         progress = row / max(1, colored.shape[0] - 1)
-        colored[row, alpha_mask[row], 0] = int(40 + 40 * progress)
-        colored[row, alpha_mask[row], 1] = int(140 + 40 * progress)
-        colored[row, alpha_mask[row], 2] = 255
+        colored[row, alpha_mask[row], 0] = 255
+        colored[row, alpha_mask[row], 1] = int(160 + 40 * progress)
+        colored[row, alpha_mask[row], 2] = int(20 + 60 * progress)
 
     _composite(canvas, colored, pad, pad)
     return canvas
