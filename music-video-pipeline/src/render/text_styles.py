@@ -185,8 +185,6 @@ def _render_glow(
         glow_col = (config.glow_color[0], config.glow_color[1], config.glow_color[2], alpha)
         glow = _render_text_base(text, font_size + radius, width, height, glow_col)
         k = max(1, radius * 2 + 1)
-        if k % 2 == 0:
-            k += 1
         glow = cv2.GaussianBlur(glow, (k, k), radius / 3.0)
         _alpha_blend(frame, glow)
 

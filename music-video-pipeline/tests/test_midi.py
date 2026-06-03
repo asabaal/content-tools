@@ -1,3 +1,4 @@
+import pretty_midi
 import pytest
 from pathlib import Path
 
@@ -46,11 +47,6 @@ class TestMidiAnalysis:
 
 class TestAnalyzeMidi:
     def test_analyze_real_midi(self, tmp_path):
-        try:
-            import pretty_midi
-        except ImportError:
-            pytest.skip("pretty_midi not installed")
-
         pm = pretty_midi.PrettyMIDI(initial_tempo=120.0)
         inst = pretty_midi.Instrument(program=0)
         inst.notes.append(pretty_midi.Note(velocity=100, pitch=60, start=0.0, end=1.0))
@@ -68,11 +64,6 @@ class TestAnalyzeMidi:
         assert result.source_file == "test.mid"
 
     def test_analyze_midi_drums(self, tmp_path):
-        try:
-            import pretty_midi
-        except ImportError:
-            pytest.skip("pretty_midi not installed")
-
         pm = pretty_midi.PrettyMIDI(initial_tempo=100.0)
         inst = pretty_midi.Instrument(program=0, is_drum=True)
         inst.notes.append(pretty_midi.Note(velocity=100, pitch=36, start=0.0, end=0.5))
@@ -87,11 +78,6 @@ class TestAnalyzeMidi:
 
 class TestExtractTempo:
     def test_extract_tempo(self, tmp_path):
-        try:
-            import pretty_midi
-        except ImportError:
-            pytest.skip("pretty_midi not installed")
-
         pm = pretty_midi.PrettyMIDI(initial_tempo=103.8)
         midi_path = tmp_path / "test.mid"
         pm.write(str(midi_path))

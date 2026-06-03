@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+from pathlib import Path
 from PIL import Image
 
 from render.text_styles import (
@@ -202,3 +203,10 @@ class TestRenderStyledText:
         small_px = np.array(small)[:, :, 3].sum()
         large_px = np.array(large)[:, :, 3].sum()
         assert large_px > small_px
+
+
+class TestFindFontFallback:
+    def test_no_system_fonts_fallback(self, monkeypatch):
+        monkeypatch.setattr(Path, "exists", lambda self: False)
+        font = _find_font(36)
+        assert font is not None

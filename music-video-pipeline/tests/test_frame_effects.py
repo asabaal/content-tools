@@ -19,6 +19,7 @@ from render.frame_effects import (
     apply_wave_distortion_frame,
     apply_zoom_blur,
     apply_zoom_pulse,
+    apply_bokeh_particles,
     _FRAME_EFFECTS,
 )
 
@@ -183,4 +184,23 @@ class TestApplyFrameEffect:
     def test_no_params(self):
         f = _frame()
         r = apply_frame_effect(f, "brightness_pulse", 1.0)
+        assert r.shape == f.shape
+
+
+class TestApplyMotionBlurSmallIntensity:
+    def test_small_intensity_clamps_size(self):
+        f = _frame()
+        r = apply_motion_blur(f, angle=0.0, intensity=0.7)
+        assert r.shape == f.shape
+
+
+class TestApplyBokehEdgeCases:
+    def test_small_max_radius(self):
+        f = _frame(w=64, h=64)
+        r = apply_bokeh_particles(f, 0.0, count=12, speed=0.3, max_radius=1)
+        assert r.shape == f.shape
+
+    def test_tiny_frame(self):
+        f = _frame(w=4, h=4)
+        r = apply_bokeh_particles(f, 5.0, count=20, speed=1.0, max_radius=50)
         assert r.shape == f.shape

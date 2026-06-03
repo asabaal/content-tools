@@ -23,6 +23,7 @@ from .frame_effects import apply_frame_effect
 from .effect_presets import get_preset, get_preset_for_section
 from .background_video import create_background_source
 from .font_styles import generate_styled_text
+from canvas.renderer import render_canvas
 
 
 def _hex_to_rgb(hex_color: str) -> Tuple[int, int, int]:
@@ -248,10 +249,7 @@ class VideoRenderer:
 
         if progress < enter_end:
             elapsed = t - line_start
-            if elapsed < enter_duration:
-                p = min(1.0, elapsed / enter_duration)
-            else:
-                p = 1.0
+            p = min(1.0, elapsed / enter_duration)
             anim_state = calculate_animation_state(
                 anim_type, p, AnimationEasing.EASE_OUT,
                 width=self.width, height=self.height,
@@ -487,11 +485,7 @@ class VideoRenderer:
             ci = t * (n - 1)
             lo = np.floor(ci).astype(int)
             hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, :, np.newaxis] if ci.ndim == 2 else (ci - lo)
-            if f.ndim == 2:
-                f = f[:, :, np.newaxis]
-            elif f.ndim == 0:
-                f = np.array([[[float(f)]]])
+            f = (ci - lo)[:, :, np.newaxis]
             blended = rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f
             arr = np.clip(blended, 0, 255).astype(np.uint8)
 
@@ -1081,7 +1075,11 @@ class VideoRenderer:
             return img
 
         v = self.get_visual(line_idx, word_idx)
-        self._draw_background(img, v)
+        canvas_config = v.get("canvas")
+        if canvas_config:
+            img = render_canvas(canvas_config, self.width, self.height, t)
+        else:
+            self._draw_background(img, v)
         img = self._apply_bg_motion(img, t, v)
 
         line = self.synced["lines"][line_idx]
@@ -1160,6 +1158,9 @@ class VideoRenderer:
 
         img = bg.copy()
         v = self.get_visual(line_idx, word_idx)
+        canvas_config = v.get("canvas")
+        if canvas_config:
+            img = render_canvas(canvas_config, self.width, self.height, t)
         img = self._apply_bg_motion(img, t, v)
 
         line = self.synced["lines"][line_idx]
@@ -1281,8 +1282,6 @@ class VideoRenderer:
                     key = (line_idx, word_idx, gap_bucket)
                 elif has_animation:
                     key = (line_idx, word_idx, frame_idx)
-                else:
-                    key = (line_idx, word_idx)
 
                 if key == prev_key and prev_bytes is not None:
                     enc.write_frame(prev_bytes)

@@ -125,14 +125,6 @@ def sample_wav_with_beats(tmp_path):
 
 
 @pytest.fixture
-def empty_project(tmp_path):
-    from pipeline.models import MusicVideoProject
-
-    proj = MusicVideoProject.create(project_dir=tmp_path, name="Test", artist="Tester")
-    return proj
-
-
-@pytest.fixture
 def suno_data_dir(tmp_path):
     d = tmp_path / "suno_output"
     d.mkdir()

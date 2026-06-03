@@ -140,8 +140,6 @@ def apply_energy_burst(
     energy_layer[:, :, 2] = ring * 1.0
 
     blur_size = 15
-    if blur_size % 2 == 0:
-        blur_size += 1
     for c in range(3):
         energy_layer[:, :, c] = cv2.GaussianBlur(energy_layer[:, :, c], (blur_size, blur_size), 0)
 

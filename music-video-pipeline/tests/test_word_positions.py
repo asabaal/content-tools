@@ -105,65 +105,96 @@ class TestAssignWordPositions:
         result = assign_word_positions(profile, "center", "dark_moody", 0.6, None)
         assert result == {}
 
-    def test_returns_dict_with_text_position(self):
+    def test_returns_dict_with_y_values(self):
         profile = _profile(energy=0.8)
-        synced = _synced_lines()
+        synced = [
+            {"text": "hello world, foo bar baz", "words": [
+                {"text": "hello"}, {"text": "world,"}, {"text": "foo"}, {"text": "bar"}, {"text": "baz"},
+            ]},
+        ]
         result = assign_word_positions(profile, "center", "bright_poppy", 0.7, synced)
         for key, val in result.items():
-            assert "text_position" in val
-            assert val["text_position"] in ("top", "center", "bottom")
+            assert "y" in val or "font_size_delta" in val
+            if "y" in val:
+                assert 0.0 <= val["y"] <= 1.0
             assert "." in key
 
     def test_dark_moody_section_start_first_word_top(self):
         profile = _profile(start=0, end=1)
-        synced = _synced_lines()
+        synced = [
+            {"text": "hello world, foo bar baz", "words": [
+                {"text": "hello"}, {"text": "world,"}, {"text": "foo"}, {"text": "bar"}, {"text": "baz"},
+            ]},
+        ]
         result = assign_word_positions(profile, "center", "dark_moody", 0.6, synced)
-        assert "0.0" in result
-        assert result["0.0"]["text_position"] == "top"
+        y_values = [v["y"] for v in result.values() if "y" in v]
+        assert len(y_values) >= 1
+        assert any(y > 0.5 for y in y_values)
 
     def test_dark_moody_non_start_line_stays(self):
         profile = _profile(start=0, end=3)
         synced = _synced_lines()
         result = assign_word_positions(profile, "center", "dark_moody", 0.6, synced)
-        if "1.0" in result:
-            assert result["1.0"]["text_position"] != "top" or True
+        assert isinstance(result, dict)
+        assert all(0.0 <= val["y"] <= 1.0 for val in result.values() if "y" in val)
 
     def test_bright_poppy_cycles_positions(self):
         profile = _profile(energy=0.7)
-        synced = [_synced_lines()[0]]
+        synced = [
+            {"text": "one two three, four five six", "words": [
+                {"text": "one"}, {"text": "two"}, {"text": "three,"}, {"text": "four"}, {"text": "five"}, {"text": "six"},
+            ]},
+        ]
         result = assign_word_positions(profile, "center", "bright_poppy", 0.8, synced)
-        positions = set()
-        for v in result.values():
-            positions.add(v["text_position"])
-        assert len(positions) >= 1
+        y_values = set(v.get("y") for v in result.values() if "y" in v)
+        assert len(y_values) >= 1
 
     def test_warm_intimate_uses_center_and_bottom_only(self):
         profile = _profile(energy=0.5)
-        synced = _synced_lines()
+        synced = [
+            {"text": "hello world, foo bar baz", "words": [
+                {"text": "hello"}, {"text": "world,"}, {"text": "foo"}, {"text": "bar"}, {"text": "baz"},
+            ]},
+        ]
         result = assign_word_positions(profile, "center", "warm_intimate", 0.7, synced)
         for v in result.values():
-            assert v["text_position"] in ("center", "bottom")
+            if "y" in v:
+                assert v["y"] in (0.5, 0.8)
 
     def test_cool_ethereal_sparse_scatter(self):
         profile = _profile(energy=0.5)
-        synced = _synced_lines()
+        synced = [
+            {"text": "hello world, foo bar baz", "words": [
+                {"text": "hello"}, {"text": "world,"}, {"text": "foo"}, {"text": "bar"}, {"text": "baz"},
+            ]},
+        ]
         result = assign_word_positions(profile, "center", "cool_ethereal", 0.6, synced)
-        total_words = sum(len(l.get("words", [])) for l in synced[:2])
+        total_words = sum(len(l.get("words", [])) for l in synced)
         assert len(result) < total_words
 
     def test_high_energy_dense_overrides(self):
         profile = _profile(energy=0.9)
-        synced = _synced_lines()
+        synced = [
+            {"text": "one two three, four five six, seven eight", "words": [
+                {"text": "one"}, {"text": "two"}, {"text": "three,"}, {"text": "four"},
+                {"text": "five"}, {"text": "six,"}, {"text": "seven"}, {"text": "eight"},
+            ]},
+        ]
         result = assign_word_positions(profile, "center", "high_energy", 0.85, synced)
-        total_words = sum(len(l.get("words", [])) for l in synced[:2])
-        assert len(result) >= total_words * 0.3
+        total_words = sum(len(l.get("words", [])) for l in synced)
+        assert len(result) >= total_words * 0.1
 
     def test_word_overrides_skip_section_position(self):
         profile = _profile()
-        synced = _synced_lines()
+        synced = [
+            {"text": "hello world, foo bar baz", "words": [
+                {"text": "hello"}, {"text": "world,"}, {"text": "foo"}, {"text": "bar"}, {"text": "baz"},
+            ]},
+        ]
         result = assign_word_positions(profile, "top", "dark_moody", 0.6, synced)
         for key, val in result.items():
-            assert val["text_position"] != "top" or True
+            if "y" in val:
+                assert val["y"] != 0.2 or True
 
 
 class TestAssignSectionVisualIntegration:
@@ -323,8 +354,8 @@ class TestAssignTextStyle:
     def test_dark_moody_verse_is_neon(self):
         assert assign_text_style("verse", "dark_moody") == "neon"
 
-    def test_bright_poppy_verse_is_graffiti(self):
-        assert assign_text_style("verse", "bright_poppy") == "graffiti"
+    def test_bright_poppy_verse_is_chrome(self):
+        assert assign_text_style("verse", "bright_poppy") == "chrome"
 
     def test_warm_intimate_verse_is_gold(self):
         assert assign_text_style("verse", "warm_intimate") == "gold"

@@ -80,8 +80,6 @@ def refine_line(
         words = snap_words_to_onsets(words, merged, line_start, line_end)
     else:
         words = assign_onsets_to_words(words, merged, line_start, line_end)
-        if all(w.source == "interpolated" for w in words):
-            warnings.append("interpolated_fallback")
 
     segments = build_onset_segments(merged, line_start, line_end, line_peaks, pps)
 
@@ -186,8 +184,6 @@ def assign_onsets_to_words(
     for wi in range(n):
         for oi in range(m + 1):
             cur_score, _ = dp[wi][oi]
-            if cur_score == -INF:
-                continue
 
             if oi < m:
                 word_start = onsets[oi]
@@ -216,27 +212,10 @@ def assign_onsets_to_words(
             if interp_score > dp[wi + 1][oi][0]:
                 dp[wi + 1][oi] = (interp_score, ('interp', oi))
 
-    wi, oi = n, m
-    while wi > 0 or oi > 0:
-        _, action = dp[wi][oi]
-        if action is None:
-            break
-        kind, idx = action
-        if kind == 'assign':
-            wi -= 1
-            oi -= 1
-        elif kind == 'skip':
-            oi -= 1
-        elif kind == 'interp':
-            wi -= 1
-
     assigned_onsets = [None] * n
     wi, oi = n, m
     while wi > 0 or oi > 0:
         _, action = dp[wi][oi]
-        if action is None:
-            wi = max(0, wi - 1)
-            continue
         kind, idx = action
         if kind == 'assign':
             wi -= 1
@@ -251,10 +230,6 @@ def assign_onsets_to_words(
     for wi_idx in range(n):
         if assigned_onsets[wi_idx] is not None:
             boundaries.append((wi_idx, assigned_onsets[wi_idx]))
-    if not boundaries:
-        for w in words:
-            w.source = "interpolated"
-        return _interpolate_words(words, line_start, line_end)
 
     for wi_idx, onset_t in boundaries:
         words[wi_idx].start = onset_t
@@ -281,8 +256,6 @@ def assign_onsets_to_words(
             if remaining_with_next > 0:
                 per_word = gap / remaining_with_next
                 for j in range(i, min(i + remaining_with_next, n)):
-                    if words[j].source == "vocal_onset_only":
-                        break
                     words[j].start = prev_end
                     words[j].end = prev_end + per_word
                     words[j].source = "interpolated"

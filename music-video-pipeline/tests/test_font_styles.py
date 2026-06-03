@@ -24,6 +24,8 @@ from render.font_styles import (
     _generate_neon,
     _STYLE_GENERATORS,
     generate_styled_text,
+    _load_registry,
+    _find_font,
 )
 
 
@@ -138,3 +140,166 @@ class TestGenerateStyledText:
     def test_all_generators_registered(self):
         for style in FontStyle:
             assert style in _STYLE_GENERATORS
+
+
+class TestFontRegistry:
+    def test_load_registry_returns_dict(self):
+        from render.font_styles import _load_registry
+        reg = _load_registry()
+        assert isinstance(reg, dict)
+
+    def test_load_registry_caches(self):
+        from render.font_styles import _load_registry
+        reg1 = _load_registry()
+        reg2 = _load_registry()
+        assert reg1 is reg2
+
+    def test_load_registry_contains_legacy_entries(self):
+        from render.font_styles import _load_registry
+        reg = _load_registry()
+        assert 1 in reg
+        assert len(reg[1]) == 2
+
+
+class TestFindFont:
+    def test_default_font(self):
+        from render.font_styles import _find_font
+        font = _find_font(48)
+        assert font is not None
+
+    def test_non_bold_font(self):
+        from render.font_styles import _find_font
+        font = _find_font(48, bold=False)
+        assert font is not None
+
+    def test_font_family_zero(self):
+        from render.font_styles import _find_font
+        font = _find_font(36, bold=True, family=0)
+        assert font is not None
+
+    def test_font_family_nonexistent(self):
+        from render.font_styles import _find_font
+        font = _find_font(36, bold=True, family=999)
+        assert font is not None
+
+
+class TestEdgeCasesText:
+    def test_empty_string(self):
+        arr = _create_base_text("", 48)
+        assert arr.ndim == 3
+        assert arr.shape[2] == 4
+
+    def test_single_char(self):
+        arr = _create_base_text("A", 48)
+        assert arr[:, :, 3].sum() > 0
+
+    def test_very_long_text(self):
+        text = "Hello world " * 100
+        arr = _create_base_text(text, 24)
+        assert arr.ndim == 3
+        assert arr.shape[2] == 4
+        assert arr.shape[1] > 100
+
+    def test_special_characters(self):
+        text = "Hello! @#$%^&*(){}[]"
+        arr = _create_base_text(text, 48)
+        assert arr[:, :, 3].sum() > 0
+
+    def test_unicode_text(self):
+        text = "Hello \u00e9\u00e8\u00ea\u00eb \u00f1"
+        arr = _create_base_text(text, 48)
+        assert arr.ndim == 3
+
+    def test_cjk_characters(self):
+        text = "\u4f60\u597d\u4e16\u754c"
+        arr = _create_base_text(text, 48)
+        assert arr.ndim == 3
+
+    def test_newline_text(self):
+        text = "Line1\nLine2"
+        arr = _create_base_text(text, 48)
+        assert arr.ndim == 3
+
+
+class TestStyleGeneratorsWithFamily:
+    @pytest.mark.parametrize("style_func", [
+        _generate_neon, _generate_graffiti, _generate_chrome, _generate_basic,
+    ])
+    def test_with_family_zero(self, style_func):
+        result = style_func("Hi", 48, family=0)
+        assert result.ndim == 3
+        assert result.shape[2] == 4
+
+    @pytest.mark.parametrize("style_func", [
+        _generate_neon, _generate_basic,
+    ])
+    def test_with_nonexistent_family(self, style_func):
+        result = style_func("Hi", 48, family=999)
+        assert result.ndim == 3
+        assert result.shape[2] == 4
+
+
+class TestGenerateStyledTextAdvanced:
+    def test_with_family_parameter(self):
+        img = generate_styled_text("Hi", FontStyle.NEON, size=36, family=0)
+        assert isinstance(img, Image.Image)
+
+    def test_with_nonexistent_family(self):
+        img = generate_styled_text("Hi", FontStyle.NEON, size=36, family=999)
+        assert isinstance(img, Image.Image)
+
+    def test_empty_text(self):
+        img = generate_styled_text("", FontStyle.NEON, size=36)
+        assert isinstance(img, Image.Image)
+
+    def test_target_dimensions_centers(self):
+        img = generate_styled_text("Hi", FontStyle.BASIC, size=24, target_width=800, target_height=600)
+        assert img.size == (800, 600)
+        arr = np.array(img)
+        assert arr[:, :, 3].sum() > 0
+
+
+class TestCompositeEdgeCases:
+    def test_composite_at_zero_offset(self):
+        base = np.zeros((100, 100, 4), dtype=np.uint8)
+        overlay = np.full((50, 50, 4), [255, 0, 0, 255], dtype=np.uint8)
+        result = _composite(base, overlay, 0, 0)
+        assert result[0, 0, 0] == 255
+
+    def test_composite_partial_overlap(self):
+        base = np.zeros((100, 100, 4), dtype=np.uint8)
+        overlay = np.full((50, 50, 4), [255, 0, 0, 255], dtype=np.uint8)
+        result = _composite(base, overlay, 80, 80)
+        assert result[80, 80, 0] == 255
+        assert result[0, 0, 0] == 0
+
+
+class TestOutlineThickness:
+    def test_thickness_zero(self):
+        base = _create_base_text("Hi", 48)
+        outline = _create_outline(base, 0)
+        assert outline.shape == base.shape
+
+    def test_large_thickness(self):
+        base = _create_base_text("Hi", 48)
+        outline = _create_outline(base, 10)
+        assert outline.shape == base.shape
+        assert outline[:, :, 3].sum() >= base[:, :, 3].sum()
+
+
+class TestLoadRegistryCorrupt:
+    def test_corrupt_registry_json(self, tmp_path, monkeypatch):
+        import render.font_styles as fs
+        corrupt = tmp_path / "font_registry.json"
+        corrupt.write_text("NOT VALID JSON{{{")
+        monkeypatch.setattr(fs, "_REGISTRY_PATH", corrupt)
+        monkeypatch.setattr(fs, "_font_registry", None)
+        result = _load_registry()
+        assert isinstance(result, dict)
+
+
+class TestFindFontFallback:
+    def test_no_system_fonts_fallback(self, monkeypatch):
+        monkeypatch.setattr(Path, "exists", lambda self: False)
+        font = _find_font(36)
+        assert font is not None

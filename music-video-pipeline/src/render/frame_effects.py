@@ -201,8 +201,6 @@ def apply_motion_blur(
     total = kernel.sum()
     if total > 0:
         kernel /= total
-    else:
-        kernel[size // 2, size // 2] = 1.0
 
     return cv2.filter2D(frame, -1, kernel)
 
@@ -299,9 +297,6 @@ def apply_bokeh_particles(
         ty2 = min(h, y2)
         tx1 = max(0, x1)
         tx2 = min(w, x2)
-
-        if ty1 >= ty2 or tx1 >= tx2:
-            continue
 
         crop = stamp[sy1:sy1 + (ty2 - ty1), sx1:sx1 + (tx2 - tx1)]
         for c in range(3):

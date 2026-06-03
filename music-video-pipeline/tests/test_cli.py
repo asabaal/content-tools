@@ -688,6 +688,18 @@ class TestServeCommand:
         result = runner.invoke(cli, ["serve", "--port", "9999"])
         assert result.exit_code == 0
 
+    def test_serve_script_not_found(self, runner, tmp_path, monkeypatch):
+        import subprocess
+        from unittest.mock import patch
+        from pathlib import Path as RealPath
+
+        monkeypatch.setattr(subprocess, "run", lambda cmd, **kwargs: MagicMock(returncode=0))
+        serve_path = RealPath(__file__).resolve().parent.parent / "serve.py"
+
+        with patch.object(RealPath, "exists", return_value=False):
+            result = runner.invoke(cli, ["serve", "--project", str(tmp_path)])
+            assert result.exit_code != 0
+
     def test_serve_finds_project_in_cwd(self, runner, sample_wav_for_cli, tmp_path, monkeypatch):
         import subprocess
 
@@ -701,22 +713,345 @@ class TestServeCommand:
         assert result.exit_code == 0
         assert any(str(tmp_path) in str(a) for a in captured_cmd[0])
 
-    def test_serve_script_missing(self, runner, tmp_path, monkeypatch):
-        import subprocess
-        from pathlib import Path as RealPath
 
-        monkeypatch.setattr(subprocess, "run", lambda cmd, **kwargs: MagicMock(returncode=0))
+class TestIngestCommand:
+    def test_ingest_with_midi_files(self, runner, tmp_path, sample_wav_for_cli, monkeypatch):
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        midi_dir = tmp_path / "data" / "cache" / "midi"
+        midi_dir.mkdir(parents=True, exist_ok=True)
+        midi_file = midi_dir / "song.mid"
+        midi_file.write_bytes(b"dummy midi")
 
-        commands_file = RealPath(__file__).resolve().parent.parent / "src" / "cli" / "commands.py"
-        serve_script = commands_file.parent.parent.parent / "serve.py"
+        ingest_data = {
+            "tier": "enhanced",
+            "stems": [],
+            "midi_files": [{"path": str(midi_file), "format": "mid"}],
+        }
+        (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
 
-        if not serve_script.exists():
-            pytest.skip("serve.py not in expected location")
+        from unittest.mock import patch
+        with patch("audio.midi.extract_tempo", return_value=120.0):
+            result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        assert result.exit_code == 0
 
-        renamed = serve_script.with_name("serve.py.bak_test")
-        serve_script.rename(renamed)
-        try:
-            result = runner.invoke(cli, ["serve", "--project", str(tmp_path)])
-            assert result.exit_code != 0
-        finally:
-            renamed.rename(serve_script)
+    def test_ingest_no_audio_no_data_dir(self, runner, tmp_path):
+        from cli.commands import _run_ingest
+        from pipeline.models import MusicVideoProject
+
+        proj = MusicVideoProject.create(project_dir=tmp_path, name="Test")
+        result = _run_ingest(proj)
+        assert result is None
+
+    def test_ingest_scan_dir_missing(self, runner, tmp_path):
+        from cli.commands import _run_ingest
+        from pipeline.models import MusicVideoProject
+
+        proj = MusicVideoProject.create(project_dir=tmp_path, name="Test")
+        proj.paths.data_dir = str(tmp_path / "nonexistent_data")
+        result = _run_ingest(proj)
+        assert result is None
+
+    def test_ingest_with_data_dir_discovers_files(self, runner, tmp_path, suno_data_dir):
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--data-dir", str(suno_data_dir), "--dir", str(tmp_path)]
+        )
+        assert result.exit_code == 0
+        ingest = json.loads((tmp_path / "data" / "ingest.json").read_text(encoding="utf-8"))
+        assert ingest["audio_path"] is not None or ingest["lyrics_path"] is not None
+
+
+class TestLyricsImport:
+    def test_lyrics_import_no_path_returns(self, tmp_path):
+        from cli.commands import _run_lyrics_import
+        from pipeline.models import MusicVideoProject
+
+        proj = MusicVideoProject.create(project_dir=tmp_path, name="Test")
+        _run_lyrics_import(proj)
+        assert not (tmp_path / "data" / "lyrics_raw.json").exists()
+
+    def test_lyrics_import_with_sections(self, runner, tmp_path, sample_wav_for_cli, sample_txt_sections_for_cli):
+        result = runner.invoke(
+            cli,
+            [
+                "init", "--name", "Test",
+                "--audio", str(sample_wav_for_cli),
+                "--lyrics", str(sample_txt_sections_for_cli),
+                "--dir", str(tmp_path),
+            ],
+        )
+        assert result.exit_code == 0
+        assert "Sections:" in result.output
+        assert "intro" in result.output or "verse" in result.output
+
+    def test_lyrics_import_empty_file_warning(self, runner, tmp_path, sample_wav_for_cli):
+        empty_srt = tmp_path / "empty.srt"
+        empty_srt.write_text("", encoding="utf-8")
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli),
+                  "--lyrics", str(empty_srt), "--dir", str(tmp_path)]
+        )
+        assert result.exit_code == 0
+
+    def test_lyrics_import_lrc_format(self, runner, tmp_path, sample_wav_for_cli):
+        lrc = tmp_path / "lyrics.lrc"
+        lrc.write_text("[00:01.00]Hello world\n[00:03.50]Second line\n")
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli),
+                  "--lyrics", str(lrc), "--dir", str(tmp_path)]
+        )
+        assert result.exit_code == 0
+        assert "LRC" in result.output
+
+
+class TestRenderCommand:
+    def test_render_help(self, runner):
+        result = runner.invoke(cli, ["render", "--help"])
+        assert result.exit_code == 0
+        assert "fps" in result.output.lower()
+        assert "bare" in result.output.lower()
+
+    def test_render_no_project_fails(self, runner, tmp_path):
+        result = runner.invoke(cli, ["render", "--project", str(tmp_path)])
+        assert result.exit_code != 0
+
+    @pytest.fixture
+    def _synced_project(self, tmp_path, sample_wav_for_cli, sample_srt_for_cli):
+        runner = CliRunner()
+        runner.invoke(
+            cli,
+            ["init", "--name", "Test", "--audio", str(sample_wav_for_cli),
+             "--lyrics", str(sample_srt_for_cli), "--dir", str(tmp_path)],
+        )
+        return tmp_path
+
+    def test_render_bare_flag(self, runner, _synced_project, monkeypatch):
+        from unittest.mock import MagicMock, patch
+
+        mock_renderer = MagicMock()
+        mock_renderer.duration = 1.0
+        mock_renderer.audio_path = _synced_project / "data" / "raw" / "song.wav"
+        mock_renderer.load.return_value = None
+        mock_renderer.render.return_value = None
+
+        with patch("render.renderer.VideoRenderer", return_value=mock_renderer):
+            out = _synced_project / "output" / "video.mp4"
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_bytes(b"fake")
+            result = runner.invoke(
+                cli, ["render", "--project", str(_synced_project), "--bare"]
+            )
+        assert result.exit_code == 0
+        assert "Bare timing render" in result.output
+
+    def test_render_with_mood(self, runner, _synced_project, monkeypatch):
+        from unittest.mock import MagicMock, patch
+
+        mock_result = MagicMock()
+        mock_result.script = {"sections": []}
+        mock_result.sections_profiled = 1
+        mock_result.variance_detected = "low"
+        mock_result.mood_used = "dark_moody"
+
+        mock_renderer = MagicMock()
+        mock_renderer.duration = 1.0
+        mock_renderer.audio_path = None
+        mock_renderer.load.return_value = None
+        mock_renderer.render.return_value = None
+
+        with patch("render.renderer.VideoRenderer", return_value=mock_renderer):
+            import scriptgen
+            monkeypatch.setattr(scriptgen, "generate_script", lambda *a, **kw: mock_result)
+            out = _synced_project / "output" / "video.mp4"
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_bytes(b"fake")
+            result = runner.invoke(
+                cli, ["render", "--project", str(_synced_project), "--mood", "dark_moody"]
+            )
+        assert result.exit_code == 0
+        assert "dark_moody" in result.output
+
+    def test_render_with_time_range(self, runner, _synced_project, monkeypatch):
+        from unittest.mock import MagicMock, patch
+
+        mock_result = MagicMock()
+        mock_result.script = {"sections": []}
+        mock_result.sections_profiled = 1
+        mock_result.variance_detected = "low"
+        mock_result.mood_used = "dark_moody"
+
+        mock_renderer = MagicMock()
+        mock_renderer.duration = 2.0
+        mock_renderer.audio_path = None
+        mock_renderer.load.return_value = None
+        mock_renderer.render.return_value = None
+
+        with patch("render.renderer.VideoRenderer", return_value=mock_renderer):
+            import scriptgen
+            monkeypatch.setattr(scriptgen, "generate_script", lambda *a, **kw: mock_result)
+            out = _synced_project / "output" / "preview_0.5-1.5.mp4"
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_bytes(b"fake")
+            result = runner.invoke(
+                cli, ["render", "--project", str(_synced_project),
+                      "--start", "0.5", "--end", "1.5"]
+            )
+        assert result.exit_code == 0
+        assert "preview_" in result.output
+
+    def test_render_custom_output(self, runner, _synced_project, tmp_path, monkeypatch):
+        from unittest.mock import MagicMock, patch
+
+        mock_result = MagicMock()
+        mock_result.script = {"sections": []}
+        mock_result.sections_profiled = 1
+        mock_result.variance_detected = "low"
+        mock_result.mood_used = "dark_moody"
+
+        mock_renderer = MagicMock()
+        mock_renderer.duration = 1.0
+        mock_renderer.audio_path = None
+        mock_renderer.load.return_value = None
+        mock_renderer.render.return_value = None
+
+        out_path = tmp_path / "custom_output.mp4"
+        with patch("render.renderer.VideoRenderer", return_value=mock_renderer):
+            import scriptgen
+            monkeypatch.setattr(scriptgen, "generate_script", lambda *a, **kw: mock_result)
+            out_path.write_bytes(b"fake")
+            result = runner.invoke(
+                cli, ["render", "--project", str(_synced_project),
+                      "--output", str(out_path)]
+            )
+        assert result.exit_code == 0
+        assert "custom_output" in result.output
+
+    def test_render_no_synced_fails(self, runner, tmp_path, sample_wav_for_cli):
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli),
+                  "--dir", str(tmp_path)]
+        )
+        result = runner.invoke(cli, ["render", "--project", str(tmp_path)])
+        assert result.exit_code != 0
+        assert "lyrics_synced.json" in result.output
+
+
+class TestAuditCommand:
+    def test_audit_help(self, runner):
+        result = runner.invoke(cli, ["audit", "--help"])
+        assert result.exit_code == 0
+        assert "json-only" in result.output.lower() or "json" in result.output.lower()
+
+    def test_audit_no_project_fails(self, runner, tmp_path):
+        result = runner.invoke(cli, ["audit", "--project", str(tmp_path)])
+        assert result.exit_code != 0
+
+    def test_audit_no_synced_fails(self, runner, tmp_path, sample_wav_for_cli):
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli),
+                  "--dir", str(tmp_path)]
+        )
+        result = runner.invoke(cli, ["audit", "--project", str(tmp_path)])
+        assert result.exit_code != 0
+        assert "lyrics_synced.json" in result.output
+
+
+class TestFindProject:
+    def test_find_project_with_explicit_path(self, runner, tmp_path):
+        runner.invoke(cli, ["init", "--name", "Test", "--dir", str(tmp_path)])
+        from cli.commands import _find_project
+        result = _find_project(str(tmp_path))
+        assert result == tmp_path.resolve()
+
+    def test_find_project_invalid_path_raises(self):
+        from cli.commands import _find_project
+        with pytest.raises(Exception):
+            _find_project("/nonexistent/path")
+
+    def test_find_project_cwd(self, runner, tmp_path, monkeypatch):
+        runner.invoke(cli, ["init", "--name", "Test", "--dir", str(tmp_path)])
+        monkeypatch.chdir(tmp_path)
+        from cli.commands import _find_project
+        result = _find_project(None)
+        assert result == tmp_path.resolve()
+
+    def test_find_project_no_project_cwd_raises(self, tmp_path, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        from cli.commands import _find_project
+        with pytest.raises(Exception, match="No project found"):
+            _find_project(None)
+
+
+class TestToRelative:
+    def test_relative_path(self):
+        from cli.commands import _to_relative
+        result = _to_relative("/foo/bar/baz.txt", Path("/foo/bar"))
+        assert result == "baz.txt"
+
+    def test_absolute_when_not_relative(self):
+        from cli.commands import _to_relative
+        result = _to_relative("/other/path/file.txt", Path("/foo/bar"))
+        assert result == "/other/path/file.txt"
+
+
+class TestInitForceFlag:
+    def test_init_existing_project_error(self, runner, tmp_path):
+        runner.invoke(cli, ["init", "--name", "First", "--dir", str(tmp_path)])
+        result = runner.invoke(cli, ["init", "--name", "Second", "--dir", str(tmp_path)])
+        assert result.exit_code != 0
+        assert "already exists" in result.output
+
+    def test_init_data_dir_auto_discovers_audio(self, runner, tmp_path, suno_data_dir):
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--data-dir", str(suno_data_dir), "--dir", str(tmp_path)]
+        )
+        assert result.exit_code == 0
+        assert "Audio:" in result.output or "found" in result.output
+
+    def test_init_data_dir_auto_discovers_lyrics(self, runner, tmp_path, suno_data_dir):
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--data-dir", str(suno_data_dir), "--dir", str(tmp_path)]
+        )
+        assert result.exit_code == 0
+        assert "Lyrics:" in result.output or "found" in result.output
+
+
+class TestAnalyzeVariations:
+    def test_analyze_with_no_ingest_file(self, runner, tmp_path, sample_wav_for_cli):
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        (tmp_path / "data" / "ingest.json").unlink(missing_ok=True)
+        result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        assert result.exit_code == 0
+
+    def test_analyze_multiple_vocal_stems(self, runner, tmp_path, sample_wav_for_cli):
+        from unittest.mock import patch
+
+        stem_dir = tmp_path / "data" / "cache" / "stems"
+        stem_dir.mkdir(parents=True, exist_ok=True)
+        _write_wav(stem_dir / "0 Lead Vocals.wav")
+        _write_wav(stem_dir / "1 Backing Vocals.wav")
+
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        stem_path0 = str(stem_dir / "0 Lead Vocals.wav")
+        stem_path1 = str(stem_dir / "1 Backing Vocals.wav")
+        ingest_data = {
+            "tier": "enhanced",
+            "stems": [
+                {"name": "Lead Vocals", "stem_type": "lead_vocals", "path": stem_path0, "format": "wav"},
+                {"name": "Backing Vocals", "stem_type": "backing_vocals", "path": stem_path1, "format": "wav"},
+            ],
+        }
+        (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
+
+        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", return_value={
+            "language": "en", "language_probability": 0.9, "duration": 1.0,
+            "segments": [{"start": 0.0, "end": 0.5, "text": "Hello world"}],
+            "words": [{"word": "Hello", "start": 0.0, "end": 0.3, "probability": 0.9}],
+        }):
+            result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        assert result.exit_code == 0

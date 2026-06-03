@@ -215,3 +215,10 @@ class TestApplyAudioEffects:
         audio = {"energy": 0.1, "centroid": 0.5, "is_beat": False}
         result = apply_audio_effects(frame, audio, 1.0, reactivity=["vocals"])
         assert result.shape == frame.shape
+
+
+class TestApplyEnergyBurstEdgeCases:
+    def test_zero_center(self):
+        frame = _bgr_frame()
+        result = apply_energy_burst(frame, 0.9, center=(0, 0))
+        assert result.shape == frame.shape

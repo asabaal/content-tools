@@ -163,6 +163,8 @@ def create_background_source(
     height: int = 1080,
     beat_times: Optional[List[float]] = None,
 ) -> BackgroundVideoSource | BackgroundImageSource | None:
+    if path is None:
+        return None
     if isinstance(path, list):
         paths = path
     else:

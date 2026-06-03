@@ -31,10 +31,10 @@ class TestEffectPreset:
 
 class TestPresets:
     def test_all_presets_exist(self):
-        assert len(PRESETS) == 8
+        assert len(PRESETS) == 10
 
     def test_preset_names(self):
-        expected = {"cinematic", "energetic", "dreamy", "glitch", "minimal", "psychedelic", "smooth", "intense"}
+        expected = {"ambient", "cinematic", "dreamy", "energetic", "gap", "glitch", "intense", "minimal", "psychedelic", "smooth"}
         assert set(PRESETS.keys()) == expected
 
     def test_minimal_has_no_effects(self):

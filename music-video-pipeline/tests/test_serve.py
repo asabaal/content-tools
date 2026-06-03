@@ -1033,3 +1033,447 @@ class TestScriptEndpoints:
         assert len(sections) == 1
         assert sections[0].type == "verse"
         assert sections[0].name == "Verse"
+
+
+class TestProjectDataDirWithPath:
+    def test_returns_paths_data_dir_when_set_and_exists(self, tmp_path):
+        import serve as _serve
+
+        custom = tmp_path / "custom_data"
+        custom.mkdir()
+        proj = MusicVideoProject.create(project_dir=tmp_path, name="T", data_dir=custom)
+        original = _with_project(proj)
+        try:
+            assert _serve._project_data_dir() == custom
+        finally:
+            _restore_project(original)
+
+
+class TestLineTimingRoute:
+    def test_translate_path_line_timing(self):
+        import serve as _serve
+
+        h = _make_handler("/line-timing")
+        result = h.translate_path("/line-timing")
+        assert result.endswith("tools/line-timing/index.html")
+
+    def test_translate_path_line_timing_trailing_slash(self):
+        import serve as _serve
+
+        h = _make_handler("/line-timing/")
+        result = h.translate_path("/line-timing/")
+        assert result.endswith("tools/line-timing/index.html")
+
+
+class TestVocalGetRoutes:
+    def test_get_vocal_waveforms_missing(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/vocal-waveforms")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+        finally:
+            _restore_project(original)
+
+    def test_get_vocal_waveforms_found(self, project_with_data):
+        vw = {"data": [1, 2, 3]}
+        (project_with_data.data_dir / "vocal_waveforms.json").write_text(
+            json.dumps(vw), encoding="utf-8"
+        )
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/vocal-waveforms")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["data"] == [1, 2, 3]
+        finally:
+            _restore_project(original)
+
+    def test_get_vocal_onsets(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/vocal-onsets")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+        finally:
+            _restore_project(original)
+
+    def test_get_vocal_transcription(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/vocal-transcription")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+        finally:
+            _restore_project(original)
+
+    def test_get_alignment_analysis(self, project_with_data):
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/alignment-analysis")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+        finally:
+            _restore_project(original)
+
+
+class TestHandleGetJsonFallback:
+    def test_fallback_to_data_dir(self, project_with_data, tmp_path):
+        custom = tmp_path / "custom_pdd"
+        custom.mkdir()
+        project_with_data.paths.data_dir = str(custom)
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/analysis")
+            h.do_GET()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["bpm"] == 120.0
+        finally:
+            _restore_project(original)
+
+
+class TestAutoGenerateStructureException:
+    def test_exception_in_generation(self, project_with_data):
+        bad_data = {"lines": [{"section": 123}]}
+        (project_with_data.data_dir / "lyrics_raw.json").write_text(
+            json.dumps(bad_data), encoding="utf-8"
+        )
+        original = _with_project(project_with_data)
+        try:
+            h = _make_handler("/api/auto-generate-structure", method="POST")
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+            assert h._response_code == 500
+        finally:
+            _restore_project(original)
+
+
+class TestGenerateScriptEndpoint:
+    def test_generate_script_success(self, project_with_data):
+        import serve as _serve
+        from unittest.mock import MagicMock
+        import sys
+
+        mock_result = MagicMock()
+        mock_result.script = {"name": "test", "sections": []}
+        mock_result.sections_profiled = 2
+        mock_result.variance_detected = "auto"
+        mock_result.mood_used = "neutral"
+        mock_sg = MagicMock()
+        mock_sg.generate_script.return_value = mock_result
+        sys.modules["scriptgen"] = mock_sg
+        _serve._project_dir = lambda: str(project_with_data.project_dir)
+        try:
+            body = b""
+            h = _make_handler(
+                "/api/generate-script", method="POST",
+                headers={"Content-Length": "0"}, body=body,
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["status"] == "saved"
+            assert data["sections_profiled"] == 2
+        finally:
+            del _serve._project_dir
+            del sys.modules["scriptgen"]
+
+    def test_generate_script_with_opts(self, project_with_data):
+        import serve as _serve
+        from unittest.mock import MagicMock
+        import sys
+
+        mock_result = MagicMock()
+        mock_result.script = {"sections": [{"name": "V"}]}
+        mock_result.sections_profiled = 1
+        mock_result.variance_detected = "high"
+        mock_result.mood_used = "energetic"
+        mock_sg = MagicMock()
+        mock_sg.generate_script.return_value = mock_result
+        sys.modules["scriptgen"] = mock_sg
+        _serve._project_dir = lambda: str(project_with_data.project_dir)
+        try:
+            opts = {"mood": "energetic", "base_color": "#ff0000", "variance": "high"}
+            body = json.dumps(opts).encode()
+            h = _make_handler(
+                "/api/generate-script", method="POST",
+                headers={"Content-Length": str(len(body))}, body=body,
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["status"] == "saved"
+            assert data["mood_used"] == "energetic"
+        finally:
+            del _serve._project_dir
+            del sys.modules["scriptgen"]
+
+    def test_generate_script_no_project(self):
+        import serve as _serve
+        from unittest.mock import MagicMock
+        import sys
+
+        mock_sg = MagicMock()
+        sys.modules["scriptgen"] = mock_sg
+        _serve._project_dir = lambda: None
+        original = _with_project(None)
+        try:
+            body = b"{}"
+            h = _make_handler(
+                "/api/generate-script", method="POST",
+                headers={"Content-Length": str(len(body))}, body=body,
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+            assert h._response_code == 400
+        finally:
+            _restore_project(original)
+            del _serve._project_dir
+            del sys.modules["scriptgen"]
+
+    def test_generate_script_exception(self, project_with_data):
+        import serve as _serve
+        from unittest.mock import MagicMock
+        import sys
+
+        mock_sg = MagicMock()
+        mock_sg.generate_script.side_effect = RuntimeError("boom")
+        sys.modules["scriptgen"] = mock_sg
+        _serve._project_dir = lambda: str(project_with_data.project_dir)
+        try:
+            body = b"{}"
+            h = _make_handler(
+                "/api/generate-script", method="POST",
+                headers={"Content-Length": str(len(body))}, body=body,
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert "error" in data
+            assert h._response_code == 500
+        finally:
+            del _serve._project_dir
+            del sys.modules["scriptgen"]
+
+    def test_generate_script_invalid_json_body(self, project_with_data):
+        import serve as _serve
+        from unittest.mock import MagicMock
+        import sys
+
+        mock_result = MagicMock()
+        mock_result.script = {"sections": []}
+        mock_result.sections_profiled = 0
+        mock_result.variance_detected = "auto"
+        mock_result.mood_used = "neutral"
+        mock_sg = MagicMock()
+        mock_sg.generate_script.return_value = mock_result
+        sys.modules["scriptgen"] = mock_sg
+        _serve._project_dir = lambda: str(project_with_data.project_dir)
+        try:
+            body = b"not json"
+            h = _make_handler(
+                "/api/generate-script", method="POST",
+                headers={"Content-Length": str(len(body))}, body=body,
+            )
+            h.do_POST()
+            data = json.loads(h.wfile.data.decode("utf-8"))
+            assert data["status"] == "saved"
+        finally:
+            del _serve._project_dir
+            del sys.modules["scriptgen"]
+
+
+class TestResyncLineEndpoint:
+    def test_resync_line_success(self):
+        payload = {
+            "line_idx": 0,
+            "line_start": 1.0,
+            "line_end": 3.0,
+            "current_words": [
+                {"text": "Hello"},
+                {"text": "world"},
+                {"text": "test"},
+            ],
+        }
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-line", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert data["line_idx"] == 0
+        assert len(data["words"]) == 3
+        assert data["words"][0]["text"] == "Hello"
+        assert data["words"][0]["source"] == "line_resync"
+        assert data["words"][-1]["end"] == 3.0
+
+    def test_resync_line_invalid_json(self):
+        body = b"bad"
+        h = _make_handler(
+            "/api/resync-line", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert "error" in data
+        assert h._response_code == 400
+
+    def test_resync_line_missing_start(self):
+        payload = {"line_idx": 0, "line_end": 3.0, "current_words": []}
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-line", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert "error" in data
+        assert h._response_code == 400
+
+    def test_resync_line_end_before_start(self):
+        payload = {"line_idx": 0, "line_start": 5.0, "line_end": 2.0, "current_words": []}
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-line", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert "error" in data
+        assert h._response_code == 400
+
+    def test_resync_line_no_words(self):
+        payload = {"line_idx": 0, "line_start": 1.0, "line_end": 3.0, "current_words": []}
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-line", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert data["words"] == []
+
+    def test_resync_line_zero_char_text(self):
+        payload = {
+            "line_idx": 0,
+            "line_start": 1.0,
+            "line_end": 3.0,
+            "current_words": [{"text": ""}, {"text": ""}],
+        }
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-line", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert len(data["words"]) == 2
+
+
+class TestResyncLinesEndpoint:
+    def test_resync_lines_success(self):
+        payload = {
+            "lines": [
+                {
+                    "line_idx": 0,
+                    "line_start": 1.0,
+                    "line_end": 3.0,
+                    "current_words": [{"text": "Hello"}, {"text": "world"}],
+                },
+                {
+                    "line_idx": 1,
+                    "line_start": 3.5,
+                    "line_end": 5.0,
+                    "current_words": [{"text": "Second"}, {"text": "line"}],
+                },
+            ]
+        }
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-lines", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert len(data["results"]) == 2
+        assert data["results"][0]["line_idx"] == 0
+        assert len(data["results"][0]["words"]) == 2
+        assert data["results"][1]["line_idx"] == 1
+
+    def test_resync_lines_invalid_json(self):
+        body = b"bad"
+        h = _make_handler(
+            "/api/resync-lines", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert "error" in data
+        assert h._response_code == 400
+
+    def test_resync_lines_no_lines(self):
+        payload = {"lines": []}
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-lines", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert "error" in data
+        assert h._response_code == 400
+
+    def test_resync_lines_invalid_timing(self):
+        payload = {
+            "lines": [
+                {"line_idx": 0, "line_start": 5.0, "line_end": 2.0, "current_words": [{"text": "x"}]},
+            ]
+        }
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-lines", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert len(data["results"]) == 1
+        assert "warnings" in data["results"][0]
+
+    def test_resync_lines_no_words(self):
+        payload = {
+            "lines": [
+                {"line_idx": 0, "line_start": 1.0, "line_end": 3.0, "current_words": []},
+            ]
+        }
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-lines", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert data["results"][0]["words"] == []
+
+    def test_resync_lines_zero_char_text(self):
+        payload = {
+            "lines": [
+                {
+                    "line_idx": 0,
+                    "line_start": 1.0,
+                    "line_end": 3.0,
+                    "current_words": [{"text": ""}, {"text": ""}],
+                },
+            ]
+        }
+        body = json.dumps(payload).encode()
+        h = _make_handler(
+            "/api/resync-lines", method="POST",
+            headers={"Content-Length": str(len(body))}, body=body,
+        )
+        h.do_POST()
+        data = json.loads(h.wfile.data.decode("utf-8"))
+        assert len(data["results"][0]["words"]) == 2

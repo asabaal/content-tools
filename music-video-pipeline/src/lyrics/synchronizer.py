@@ -613,8 +613,6 @@ class LyricSynchronizer:
                 e = clusters[end_ci][1]
                 if li == n_lines - 1:
                     e = min(e, duration)
-                if e - s < MIN_LINE_DURATION:
-                    e = s + MIN_LINE_DURATION
                 result.append((s, min(e, duration)))
 
         for i in range(1, len(result)):
@@ -626,12 +624,6 @@ class LyricSynchronizer:
                 curr = list(result[i])
                 curr[0] = mid
                 result[i] = tuple(curr)
-
-        if len(result) > n_lines:
-            result = result[:n_lines]
-        while len(result) < n_lines:
-            last_end = result[-1][1] if result else 0.0
-            result.append((last_end, min(last_end + MIN_LINE_DURATION, duration)))
 
         return result
 

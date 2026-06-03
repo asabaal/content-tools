@@ -231,3 +231,9 @@ class TestInterpolateStates:
         s2 = AnimationState(char_progress=1.0)
         result = interpolate_states(s1, s2, 0.25)
         assert result.char_progress == 0.25
+
+
+class TestDefaultStartPos:
+    def test_bounce_in_with_height(self):
+        s = calculate_animation_state(AnimationType.BOUNCE_IN, 0.5, height=200)
+        assert s.scale != (1.0, 1.0)

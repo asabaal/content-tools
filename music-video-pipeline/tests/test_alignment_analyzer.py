@@ -15,6 +15,7 @@ from lyrics.alignment_analyzer import (
     _normalize,
     _recover_unmatched_lines,
     _score_boundary_quality,
+    _snap_word_starts_to_onsets,
     analyze_alignment,
 )
 from lyrics.parser import LyricLine, LyricWord
@@ -479,6 +480,53 @@ class TestAnalyzeAlignmentRecovery:
         assert result.unmatched_lines >= 1
 
 
+class TestSnapWordStartsToOnsets:
+    def test_default_first_segment_words(self):
+        timings = [WordTiming(word="hello", start=1.0, end=2.0, source="transcription")]
+        onsets = np.array([1.5])
+        _snap_word_starts_to_onsets(timings, onsets)
+        assert timings[0].start == 1.0
+
+    def test_skips_non_transcription_source(self):
+        timings = [
+            WordTiming(word="hello", start=1.0, end=2.0, source="interpolated"),
+            WordTiming(word="world", start=2.0, end=3.0, source="transcription"),
+        ]
+        onsets = np.array([1.5])
+        _snap_word_starts_to_onsets(timings, onsets)
+        assert timings[0].start == 1.0
+
+    def test_nearby_onset_no_change(self):
+        timings = [WordTiming(word="hello", start=1.0, end=2.0, source="transcription")]
+        onsets = np.array([1.05])
+        _snap_word_starts_to_onsets(timings, onsets, set())
+        assert timings[0].start == 1.0
+
+    def test_positive_gap_not_first_in_seg(self):
+        timings = [WordTiming(word="hello", start=1.0, end=2.0, source="transcription")]
+        onsets = np.array([1.2])
+        _snap_word_starts_to_onsets(timings, onsets, {("other", 1.0)})
+        assert timings[0].start == 1.0
+
+    def test_negative_gap_snaps_backward(self):
+        timings = [WordTiming(word="hello", start=1.0, end=3.0, source="transcription")]
+        onsets = np.array([0.8])
+        _snap_word_starts_to_onsets(timings, onsets, {("hello", 1.0)}, prev_line_end=0.0)
+        assert timings[0].start == 0.8
+
+    def test_snap_makes_duration_too_short(self):
+        timings = [WordTiming(word="hi", start=1.0, end=1.15, source="transcription")]
+        onsets = np.array([1.12])
+        _snap_word_starts_to_onsets(timings, onsets, {("hi", 1.0)})
+        assert timings[0].start == 1.0
+
+    def test_negative_gap_onset_before_boundary(self):
+        timings = [WordTiming(word="hello", start=1.5, end=3.0, source="transcription")]
+        onsets = np.array([1.25])
+        _snap_word_starts_to_onsets(timings, onsets, {("hello", 1.5)}, prev_line_end=1.3)
+        assert timings[0].start == 1.5
+
+
 class TestWordTiming:
     def test_to_dict(self):
         wt = WordTiming(word="hello", start=1.0, end=2.0, source="transcription")
@@ -584,19 +632,60 @@ class TestComputeWordTimings:
         assert timings[0].start == 1.0
         assert timings[0].end == 1.1
 
-    def test_interpolation_last_word(self):
+    def test_unmatched_between_matched_fills(self):
         segs = self._make_segments_with_words(
-            ("hello world", 1.0, 3.0, [
-                {"word": "hello", "start": 1.0, "end": 2.0, "probability": 0.9},
+            ("hello my world", 0.0, 3.0, [
+                {"word": "hello", "start": 0.0, "end": 1.0, "probability": 0.9},
+                {"word": "my", "start": 1.0, "end": 2.0, "probability": 0.9},
                 {"word": "world", "start": 2.0, "end": 3.0, "probability": 0.9},
             ]),
         )
-        timings = _compute_word_timings("hello world xyz", [0], segs, 1.0, 3.0)
+        timings = _compute_word_timings("hello there world", [0], segs, 0.0, 3.0)
         assert timings is not None
-        assert timings[2].word == "xyz"
-        assert timings[2].source == "interpolated"
-        assert timings[2].start == 3.0
-        assert timings[2].end == 3.1
+        assert len(timings) == 3
+        assert timings[1].word == "there"
+        assert timings[1].source == "transcription"
+
+    def test_unmatched_between_matched_else_branch(self):
+        segs = self._make_segments_with_words(
+            ("a c e", 0.0, 5.0, [
+                {"word": "a", "start": 0.0, "end": 1.0, "probability": 0.9},
+                {"word": "c", "start": 2.0, "end": 3.0, "probability": 0.9},
+                {"word": "e", "start": 4.0, "end": 5.0, "probability": 0.9},
+            ]),
+        )
+        timings = _compute_word_timings("a b c d e", [0], segs, 0.0, 5.0)
+        assert timings is not None
+        assert timings[1].source == "interpolated"
+        assert timings[3].source == "interpolated"
+
+    def test_unmatched_last_word_fills_from_prev(self):
+        segs = self._make_segments_with_words(
+            ("a b c d", 0.0, 4.0, [
+                {"word": "a", "start": 0.0, "end": 1.0, "probability": 0.9},
+                {"word": "b", "start": 1.0, "end": 2.0, "probability": 0.9},
+                {"word": "c", "start": 2.0, "end": 3.0, "probability": 0.9},
+                {"word": "d", "start": 3.0, "end": 4.0, "probability": 0.9},
+            ]),
+        )
+        timings = _compute_word_timings("a b c extra", [0], segs, 0.0, 4.0)
+        assert timings is not None
+        assert timings[3].word == "extra"
+        assert timings[3].source == "transcription"
+
+    def test_unmatched_first_word_fills_from_next(self):
+        segs = self._make_segments_with_words(
+            ("x a b c", 0.0, 4.0, [
+                {"word": "x", "start": 0.0, "end": 1.0, "probability": 0.9},
+                {"word": "a", "start": 1.0, "end": 2.0, "probability": 0.9},
+                {"word": "b", "start": 2.0, "end": 3.0, "probability": 0.9},
+                {"word": "c", "start": 3.0, "end": 4.0, "probability": 0.9},
+            ]),
+        )
+        timings = _compute_word_timings("extra a b c", [0], segs, 0.0, 4.0)
+        assert timings is not None
+        assert timings[0].word == "extra"
+        assert timings[0].source == "transcription"
 
 
 class TestComputeOnsetWordTimings:

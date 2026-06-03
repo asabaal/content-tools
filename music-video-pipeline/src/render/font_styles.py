@@ -55,15 +55,6 @@ def _load_registry() -> dict:
     return _font_registry
 
 
-def _get_categories() -> dict:
-    if not _REGISTRY_PATH.exists():
-        return {}
-    try:
-        data = json.loads(_REGISTRY_PATH.read_text(encoding="utf-8"))
-        return {info["id"]: info["category"] for info in data.values()}
-    except Exception:
-        return {}
-
 
 def _find_font(size: int, bold: bool = True, family: int = 0) -> ImageFont.FreeTypeFont:
     reg = _load_registry()
