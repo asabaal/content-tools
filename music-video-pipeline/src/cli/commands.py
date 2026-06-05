@@ -994,14 +994,17 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance, 
 @click.option("--intro-image", default=None, help="Branded intro image path")
 @click.option("--intro-title", default=None, help="Intro title text")
 @click.option("--intro-subtitle", default=None, help="Intro subtitle text")
-@click.option("--width", default=960, type=int, help="Frame width (default: 960)")
-@click.option("--height", default=540, type=int, help="Frame height (default: 540)")
+@click.option("--width", default=None, type=int, help="Frame width (default: 960 or from aspect ratio)")
+@click.option("--height", default=None, type=int, help="Frame height (default: 540 or from aspect ratio)")
 @click.option("--no-contacts", is_flag=True, help="Skip contact sheet generation")
 @click.option("--json-only", is_flag=True, help="Only generate summary.json, skip frame rendering")
+@click.option("--script", "script_file", default=None, help="Script file to audit (default: data/script.json)")
+@click.option("--aspect-ratio", default=None, type=click.Choice(["16:9", "9:16"]), help="Target aspect ratio for audit output naming and dimensions")
 def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
-          width, height, no_contacts, json_only):
+          width, height, no_contacts, json_only, script_file, aspect_ratio):
     """Audit word timing by rendering frame previews."""
     from render.renderer import VideoRenderer
+    from render.aspect_transform import ASPECT_16_9, ASPECT_9_16, CANVAS_SIZES
 
     proj_dir = _find_project(project_dir)
     proj = MusicVideoProject.load(proj_dir)
@@ -1010,8 +1013,29 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
     if not (data_dir / "lyrics_synced.json").exists():
         raise click.ClickException("lyrics_synced.json not found. Run sync first.")
 
-    needs_script = mood or intro_image or not (data_dir / "script.json").exists()
-    if needs_script:
+    if aspect_ratio:
+        tgt_w, tgt_h = CANVAS_SIZES[aspect_ratio]
+        if width is None:
+            width = tgt_w // 2
+        if height is None:
+            height = tgt_h // 2
+    else:
+        if width is None:
+            width = 960
+        if height is None:
+            height = 540
+
+    if script_file:
+        script_path = data_dir / script_file
+    elif aspect_ratio:
+        ar_tag = aspect_ratio.replace(":", "x")
+        candidate = data_dir / f"script_{ar_tag}.json"
+        script_path = candidate if candidate.exists() else data_dir / "script.json"
+    else:
+        script_path = data_dir / "script.json"
+
+    needs_script = mood or intro_image or not script_path.exists()
+    if needs_script and script_file is None:
         from scriptgen import generate_script as gen
 
         intro_cfg = None
@@ -1027,12 +1051,15 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
 
     if output:
         audit_dir = Path(output)
+    elif aspect_ratio:
+        ar_tag = aspect_ratio.replace(":", "x")
+        audit_dir = proj_dir / "output" / f"audit_{ar_tag}"
     else:
         audit_dir = proj_dir / "output" / "audit"
     audit_dir.mkdir(parents=True, exist_ok=True)
 
     renderer = VideoRenderer(proj_dir, width=width, height=height)
-    renderer.load()
+    renderer.load(script_path=script_path)
 
     synced_lines = renderer.synced.get("lines", [])
     if not synced_lines:
@@ -1041,6 +1068,10 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
     total_words = sum(len(line.get("words", [])) for line in synced_lines)
     click.echo(f"\n  Auditing {len(synced_lines)} lines, {total_words} words...")
     click.echo(f"    Resolution: {width}x{height}")
+    if aspect_ratio:
+        click.echo(f"    Aspect ratio: {aspect_ratio}")
+    if script_file:
+        click.echo(f"    Script: {script_file}")
     click.echo(f"    Output: {audit_dir}")
 
     issues = []
@@ -1092,6 +1123,9 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
                 except Exception as e:
                     entry["render_error"] = str(e)
 
+    overflow_issues = _detect_text_overflow(renderer, synced_lines, width, height)
+    issues.extend(overflow_issues)
+
     if not json_only and not no_contacts and word_entries:
         _generate_contact_sheet(audit_dir, word_entries, width, height, synced_lines)
 
@@ -1102,12 +1136,22 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
         "issues": issues,
         "words": word_entries,
     }
+    if aspect_ratio:
+        summary["aspect_ratio"] = aspect_ratio
+        summary["render_width"] = width
+        summary["render_height"] = height
+    if overflow_issues:
+        summary["overflow_issues"] = overflow_issues
+
     summary_path = audit_dir / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
 
     click.echo(f"\n  Words audited: {total_words}")
     if issues:
         click.echo(f"  Issues found: {len(issues)}")
+        if overflow_issues:
+            click.echo(f"    Timing issues: {len(issues) - len(overflow_issues)}")
+            click.echo(f"    Text overflow: {len(overflow_issues)}")
         for iss in issues[:20]:
             loc = f"line {iss['line']} word {iss['word']} (\"{iss['text']}\")"
             click.echo(f"    {loc}: {iss['issue']}")
@@ -1122,6 +1166,54 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
         click.echo(f"    {total_words} frame PNGs")
         if not no_contacts:
             click.echo(f"    contact_sheet.png")
+
+
+def _detect_text_overflow(renderer, synced_lines: list, width: int, height: int) -> list:
+    overflow_issues = []
+    for li, line in enumerate(synced_lines):
+        words = line.get("words", [])
+        if not words:
+            continue
+        try:
+            v = renderer.get_visual(li, 0)
+            font_size = int(
+                (v.get("font_size", renderer.caption_style.get("font_size", 112)))
+                * (height / 1080)
+            )
+            font_family = v.get("font_family", 0)
+            layout = renderer._layout_line(words, li, v, font_size, font_family)
+        except Exception:
+            continue
+
+        line_text = " ".join(w["text"] for w in words)
+        for wi, r in enumerate(layout):
+            left_edge = r["px_x"] - r["wW"] / 2
+            right_edge = r["px_x"] + r["wW"] / 2
+            if left_edge < 0:
+                overflow_issues.append({
+                    "line": li,
+                    "word": wi,
+                    "text": words[wi]["text"],
+                    "line_text": line_text,
+                    "issue": f"left clip {-left_edge:.0f}px (word extends past left edge)",
+                    "check": "text_overflow",
+                    "severity": "warning",
+                    "edge": "left",
+                    "overflow_px": round(-left_edge),
+                })
+            if right_edge > width:
+                overflow_issues.append({
+                    "line": li,
+                    "word": wi,
+                    "text": words[wi]["text"],
+                    "line_text": line_text,
+                    "issue": f"right clip {right_edge - width:.0f}px (word extends past right edge)",
+                    "check": "text_overflow",
+                    "severity": "warning",
+                    "edge": "right",
+                    "overflow_px": round(right_edge - width),
+                })
+    return overflow_issues
 
 
 def _generate_contact_sheet(audit_dir: Path, word_entries: list, frame_w: int, frame_h: int,
@@ -1159,6 +1251,233 @@ def _generate_contact_sheet(audit_dir: Path, word_entries: list, frame_w: int, f
         draw.text((x + 2, y + frame_h // 3 + 2), label, fill=label_color, font=font)
 
     sheet.save(str(audit_dir / "contact_sheet.png"))
+
+
+@cli.command()
+@click.option("--project", "-p", "project_dir", default=None, help="Path to project directory")
+@click.option("--target-aspect", required=True, type=click.Choice(["16:9", "9:16"]), help="Target aspect ratio")
+@click.option("--source-aspect", default=None, type=click.Choice(["16:9", "9:16"]), help="Source aspect ratio (auto-detected if omitted)")
+@click.option("--output", "-o", default=None, help="Output video path (default: auto-named in output/)")
+@click.option("--skip-audit", is_flag=True, help="Skip post-transform audit")
+@click.option("--skip-render", is_flag=True, help="Skip rendering (only generate transformed script)")
+def transform(project_dir, target_aspect, source_aspect, output, skip_audit, skip_render):
+    """Transform project script to a different aspect ratio and render."""
+    from render.renderer import VideoRenderer
+    from render.aspect_transform import (
+        ASPECT_16_9,
+        ASPECT_9_16,
+        CANVAS_SIZES,
+        VALID_ASPECTS,
+        detect_aspect_ratio,
+        transform_script,
+        check_layout_issues,
+    )
+
+    proj_dir = _find_project(project_dir)
+    proj = MusicVideoProject.load(proj_dir)
+    data_dir = proj.data_dir
+
+    if not (data_dir / "script.json").exists():
+        raise click.ClickException("script.json not found. Generate a script first.")
+
+    if not (data_dir / "lyrics_synced.json").exists():
+        raise click.ClickException("lyrics_synced.json not found. Run sync first.")
+
+    if source_aspect is None:
+        source_aspect = detect_aspect_ratio(proj_dir)
+        click.echo(f"  Auto-detected source aspect ratio: {source_aspect}")
+
+    if source_aspect == target_aspect:
+        raise click.ClickException(f"Source and target aspect ratios are the same: {target_aspect}")
+
+    original_script_text = (data_dir / "script.json").read_text(encoding="utf-8")
+    original_script = json.loads(original_script_text)
+
+    ar_tag = target_aspect.replace(":", "x")
+    script_filename = f"script_{ar_tag}.json"
+
+    click.echo(f"\n  Transforming {source_aspect} -> {target_aspect}...")
+
+    transformed = transform_script(
+        original_script,
+        source_aspect=source_aspect,
+        target_aspect=target_aspect,
+        project_dir=proj_dir,
+    )
+
+    tgt_w, tgt_h = CANVAS_SIZES[target_aspect]
+    click.echo(f"    Target canvas: {tgt_w}x{tgt_h}")
+    click.echo(f"    Sections: {len(transformed.get('sections', []))}")
+
+    intro_img = transformed.get("intro", {}).get("image", "")
+    outro_img = transformed.get("outro", {}).get("image", "")
+    if intro_img:
+        click.echo(f"    Intro image: {Path(intro_img).name}")
+    if outro_img:
+        click.echo(f"    Outro image: {Path(outro_img).name}")
+
+    transformed_path = data_dir / script_filename
+    transformed_path.write_text(
+        json.dumps(transformed, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    click.echo(f"    Saved: {transformed_path}")
+
+    layout_issues = check_layout_issues(transformed, target_aspect, source_script=original_script)
+    if layout_issues:
+        click.echo(f"\n  Layout checks: {len(layout_issues)} issues found")
+        for iss in layout_issues[:10]:
+            severity = iss.get("severity", "info")
+            check = iss.get("check", "")
+            msg = iss.get("issue", "")
+            click.echo(f"    [{severity}] {check}: {msg}")
+        if len(layout_issues) > 10:
+            click.echo(f"    ... and {len(layout_issues) - 10} more")
+    else:
+        click.echo(f"\n  Layout checks: no issues found")
+
+    if skip_render:
+        click.echo(f"\n  Skipping render (--skip-render)")
+        return
+
+    if output:
+        out_path = Path(output)
+    else:
+        out_dir = proj_dir / "output"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out_path = out_dir / f"video_{ar_tag}.mp4"
+
+    click.echo(f"\n  Rendering transformed video...")
+    click.echo(f"    Resolution: {tgt_w}x{tgt_h}")
+    click.echo(f"    Output: {out_path}")
+
+    renderer = VideoRenderer(proj_dir, width=tgt_w, height=tgt_h)
+    renderer.load(script_path=transformed_path)
+
+    audio_path = renderer.audio_path
+    if not audio_path:
+        audio_rel = proj.paths.audio
+        if audio_rel:
+            candidate = Path(audio_rel)
+            if not candidate.is_absolute():
+                candidate = proj_dir / audio_rel
+            if candidate.exists():
+                audio_path = candidate
+
+    click.echo(f"    Duration: {_format_duration(renderer.duration)} ({renderer.duration:.1f}s)")
+    click.echo(f"    Audio: {audio_path.name if audio_path else 'none'}")
+
+    total_frames = int(renderer.duration * 30) + 1
+    click.echo(f"    Frames: {total_frames}")
+    click.echo()
+
+    renderer.render(out_path, audio_path=audio_path)
+
+    size_mb = out_path.stat().st_size / (1024 * 1024)
+    click.echo(f"\n  Done! {out_path} ({size_mb:.1f} MB)")
+
+    if not skip_audit:
+        click.echo(f"\n  Running audit on transformed render...")
+        audit_dir = proj_dir / "output" / f"audit_{ar_tag}"
+        audit_dir.mkdir(parents=True, exist_ok=True)
+
+        audit_w = tgt_w // 2
+        audit_h = tgt_h // 2
+
+        audit_renderer = VideoRenderer(proj_dir, width=audit_w, height=audit_h)
+        audit_renderer.load(script_path=transformed_path)
+
+        synced_lines = audit_renderer.synced.get("lines", [])
+        if synced_lines:
+            total_audit_words = sum(len(line.get("words", [])) for line in synced_lines)
+            click.echo(f"    Auditing {len(synced_lines)} lines, {total_audit_words} words...")
+            click.echo(f"    Resolution: {audit_w}x{audit_h}")
+
+            audit_issues = []
+            audit_entries = []
+
+            for li, line in enumerate(synced_lines):
+                words = line.get("words", [])
+                for wi, word in enumerate(words):
+                    text = word.get("text", "")
+                    start = word.get("start", 0.0)
+                    end = word.get("end", 0.0)
+                    duration = end - start
+
+                    entry = {
+                        "line": li,
+                        "word": wi,
+                        "text": text,
+                        "start": round(start, 3),
+                        "end": round(end, 3),
+                        "duration": round(duration, 3),
+                    }
+
+                    if start >= end:
+                        entry["issue"] = "start >= end"
+                        audit_issues.append(entry)
+                    elif duration < 0.04:
+                        entry["issue"] = f"duration {duration:.3f}s < 0.04s"
+                        audit_issues.append(entry)
+                    elif duration > 1.5:
+                        entry["issue"] = f"duration {duration:.1f}s > 1.5s"
+                        audit_issues.append(entry)
+
+                    if wi > 0:
+                        prev = words[wi - 1]
+                        gap = start - prev.get("end", 0.0)
+                        if gap > 0.5:
+                            entry["gap_from_prev"] = round(gap, 3)
+                            audit_issues.append({**entry, "issue": f"gap {gap:.2f}s from previous word"})
+
+                    audit_entries.append(entry)
+
+                    t = start + 0.08
+                    try:
+                        img = audit_renderer.render_frame(t)
+                        safe_text = "".join(c if c.isalnum() else "_" for c in text).strip("_")
+                        filename = f"line{li:02d}_word{wi:02d}_{safe_text}.png"
+                        img.save(str(audit_dir / filename))
+                    except Exception as e:
+                        entry["render_error"] = str(e)
+
+            if audit_entries:
+                _generate_contact_sheet(audit_dir, audit_entries, audit_w, audit_h, synced_lines)
+
+            audit_overflow = _detect_text_overflow(audit_renderer, synced_lines, audit_w, audit_h)
+            audit_issues.extend(audit_overflow)
+
+            summary = {
+                "project": proj.name,
+                "total_lines": len(synced_lines),
+                "total_words": total_audit_words,
+                "issues": audit_issues,
+                "words": audit_entries,
+                "aspect_ratio": target_aspect,
+                "render_width": audit_w,
+                "render_height": audit_h,
+                "layout_issues": layout_issues,
+            }
+            if audit_overflow:
+                summary["overflow_issues"] = audit_overflow
+            (audit_dir / "summary.json").write_text(
+                json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+
+            timing_count = len(audit_issues) - len(audit_overflow)
+            click.echo(f"\n    Audit: {timing_count} timing issues, {len(audit_issues)} layout issues, {len(audit_overflow)} text overflow")
+            if audit_issues:
+                for iss in audit_issues[:10]:
+                    loc = f"line {iss['line']} word {iss['word']} (\"{iss['text']}\")"
+                    click.echo(f"      {loc}: {iss['issue']}")
+                if len(audit_issues) > 10:
+                    click.echo(f"      ... and {len(audit_issues) - 10} more")
+            click.echo(f"    Saved: {audit_dir}")
+
+    click.echo(f"\n  Transform complete:")
+    click.echo(f"    Script: {transformed_path}")
+    click.echo(f"    Render: {out_path}")
+    if not skip_audit:
+        click.echo(f"    Audit:  {proj_dir / 'output' / f'audit_{ar_tag}'}")
 
 
 if __name__ == "__main__":  # pragma: no cover

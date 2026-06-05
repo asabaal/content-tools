@@ -902,3 +902,135 @@ class TestCommandCoverageGaps:
 
         assert result.exit_code != 0
         assert "No synced lines" in result.output
+
+    def test_audit_detects_text_overflow_9x16(self, runner, tmp_path, monkeypatch):
+        from unittest.mock import MagicMock, patch
+        from cli.commands import _detect_text_overflow
+
+        wav = tmp_path / "song.wav"
+        _write_wav(wav)
+        srt = tmp_path / "lyrics.srt"
+        srt.write_text("1\n00:00:00,000 --> 00:00:00,500\nHello world\n", encoding="utf-8")
+        runner.invoke(cli, ["init", "--name", "Test", "--audio", str(wav), "--lyrics", str(srt), "--dir", str(tmp_path)])
+
+        synced = {
+            "lines": [
+                {
+                    "words": [
+                        {"text": "Hello", "start": 0.0, "end": 0.3},
+                        {"text": "world", "start": 0.3, "end": 0.5},
+                    ]
+                },
+            ]
+        }
+
+        mock_renderer = MagicMock()
+        mock_renderer.synced = synced
+        mock_renderer.load.return_value = None
+        mock_renderer.caption_style = {"font_size": 112}
+        mock_renderer.get_visual.return_value = {"font_size": 112, "font_family": 0}
+        mock_renderer._layout_line.return_value = [
+            {"px_x": -20, "px_y": 480, "wW": 100, "word_size": 47, "x": None},
+            {"px_x": 560, "px_y": 480, "wW": 80, "word_size": 47, "x": None},
+        ]
+
+        overflow = _detect_text_overflow(mock_renderer, synced["lines"], 540, 960)
+        assert len(overflow) >= 2
+        assert any(o["edge"] == "left" for o in overflow)
+        assert any(o["edge"] == "right" for o in overflow)
+        assert all(o["check"] == "text_overflow" for o in overflow)
+
+    def test_audit_no_text_overflow_when_fits(self, runner, tmp_path, monkeypatch):
+        from unittest.mock import MagicMock
+        from cli.commands import _detect_text_overflow
+
+        synced = {
+            "lines": [
+                {
+                    "words": [
+                        {"text": "Hi", "start": 0.0, "end": 0.3},
+                    ]
+                },
+            ]
+        }
+
+        mock_renderer = MagicMock()
+        mock_renderer.caption_style = {"font_size": 112}
+        mock_renderer.get_visual.return_value = {"font_size": 112, "font_family": 0}
+        mock_renderer._layout_line.return_value = [
+            {"px_x": 270, "px_y": 480, "wW": 40, "word_size": 47, "x": None},
+        ]
+
+        overflow = _detect_text_overflow(mock_renderer, synced["lines"], 540, 960)
+        assert len(overflow) == 0
+
+    def test_audit_overflow_graceful_on_missing_layout(self, runner, tmp_path, monkeypatch):
+        from unittest.mock import MagicMock
+        from cli.commands import _detect_text_overflow
+
+        synced = {
+            "lines": [
+                {"words": [{"text": "Test", "start": 0.0, "end": 0.3}]},
+            ]
+        }
+
+        mock_renderer = MagicMock()
+        mock_renderer.caption_style = {"font_size": 112}
+        mock_renderer.get_visual.side_effect = RuntimeError("no visual")
+        mock_renderer._layout_line.side_effect = RuntimeError("no layout")
+
+        overflow = _detect_text_overflow(mock_renderer, synced["lines"], 540, 960)
+        assert len(overflow) == 0
+
+    def test_audit_with_overflow_in_summary(self, runner, tmp_path, monkeypatch):
+        from unittest.mock import MagicMock, patch
+
+        from PIL import Image as PILImage
+
+        wav = tmp_path / "song.wav"
+        _write_wav(wav)
+        srt = tmp_path / "lyrics.srt"
+        srt.write_text("1\n00:00:00,000 --> 00:00:00,500\nHello world\n", encoding="utf-8")
+        runner.invoke(cli, ["init", "--name", "Test", "--audio", str(wav), "--lyrics", str(srt), "--dir", str(tmp_path)])
+
+        synced = {
+            "lines": [
+                {
+                    "words": [
+                        {"text": "Hello", "start": 0.0, "end": 0.3},
+                        {"text": "world", "start": 0.3, "end": 0.5},
+                    ]
+                },
+            ]
+        }
+
+        mock_renderer = MagicMock()
+        mock_renderer.synced = synced
+        mock_renderer.load.return_value = None
+        mock_renderer.render_frame.return_value = PILImage.new("RGB", (540, 960), (0, 0, 0))
+        mock_renderer.caption_style = {"font_size": 112}
+        mock_renderer.get_visual.return_value = {"font_size": 112, "font_family": 0}
+        mock_renderer._layout_line.return_value = [
+            {"px_x": -20, "px_y": 480, "wW": 100, "word_size": 47, "x": None},
+            {"px_x": 560, "px_y": 480, "wW": 80, "word_size": 47, "x": None},
+        ]
+
+        mock_gen_result = MagicMock()
+        mock_gen_result.script = {"sections": []}
+        mock_gen_result.sections_profiled = 1
+        mock_gen_result.variance_detected = "low"
+        mock_gen_result.mood_used = "dark_moody"
+
+        import scriptgen
+        monkeypatch.setattr(scriptgen, "generate_script", lambda *a, **kw: mock_gen_result)
+
+        with patch("render.renderer.VideoRenderer", return_value=mock_renderer):
+            result = runner.invoke(
+                cli, ["audit", "--project", str(tmp_path), "--aspect-ratio", "9:16", "--json-only"]
+            )
+
+        assert result.exit_code == 0
+        assert "Text overflow" in result.output
+        summary = json.loads((tmp_path / "output" / "audit_9x16" / "summary.json").read_text())
+        assert "overflow_issues" in summary
+        assert len(summary["overflow_issues"]) >= 2
