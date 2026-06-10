@@ -384,10 +384,14 @@ def _compute_word_timings(
     for li, raw_word in enumerate(lyric_words_raw):
         if li in lyric_to_trans:
             tw = trans_words_raw[lyric_to_trans[li]]
+            ws = float(tw["start"])
+            we = float(tw["end"])
+            if we <= ws:
+                we = ws + 0.04
             timings.append(WordTiming(
                 word=raw_word,
-                start=float(tw["start"]),
-                end=float(tw["end"]),
+                start=ws,
+                end=we,
                 source="transcription",
             ))
         else:

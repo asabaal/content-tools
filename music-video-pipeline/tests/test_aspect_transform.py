@@ -995,6 +995,49 @@ class TestEnsureTextFits:
         scaled_fs = round(150 * 1080 / 1920)
         assert result["sections"][0]["lines_overrides"]["0"]["font_size"] == scaled_fs
 
+    def test_round_trip_font_sizes_preserved(self, tmp_path):
+        original = _make_sample_script()
+        original["sections"][0]["lines"] = [0]
+        original["sections"][0]["lines_overrides"] = {"0": {"font_size": 150}}
+
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        (data_dir / "script.json").write_text(json.dumps(original), encoding="utf-8")
+        synced = {
+            "lines": [
+                {
+                    "words": [
+                        {"text": "A", "start": 0.0, "end": 0.2},
+                        {"text": "very", "start": 0.2, "end": 0.4},
+                        {"text": "long", "start": 0.4, "end": 0.6},
+                        {"text": "line", "start": 0.6, "end": 0.8},
+                        {"text": "of", "start": 0.8, "end": 1.0},
+                        {"text": "text", "start": 0.8, "end": 1.2},
+                        {"text": "here", "start": 1.2, "end": 1.4},
+                    ]
+                },
+            ]
+        }
+        (data_dir / "lyrics_synced.json").write_text(json.dumps(synced), encoding="utf-8")
+
+        forward = transform_script(original, ASPECT_16_9, ASPECT_9_16, project_dir=tmp_path)
+        roundtrip = transform_script(forward, ASPECT_9_16, ASPECT_16_9, project_dir=tmp_path)
+
+        for i, (os, rs) in enumerate(zip(original["sections"], roundtrip["sections"])):
+            o_lo = os.get("lines_overrides", {})
+            r_lo = rs.get("lines_overrides", {})
+            for k in set(list(o_lo.keys()) + list(r_lo.keys())):
+                o_fs = o_lo.get(k, {}).get("font_size")
+                r_fs = r_lo.get(k, {}).get("font_size")
+                if o_fs is not None:
+                    assert r_fs == o_fs, f"Section {i} line {k}: orig={o_fs}, roundtrip={r_fs}"
+
+    def test_round_trip_defaults_preserved(self):
+        original = _make_sample_script()
+        forward = transform_script(original, ASPECT_16_9, ASPECT_9_16)
+        roundtrip = transform_script(forward, ASPECT_9_16, ASPECT_16_9)
+        assert roundtrip["defaults"]["font_size"] == original["defaults"]["font_size"]
+
 
 def _write_wav(path, duration=1.0, sr=22050, freq=440.0):
     import soundfile as sf
@@ -1522,3 +1565,118 @@ class TestAuditCommandAspectAware:
         assert result.exit_code == 0
         summary = json.loads((tmp_path / "output" / "audit_16x9" / "summary.json").read_text())
         assert summary.get("overflow_issues") is None or len(summary.get("overflow_issues", [])) == 0
+
+
+class TestRoundTripTransformCLI:
+    def _setup_project(self, tmp_path, runner):
+        from cli.commands import cli
+
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        (data_dir / "audio.wav").touch()
+
+        script = _make_sample_script()
+        (data_dir / "script.json").write_text(json.dumps(script), encoding="utf-8")
+
+        synced = {
+            "lines": [
+                {
+                    "words": [
+                        {"text": "The", "start": 0.0, "end": 0.2},
+                        {"text": "quick", "start": 0.2, "end": 0.4},
+                        {"text": "brown", "start": 0.4, "end": 0.6},
+                        {"text": "fox", "start": 0.6, "end": 0.8},
+                    ]
+                },
+                {
+                    "words": [
+                        {"text": "Jumps", "start": 1.0, "end": 1.2},
+                        {"text": "over", "start": 1.2, "end": 1.4},
+                        {"text": "the", "start": 1.4, "end": 1.6},
+                        {"text": "lazy", "start": 1.6, "end": 1.8},
+                        {"text": "dog", "start": 1.8, "end": 2.0},
+                    ]
+                },
+            ]
+        }
+        (data_dir / "lyrics_synced.json").write_text(
+            json.dumps(synced), encoding="utf-8"
+        )
+        return cli
+
+    def test_round_trip_16x9_to_9x16_and_back(self, tmp_path):
+        original = _make_sample_script()
+        forward = transform_script(original, ASPECT_16_9, ASPECT_9_16)
+        roundtrip = transform_script(forward, ASPECT_9_16, ASPECT_16_9)
+
+        assert roundtrip["defaults"]["font_size"] == original["defaults"]["font_size"]
+        for i, (os, rs) in enumerate(zip(original["sections"], roundtrip["sections"])):
+            assert abs(os["visual"]["font_size"] - rs["visual"]["font_size"]) <= 1, f"section {i}"
+            o_lo = os.get("lines_overrides", {})
+            r_lo = rs.get("lines_overrides", {})
+            for k in set(list(o_lo.keys()) + list(r_lo.keys())):
+                o_fs = o_lo.get(k, {}).get("font_size")
+                r_fs = r_lo.get(k, {}).get("font_size")
+                if o_fs is not None:
+                    assert abs(r_fs - o_fs) <= 1, f"section {i} line {k}: {o_fs} vs {r_fs}"
+
+    def test_round_trip_9x16_to_16x9_and_back(self, tmp_path):
+        original = _make_sample_script()
+        original["_aspect_meta"] = {"source_aspect": ASPECT_16_9, "target_aspect": ASPECT_9_16}
+        forward = transform_script(original, ASPECT_9_16, ASPECT_16_9)
+        roundtrip = transform_script(forward, ASPECT_16_9, ASPECT_9_16)
+
+        assert roundtrip["defaults"]["font_size"] == original["defaults"]["font_size"]
+        for i, (os, rs) in enumerate(zip(original["sections"], roundtrip["sections"])):
+            assert abs(os["visual"]["font_size"] - rs["visual"]["font_size"]) <= 1, f"section {i}"
+
+    def test_round_trip_with_project_dir_preserves_fonts(self, tmp_path):
+        original = _make_sample_script()
+        original["sections"][0]["lines"] = [0]
+        original["sections"][0]["lines_overrides"] = {"0": {"font_size": 150}}
+
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        (data_dir / "script.json").write_text(json.dumps(original), encoding="utf-8")
+        synced = {
+            "lines": [
+                {
+                    "words": [
+                        {"text": "A", "start": 0.0, "end": 0.2},
+                        {"text": "very", "start": 0.2, "end": 0.4},
+                        {"text": "long", "start": 0.4, "end": 0.6},
+                        {"text": "line", "start": 0.6, "end": 0.8},
+                        {"text": "of", "start": 0.8, "end": 1.0},
+                        {"text": "text", "start": 1.0, "end": 1.2},
+                        {"text": "here", "start": 1.2, "end": 1.4},
+                    ]
+                },
+            ]
+        }
+        (data_dir / "lyrics_synced.json").write_text(
+            json.dumps(synced), encoding="utf-8"
+        )
+
+        forward = transform_script(original, ASPECT_16_9, ASPECT_9_16, project_dir=tmp_path)
+        roundtrip = transform_script(forward, ASPECT_9_16, ASPECT_16_9, project_dir=tmp_path)
+
+        for i, (os, rs) in enumerate(zip(original["sections"], roundtrip["sections"])):
+            o_lo = os.get("lines_overrides", {})
+            r_lo = rs.get("lines_overrides", {})
+            for k in set(list(o_lo.keys()) + list(r_lo.keys())):
+                o_fs = o_lo.get(k, {}).get("font_size")
+                r_fs = r_lo.get(k, {}).get("font_size")
+                if o_fs is not None:
+                    assert r_fs == o_fs, f"section {i} line {k}: {o_fs} != {r_fs}"
+
+    def test_round_trip_y_positions_reversible(self):
+        original = _make_sample_script()
+        original_y = original["sections"][0]["words_overrides"]["0.0"]["y"]
+
+        forward = transform_script(original, ASPECT_16_9, ASPECT_9_16)
+        forward_y = forward["sections"][0]["words_overrides"]["0.0"]["y"]
+        assert forward_y != original_y
+
+        roundtrip = transform_script(forward, ASPECT_9_16, ASPECT_16_9)
+        roundtrip_y = roundtrip["sections"][0]["words_overrides"]["0.0"]["y"]
+        assert roundtrip_y == original_y

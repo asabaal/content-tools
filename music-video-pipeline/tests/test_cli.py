@@ -322,6 +322,27 @@ class TestAnalyze:
         from unittest.mock import patch
         with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", side_effect=RuntimeError("model not found")):
             result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        assert result.exit_code != 0
+        assert "lead_vocals" in result.output
+
+    def test_analyze_vocal_stem_transcription_failure_force(self, runner, tmp_path, sample_wav_for_cli):
+        stem_dir = tmp_path / "data" / "cache" / "stems"
+        stem_dir.mkdir(parents=True, exist_ok=True)
+        _write_wav(stem_dir / "0 Lead Vocals.wav")
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        stem_path = str(stem_dir / "0 Lead Vocals.wav")
+        ingest_data = {
+            "tier": "enhanced",
+            "stems": [
+                {"name": "Lead Vocals", "stem_type": "lead_vocals", "path": stem_path, "format": "wav"},
+            ],
+        }
+        (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
+        from unittest.mock import patch
+        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", side_effect=RuntimeError("model not found")):
+            result = runner.invoke(cli, ["analyze", "--force", "--project", str(tmp_path)])
         assert result.exit_code == 0
         assert "WARNING" in result.output
 

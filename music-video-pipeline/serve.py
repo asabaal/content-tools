@@ -240,6 +240,8 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._handle_get_caption_style()
         elif path == "/api/script":
             self._handle_get_script()
+        elif path.startswith("/api/timing-issues"):
+            self._handle_timing_issues(path)
         else:
             super().do_GET()
 
@@ -456,6 +458,36 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self._send_json(json.loads(script_path.read_text(encoding="utf-8")))
         else:
             self._send_json({"error": "No script loaded"}, 404)
+
+    def _handle_timing_issues(self, path: str):
+        qs = urllib.parse.urlparse(self.path).query
+        params = urllib.parse.parse_qs(qs)
+        dash_dir = REPO_ROOT / "projects" / "prophetic-preprint" / "output" / "dashboard"
+        if not dash_dir.exists():
+            for parent in REPO_ROOT.parents:
+                candidate = parent / "projects" / "prophetic-preprint" / "output" / "dashboard"
+                if candidate.exists():
+                    dash_dir = candidate
+                    break
+        if not dash_dir.exists():
+            self._send_json({"error": "Dashboard not generated. Run 'mvp dashboard' first."}, 404)
+            return
+        data_path = dash_dir / "timing_issues.json"
+        if not data_path.exists():
+            self._send_json({"error": "timing_issues.json not found"}, 404)
+            return
+        data = json.loads(data_path.read_text(encoding="utf-8"))
+        song = params.get("song", [None])[0]
+        issue_type = params.get("type", [None])[0]
+        if song:
+            data = [i for i in data if i.get("song") == song]
+        if issue_type:
+            data = [i for i in data if i.get("issue_type") == issue_type]
+        limit = min(int(params.get("limit", [500])[0]), 2000)
+        offset = int(params.get("offset", [0])[0])
+        total = len(data)
+        data = data[offset:offset + limit]
+        self._send_json({"total": total, "offset": offset, "limit": limit, "issues": data})
 
     def _handle_load_script(self):
         body = self._read_body()

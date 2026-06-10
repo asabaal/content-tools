@@ -101,7 +101,7 @@ def _run_ingest(proj: MusicVideoProject) -> dict | None:
     return result_data
 
 
-def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
+def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = False) -> None:
     audio_path = proj.paths.resolve_audio(proj.data_dir)
     if audio_path is None:
         raise click.ClickException("No audio file found in project. Set one with --audio.")
@@ -239,8 +239,21 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
             except Exception as e:
                 click.echo(f"    WARNING: Transcription of {vc['name']} failed: {e}", err=True)
 
+        expected_stems = {vc["stem_type"] for vc in vocal_candidates_info}
+        missing_stems = expected_stems - set(transcriptions.keys())
+
+        if missing_stems:
+            msg = f"Transcription failed for vocal stem(s): {', '.join(sorted(missing_stems))}"
+            if force:
+                click.echo(f"    WARNING: {msg} — proceeding with available stems (--force)", err=True)
+            else:
+                raise click.ClickException(f"{msg}. Fix the issue or use --force to proceed anyway.")
+
         if not transcriptions:
-            click.echo(f"    WARNING: All vocal transcriptions failed", err=True)
+            if force:
+                click.echo(f"    WARNING: All vocal transcriptions failed — skipping vocal analysis (--force)", err=True)
+            else:
+                raise click.ClickException("All vocal transcriptions failed. Fix the issue or use --force to proceed.")
             vocal_candidates_info = []
 
         if vocal_candidates_info:
@@ -266,6 +279,14 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
 
             scored = {st: _score_transcription(tr) for st, tr in transcriptions.items()}
 
+            scoring_summary = {
+                st: {
+                    "coverage_ratio": round(ratio, 4),
+                    "per_line_ratios": {str(li): round(r, 3) for li, r in match_ratios.items()},
+                }
+                for st, (ratio, match_ratios) in scored.items()
+            }
+
             active_stem_type = None
             per_line_source = {}
             combined_segments = []
@@ -274,11 +295,27 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
                 active_stem_type = list(transcriptions.keys())[0]
             else:
                 best_stype = max(scored, key=lambda k: scored[k][0])
-                if scored[best_stype][0] >= 1.0:
+                best_ratios = scored[best_stype][1]
+
+                other_adds_value = any(
+                    scored[st][1].get(li, 0.0) > best_ratios.get(li, 0.0) + 0.01
+                    for st in scored if st != best_stype
+                    for li in scored[st][1]
+                )
+
+                if scored[best_stype][0] >= 1.0 and not other_adds_value:
                     active_stem_type = best_stype
                     click.echo(f"    {best_stype} covers all lyrics — using as primary vocal source")
                 else:
-                    click.echo(f"    No single stem covers all lyrics, merging transcriptions...")
+                    if other_adds_value:
+                        improved = sum(
+                            1 for st in scored if st != best_stype
+                            for li in scored[st][1]
+                            if scored[st][1].get(li, 0.0) > best_ratios.get(li, 0.0) + 0.01
+                        )
+                        click.echo(f"    Merging transcriptions — other stem adds coverage on {improved} line(s)")
+                    else:
+                        click.echo(f"    No single stem covers all lyrics, merging transcriptions...")
                     active_stem_type = "combined"
 
                     non_empty = [l for l in lyrics_lines if l.text.strip()] if lyrics_lines else []
@@ -412,6 +449,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
                 except Exception as e:
                     click.echo(f"    WARNING: Vocal waveform generation failed: {e}", err=True)
 
+            active_transcription["stem_scoring"] = scoring_summary
             (proj.data_dir / "vocal_transcription.json").write_text(
                 json.dumps(active_transcription, indent=2, ensure_ascii=False), encoding="utf-8"
             )
@@ -469,6 +507,8 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False) -> None:
             click.echo(f"    Vocal stems transcribed: {', '.join(vc['name'] for vc in vocal_candidates_info)}")
             active_src = "combined" if active_stem_type == "combined" else next(vc['name'] for vc in vocal_candidates_info if vc['stem_type'] == active_stem_type)
             click.echo(f"    Active vocal source: {active_src}")
+            for st, info in scoring_summary.items():
+                click.echo(f"    {st} coverage: {info['coverage_ratio']:.1%}")
 
     if verbose:
         click.echo(f"    Sample rate: {features.sample_rate} Hz")
@@ -601,6 +641,10 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
         from lyrics.onset_refiner import refine_synced_lines
         result = refine_synced_lines(result, vocal_onset_arr, vocal_waveform_peaks)
 
+    for line in result.lines:
+        for w in line.words:
+            if w.end - w.start < 0.001:
+                w.end = w.start + 0.04
     result.save(proj.data_dir / "lyrics_synced.json")
 
     from lyrics.alignment_analyzer import analyze_alignment
@@ -704,7 +748,8 @@ def init(name, artist, audio, lyrics, data_dir, project_dir, no_analyze, no_sync
 @click.option("--audio", callback=_validate_audio, default=None, help="Override audio file path")
 @click.option("--lyrics", callback=_validate_lyrics, default=None, help="Override/set lyrics file path")
 @click.option("--verbose", "-v", is_flag=True, help="Show detailed output")
-def analyze(project_dir, audio, lyrics, verbose):
+@click.option("--force", is_flag=True, help="Proceed even if vocal stem transcription fails")
+def analyze(project_dir, audio, lyrics, verbose, force):
     """Run audio analysis (Stage 2)."""
     proj_dir = _find_project(project_dir)
     proj = MusicVideoProject.load(proj_dir)
@@ -721,7 +766,7 @@ def analyze(project_dir, audio, lyrics, verbose):
             dest.write_bytes(lyrics.read_bytes())
         proj.paths.lyrics = f"raw/{lyrics.name}"
 
-    _run_analysis(proj, verbose=verbose)
+    _run_analysis(proj, verbose=verbose, force=force)
 
     if proj.paths.lyrics:
         _run_lyrics_import(proj)
@@ -871,9 +916,10 @@ def serve(project_dir, port):
 @click.option("--intro-image", default=None, help="Branded intro image path (shown before lyrics)")
 @click.option("--intro-title", default=None, help="Title text overlaid on intro image (default: project name)")
 @click.option("--intro-subtitle", default=None, help="Subtitle text shown after intro fades")
+@click.option("--color-preset", "color_preset", default=None, help="Color preset name (e.g. dark_teal_emerald, gold_deep_navy)")
 @click.option("--bare", is_flag=True, help="Bare timing render: no script, plain text, shows raw sync data")
 def render(project_dir, output, fps, width, height, mood, base_color, variance, time_start, time_end,
-           intro_image, intro_title, intro_subtitle, bare):
+           intro_image, intro_title, intro_subtitle, color_preset, bare):
     """Render the final video (Stage 6)."""
     from render.renderer import VideoRenderer
 
@@ -930,7 +976,7 @@ def render(project_dir, output, fps, width, height, mood, base_color, variance, 
                 click.echo(f"    Intro: {p.name}")
 
             result = gen(proj_dir, mood=mood, base_color=base_color, variance=variance or "auto",
-                         intro=intro_cfg)
+                         intro=intro_cfg, color_preset=color_preset)
             script_path = data_dir / "script.json"
             script_path.write_text(json.dumps(result.script, indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -1034,7 +1080,7 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
     else:
         script_path = data_dir / "script.json"
 
-    needs_script = mood or intro_image or not script_path.exists()
+    needs_script = (mood or intro_image or not script_path.exists()) and not (json_only and script_path.exists())
     if needs_script and script_file is None:
         from scriptgen import generate_script as gen
 
@@ -1126,6 +1172,9 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
     overflow_issues = _detect_text_overflow(renderer, synced_lines, width, height)
     issues.extend(overflow_issues)
 
+    readability_issues = _check_readability(renderer, synced_lines, width, height)
+    issues.extend(readability_issues)
+
     if not json_only and not no_contacts and word_entries:
         _generate_contact_sheet(audit_dir, word_entries, width, height, synced_lines)
 
@@ -1142,6 +1191,8 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
         summary["render_height"] = height
     if overflow_issues:
         summary["overflow_issues"] = overflow_issues
+    if readability_issues:
+        summary["readability_issues"] = readability_issues
 
     summary_path = audit_dir / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -1150,8 +1201,10 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
     if issues:
         click.echo(f"  Issues found: {len(issues)}")
         if overflow_issues:
-            click.echo(f"    Timing issues: {len(issues) - len(overflow_issues)}")
+            click.echo(f"    Timing issues: {len(issues) - len(overflow_issues) - len(readability_issues)}")
             click.echo(f"    Text overflow: {len(overflow_issues)}")
+        if readability_issues:
+            click.echo(f"    Readability: {len(readability_issues)}")
         for iss in issues[:20]:
             loc = f"line {iss['line']} word {iss['word']} (\"{iss['text']}\")"
             click.echo(f"    {loc}: {iss['issue']}")
@@ -1214,6 +1267,89 @@ def _detect_text_overflow(renderer, synced_lines: list, width: int, height: int)
                     "overflow_px": round(right_edge - width),
                 })
     return overflow_issues
+
+
+def _check_readability(renderer, synced_lines: list, width: int, height: int) -> list:
+    from render.readability import check_readability, estimate_busyness
+
+    readability_issues = []
+    seen_sections: set[int] = set()
+
+    for li, line in enumerate(synced_lines):
+        words = line.get("words", [])
+        if not words:
+            continue
+        try:
+            v = renderer.get_visual(li, 0)
+            if not isinstance(v, dict):
+                continue
+        except Exception:
+            continue
+
+        def _hashable(val):
+            if isinstance(val, list):
+                return tuple(_hashable(v) for v in val)
+            if isinstance(val, dict):
+                return frozenset((k, _hashable(v)) for k, v in val.items())
+            return val
+        section_key = hash(frozenset((k, _hashable(val)) for k, val in v.items()))
+        if section_key in seen_sections:
+            continue
+        seen_sections.add(section_key)
+
+        text_color = v.get("text_color", "#ffffff")
+        try:
+            cs_font_size = renderer.caption_style.get("font_size", 112)
+        except (AttributeError, TypeError):
+            cs_font_size = 112
+        font_size = int(
+            (v.get("font_size", cs_font_size))
+            * (height / 1080)
+        )
+        has_backdrop = bool(v.get("text_backdrop"))
+        backdrop_config = None
+        if has_backdrop:
+            backdrop_config = {
+                "color": v.get("text_backdrop_color", "#000000"),
+                "opacity": v.get("text_backdrop_opacity", 0.5),
+                "padding": v.get("text_backdrop_padding", 12),
+                "radius": v.get("text_backdrop_radius", 10),
+            }
+
+        report = check_readability(
+            text_color=text_color,
+            visual=v,
+            has_backdrop=has_backdrop,
+            backdrop_config=backdrop_config,
+            text_size=font_size,
+        )
+
+        if report.contrast_status == "fail":
+            readability_issues.append({
+                "line": li,
+                "word": 0,
+                "text": "",
+                "issue": f"Contrast {report.contrast_ratio:.1f}:1 fails WCAG ({text_color} vs bg)",
+                "check": "readability",
+                "severity": "error",
+                "contrast_ratio": round(report.contrast_ratio, 2),
+                "readability_score": round(report.readability_score, 1),
+                "busyness": report.background_busyness,
+            })
+        elif report.contrast_status == "warning":
+            readability_issues.append({
+                "line": li,
+                "word": 0,
+                "text": "",
+                "issue": f"Contrast {report.contrast_ratio:.1f}:1 below optimal ({text_color} vs bg)",
+                "check": "readability",
+                "severity": "warning",
+                "contrast_ratio": round(report.contrast_ratio, 2),
+                "readability_score": round(report.readability_score, 1),
+                "busyness": report.background_busyness,
+            })
+
+    return readability_issues
 
 
 def _generate_contact_sheet(audit_dir: Path, word_entries: list, frame_w: int, frame_h: int,
@@ -1290,13 +1426,19 @@ def transform(project_dir, target_aspect, source_aspect, output, skip_audit, ski
     if source_aspect == target_aspect:
         raise click.ClickException(f"Source and target aspect ratios are the same: {target_aspect}")
 
-    original_script_text = (data_dir / "script.json").read_text(encoding="utf-8")
+    source_ar_tag = source_aspect.replace(":", "x")
+    source_script_path = data_dir / f"script_{source_ar_tag}.json"
+    if not source_script_path.exists():
+        source_script_path = data_dir / "script.json"
+
+    original_script_text = source_script_path.read_text(encoding="utf-8")
     original_script = json.loads(original_script_text)
 
     ar_tag = target_aspect.replace(":", "x")
     script_filename = f"script_{ar_tag}.json"
 
     click.echo(f"\n  Transforming {source_aspect} -> {target_aspect}...")
+    click.echo(f"    Source script: {source_script_path.name}")
 
     transformed = transform_script(
         original_script,
@@ -1478,6 +1620,29 @@ def transform(project_dir, target_aspect, source_aspect, output, skip_audit, ski
     click.echo(f"    Render: {out_path}")
     if not skip_audit:
         click.echo(f"    Audit:  {proj_dir / 'output' / f'audit_{ar_tag}'}")
+
+
+@cli.command()
+@click.argument("project_dir")
+@click.option("--output", "-o", help="Output directory for dashboard files")
+@click.option("--open", "open_browser", is_flag=True, help="Open dashboard in browser")
+def dashboard(project_dir, output, open_browser):
+    """Generate a timing issues dashboard for all projects."""
+    import sys as _sys
+    from pathlib import Path as _Path
+
+    scripts_dir = _Path(__file__).resolve().parent.parent.parent / "scripts"
+    if str(scripts_dir) not in _sys.path:
+        _sys.path.insert(0, str(scripts_dir))
+
+    from timing_dashboard import build_dashboard
+
+    proj_dir = _find_project(project_dir)
+    projects_root = proj_dir.parent.parent
+
+    out = _Path(output) if output else None
+    html = build_dashboard(projects_root, output_dir=out, open_browser=open_browser)
+    click.echo(f"\n  Dashboard: {html}")
 
 
 if __name__ == "__main__":  # pragma: no cover

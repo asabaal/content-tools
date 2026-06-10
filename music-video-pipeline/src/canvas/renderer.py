@@ -12,6 +12,64 @@ from .lights import render_light, render_gradient
 from .compositing import composite_layer, apply_glow, apply_blur, fill_canvas
 from .repetition import expand_repeats
 from .motion import apply_motion, transform_layer, place_layer
+from .text_safety import render_text_safety_overlay
+
+
+def _blit_composite(
+    canvas: np.ndarray,
+    layer: np.ndarray,
+    position: tuple,
+    canvas_w: int,
+    canvas_h: int,
+    opacity: float = 1.0,
+    blend_mode: str = "normal",
+) -> np.ndarray:
+    lh, lw = layer.shape[:2]
+    cx, cy = int(position[0]), int(position[1])
+    x0 = cx - lw // 2
+    y0 = cy - lh // 2
+
+    sx0 = max(0, -x0)
+    sy0 = max(0, -y0)
+    dx0 = max(0, x0)
+    dy0 = max(0, y0)
+    copy_w = min(lw - sx0, canvas_w - dx0)
+    copy_h = min(lh - sy0, canvas_h - dy0)
+
+    if copy_w <= 0 or copy_h <= 0:
+        return canvas
+
+    src = layer[sy0:sy0 + copy_h, sx0:sx0 + copy_w]
+    dst = canvas[dy0:dy0 + copy_h, dx0:dx0 + copy_w]
+
+    if layer.shape[2] == 4:
+        alpha = src[:, :, 3].astype(np.float32) / 255.0
+        if opacity < 1.0:
+            alpha *= opacity
+    else:
+        alpha = np.full((copy_h, copy_w), opacity, dtype=np.float32)
+
+    a3 = alpha[:, :, np.newaxis]
+
+    if blend_mode == "normal":
+        blended = src[:, :, :3].astype(np.float32)
+    elif blend_mode == "screen":
+        blended = dst.astype(np.float32) + src[:, :, :3].astype(np.float32) - (dst.astype(np.float32) * src[:, :, :3].astype(np.float32) / 255.0)
+    elif blend_mode == "add":
+        blended = dst.astype(np.float32) + src[:, :, :3].astype(np.float32)
+    elif blend_mode == "multiply":
+        blended = dst.astype(np.float32) * src[:, :, :3].astype(np.float32) / 255.0
+    elif blend_mode == "lighten":
+        blended = np.maximum(dst.astype(np.float32), src[:, :, :3].astype(np.float32))
+    elif blend_mode == "darken":
+        blended = np.minimum(dst.astype(np.float32), src[:, :, :3].astype(np.float32))
+    else:
+        blended = src[:, :, :3].astype(np.float32)
+
+    result = dst.astype(np.float32) * (1.0 - a3) + blended * a3
+    canvas[dy0:dy0 + copy_h, dx0:dx0 + copy_w, :3] = np.clip(result, 0, 255).astype(np.uint8)
+
+    return canvas
 
 
 def _hex_to_rgb(hex_color: str):
@@ -44,6 +102,12 @@ class CanvasRenderer:
             else:
                 canvas = self._render_object(canvas, obj, scene, w, h, t, palette)
 
+        if scene.text_safety:
+            safety = render_text_safety_overlay(w, h, scene.text_safety, t)
+            if safety.shape[2] == 4 and safety[:, :, 3].max() > 0:
+                factor = 1.0 - safety[:, :, 3:4].astype(np.float32) / 255.0
+                canvas = np.clip(canvas.astype(np.float32) * factor, 0, 255).astype(np.uint8)
+
         return Image.fromarray(canvas)
 
     def _render_group(
@@ -73,7 +137,7 @@ class CanvasRenderer:
         w: int,
         h: int,
         t: float,
-        palette: Dict[str, str],
+        palette: Dict[str, Any],
     ) -> np.ndarray:
         instances = expand_repeats(obj, w, h)
 
@@ -99,8 +163,7 @@ class CanvasRenderer:
                 glow_radius = int(style.get("glow_radius", 10))
                 glow_intensity = float(style.get("glow_intensity", 0.5))
                 glow_layer = apply_glow(layer, glow_color, glow_radius, glow_intensity)
-                glow_placed = place_layer(glow_layer, pos, w, h, opac * glow_intensity)
-                canvas = composite_layer(canvas, glow_placed, style.get("blend_mode", "screen"))
+                canvas = _blit_composite(canvas, glow_layer, pos, w, h, opac * glow_intensity, style.get("blend_mode", "screen"))
 
             blur_radius = float(style.get("blur", 0))
             if blur_radius > 0.5:
@@ -109,9 +172,8 @@ class CanvasRenderer:
             if rot != 0:
                 layer = transform_layer(layer, pos, rot, w, h)
 
-            placed = place_layer(layer, pos, w, h, opac)
             blend = style.get("blend_mode", "normal")
-            canvas = composite_layer(canvas, placed, blend)
+            canvas = _blit_composite(canvas, layer, pos, w, h, opac, blend)
 
             mask_id = base_obj.mask
             if mask_id:
@@ -265,7 +327,14 @@ def _merge_group_transform(child: CanvasObject, group_motion: dict, w: int, h: i
     return merged
 
 
-def render_canvas(config: dict, width: int = 1920, height: int = 1080, t: float = 0.0) -> Image.Image:
-    scene = CanvasScene.from_dict(config)
+def render_canvas(config, width: int = 1920, height: int = 1080, t: float = 0.0, _cache: dict = None) -> Image.Image:
+    if isinstance(config, CanvasScene):
+        scene = config
+    elif _cache is not None and id(config) in _cache:
+        scene = _cache[id(config)]
+    else:
+        scene = CanvasScene.from_dict(config)
+        if _cache is not None:
+            _cache[id(config)] = scene
     renderer = CanvasRenderer(width, height)
     return renderer.render_scene(scene, t)

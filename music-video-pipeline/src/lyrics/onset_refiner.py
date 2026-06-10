@@ -46,9 +46,23 @@ def refine_synced_lines(
                 w.end = w.start + MIN_WORD_DURATION
         for i in range(len(line.words) - 1):
             if line.words[i].end > line.words[i + 1].start:
-                line.words[i + 1].start = line.words[i].end
+                mid = (line.words[i].end + line.words[i + 1].start) / 2
+                boundary = max(mid, line.words[i].start + MIN_WORD_DURATION)
+                if boundary < line.words[i + 1].end - MIN_WORD_DURATION:
+                    line.words[i].end = boundary
+                    line.words[i + 1].start = boundary
+                else:
+                    line.words[i].end = min(line.words[i].end, line.words[i + 1].start - 0.001)
+                    if line.words[i].end <= line.words[i].start:
+                        line.words[i].end = line.words[i].start + MIN_WORD_DURATION
         if line.words:
-            line.words[-1].end = line.end
+            if line.end - line.words[-1].start >= MIN_WORD_DURATION:
+                line.words[-1].end = line.end
+            else:
+                line.words[-1].end = line.words[-1].start + MIN_WORD_DURATION
+        for w in line.words:
+            if w.end - w.start < 0.001:
+                w.end = w.start + MIN_WORD_DURATION
     return sync_result
 
 
@@ -150,10 +164,18 @@ def snap_words_to_onsets(
         if new_words[i].end > new_words[i + 1].start:
             mid = (new_words[i].end + new_words[i + 1].start) / 2
             boundary = max(mid, new_words[i].start + MIN_WORD_DURATION)
-            new_words[i].end = boundary
-            new_words[i + 1].start = boundary
+            if boundary < new_words[i + 1].end - MIN_WORD_DURATION:
+                new_words[i].end = boundary
+                new_words[i + 1].start = boundary
+            else:
+                new_words[i].end = min(new_words[i].end, new_words[i + 1].start - 0.001)
+                if new_words[i].end <= new_words[i].start:
+                    new_words[i].end = new_words[i].start + MIN_WORD_DURATION
     if new_words:
-        new_words[-1].end = line_end
+        if line_end > new_words[-1].start:
+            new_words[-1].end = line_end
+        else:
+            new_words[-1].end = new_words[-1].start + MIN_WORD_DURATION
 
     return new_words
 
@@ -254,10 +276,12 @@ def assign_onsets_to_words(
                 else:
                     break
             if remaining_with_next > 0:
-                per_word = gap / remaining_with_next
+                per_word = gap / remaining_with_next if gap > 0 else 0.3
                 for j in range(i, min(i + remaining_with_next, n)):
                     words[j].start = prev_end
                     words[j].end = prev_end + per_word
+                    if words[j].end <= words[j].start:
+                        words[j].end = words[j].start + MIN_WORD_DURATION
                     words[j].source = "interpolated"
                     prev_end = words[j].end
             break
@@ -269,6 +293,8 @@ def assign_onsets_to_words(
                 if words[j].start > words[i].start:
                     next_boundary = words[j].start
                     break
+            if next_boundary <= words[i].start:
+                next_boundary = words[i].start + MIN_WORD_DURATION
             words[i].end = next_boundary
 
     return words

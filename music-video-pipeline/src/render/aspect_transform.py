@@ -268,6 +268,14 @@ def transform_script(
 
     transformed = copy.deepcopy(script)
 
+    source_font_sizes = {}
+    for si, section in enumerate(script.get("sections", [])):
+        lo = section.get("lines_overrides", {})
+        for key in section.get("lines", []):
+            fs = lo.get(str(key), {}).get("font_size")
+            if fs is not None:
+                source_font_sizes[f"{si}.{key}"] = fs
+
     if "defaults" in transformed:
         defaults = transformed["defaults"]
         if "font_size" in defaults:
@@ -298,9 +306,31 @@ def transform_script(
     if project_dir is not None:
         _swap_branded_images(transformed, source_aspect, target_aspect, project_dir)
 
+        incoming_meta = script.get("_aspect_meta", {})
+        incoming_source_fonts = incoming_meta.get("source_font_sizes", {})
+        is_reverse = incoming_source_fonts and incoming_meta.get("target_aspect") == source_aspect
+        if is_reverse:
+            for si, section in enumerate(transformed.get("sections", [])):
+                lines_overrides = section.get("lines_overrides", {})
+                to_remove = []
+                for line_key in section.get("lines", []):
+                    lookup = f"{si}.{line_key}"
+                    if lookup in incoming_source_fonts:
+                        restored = incoming_source_fonts[lookup]
+                        if str(line_key) in lines_overrides:
+                            lines_overrides[str(line_key)]["font_size"] = restored
+                        else:
+                            lines_overrides[str(line_key)] = {"font_size": restored}
+                    else:
+                        if str(line_key) in lines_overrides and set(lines_overrides[str(line_key)].keys()) == {"font_size"}:
+                            to_remove.append(str(line_key))
+                for k in to_remove:
+                    del lines_overrides[k]
+                section["lines_overrides"] = lines_overrides
+
         data_dir = project_dir / "data" if (project_dir / "data").exists() else project_dir
         synced_path = data_dir / "lyrics_synced.json"
-        if synced_path.exists():
+        if synced_path.exists() and not is_reverse:
             try:
                 synced = json.loads(synced_path.read_text(encoding="utf-8"))
                 synced_lines = synced.get("lines", [])
@@ -315,6 +345,7 @@ def transform_script(
         "target_aspect": target_aspect,
         "target_width": tgt_w,
         "target_height": tgt_h,
+        "source_font_sizes": source_font_sizes,
     }
 
     return transformed
@@ -396,7 +427,7 @@ def _ensure_text_fits(
     defaults = script.get("defaults", {})
     base_font = defaults.get("font_size", 82)
 
-    for section in script.get("sections", []):
+    for si, section in enumerate(script.get("sections", [])):
         visual = section.get("visual", {})
         sec_font = visual.get("font_size", base_font)
         font_family = visual.get("font_family", 0)

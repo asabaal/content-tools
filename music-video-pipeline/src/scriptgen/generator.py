@@ -7,6 +7,7 @@ from typing import Any
 
 from .moods import MOODS, MoodProfile, DEFAULT_MOOD
 from .palette import generate_palette, generate_line_colors, SectionColor
+from .color_presets import get_preset, preset_to_script_colors, style_colors_from_accent
 from .rules import (
     SectionProfile,
     assign_section_visual,
@@ -55,6 +56,7 @@ class ScriptGenerator:
         base_color: str | None = None,
         variance: str = "auto",
         intro: dict | None = None,
+        color_preset: str | None = None,
     ) -> GenerateResult:
         mood_key = mood or DEFAULT_MOOD
         mood_profile = MOODS.get(mood_key, MOODS[DEFAULT_MOOD])
@@ -117,6 +119,30 @@ class ScriptGenerator:
 
         defaults = self._build_defaults(mood_profile, profiles, colors)
         caption_style = self._build_caption_style(mood_profile, variance_float)
+
+        preset_obj = None
+        if color_preset:
+            preset_obj = get_preset(color_preset)
+            if preset_obj:
+                preset_colors = preset_to_script_colors(preset_obj)
+                defaults.update(preset_colors)
+                caption_style["highlight_color"] = preset_colors.get("highlight_color", preset_obj.accent_color)
+                style_colors = style_colors_from_accent(preset_obj.accent_color)
+                for sec in script_sections:
+                    sec["visual"]["text_style_colors"] = style_colors.get(
+                        sec["visual"].get("text_style", "basic"), style_colors.get("basic", {})
+                    )
+                    if preset_obj.recommended_text_style:
+                        sec["visual"]["text_style"] = preset_obj.recommended_text_style
+                    if preset_obj.recommended_text_color:
+                        sec["visual"]["text_color"] = preset_obj.recommended_text_color
+                    if preset_obj.recommended_text_box and preset_obj.recommended_text_box.enabled:
+                        tb = preset_obj.recommended_text_box
+                        sec["visual"].setdefault("text_backdrop", True)
+                        sec["visual"].setdefault("text_backdrop_color", tb.color)
+                        sec["visual"].setdefault("text_backdrop_opacity", tb.opacity)
+                        sec["visual"].setdefault("text_backdrop_padding", tb.padding)
+                        sec["visual"].setdefault("text_backdrop_radius", tb.radius)
 
         script = {
             "name": self.song_name,

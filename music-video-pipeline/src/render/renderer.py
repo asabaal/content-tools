@@ -23,6 +23,7 @@ from .frame_effects import apply_frame_effect
 from .effect_presets import get_preset, get_preset_for_section
 from .background_video import create_background_source
 from .font_styles import generate_styled_text
+from .gradients import resolve_and_compute, apply_color_map
 from canvas.renderer import render_canvas
 
 
@@ -112,6 +113,7 @@ class VideoRenderer:
         self._font_cache: Dict[tuple, ImageFont.FreeTypeFont] = {}
         self._bg_source = None
         self._styled_cache: Dict[tuple, Image.Image] = {}
+        self._canvas_scene_cache: Dict[int, Any] = {}
         self.font = self._get_font(48)
 
     def _get_font(self, size: int, family: int = 0) -> ImageFont.FreeTypeFont:
@@ -310,7 +312,8 @@ class VideoRenderer:
         if bg_type == "gradient":
             colors = v.get("gradient_colors", [v.get("background_color", "#1a1a2e"), "#8E44AD"])
             direction = v.get("gradient_direction", "vertical_top_bottom")
-            self._draw_gradient(img, colors, direction)
+            params = v.get("gradient_params")
+            self._draw_gradient(img, colors, direction, params)
         elif bg_type == "image" and v.get("background_image"):
             self._draw_bg_image(img, v)
         else:
@@ -333,162 +336,12 @@ class VideoRenderer:
                 str(path), self.width, self.height, self._beat_times
             )
 
-    def _draw_gradient(self, img: Image.Image, colors: List[str], direction: str) -> None:
-        arr = np.zeros((self.height, self.width, 3), dtype=np.uint8)
+    def _draw_gradient(self, img: Image.Image, colors: List[str], direction: str,
+                       params: Optional[Dict] = None) -> None:
         rgbs = [_hex_to_rgb(c) for c in colors]
-        n = len(rgbs)
         rgb_arr = np.array(rgbs, dtype=np.float32)
-
-        if direction in ("vertical_top_bottom", "vertical_bottom_top"):
-            for y in range(self.height):
-                t = y / max(1, self.height - 1)
-                if direction == "vertical_bottom_top":
-                    t = 1 - t
-                ci = t * (n - 1)
-                lo = int(ci)
-                hi = min(lo + 1, n - 1)
-                f = ci - lo
-                r = int(rgbs[lo][0] * (1 - f) + rgbs[hi][0] * f)
-                g = int(rgbs[lo][1] * (1 - f) + rgbs[hi][1] * f)
-                b = int(rgbs[lo][2] * (1 - f) + rgbs[hi][2] * f)
-                arr[y, :] = [r, g, b]
-        elif direction in ("horizontal_left_right", "horizontal_right_left"):
-            for x in range(self.width):
-                t = x / max(1, self.width - 1)
-                if direction == "horizontal_right_left":
-                    t = 1 - t
-                ci = t * (n - 1)
-                lo = int(ci)
-                hi = min(lo + 1, n - 1)
-                f = ci - lo
-                r = int(rgbs[lo][0] * (1 - f) + rgbs[hi][0] * f)
-                g = int(rgbs[lo][1] * (1 - f) + rgbs[hi][1] * f)
-                b = int(rgbs[lo][2] * (1 - f) + rgbs[hi][2] * f)
-                arr[:, x] = [r, g, b]
-        elif direction in ("diagonal_tl_br", "diagonal_tr_bl"):
-            for y in range(self.height):
-                for x in range(self.width):
-                    t = (x + y) / max(1, self.width + self.height - 2)
-                    if direction == "diagonal_tr_bl":
-                        t = 1 - t
-                    ci = t * (n - 1)
-                    lo = int(ci)
-                    hi = min(lo + 1, n - 1)
-                    f = ci - lo
-                    r = int(rgbs[lo][0] * (1 - f) + rgbs[hi][0] * f)
-                    g = int(rgbs[lo][1] * (1 - f) + rgbs[hi][1] * f)
-                    b = int(rgbs[lo][2] * (1 - f) + rgbs[hi][2] * f)
-                    arr[y, x] = [r, g, b]
-        elif direction.startswith("conic"):
-            cx, cy = self.width / 2.0, self.height / 2.0
-            parts = direction.split("_")
-            offset = float(parts[2]) if len(parts) > 2 else 0.0
-            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
-            angles = np.arctan2(ys - cy, xs - cx) + np.pi + offset
-            t = (angles % (2 * np.pi)) / (2 * np.pi)
-            ci = t * (n - 1)
-            lo = np.floor(ci).astype(int)
-            hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, :, np.newaxis]
-            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
-        elif direction == "diamond":
-            cx, cy = self.width / 2.0, self.height / 2.0
-            max_d = (cx + cy)
-            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
-            dist = np.abs(xs - cx) + np.abs(ys - cy)
-            t = np.clip(dist / max_d, 0, 1)
-            ci = t * (n - 1)
-            lo = np.floor(ci).astype(int)
-            hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, :, np.newaxis]
-            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
-        elif direction.startswith("dual_spot"):
-            parts = direction.split("_")
-            sx1 = float(parts[2]) if len(parts) > 2 else 0.25
-            sy1 = float(parts[3]) if len(parts) > 3 else 0.25
-            sx2 = float(parts[4]) if len(parts) > 4 else 0.75
-            sy2 = float(parts[5]) if len(parts) > 5 else 0.75
-            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
-            max_r = math.sqrt((self.width / 2) ** 2 + (self.height / 2) ** 2)
-            d1 = np.sqrt((xs / self.width - sx1) ** 2 + (ys / self.height - sy1) ** 2)
-            d2 = np.sqrt((xs / self.width - sx2) ** 2 + (ys / self.height - sy2) ** 2)
-            t = np.clip(np.minimum(d1, d2) * 2, 0, 1)
-            ci = t * (n - 1)
-            lo = np.floor(ci).astype(int)
-            hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, :, np.newaxis]
-            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
-        elif direction == "bands":
-            ys = np.arange(self.height, dtype=np.float32)
-            band_h = self.height / max(1, n - 1)
-            ci = np.clip(ys / band_h, 0, n - 1.001)
-            lo = np.floor(ci).astype(int)
-            hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, np.newaxis]
-            row_colors = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
-            arr = np.broadcast_to(row_colors[:, np.newaxis, :], (self.height, self.width, 3)).copy()
-        elif direction == "cross":
-            cx, cy = self.width / 2.0, self.height / 2.0
-            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
-            dx = np.abs(xs - cx) / cx
-            dy = np.abs(ys - cy) / cy
-            t = np.clip(np.minimum(dx, dy) * 1.5, 0, 1)
-            ci = t * (n - 1)
-            lo = np.floor(ci).astype(int)
-            hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, :, np.newaxis]
-            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
-        elif direction == "spiral":
-            cx, cy = self.width / 2.0, self.height / 2.0
-            max_r = math.sqrt(cx * cx + cy * cy)
-            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
-            dist = np.sqrt((xs - cx) ** 2 + (ys - cy) ** 2) / max_r
-            angles = np.arctan2(ys - cy, xs - cx)
-            t = np.clip((dist + angles / (2 * np.pi) * 0.5) % 1.0, 0, 1)
-            ci = t * (n - 1)
-            lo = np.floor(ci).astype(int)
-            hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, :, np.newaxis]
-            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
-        elif direction.startswith("angle_"):
-            parts = direction.split("_")
-            angle_deg = float(parts[1]) if len(parts) > 1 else 0.0
-            rad = math.radians(angle_deg)
-            dx = math.cos(rad)
-            dy = math.sin(rad)
-            ys, xs = np.mgrid[:self.height, :self.width].astype(np.float32)
-            proj = xs * dx + ys * dy
-            p_min = proj.min()
-            p_max = proj.max()
-            rng = max(1.0, p_max - p_min)
-            t = np.clip((proj - p_min) / rng, 0, 1)
-            ci = t * (n - 1)
-            lo = np.floor(ci).astype(int)
-            hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, :, np.newaxis]
-            arr = np.clip(rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f, 0, 255).astype(np.uint8)
-        else:
-            cx, cy = self.width / 2, self.height / 2
-            max_r = math.sqrt(cx * cx + cy * cy)
-            ys, xs = np.ogrid[:self.height, :self.width]
-            if direction == "radial_top":
-                dist = np.sqrt((xs - cx) ** 2 + ys ** 2)
-            elif direction == "radial_bottom":
-                dist = np.sqrt((xs - cx) ** 2 + (ys - self.height) ** 2)
-            elif direction == "radial_tl":
-                dist = np.sqrt(xs ** 2 + ys ** 2)
-            elif direction == "radial_br":
-                dist = np.sqrt((xs - self.width) ** 2 + (ys - self.height) ** 2)
-            else:
-                dist = np.sqrt((xs - cx) ** 2 + (ys - cy) ** 2)
-            t = np.clip(dist / max_r, 0, 1)
-            ci = t * (n - 1)
-            lo = np.floor(ci).astype(int)
-            hi = np.minimum(lo + 1, n - 1)
-            f = (ci - lo)[:, :, np.newaxis]
-            blended = rgb_arr[lo] * (1 - f) + rgb_arr[hi] * f
-            arr = np.clip(blended, 0, 255).astype(np.uint8)
-
+        t = resolve_and_compute(direction, self.width, self.height, params)
+        arr = apply_color_map(t, rgb_arr)
         img.paste(Image.fromarray(arr))
 
     def _draw_bg_image(self, img: Image.Image, v: Dict) -> None:
@@ -620,22 +473,55 @@ class VideoRenderer:
         ts = v.get("text_style", "")
         return bool(ts) and ts != "basic"
 
-    def _get_styled_text(self, text: str, style: str, size: int, family: int = 0) -> Image.Image:
-        key = (text, style, size, family)
+    def _get_styled_text(self, text: str, style: str, size: int, family: int = 0, style_colors: Optional[dict] = None) -> Image.Image:
+        key = (text, style, size, family, tuple(sorted((style_colors or {}).items())) if style_colors else None)
         if key not in self._styled_cache:
-            self._styled_cache[key] = generate_styled_text(text, style, size, family=family)
+            self._styled_cache[key] = generate_styled_text(text, style, size, family=family, style_colors=style_colors)
         return self._styled_cache[key]
 
-    def _styled_word_widths(self, words: list, style: str, size: int, family: int) -> list:
-        return [self._get_styled_text(w["text"], style, size, family).size[0] for w in words]
+    def _styled_word_widths(self, words: list, style: str, size: int, family: int, style_colors: Optional[dict] = None) -> list:
+        return [self._get_styled_text(w["text"], style, size, family, style_colors=style_colors).size[0] for w in words]
 
     def _word_widths(self, words: list, font: ImageFont.FreeTypeFont, v: Dict, font_size: int) -> list:
         if self._has_styled_text(v):
-            return self._styled_word_widths(words, v["text_style"], font_size, v.get("font_family", 0))
+            return self._styled_word_widths(words, v["text_style"], font_size, v.get("font_family", 0), style_colors=v.get("text_style_colors"))
         return [font.getbbox(w["text"])[2] for w in words]
 
     def _base_spacing(self, font_size: int) -> float:
         return self.caption_style.get("letter_spacing", 1) * (self.height / 1080) * max(8, font_size * 0.08)
+
+    def _draw_backdrop_group(self, img: Image.Image, layout: list, indices: list, v: Dict) -> None:
+        enabled = v.get("text_backdrop", self.caption_style.get("text_backdrop", False))
+        if not enabled or not indices:
+            return
+        sf = self.height / 1080
+        color_hex = v.get("text_backdrop_color", self.caption_style.get("text_backdrop_color", "#000000"))
+        opacity = float(v.get("text_backdrop_opacity", self.caption_style.get("text_backdrop_opacity", 0.5)))
+        pad = int(float(v.get("text_backdrop_padding", self.caption_style.get("text_backdrop_padding", 15))) * sf)
+        radius = int(float(v.get("text_backdrop_radius", self.caption_style.get("text_backdrop_radius", 12))) * sf)
+        r, g, b = _hex_to_rgb(color_hex)
+        a = int(opacity * 255)
+        groups = {}
+        for i in indices:
+            y_key = round(layout[i]["px_y"])
+            groups.setdefault(y_key, []).append(i)
+        draw = ImageDraw.Draw(img)
+        for y_key, gi in groups.items():
+            boxes = []
+            for i in gi:
+                lr = layout[i]
+                hw = lr["wW"] / 2
+                hh = lr["word_size"] * 0.55
+                boxes.append((lr["px_x"] - hw, lr["px_y"] - hh, lr["px_x"] + hw, lr["px_y"] + hh))
+            x0 = min(b[0] for b in boxes)
+            y0 = min(b[1] for b in boxes)
+            x1 = max(b[2] for b in boxes)
+            y1 = max(b[3] for b in boxes)
+            draw.rounded_rectangle(
+                [x0 - pad, y0 - pad, x1 + pad, y1 + pad],
+                radius=radius,
+                fill=(r, g, b, a),
+            )
 
     _POS_TO_Y = {"top": 0.2, "center": 0.5, "bottom": 0.8}
 
@@ -694,7 +580,7 @@ class VideoRenderer:
     def _draw_text_line(self, img: Image.Image, text: str, v: Dict, y: int, font_size: int) -> None:
         if self._has_styled_text(v):
             family = v.get("font_family", 0)
-            styled = self._get_styled_text(text, v["text_style"], font_size, family)
+            styled = self._get_styled_text(text, v["text_style"], font_size, family, style_colors=v.get("text_style_colors"))
             sw, sh = styled.size
             px = (self.width - sw) // 2
             py = int(y - sh / 2)
@@ -741,13 +627,16 @@ class VideoRenderer:
         text_style = v.get("text_style", "")
         font_family = v.get("font_family", 0)
         layout = self._layout_line(words, line_idx, v, font_size, font_family)
+        self._draw_backdrop_group(img, layout, list(range(len(words))), v)
+
+        text_style_colors = v.get("text_style_colors")
 
         if self._has_styled_text(v):
             for j, w in enumerate(words):
                 r = layout[j]
                 is_active = j == word_idx
                 opacity = 1.0 if is_active else 0.75
-                styled = self._get_styled_text(w["text"], text_style, r["word_size"], font_family).copy()
+                styled = self._get_styled_text(w["text"], text_style, r["word_size"], font_family, style_colors=text_style_colors).copy()
                 sw, sh = styled.size
                 px = int(r["px_x"] - sw / 2)
                 py = int(r["px_y"] - sh / 2)
@@ -815,12 +704,16 @@ class VideoRenderer:
         else:
             visible_range = range(start, min(start + step * 2, len(words)))
 
+        self._draw_backdrop_group(img, layout, list(visible_range), v)
+
+        text_style_colors = v.get("text_style_colors")
+
         if self._has_styled_text(v):
             for idx in visible_range:
                 r = layout[idx]
                 is_active = idx >= group_start and idx <= word_idx
                 opacity = 1.0 if is_active else 0.8
-                styled = self._get_styled_text(words[idx]["text"], text_style, r["word_size"], font_family).copy()
+                styled = self._get_styled_text(words[idx]["text"], text_style, r["word_size"], font_family, style_colors=text_style_colors).copy()
                 sw, sh = styled.size
                 px = int(r["px_x"] - sw / 2)
                 py = int(r["px_y"] - sh / 2)
@@ -1077,7 +970,7 @@ class VideoRenderer:
         v = self.get_visual(line_idx, word_idx)
         canvas_config = v.get("canvas")
         if canvas_config:
-            img = render_canvas(canvas_config, self.width, self.height, t)
+            img = render_canvas(canvas_config, self.width, self.height, t, self._canvas_scene_cache)
         else:
             self._draw_background(img, v)
         img = self._apply_bg_motion(img, t, v)
@@ -1160,7 +1053,7 @@ class VideoRenderer:
         v = self.get_visual(line_idx, word_idx)
         canvas_config = v.get("canvas")
         if canvas_config:
-            img = render_canvas(canvas_config, self.width, self.height, t)
+            img = render_canvas(canvas_config, self.width, self.height, t, self._canvas_scene_cache)
         img = self._apply_bg_motion(img, t, v)
 
         line = self.synced["lines"][line_idx]

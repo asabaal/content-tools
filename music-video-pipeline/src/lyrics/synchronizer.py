@@ -203,6 +203,7 @@ class LyricSynchronizer:
         avg_confidence = total_confidence / len(synced_lines) if synced_lines else 0.0
 
         self._reconcile_boundaries(synced_lines)
+        self._validate_word_timestamps(synced_lines)
 
         return SyncResult(
             lines=synced_lines,
@@ -240,12 +241,16 @@ class LyricSynchronizer:
                 nxt.start = boundary
             else:
                 boundary = min(curr_last_end, nxt_first_start)
+                if curr.words and boundary < curr.words[-1].start:
+                    boundary = curr.words[-1].start + 0.04
+                if nxt.words and boundary > nxt.words[0].end:
+                    boundary = nxt.words[0].end - 0.04
                 curr.end = boundary
                 nxt.start = boundary
                 if curr.words:
-                    curr.words[-1].end = boundary
+                    curr.words[-1].end = min(boundary, max(curr.words[-1].end, curr.words[-1].start + 0.04))
                 if nxt.words:
-                    nxt.words[0].start = boundary
+                    nxt.words[0].start = max(boundary, min(nxt.words[0].start, nxt.words[0].end - 0.04))
 
     def _find_lowest_energy_point(self, start: float, end: float) -> float:
         if self.vocal_waveform_peaks is None or len(self.vocal_waveform_peaks) == 0:
@@ -700,7 +705,11 @@ class LyricSynchronizer:
             word_end = float(onsets[i + 1]) if i + 1 < len(onsets) else end
             if word_end <= word_start:  # pragma: no cover
                 word_end = word_start + 0.3
-            result.append(SyncedWord(text=text, start=word_start, end=min(word_end, end), source=onset_label))
+            if word_start >= end:
+                word_end = max(word_end, word_start + 0.04)
+            else:
+                word_end = min(word_end, max(end, word_start + 0.04))
+            result.append(SyncedWord(text=text, start=word_start, end=word_end, source=onset_label))
         return result
 
     def _align_words_mixed(
@@ -723,21 +732,25 @@ class LyricSynchronizer:
                 local_count = max(1, round(words_per_onset))
                 local_idx = i - int(onset_idx * words_per_onset)
                 local_idx = min(local_idx, local_count - 1)
-                per_word = (segment_end - segment_start) / local_count
+                per_word = max(0.04, (segment_end - segment_start) / local_count)
                 word_start = segment_start + local_idx * per_word
                 word_end = word_start + per_word
             else:
                 remaining = len(texts) - i
-                per_word = (end - float(onsets[-1])) / remaining if remaining > 0 else 0.3
+                gap = end - float(onsets[-1])
+                per_word = gap / remaining if remaining > 0 and gap > 0 else 0.3
                 word_start = float(onsets[-1]) + (i - round(onset_idx * words_per_onset)) * per_word
                 word_end = word_start + per_word
+
+            if word_end <= word_start:
+                word_end = word_start + 0.04
 
             is_onset_word = i < len(onsets)
             result.append(
                 SyncedWord(
                     text=text,
                     start=word_start,
-                    end=min(word_end, end),
+                    end=word_end,
                     source=onset_label if is_onset_word else "interpolated",
                 )
             )
@@ -769,6 +782,29 @@ class LyricSynchronizer:
             return None
         return match
 
+    def _validate_word_timestamps(self, lines: List[SyncedLine]) -> None:
+        min_dur = 0.04
+        for line in lines:
+            if not line.words:
+                continue
+            for w in line.words:
+                if w.end <= w.start:
+                    w.end = w.start + min_dur
+            for i in range(len(line.words) - 1):
+                if line.words[i].end > line.words[i + 1].start:
+                    mid = (line.words[i].end + line.words[i + 1].start) / 2
+                    boundary = max(mid, line.words[i].start + min_dur)
+                    if boundary < line.words[i + 1].end - min_dur:
+                        line.words[i].end = boundary
+                        line.words[i + 1].start = boundary
+                    else:
+                        line.words[i].end = min(line.words[i].end, line.words[i + 1].start - 0.001)
+                        if line.words[i].end <= line.words[i].start:
+                            line.words[i].end = line.words[i].start + min_dur
+            for w in line.words:
+                if w.end <= w.start:
+                    w.end = w.start + min_dur
+
     def _build_words_from_whisper(
         self, texts: List[str], start: float, end: float, match: object
     ) -> Optional[List[SyncedWord]]:
@@ -789,6 +825,14 @@ class LyricSynchronizer:
         for i, j, n in matcher.get_matching_blocks():
             for k in range(n):
                 matched_pairs[i + k] = j + k
+
+        effective_end = end
+        for li_idx in range(len(texts)):
+            wi = matched_pairs[li_idx]
+            if wi is not None and wi < len(wt_list):
+                we = float(wt_list[wi].end)
+                if we > effective_end:
+                    effective_end = we
 
         result: List[SyncedWord] = []
         last_end = 0.0
@@ -811,9 +855,12 @@ class LyricSynchronizer:
                 else:
                     gap_start = start
                 remaining = len(texts) - li
-                per_word = (end - gap_start) / remaining if remaining > 0 else 0.3
+                gap_to_end = effective_end - gap_start
+                per_word = gap_to_end / remaining if remaining > 0 and gap_to_end > 0 else 0.3
                 ws = gap_start
-                we = min(ws + per_word, end)
+                we = ws + per_word
+                if we <= ws:
+                    we = ws + 0.1
                 result.append(SyncedWord(text=text, start=ws, end=we, source="interpolated"))
                 last_end = we
 
