@@ -412,22 +412,24 @@ class TestCommandCoverageGaps:
         }
         (tmp_path / "data" / "lyrics_raw.json").write_text(json.dumps(lyrics_raw))
 
-        def mock_transcribe(path):
+        def mock_transcribe(path, lyrics_lines=None, start_model="small"):
             if "lead" in path:
                 return {
                     "language": "en", "language_probability": 0.9, "duration": 2.0,
                     "segments": [{"start": 0.0, "end": 1.0, "text": "Hello world"}],
                     "words": [{"word": "Hello", "start": 0.0, "end": 0.5, "probability": 0.9}],
+                    "whisper_model": "small",
                 }
             return {
                 "language": "en", "language_probability": 0.8, "duration": 2.0,
                 "segments": [{"start": 1.0, "end": 2.0, "text": "Second line here"}],
                 "words": [{"word": "Second", "start": 1.0, "end": 1.5, "probability": 0.8}],
+                "whisper_model": "small",
             }
 
         mock_onsets = np.array([0.1, 0.5, 1.1, 1.5])
 
-        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", side_effect=mock_transcribe), \
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", side_effect=mock_transcribe), \
              patch("cli.commands.AudioAnalyzer.extract_vocal_onsets", return_value=mock_onsets), \
              patch("cli.commands.AudioAnalyzer.generate_waveforms_for_file", return_value=([0.1, 0.2, 0.3], 2.0)):
             result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
@@ -467,22 +469,24 @@ class TestCommandCoverageGaps:
         }
         (tmp_path / "data" / "lyrics_raw.json").write_text(json.dumps(lyrics_raw))
 
-        def mock_transcribe(path):
+        def mock_transcribe(path, lyrics_lines=None, start_model="small"):
             if "lead" in path:
                 return {
                     "language": "en", "language_probability": 0.9, "duration": 2.0,
                     "segments": [{"start": 0.0, "end": 1.0, "text": "Hello world"}],
                     "words": [{"word": "Hello", "start": 0.0, "end": 0.5, "probability": 0.9}],
+                    "whisper_model": "small",
                 }
             return {
                 "language": "en", "language_probability": 0.8, "duration": 2.0,
                 "segments": [{"start": 1.0, "end": 2.0, "text": "Second line here"}],
                 "words": [{"word": "Second", "start": 1.0, "end": 1.5, "probability": 0.8}],
+                "whisper_model": "small",
             }
 
         mock_onsets = np.array([0.1, 0.5, 1.1, 1.5])
 
-        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", side_effect=mock_transcribe), \
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", side_effect=mock_transcribe), \
              patch("cli.commands.AudioAnalyzer.extract_vocal_onsets", return_value=mock_onsets), \
              patch("cli.commands.AudioAnalyzer.generate_waveforms_for_file", side_effect=RuntimeError("boom")):
             result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
@@ -509,10 +513,11 @@ class TestCommandCoverageGaps:
         (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data))
         (tmp_path / "data" / "lyrics_raw.json").write_text("not valid json{{{", encoding="utf-8")
 
-        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", return_value={
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", return_value={
             "language": "en", "language_probability": 0.9, "duration": 2.0,
             "segments": [{"start": 0.0, "end": 1.0, "text": "Hello"}],
             "words": [{"word": "Hello", "start": 0.0, "end": 0.5, "probability": 0.9}],
+            "whisper_model": "small",
         }), patch("cli.commands.AudioAnalyzer.extract_vocal_onsets", return_value=np.array([0.1, 0.5])), \
              patch("cli.commands.AudioAnalyzer.generate_waveforms_for_file", return_value=([0.1, 0.2], 2.0)):
             result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
@@ -538,10 +543,11 @@ class TestCommandCoverageGaps:
         }
         (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data))
 
-        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", return_value={
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", return_value={
             "language": "en", "language_probability": 0.9, "duration": 2.0,
             "segments": [{"start": 0.0, "end": 1.0, "text": "Hello world"}],
             "words": [{"word": "Hello", "start": 0.0, "end": 0.5, "probability": 0.9}],
+            "whisper_model": "small",
         }), patch("cli.commands.AudioAnalyzer.extract_vocal_onsets", return_value=np.array([0.1, 0.5])), \
              patch("cli.commands.AudioAnalyzer.generate_waveforms_for_file", side_effect=RuntimeError("waveform failed")):
             result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])

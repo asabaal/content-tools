@@ -320,7 +320,7 @@ class TestAnalyze:
         }
         (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
         from unittest.mock import patch
-        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", side_effect=RuntimeError("model not found")):
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", side_effect=RuntimeError("model not found")):
             result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
         assert result.exit_code != 0
         assert "lead_vocals" in result.output
@@ -341,7 +341,7 @@ class TestAnalyze:
         }
         (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
         from unittest.mock import patch
-        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", side_effect=RuntimeError("model not found")):
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", side_effect=RuntimeError("model not found")):
             result = runner.invoke(cli, ["analyze", "--force", "--project", str(tmp_path)])
         assert result.exit_code == 0
         assert "WARNING" in result.output
@@ -1069,10 +1069,93 @@ class TestAnalyzeVariations:
         }
         (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
 
-        with patch("cli.commands.AudioAnalyzer.transcribe_vocal_stem", return_value={
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", return_value={
             "language": "en", "language_probability": 0.9, "duration": 1.0,
             "segments": [{"start": 0.0, "end": 0.5, "text": "Hello world"}],
             "words": [{"word": "Hello", "start": 0.0, "end": 0.3, "probability": 0.9}],
+            "whisper_model": "small",
         }):
             result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
         assert result.exit_code == 0
+
+
+class TestWhisperFallback:
+    def test_analyze_shows_whisper_model(self, runner, tmp_path, sample_wav_for_cli):
+        stem_dir = tmp_path / "data" / "cache" / "stems"
+        stem_dir.mkdir(parents=True, exist_ok=True)
+        _write_wav(stem_dir / "0 Lead Vocals.wav")
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        stem_path = str(stem_dir / "0 Lead Vocals.wav")
+        ingest_data = {
+            "tier": "enhanced",
+            "stems": [
+                {"name": "Lead Vocals", "stem_type": "lead_vocals", "path": stem_path, "format": "wav"},
+            ],
+        }
+        (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
+        from unittest.mock import patch
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", return_value={
+            "language": "en", "language_probability": 0.9, "duration": 1.0,
+            "segments": [{"start": 0.0, "end": 0.5, "text": "Hello world"}],
+            "words": [], "whisper_model": "medium",
+            "whisper_fallback_attempts": [
+                {"model": "small", "unmatched": 1, "segments": 0},
+                {"model": "medium", "unmatched": 0, "segments": 1},
+            ],
+        }):
+            result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        assert result.exit_code == 0
+        assert "Whisper model: medium" in result.output
+        assert "small:" in result.output
+        assert "medium:" in result.output
+
+    def test_analyze_saves_whisper_model_in_transcription(self, runner, tmp_path, sample_wav_for_cli):
+        stem_dir = tmp_path / "data" / "cache" / "stems"
+        stem_dir.mkdir(parents=True, exist_ok=True)
+        _write_wav(stem_dir / "0 Lead Vocals.wav")
+        runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli), "--dir", str(tmp_path)]
+        )
+        stem_path = str(stem_dir / "0 Lead Vocals.wav")
+        ingest_data = {
+            "tier": "enhanced",
+            "stems": [
+                {"name": "Lead Vocals", "stem_type": "lead_vocals", "path": stem_path, "format": "wav"},
+            ],
+        }
+        (tmp_path / "data" / "ingest.json").write_text(json.dumps(ingest_data), encoding="utf-8")
+        from unittest.mock import patch
+        with patch("cli.commands.AudioAnalyzer.transcribe_with_fallback", return_value={
+            "language": "en", "language_probability": 0.9, "duration": 1.0,
+            "segments": [{"start": 0.0, "end": 0.5, "text": "Hello world"}],
+            "words": [], "whisper_model": "large-v3",
+        }):
+            runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
+        trans = json.loads((tmp_path / "data" / "vocal_transcription.json").read_text(encoding="utf-8"))
+        assert trans.get("whisper_model") == "large-v3"
+
+
+class TestNeedsReview:
+    def test_sync_generates_needs_review(self, runner, tmp_path, sample_wav_for_cli):
+        srt_content = (
+            "1\n00:00:00,000 --> 00:00:00,500\nHello world\n\n"
+            "2\n00:00:01,000 --> 00:00:01,500\nMissing line here\n"
+        )
+        lyrics_file = tmp_path / "lyrics.srt"
+        lyrics_file.write_text(srt_content, encoding="utf-8")
+
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli),
+                  "--lyrics", str(lyrics_file), "--dir", str(tmp_path)]
+        )
+        assert result.exit_code == 0
+        assert (tmp_path / "data" / "needs_review.json").exists() or "Syncing lyrics" in result.output
+
+    def test_sync_no_review_when_all_matched(self, runner, tmp_path, sample_wav_for_cli):
+        result = runner.invoke(
+            cli, ["init", "--name", "Test", "--audio", str(sample_wav_for_cli),
+                  "--lyrics", str(tmp_path / "nonexistent.srt"), "--dir", str(tmp_path)]
+        )
+        pass

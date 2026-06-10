@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import click
@@ -55,6 +56,10 @@ def _validate_lyrics(ctx, param, value):
 def _format_duration(seconds: float) -> str:
     m, s = divmod(int(seconds), 60)
     return f"{m}:{s:02d}" if m < 60 else f"{m // 60}:{m % 60:02d}:{s:02d}"
+
+
+def _iso_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
 def _to_relative(abs_path: str, base_dir: Path) -> str:
@@ -222,16 +227,30 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
     if vocal_candidates_info:
         import numpy as np
 
+        lyrics_for_coverage = None
+        if proj.lyrics_raw_file.exists():
+            try:
+                raw_ld = json.loads(proj.lyrics_raw_file.read_text(encoding="utf-8"))
+                lyrics_for_coverage = [ld.get("text", "") for ld in raw_ld.get("lines", []) if ld.get("text", "").strip()]
+            except Exception:
+                pass
+
         transcriptions = {}
         for vc in vocal_candidates_info:
             stype = vc["stem_type"]
             click.echo(f"    Transcribing {vc['name']}...")
             try:
-                trans = analyzer.transcribe_vocal_stem(vc["path"])
+                trans = analyzer.transcribe_with_fallback(vc["path"], lyrics_lines=lyrics_for_coverage)
                 trans["source"] = Path(vc["path"]).name
                 trans["stem_type"] = stype
                 if stem_validation:
                     trans["stem_validation"] = stem_validation
+                model_used = trans.get("whisper_model", "small")
+                click.echo(f"      Whisper model: {model_used} ({len(trans.get('segments', []))} segments)")
+                fallback_info = trans.get("whisper_fallback_attempts")
+                if fallback_info and len(fallback_info) > 1:
+                    for attempt in fallback_info:
+                        click.echo(f"        {attempt['model']}: {attempt['segments']} segments, {attempt['unmatched']} unmatched lines")
                 transcriptions[stype] = trans
                 (proj.data_dir / f"vocal_transcription_{stype}.json").write_text(
                     json.dumps(trans, indent=2, ensure_ascii=False), encoding="utf-8"
@@ -339,6 +358,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                     combined_segments = all_segments
 
             if active_stem_type == "combined":
+                per_stem_models = {st: tr.get("whisper_model", "small") for st, tr in transcriptions.items()}
                 active_transcription = {
                     "language": next(iter(transcriptions.values())).get("language", "en"),
                     "language_probability": next(iter(transcriptions.values())).get("language_probability", 0.0),
@@ -348,7 +368,11 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                     "source": " + ".join(Path(vc["path"]).name for vc in vocal_candidates_info),
                     "vocal_source": "combined",
                     "per_line_source": per_line_source,
+                    "whisper_models": per_stem_models,
                 }
+                per_stem_attempts = {st: tr.get("whisper_fallback_attempts") for st, tr in transcriptions.items() if tr.get("whisper_fallback_attempts")}
+                if per_stem_attempts:
+                    active_transcription["whisper_fallback_attempts"] = per_stem_attempts
                 if stem_validation:
                     active_transcription["stem_validation"] = stem_validation
 
@@ -673,6 +697,33 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
         if alignment.lines_split > 0:  # pragma: no cover
             click.echo(f"      Lines split across segments: {alignment.lines_split}")
         click.echo(f"      Recommendation: {alignment.recommendation}")
+
+    needs_review = []
+    for i, line in enumerate(result.lines):
+        if not line.words:
+            continue
+        sources = [w.source for w in line.words]
+        interp_count = sum(1 for s in sources if s == "interpolated")
+        if interp_count == len(sources) and len(sources) > 0:
+            needs_review.append({"line_index": i, "text": line.text, "reason": "all_words_interpolated"})
+        elif interp_count > len(sources) * 0.5:
+            needs_review.append({"line_index": i, "text": line.text, "reason": "majority_interpolated"})
+
+    if needs_review:
+        click.echo(f"    Lines needing review: {len(needs_review)}")
+        for nr in needs_review[:10]:
+            click.echo(f"      Line {nr['line_index']}: \"{nr['text'][:50]}\" ({nr['reason']})")
+        if len(needs_review) > 10:
+            click.echo(f"      ... and {len(needs_review) - 10} more")
+
+        review_path = proj.data_dir / "needs_review.json"
+        review_data = {
+            "generated_at": _iso_now(),
+            "total_lines_needing_review": len(needs_review),
+            "lines": needs_review,
+        }
+        review_path.write_text(json.dumps(review_data, indent=2, ensure_ascii=False), encoding="utf-8")
+        click.echo(f"    Saved: needs_review.json")
 
     if verbose:
         for i, line in enumerate(result.lines):

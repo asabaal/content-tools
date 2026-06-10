@@ -138,9 +138,9 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "vertical_top_bottom",
-        "background_color": "#171520",
+        "background_color": "#171521",
         "gradient_colors": [
-          "#171520",
+          "#171521",
           "#292232"
         ],
         "texture_type": "vignette_heavy",
@@ -162,9 +162,9 @@
       "lines_overrides": {
         "2": {
           "text_align": "left",
-          "background_color": "#191623",
+          "background_color": "#191723",
           "gradient_colors": [
-            "#191623",
+            "#191723",
             "#2b2434"
           ]
         },
@@ -174,7 +174,7 @@
           "background_color": "#15131d",
           "gradient_colors": [
             "#15131d",
-            "#27202e"
+            "#27202f"
           ]
         },
         "4": {
@@ -189,9 +189,9 @@
           "font_size": 71,
           "text_position": "bottom",
           "text_align": "left",
-          "background_color": "#14121b",
+          "background_color": "#14121c",
           "gradient_colors": [
-            "#14121b",
+            "#14121c",
             "#261f2d"
           ]
         }
@@ -277,9 +277,9 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "diagonal_tr_bl",
-        "background_color": "#191522",
+        "background_color": "#1a1522",
         "gradient_colors": [
-          "#191522",
+          "#1a1522",
           "#2d2333"
         ],
         "texture_type": "vignette_heavy",
@@ -308,9 +308,9 @@
         },
         "7": {
           "font_size": 71,
-          "background_color": "#17131e",
+          "background_color": "#17131f",
           "gradient_colors": [
-            "#17131e",
+            "#17131f",
             "#2a2130"
           ]
         },
@@ -327,7 +327,7 @@
           "background_color": "#16121d",
           "gradient_colors": [
             "#16121d",
-            "#291f2e"
+            "#29202e"
           ]
         }
       },
@@ -357,9 +357,9 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "horizontal_left_right",
-        "background_color": "#1a1724",
+        "background_color": "#1a1725",
         "gradient_colors": [
-          "#1a1724",
+          "#1a1725",
           "#2d2436"
         ],
         "texture_type": "vignette_heavy",
@@ -369,7 +369,7 @@
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
-          "energy"
+          "vocals"
         ],
         "text_position": "center",
         "animation_type": "fade_in",
@@ -384,14 +384,14 @@
           "background_color": "#1c1827",
           "gradient_colors": [
             "#1c1827",
-            "#2f2638"
+            "#2f2639"
           ]
         },
         "11": {
           "font_size": 72,
-          "background_color": "#181521",
+          "background_color": "#181522",
           "gradient_colors": [
-            "#181521",
+            "#181522",
             "#2b2233"
           ]
         },
@@ -400,34 +400,34 @@
           "background_color": "#1d1928",
           "gradient_colors": [
             "#1d1928",
-            "#302639"
+            "#31263a"
           ]
         },
         "13": {
           "font_size": 74,
-          "background_color": "#171420",
+          "background_color": "#181421",
           "gradient_colors": [
-            "#171420",
-            "#2a2132"
+            "#181421",
+            "#2b2132"
           ]
         },
         "14": {
           "font_size": 75,
           "animation_type": "scale_in",
           "animation_speed": 1.2,
-          "background_color": "#1e1929",
+          "background_color": "#1e1a29",
           "gradient_colors": [
-            "#1e1929",
-            "#32273a"
+            "#1e1a29",
+            "#32273b"
           ]
         },
         "15": {
           "font_size": 76,
           "animation_type": "scale_in",
           "animation_speed": 1.2,
-          "background_color": "#17131f",
+          "background_color": "#171420",
           "gradient_colors": [
-            "#17131f",
+            "#171420",
             "#2a2131"
           ]
         }
@@ -458,10 +458,10 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "diagonal_tl_br",
-        "background_color": "#2e321a",
+        "background_color": "#2d311a",
         "gradient_colors": [
-          "#2e321a",
-          "#2e3921"
+          "#2d311a",
+          "#2f3922"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
@@ -480,25 +480,25 @@
       },
       "lines_overrides": {
         "16": {
-          "background_color": "#30351c",
+          "background_color": "#30341c",
           "gradient_colors": [
-            "#30351c",
-            "#394629"
+            "#30341c",
+            "#394529"
           ]
         },
         "17": {
           "font_size": 75,
-          "background_color": "#292e18",
+          "background_color": "#292d18",
           "gradient_colors": [
-            "#292e18",
-            "#334025"
+            "#292d18",
+            "#333f25"
           ]
         },
         "18": {
           "background_color": "#31371d",
           "gradient_colors": [
             "#31371d",
-            "#39492a"
+            "#39482a"
           ]
         }
       },
@@ -525,9 +525,9 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "horizontal_left_right",
-        "background_color": "#19121b",
+        "background_color": "#19131c",
         "gradient_colors": [
-          "#19121b",
+          "#19131c",
           "#2d202d"
         ],
         "texture_type": "vignette_soft",
@@ -551,15 +551,17 @@
           "background_color": "#1b141e",
           "gradient_colors": [
             "#1b141e",
-            "#2f212f"
-          ]
+            "#2f222f"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
         },
         "20": {
           "text_align": "center",
-          "background_color": "#150f16",
+          "background_color": "#150f17",
           "gradient_colors": [
-            "#150f16",
-            "#281c27"
+            "#150f17",
+            "#281d28"
           ]
         }
       }
@@ -624,10 +626,10 @@
         },
         "24": {
           "font_size": 72,
-          "background_color": "#0d0d12",
+          "background_color": "#0d0e13",
           "gradient_colors": [
-            "#0d0d12",
-            "#1d1b23"
+            "#0d0e13",
+            "#1d1b24"
           ]
         }
       },

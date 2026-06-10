@@ -147,6 +147,7 @@ class TestAudioAnalyzerTranscription:
         assert "duration" in result
         assert isinstance(result["segments"], list)
         assert isinstance(result["words"], list)
+        assert result["whisper_model"] == "tiny"
 
     def test_transcription_word_format(self, sample_stem_wav):
         a = AudioAnalyzer()
@@ -157,6 +158,104 @@ class TestAudioAnalyzerTranscription:
         a = AudioAnalyzer()
         result = a.transcribe_vocal_stem(sample_stem_wav, model_size="tiny")
         assert isinstance(result["segments"], list)
+
+    def test_transcribe_with_fallback_no_lyrics(self, sample_stem_wav):
+        a = AudioAnalyzer()
+        result = a.transcribe_with_fallback(sample_stem_wav, lyrics_lines=None)
+        assert "segments" in result
+        assert "whisper_model" in result
+        assert result["whisper_model"] == "small"
+
+    def test_transcribe_with_fallback_empty_lyrics(self, sample_stem_wav):
+        a = AudioAnalyzer()
+        result = a.transcribe_with_fallback(sample_stem_wav, lyrics_lines=[])
+        assert "segments" in result
+
+    def test_transcribe_with_fallback_all_matched(self, sample_stem_wav):
+        a = AudioAnalyzer()
+        result = a.transcribe_with_fallback(sample_stem_wav, lyrics_lines=["Hello world"])
+        assert "segments" in result
+        assert "whisper_model" in result
+
+    def test_transcribe_with_fallback_uses_best_model(self, sample_stem_wav):
+        from unittest.mock import patch, MagicMock
+
+        a = AudioAnalyzer()
+
+        small_result = {"language": "en", "language_probability": 0.9, "duration": 1.0,
+                        "segments": [{"start": 0.0, "end": 0.5, "text": "Hello", "words": []}],
+                        "words": [], "whisper_model": "small"}
+        medium_result = {"language": "en", "language_probability": 0.9, "duration": 1.0,
+                         "segments": [{"start": 0.0, "end": 0.5, "text": "Hello world", "words": []},
+                                      {"start": 0.5, "end": 1.0, "text": "foo bar", "words": []}],
+                         "words": [], "whisper_model": "medium"}
+
+        call_count = [0]
+        def mock_transcribe(path, model_size="small"):
+            call_count[0] += 1
+            if model_size == "small":
+                return small_result
+            return medium_result
+
+        with patch.object(a, "transcribe_vocal_stem", side_effect=mock_transcribe):
+            result = a.transcribe_with_fallback(sample_stem_wav, lyrics_lines=["Hello world", "foo bar"])
+        assert result["whisper_model"] == "medium"
+        assert "whisper_fallback_attempts" in result
+        assert call_count[0] == 2
+
+    def test_transcribe_with_fallback_small_sufficient(self, sample_stem_wav):
+        from unittest.mock import patch
+
+        a = AudioAnalyzer()
+
+        small_result = {"language": "en", "language_probability": 0.9, "duration": 1.0,
+                        "segments": [{"start": 0.0, "end": 0.5, "text": "Hello world", "words": []}],
+                        "words": [], "whisper_model": "small"}
+
+        with patch.object(a, "transcribe_vocal_stem", return_value=small_result):
+            result = a.transcribe_with_fallback(sample_stem_wav, lyrics_lines=["Hello world"])
+        assert result["whisper_model"] == "small"
+        assert "whisper_fallback_attempts" not in result
+
+    def test_transcribe_with_fallback_custom_start(self, sample_stem_wav):
+        from unittest.mock import patch
+
+        a = AudioAnalyzer()
+        medium_result = {"language": "en", "language_probability": 0.9, "duration": 1.0,
+                         "segments": [], "words": [], "whisper_model": "medium"}
+
+        with patch.object(a, "transcribe_vocal_stem", return_value=medium_result):
+            result = a.transcribe_with_fallback(sample_stem_wav, lyrics_lines=["missing"], start_model="medium")
+        assert result["whisper_model"] == "medium"
+
+    def test_transcribe_with_fallback_start_model_not_in_list(self, sample_stem_wav):
+        from unittest.mock import patch
+
+        a = AudioAnalyzer()
+        small_result = {"language": "en", "language_probability": 0.9, "duration": 1.0,
+                        "segments": [], "words": [], "whisper_model": "small"}
+
+        with patch.object(a, "transcribe_vocal_stem", return_value=small_result):
+            result = a.transcribe_with_fallback(sample_stem_wav, lyrics_lines=None, start_model="tiny")
+        assert "segments" in result
+
+    def test_count_unmatched_lines_empty(self):
+        a = AudioAnalyzer()
+        assert a._count_unmatched_lines([], []) == 0
+
+    def test_count_unmatched_lines_no_segments(self):
+        a = AudioAnalyzer()
+        assert a._count_unmatched_lines(["Hello world"], []) == 1
+
+    def test_count_unmatched_lines_with_segments(self):
+        a = AudioAnalyzer()
+        segments = [{"start": 0.0, "end": 0.5, "text": "Hello world"}]
+        assert a._count_unmatched_lines(["Hello world"], segments) == 0
+
+    def test_count_unmatched_lines_partial(self):
+        a = AudioAnalyzer()
+        segments = [{"start": 0.0, "end": 0.5, "text": "Hello world"}]
+        assert a._count_unmatched_lines(["Hello world", "missing line"], segments) == 1
     def test_confidence_with_multiple_beats(self, tmp_path):
         import soundfile as sf
         sr = 22050

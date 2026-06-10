@@ -112,6 +112,7 @@ class AudioAnalyzer:
             "duration": round(info.duration, 3),
             "segments": [],
             "words": [],
+            "whisper_model": model_size,
         }
 
         for seg in segments:  # pragma: no cover
@@ -133,6 +134,67 @@ class AudioAnalyzer:
             result["segments"].append(seg_data)
 
         return result
+
+    WHISPER_FALLBACK_ORDER = ["small", "medium", "large-v3"]
+
+    def transcribe_with_fallback(
+        self,
+        stem_path: Union[str, Path],
+        lyrics_lines: Optional[list] = None,
+        start_model: str = "small",
+    ) -> dict:
+        start_idx = self.WHISPER_FALLBACK_ORDER.index(start_model) if start_model in self.WHISPER_FALLBACK_ORDER else 0
+        models_to_try = self.WHISPER_FALLBACK_ORDER[start_idx:]
+
+        best_result = None
+        best_unmatched = float("inf")
+        best_model = None
+        all_attempts = []
+
+        for model_size in models_to_try:
+            logger.info("Transcribing %s with whisper model: %s", stem_path, model_size)
+            result = self.transcribe_vocal_stem(stem_path, model_size=model_size)
+            result["whisper_model"] = model_size
+
+            if lyrics_lines is None or not lyrics_lines:
+                return result
+
+            unmatched = self._count_unmatched_lines(lyrics_lines, result["segments"])
+            all_attempts.append({"model": model_size, "unmatched": unmatched, "segments": len(result["segments"])})
+
+            if unmatched < best_unmatched:
+                best_result = result
+                best_unmatched = unmatched
+                best_model = model_size
+
+            if unmatched == 0:
+                break
+
+        if best_result is not None:
+            best_result["whisper_model"] = best_model
+            if len(all_attempts) > 1:
+                best_result["whisper_fallback_attempts"] = all_attempts
+            if best_model != models_to_try[0]:
+                logger.info("Whisper fallback: %s -> %s (unmatched: %d -> %d)",
+                            models_to_try[0], best_model,
+                            all_attempts[0]["unmatched"] if all_attempts else -1, best_unmatched)
+            return best_result
+
+        return self.transcribe_vocal_stem(stem_path, model_size=models_to_try[0])
+
+    def _count_unmatched_lines(self, lyrics_lines: list, segments: list) -> int:
+        if not segments or not lyrics_lines:
+            return len(lyrics_lines) if lyrics_lines else 0
+
+        from lyrics.alignment_analyzer import _align_lyrics_to_segments
+        from lyrics.parser import LyricLine
+
+        if not isinstance(lyrics_lines[0], LyricLine):
+            lyrics_lines = [LyricLine(index=i, text=t, start=0.0, end=0.0, words=[])
+                            for i, t in enumerate(lyrics_lines) if t and t.strip()]
+
+        _, match_ratios, _ = _align_lyrics_to_segments(lyrics_lines, segments)
+        return sum(1 for r in match_ratios.values() if r <= 0.0)
 
     def analyze_stem(self, stem_path: Union[str, Path], stem_type: str, name: str) -> StemFeatures:
         import librosa
