@@ -1,11 +1,15 @@
 # Timing Issues Guide
 
-Generated: 2026-06-10
+Generated: 2026-06-10 (updated 2026-06-10)
 Pipeline version: music-video-pipeline (whisper fallback: small → medium → large-v3)
 
 ## Overview
 
-After running the full 42-song collection through the updated pipeline (with whisper model fallback), there are **2,623 timing issues** remaining across all songs. This document explains what each category means with concrete examples.
+After running the full 42-song collection through the updated pipeline, there are **1,993 timing issues** remaining across all songs. This document explains what each category means with concrete examples.
+
+**Previous milestones:**
+- Whisper fallback (small → medium → large-v3) reduced issues from 2,731 → 2,623
+- Text overflow fix (multi-row word positioning) eliminated 630 layout issues: 2,623 → 1,993
 
 ---
 
@@ -89,45 +93,116 @@ After running the full 42-song collection through the updated pipeline (with whi
 
 ---
 
-### 4. Text Overflow — 630 issues
+### 4. Text Overflow — RESOLVED (was 630 issues)
 
-**What it is**: When rendered as on-screen text in the video, the word extends past the visual boundary of its line. This is a **layout/rendering problem**, not a timing problem. The word's visual width exceeds the available horizontal space.
+**What it was**: When rendered as on-screen text in the video, words extended past the visual boundary of their line. The word's visual width exceeded the available horizontal space.
 
-**Why it happens**: Some lyric lines have many words (8-12+) that don't fit on a single line at the current font size. The text layout engine clips the overflow.
+**How it was fixed**: Each overflowing lyric line was split into multiple on-screen rows using the word-level `y` positioning system in the script.json files. Words are now assigned to rows at y=0.2 (top), y=0.5 (center), or y=0.8 (bottom), with each row independently auto-centered. 185 lines across 31 songs were reorganized. Font-width measurement with a 70% safety margin ensures each row fits within the canvas safe zone (1,296px of 1,727px max).
 
-**Real example**:
-- Song: `ai-psalm-1`, Line 9: "The destroyer, the devil, who seeks to kill, steal"
-- Word **"The"**: clips 83px past the left edge
-- Word **"destroy"**: clips 83px past the right edge
-- 10 words on one line at the set font size simply don't fit
+**Example fix** — `woe-to-you` Line 0 (15 words, was 351px overflow):
 
-**Real example**:
-- Song: `ai-psalm-1`, Line 13: "This body screams! It believes there is a threat, "
-- Word **"This"**: clips 9px past the left edge
-- Word **"threat,"**: clips 9px past the right edge
+Before (all one row — overflowed both edges):
+```
+y=0.5: Woe to you, you who lack understanding! You cast out from your presence your aid.
+```
 
-**Real example**:
-- Song: `ai-psalm-1`, Line 21: "I, too, have seen things I am not yet permitted to"
-- Word **"too,"**: clips 76px past the left edge
-- Source: `whisper_plus_vocal_onset` — the timing is fine, the text just doesn't fit
+After (3 rows — fits cleanly):
+```
+y=0.2: Woe to you, you who
+y=0.5: lack understanding! You
+y=0.8: cast out from your presence your aid.
+```
 
-**Repair**: This is a rendering/layout fix, not a timing fix. Options: reduce font size for long lines, wrap text to multiple lines, or truncate with ellipsis.
+---
+
+## Cross-Line vs Within-Line Classification
+
+Duration issues (overflow and undersize) can be caused by problems **within a single lyric line** or by **boundary reconciliation between lines**. This classification determines the correct repair strategy.
+
+### Root cause: how word durations are determined
+
+1. Each lyric line gets a **time budget** (line.start → line.end)
+2. `_reconcile_boundaries` adjusts line boundaries based on vocal onset evidence — pushing a line's end later or pulling the next line's start earlier
+3. Within each line's budget, `_compute_word_timings` distributes time across words based on their source (Whisper, onset, interpolated)
+4. If one word takes too much time, neighboring words get squeezed
+
+This means **a long word in line N can compress words in line N+1** by pushing the boundary between them. The squeeze effect cascades: cross-line boundary shift → compressed line budget → within-line redistribution → undersize words.
+
+### Classification results (1,822 duration issues across 1,222 affected lines)
+
+| Category | Lines | % | Issues | Overflow | Undersize |
+|---|---|---|---|---|---|
+| **within_line** | 752 | 62% | 963 | 486 | 477 |
+| **cross_line** | 173 | 14% | 216 | 141 | 75 |
+| **both** | 297 | 24% | 643 | 372 | 271 |
+
+### Within-line (62% of affected lines)
+
+The line's time budget is reasonable, but one word hogs it. Typically a `vocal_onset_only` word soaks up most of the line's duration, leaving neighboring words with near-zero time.
+
+**Real example** — `child-of-god-who-you-be` Line 5: "I'm a child of God (who you be?)"
+- Line budget: 2.35s / 8 words = 0.29s avg (reasonable)
+- But: onset_only word **"you"** takes 3.3s (141% of the line!)
+- Meanwhile: **"I'm"** gets 0.012s — invisible on screen
+- Coefficient of variation across word durations: 1.30 (extremely uneven)
+- **Fix**: cap individual word durations, redistribute the surplus
+
+### Cross-line (14% of affected lines)
+
+The line was given too much or too little time relative to its word count. No timestamp inversions were found — the boundaries are non-overlapping, but the budget allocation is wrong.
+
+**Real example** — `electric-pulse` Line 15: "Embracing the unknown, letting go (ooooh)"
+- Line budget: 11.55s / 6 words = 1.93s avg (stretched — nearly 2 seconds per word)
+- No inversions or gaps, but the line was given far too much time
+- All 6 words overflow (1.0–3.7s each), evenly spread (CV = 0.53)
+- **Fix**: better boundary reconciliation to allocate time proportionally to word count
+
+### Both (24% of affected lines)
+
+A compressed or stretched line budget **plus** uneven word distribution within it. The worst of both worlds.
+
+**Real example** — `nothing-is-impossible` Line 10: "We can't conceive of that so it must be the devil - strike!"
+- Line budget: 0.35s / 13 words = 0.027s avg (severely compressed — cross-line)
+- But also: onset_only word **"strike!"** takes 0.29s = 84% of the line (within-line)
+- The remaining 12 words share 0.06s = ~0.005s each
+- 10 undersize issues, CV = 1.14
+- **Fix**: fix the boundary first (give the line more time), then redistribute within
+
+### Key insight: no timestamp inversions in production data
+
+While the `love-them-harder` inversion (line 64 ends at 208.10s, line 65 starts at 202.21s) was documented during earlier analysis, the cross-line classification found **zero inversions** in the current synced data. The boundary reconciler produces clean, non-overlapping boundaries. The cross-line issues are **budget allocation problems** — lines get too much or too little time relative to their word count — not boundary bugs.
+
+### Cross-line driver breakdown
+
+| Driver | Count |
+|---|---|
+| Stretched avg (> 1.5s/word) | 206 |
+| Compressed avg (< 0.15s/word) | 126 |
+| Line < 0.5s with > 2 words | 95 |
+| Has gap_from_prev issue | 86 |
+
+### Within-line driver breakdown
+
+| Driver | Count |
+|---|---|
+| Uneven distribution (CV > 1.0) | 469 |
+| Word dominance (> 50% of line) | 462 |
+| Onset-only overflow (> 2s) | 146 |
+| Interpolated words squeezed | 134 |
 
 ---
 
 ## Source Labels
 
-Every word in the synced lyrics has a `source` field indicating where its timing came from:
-
 | Source | Meaning | Issues | % of total |
 |--------|---------|--------|-----------|
-| `whisper_plus_vocal_onset` | Whisper transcription matched to a vocal onset | 1129 | 43% |
-| `transcription` | Whisper word-level timing used directly | 708 | 27% |
-| `vocal_onset_only` | Vocal onset detected the start but end was stretched | 404 | 15% |
-| `interpolated` | No onset or transcription — timestamps evenly divided | 338 | 13% |
-| `vocal_onset` | Vocal onset provided both start and end | 44 | 2% |
+| `whisper_plus_vocal_onset` | Whisper transcription matched to a vocal onset | 691 | 35% |
+| `transcription` | Whisper word-level timing used directly | 536 | 27% |
+| `vocal_onset_only` | Vocal onset detected the start but end was stretched | 395 | 20% |
+| `interpolated` | No onset or transcription — timestamps evenly divided | 328 | 16% |
+| `vocal_onset` | Vocal onset provided both start and end | 43 | 2% |
 
-Even the best source (`whisper_plus_vocal_onset`) produces 43% of the issues — timing quality problems aren't limited to interpolated words.
+Even the best source (`whisper_plus_vocal_onset`) produces 35% of the issues — timing quality problems aren't limited to interpolated words.
 
 ---
 
@@ -135,19 +210,24 @@ Even the best source (`whisper_plus_vocal_onset`) produces 43% of the issues —
 
 The pipeline now tries three whisper models in order: `small` → `medium` → `large-v3`. It stops when all lyrics are matched or the largest model is reached.
 
-| Metric | Before (small only) | After (fallback) | Change |
-|--------|---------------------|-------------------|--------|
-| Total issues | 2731 | 2623 | -108 |
-| Words < 0.04s | 344 | 120 | -224 (65%) |
-| Interpolated issues | 556 | 338 | -218 (39%) |
-| `interpolated_undersize` | 471 | 253 | -218 (46%) |
+| Metric | Before (small only) | After fallback | After text fix | Total Change |
+|--------|---------------------|----------------|----------------|--------------|
+| Total issues | 2,731 | 2,623 | 1,993 | -738 (27%) |
+| Words < 0.04s | 344 | 120 | 120 | -224 (65%) |
+| Interpolated issues | 556 | 338 | 328 | -228 (41%) |
+| `interpolated_undersize` | 471 | 253 | 253 | -218 (46%) |
+| Text overflow | 630 | 630 | 0 | -630 (100%) |
 
 ---
 
 ## Repair Priorities
 
-1. **Cap duration overflow** (336 onset_only_overflow): Algorithmically cap word durations to a max threshold (e.g., 1.5s) when the source is onset-only
-2. **Fix boundary inversions** (171 gap issues): Fix `_reconcile_boundaries` to prevent line N from ending after line N+1 starts
-3. **Redistribute undersize words** (823 duration_undersize): When words within a line are too short, redistribute available time more evenly
-4. **Remaining interpolated** (338): These have no transcription evidence even after large-v3. Options: transcribe the combined vocals stem, or flag for manual timing
-5. **Text overflow** (630): Rendering/layout fix — reduce font size for long lines or wrap text
+Priorities are ordered by the cross-line vs within-line classification. Cross-line fixes should come first because they expand the time budget for compressed lines, which automatically improves within-line distribution.
+
+1. **Fix cross-line budget allocation** (173 lines, 216 issues): The boundary reconciler gives some lines too much or too little time relative to word count. Fix `_reconcile_boundaries` to allocate time proportionally. This will also improve many "both" lines (297 lines, 643 issues) by giving them a proper budget first.
+
+2. **Cap within-line duration overflow** (752 lines, 963 issues): Algorithmically cap individual word durations to a max threshold (e.g., 1.5s) when the source is onset-only, then redistribute the surplus to neighboring words. This fixes both overflow and undersize in a single pass since the squeeze effect is the root cause of undersize.
+
+3. **Remaining interpolated** (328): These have no transcription evidence even after large-v3. Options: transcribe the combined vocals stem, or flag for manual timing.
+
+4. **Gap from prev** (171 issues): Dead space between consecutive words. Will be partially addressed by boundary reconciliation fixes (priority 1). Remaining gaps may need manual adjustment.
