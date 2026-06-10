@@ -53,9 +53,7 @@ STAGE_CLEAN = {
         "lyrics_synced.json",
         "alignment_analysis.json",
     ],
-    "audit": [
-        "script.json",
-    ],
+    "audit": [],
     "render": [],
 }
 
