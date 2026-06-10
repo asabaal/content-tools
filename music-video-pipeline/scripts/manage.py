@@ -80,6 +80,18 @@ def discover_projects(projects_dir: Path) -> list[dict]:
     return found
 
 
+def _parse_song_list(csv_value: Optional[str], filepath_value: Optional[str]) -> Optional[set]:
+    if csv_value:
+        return {s.strip() for s in csv_value.split(",") if s.strip()}
+    if filepath_value:
+        p = Path(filepath_value)
+        if not p.exists():
+            print(f"Error: Song list file not found: {p}")
+            sys.exit(1)
+        return {line.strip() for line in p.read_text().splitlines() if line.strip() and not line.strip().startswith("#")}
+    return None
+
+
 def stage_complete(proj: dict, stage: str) -> bool:
     proj_dir = proj["dir"]
     data_dir = proj["data_dir"]
@@ -115,6 +127,8 @@ def run_stage_for_song(
     mood: Optional[str] = None,
     force: bool = False,
     verbose: bool = False,
+    vocal_stem: str = "auto",
+    whisper_model: str = "auto",
 ) -> dict:
     proj_dir = proj["dir"]
     slug = proj["slug"]
@@ -126,6 +140,10 @@ def run_stage_for_song(
             cmd.append("--force")
         if verbose:
             cmd.append("-v")
+        if vocal_stem != "auto":
+            cmd.extend(["--vocal-stem", vocal_stem])
+        if whisper_model != "auto":
+            cmd.extend(["--whisper-model", whisper_model])
     elif stage == "sync":
         cmd = [sys.executable, str(MVP_SCRIPT), "sync", "-p", str(proj_dir)]
         if verbose:
@@ -180,6 +198,8 @@ def run_stage(
     jobs: int = 1,
     dry_run: bool = False,
     verbose: bool = False,
+    vocal_stem: str = "auto",
+    whisper_model: str = "auto",
 ) -> list[dict]:
     to_run = []
     skipped = []
@@ -210,6 +230,10 @@ def run_stage(
             cmd_parts = [f"{stage}"]
             if stage == "analyze" and force:
                 cmd_parts.append("--force")
+            if stage == "analyze" and vocal_stem != "auto":
+                cmd_parts.append(f"--vocal-stem {vocal_stem}")
+            if stage == "analyze" and whisper_model != "auto":
+                cmd_parts.append(f"--whisper-model {whisper_model}")
             if stage in ("audit", "render") and mood:
                 cmd_parts.append(f"--mood {mood}")
             print(f"  [{proj['slug']}] WOULD RUN: mvp {' '.join(cmd_parts)}")
@@ -219,7 +243,7 @@ def run_stage(
     if jobs <= 1:
         for proj in to_run:
             print(f"  [{proj['slug']}] {stage:8s} RUNNING...", end="", flush=True)
-            result = run_stage_for_song(proj, stage, mood=mood, force=force, verbose=verbose)
+            result = run_stage_for_song(proj, stage, mood=mood, force=force, verbose=verbose, vocal_stem=vocal_stem, whisper_model=whisper_model)
             elapsed = result.get("elapsed", 0)
             status = result["status"]
             if status == "ok":
@@ -239,7 +263,7 @@ def run_stage(
         with ProcessPoolExecutor(max_workers=jobs) as executor:
             futures = {
                 executor.submit(
-                    run_stage_for_song, proj, stage, mood=mood, force=force, verbose=verbose
+                    run_stage_for_song, proj, stage, mood=mood, force=force, verbose=verbose, vocal_stem=vocal_stem, whisper_model=whisper_model
                 ): proj
                 for proj in to_run
             }
@@ -295,6 +319,8 @@ def cmd_run(
     jobs: int = 1,
     dry_run: bool = False,
     verbose: bool = False,
+    vocal_stem: str = "auto",
+    whisper_model: str = "auto",
 ) -> None:
     all_results = []
     failed_stages = {}
@@ -312,6 +338,8 @@ def cmd_run(
             jobs=jobs,
             dry_run=dry_run,
             verbose=verbose,
+            vocal_stem=vocal_stem,
+            whisper_model=whisper_model,
         )
         all_results.extend(results)
 
@@ -392,6 +420,12 @@ def main():
     run_parser.add_argument("--jobs", "-j", type=int, default=1, help="Parallel workers (default: 1)")
     run_parser.add_argument("--dry-run", action="store_true", help="Show what would run")
     run_parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
+    run_parser.add_argument("--vocal-stem", default="auto", choices=["lead_vocals", "backing_vocals", "combined_vocals", "auto"], help="Vocal stem to transcribe (default: auto)")
+    run_parser.add_argument("--whisper-model", default="auto", choices=["small", "medium", "large-v3", "auto"], help="Whisper model to use (default: auto)")
+    run_parser.add_argument("--songs", default=None, help="Include only these song slugs (comma-separated)")
+    run_parser.add_argument("--songs-from", default=None, help="Include only songs listed in file (one per line)")
+    run_parser.add_argument("--exclude", default=None, help="Exclude these song slugs (comma-separated)")
+    run_parser.add_argument("--exclude-from", default=None, help="Exclude songs listed in file (one per line)")
 
     dash_parser = sub.add_parser("dashboard", help="Generate timing dashboard")
     dash_parser.add_argument("--dry-run", action="store_true", help="Show what would run")
@@ -422,6 +456,25 @@ def main():
         cmd_status(projects)
 
     elif args.command == "run":
+        include_set = _parse_song_list(args.songs, args.songs_from)
+        exclude_set = _parse_song_list(args.exclude, args.exclude_from)
+
+        if include_set and exclude_set:
+            parser.error("Cannot use both --songs/--songs-from and --exclude/--exclude-from")
+
+        if include_set:
+            before = len(projects)
+            projects = [p for p in projects if p["slug"] in include_set]
+            missing = include_set - {p["slug"] for p in projects}
+            if missing:
+                print(f"  WARNING: {len(missing)} slug(s) not found: {', '.join(sorted(missing))}")
+            print(f"  Filtered: {len(projects)}/{before} songs selected")
+
+        elif exclude_set:
+            before = len(projects)
+            projects = [p for p in projects if p["slug"] not in exclude_set]
+            print(f"  Filtered: {len(projects)}/{before} songs (excluded {before - len(projects)})")
+
         stages = args.stages
         if "all" in stages:
             stages = ["analyze", "sync", "audit"]
@@ -434,6 +487,8 @@ def main():
             jobs=args.jobs,
             dry_run=args.dry_run,
             verbose=args.verbose,
+            vocal_stem=args.vocal_stem,
+            whisper_model=args.whisper_model,
         )
 
     elif args.command == "dashboard":
