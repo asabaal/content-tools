@@ -133,6 +133,10 @@ class AudioAnalyzer:
                 result["words"].append(word_data)
             result["segments"].append(seg_data)
 
+        result["segments"] = self._filter_hallucinations(result["segments"], info.language)
+        result["segments"] = self._fill_gaps(result["segments"], str(stem_path), model_size, info.language)
+        result["words"] = [w for seg in result["segments"] for w in seg.get("words", [])]
+
         return result
 
     WHISPER_FALLBACK_ORDER = ["small", "medium", "large-v3"]
@@ -195,6 +199,150 @@ class AudioAnalyzer:
 
         _, match_ratios, _ = _align_lyrics_to_segments(lyrics_lines, segments)
         return sum(1 for r in match_ratios.values() if r <= 0.0)
+
+    MIN_GAP_SECONDS = 30
+    GAP_PADDING_SECONDS = 2
+    MAX_FILL_DURATION = 300
+
+    def _fill_gaps(self, segments: list, stem_path: str, model_size: str, detected_language: str) -> list:
+        if not segments:
+            return segments
+
+        import librosa
+        import soundfile as sf
+        import tempfile
+
+        audio, sr = librosa.load(stem_path, sr=None, mono=True)
+        total_duration = len(audio) / sr
+
+        gaps = []
+        prev_end = segments[0]["end"]
+        for i in range(1, len(segments)):
+            gap_start = prev_end
+            gap_end = segments[i]["start"]
+            gap_dur = gap_end - gap_start
+            if gap_dur >= self.MIN_GAP_SECONDS:
+                gaps.append((gap_start, gap_end, gap_dur))
+            prev_end = segments[i]["end"]
+
+        final_gap_dur = total_duration - segments[-1]["end"]
+        if final_gap_dur >= self.MIN_GAP_SECONDS:
+            gaps.append((segments[-1]["end"], total_duration, final_gap_dur))
+
+        if not gaps:
+            return segments
+
+        for gap_start, gap_end, gap_dur in gaps:
+            if gap_dur > self.MAX_FILL_DURATION:
+                logger.info("Skipping large gap %.1f-%.1f (%.0fs, exceeds max %ds)",
+                            gap_start, gap_end, gap_dur, self.MAX_FILL_DURATION)
+                continue
+
+            clip_start = max(0, gap_start - self.GAP_PADDING_SECONDS)
+            clip_end = min(total_duration, gap_end + self.GAP_PADDING_SECONDS)
+            offset_samples = int(clip_start * sr)
+            end_samples = int(clip_end * sr)
+            clip_audio = audio[offset_samples:end_samples]
+
+            with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+                sf.write(tmp.name, clip_audio, sr)
+                tmp_path = tmp.name
+
+            try:
+                logger.info("Re-transcribing gap %.1f-%.1f (%.0fs) from %s",
+                            gap_start, gap_end, gap_dur, stem_path)
+                gap_result = self.transcribe_vocal_stem(tmp_path, model_size=model_size)
+                gap_segs = gap_result["segments"]
+
+                gap_segs = self._filter_hallucinations(gap_segs, gap_result.get("language", detected_language))
+
+                for seg in gap_segs:
+                    seg["start"] = round(seg["start"] + clip_start, 3)
+                    seg["end"] = round(seg["end"] + clip_start, 3)
+                    for w in seg.get("words", []):
+                        w["start"] = round(w["start"] + clip_start, 3)
+                        w["end"] = round(w["end"] + clip_start, 3)
+
+                if gap_segs:
+                    logger.info("Gap %.1f-%.1f: found %d new segments", gap_start, gap_end, len(gap_segs))
+                    segments.extend(gap_segs)
+            except Exception as e:
+                logger.warning("Gap re-transcription failed for %.1f-%.1f: %s", gap_start, gap_end, e)
+            finally:
+                Path(tmp_path).unlink(missing_ok=True)
+
+        segments.sort(key=lambda s: s["start"])
+        return segments
+
+    @staticmethod
+    def _filter_hallucinations(segments: list, detected_language: str) -> list:
+        if not segments:
+            return segments
+
+        import re
+        cjk_pattern = re.compile(r'[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]')
+
+        def _is_cjk(text: str) -> bool:
+            return bool(cjk_pattern.search(text))
+
+        def _has_common_hallucination(text: str) -> bool:
+            lower = text.lower().strip()
+            hallucinations = [
+                "thank you for watching",
+                "thank you for listening",
+                "subscribe",
+                "please subscribe",
+                "like and subscribe",
+            ]
+            return lower in hallucinations
+
+        cjk_count = sum(1 for seg in segments if _is_cjk(seg["text"]))
+        latin_count = sum(1 for seg in segments if not _is_cjk(seg["text"]) and seg["text"].strip())
+        majority_cjk = cjk_count > latin_count
+
+        text_groups: dict[str, list[int]] = {}
+        for i, seg in enumerate(segments):
+            text = seg["text"].strip()
+            if not text:
+                continue
+            text_groups.setdefault(text, []).append(i)
+
+        repeated_texts = {text: indices for text, indices in text_groups.items() if len(indices) >= 4}
+
+        kept = []
+        for i, seg in enumerate(segments):
+            text = seg["text"].strip()
+            discard = False
+
+            if _is_cjk(text) and (not majority_cjk or latin_count > 0):
+                discard = True
+                logger.info("Filtered CJK segment at %.1f: \"%s\"", seg["start"], text)
+
+            if not discard and _has_common_hallucination(text):
+                discard = True
+                logger.info("Filtered common hallucination at %.1f: \"%s\"", seg["start"], text)
+
+            if not discard and i in {idx for indices in repeated_texts.values() for idx in indices}:
+                if text in repeated_texts:
+                    indices = repeated_texts[text]
+                    starts = [segments[j]["start"] for j in indices]
+                    gaps = [starts[k+1] - starts[k] for k in range(len(starts)-1)]
+                    if gaps:
+                        mean_gap = sum(gaps) / len(gaps)
+                        cv = (sum((g - mean_gap)**2 for g in gaps) / len(gaps))**0.5 / mean_gap if mean_gap > 0 else 0
+                        if mean_gap > 5 and cv < 0.3 and len(text.split()) <= 3:
+                            discard = True
+                            logger.info("Filtered repeated hallucination (%dx, ~%.0fs apart, cv=%.2f) at %.1f: \"%s\"",
+                                        len(indices), mean_gap, cv, seg["start"], text)
+
+            if not discard:
+                kept.append(seg)
+
+        removed = len(segments) - len(kept)
+        if removed > 0:
+            logger.info("Hallucination filter removed %d/%d segments", removed, len(segments))
+
+        return kept
 
     def analyze_stem(self, stem_path: Union[str, Path], stem_type: str, name: str) -> StemFeatures:
         import librosa
