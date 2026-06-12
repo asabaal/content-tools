@@ -189,7 +189,7 @@ def _align_lyrics_to_segments(
     lw = [w for w, _ in flat_lyric]
     tw = [w for w, _ in flat_trans]
 
-    matcher = SequenceMatcher(None, lw, tw)
+    matcher = SequenceMatcher(None, lw, tw, autojunk=False)
 
     line_to_segs: Dict[int, set] = defaultdict(set)
     line_matched_words: Dict[int, int] = defaultdict(int)
