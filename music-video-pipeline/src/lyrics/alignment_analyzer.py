@@ -205,6 +205,77 @@ def _align_lyrics_to_segments(
             line_to_segs[li].add(si)
             line_matched_words[li] += 1
 
+    unmatched_lines = [li for li in range(len(lines)) if line_matched_words[li] == 0]
+    if unmatched_lines and segments:
+        matched_line_times: Dict[int, tuple] = {}
+        for li in range(len(lines)):
+            segs = line_to_segs.get(li, set())
+            if segs:
+                starts = [segments[si]["start"] for si in segs if si < len(segments)]
+                ends = [segments[si]["end"] for si in segs if si < len(segments)]
+                if starts and ends:
+                    matched_line_times[li] = (min(starts), max(ends))
+
+        seg_time_list = [(si, seg["start"], seg["end"]) for si, seg in enumerate(segments)]
+
+        for li in unmatched_lines:
+            prev_li = None
+            next_li = None
+            for other in range(li - 1, -1, -1):
+                if other in matched_line_times:
+                    prev_li = other
+                    break
+            for other in range(li + 1, len(lines)):
+                if other in matched_line_times:
+                    next_li = other
+                    break
+
+            t_start = 0.0
+            t_end = segments[-1]["end"] if segments else 0.0
+
+            if prev_li is not None and next_li is not None:
+                t_start = matched_line_times[prev_li][1]
+                t_end = matched_line_times[next_li][0]
+            elif prev_li is not None:
+                t_start = matched_line_times[prev_li][1]
+            elif next_li is not None:
+                t_end = matched_line_times[next_li][0]
+
+            if t_end <= t_start:
+                gap = t_end - t_start if t_end > t_start else 5.0
+                t_start = t_start - gap
+                t_end = t_end + gap
+
+            candidate_segs = [si for si, s, e in seg_time_list if s <= t_end + 1.0 and e >= t_start - 1.0]
+
+            lyric_words = _normalize(lines[li].text).split()
+            if not lyric_words:
+                continue
+            lyric_word_set = set(lyric_words)
+
+            best_si = None
+            best_overlap = 0
+            used_segs = set()
+            for other_li, other_segs in line_to_segs.items():
+                if other_li != li:
+                    used_segs.update(other_segs)
+
+            for si in candidate_segs:
+                if si in used_segs:
+                    continue
+                seg_words = _normalize(segments[si].get("text", "")).split()
+                if not seg_words:
+                    continue
+                overlap = len(lyric_word_set & set(seg_words))
+                ratio = overlap / len(lyric_words)
+                if ratio > best_overlap:
+                    best_overlap = overlap
+                    best_si = si
+
+            if best_si is not None and best_overlap / max(len(lyric_words), 1) >= 0.3:
+                line_to_segs[li].add(best_si)
+                line_matched_words[li] = best_overlap
+
     ordered_line_to_segs: Dict[int, List[int]] = {}
     for li in range(len(lines)):
         segs = sorted(line_to_segs.get(li, set()))

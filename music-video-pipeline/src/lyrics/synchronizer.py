@@ -245,8 +245,14 @@ class LyricSynchronizer:
                     boundary = curr.words[-1].start + 0.04
                 if nxt.words and boundary > nxt.words[0].end:
                     boundary = nxt.words[0].end - 0.04
-                curr.end = boundary
-                nxt.start = boundary
+                if boundary >= curr.start:
+                    curr.end = boundary
+                else:
+                    curr.end = curr.start + MIN_LINE_DURATION
+                if boundary <= nxt.end:
+                    nxt.start = boundary
+                else:
+                    nxt.start = max(nxt.start, nxt.end - MIN_LINE_DURATION)
                 if curr.words:
                     curr.words[-1].end = min(boundary, max(curr.words[-1].end, curr.words[-1].start + 0.04))
                 if nxt.words:
@@ -419,6 +425,12 @@ class LyricSynchronizer:
                 end = match.transcription_end
                 if end <= start:
                     end = start + MIN_LINE_DURATION
+                if raw_boundaries:
+                    prev_end = raw_boundaries[-1][1]
+                    if start < prev_end:
+                        start = prev_end
+                        if end <= start:
+                            end = start + MIN_LINE_DURATION
                 raw_boundaries.append((start, min(end, self.audio_features.duration)))
             else:
                 if raw_boundaries:

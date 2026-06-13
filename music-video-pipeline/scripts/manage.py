@@ -394,6 +394,31 @@ def cmd_dashboard(projects_dir: Path, dry_run: bool = False) -> None:
             print(f"    {line}")
 
 
+def cmd_unsynced(collection_dir: Path, projects: list, args):
+    import importlib.util
+    script_path = Path(__file__).resolve().parent / "inspect_unsynced.py"
+    spec = importlib.util.spec_from_file_location("inspect_unsynced", script_path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    reports = []
+    for p in projects:
+        report = mod.inspect_song(p["dir"], verbose=args.verbose)
+        if report:
+            reports.append(report)
+
+    if args.json_output:
+        print(json.dumps(reports, indent=2))
+        return
+
+    if not args.summary_only:
+        for report in reports:
+            if report["lines_with_unsynced"] > 0:
+                mod.print_song_report(report, verbose=args.verbose)
+
+    mod.print_summary(reports)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Job manager for multi-song music video pipeline projects"
@@ -429,6 +454,13 @@ def main():
 
     dash_parser = sub.add_parser("dashboard", help="Generate timing dashboard")
     dash_parser.add_argument("--dry-run", action="store_true", help="Show what would run")
+
+    unsynced_parser = sub.add_parser("unsynced", help="Inspect unsynced words")
+    unsynced_parser.add_argument("--songs", default=None, help="Include only these song slugs (comma-separated)")
+    unsynced_parser.add_argument("--songs-from", default=None, help="Include only songs listed in file (one per line)")
+    unsynced_parser.add_argument("--verbose", "-v", action="store_true", help="Show Whisper region text for each line")
+    unsynced_parser.add_argument("--json", action="store_true", dest="json_output", help="Output machine-readable JSON")
+    unsynced_parser.add_argument("--summary-only", action="store_true", help="Only show the collection summary")
 
     args = parser.parse_args()
     collection_dir = Path(args.project_dir).resolve()
@@ -493,6 +525,9 @@ def main():
 
     elif args.command == "dashboard":
         cmd_dashboard(collection_dir, dry_run=args.dry_run)
+
+    elif args.command == "unsynced":
+        cmd_unsynced(collection_dir, projects, args)
 
 
 if __name__ == "__main__":
