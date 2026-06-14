@@ -363,11 +363,13 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                     if lyrics_lines is None or not trans.get("segments"):
                         return 1.0, {}
                     from lyrics.alignment_analyzer import _align_lyrics_to_segments
-                    _, match_ratios, _ = _align_lyrics_to_segments(lyrics_lines, trans["segments"])
+                    _, match_ratios, _, reverse_cov = _align_lyrics_to_segments(lyrics_lines, trans["segments"])
                     non_empty = [l for l in lyrics_lines if l.text.strip()]
                     covered = sum(1 for i in range(len(non_empty)) if match_ratios.get(i, 0.0) > 0.9)
                     total = len(non_empty)
-                    return covered / total if total > 0 else 0.0, match_ratios
+                    forward = covered / total if total > 0 else 0.0
+                    mutual = 2 * forward * reverse_cov / (forward + reverse_cov) if (forward + reverse_cov) > 0 else 0.0
+                    return mutual, match_ratios
 
                 scored = {st: _score_transcription(tr) for st, tr in transcriptions.items()}
 

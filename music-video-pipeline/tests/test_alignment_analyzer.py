@@ -107,7 +107,7 @@ class TestAlignLyricsToSegments:
             {"text": "hello world", "start": 0.0, "end": 2.0},
             {"text": "foo bar", "start": 2.5, "end": 4.0},
         ]
-        line_segs, ratios, texts = _align_lyrics_to_segments(lines, segments)
+        line_segs, ratios, texts, _ = _align_lyrics_to_segments(lines, segments)
         assert line_segs[0] == [0]
         assert line_segs[1] == [1]
         assert ratios[0] == 1.0
@@ -120,7 +120,7 @@ class TestAlignLyricsToSegments:
             {"text": "now its chronic if jesus", "start": 3.0, "end": 5.0},
             {"text": "was platonic", "start": 5.0, "end": 7.0},
         ]
-        line_segs, ratios, texts = _align_lyrics_to_segments(lines, segments)
+        line_segs, ratios, texts, _ = _align_lyrics_to_segments(lines, segments)
         assert 0 in line_segs[0]
         assert 1 in line_segs[0]
         assert line_segs[1] == [1, 2]
@@ -132,7 +132,7 @@ class TestAlignLyricsToSegments:
             {"text": "extra segment", "start": 2.0, "end": 3.0},
             {"text": "foo bar", "start": 3.0, "end": 5.0},
         ]
-        line_segs, ratios, texts = _align_lyrics_to_segments(lines, segments)
+        line_segs, ratios, texts, _ = _align_lyrics_to_segments(lines, segments)
         assert line_segs[0] == [0]
         assert line_segs[1] == [2]
 
@@ -142,14 +142,14 @@ class TestAlignLyricsToSegments:
             {"text": "a", "start": 1.0, "end": 2.0},
             {"text": "b", "start": 3.0, "end": 4.0},
         ]
-        line_segs, ratios, texts = _align_lyrics_to_segments(lines, segments)
+        line_segs, ratios, texts, _ = _align_lyrics_to_segments(lines, segments)
         assert line_segs[0] == [0]
         assert line_segs[1] == [1]
 
     def test_no_text_overlap(self):
         lines = _make_lines(["xyz completely unique text"])
         segments = [{"text": "abc totally different stuff", "start": 1.0, "end": 3.0}]
-        line_segs, ratios, texts = _align_lyrics_to_segments(lines, segments)
+        line_segs, ratios, texts, _ = _align_lyrics_to_segments(lines, segments)
         assert ratios[0] == 0.0
 
 

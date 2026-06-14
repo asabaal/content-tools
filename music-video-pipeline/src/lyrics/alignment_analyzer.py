@@ -175,7 +175,7 @@ def _cluster_onsets(onset_times: np.ndarray) -> List[Tuple[float, float]]:
 
 def _align_lyrics_to_segments(
     lines: List[LyricLine], segments: List[dict]
-) -> Tuple[Dict[int, List[int]], Dict[int, float], Dict[int, str]]:
+) -> Tuple[Dict[int, List[int]], Dict[int, float], Dict[int, str], float]:
     flat_lyric = []
     for li, line in enumerate(lines):
         for w in _normalize(line.text).split():
@@ -194,11 +194,13 @@ def _align_lyrics_to_segments(
     line_to_segs: Dict[int, set] = defaultdict(set)
     line_matched_words: Dict[int, int] = defaultdict(int)
     line_total_words: Dict[int, int] = defaultdict(int)
+    total_matched_words = 0
 
     for li, line in enumerate(lines):
         line_total_words[li] = len(_normalize(line.text).split())
 
     for i, j, n in matcher.get_matching_blocks():
+        total_matched_words += n
         for k in range(n):
             li = flat_lyric[i + k][1]
             si = flat_trans[j + k][1]
@@ -296,7 +298,9 @@ def _align_lyrics_to_segments(
         else:
             seg_texts[li] = ""
 
-    return ordered_line_to_segs, match_ratios, seg_texts
+    reverse_coverage = total_matched_words / max(len(tw), 1) if tw else 0.0
+
+    return ordered_line_to_segs, match_ratios, seg_texts, reverse_coverage
 
 
 def _count_syllables(text: str) -> int:
@@ -602,7 +606,7 @@ def analyze_alignment(
     matches: List[LineMatch] = []
 
     if transcription_segments and len(transcription_segments) > 0:
-        line_segs, match_ratios, seg_texts = _align_lyrics_to_segments(non_empty, transcription_segments)
+        line_segs, match_ratios, seg_texts, _ = _align_lyrics_to_segments(non_empty, transcription_segments)
 
         for i, line in enumerate(non_empty):
             seg_indices = line_segs.get(i, [])

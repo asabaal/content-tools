@@ -219,7 +219,7 @@ class AudioAnalyzer:
             lyrics_lines = [LyricLine(index=i, text=t, start=0.0, end=0.0, words=[])
                             for i, t in enumerate(lyrics_lines) if t and t.strip()]
 
-        _, match_ratios, _ = _align_lyrics_to_segments(lyrics_lines, segments)
+        _, match_ratios, _, _ = _align_lyrics_to_segments(lyrics_lines, segments)
         return sum(1 for r in match_ratios.values() if r <= 0.0)
 
     MIN_GAP_SECONDS = 30
