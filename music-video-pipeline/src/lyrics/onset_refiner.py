@@ -165,22 +165,8 @@ def refine_synced_lines(
         line.warnings = warnings
     for line in sync_result.lines:
         for w in line.words:
-            if w.end - w.start < MIN_WORD_DURATION:
-                w.end = w.start + MIN_WORD_DURATION
-        for i in range(len(line.words) - 1):
-            if line.words[i].end > line.words[i + 1].start:
-                mid = (line.words[i].end + line.words[i + 1].start) / 2
-                boundary = max(mid, line.words[i].start + MIN_WORD_DURATION)
-                if boundary < line.words[i + 1].end - MIN_WORD_DURATION:
-                    line.words[i].end = boundary
-                    line.words[i + 1].start = boundary
-                else:
-                    line.words[i].end = min(line.words[i].end, line.words[i + 1].start - 0.001)
-                    if line.words[i].end <= line.words[i].start:
-                        line.words[i].end = line.words[i].start + MIN_WORD_DURATION
-        for w in line.words:
-            if w.end - w.start < 0.001:
-                w.end = w.start + MIN_WORD_DURATION
+            if w.end <= w.start:
+                w.end = w.start + 0.001
 
     noise_floor_val = _trim_noise_floor(waveform_peaks) * TRIM_FLOOR_MULT
     for line in sync_result.lines:
@@ -191,6 +177,13 @@ def refine_synced_lines(
             line.words, line.start, line.end, line_onsets,
             waveform_peaks, noise_floor_val, peaks_per_second,
         )
+        for i in range(len(line.words) - 1):
+            if line.words[i].end > line.words[i + 1].start:
+                line.words[i].end = line.words[i + 1].start
+            if line.words[i].end <= line.words[i].start:
+                line.words[i].end = line.words[i].start + MIN_WORD_DURATION
+                if i + 1 < len(line.words):
+                    line.words[i + 1].start = max(line.words[i + 1].start, line.words[i].end)
     return sync_result
 
 
@@ -283,27 +276,20 @@ def snap_words_to_onsets(
             used_onsets.add(best_oi)
             nw.start = onsets[best_oi]
             if nw.start >= nw.end:
-                nw.end = nw.start + MIN_WORD_DURATION
+                nw.end = nw.start + 0.001
             if nw.source in ("transcription", "vocal_onset"):
                 nw.source = "whisper_plus_vocal_onset"
         new_words.append(nw)
 
     for i in range(len(new_words) - 1):
         if new_words[i].end > new_words[i + 1].start:
-            mid = (new_words[i].end + new_words[i + 1].start) / 2
-            boundary = max(mid, new_words[i].start + MIN_WORD_DURATION)
-            if boundary < new_words[i + 1].end - MIN_WORD_DURATION:
-                new_words[i].end = boundary
-                new_words[i + 1].start = boundary
-            else:
-                new_words[i].end = min(new_words[i].end, new_words[i + 1].start - 0.001)
-                if new_words[i].end <= new_words[i].start:
-                    new_words[i].end = new_words[i].start + MIN_WORD_DURATION
+            new_words[i].end = new_words[i + 1].start
+            if new_words[i].end <= new_words[i].start:
+                new_words[i].end = new_words[i].start + 0.001
+
     if new_words:
         if line_end > new_words[-1].start:
             new_words[-1].end = line_end
-        else:
-            new_words[-1].end = new_words[-1].start + MIN_WORD_DURATION
 
     return new_words
 
@@ -386,44 +372,49 @@ def assign_onsets_to_words(
         words[wi_idx].source = "vocal_onset_only"
 
     for i in range(n):
-        if words[i].source != "vocal_onset_only":
-            prev_end = words[i - 1].end if i > 0 else line_start
-            next_start = None
+        if words[i].source == "vocal_onset_only":
+            next_onset_start = line_end
             for j in range(i + 1, n):
                 if words[j].source == "vocal_onset_only":
-                    next_start = words[j].start
+                    next_onset_start = words[j].start
                     break
-            if next_start is None:
-                next_start = line_end
-            gap = next_start - prev_end
-            remaining = sum(1 for j in range(i, n) if words[j].source != "vocal_onset_only" and (j < i or words[j].source != "vocal_onset_only"))
-            remaining_with_next = 0
+            prop_dur = char_fracs[i] * line_dur
+            words[i].end = min(next_onset_start, words[i].start + max(prop_dur, MIN_WORD_DURATION))
+            if words[i].end <= words[i].start:
+                words[i].end = words[i].start + MIN_WORD_DURATION
+
+    t = line_start
+    i = 0
+    while i < n:
+        if words[i].source == "vocal_onset_only":
+            t = max(t, words[i].start)
+            t = words[i].end
+            i += 1
+        else:
+            next_bound = line_end
+            for j in range(i + 1, n):
+                if words[j].source == "vocal_onset_only":
+                    next_bound = words[j].start
+                    break
+            count = 0
             for j in range(i, n):
                 if words[j].source != "vocal_onset_only":
-                    remaining_with_next += 1
+                    count += 1
                 else:
                     break
-            if remaining_with_next > 0:
-                per_word = gap / remaining_with_next if gap > 0 else 0.3
-                for j in range(i, min(i + remaining_with_next, n)):
-                    words[j].start = prev_end
-                    words[j].end = prev_end + per_word
-                    if words[j].end <= words[j].start:
-                        words[j].end = words[j].start + MIN_WORD_DURATION
-                    words[j].source = "interpolated"
-                    prev_end = words[j].end
-            break
-
-    for i in range(n):
-        if words[i].source == "vocal_onset_only":
-            next_boundary = line_end
-            for j in range(i + 1, n):
-                if words[j].start > words[i].start:
-                    next_boundary = words[j].start
-                    break
-            if next_boundary <= words[i].start:
-                next_boundary = words[i].start + MIN_WORD_DURATION
-            words[i].end = next_boundary
+            gap = next_bound - t
+            if gap <= 0:
+                gap = count * 0.001
+            per_word = gap / count
+            for j in range(count):
+                idx = i + j
+                words[idx].start = t
+                words[idx].end = t + per_word
+                if words[idx].end <= words[idx].start:
+                    words[idx].end = words[idx].start + 0.001
+                words[idx].source = "interpolated"
+                t = words[idx].end
+            i += count
 
     return words
 

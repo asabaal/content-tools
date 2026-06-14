@@ -772,8 +772,8 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
 
     for line in result.lines:
         for w in line.words:
-            if w.end - w.start < 0.001:
-                w.end = w.start + 0.04
+            if w.end <= w.start:
+                w.end = w.start + 0.001
     result.save(proj.data_dir / "lyrics_synced.json")
 
     from lyrics.alignment_analyzer import analyze_alignment

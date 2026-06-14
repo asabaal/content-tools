@@ -807,3 +807,65 @@ class TestInterpolateWordsFunction:
         from lyrics.onset_refiner import _interpolate_words
         result = _interpolate_words([], 0.0, 1.0)
         assert result == []
+
+
+class TestAssignOnsetsNoOverlap:
+    def _check_no_overlap(self, words):
+        for i in range(len(words) - 1):
+            for j in range(i + 1, len(words)):
+                assert words[i].end <= words[j].start + 0.001, (
+                    f"W{i} \"{words[i].text}\" end={words[i].end:.3f} overlaps "
+                    f"W{j} \"{words[j].text}\" start={words[j].start:.3f}"
+                )
+
+    def _check_temporal_order(self, words):
+        for i in range(len(words) - 1):
+            assert words[i].start <= words[i + 1].start + 0.001, (
+                f"W{i} start={words[i].start:.3f} > W{i+1} start={words[i+1].start:.3f}"
+            )
+
+    def test_sparse_onsets_no_overlap(self):
+        words = [_w("Closing", 0.0, 0.1), _w("the", 0.1, 0.2),
+                 _w("gaps", 0.2, 0.3), _w("of", 0.3, 0.4),
+                 _w("my", 0.4, 0.5), _w("origin", 0.5, 0.6)]
+        onsets = [0.02, 0.3]
+        result = assign_onsets_to_words(words, onsets, 0.0, 0.6)
+        self._check_no_overlap(result)
+        self._check_temporal_order(result)
+
+    def test_onset_word_duration_capped(self):
+        words = [_w("A", 0.0, 0.5), _w("B", 0.5, 1.0)]
+        onsets = [0.01, 0.9]
+        result = assign_onsets_to_words(words, onsets, 0.0, 1.0)
+        assert result[0].source == "vocal_onset_only"
+        assert result[0].end < 0.9
+
+    def test_all_interpolated_after_onsets(self):
+        words = [_w("one", 0.0, 0.25), _w("two", 0.25, 0.5),
+                 _w("three", 0.5, 0.75), _w("four", 0.75, 1.0)]
+        onsets = [0.1]
+        result = assign_onsets_to_words(words, onsets, 0.0, 1.0)
+        self._check_no_overlap(result)
+        self._check_temporal_order(result)
+        onset_words = [w for w in result if w.source == "vocal_onset_only"]
+        interp_words = [w for w in result if w.source == "interpolated"]
+        assert len(onset_words) >= 1
+        assert len(interp_words) >= 1
+
+    def test_multiple_onset_groups(self):
+        words = [_w("a", 0.0, 0.1), _w("b", 0.1, 0.2), _w("c", 0.2, 0.3),
+                 _w("d", 0.3, 0.4), _w("e", 0.4, 0.5)]
+        onsets = [0.05, 0.35]
+        result = assign_onsets_to_words(words, onsets, 0.0, 0.5)
+        self._check_no_overlap(result)
+        self._check_temporal_order(result)
+
+    def test_no_overlap_through_refine(self):
+        words = [_w("Closing", 63.95, 64.01), _w("the", 64.01, 64.07),
+                 _w("gaps", 64.07, 64.13), _w("of", 64.13, 64.19),
+                 _w("my", 64.19, 64.25), _w("origin", 64.25, 64.31)]
+        line = SyncedLine(text="Closing the gaps of my origin", start=63.95, end=64.31, words=words)
+        sr = SyncResult(lines=[line])
+        result = refine_synced_lines(sr, np.array([63.968, 64.267]))
+        self._check_no_overlap(result.lines[0].words)
+        self._check_temporal_order(result.lines[0].words)
