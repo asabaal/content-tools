@@ -165,7 +165,7 @@ def run_stage_for_song(
             cmd,
             capture_output=True,
             text=True,
-            timeout=1800,
+            timeout=5400,
             cwd=str(PIPELINE_DIR),
         )
         elapsed = time.time() - t0

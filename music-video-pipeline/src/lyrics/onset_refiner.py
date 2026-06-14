@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import math
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
@@ -16,6 +17,128 @@ SNAP_TOLERANCE_INTERPOLATED = 0.25
 MIN_SEGMENT_DURATION = 0.005
 BREATH_DURATION_THRESHOLD = 0.12
 MIN_WORD_DURATION = 0.04
+
+TRIM_MAX_DURATION = 1.5
+TRIM_FILL_CAP = 1.2
+TRIM_FILL_MARGIN = 0.3
+TRIM_RESCUE_TARGET = 0.3
+TRIM_FLOOR_MULT = 3.0
+TRIM_TAIL = 0.10
+TRIM_GAP = 0.03
+TRIM_GAP_THRESHOLD = 0.5
+
+
+def _percentile(data: List[float], pct: float) -> float:
+    if not data:
+        return 0.0
+    s = sorted(data)
+    k = (len(s) - 1) * (pct / 100.0)
+    f = math.floor(k)
+    c = math.ceil(k)
+    if f == c:
+        return s[int(k)]
+    return s[f] + (s[c] - s[f]) * (k - f)
+
+
+def _trim_noise_floor(peaks: Optional[List[float]]) -> float:
+    if not peaks:
+        return 0.01
+    return max(_percentile(peaks, 25), 0.005)
+
+
+def _trim_energy_end(
+    peaks: List[float], ws: float, we: float, floor: float,
+    tail: float, pps: int,
+) -> Optional[float]:
+    si = max(0, int(ws * pps))
+    ei = min(len(peaks), int(math.ceil(we * pps)))
+    if si >= ei:
+        return None
+    for j in range(ei - si - 1, -1, -1):
+        if peaks[si + j] > floor:
+            return (si + j) / pps + tail
+    return None
+
+
+def _audio_aware_post_process(
+    words: List[SyncedWord],
+    line_start: float,
+    line_end: float,
+    onsets: List[float],
+    peaks: Optional[List[float]],
+    floor: float,
+    pps: int,
+) -> None:
+    """Audio-aware trim + undersize rescue + gap fill (in-place on words).
+
+    Replaces the blind last-word-to-line_end stretch with evidence-based
+    duration management:
+      Pass 1 — trim overflow words to their actual vocal extent
+      Pass 2 — rescue undersize words into adjacent freed space
+      Pass 3 — audio-capped gap fill (never extends past voice + margin)
+    """
+    if not words:
+        return
+
+    energy_ends: Dict[int, float] = {}
+
+    # Pass 1: trim
+    for i, w in enumerate(words):
+        ws, we = w.start, w.end
+        if we - ws <= TRIM_MAX_DURATION:
+            continue
+        next_event = (words[i + 1].start - TRIM_GAP) if i + 1 < len(words) else line_end
+        candidates = [we, next_event, ws + TRIM_MAX_DURATION]
+        if peaks:
+            e_end = _trim_energy_end(peaks, ws, we, floor, TRIM_TAIL, pps)
+            if e_end is not None:
+                candidates.append(e_end)
+                energy_ends[i] = e_end
+        for ot in onsets:
+            if ws + 0.08 < ot < we:
+                candidates.append(ot - TRIM_GAP)
+                break
+        real_end = max(min(candidates), ws + MIN_WORD_DURATION)
+        w.end = round(real_end, 3)
+
+    # Pass 2: rescue undersize
+    for i, w in enumerate(words):
+        ws, we = w.start, w.end
+        dur = we - ws
+        if dur >= MIN_WORD_DURATION * 2:
+            continue
+        deficit = TRIM_RESCUE_TARGET - dur
+        if deficit <= 0:
+            continue
+        next_start = words[i + 1].start if i + 1 < len(words) else line_end
+        end_room = next_start - we
+        if end_room > 0.001:
+            give = min(deficit, end_room)
+            we += give
+            deficit -= give
+            w.end = round(we, 3)
+        if deficit > 0 and i > 0:
+            prev_end = words[i - 1].end
+            start_room = ws - prev_end
+            if start_room > 0.001:
+                give = min(deficit, start_room)
+                w.start = round(ws - give, 3)
+
+    # Pass 3: audio-capped gap fill
+    for i, w in enumerate(words):
+        ws, we = w.start, w.end
+        next_event = words[i + 1].start if i + 1 < len(words) else line_end
+        gap_to_next = next_event - we
+        if gap_to_next <= TRIM_GAP_THRESHOLD:
+            continue
+        hard_cap = ws + TRIM_FILL_CAP
+        if i in energy_ends:
+            audio_cap = energy_ends[i] + TRIM_FILL_MARGIN
+        else:
+            audio_cap = hard_cap
+        target = min(hard_cap, audio_cap, we + (gap_to_next - TRIM_GAP_THRESHOLD) + 0.01)
+        new_end = min(target, next_event)
+        w.end = round(max(new_end, we), 3)
 
 
 def refine_synced_lines(
@@ -55,14 +178,19 @@ def refine_synced_lines(
                     line.words[i].end = min(line.words[i].end, line.words[i + 1].start - 0.001)
                     if line.words[i].end <= line.words[i].start:
                         line.words[i].end = line.words[i].start + MIN_WORD_DURATION
-        if line.words:
-            if line.end - line.words[-1].start >= MIN_WORD_DURATION:
-                line.words[-1].end = line.end
-            else:
-                line.words[-1].end = line.words[-1].start + MIN_WORD_DURATION
         for w in line.words:
             if w.end - w.start < 0.001:
                 w.end = w.start + MIN_WORD_DURATION
+
+    noise_floor_val = _trim_noise_floor(waveform_peaks) * TRIM_FLOOR_MULT
+    for line in sync_result.lines:
+        if not line.words:
+            continue
+        line_onsets = [float(t) for t in vocal_onset_times if line.start <= t <= line.end]
+        _audio_aware_post_process(
+            line.words, line.start, line.end, line_onsets,
+            waveform_peaks, noise_floor_val, peaks_per_second,
+        )
     return sync_result
 
 

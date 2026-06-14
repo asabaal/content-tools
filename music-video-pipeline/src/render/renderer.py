@@ -570,6 +570,21 @@ class VideoRenderer:
                     spacing = max(spacing, base_font_size * 0.35)
                 gw = [resolved[i]["wW"] for i in group]
                 total_w = sum(gw) + spacing * max(0, len(group) - 1)
+
+                max_w = self.width * 0.92
+                if total_w > max_w:
+                    scale = max_w / total_w
+                    min_size = max(24, int(base_font_size * 0.40))
+                    for wi in group:
+                        resolved[wi]["word_size"] = max(min_size, int(resolved[wi]["word_size"] * scale))
+                        f = self._get_font(resolved[wi]["word_size"], font_family)
+                        resolved[wi]["wW"] = f.getbbox(words[wi]["text"])[2]
+                    spacing = self._base_spacing(int(base_font_size * scale))
+                    if use_styled:
+                        spacing = max(spacing, int(base_font_size * scale) * 0.35)
+                    gw = [resolved[i]["wW"] for i in group]
+                    total_w = sum(gw) + spacing * max(0, len(group) - 1)
+
                 x = (self.width - total_w) / 2
                 for j, wi in enumerate(group):
                     resolved[wi]["px_x"] = x + gw[j] / 2

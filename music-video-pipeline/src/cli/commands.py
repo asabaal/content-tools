@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import gc
 import json
 import logging
 import sys
@@ -106,6 +107,43 @@ def _run_ingest(proj: MusicVideoProject) -> dict | None:
     return result_data
 
 
+def _build_combined_vocals(vocal_candidates_info: list, data_dir) -> Path:
+    """Build a combined-vocals WAV from all vocal stems.
+
+    Returns the path to the combined file. If it already exists, the
+    file is reused without rebuilding.
+    """
+    combined_path = Path(data_dir) / "cache" / "stems" / "combined_vocals.wav"
+    if combined_path.exists():
+        return combined_path
+
+    import librosa
+    import numpy as np
+
+    combined_audio = None
+    combined_sr = None
+    for vc in vocal_candidates_info:
+        audio, sr = librosa.load(str(vc["path"]), sr=None, mono=True)
+        if combined_audio is None:
+            combined_audio = audio
+            combined_sr = sr
+        else:
+            min_len = min(len(combined_audio), len(audio))
+            combined_audio[:min_len] += audio[:min_len]
+
+    if combined_audio is not None:
+        peak = np.max(np.abs(combined_audio))
+        if peak > 0:
+            combined_audio = combined_audio / peak * min(peak, 1.0)
+
+    combined_path.parent.mkdir(parents=True, exist_ok=True)
+    import soundfile as sf
+    sf.write(str(combined_path), combined_audio, combined_sr)
+    del combined_audio
+
+    return combined_path
+
+
 def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = False, vocal_stem: str = "auto", whisper_model: str = "auto") -> None:
     audio_path = proj.paths.resolve_audio(proj.data_dir)
     if audio_path is None:
@@ -192,6 +230,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                 import soundfile as sf_write
                 sf_write.write(str(combined_mix_path), combined_audio, combined_sr)
                 click.echo(f"    Combined mix: {len(combined_audio)/combined_sr:.1f}s -> {combined_mix_path.name}")
+                del combined_audio
 
     if combined_mix_path is not None:
         click.echo(f"\n  Analyzing combined mix (from stems): {combined_mix_path.name}")
@@ -204,6 +243,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
     analyzer = AudioAnalyzer()
     features = analyzer.analyze(analysis_audio_path)
     peaks, _ = analyzer.generate_waveforms()
+    analyzer.release_audio()
 
     if all_stem_paths:
         for sp in all_stem_paths:
@@ -264,25 +304,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
         if vocal_stem != "auto":
             click.echo(f"    Vocal stem override: {vocal_stem}" + (f", whisper model override: {whisper_model}" if whisper_model != "auto" else ""))
             if vocal_stem == "combined_vocals":
-                combined_audio = None
-                combined_sr = None
-                for vc in vocal_candidates_info:
-                    import librosa
-                    audio, sr = librosa.load(str(vc["path"]), sr=None, mono=True)
-                    if combined_audio is None:
-                        combined_audio = audio
-                        combined_sr = sr
-                    else:
-                        min_len = min(len(combined_audio), len(audio))
-                        combined_audio[:min_len] += audio[:min_len]
-                if combined_audio is not None:
-                    peak = np.max(np.abs(combined_audio))
-                    if peak > 0:
-                        combined_audio = combined_audio / peak * min(peak, 1.0)
-                combined_path = proj.data_dir / "cache" / "stems" / "combined_vocals.wav"
-                combined_path.parent.mkdir(parents=True, exist_ok=True)
-                import soundfile as sf
-                sf.write(str(combined_path), combined_audio, combined_sr)
+                combined_path = _build_combined_vocals(vocal_candidates_info, proj.data_dir)
                 _do_transcribe(str(combined_path), "combined_vocals", "combined vocals")
             else:
                 vc = next((vc for vc in vocal_candidates_info if vc["stem_type"] == vocal_stem), None)
@@ -356,54 +378,35 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                 )
 
                 if has_unmatched and len(transcriptions) > 1:
-                    combined_audio_buf = None
-                    combined_buf_sr = None
-                    for vc in vocal_candidates_info:
-                        import librosa
-                        audio, sr = librosa.load(str(vc["path"]), sr=None, mono=True)
-                        if combined_audio_buf is None:
-                            combined_audio_buf = audio
-                            combined_buf_sr = sr
-                        else:
-                            min_len = min(len(combined_audio_buf), len(audio))
-                            combined_audio_buf[:min_len] += audio[:min_len]
-                    if combined_audio_buf is not None:
-                        peak = np.max(np.abs(combined_audio_buf))
-                        if peak > 0:
-                            combined_audio_buf = combined_audio_buf / peak * min(peak, 1.0)
+                    combined_path = _build_combined_vocals(vocal_candidates_info, proj.data_dir)
 
-                        combined_path = proj.data_dir / "cache" / "stems" / "combined_vocals.wav"
-                        combined_path.parent.mkdir(parents=True, exist_ok=True)
-                        import soundfile as sf
-                        sf.write(str(combined_path), combined_audio_buf, combined_buf_sr)
-
-                        unmatched_count = sum(
-                            1 for li in range(len(non_empty_lyrics))
-                            if all(scored[st][1].get(li, 0.0) < 0.9 for st in scored)
+                    unmatched_count = sum(
+                        1 for li in range(len(non_empty_lyrics))
+                        if all(scored[st][1].get(li, 0.0) < 0.9 for st in scored)
+                    )
+                    click.echo(f"    {unmatched_count} line(s) unmatched in individual stems — transcribing combined vocals...")
+                    try:
+                        combined_transcription = analyzer.transcribe_with_fallback(
+                            str(combined_path), lyrics_lines=lyrics_for_coverage
                         )
-                        click.echo(f"    {unmatched_count} line(s) unmatched in individual stems — transcribing combined vocals...")
-                        try:
-                            combined_transcription = analyzer.transcribe_with_fallback(
-                                str(combined_path), lyrics_lines=lyrics_for_coverage
-                            )
-                            combined_transcription["source"] = combined_path.name
-                            combined_transcription["stem_type"] = "combined_vocals"
-                            if stem_validation:
-                                combined_transcription["stem_validation"] = stem_validation
-                            model_used = combined_transcription.get("whisper_model", "small")
-                            click.echo(f"      Combined vocals Whisper model: {model_used} ({len(combined_transcription.get('segments', []))} segments)")
-                            fallback_info = combined_transcription.get("whisper_fallback_attempts")
-                            if fallback_info and len(fallback_info) > 1:
-                                for attempt in fallback_info:
-                                    click.echo(f"        {attempt['model']}: {attempt['segments']} segments, {attempt['unmatched']} unmatched lines")
-                            transcriptions["combined_vocals"] = combined_transcription
-                            (proj.data_dir / "vocal_transcription_combined_vocals.json").write_text(
-                                json.dumps(combined_transcription, indent=2, ensure_ascii=False), encoding="utf-8")
-                            scored["combined_vocals"] = _score_transcription(combined_transcription)
-                            combined_score = scored["combined_vocals"]
-                            click.echo(f"      Combined vocals coverage: {combined_score[0]:.0%} ({sum(1 for r in combined_score[1].values() if r > 0.9)}/{len(non_empty_lyrics)} lines)")
-                        except Exception as e:
-                            click.echo(f"    WARNING: Combined vocals transcription failed: {e}", err=True)
+                        combined_transcription["source"] = combined_path.name
+                        combined_transcription["stem_type"] = "combined_vocals"
+                        if stem_validation:
+                            combined_transcription["stem_validation"] = stem_validation
+                        model_used = combined_transcription.get("whisper_model", "small")
+                        click.echo(f"      Combined vocals Whisper model: {model_used} ({len(combined_transcription.get('segments', []))} segments)")
+                        fallback_info = combined_transcription.get("whisper_fallback_attempts")
+                        if fallback_info and len(fallback_info) > 1:
+                            for attempt in fallback_info:
+                                click.echo(f"        {attempt['model']}: {attempt['segments']} segments, {attempt['unmatched']} unmatched lines")
+                        transcriptions["combined_vocals"] = combined_transcription
+                        (proj.data_dir / "vocal_transcription_combined_vocals.json").write_text(
+                            json.dumps(combined_transcription, indent=2, ensure_ascii=False), encoding="utf-8")
+                        scored["combined_vocals"] = _score_transcription(combined_transcription)
+                        combined_score = scored["combined_vocals"]
+                        click.echo(f"      Combined vocals coverage: {combined_score[0]:.0%} ({sum(1 for r in combined_score[1].values() if r > 0.9)}/{len(non_empty_lyrics)} lines)")
+                    except Exception as e:
+                        click.echo(f"    WARNING: Combined vocals transcription failed: {e}", err=True)
 
                 scoring_summary = {
                     st: {
@@ -479,26 +482,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                 if stem_validation:
                     active_transcription["stem_validation"] = stem_validation
 
-                combined_path = proj.data_dir / "cache" / "stems" / "combined_vocals.wav"
-                if not combined_path.exists():
-                    combined_audio_buf2 = None
-                    combined_buf2_sr = None
-                    for vc in vocal_candidates_info:
-                        import librosa
-                        audio, sr = librosa.load(str(vc["path"]), sr=None, mono=True)
-                        if combined_audio_buf2 is None:
-                            combined_audio_buf2 = audio
-                            combined_buf2_sr = sr
-                        else:
-                            min_len = min(len(combined_audio_buf2), len(audio))
-                            combined_audio_buf2[:min_len] += audio[:min_len]
-                    if combined_audio_buf2 is not None:
-                        peak = np.max(np.abs(combined_audio_buf2))
-                        if peak > 0:
-                            combined_audio_buf2 = combined_audio_buf2 / peak * min(peak, 1.0)
-                    combined_path.parent.mkdir(parents=True, exist_ok=True)
-                    import soundfile as sf
-                    sf.write(str(combined_path), combined_audio_buf2, combined_buf2_sr)
+                combined_path = _build_combined_vocals(vocal_candidates_info, proj.data_dir)
 
                 click.echo(f"    Extracting vocal onsets from combined stems...")
 
@@ -588,6 +572,10 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
             )
             analysis_data["vocal_transcription_word_count"] = len(active_transcription.get("words", []))
 
+            del transcriptions
+            analyzer.release_models()
+            gc.collect()
+
     elif stem_validation.get("fallback") == "full_mix":
         vocal_onset_data = {
             "source": "combined_mix (fallback)",
@@ -607,6 +595,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
         "peaks": peaks,
     }
     proj.waveforms_file.write_text(json.dumps(waveform_data, indent=2, ensure_ascii=False), encoding="utf-8")
+    gc.collect()
 
     effective_bpm = midi_tempo if midi_tempo is not None else features.beats.tempo
     proj.audio_info = type(proj.audio_info)(

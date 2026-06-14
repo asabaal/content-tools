@@ -19,6 +19,30 @@ class AudioAnalyzer:
         self.n_fft = n_fft
         self._audio: Optional[np.ndarray] = None
         self._sr: Optional[int] = None
+        self._whisper_models: dict = {}
+
+    def _get_whisper_model(self, model_size: str):
+        if model_size not in self._whisper_models:
+            from faster_whisper import WhisperModel
+            import ctranslate2
+            if ctranslate2.get_cuda_device_count() > 0:
+                device = "cuda"
+                compute_type = "float16"
+            else:
+                device = "cpu"
+                compute_type = "int8"
+            logger.info("Loading Whisper model: %s (%s/%s)", model_size, device, compute_type)
+            self._whisper_models[model_size] = WhisperModel(
+                model_size, device=device, compute_type=compute_type
+            )
+        return self._whisper_models[model_size]
+
+    def release_models(self) -> None:
+        self._whisper_models.clear()
+
+    def release_audio(self) -> None:
+        self._audio = None
+        self._sr = None
 
     def load_audio(self, audio_path: Union[str, Path], start_time: Optional[float] = None, end_time: Optional[float] = None) -> None:
         import librosa
@@ -101,9 +125,7 @@ class AudioAnalyzer:
         return np.asarray(onset_times, dtype=float)
 
     def transcribe_vocal_stem(self, stem_path: Union[str, Path], model_size: str = "small") -> dict:
-        from faster_whisper import WhisperModel
-
-        model = WhisperModel(model_size, device="cpu", compute_type="int8")
+        model = self._get_whisper_model(model_size)
         segments, info = model.transcribe(str(stem_path), word_timestamps=True)
 
         result = {
@@ -212,8 +234,7 @@ class AudioAnalyzer:
         import soundfile as sf
         import tempfile
 
-        audio, sr = librosa.load(stem_path, sr=None, mono=True)
-        total_duration = len(audio) / sr
+        total_duration = librosa.get_duration(path=stem_path)
 
         gaps = []
         prev_end = segments[0]["end"]
@@ -240,13 +261,17 @@ class AudioAnalyzer:
 
             clip_start = max(0, gap_start - self.GAP_PADDING_SECONDS)
             clip_end = min(total_duration, gap_end + self.GAP_PADDING_SECONDS)
-            offset_samples = int(clip_start * sr)
-            end_samples = int(clip_end * sr)
-            clip_audio = audio[offset_samples:end_samples]
+            clip_dur = clip_end - clip_start
+            clip_audio, sr = librosa.load(
+                stem_path, sr=None, mono=True,
+                offset=clip_start, duration=clip_dur,
+            )
 
             with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
                 sf.write(tmp.name, clip_audio, sr)
                 tmp_path = tmp.name
+
+            del clip_audio
 
             try:
                 logger.info("Re-transcribing gap %.1f-%.1f (%.0fs) from %s",

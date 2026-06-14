@@ -569,12 +569,14 @@ class TestRefineSyncedLines:
         w = result.lines[0].words
         assert w[0].end <= w[1].start
 
-    def test_last_word_end_set_to_line_end(self):
+    def test_last_word_trimmed_not_stretched_to_line_end(self):
         words = [_w("hello", 1.0, 1.5, "transcription")]
         line = SyncedLine(text="hello", start=1.0, end=3.0, words=words)
         sr = SyncResult(lines=[line])
         result = refine_synced_lines(sr, np.array([1.0]))
-        assert result.lines[0].words[-1].end == 3.0
+        last = result.lines[0].words[-1]
+        assert last.end < 3.0
+        assert last.end == 2.5
 
     def test_with_waveform_peaks(self):
         peaks = [0.5] * 300

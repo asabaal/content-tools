@@ -285,3 +285,71 @@ class TestAudioAnalyzerTranscription:
         peaks, dur = a.generate_waveforms()
         assert dur > 0
         assert isinstance(peaks, list)
+
+
+class TestAudioAnalyzerReleaseAudio:
+    def test_release_audio_clears_buffer(self, sample_wav):
+        a = AudioAnalyzer()
+        a.load_audio(sample_wav)
+        assert a._audio is not None
+        a.release_audio()
+        assert a._audio is None
+        assert a._sr is None
+
+    def test_release_audio_after_analyze(self, sample_wav):
+        a = AudioAnalyzer()
+        a.analyze(sample_wav)
+        assert a._audio is not None
+        a.release_audio()
+        assert a._audio is None
+
+    def test_release_audio_idempotent(self):
+        a = AudioAnalyzer()
+        a.release_audio()
+        assert a._audio is None
+
+
+class TestWhisperModelCache:
+    def test_cache_returns_same_instance(self):
+        from unittest.mock import patch, MagicMock
+
+        a = AudioAnalyzer()
+        mock_model = MagicMock()
+        with patch("faster_whisper.WhisperModel", return_value=mock_model) as mock_cls:
+            m1 = a._get_whisper_model("small")
+            m2 = a._get_whisper_model("small")
+            assert m1 is m2
+            assert mock_cls.call_count == 1
+
+    def test_cache_separate_sizes(self):
+        from unittest.mock import patch, MagicMock
+
+        a = AudioAnalyzer()
+        mock_small = MagicMock()
+        mock_medium = MagicMock()
+        with patch("faster_whisper.WhisperModel", side_effect=[mock_small, mock_medium]):
+            m1 = a._get_whisper_model("small")
+            m2 = a._get_whisper_model("medium")
+            assert m1 is not m2
+            assert m1 is mock_small
+            assert m2 is mock_medium
+
+    def test_release_models_clears_cache(self):
+        from unittest.mock import patch, MagicMock
+
+        a = AudioAnalyzer()
+        with patch("faster_whisper.WhisperModel", return_value=MagicMock()):
+            a._get_whisper_model("small")
+            assert len(a._whisper_models) == 1
+            a.release_models()
+            assert len(a._whisper_models) == 0
+
+    def test_release_models_allows_reload(self):
+        from unittest.mock import patch, MagicMock
+
+        a = AudioAnalyzer()
+        with patch("faster_whisper.WhisperModel", return_value=MagicMock()) as mock_cls:
+            a._get_whisper_model("small")
+            a.release_models()
+            a._get_whisper_model("small")
+            assert mock_cls.call_count == 2
