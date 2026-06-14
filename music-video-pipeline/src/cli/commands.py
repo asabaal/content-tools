@@ -1318,11 +1318,11 @@ def audit(project_dir, output, mood, intro_image, intro_title, intro_subtitle,
             word_entries.append(entry)
 
             if not json_only:
-                t = start + 0.08
+                t = start + min(0.08, max(duration / 2, 0.001))
                 try:
                     img = renderer.render_frame(t)
                     safe_text = "".join(c if c.isalnum() else "_" for c in text).strip("_")
-                    filename = f"line{li:02d}_word{wi:02d}_{safe_text}.png"
+                    filename = f"line{li:02d}_word{wi:02d}_{start:.3f}-{end:.3f}_{safe_text}.png"
                     img.save(str(audit_dir / filename))
                 except Exception as e:
                     entry["render_error"] = str(e)
@@ -1533,7 +1533,7 @@ def _generate_contact_sheet(audit_dir: Path, word_entries: list, frame_w: int, f
         y = row * cell_h
 
         safe_text = "".join(c if c.isalnum() else "_" for c in entry["text"]).strip("_")
-        filename = f"line{entry['line']:02d}_word{entry['word']:02d}_{safe_text}.png"
+        filename = f"line{entry['line']:02d}_word{entry['word']:02d}_{entry['start']:.3f}-{entry['end']:.3f}_{safe_text}.png"
         frame_path = audit_dir / filename
 
         if frame_path.exists():

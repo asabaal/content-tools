@@ -129,6 +129,7 @@ def run_stage_for_song(
     verbose: bool = False,
     vocal_stem: str = "auto",
     whisper_model: str = "auto",
+    json_only: bool = False,
 ) -> dict:
     proj_dir = proj["dir"]
     slug = proj["slug"]
@@ -149,7 +150,9 @@ def run_stage_for_song(
         if verbose:
             cmd.append("-v")
     elif stage == "audit":
-        cmd = [sys.executable, str(MVP_SCRIPT), "audit", "-p", str(proj_dir), "--json-only"]
+        cmd = [sys.executable, str(MVP_SCRIPT), "audit", "-p", str(proj_dir)]
+        if json_only:
+            cmd.append("--json-only")
         if mood:
             cmd.extend(["--mood", mood])
     elif stage == "render":
@@ -200,6 +203,7 @@ def run_stage(
     verbose: bool = False,
     vocal_stem: str = "auto",
     whisper_model: str = "auto",
+    json_only: bool = False,
 ) -> list[dict]:
     to_run = []
     skipped = []
@@ -243,7 +247,7 @@ def run_stage(
     if jobs <= 1:
         for proj in to_run:
             print(f"  [{proj['slug']}] {stage:8s} RUNNING...", end="", flush=True)
-            result = run_stage_for_song(proj, stage, mood=mood, force=force, verbose=verbose, vocal_stem=vocal_stem, whisper_model=whisper_model)
+            result = run_stage_for_song(proj, stage, mood=mood, force=force, verbose=verbose, vocal_stem=vocal_stem, whisper_model=whisper_model, json_only=json_only)
             elapsed = result.get("elapsed", 0)
             status = result["status"]
             if status == "ok":
@@ -263,7 +267,7 @@ def run_stage(
         with ProcessPoolExecutor(max_workers=jobs) as executor:
             futures = {
                 executor.submit(
-                    run_stage_for_song, proj, stage, mood=mood, force=force, verbose=verbose, vocal_stem=vocal_stem, whisper_model=whisper_model
+                    run_stage_for_song, proj, stage, mood=mood, force=force, verbose=verbose, vocal_stem=vocal_stem, whisper_model=whisper_model, json_only=json_only
                 ): proj
                 for proj in to_run
             }
@@ -321,6 +325,7 @@ def cmd_run(
     verbose: bool = False,
     vocal_stem: str = "auto",
     whisper_model: str = "auto",
+    json_only: bool = False,
 ) -> None:
     all_results = []
     failed_stages = {}
@@ -340,6 +345,7 @@ def cmd_run(
             verbose=verbose,
             vocal_stem=vocal_stem,
             whisper_model=whisper_model,
+            json_only=json_only,
         )
         all_results.extend(results)
 
@@ -451,6 +457,7 @@ def main():
     run_parser.add_argument("--songs-from", default=None, help="Include only songs listed in file (one per line)")
     run_parser.add_argument("--exclude", default=None, help="Exclude these song slugs (comma-separated)")
     run_parser.add_argument("--exclude-from", default=None, help="Exclude songs listed in file (one per line)")
+    run_parser.add_argument("--json-only", action="store_true", help="Audit: skip frame rendering (summary.json only)")
 
     dash_parser = sub.add_parser("dashboard", help="Generate timing dashboard")
     dash_parser.add_argument("--dry-run", action="store_true", help="Show what would run")
@@ -521,6 +528,7 @@ def main():
             verbose=args.verbose,
             vocal_stem=args.vocal_stem,
             whisper_model=args.whisper_model,
+            json_only=args.json_only,
         )
 
     elif args.command == "dashboard":
