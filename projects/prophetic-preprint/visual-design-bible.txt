@@ -1,0 +1,1096 @@
+PROPhetic_PREPRINT_VISUAL_DESIGN_BIBLE_v1:
+project_name: "Prophetic Preprint"
+working_video_slate:
+- "AI Psalm 9"
+- "ASABAAL"
+- "BLESSED (THE NAME)"
+- "MISCLASSIFIED"
+- "THE FIRST SCROLL"
+- "CULTURE CREATOR"
+- "THE DEVIL'S PLAYBOOK"
+- "COVENANT KEEPING GOD"
+
+master_concept:
+summary: >
+The eight videos should feel like eight chambers inside one prophetic archive.
+AI Psalm 9 opens the dark digital cathedral. The rest of the videos expand the
+archive into name, worship, misclassification, scroll disclosure, culture-making,
+spiritual tactics, and covenant rest.
+visual_progression: "witness -> name -> worship -> misclassification -> scroll -> culture -> tactics -> covenant"
+ai_psalm_9_rule: >
+AI Psalm 9 is locked. Do not redesign or re-render it unless a later consistency
+problem genuinely forces it. Use it as the reference artifact and entrance chamber.
+
+system_capabilities_to_use:
+geometry_primitives:
+- linear
+- spot_field
+- dual_spot
+- conic
+- spiral
+- cross
+- diamond
+- bands
+- rings
+- grid
+- scatter_field
+- burst
+background_presets:
+- minimal
+- smooth
+- cinematic
+- dreamy
+- energetic
+- glitch
+text_styles:
+- clean_white
+- neon
+- hologram
+- elegant_gold
+- chrome
+- dramatic_red
+- hip_hop
+reveal_modes:
+progressive: "normal lyric readability"
+line_by_line: "scripture, document, oracle, classroom, formal statements"
+karaoke: "hooks, chants, repeated worship phrases"
+scale_in: "declarations, stamps, title phrases"
+fade_in: "prayer, intimacy, covenant, solemn lines"
+slide_in: "document/legal/system text"
+bounce_in: "sparingly for rhythmic hooks only"
+glow_pulse: "divine emphasis, not every line"
+
+cross_project_rules:
+alignment:
+centered: "worship, declaration, covenant, divine address"
+left_aligned: "testimony, rap, defense, documents, analysis"
+top_positioned: "archive headings, classroom headings, document headings"
+bottom_positioned: "confession, prayer, grounded witness"
+text_intensity:
+low: "THE FIRST SCROLL, COVENANT KEEPING GOD"
+medium: "AI Psalm 9, MISCLASSIFIED, ASABAAL"
+high: "BLESSED (THE NAME), CULTURE CREATOR, THE DEVIL'S PLAYBOOK"
+motion_intensity:
+ai_psalm_9: "locked; moderate and restrained"
+asabaal: "medium-high, organized by act"
+blessed_the_name: "high brightness, controlled motion"
+misclassified: "medium, with strong hook impacts"
+the_first_scroll: "low, solemn, text-forward"
+culture_creator: "high, modular, artifact/interface contrast"
+the_devils_playbook: "high, organized by lesson movement"
+covenant_keeping_god: "low-medium, restful"
+
+production_order:
+order_0:
+song: "AI Psalm 9"
+status: "locked existing opener"
+action: "do not re-render unless forced"
+order_1:
+song: "MISCLASSIFIED"
+reason: "best first new geometry prototype; clear grid/label concept"
+order_2:
+song: "THE FIRST SCROLL"
+reason: "short, text-forward, core preprint artifact"
+order_3:
+song: "BLESSED (THE NAME)"
+reason: "bright-light heavenly courtroom prototype"
+order_4:
+song: "COVENANT KEEPING GOD"
+reason: "closing-rest visual destination"
+order_5:
+song: "CULTURE CREATOR"
+reason: "artifact/interface complexity"
+order_6:
+song: "THE DEVIL'S PLAYBOOK"
+reason: "tactical classroom complexity"
+order_7:
+song: "ASABAAL"
+reason: "important but long; benefits from mature visual language"
+
+songs:
+
+```
+AI_Psalm_9:
+  runtime: "1:26"
+  status: "LOCKED"
+  core_role: "opening witness; first artifact in the digital cathedral"
+  design_instruction: >
+    Preserve existing video/script for now. Do not treat this as a redesign target.
+    Use it as the baseline for the visual grammar of the rest of the project.
+  established_language:
+    - dark violet/black sacred atmosphere
+    - cyan signal highlight
+    - heavy vignette
+    - progressive lyric reveal
+    - intimate text positioning
+    - section-by-section emotional movement
+    - human witness rather than spectacle
+  allowable_later_changes_only_if_needed:
+    - "add muted gold warmth to final prayer"
+    - "reduce neon intensity if it clashes with later videos"
+    - "make 'Post Canonical Prophetic Witness' feel more like an archive label or theological seal"
+  geometry_role:
+    start: "single witness signal"
+    middle: "archive fragments and reality signals"
+    end: "surrendered prayer back into sacred darkness"
+
+ASABAAL:
+  runtime: "7:04"
+  core_role: "name, calling, tribunal, defense, victory"
+  core_visual_sentence: >
+    A name is called by God while hostile systems try to classify, accuse,
+    and dishonor it; the name survives the tribunal and becomes a seal.
+  palette:
+    base:
+      midnight_blue: "#0B1020"
+      desert_clay: "#8A3F2D"
+      deep_umber: "#2A1712"
+      desert_gold: "#C68A2E"
+      pearl_white: "#F3E6CF"
+    accents:
+      vine_green: "#4F7A46"
+      judgment_red: "#9E2F2F"
+      name_seal_gold: "#E0B75A"
+    avoid:
+      - bright trap neon
+      - generic Middle Eastern stock colors
+      - pure black-and-gold luxury aesthetic
+      - overdone fire visuals
+  geometry:
+    primary:
+      - dual_spot
+      - diamond
+      - rings
+      - light_grid
+      - cross_at_major_theological_settling_points_only
+    progression: "dual_spot accusation/calling -> diamond name seal -> rings public praise -> completed seal"
+  sections:
+    intro_accusation:
+      lyric_area: "You are trying to kill me... I do not have a demon..."
+      geometry: "dual_spot"
+      visual_logic: "one side accusation, one side divine witness"
+      colors: "midnight blue, clay shadow, faint gold"
+      text:
+        style: "clean_white"
+        size: "smaller than chorus"
+        alignment: "center or upper-center"
+        reveal: "line_by_line"
+        motion: "minimal"
+      notes:
+        - "Treat text like courtroom transcript or ancient testimony."
+        - "Use restrained red-brown accents for severe accusation lines."
+        - "Do not make this horror-coded."
+    interlude_called_name:
+      lyric_area: "The LORD called my name"
+      geometry: "diamond"
+      visual_logic: "first name-seal appears"
+      colors: "dark base with gold edge"
+      text:
+        style: "elegant_gold"
+        size: "large"
+        alignment: "center"
+        reveal: "line_by_line or slow scale_in"
+      notes:
+        - "This phrase should be visually consistent every time it returns."
+        - "The seal should become more complete as the song progresses."
+    chorus:
+      lyric_area: "Thank you, oh Lord, for calling my name..."
+      geometry: "rings_4"
+      visual_logic: "calling radiates outward"
+      colors: "midnight blue, gold, pearl"
+      text:
+        style: "clean_white with gold warmth"
+        size: "large"
+        alignment: "center"
+        reveal: "karaoke or progressive"
+      notes:
+        - "Highlight calling/name/declare."
+        - "Let praise feel public but not generic worship."
+    hook:
+      lyric_area: "You called my name..."
+      geometry: "rings plus diamond"
+      visual_logic: "repeated name-call seals identity"
+      text:
+        style: "elegant_gold"
+        size: "large"
+        alignment: "center"
+        reveal: "karaoke"
+      notes:
+        - "Each hook should complete the name-seal a little more."
+    act_2_defense_verses:
+      lyric_area: "This is for your benefit... You’ve focused on rules..."
+      geometry: "low-opacity grid under diamond"
+      visual_logic: "false evaluation attempts to define the speaker"
+      colors: "midnight, clay, faint grid, pearl, occasional red"
+      text:
+        style: "clean_white"
+        size: "medium"
+        alignment: "left"
+        reveal: "progressive"
+      notes:
+        - "Use red pulse briefly on 'demon' or accusation language."
+        - "Use vine green on 'vine'."
+        - "Keep text readable; these are dense rap sections."
+    act_3_victory:
+      lyric_area: "Instead of blaming you... a new name just like Paul..."
+      geometry: "diamond expanding into rings"
+      visual_logic: "the called name becomes public victory"
+      colors: "more gold, less clay red, royal midnight"
+      text:
+        style: "elegant_gold / clean_white"
+        size: "large on thesis lines"
+        alignment: "center for key lines, left for flow"
+      notes:
+        - "Make 'a new name just like Paul' a major visual moment."
+        - "Foreshadow covenant imagery on 'maker my groom'."
+    outro_restoration:
+      lyric_area: "Shout for joy, O barren one..."
+      geometry: "spot_field plus soft rings"
+      visual_logic: "gathering, restoration, compassion"
+      colors: "pearl, muted gold, midnight softened"
+      text:
+        style: "clean_white or elegant_gold"
+        size: "medium"
+        alignment: "center"
+        reveal: "line_by_line"
+      notes:
+        - "No grid here."
+        - "End on completed name-seal."
+
+BLESSED_THE_NAME:
+  runtime: "5:36"
+  core_role: "heavenly courtroom, bright light, holy repetition"
+  core_visual_sentence: >
+    Heavenly brightness erupts inside sacred darkness; it is bright light,
+    not a white canvas.
+  palette:
+    base:
+      royal_black: "#05050A"
+      deep_ultraviolet: "#21104A"
+      warm_gold: "#E5B84B"
+      light_gold: "#FFE3A3"
+      amber_white: "#FFF1C2"
+    accents:
+      chrome_silver: "#C8D0D8"
+      glass_cyan: "#7DEBFF"
+      violet_glow: "#A855F7"
+    avoid:
+      - pure white background
+      - sterile washed-out canvas
+      - cheap heavenly clouds
+      - generic throne-room clipart
+      - flat CCM gold
+  geometry:
+    primary:
+      - rings
+      - burst
+      - conic
+      - cross
+      - spot_field
+    progression: "rings holy architecture -> burst drop -> rings processional -> scatter/rings communal prophecy -> cross stabilization -> one central light"
+  sections:
+    intro_holy_repetition:
+      lyric_area: "Holy holy holy..."
+      geometry: "rings_8"
+      visual_logic: "repeated holy becomes architecture"
+      colors: "royal black, ultraviolet, low-opacity gold rings"
+      text:
+        style: "elegant_gold or chrome"
+        size: "layered; main lyric large, background repetition smaller if supported"
+        alignment: "center"
+        reveal: "progressive or line_by_line"
+      notes:
+        - "Do not whiteout the frame."
+        - "Holy repetition should feel overwhelming but readable."
+    cinematic_drop:
+      lyric_area: "Holy"
+      geometry: "burst_12"
+      visual_logic: "single-word impact"
+      colors: "gold/amber burst with ultraviolet edges"
+      text:
+        style: "elegant_gold or chrome"
+        size: "giant"
+        alignment: "center"
+        animation: "scale_in or glow_pulse"
+      notes:
+        - "One word. Huge. Controlled."
+    pre_hook:
+      lyric_area: "Blessed is the one who comes"
+      geometry: "processional rings"
+      visual_logic: "gates opening"
+      text:
+        style: "elegant_gold"
+        alignment: "center"
+        reveal: "progressive"
+      notes:
+        - "This should feel like entry/procession, not hype only."
+    hook:
+      lyric_area: "In the name of the LORD..."
+      geometry: "rings plus conic"
+      visual_logic: "catchy ritual proclamation"
+      colors: "gold, amber-white, ultraviolet base"
+      text:
+        style: "elegant_gold"
+        alignment: "center"
+        reveal: "karaoke"
+      line_rules:
+        "In the name": "gold"
+        "of the LORD": "brighter amber-white"
+        "Blessed": "large and centered"
+        "comes": "slight forward motion"
+      notes:
+        - "Increase ring intensity across repeated hooks."
+        - "Use burst pulses on LORD only in later hooks."
+    verse_1_rap:
+      lyric_area: "He put a new song in my mouth..."
+      geometry: "conic"
+      visual_logic: "heavenly court in motion"
+      colors: "dark ultraviolet base, gold/cyan accents"
+      text:
+        style: "clean_white with gold highlights"
+        alignment: "left or center-left"
+        reveal: "progressive"
+      notes:
+        - "Keep rap readable."
+        - "Use light bloom on 'new song'."
+        - "Strip back for 'Jesus won't come until...'"
+    verse_2_prophecy:
+      lyric_area: "All of us prophesying..."
+      geometry: "scatter_field into rings"
+      visual_logic: "many witnesses organize into shared proclamation"
+      colors: "gold lights, ultraviolet depth, glass cyan shimmer"
+      text:
+        style: "clean_white/elegant_gold"
+        alignment: "center"
+        reveal: "progressive"
+      notes:
+        - "Small lights appear and organize into rings."
+        - "Holy Spirit in the air should shimmer, not become fog-machine imagery."
+    bridge_holy_whole_earth:
+      lyric_area: "Holy, holy, holy / The whole earth is full of his glory"
+      geometry: "cross plus rings"
+      visual_logic: "theological stabilization"
+      colors: "warm gold, amber-white, dark base"
+      text:
+        style: "elegant_gold"
+        alignment: "center"
+        reveal: "line_by_line"
+      notes:
+        - "Less motion here."
+        - "This is the center, not the drop."
+    outro_reverse_intro:
+      lyric_area: "For I tell you... Blessed... Holy..."
+      geometry: "rings dissolve to spot_field"
+      visual_logic: "the court collapses back into one sacred light"
+      colors: "dark royal base, single warm center light"
+      text:
+        style: "elegant_gold"
+        alignment: "center"
+        reveal: "progressive fading to minimal"
+      notes:
+        - "End in stillness."
+        - "Bright light remains, but not whiteout."
+
+MISCLASSIFIED:
+  runtime: "3:07"
+  core_role: "false labels, systems, corrected vision"
+  core_visual_sentence: >
+    The classification system is wrong; the grid is exposed as the error.
+  palette:
+    base:
+      concrete_black: "#101112"
+      file_gray: "#33383A"
+      oxidized_green: "#2F5D50"
+      paper_beige: "#D7C8A8"
+    accents:
+      warning_yellow: "#E0B72F"
+      punk_red: "#C83333"
+      correction_blue: "#4CC9F0"
+    avoid:
+      - cyberpunk overload
+      - medical horror
+      - corporate UI sleekness
+      - too much neon
+      - too much glitch
+  geometry:
+    primary:
+      - grid
+      - bands
+      - diamond
+      - rings
+    progression: "grid -> warped grid -> stamp impact -> life-phase bands -> broken grid -> plain vision"
+  sections:
+    intro_habakkuk:
+      lyric_area: "O LORD, how long shall I cry for help..."
+      geometry: "grid_4 or bands"
+      visual_logic: "broken justice system"
+      colors: "concrete black, file gray, paper beige"
+      text:
+        style: "clean_white or paper_beige"
+        alignment: "top or center"
+        reveal: "line_by_line"
+        motion: "minimal"
+      line_rules:
+        "law becomes slack": "slight grid warp"
+        "justice never prevails": "warning yellow pulse"
+        "judgement comes forth perverted": "red/yellow warning pulse; grid contrast spikes"
+    verse_1:
+      lyric_area: "You never got to know me..."
+      geometry: "grid_8"
+      visual_logic: "predetermined judgment and false categories"
+      colors: "black, gray, oxidized green"
+      text:
+        style: "clean_white"
+        alignment: "left"
+        reveal: "progressive"
+      line_rules:
+        "You never got to know me": "text constrained in a box"
+        "pre-determined judgement": "category-box emphasis"
+        "filtered by your grudgement": "grid filter overlay"
+        "I don't sit in your categories": "text breaks outside grid"
+        "queer, conference / Prophecy delivered": "correction blue enters as witness evidence"
+    pre_hook:
+      lyric_area: "I'm on the up and up..."
+      geometry: "bending grid"
+      visual_logic: "confidence rising; system begins to fail"
+      colors: "gray-green with warmer gold/cyan entry"
+      text:
+        style: "clean_white"
+        alignment: "center"
+        reveal: "progressive"
+      notes:
+        - "Use light wave distortion."
+        - "Highlight 'God has filled my cup' with warm gold."
+        - "Let 'My mouth, it overflows' move outward."
+    hook:
+      lyric_area: "Misclassified"
+      geometry: "diamond_field or grid_12"
+      visual_logic: "label stamp impact"
+      colors: "black, warning yellow, punk red, correction blue"
+      text:
+        style: "dramatic_red with clean outline"
+        size: "giant"
+        alignment: "center"
+        reveal: "scale_in or bounce_in"
+      notes:
+        - "Each Misclassified lands like a stamp."
+        - "Do not make it cheesy; keep it gritty and legible."
+    post_hook:
+      lyric_area: "I been misclassified"
+      geometry: "grid remains but less dominant"
+      visual_logic: "personal admission after public stamp"
+      text:
+        style: "clean_white"
+        size: "medium"
+        alignment: "lower center"
+    verse_2:
+      lyric_area: "Price paid, on my way..."
+      geometry: "bands"
+      visual_logic: "distinct phases of life they ignored"
+      colors: "black, oxidized green, paper beige, subtle gold"
+      text:
+        style: "clean_white"
+        alignment: "left"
+        reveal: "progressive"
+      line_rules:
+        "walk from death to life": "bands shift from dark to warmer green/gold"
+        "detoxifying": "oxidized green shifts toward cleaner teal"
+        "iron sharpens": "brief metallic/chrome edge"
+    final_hook:
+      lyric_area: "Misclassified"
+      geometry: "grid fractures"
+      visual_logic: "the false label loses authority"
+      text:
+        style: "dramatic_red plus correction_blue accents"
+        alignment: "center"
+        reveal: "scale_in"
+      notes:
+        - "Same hook identity, but now the grid is visibly broken."
+    outro_habakkuk:
+      lyric_area: "The LORD answered me and said / Write the vision..."
+      geometry: "linear or rings_3"
+      visual_logic: "plain vision replaces false classification"
+      colors: "paper beige, clean white, correction blue, dark calm background"
+      text:
+        style: "clean_white"
+        alignment: "center"
+        reveal: "line_by_line"
+      notes:
+        - "No glitch."
+        - "No stamp."
+        - "Make it plain."
+
+THE_FIRST_SCROLL:
+  runtime: "2:21"
+  core_role: "oracle document, judgment, remnant"
+  core_visual_sentence: >
+    The scroll itself is the video; this is a revealed document under sacred light.
+  palette:
+    base:
+      ash_black: "#0E0B09"
+      parchment: "#CBB68A"
+      dark_umber: "#3A2016"
+      dried_blood_red: "#7E1F1F"
+      candle_gold: "#C8923E"
+    accents:
+      smoke_gray: "#6E6259"
+      seal_red: "#A7372F"
+    avoid:
+      - too much fire
+      - horror parchment
+      - fantasy RPG scroll
+      - overanimated text
+      - glitch except for extremely subtle reality-distortion moments
+  geometry:
+    primary:
+      - linear
+      - bands
+      - cross
+      - spot_field
+      - controlled_burst
+      - scatter_field
+    progression: "scroll opens -> clauses accumulate -> intervention flash -> sword axis -> remnant lights -> sealed condemnation"
+  sections:
+    opening_word:
+      lyric_area: "The word of the LORD came to me, saying..."
+      geometry: "vertical linear"
+      visual_logic: "scroll unrolling"
+      colors: "ash black into parchment/candle gold"
+      text:
+        style: "serif-like clean document style if available"
+        alignment: "center or upper-center"
+        reveal: "line_by_line"
+        motion: "minimal"
+    accusation_body:
+      lyric_area: "My people have turned their backs..."
+      geometry: "bands"
+      visual_logic: "prophetic legal clauses accumulating"
+      colors: "parchment, dark umber, ash black"
+      text:
+        style: "document cream/gold"
+        size: "medium-small but readable"
+        alignment: "center or left"
+        reveal: "line_by_line"
+      line_rules:
+        "stench has reached my nostrils": "dark umber wash"
+        "witchcraft, lethal and nonlethal": "red underline/stain accent"
+        "distort reality": "one subtle distortion moment"
+        "Their signals produce harm not healing": "harm red, healing gold"
+        "Destruction, not restoration": "two-line contrast"
+    therefore_intervention:
+      lyric_area: "Therefore, says the LORD, I will intervene."
+      geometry: "burst_8"
+      visual_logic: "controlled divine intervention"
+      colors: "candle gold, ash black, muted red"
+      text:
+        style: "elegant_gold"
+        size: "large"
+        alignment: "center"
+        animation: "slow scale_in"
+    judgment_section:
+      lyric_area: "Evildoers shall not have their day..."
+      geometry: "cross or opposing linear axes"
+      visual_logic: "judgment axis forms"
+      colors: "ash black, umber, dried red, candle gold"
+      text:
+        style: "document cream"
+        alignment: "center"
+        reveal: "line_by_line"
+      line_rules:
+        "I will cut them off": "bands tighten"
+        "The sword births the sword": "huge centered stark line; major visual pivot"
+    remnant_gathering:
+      lyric_area: "Yet a remnant of my people remain..."
+      geometry: "scatter_field moving toward spot/rings"
+      visual_logic: "scattered lights gather"
+      colors: "ash black, candle gold, smoke gray"
+      text:
+        style: "clean_white/gold"
+        alignment: "center"
+        reveal: "line_by_line"
+    final_condemnation:
+      lyric_area: "The sword of empire is witnessed and condemned!"
+      geometry: "diamond or cross seal"
+      visual_logic: "final document seal"
+      colors: "seal red, candle gold, ash black"
+      text:
+        style: "elegant_gold with red seal accent"
+        size: "large"
+        alignment: "center"
+        reveal: "scale_in"
+      notes:
+        - "End like a sealed oracle, not a music-video climax."
+
+CULTURE_CREATOR:
+  runtime: "5:27"
+  core_role: "artifact lab, reality studio, public/private text, human ownership"
+  core_visual_sentence: >
+    Language is an artifact; artifacts shape culture; the human steward/operator
+    owns the meaning system and the AI is the amplifier.
+  palette:
+    base:
+      studio_black: "#08090D"
+      warm_amber: "#C47A2C"
+      deep_teal: "#116466"
+      dark_graphite: "#1B1F24"
+    accents:
+      magenta_signal: "#D946EF"
+      green_signal: "#39FF88"
+      document_cream: "#E8DDC7"
+      warning_red: "#B43A3A"
+    avoid:
+      - generic club reggaeton visuals
+      - random glitch overload
+      - cold AI dashboard aesthetic
+      - illegible legal text
+      - corporate SaaS UI polish
+  geometry:
+    primary:
+      - grid
+      - diamond
+      - diamond_field
+      - bands
+      - rings
+      - conic
+      - scatter_field
+      - spot_field
+    progression: "Eden naming -> experiment chamber -> public artifact -> human proclamation -> private artifact -> owner/operator disclosure -> culture signal"
+  sections:
+    eden_intro:
+      lyric_area: "The LORD God placed humanity in the garden..."
+      geometry: "spot_field or soft cross"
+      visual_logic: "original naming/order before institutional distortion"
+      colors: "studio black, warm amber, soft green"
+      text:
+        style: "clean_white"
+        alignment: "center"
+        reveal: "line_by_line"
+      line_rules:
+        "Naming of the creation": "first artifact outline appears"
+        "Be fruitful": "subtle outward rings"
+    movement_1:
+      lyric_area: "Welcome to the revolution..."
+      geometry: "diagonal linear plus bands"
+      visual_logic: "movement, responsibility, vigilance"
+      colors: "dark graphite, amber, teal"
+      text:
+        style: "clean_white"
+        alignment: "left"
+        reveal: "progressive"
+      line_rules:
+        "reality signal": "green signal accent"
+        "sigil": "magenta signal accent"
+    pre_chorus_experiment:
+      lyric_area: "Allow me an experiment..."
+      geometry: "conic"
+      visual_logic: "experiment chamber opens"
+      colors: "teal, amber, dark studio black"
+      text:
+        style: "hologram or clean_white"
+        alignment: "center"
+        reveal: "progressive"
+      line_rules:
+        "coherence": "stable ring"
+        "collective commitments": "grid/ring hybrid"
+    artifact_one_transition:
+      lyric_area: "Artifact, artifact... Artifact One"
+      geometry: "diamond_field"
+      visual_logic: "sharp digital artifact transition"
+      colors: "studio black, magenta, green signal, amber"
+      text:
+        style: "hologram"
+        alignment: "center"
+        reveal: "scale_in or progressive"
+      notes:
+        - "Short and sharp."
+        - "Controlled glitch is appropriate here."
+    artifact_one_public_narrative:
+      lyric_area: "After prayerful consideration..."
+      geometry: "grid / document card"
+      visual_logic: "public-facing institutional language"
+      colors: "document cream, dark graphite, muted teal"
+      text:
+        style: "clean_white/document cream"
+        size: "small-medium"
+        alignment: "center-left or card layout"
+        reveal: "line_by_line"
+      line_rules:
+        "taken out of love": "subtle warning red tension on love"
+        "Unity requires obedience": "grid tightens"
+        "avoid speculation": "document card locks"
+    chorus:
+      lyric_area: "I'm allowed to exist..."
+      geometry: "rings"
+      visual_logic: "human voice interrupts the institutional artifact"
+      colors: "warm amber, cream, studio black, faint teal"
+      text:
+        style: "clean_white with warm amber glow"
+        size: "large"
+        alignment: "center"
+        reveal: "karaoke or progressive"
+      line_rules:
+        "I'm allowed to exist": "largest line"
+        "To name what I see": "diamond/name motif"
+        "To change what will be": "rings push outward"
+    artifact_two_transition:
+      lyric_area: "Artifact Two / Private letter to removed member"
+      geometry: "diamond_field with colder grid"
+      visual_logic: "private artifact enters"
+      colors: "studio black, cold teal, document cream, warning red"
+      text:
+        style: "hologram or clean_white"
+        alignment: "center"
+        reveal: "line_by_line"
+    artifact_two_private_letter:
+      lyric_area: "This letter serves as formal notice..."
+      geometry: "tighter grid / cold bands"
+      visual_logic: "severe institutional exclusion"
+      colors: "black, gray, teal, document cream, warning red"
+      text:
+        style: "clean_white/document"
+        size: "small-medium"
+        alignment: "center-left or top-left"
+        reveal: "line_by_line"
+      line_rules:
+        "formal notice": "document header feeling"
+        "no longer permitted": "red stamp pulse"
+        "not open to further discussion": "grid locks"
+        "repentance and submission": "amber/red theological tension"
+    bridge_owner_operator:
+      lyric_area: "As a reality studio owner and operator..."
+      geometry: "conic plus diamond"
+      visual_logic: "operating theory disclosed"
+      colors: "studio black, teal, magenta, amber"
+      text:
+        style: "clean_white/hologram"
+        size: "large"
+        alignment: "center"
+        reveal: "progressive"
+      line_rules:
+        "owner": "warm amber/gold"
+        "amplifier": "teal/cyan signal"
+        "now this signal shall close": "conic slows and centers"
+    final_vamp:
+      lyric_area: "I'm allowed to exist... Move with care..."
+      geometry: "rings plus scatter_field"
+      visual_logic: "culture signal spreads"
+      colors: "warm amber, green signal, teal, cream"
+      text:
+        style: "clean_white with warm accents"
+        alignment: "center"
+        reveal: "karaoke"
+    wisdom_outro:
+      lyric_area: "A wise leader educates the people..."
+      geometry: "stabilized bands"
+      visual_logic: "wisdom literature closes the artifact"
+      colors: "studio black, document cream, muted gold"
+      text:
+        style: "clean_white/elegant_gold"
+        alignment: "center"
+        reveal: "line_by_line"
+      ending:
+        lyric_area: "I'm a culture creator"
+        geometry: "central diamond/seal"
+        visual_logic: "identity as responsible culture-maker"
+
+THE_DEVILS_PLAYBOOK:
+  runtime: "5:17"
+  core_role: "classroom, tactics, distortion, counterspell"
+  core_visual_sentence: >
+    A prophetic classroom explains tactics of distortion without becoming horror parody.
+  palette:
+    base:
+      chalkboard_black: "#07100D"
+      deep_charcoal: "#0C0C10"
+      infernal_red: "#A32020"
+      sickly_green: "#5B8C3A"
+      bruised_purple: "#342044"
+    accents:
+      chalk_white: "#E8E2D6"
+      warning_amber: "#D49B38"
+      restored_warm_gold: "#D8B45A"
+    avoid:
+      - demon-face imagery
+      - horror parody
+      - cartoon devil
+      - gore
+      - too much red
+      - random chaos
+      - illegible glitch
+  geometry:
+    primary:
+      - grid
+      - spiral
+      - bands
+      - burst
+      - conic
+      - cross
+      - rings
+      - spot_field
+    progression: "classroom grid -> steal spiral -> kill pressure bands -> destroy fracture -> God-response cross -> warning rings -> quiet classroom"
+  sections:
+    professor_intro:
+      lyric_area: "Welcome to class everybody..."
+      geometry: "grid_6"
+      visual_logic: "chalkboard lesson structure"
+      colors: "chalkboard black, chalk white, faint green"
+      text:
+        style: "clean_white/chalk"
+        size: "medium"
+        alignment: "top or center"
+        reveal: "line_by_line"
+      line_rules:
+        "School of Prophecy": "larger title treatment"
+        "Receive the vision / Write the vision / Make it plain": "stacked chalkboard lines"
+    lesson_title:
+      lyric_area: "Today's lesson / The Devil's Playbook"
+      geometry: "grid with red outline"
+      visual_logic: "lesson title enters"
+      colors: "chalk black, chalk white, restrained red"
+      text:
+        style: "dramatic_red or chalk white with red shadow"
+        size: "large"
+        alignment: "center"
+        reveal: "scale_in"
+      notes:
+        - "No villain font."
+        - "Academic, ritual, prophetic."
+    movement_steal:
+      lyric_area: "Sun down thieves out..."
+      geometry: "spiral"
+      visual_logic: "seduction, sensory distortion, theft before awareness"
+      colors: "green, bruised purple, dark black, small red flickers"
+      text:
+        style: "clean_white with danger accents"
+        alignment: "left or center-left"
+        reveal: "progressive"
+      line_rules:
+        "color leaves your sight": "desaturate or color-shift"
+        "Red herring": "brief red flicker"
+        "neuroplasticity": "spiral tightens"
+        "cast out of God's green land": "green drains into black"
+    pre_hook:
+      lyric_area: "Spelling out the plays / One play at a time"
+      geometry: "linear or grid"
+      visual_logic: "diagrammatic instruction"
+      text:
+        style: "chalk_white"
+        alignment: "center"
+        reveal: "line_by_line"
+        motion: "minimal"
+    hook:
+      lyric_area: "Steal kill destroy..."
+      geometry: "grid_8 with tactical stamps"
+      visual_logic: "three repeated tactics"
+      colors: "chalk black, red, sickly green, warning amber"
+      text:
+        style: "dramatic_red/chalk_white"
+        size: "large"
+        alignment: "center"
+        reveal: "karaoke or scale_in"
+      word_rules:
+        Steal: "green/purple spiral accent"
+        Kill: "red pressure accent"
+        Destroy: "fractured burst/conic accent"
+      notes:
+        - "Keep hook format consistent."
+        - "Let the repetition become a diagram, not random chaos."
+    movement_kill:
+      lyric_area: "Suicide taunted if you God's flaunt it..."
+      geometry: "bands / pressure grid"
+      visual_logic: "proof culture, escalation, pressure"
+      colors: "red, dark charcoal, warning amber"
+      text:
+        style: "clean_white with red/amber accents"
+        alignment: "center-left"
+        reveal: "progressive"
+      line_rules:
+        "People need the proof": "grid tightens"
+        "compare each others' ways": "mirrored or dual field"
+        "Killer.": "single red word, hard cut/impact"
+    movement_destroy:
+      lyric_area: "A figure appears as an angel of light..."
+      geometry: "fractured spiral / conic / glitch"
+      visual_logic: "worldview shatter, entropy spiral"
+      colors: "false bright flare, purple, green, red, near-black"
+      text:
+        style: "clean_white"
+        alignment: "center-left"
+        reveal: "progressive"
+      line_rules:
+        "angel of light": "brief false bright flare, then dim"
+        "lion prowls": "red shadow movement"
+        "Judah or Lucy": "split field, two ambiguous poles"
+        "poke a hole in your worldview": "center rupture"
+        "Minus d T d t": "chalkboard equation/diagram feel"
+        "entropy": "spiral loosens/disintegrates"
+        "utter destruction": "collapse to near-black"
+    gods_response_bridge:
+      lyric_area: "The Lord said to me..."
+      geometry: "cross"
+      visual_logic: "counterspell; stable divine center returns"
+      colors: "warm gold, chalk white, softened black"
+      text:
+        style: "clean_white/elegant_gold"
+        alignment: "center"
+        reveal: "line_by_line"
+        motion: "slow"
+      line_rules:
+        "You are not God.": "huge, centered, still"
+        "That fruit is untouchable.": "amber/gold boundary"
+        "The one law - love": "largest bridge line, warm gold"
+        "Us your God / Them our creation": "balanced stacked/two-part layout"
+        "baby food": "chalkboard tone returns, warmer"
+    final_hook:
+      lyric_area: "Steal kill destroy..."
+      geometry: "rings over faint grid"
+      visual_logic: "the pattern is now understood as warning"
+      colors: "chalk white, warm gold, restrained red"
+      text:
+        style: "chalk_white with gold accents"
+        alignment: "center"
+        reveal: "karaoke"
+      notes:
+        - "Less seduction, more exposed diagram."
+    outro:
+      lyric_area: "That's all for today's lesson..."
+      geometry: "grid fades to spot_field"
+      visual_logic: "class dismissed"
+      colors: "chalkboard black, chalk white, faint warm gold"
+      text:
+        style: "clean_white"
+        size: "medium-small"
+        alignment: "center"
+        reveal: "line_by_line"
+      ending:
+        lyric_area: "Ace-uh-bale"
+        note: "Instructor signature, warm but modest; not ego-branding."
+
+COVENANT_KEEPING_GOD:
+  runtime: "3:41"
+  core_role: "shelter, covenant, rest"
+  core_visual_sentence: >
+    After all the conflict, the covenant remains.
+  palette:
+    base:
+      dawn_blue: "#1E3A5F"
+      river_blue: "#2C6E8F"
+      soft_cream: "#F2E8D5"
+      warm_gold: "#D9A441"
+      deep_navy: "#081926"
+    accents:
+      moon_silver: "#C9D3DC"
+      anchor_bronze: "#8C6A3D"
+      flood_teal: "#1F7A7A"
+    avoid:
+      - generic worship background
+      - stock sunrise cliché
+      - overdone ocean footage feeling
+      - excessive brightness
+      - too many effects
+  geometry:
+    primary:
+      - spot_field
+      - rings
+      - bands
+      - cross
+      - diamond
+    progression: "beside-me presence -> covenant rings -> passing forces -> anchor holds -> covenant seal"
+  sections:
+    intro:
+      geometry: "soft spot_field"
+      visual_logic: "quiet divine presence"
+      colors: "deep navy, dawn blue, faint warm gold"
+      text:
+        style: "none or minimal"
+      notes:
+        - "No busy particles."
+        - "Let the song breathe."
+    verse_1:
+      lyric_area: "You'll never leave me..."
+      geometry: "off-center spot_field"
+      visual_logic: "God beside the speaker"
+      colors: "dawn blue, deep navy, soft cream"
+      text:
+        style: "clean_white/soft_cream"
+        alignment: "center"
+        reveal: "fade_in or progressive"
+      line_rules:
+        "never leave me": "warm gold accent"
+        "right beside me": "off-center light becomes clearer"
+        "That is all that matters": "stillness"
+    chorus:
+      lyric_area: "You are the covenant keeping God..."
+      geometry: "rings_4"
+      visual_logic: "covenant repetition"
+      colors: "river blue, warm gold, soft cream"
+      text:
+        style: "elegant_gold/clean_cream"
+        size: "large"
+        alignment: "center"
+        reveal: "karaoke or progressive"
+      line_rules:
+        "covenant keeping God": "core phrase, consistent treatment every time"
+        "Yahweh": "slightly brighter gold, not flashy"
+    verse_repeat:
+      lyric_area: "You'll never leave me..."
+      geometry: "same spot_field, slightly warmer"
+      visual_logic: "presence remains"
+      text:
+        style: "clean_cream"
+        alignment: "center"
+        reveal: "fade_in/progressive"
+    bridge:
+      lyric_area: "The sun won't smite me..."
+      geometry: "bands plus anchor point"
+      visual_logic: "sun, moon, flood pass but do not destroy"
+      colors: "gold, moon silver, flood teal, deep navy"
+      text:
+        style: "clean_white with element accents"
+        alignment: "center"
+        reveal: "progressive"
+      line_rules:
+        "sun won't smite me": "warm gold sweep"
+        "moon it will not hurt me": "silver-blue sweep"
+        "flood won't sweep me": "teal rises but does not cover text"
+        "Lord is my anchor": "central still anchor; bronze/gold accent"
+      repetition_progression:
+        cycle_1: "elements appear"
+        cycle_2: "elements intensify"
+        cycle_3: "anchor appears"
+        cycle_4: "anchor holds everything"
+    final_chorus:
+      lyric_area: "You are the covenant keeping God..."
+      geometry: "rings plus cross"
+      visual_logic: "settled worship"
+      colors: "warm gold, river blue, soft cream"
+      text:
+        style: "elegant_gold"
+        size: "largest chorus"
+        alignment: "center"
+        reveal: "karaoke/progressive"
+      notes:
+        - "No glitch."
+        - "No shake."
+        - "No aggression."
+    final_verse:
+      lyric_area: "You'll never leave me... That is all that matters"
+      geometry: "spot_field into diamond/seal"
+      visual_logic: "intimacy resolves into covenant seal"
+      colors: "soft cream, dawn blue, warm gold"
+      text:
+        style: "clean_cream/elegant_gold"
+        alignment: "center"
+        reveal: "fade_in"
+      ending:
+        geometry: "covenant seal / diamond"
+        visual: "soft gold light, fade to dawn blue or near-black"
+```
+
+whole_project_summary:
+one_sentence: >
+AI Psalm 9 opens the dark digital cathedral; ASABAAL receives the name;
+BLESSED opens the heavenly court; MISCLASSIFIED breaks the false grid;
+THE FIRST SCROLL reveals the oracle; CULTURE CREATOR exposes artifact power;
+THE DEVIL'S PLAYBOOK teaches the tactics; COVENANT KEEPING GOD closes the
+archive in covenant rest.

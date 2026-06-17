@@ -435,10 +435,9 @@ class TestCommandCoverageGaps:
             result = runner.invoke(cli, ["analyze", "--project", str(tmp_path)])
 
         assert result.exit_code == 0
-        assert "No single stem" in result.output or "merging" in result.output.lower()
+        assert "sole vocal source" in result.output or "No single stem" in result.output or "merging" in result.output.lower()
         assert (tmp_path / "data" / "vocal_onsets.json").exists()
         assert (tmp_path / "data" / "vocal_waveforms.json").exists()
-        assert (tmp_path / "data" / "cache" / "stems" / "combined_vocals.wav").exists()
 
     def test_combined_waveform_failure(self, runner, tmp_path):
         from unittest.mock import patch

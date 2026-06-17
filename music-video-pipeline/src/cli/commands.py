@@ -430,7 +430,10 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                         for li in scored[st][1]
                     )
 
-                    if scored[best_stype][0] >= 1.0 and not other_adds_value:
+                    if scored[best_stype][0] >= 0.5:
+                        active_stem_type = best_stype
+                        click.echo(f"    {best_stype} mutual score {scored[best_stype][0]:.3f} — using as sole vocal source")
+                    elif not other_adds_value:
                         active_stem_type = best_stype
                         click.echo(f"    {best_stype} covers all lyrics — using as primary vocal source")
                     else:
@@ -457,11 +460,25 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                             per_line_source[str(line.index)] = best_for_line or list(transcriptions.keys())[0]
 
                         all_segments = []
+                        included_stems = []
                         for st, tr in transcriptions.items():
+                            stem_score = scored.get(st, (0, {}))[0]
+                            if stem_score < 0.3:
+                                click.echo(f"    Excluding {st} from merge (mutual score {stem_score:.3f} < 0.3)")
+                                continue
+                            included_stems.append(st)
                             for seg in tr.get("segments", []):
                                 seg_copy = dict(seg)
                                 seg_copy["stem_type"] = st
                                 all_segments.append(seg_copy)
+                        if not all_segments:
+                            click.echo(f"    All stems below threshold — including all as fallback")
+                            for st, tr in transcriptions.items():
+                                included_stems.append(st)
+                                for seg in tr.get("segments", []):
+                                    seg_copy = dict(seg)
+                                    seg_copy["stem_type"] = st
+                                    all_segments.append(seg_copy)
                         all_segments.sort(key=lambda s: s.get("start", 0))
                         combined_segments = all_segments
 
@@ -472,7 +489,7 @@ def _run_analysis(proj: MusicVideoProject, verbose: bool = False, force: bool = 
                     "language_probability": next(iter(transcriptions.values())).get("language_probability", 0.0),
                     "duration": next(iter(transcriptions.values())).get("duration", 0.0),
                     "segments": combined_segments,
-                    "words": [w for tr in transcriptions.values() for w in tr.get("words", [])],
+                    "words": [w for st in included_stems for w in transcriptions[st].get("words", [])],
                     "source": " + ".join(Path(vc["path"]).name for vc in vocal_candidates_info),
                     "vocal_source": "combined",
                     "per_line_source": per_line_source,

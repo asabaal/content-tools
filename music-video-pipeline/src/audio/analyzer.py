@@ -26,15 +26,22 @@ class AudioAnalyzer:
             from faster_whisper import WhisperModel
             import ctranslate2
             if ctranslate2.get_cuda_device_count() > 0:
-                device = "cuda"
-                compute_type = "float16"
+                self._whisper_models.clear()
+                try:
+                    logger.info("Loading Whisper model: %s (cuda/float16)", model_size)
+                    self._whisper_models[model_size] = WhisperModel(
+                        model_size, device="cuda", compute_type="float16"
+                    )
+                except Exception as e:
+                    logger.warning("CUDA load failed (%s), falling back to CPU", e)
+                    self._whisper_models[model_size] = WhisperModel(
+                        model_size, device="cpu", compute_type="int8"
+                    )
             else:
-                device = "cpu"
-                compute_type = "int8"
-            logger.info("Loading Whisper model: %s (%s/%s)", model_size, device, compute_type)
-            self._whisper_models[model_size] = WhisperModel(
-                model_size, device=device, compute_type=compute_type
-            )
+                logger.info("Loading Whisper model: %s (cpu/int8)", model_size)
+                self._whisper_models[model_size] = WhisperModel(
+                    model_size, device="cpu", compute_type="int8"
+                )
         return self._whisper_models[model_size]
 
     def release_models(self) -> None:
@@ -124,7 +131,7 @@ class AudioAnalyzer:
         onset_times = librosa.frames_to_time(onset_frames, sr=sr, hop_length=self.hop_length)
         return np.asarray(onset_times, dtype=float)
 
-    def transcribe_vocal_stem(self, stem_path: Union[str, Path], model_size: str = "small") -> dict:
+    def transcribe_vocal_stem(self, stem_path: Union[str, Path], model_size: str = "small", skip_gap_fill: bool = False) -> dict:
         model = self._get_whisper_model(model_size)
         segments, info = model.transcribe(str(stem_path), word_timestamps=True)
 
@@ -156,7 +163,8 @@ class AudioAnalyzer:
             result["segments"].append(seg_data)
 
         result["segments"] = self._filter_hallucinations(result["segments"], info.language)
-        result["segments"] = self._fill_gaps(result["segments"], str(stem_path), model_size, info.language)
+        if not skip_gap_fill:
+            result["segments"] = self._fill_gaps(result["segments"], str(stem_path), model_size, info.language)
         result["words"] = [w for seg in result["segments"] for w in seg.get("words", [])]
 
         return result
@@ -276,7 +284,7 @@ class AudioAnalyzer:
             try:
                 logger.info("Re-transcribing gap %.1f-%.1f (%.0fs) from %s",
                             gap_start, gap_end, gap_dur, stem_path)
-                gap_result = self.transcribe_vocal_stem(tmp_path, model_size=model_size)
+                gap_result = self.transcribe_vocal_stem(tmp_path, model_size=model_size, skip_gap_fill=True)
                 gap_segs = gap_result["segments"]
 
                 gap_segs = self._filter_hallucinations(gap_segs, gap_result.get("language", detected_language))
