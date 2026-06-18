@@ -469,6 +469,9 @@ def main():
     unsynced_parser.add_argument("--json", action="store_true", dest="json_output", help="Output machine-readable JSON")
     unsynced_parser.add_argument("--summary-only", action="store_true", help="Only show the collection summary")
 
+    review_parser = sub.add_parser("review", help="Generate transcription review dashboard")
+    review_parser.add_argument("--open", action="store_true", help="Open in browser")
+
     args = parser.parse_args()
     collection_dir = Path(args.project_dir).resolve()
 
@@ -536,6 +539,16 @@ def main():
 
     elif args.command == "unsynced":
         cmd_unsynced(collection_dir, projects, args)
+
+    elif args.command == "review":
+        review_script = PIPELINE_DIR / "scripts" / "review_dashboard.py"
+        if not review_script.exists():
+            print(f"  Error: review script not found at {review_script}")
+            sys.exit(1)
+        cmd = [sys.executable, str(review_script), str(collection_dir)]
+        if args.open:
+            cmd.append("--open")
+        subprocess.run(cmd, cwd=str(PIPELINE_DIR))
 
 
 if __name__ == "__main__":

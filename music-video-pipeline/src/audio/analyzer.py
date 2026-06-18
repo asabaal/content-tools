@@ -230,7 +230,7 @@ class AudioAnalyzer:
         _, match_ratios, _, _ = _align_lyrics_to_segments(lyrics_lines, segments)
         return sum(1 for r in match_ratios.values() if r <= 0.0)
 
-    MIN_GAP_SECONDS = 30
+    MIN_GAP_SECONDS = 5
     GAP_PADDING_SECONDS = 2
     MAX_FILL_DURATION = 300
 
@@ -275,6 +275,13 @@ class AudioAnalyzer:
                 offset=clip_start, duration=clip_dur,
             )
 
+            clip_rms = librosa.feature.rms(y=clip_audio, frame_length=2048, hop_length=512)[0]
+            if clip_rms.max() < 0.01:
+                logger.info("Skipping gap %.1f-%.1f (%.0fs) — no vocal content (RMS max %.4f)",
+                            gap_start, gap_end, gap_dur, clip_rms.max())
+                del clip_audio
+                continue
+
             with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
                 sf.write(tmp.name, clip_audio, sr)
                 tmp_path = tmp.name
@@ -295,6 +302,8 @@ class AudioAnalyzer:
                     for w in seg.get("words", []):
                         w["start"] = round(w["start"] + clip_start, 3)
                         w["end"] = round(w["end"] + clip_start, 3)
+                    seg["gap_fill"] = True
+                    seg["gap_region"] = f"{gap_start:.1f}-{gap_end:.1f}"
 
                 if gap_segs:
                     logger.info("Gap %.1f-%.1f: found %d new segments", gap_start, gap_end, len(gap_segs))

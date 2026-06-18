@@ -701,3 +701,109 @@ def analyze_alignment(
         recommendation_reason=reason,
         onset_cluster_details=cluster_details,
     )
+
+
+def detect_transcription_discrepancies(
+    lines: List[LyricLine],
+    segments: List[dict],
+    line_segs: Dict[int, List[int]],
+    match_ratios: Dict[int, float],
+) -> List[dict]:
+    """Detect mismatches between lyrics and transcription for human review.
+
+    Returns a list of discrepancy flags, each describing a potential data
+    quality issue where the lyrics and transcription disagree.
+    """
+    flags: List[dict] = []
+    if not lines or not segments:
+        return flags
+
+    for li, line in enumerate(lines):
+        if not line.text.strip():
+            continue
+
+        ratio = match_ratios.get(li, 0.0)
+        lyric_text = _normalize(line.text)
+        lyric_words = lyric_text.split()
+
+        seg_indices = line_segs.get(li, [])
+
+        if not seg_indices:
+            nearest_dist = float('inf')
+            nearest_si = None
+            for si, seg in enumerate(segments):
+                seg_mid = (seg.get("start", 0) + seg.get("end", 0)) / 2
+                line_mid = (line.start + line.end) / 2 if line.end > line.start else line.start
+                dist = abs(seg_mid - line_mid)
+                if dist < nearest_dist:
+                    nearest_dist = dist
+                    nearest_si = si
+
+            if nearest_si is not None and nearest_dist <= 10:
+                seg = segments[nearest_si]
+                seg_text = _normalize(seg.get("text", ""))
+                sim = SequenceMatcher(None, lyric_text, seg_text).ratio()
+                if sim < 0.5 and lyric_words and seg_text:
+                    flags.append({
+                        "type": "misheard_text",
+                        "line": li,
+                        "lyric_text": line.text,
+                        "transcribed_text": seg.get("text", ""),
+                        "segment_index": nearest_si,
+                        "timestamp": f"{seg.get('start', 0):.1f}-{seg.get('end', 0):.1f}",
+                        "similarity": round(sim, 2),
+                        "description": f"Transcription differs significantly from lyrics (similarity {sim:.0%})",
+                        "suggestion": "Check if Whisper misheard the phrase or if lyrics need correction",
+                    })
+            elif nearest_dist > 10 or nearest_si is None:
+                flags.append({
+                    "type": "missing_section",
+                    "line": li,
+                    "lyric_text": line.text,
+                    "timestamp": f"{line.start:.1f}-{line.end:.1f}" if line.end > line.start else f"{line.start:.1f}",
+                    "description": "No transcription segment found near this lyric line",
+                    "suggestion": "Verify vocal content exists at this timestamp, or check if lyrics are correct",
+                })
+            continue
+
+        if ratio < 0.5:
+            seg_texts = [_normalize(segments[si].get("text", "")) for si in seg_indices if si < len(segments)]
+            combined_seg = " ".join(seg_texts)
+            seg_word_count = len(combined_seg.split())
+
+            lyric_word_set = set(lyric_words)
+            seg_word_set = set(combined_seg.split())
+
+            is_repetition = (
+                seg_word_count > 0
+                and len(lyric_words) > seg_word_count * 2
+                and (seg_word_set <= lyric_word_set or lyric_word_set <= seg_word_set)
+            )
+
+            if is_repetition:
+                flags.append({
+                    "type": "repetition_mismatch",
+                    "line": li,
+                    "lyric_text": line.text,
+                    "transcribed_text": " | ".join(segments[si].get("text", "") for si in seg_indices if si < len(segments)),
+                    "lyric_word_count": len(lyric_words),
+                    "transcribed_word_count": seg_word_count,
+                    "timestamp": f"{line.start:.1f}-{line.end:.1f}" if line.end > line.start else f"{line.start:.1f}",
+                    "description": f"Transcription has {seg_word_count} words where lyrics expect {len(lyric_words)}",
+                    "suggestion": "Verify actual repetition count in the audio — lyrics may need correction",
+                })
+            else:
+                sim = SequenceMatcher(None, lyric_text, combined_seg).ratio()
+                if sim < 0.3 and combined_seg:
+                    flags.append({
+                        "type": "misheard_text",
+                        "line": li,
+                        "lyric_text": line.text,
+                        "transcribed_text": " | ".join(segments[si].get("text", "") for si in seg_indices if si < len(segments)),
+                        "timestamp": f"{line.start:.1f}-{line.end:.1f}" if line.end > line.start else f"{line.start:.1f}",
+                        "similarity": round(sim, 2),
+                        "description": f"Transcription differs significantly from lyrics (similarity {sim:.0%})",
+                        "suggestion": "Check if Whisper misheard the phrase or if lyrics need correction",
+                    })
+
+    return flags

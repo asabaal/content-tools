@@ -804,6 +804,13 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
     )
     alignment.save(proj.data_dir / "alignment_analysis.json")
 
+    from lyrics.alignment_analyzer import _align_lyrics_to_segments, detect_transcription_discrepancies
+    discrepancies = []
+    if transcription_segments:
+        non_empty = [l for l in lines if l.text.strip()]
+        disc_line_segs, disc_ratios, _, _ = _align_lyrics_to_segments(non_empty, transcription_segments)
+        discrepancies = detect_transcription_discrepancies(non_empty, transcription_segments, disc_line_segs, disc_ratios)
+
     proj.stages.mark_complete("sync")
 
     click.echo(f"    Lines synced: {len(result.lines)}")
@@ -823,20 +830,37 @@ def _run_sync(proj: MusicVideoProject, verbose: bool = False) -> None:
         click.echo(f"      Recommendation: {alignment.recommendation}")
 
     needs_review = []
+    disc_by_line = {d["line"]: d for d in discrepancies if isinstance(d, dict) and "line" in d}
     for i, line in enumerate(result.lines):
         if not line.words:
             continue
         sources = [w.source for w in line.words]
         interp_count = sum(1 for s in sources if s == "interpolated")
+        entry = None
         if interp_count == len(sources) and len(sources) > 0:
-            needs_review.append({"line_index": i, "text": line.text, "reason": "all_words_interpolated"})
+            entry = {"line_index": i, "text": line.text, "reason": "all_words_interpolated"}
         elif interp_count > len(sources) * 0.5:
-            needs_review.append({"line_index": i, "text": line.text, "reason": "majority_interpolated"})
+            entry = {"line_index": i, "text": line.text, "reason": "majority_interpolated"}
+
+        if i in disc_by_line:
+            d = disc_by_line[i]
+            if entry is None:
+                entry = {"line_index": i, "text": line.text}
+            entry["discrepancy_type"] = d.get("type")
+            entry["discrepancy_description"] = d.get("description")
+            entry["transcribed_text"] = d.get("transcribed_text", "")
+            entry["suggestion"] = d.get("suggestion", "")
+            if entry.get("reason") is None:
+                entry["reason"] = d.get("type", "content_mismatch")
+
+        if entry:
+            needs_review.append(entry)
 
     if needs_review:
         click.echo(f"    Lines needing review: {len(needs_review)}")
         for nr in needs_review[:10]:
-            click.echo(f"      Line {nr['line_index']}: \"{nr['text'][:50]}\" ({nr['reason']})")
+            disc = f" [{nr.get('discrepancy_type','')}]" if nr.get('discrepancy_type') else ""
+            click.echo(f"      Line {nr['line_index']}: \"{nr['text'][:50]}\" ({nr['reason']}){disc}")
         if len(needs_review) > 10:
             click.echo(f"      ... and {len(needs_review) - 10} more")
 
