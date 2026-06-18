@@ -1,0 +1,2670 @@
+{
+  "name": "blessed-the-name",
+  "defaults": {
+    "background_type": "gradient",
+    "background_color": "#111117",
+    "gradient_colors": [
+      "#111117",
+      "#211e29"
+    ],
+    "gradient_direction": "diagonal_tl_br",
+    "texture_type": "vignette_heavy",
+    "texture_opacity": 0.2,
+    "texture_blend_mode": "multiply",
+    "text_auto_contrast": true,
+    "font_size": 112,
+    "animation_type": "fade",
+    "animation_speed": 1.0,
+    "reveal_mode": "progressive",
+    "reveal_words": 1,
+    "reveal_slide": false,
+    "reactivity": [
+      "vocals"
+    ],
+    "text_align": "center"
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#4cc9f0",
+    "text_position": "center",
+    "letter_spacing": 1,
+    "text_shadow": false,
+    "outline": false
+  },
+  "sections": [
+    {
+      "name": "Intro - Heavenly Courtroom",
+      "type": "intro_-_heavenly_courtroom",
+      "lines": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "smooth",
+        "text_style": "neon",
+        "font_family": 10
+      },
+      "lines_overrides": {
+        "0": {
+          "text_align": "left",
+          "background_color": "#121219",
+          "gradient_colors": [
+            "#121219",
+            "#23202a"
+          ]
+        },
+        "1": {
+          "text_align": "left",
+          "background_color": "#0f0f15",
+          "gradient_colors": [
+            "#0f0f15",
+            "#1f1d25"
+          ]
+        },
+        "2": {
+          "text_align": "left",
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212b"
+          ]
+        },
+        "3": {
+          "text_align": "left",
+          "background_color": "#0f0f14",
+          "gradient_colors": [
+            "#0f0f14",
+            "#1f1c25"
+          ]
+        },
+        "4": {
+          "text_align": "left",
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#24212b"
+          ]
+        },
+        "5": {
+          "text_align": "left",
+          "background_color": "#0e0e14",
+          "gradient_colors": [
+            "#0e0e14",
+            "#1f1c25"
+          ]
+        },
+        "6": {
+          "text_align": "left",
+          "background_color": "#14131b",
+          "gradient_colors": [
+            "#14131b",
+            "#24212b"
+          ]
+        },
+        "7": {
+          "text_align": "left",
+          "background_color": "#0e0e13",
+          "gradient_colors": [
+            "#0e0e13",
+            "#1e1c24"
+          ]
+        },
+        "8": {
+          "text_align": "left",
+          "background_color": "#14141b",
+          "gradient_colors": [
+            "#14141b",
+            "#25212c"
+          ]
+        },
+        "9": {
+          "text_align": "left",
+          "background_color": "#0e0e13",
+          "gradient_colors": [
+            "#0e0e13",
+            "#1e1b24"
+          ]
+        },
+        "10": {
+          "text_align": "left",
+          "background_color": "#14141b",
+          "gradient_colors": [
+            "#14141b",
+            "#25222c"
+          ]
+        },
+        "11": {
+          "text_align": "left",
+          "background_color": "#0e0d13",
+          "gradient_colors": [
+            "#0e0d13",
+            "#1e1b23"
+          ]
+        },
+        "12": {
+          "text_align": "left",
+          "background_color": "#15141c",
+          "gradient_colors": [
+            "#15141c",
+            "#25222d"
+          ]
+        }
+      },
+      "words_overrides": {
+        "0.0": {
+          "y": 0.5
+        },
+        "0.1": {
+          "y": 0.5
+        },
+        "0.2": {
+          "y": 0.5
+        },
+        "0.3": {
+          "y": 0.5
+        },
+        "0.4": {
+          "y": 0.8
+        },
+        "0.5": {
+          "y": 0.8
+        },
+        "0.6": {
+          "y": 0.8
+        },
+        "0.7": {
+          "y": 0.8
+        },
+        "1.0": {
+          "y": 0.5
+        },
+        "1.1": {
+          "y": 0.5
+        },
+        "1.2": {
+          "y": 0.5
+        },
+        "1.3": {
+          "y": 0.5
+        },
+        "1.4": {
+          "y": 0.8
+        },
+        "1.5": {
+          "y": 0.8
+        },
+        "1.6": {
+          "y": 0.8
+        },
+        "1.7": {
+          "y": 0.8
+        },
+        "3.0": {
+          "y": 0.5
+        },
+        "3.1": {
+          "y": 0.5
+        },
+        "3.2": {
+          "y": 0.5
+        },
+        "3.3": {
+          "y": 0.5
+        },
+        "3.4": {
+          "y": 0.8
+        },
+        "3.5": {
+          "y": 0.8
+        },
+        "3.6": {
+          "y": 0.8
+        },
+        "3.7": {
+          "y": 0.8
+        },
+        "5.0": {
+          "y": 0.5
+        },
+        "5.1": {
+          "y": 0.5
+        },
+        "5.2": {
+          "y": 0.5
+        },
+        "5.3": {
+          "y": 0.5
+        },
+        "5.4": {
+          "y": 0.8
+        },
+        "5.5": {
+          "y": 0.8
+        },
+        "5.6": {
+          "y": 0.8
+        },
+        "5.7": {
+          "y": 0.8
+        },
+        "7.0": {
+          "y": 0.5
+        },
+        "7.1": {
+          "y": 0.5
+        },
+        "7.2": {
+          "y": 0.5
+        },
+        "7.3": {
+          "y": 0.5
+        },
+        "7.4": {
+          "y": 0.8
+        },
+        "7.5": {
+          "y": 0.8
+        },
+        "7.6": {
+          "y": 0.8
+        },
+        "7.7": {
+          "y": 0.8
+        },
+        "8.0": {
+          "y": 0.5
+        },
+        "8.1": {
+          "y": 0.5
+        },
+        "8.2": {
+          "y": 0.5
+        },
+        "8.3": {
+          "y": 0.5
+        },
+        "8.4": {
+          "y": 0.8
+        },
+        "8.5": {
+          "y": 0.8
+        },
+        "8.6": {
+          "y": 0.8
+        },
+        "8.7": {
+          "y": 0.8
+        },
+        "9.0": {
+          "y": 0.2
+        },
+        "9.1": {
+          "y": 0.2
+        },
+        "9.2": {
+          "y": 0.2
+        },
+        "9.3": {
+          "y": 0.2
+        },
+        "9.4": {
+          "y": 0.2
+        },
+        "9.5": {
+          "y": 0.2
+        },
+        "9.6": {
+          "y": 0.2
+        },
+        "9.7": {
+          "y": 0.2
+        },
+        "9.8": {
+          "y": 0.5
+        },
+        "9.9": {
+          "y": 0.5
+        },
+        "9.10": {
+          "y": 0.5
+        },
+        "9.11": {
+          "y": 0.5
+        },
+        "9.12": {
+          "y": 0.5
+        },
+        "9.13": {
+          "y": 0.5
+        },
+        "9.14": {
+          "y": 0.5
+        },
+        "9.15": {
+          "y": 0.5
+        },
+        "9.16": {
+          "y": 0.5
+        },
+        "9.17": {
+          "y": 0.8
+        },
+        "9.18": {
+          "y": 0.8
+        },
+        "9.19": {
+          "y": 0.8
+        },
+        "9.20": {
+          "y": 0.8
+        },
+        "9.21": {
+          "y": 0.8
+        },
+        "9.22": {
+          "y": 0.8
+        },
+        "9.23": {
+          "y": 0.8
+        },
+        "9.24": {
+          "y": 0.8
+        },
+        "9.25": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Cinematic Drop",
+      "type": "cinematic_drop",
+      "lines": [
+        13
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "smooth",
+        "text_style": "neon",
+        "font_family": 1771
+      },
+      "lines_overrides": {
+        "13": {
+          "background_color": "#111117",
+          "gradient_colors": [
+            "#111117",
+            "#211e29"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Pre-Hook",
+      "type": "pre-hook",
+      "lines": [
+        14
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#252817",
+        "gradient_colors": [
+          "#252817",
+          "#2e3823"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.3,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 2,
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1752
+      },
+      "lines_overrides": {
+        "14": {
+          "text_align": "left",
+          "background_color": "#252817",
+          "gradient_colors": [
+            "#252817",
+            "#2e3823"
+          ]
+        }
+      },
+      "words_overrides": {
+        "14.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "14.1": {
+          "y": 0.5
+        },
+        "14.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Hook",
+      "type": "hook",
+      "lines": [
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#292c18",
+        "gradient_colors": [
+          "#292c18",
+          "#2e3822"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.3,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1749
+      },
+      "lines_overrides": {
+        "15": {
+          "background_color": "#2b2f1a",
+          "gradient_colors": [
+            "#2b2f1a",
+            "#354027"
+          ]
+        },
+        "16": {
+          "background_color": "#252917",
+          "gradient_colors": [
+            "#252917",
+            "#303b24"
+          ]
+        },
+        "17": {
+          "background_color": "#2c301b",
+          "gradient_colors": [
+            "#2c301b",
+            "#354128"
+          ]
+        },
+        "18": {
+          "background_color": "#242816",
+          "gradient_colors": [
+            "#242816",
+            "#2e3923"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        },
+        "19": {
+          "background_color": "#2c311b",
+          "gradient_colors": [
+            "#2c311b",
+            "#354329"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      },
+      "words_overrides": {
+        "15.0": {
+          "y": 0.5
+        },
+        "15.1": {
+          "y": 0.5
+        },
+        "15.2": {
+          "y": 0.5
+        },
+        "16.0": {
+          "y": 0.5
+        },
+        "16.1": {
+          "y": 0.5
+        },
+        "16.2": {
+          "y": 0.5
+        },
+        "17.0": {
+          "y": 0.5
+        },
+        "17.1": {
+          "y": 0.5
+        },
+        "17.2": {
+          "y": 0.5
+        },
+        "18.0": {
+          "y": 0.5
+        },
+        "18.1": {
+          "y": 0.5
+        },
+        "18.2": {
+          "y": 0.5
+        },
+        "19.0": {
+          "y": 0.5
+        },
+        "19.1": {
+          "y": 0.5
+        },
+        "19.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Hook",
+      "type": "post-hook",
+      "lines": [
+        20,
+        21
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#2b2f19",
+        "gradient_colors": [
+          "#2b2f19",
+          "#2e3922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.3,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1727
+      },
+      "lines_overrides": {
+        "20": {
+          "background_color": "#2e321b",
+          "gradient_colors": [
+            "#2e321b",
+            "#374328"
+          ]
+        },
+        "21": {
+          "font_size": 75,
+          "background_color": "#252a17",
+          "gradient_colors": [
+            "#252a17",
+            "#2f3c24"
+          ]
+        }
+      },
+      "words_overrides": {
+        "20.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "20.1": {
+          "y": 0.5
+        },
+        "20.2": {
+          "y": 0.5
+        },
+        "21.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "21.1": {
+          "y": 0.5
+        },
+        "21.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Verse, rapped",
+      "type": "verse",
+      "lines": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#181622",
+        "gradient_colors": [
+          "#181622",
+          "#2a2334"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 306
+      },
+      "lines_overrides": {
+        "22": {
+          "text_align": "left",
+          "background_color": "#191725",
+          "gradient_colors": [
+            "#191725",
+            "#2c2536"
+          ]
+        },
+        "23": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#16141f",
+          "gradient_colors": [
+            "#16141f",
+            "#282131"
+          ]
+        },
+        "24": {
+          "text_align": "left",
+          "background_color": "#1a1826",
+          "gradient_colors": [
+            "#1a1826",
+            "#2d2537"
+          ]
+        },
+        "25": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#15131e",
+          "gradient_colors": [
+            "#15131e",
+            "#282030"
+          ]
+        },
+        "26": {
+          "text_align": "left",
+          "background_color": "#1b1927",
+          "gradient_colors": [
+            "#1b1927",
+            "#2f2638"
+          ]
+        },
+        "27": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#15131d",
+          "gradient_colors": [
+            "#15131d",
+            "#27202f"
+          ]
+        }
+      },
+      "words_overrides": {
+        "22.8": {
+          "y": 0.8
+        },
+        "22.9": {
+          "y": 0.8
+        },
+        "22.10": {
+          "y": 0.8
+        },
+        "22.11": {
+          "y": 0.8
+        },
+        "22.12": {
+          "y": 0.8
+        },
+        "22.13": {
+          "y": 0.8
+        },
+        "22.14": {
+          "y": 0.8
+        },
+        "23.7": {
+          "y": 0.8
+        },
+        "23.8": {
+          "y": 0.8
+        },
+        "23.9": {
+          "y": 0.8
+        },
+        "23.10": {
+          "y": 0.8
+        },
+        "23.11": {
+          "y": 0.8
+        },
+        "23.12": {
+          "y": 0.8
+        },
+        "23.13": {
+          "y": 0.8
+        },
+        "24.9": {
+          "y": 0.8
+        },
+        "24.10": {
+          "y": 0.8
+        },
+        "24.11": {
+          "y": 0.8
+        },
+        "24.12": {
+          "y": 0.8
+        },
+        "24.13": {
+          "y": 0.8
+        },
+        "24.14": {
+          "y": 0.8
+        },
+        "24.15": {
+          "y": 0.8
+        },
+        "24.16": {
+          "y": 0.8
+        },
+        "24.17": {
+          "y": 0.8
+        },
+        "25.7": {
+          "y": 0.8
+        },
+        "25.8": {
+          "y": 0.8
+        },
+        "25.9": {
+          "y": 0.8
+        },
+        "25.10": {
+          "y": 0.8
+        },
+        "25.11": {
+          "y": 0.8
+        },
+        "25.12": {
+          "y": 0.8
+        },
+        "25.13": {
+          "y": 0.8
+        },
+        "25.14": {
+          "y": 0.8
+        },
+        "26.8": {
+          "y": 0.8
+        },
+        "26.9": {
+          "y": 0.8
+        },
+        "26.10": {
+          "y": 0.8
+        },
+        "26.11": {
+          "y": 0.8
+        },
+        "26.12": {
+          "y": 0.8
+        },
+        "26.13": {
+          "y": 0.8
+        },
+        "26.14": {
+          "y": 0.8
+        },
+        "26.15": {
+          "y": 0.8
+        },
+        "26.16": {
+          "y": 0.8
+        },
+        "27.8": {
+          "y": 0.5
+        },
+        "27.9": {
+          "y": 0.8
+        },
+        "27.10": {
+          "y": 0.8
+        },
+        "27.11": {
+          "y": 0.8
+        },
+        "27.12": {
+          "y": 0.8
+        },
+        "27.13": {
+          "y": 0.8
+        },
+        "27.14": {
+          "y": 0.8
+        },
+        "27.0": {
+          "y": 0.2
+        },
+        "27.1": {
+          "y": 0.2
+        },
+        "27.2": {
+          "y": 0.2
+        },
+        "27.3": {
+          "y": 0.2
+        },
+        "27.4": {
+          "y": 0.2
+        },
+        "27.5": {
+          "y": 0.5
+        },
+        "27.6": {
+          "y": 0.5
+        },
+        "27.7": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Interlude - Prophetic Declaration",
+      "type": "interlude_-_prophetic_declaration",
+      "lines": [
+        28
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#31361c",
+        "gradient_colors": [
+          "#31361c",
+          "#2f3a21"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 2,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1698
+      },
+      "lines_overrides": {
+        "28": {
+          "text_align": "left",
+          "background_color": "#31361c",
+          "gradient_colors": [
+            "#31361c",
+            "#2f3a21"
+          ]
+        }
+      },
+      "words_overrides": {
+        "28.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "28.1": {
+          "y": 0.5
+        },
+        "28.2": {
+          "y": 0.5
+        },
+        "28.3": {
+          "y": 0.5
+        },
+        "28.4": {
+          "y": 0.5
+        },
+        "28.5": {
+          "y": 0.5
+        },
+        "28.6": {
+          "y": 0.5
+        },
+        "28.7": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Pre-Hook",
+      "type": "pre-hook",
+      "lines": [
+        29
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#2c301a",
+        "gradient_colors": [
+          "#2c301a",
+          "#2e3922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 2,
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1695
+      },
+      "lines_overrides": {
+        "29": {
+          "text_align": "left",
+          "background_color": "#2c301a",
+          "gradient_colors": [
+            "#2c301a",
+            "#2e3922"
+          ]
+        }
+      },
+      "words_overrides": {
+        "29.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "29.1": {
+          "y": 0.5
+        },
+        "29.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Hook",
+      "type": "hook",
+      "lines": [
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#2d311a",
+        "gradient_colors": [
+          "#2d311a",
+          "#2e3922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1689
+      },
+      "lines_overrides": {
+        "30": {
+          "background_color": "#30341b",
+          "gradient_colors": [
+            "#30341b",
+            "#384529"
+          ]
+        },
+        "31": {
+          "background_color": "#2a2e18",
+          "gradient_colors": [
+            "#2a2e18",
+            "#334025"
+          ]
+        },
+        "32": {
+          "background_color": "#30351c",
+          "gradient_colors": [
+            "#30351c",
+            "#394729"
+          ]
+        },
+        "33": {
+          "background_color": "#282d18",
+          "gradient_colors": [
+            "#282d18",
+            "#313e25"
+          ]
+        },
+        "34": {
+          "background_color": "#31371d",
+          "gradient_colors": [
+            "#31371d",
+            "#39482a"
+          ]
+        }
+      },
+      "words_overrides": {
+        "30.0": {
+          "y": 0.5
+        },
+        "30.1": {
+          "y": 0.5
+        },
+        "30.2": {
+          "y": 0.5
+        },
+        "31.0": {
+          "y": 0.5
+        },
+        "31.1": {
+          "y": 0.5
+        },
+        "31.2": {
+          "y": 0.5
+        },
+        "32.0": {
+          "y": 0.5
+        },
+        "32.1": {
+          "y": 0.5
+        },
+        "32.2": {
+          "y": 0.5
+        },
+        "33.0": {
+          "y": 0.5
+        },
+        "33.1": {
+          "y": 0.5
+        },
+        "33.2": {
+          "y": 0.5
+        },
+        "34.0": {
+          "y": 0.5
+        },
+        "34.1": {
+          "y": 0.5
+        },
+        "34.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Hook",
+      "type": "post-hook",
+      "lines": [
+        35,
+        36
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#2a2e19",
+        "gradient_colors": [
+          "#2a2e19",
+          "#2e3922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.3,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1679
+      },
+      "lines_overrides": {
+        "35": {
+          "background_color": "#2d301a",
+          "gradient_colors": [
+            "#2d301a",
+            "#364228"
+          ]
+        },
+        "36": {
+          "font_size": 75,
+          "background_color": "#242916",
+          "gradient_colors": [
+            "#242916",
+            "#2e3a23"
+          ]
+        }
+      },
+      "words_overrides": {
+        "35.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "35.1": {
+          "y": 0.5
+        },
+        "35.2": {
+          "y": 0.5
+        },
+        "36.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "36.1": {
+          "y": 0.5
+        },
+        "36.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Verse 2",
+      "type": "verse",
+      "lines": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#1b1624",
+        "gradient_colors": [
+          "#1b1624",
+          "#2e2435"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 641
+      },
+      "lines_overrides": {
+        "37": {
+          "text_align": "left",
+          "background_color": "#1c1826",
+          "gradient_colors": [
+            "#1c1826",
+            "#302537"
+          ]
+        },
+        "38": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#191421",
+          "gradient_colors": [
+            "#191421",
+            "#2c2232"
+          ]
+        },
+        "39": {
+          "text_align": "left",
+          "background_color": "#1d1827",
+          "gradient_colors": [
+            "#1d1827",
+            "#312638"
+          ]
+        },
+        "40": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#181420",
+          "gradient_colors": [
+            "#181420",
+            "#2b2131"
+          ]
+        },
+        "41": {
+          "text_align": "left",
+          "background_color": "#1e1927",
+          "gradient_colors": [
+            "#1e1927",
+            "#322638"
+          ]
+        },
+        "42": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#181420",
+          "gradient_colors": [
+            "#181420",
+            "#2b2131"
+          ]
+        },
+        "43": {
+          "text_align": "left",
+          "background_color": "#1e1928",
+          "gradient_colors": [
+            "#1e1928",
+            "#322639"
+          ]
+        },
+        "44": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#18131f",
+          "gradient_colors": [
+            "#18131f",
+            "#2b2030"
+          ]
+        },
+        "45": {
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#1f1929",
+          "gradient_colors": [
+            "#1f1929",
+            "#33273a"
+          ]
+        }
+      },
+      "words_overrides": {
+        "37.5": {
+          "y": 0.8
+        },
+        "37.6": {
+          "y": 0.8
+        },
+        "37.7": {
+          "y": 0.8
+        },
+        "37.8": {
+          "y": 0.8
+        },
+        "37.9": {
+          "y": 0.8
+        },
+        "38.4": {
+          "y": 0.8
+        },
+        "38.5": {
+          "y": 0.8
+        },
+        "38.6": {
+          "y": 0.8
+        },
+        "38.7": {
+          "y": 0.8
+        },
+        "38.8": {
+          "y": 0.8
+        },
+        "38.9": {
+          "y": 0.8
+        },
+        "39.6": {
+          "y": 0.8
+        },
+        "39.7": {
+          "y": 0.8
+        },
+        "39.8": {
+          "y": 0.8
+        },
+        "39.9": {
+          "y": 0.8
+        },
+        "39.10": {
+          "y": 0.8
+        },
+        "39.11": {
+          "y": 0.8
+        },
+        "40.3": {
+          "y": 0.8
+        },
+        "40.4": {
+          "y": 0.8
+        },
+        "40.5": {
+          "y": 0.8
+        },
+        "40.6": {
+          "y": 0.8
+        },
+        "40.7": {
+          "y": 0.8
+        },
+        "40.8": {
+          "y": 0.8
+        },
+        "41.1": {
+          "y": 0.2
+        },
+        "41.2": {
+          "y": 0.5
+        },
+        "41.3": {
+          "y": 0.5
+        },
+        "41.4": {
+          "y": 0.5
+        },
+        "41.5": {
+          "y": 0.8
+        },
+        "41.6": {
+          "y": 0.8
+        },
+        "41.7": {
+          "y": 0.8
+        },
+        "41.8": {
+          "y": 0.8
+        },
+        "41.9": {
+          "y": 0.8
+        },
+        "41.10": {
+          "y": 0.8
+        },
+        "42.6": {
+          "y": 0.8
+        },
+        "42.7": {
+          "y": 0.8
+        },
+        "42.8": {
+          "y": 0.8
+        },
+        "42.9": {
+          "y": 0.8
+        },
+        "42.10": {
+          "y": 0.8
+        },
+        "42.11": {
+          "y": 0.8
+        },
+        "42.12": {
+          "y": 0.8
+        },
+        "43.6": {
+          "y": 0.8
+        },
+        "43.7": {
+          "y": 0.8
+        },
+        "43.8": {
+          "y": 0.8
+        },
+        "43.9": {
+          "y": 0.8
+        },
+        "44.6": {
+          "y": 0.8
+        },
+        "44.7": {
+          "y": 0.8
+        },
+        "44.8": {
+          "y": 0.8
+        },
+        "45.5": {
+          "y": 0.8
+        },
+        "45.6": {
+          "y": 0.8
+        },
+        "45.7": {
+          "y": 0.8
+        },
+        "45.8": {
+          "y": 0.8
+        },
+        "45.9": {
+          "y": 0.8
+        },
+        "45.10": {
+          "y": 0.8
+        },
+        "41.0": {
+          "y": 0.2
+        },
+        "45.0": {
+          "y": 0.2
+        },
+        "45.1": {
+          "y": 0.2
+        },
+        "45.2": {
+          "y": 0.5
+        },
+        "45.3": {
+          "y": 0.5
+        },
+        "45.4": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Pre-Hook",
+      "type": "pre-hook",
+      "lines": [
+        46
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#2e331a",
+        "gradient_colors": [
+          "#2e331a",
+          "#2e3921"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1659
+      },
+      "lines_overrides": {
+        "46": {
+          "background_color": "#2e331a",
+          "gradient_colors": [
+            "#2e331a",
+            "#2e3921"
+          ]
+        }
+      },
+      "words_overrides": {
+        "46.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "46.1": {
+          "y": 0.5
+        },
+        "46.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Hook",
+      "type": "hook",
+      "lines": [
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#2c301a",
+        "gradient_colors": [
+          "#2c301a",
+          "#2e3922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.3,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 2,
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1638
+      },
+      "lines_overrides": {
+        "47": {
+          "text_align": "left",
+          "background_color": "#2e321b",
+          "gradient_colors": [
+            "#2e321b",
+            "#374428"
+          ]
+        },
+        "48": {
+          "text_align": "left",
+          "background_color": "#292c18",
+          "gradient_colors": [
+            "#292c18",
+            "#323e25"
+          ]
+        },
+        "49": {
+          "text_align": "left",
+          "background_color": "#2f341c",
+          "gradient_colors": [
+            "#2f341c",
+            "#384529"
+          ]
+        },
+        "50": {
+          "text_align": "left",
+          "background_color": "#272b17",
+          "gradient_colors": [
+            "#272b17",
+            "#313d24"
+          ]
+        },
+        "51": {
+          "text_align": "left",
+          "background_color": "#2f351c",
+          "gradient_colors": [
+            "#2f351c",
+            "#38462a"
+          ]
+        }
+      },
+      "words_overrides": {
+        "47.0": {
+          "y": 0.5
+        },
+        "47.1": {
+          "y": 0.5
+        },
+        "47.2": {
+          "y": 0.5
+        },
+        "48.0": {
+          "y": 0.5
+        },
+        "48.1": {
+          "y": 0.5
+        },
+        "48.2": {
+          "y": 0.5
+        },
+        "49.0": {
+          "y": 0.5
+        },
+        "49.1": {
+          "y": 0.5
+        },
+        "49.2": {
+          "y": 0.5
+        },
+        "50.0": {
+          "y": 0.5
+        },
+        "50.1": {
+          "y": 0.5
+        },
+        "50.2": {
+          "y": 0.5
+        },
+        "51.0": {
+          "y": 0.5
+        },
+        "51.1": {
+          "y": 0.5
+        },
+        "51.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Hook",
+      "type": "post-hook",
+      "lines": [
+        52,
+        53
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#2d311a",
+        "gradient_colors": [
+          "#2d311a",
+          "#2e3922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1621
+      },
+      "lines_overrides": {
+        "52": {
+          "background_color": "#2f331b",
+          "gradient_colors": [
+            "#2f331b",
+            "#384529"
+          ]
+        },
+        "53": {
+          "font_size": 75,
+          "background_color": "#272b17",
+          "gradient_colors": [
+            "#272b17",
+            "#303d24"
+          ]
+        }
+      },
+      "words_overrides": {
+        "52.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "52.1": {
+          "y": 0.5
+        },
+        "52.2": {
+          "y": 0.5
+        },
+        "53.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "53.1": {
+          "y": 0.5
+        },
+        "53.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Bridge",
+      "type": "bridge",
+      "lines": [
+        54,
+        55,
+        56,
+        57
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#1c141f",
+        "gradient_colors": [
+          "#1c141f",
+          "#312231"
+        ],
+        "texture_type": "vignette_soft",
+        "texture_opacity": 0.25,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "line-by-line",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "top",
+        "animation_type": "slide_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "dreamy",
+        "text_style": "hologram",
+        "font_family": 405
+      },
+      "lines_overrides": {
+        "54": {
+          "text_align": "center",
+          "background_color": "#1e1622",
+          "gradient_colors": [
+            "#1e1622",
+            "#332333"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        },
+        "55": {
+          "text_align": "center",
+          "background_color": "#19121c",
+          "gradient_colors": [
+            "#19121c",
+            "#2d1f2d"
+          ]
+        },
+        "56": {
+          "text_align": "center",
+          "background_color": "#201723",
+          "gradient_colors": [
+            "#201723",
+            "#352434"
+          ]
+        },
+        "57": {
+          "text_align": "center",
+          "background_color": "#18111a",
+          "gradient_colors": [
+            "#18111a",
+            "#2c1e2b"
+          ]
+        }
+      },
+      "words_overrides": {
+        "55.0": {
+          "y": 0.5
+        },
+        "55.1": {
+          "y": 0.5
+        },
+        "55.2": {
+          "y": 0.5
+        },
+        "55.3": {
+          "y": 0.5
+        },
+        "55.4": {
+          "y": 0.8
+        },
+        "55.5": {
+          "y": 0.8
+        },
+        "55.6": {
+          "y": 0.8
+        },
+        "55.7": {
+          "y": 0.8
+        },
+        "57.0": {
+          "y": 0.5
+        },
+        "57.1": {
+          "y": 0.5
+        },
+        "57.2": {
+          "y": 0.5
+        },
+        "57.3": {
+          "y": 0.5
+        },
+        "57.4": {
+          "y": 0.8
+        },
+        "57.5": {
+          "y": 0.8
+        },
+        "57.6": {
+          "y": 0.8
+        },
+        "57.7": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Pre-Hook",
+      "type": "pre-hook",
+      "lines": [
+        58
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#2e331b",
+        "gradient_colors": [
+          "#2e331b",
+          "#2e3921"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1590
+      },
+      "lines_overrides": {
+        "58": {
+          "background_color": "#2e331b",
+          "gradient_colors": [
+            "#2e331b",
+            "#2e3921"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      },
+      "words_overrides": {
+        "58.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "58.1": {
+          "y": 0.5
+        },
+        "58.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Hook",
+      "type": "hook",
+      "lines": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#2d321a",
+        "gradient_colors": [
+          "#2d321a",
+          "#2e3922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1563
+      },
+      "lines_overrides": {
+        "59": {
+          "background_color": "#30341c",
+          "gradient_colors": [
+            "#30341c",
+            "#394629"
+          ]
+        },
+        "60": {
+          "background_color": "#2b2f19",
+          "gradient_colors": [
+            "#2b2f19",
+            "#344026"
+          ]
+        },
+        "61": {
+          "background_color": "#30351c",
+          "gradient_colors": [
+            "#30351c",
+            "#394629"
+          ]
+        },
+        "62": {
+          "background_color": "#2a2e18",
+          "gradient_colors": [
+            "#2a2e18",
+            "#334025"
+          ]
+        },
+        "63": {
+          "background_color": "#30351c",
+          "gradient_colors": [
+            "#30351c",
+            "#394729"
+          ]
+        },
+        "64": {
+          "background_color": "#292d18",
+          "gradient_colors": [
+            "#292d18",
+            "#323f25"
+          ]
+        },
+        "65": {
+          "background_color": "#31361d",
+          "gradient_colors": [
+            "#31361d",
+            "#39472a"
+          ]
+        },
+        "66": {
+          "background_color": "#282d18",
+          "gradient_colors": [
+            "#282d18",
+            "#323f25"
+          ]
+        },
+        "67": {
+          "background_color": "#31371d",
+          "gradient_colors": [
+            "#31371d",
+            "#39482a"
+          ]
+        },
+        "68": {
+          "background_color": "#272c17",
+          "gradient_colors": [
+            "#272c17",
+            "#313e24"
+          ]
+        }
+      },
+      "words_overrides": {
+        "59.0": {
+          "y": 0.5
+        },
+        "59.1": {
+          "y": 0.5
+        },
+        "59.2": {
+          "y": 0.5
+        },
+        "60.0": {
+          "y": 0.5
+        },
+        "60.1": {
+          "y": 0.5
+        },
+        "60.2": {
+          "y": 0.5
+        },
+        "61.0": {
+          "y": 0.5
+        },
+        "61.1": {
+          "y": 0.5
+        },
+        "61.2": {
+          "y": 0.5
+        },
+        "62.0": {
+          "y": 0.5
+        },
+        "62.1": {
+          "y": 0.5
+        },
+        "62.2": {
+          "y": 0.5
+        },
+        "63.0": {
+          "y": 0.5
+        },
+        "63.1": {
+          "y": 0.5
+        },
+        "63.2": {
+          "y": 0.5
+        },
+        "64.0": {
+          "y": 0.5
+        },
+        "64.1": {
+          "y": 0.5
+        },
+        "64.2": {
+          "y": 0.5
+        },
+        "65.0": {
+          "y": 0.5
+        },
+        "65.1": {
+          "y": 0.5
+        },
+        "65.2": {
+          "y": 0.5
+        },
+        "66.0": {
+          "y": 0.5
+        },
+        "66.1": {
+          "y": 0.5
+        },
+        "66.2": {
+          "y": 0.5
+        },
+        "67.0": {
+          "y": 0.5
+        },
+        "67.1": {
+          "y": 0.5
+        },
+        "67.2": {
+          "y": 0.5
+        },
+        "68.0": {
+          "y": 0.5
+        },
+        "68.1": {
+          "y": 0.5
+        },
+        "68.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Hook",
+      "type": "post-hook",
+      "lines": [
+        69,
+        70
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#2f331b",
+        "gradient_colors": [
+          "#2f331b",
+          "#2e3a21"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1558
+      },
+      "lines_overrides": {
+        "69": {
+          "background_color": "#31361c",
+          "gradient_colors": [
+            "#31361c",
+            "#3a4729"
+          ]
+        },
+        "70": {
+          "font_size": 75,
+          "background_color": "#292e18",
+          "gradient_colors": [
+            "#292e18",
+            "#324025"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      },
+      "words_overrides": {
+        "69.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "69.1": {
+          "y": 0.5
+        },
+        "69.2": {
+          "y": 0.5
+        },
+        "70.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "70.1": {
+          "y": 0.5
+        },
+        "70.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Outro",
+      "type": "outro",
+      "lines": [
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#111218",
+        "gradient_colors": [
+          "#111218",
+          "#201e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "fade_out",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "smooth",
+        "text_style": "neon",
+        "font_family": 567
+      },
+      "lines_overrides": {
+        "71": {
+          "font_size": 69,
+          "text_align": "left",
+          "background_color": "#13141b",
+          "gradient_colors": [
+            "#13141b",
+            "#22202c"
+          ]
+        },
+        "72": {
+          "font_size": 70,
+          "text_align": "left",
+          "background_color": "#0f1016",
+          "gradient_colors": [
+            "#0f1016",
+            "#1e1d27"
+          ]
+        },
+        "73": {
+          "font_size": 70,
+          "text_align": "left",
+          "background_color": "#13141b",
+          "gradient_colors": [
+            "#13141b",
+            "#22212c"
+          ]
+        },
+        "74": {
+          "font_size": 70,
+          "text_align": "left",
+          "background_color": "#0f1015",
+          "gradient_colors": [
+            "#0f1015",
+            "#1e1c26"
+          ]
+        },
+        "75": {
+          "font_size": 70,
+          "text_align": "left",
+          "background_color": "#13141b",
+          "gradient_colors": [
+            "#13141b",
+            "#23212c"
+          ]
+        },
+        "76": {
+          "font_size": 70,
+          "text_align": "left",
+          "background_color": "#0f0f15",
+          "gradient_colors": [
+            "#0f0f15",
+            "#1e1c26"
+          ]
+        },
+        "77": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#13141c",
+          "gradient_colors": [
+            "#13141c",
+            "#23212c"
+          ]
+        },
+        "78": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#0e0f15",
+          "gradient_colors": [
+            "#0e0f15",
+            "#1e1c26"
+          ]
+        },
+        "79": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#14141c",
+          "gradient_colors": [
+            "#14141c",
+            "#23212d"
+          ]
+        },
+        "80": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#0e0f14",
+          "gradient_colors": [
+            "#0e0f14",
+            "#1e1c25"
+          ]
+        },
+        "81": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#14141c",
+          "gradient_colors": [
+            "#14141c",
+            "#24212d"
+          ]
+        },
+        "82": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#0e0f14",
+          "gradient_colors": [
+            "#0e0f14",
+            "#1d1c25"
+          ]
+        },
+        "83": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#14151c",
+          "gradient_colors": [
+            "#14151c",
+            "#24222d"
+          ]
+        },
+        "84": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#0e0e14",
+          "gradient_colors": [
+            "#0e0e14",
+            "#1d1b25"
+          ]
+        },
+        "85": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#14151d",
+          "gradient_colors": [
+            "#14151d",
+            "#24222e"
+          ]
+        },
+        "86": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#0e0e13",
+          "gradient_colors": [
+            "#0e0e13",
+            "#1d1b24"
+          ]
+        }
+      },
+      "words_overrides": {
+        "71.0": {
+          "y": 0.2
+        },
+        "71.1": {
+          "y": 0.2
+        },
+        "71.2": {
+          "y": 0.2
+        },
+        "71.3": {
+          "y": 0.2
+        },
+        "72.0": {
+          "y": 0.5
+        },
+        "72.1": {
+          "y": 0.5
+        },
+        "72.2": {
+          "y": 0.5
+        },
+        "72.3": {
+          "y": 0.5
+        },
+        "72.4": {
+          "y": 0.5
+        },
+        "72.5": {
+          "y": 0.5
+        },
+        "73.0": {
+          "y": 0.5
+        },
+        "73.1": {
+          "y": 0.5
+        },
+        "73.2": {
+          "y": 0.5
+        },
+        "78.0": {
+          "y": 0.2
+        },
+        "78.1": {
+          "y": 0.2
+        },
+        "78.2": {
+          "y": 0.2
+        },
+        "78.3": {
+          "y": 0.2
+        },
+        "78.4": {
+          "y": 0.2
+        },
+        "78.5": {
+          "y": 0.2
+        },
+        "78.6": {
+          "y": 0.2
+        },
+        "78.7": {
+          "y": 0.5
+        },
+        "78.8": {
+          "y": 0.5
+        },
+        "78.9": {
+          "y": 0.5
+        },
+        "78.10": {
+          "y": 0.5
+        },
+        "78.11": {
+          "y": 0.5
+        },
+        "79.0": {
+          "y": 0.5
+        },
+        "79.1": {
+          "y": 0.5
+        },
+        "79.2": {
+          "y": 0.5
+        },
+        "79.3": {
+          "y": 0.5
+        },
+        "80.0": {
+          "y": 0.5
+        },
+        "80.1": {
+          "y": 0.5
+        },
+        "80.2": {
+          "y": 0.5
+        },
+        "80.3": {
+          "y": 0.5
+        },
+        "81.0": {
+          "y": 0.5
+        },
+        "81.1": {
+          "y": 0.5
+        },
+        "81.2": {
+          "y": 0.5
+        },
+        "81.3": {
+          "y": 0.5
+        },
+        "83.0": {
+          "y": 0.5
+        },
+        "83.1": {
+          "y": 0.5
+        },
+        "83.2": {
+          "y": 0.5
+        },
+        "83.3": {
+          "y": 0.5
+        },
+        "85.0": {
+          "y": 0.5
+        },
+        "85.1": {
+          "y": 0.5
+        },
+        "85.2": {
+          "y": 0.5
+        },
+        "85.3": {
+          "y": 0.5
+        },
+        "71.4": {
+          "y": 0.2
+        },
+        "71.5": {
+          "y": 0.5
+        },
+        "71.6": {
+          "y": 0.5
+        },
+        "71.7": {
+          "y": 0.5
+        },
+        "71.8": {
+          "y": 0.5
+        },
+        "71.9": {
+          "y": 0.5
+        },
+        "71.10": {
+          "y": 0.5
+        },
+        "71.11": {
+          "y": 0.5
+        },
+        "71.12": {
+          "y": 0.8
+        },
+        "71.13": {
+          "y": 0.8
+        },
+        "71.14": {
+          "y": 0.8
+        },
+        "71.15": {
+          "y": 0.8
+        },
+        "71.16": {
+          "y": 0.8
+        },
+        "71.17": {
+          "y": 0.8
+        },
+        "71.18": {
+          "y": 0.8
+        },
+        "78.12": {
+          "y": 0.5
+        },
+        "78.13": {
+          "y": 0.5
+        },
+        "78.14": {
+          "y": 0.5
+        },
+        "78.15": {
+          "y": 0.5
+        },
+        "78.16": {
+          "y": 0.8
+        },
+        "78.17": {
+          "y": 0.8
+        },
+        "78.18": {
+          "y": 0.8
+        },
+        "78.19": {
+          "y": 0.8
+        },
+        "78.20": {
+          "y": 0.8
+        },
+        "78.21": {
+          "y": 0.8
+        },
+        "78.22": {
+          "y": 0.8
+        },
+        "78.23": {
+          "y": 0.8
+        },
+        "78.24": {
+          "y": 0.8
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1452 @@
+{
+  "name": "misclassified",
+  "defaults": {
+    "background_type": "gradient",
+    "background_color": "#101017",
+    "gradient_colors": [
+      "#101017",
+      "#201e29"
+    ],
+    "gradient_direction": "diagonal_tl_br",
+    "texture_type": "vignette_heavy",
+    "texture_opacity": 0.2,
+    "texture_blend_mode": "multiply",
+    "text_auto_contrast": true,
+    "font_size": 112,
+    "animation_type": "fade",
+    "animation_speed": 1.0,
+    "reveal_mode": "progressive",
+    "reveal_words": 1,
+    "reveal_slide": false,
+    "reactivity": [
+      "vocals"
+    ],
+    "text_align": "center"
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#4cc9f0",
+    "text_position": "center",
+    "letter_spacing": 1,
+    "text_shadow": false,
+    "outline": false
+  },
+  "sections": [
+    {
+      "name": "Intro, Spoken Word, Minimalist Lo-Fi Atmosphere, Vinyl Crackle",
+      "type": "intro",
+      "lines": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#101017",
+        "gradient_colors": [
+          "#101017",
+          "#201e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "smooth",
+        "text_style": "neon",
+        "font_family": 10
+      },
+      "lines_overrides": {
+        "0": {
+          "text_align": "left",
+          "background_color": "#121219",
+          "gradient_colors": [
+            "#121219",
+            "#221f2a"
+          ]
+        },
+        "1": {
+          "text_align": "left",
+          "background_color": "#0f0f16",
+          "gradient_colors": [
+            "#0f0f16",
+            "#1f1d27"
+          ]
+        },
+        "2": {
+          "text_align": "left",
+          "background_color": "#121219",
+          "gradient_colors": [
+            "#121219",
+            "#221f2a"
+          ]
+        },
+        "3": {
+          "text_align": "left",
+          "background_color": "#0f0f15",
+          "gradient_colors": [
+            "#0f0f15",
+            "#1f1d26"
+          ]
+        },
+        "4": {
+          "text_align": "left",
+          "background_color": "#12121a",
+          "gradient_colors": [
+            "#12121a",
+            "#23202a"
+          ]
+        },
+        "5": {
+          "text_align": "left",
+          "background_color": "#0f0f15",
+          "gradient_colors": [
+            "#0f0f15",
+            "#1f1c26"
+          ]
+        },
+        "6": {
+          "text_align": "left",
+          "background_color": "#13121a",
+          "gradient_colors": [
+            "#13121a",
+            "#23202b"
+          ]
+        },
+        "7": {
+          "text_align": "left",
+          "background_color": "#0f0e14",
+          "gradient_colors": [
+            "#0f0e14",
+            "#1f1c25"
+          ]
+        }
+      },
+      "words_overrides": {
+        "0.0": {
+          "y": 0.5
+        },
+        "0.1": {
+          "y": 0.5
+        },
+        "0.2": {
+          "y": 0.8
+        },
+        "0.3": {
+          "y": 0.8
+        },
+        "0.4": {
+          "y": 0.8
+        },
+        "0.5": {
+          "y": 0.8
+        },
+        "0.6": {
+          "y": 0.8
+        },
+        "0.7": {
+          "y": 0.8
+        },
+        "0.8": {
+          "y": 0.8
+        },
+        "1.0": {
+          "y": 0.5
+        },
+        "1.1": {
+          "y": 0.5
+        },
+        "1.2": {
+          "y": 0.5
+        },
+        "1.3": {
+          "y": 0.5
+        },
+        "1.4": {
+          "y": 0.8
+        },
+        "1.5": {
+          "y": 0.8
+        },
+        "1.6": {
+          "y": 0.8
+        },
+        "1.7": {
+          "y": 0.8
+        },
+        "1.8": {
+          "y": 0.8
+        },
+        "2.0": {
+          "y": 0.5
+        },
+        "2.1": {
+          "y": 0.5
+        },
+        "2.2": {
+          "y": 0.5
+        },
+        "2.3": {
+          "y": 0.8
+        },
+        "2.4": {
+          "y": 0.8
+        },
+        "2.5": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Verse 1, Smooth Boom Bap Beat, Deep Funky Bassline, Rapped Staccato",
+      "type": "verse",
+      "lines": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#191725",
+        "gradient_colors": [
+          "#191725",
+          "#2b2436"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 35
+      },
+      "lines_overrides": {
+        "8": {
+          "text_align": "left",
+          "background_color": "#1a1826",
+          "gradient_colors": [
+            "#1a1826",
+            "#2c2537"
+          ]
+        },
+        "9": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#171623",
+          "gradient_colors": [
+            "#171623",
+            "#292334"
+          ]
+        },
+        "10": {
+          "text_align": "left",
+          "background_color": "#1a1827",
+          "gradient_colors": [
+            "#1a1827",
+            "#2c2538"
+          ]
+        },
+        "11": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#171523",
+          "gradient_colors": [
+            "#171523",
+            "#292334"
+          ]
+        },
+        "12": {
+          "text_align": "left",
+          "background_color": "#1a1827",
+          "gradient_colors": [
+            "#1a1827",
+            "#2d2538"
+          ]
+        },
+        "13": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#171522",
+          "gradient_colors": [
+            "#171522",
+            "#292234"
+          ]
+        },
+        "14": {
+          "text_align": "left",
+          "background_color": "#1b1827",
+          "gradient_colors": [
+            "#1b1827",
+            "#2d2638"
+          ]
+        },
+        "15": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#171522",
+          "gradient_colors": [
+            "#171522",
+            "#292233"
+          ]
+        },
+        "16": {
+          "text_align": "left",
+          "background_color": "#1b1828",
+          "gradient_colors": [
+            "#1b1828",
+            "#2e2639"
+          ]
+        },
+        "17": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#171522",
+          "gradient_colors": [
+            "#171522",
+            "#292233"
+          ]
+        }
+      },
+      "words_overrides": {
+        "8.4": {
+          "y": 0.8
+        },
+        "8.5": {
+          "y": 0.8
+        },
+        "8.6": {
+          "y": 0.8
+        },
+        "8.7": {
+          "y": 0.8
+        },
+        "8.8": {
+          "y": 0.8
+        },
+        "9.6": {
+          "y": 0.8
+        },
+        "9.7": {
+          "y": 0.8
+        },
+        "9.8": {
+          "y": 0.8
+        },
+        "9.9": {
+          "y": 0.8
+        },
+        "9.10": {
+          "y": 0.8
+        },
+        "9.11": {
+          "y": 0.8
+        },
+        "9.12": {
+          "y": 0.8
+        },
+        "10.6": {
+          "y": 0.8
+        },
+        "10.7": {
+          "y": 0.8
+        },
+        "10.8": {
+          "y": 0.8
+        },
+        "10.9": {
+          "y": 0.8
+        },
+        "10.10": {
+          "y": 0.8
+        },
+        "10.11": {
+          "y": 0.8
+        },
+        "10.12": {
+          "y": 0.8
+        },
+        "11.6": {
+          "y": 0.8
+        },
+        "11.7": {
+          "y": 0.8
+        },
+        "11.8": {
+          "y": 0.8
+        },
+        "11.9": {
+          "y": 0.8
+        },
+        "11.10": {
+          "y": 0.8
+        },
+        "12.6": {
+          "y": 0.8
+        },
+        "12.7": {
+          "y": 0.8
+        },
+        "12.8": {
+          "y": 0.8
+        },
+        "12.9": {
+          "y": 0.8
+        },
+        "12.10": {
+          "y": 0.8
+        },
+        "13.1": {
+          "y": 0.2
+        },
+        "13.2": {
+          "y": 0.5
+        },
+        "13.3": {
+          "y": 0.5
+        },
+        "13.4": {
+          "y": 0.5
+        },
+        "13.5": {
+          "y": 0.5
+        },
+        "13.6": {
+          "y": 0.5
+        },
+        "13.7": {
+          "y": 0.8
+        },
+        "13.8": {
+          "y": 0.8
+        },
+        "13.9": {
+          "y": 0.8
+        },
+        "13.10": {
+          "y": 0.8
+        },
+        "13.11": {
+          "y": 0.8
+        },
+        "14.4": {
+          "y": 0.8
+        },
+        "14.5": {
+          "y": 0.8
+        },
+        "14.6": {
+          "y": 0.8
+        },
+        "14.7": {
+          "y": 0.8
+        },
+        "14.8": {
+          "y": 0.8
+        },
+        "14.9": {
+          "y": 0.8
+        },
+        "15.4": {
+          "y": 0.8
+        },
+        "15.5": {
+          "y": 0.8
+        },
+        "15.6": {
+          "y": 0.8
+        },
+        "15.7": {
+          "y": 0.8
+        },
+        "15.8": {
+          "y": 0.8
+        },
+        "15.9": {
+          "y": 0.8
+        },
+        "16.3": {
+          "y": 0.8
+        },
+        "16.4": {
+          "y": 0.8
+        },
+        "16.5": {
+          "y": 0.8
+        },
+        "16.6": {
+          "y": 0.8
+        },
+        "16.7": {
+          "y": 0.8
+        },
+        "16.8": {
+          "y": 0.8
+        },
+        "17.2": {
+          "y": 0.5
+        },
+        "17.3": {
+          "y": 0.5
+        },
+        "17.4": {
+          "y": 0.5
+        },
+        "17.5": {
+          "y": 0.5
+        },
+        "17.6": {
+          "y": 0.5
+        },
+        "17.7": {
+          "y": 0.8
+        },
+        "17.8": {
+          "y": 0.8
+        },
+        "17.9": {
+          "y": 0.8
+        },
+        "17.10": {
+          "y": 0.8
+        },
+        "17.11": {
+          "y": 0.8
+        },
+        "17.12": {
+          "y": 0.8
+        },
+        "13.0": {
+          "y": 0.2
+        },
+        "17.0": {
+          "y": 0.2
+        },
+        "17.1": {
+          "y": 0.2
+        }
+      }
+    },
+    {
+      "name": "Pre-Hook, Clean Electric Guitar Arpeggios, Building Tension, Melodic Vocals",
+      "type": "pre-hook",
+      "lines": [
+        18,
+        19,
+        20
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#1b1725",
+        "gradient_colors": [
+          "#1b1725",
+          "#2d2437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 83
+      },
+      "lines_overrides": {
+        "18": {
+          "text_align": "left",
+          "background_color": "#1c1827",
+          "gradient_colors": [
+            "#1c1827",
+            "#2f2538"
+          ]
+        },
+        "19": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#191623",
+          "gradient_colors": [
+            "#191623",
+            "#2c2334"
+          ]
+        },
+        "20": {
+          "text_align": "left",
+          "background_color": "#1e1928",
+          "gradient_colors": [
+            "#1e1928",
+            "#312639"
+          ]
+        }
+      },
+      "words_overrides": {
+        "18.5": {
+          "y": 0.8
+        },
+        "18.6": {
+          "y": 0.8
+        },
+        "18.7": {
+          "y": 0.8
+        },
+        "18.8": {
+          "y": 0.8
+        },
+        "18.9": {
+          "y": 0.8
+        },
+        "18.10": {
+          "y": 0.8
+        },
+        "19.5": {
+          "y": 0.8
+        },
+        "19.6": {
+          "y": 0.8
+        },
+        "19.7": {
+          "y": 0.8
+        },
+        "19.8": {
+          "y": 0.8
+        },
+        "19.9": {
+          "y": 0.8
+        },
+        "19.10": {
+          "y": 0.8
+        },
+        "20.2": {
+          "y": 0.8
+        },
+        "20.3": {
+          "y": 0.8
+        },
+        "20.4": {
+          "y": 0.8
+        },
+        "20.5": {
+          "y": 0.8
+        },
+        "20.6": {
+          "y": 0.8
+        },
+        "20.7": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Hook, Driving Melodic Punk, Distorted Power Chords, Upbeat Live Drums, Anthemic",
+      "type": "hook",
+      "lines": [
+        21,
+        22,
+        23
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#30301a",
+        "gradient_colors": [
+          "#30301a",
+          "#343922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.3,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1749
+      },
+      "lines_overrides": {
+        "21": {
+          "font_size": 82,
+          "background_color": "#31311b",
+          "gradient_colors": [
+            "#31311b",
+            "#3d4328"
+          ]
+        },
+        "22": {
+          "font_size": 82,
+          "background_color": "#2d2d19",
+          "gradient_colors": [
+            "#2d2d19",
+            "#393f26"
+          ]
+        },
+        "23": {
+          "font_size": 82,
+          "background_color": "#32331c",
+          "gradient_colors": [
+            "#32331c",
+            "#3d4429"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      }
+    },
+    {
+      "name": "Post-Hook, Pocket Groove, Fuzz Bass Riff",
+      "type": "post-hook",
+      "lines": [
+        24
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#30301a",
+        "gradient_colors": [
+          "#30301a",
+          "#343922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.3,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1727
+      },
+      "lines_overrides": {
+        "24": {
+          "font_size": 82,
+          "background_color": "#30301a",
+          "gradient_colors": [
+            "#30301a",
+            "#343922"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      }
+    },
+    {
+      "name": "Verse 2, Return to Boom Bap, Heavy Kick, Rhythmic Flow",
+      "type": "verse",
+      "lines": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#1c1725",
+        "gradient_colors": [
+          "#1c1725",
+          "#2f2436"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 306
+      },
+      "lines_overrides": {
+        "25": {
+          "text_align": "left",
+          "background_color": "#1d1826",
+          "gradient_colors": [
+            "#1d1826",
+            "#312537"
+          ]
+        },
+        "26": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1b1623",
+          "gradient_colors": [
+            "#1b1623",
+            "#2e2334"
+          ]
+        },
+        "27": {
+          "text_align": "left",
+          "background_color": "#1e1827",
+          "gradient_colors": [
+            "#1e1827",
+            "#312538"
+          ]
+        },
+        "28": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1b1523",
+          "gradient_colors": [
+            "#1b1523",
+            "#2e2334"
+          ]
+        },
+        "29": {
+          "text_align": "left",
+          "background_color": "#1e1827",
+          "gradient_colors": [
+            "#1e1827",
+            "#322638"
+          ]
+        },
+        "30": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1b1522",
+          "gradient_colors": [
+            "#1b1522",
+            "#2e2233"
+          ]
+        },
+        "31": {
+          "font_size": 82,
+          "text_align": "left",
+          "background_color": "#1f1827",
+          "gradient_colors": [
+            "#1f1827",
+            "#332639"
+          ]
+        },
+        "32": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#1b1522",
+          "gradient_colors": [
+            "#1b1522",
+            "#2e2233"
+          ]
+        }
+      },
+      "words_overrides": {
+        "25.2": {
+          "y": 0.8
+        },
+        "25.3": {
+          "y": 0.8
+        },
+        "25.4": {
+          "y": 0.8
+        },
+        "25.5": {
+          "y": 0.8
+        },
+        "25.6": {
+          "y": 0.8
+        },
+        "25.7": {
+          "y": 0.8
+        },
+        "25.8": {
+          "y": 0.8
+        },
+        "25.9": {
+          "y": 0.8
+        },
+        "25.10": {
+          "y": 0.8
+        },
+        "26.3": {
+          "y": 0.8
+        },
+        "26.4": {
+          "y": 0.8
+        },
+        "26.5": {
+          "y": 0.8
+        },
+        "26.6": {
+          "y": 0.8
+        },
+        "26.7": {
+          "y": 0.8
+        },
+        "26.8": {
+          "y": 0.8
+        },
+        "26.9": {
+          "y": 0.8
+        },
+        "27.2": {
+          "y": 0.8
+        },
+        "27.3": {
+          "y": 0.8
+        },
+        "27.4": {
+          "y": 0.8
+        },
+        "27.5": {
+          "y": 0.8
+        },
+        "27.6": {
+          "y": 0.8
+        },
+        "27.7": {
+          "y": 0.8
+        },
+        "27.8": {
+          "y": 0.8
+        },
+        "27.9": {
+          "y": 0.8
+        },
+        "27.10": {
+          "y": 0.8
+        },
+        "28.2": {
+          "y": 0.8
+        },
+        "28.3": {
+          "y": 0.8
+        },
+        "28.4": {
+          "y": 0.8
+        },
+        "28.5": {
+          "y": 0.8
+        },
+        "29.4": {
+          "y": 0.8
+        },
+        "29.5": {
+          "y": 0.8
+        },
+        "29.6": {
+          "y": 0.8
+        },
+        "29.7": {
+          "y": 0.8
+        },
+        "29.8": {
+          "y": 0.8
+        },
+        "29.9": {
+          "y": 0.8
+        },
+        "29.10": {
+          "y": 0.8
+        },
+        "30.4": {
+          "y": 0.8
+        },
+        "30.5": {
+          "y": 0.8
+        },
+        "30.6": {
+          "y": 0.8
+        },
+        "30.7": {
+          "y": 0.8
+        },
+        "30.8": {
+          "y": 0.8
+        },
+        "30.9": {
+          "y": 0.8
+        },
+        "30.10": {
+          "y": 0.8
+        },
+        "31.4": {
+          "y": 0.8
+        },
+        "31.5": {
+          "y": 0.8
+        },
+        "31.6": {
+          "y": 0.8
+        },
+        "31.7": {
+          "y": 0.8
+        },
+        "31.8": {
+          "y": 0.8
+        },
+        "32.6": {
+          "y": 0.8
+        },
+        "32.7": {
+          "y": 0.8
+        },
+        "32.8": {
+          "y": 0.8
+        },
+        "32.9": {
+          "y": 0.8
+        },
+        "32.0": {
+          "y": 0.2
+        },
+        "32.1": {
+          "y": 0.2
+        },
+        "32.2": {
+          "y": 0.5
+        },
+        "32.3": {
+          "y": 0.5
+        },
+        "32.4": {
+          "y": 0.5
+        },
+        "32.5": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Pre-Hook, Clean Electric Guitar, Building Tension",
+      "type": "pre-hook",
+      "lines": [
+        33,
+        34,
+        35
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#1a1725",
+        "gradient_colors": [
+          "#1a1725",
+          "#2d2437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 393
+      },
+      "lines_overrides": {
+        "33": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#1b1827",
+          "gradient_colors": [
+            "#1b1827",
+            "#2e2538"
+          ]
+        },
+        "34": {
+          "font_size": 74,
+          "text_align": "left",
+          "background_color": "#191623",
+          "gradient_colors": [
+            "#191623",
+            "#2c2334"
+          ]
+        },
+        "35": {
+          "font_size": 76,
+          "animation_type": "scale_in",
+          "animation_speed": 1.2,
+          "text_align": "left",
+          "background_color": "#1d1928",
+          "gradient_colors": [
+            "#1d1928",
+            "#30263a"
+          ]
+        }
+      },
+      "words_overrides": {
+        "33.5": {
+          "y": 0.8
+        },
+        "33.6": {
+          "y": 0.8
+        },
+        "33.7": {
+          "y": 0.8
+        },
+        "33.8": {
+          "y": 0.8
+        },
+        "33.9": {
+          "y": 0.8
+        },
+        "33.10": {
+          "y": 0.8
+        },
+        "33.0": {
+          "font_size_delta": 2
+        },
+        "34.5": {
+          "y": 0.8
+        },
+        "34.6": {
+          "y": 0.8
+        },
+        "34.7": {
+          "y": 0.8
+        },
+        "34.8": {
+          "y": 0.8
+        },
+        "34.9": {
+          "y": 0.8
+        },
+        "34.10": {
+          "y": 0.8
+        },
+        "34.0": {
+          "font_size_delta": 2
+        },
+        "35.2": {
+          "y": 0.8
+        },
+        "35.3": {
+          "y": 0.8
+        },
+        "35.4": {
+          "y": 0.8
+        },
+        "35.5": {
+          "y": 0.8
+        },
+        "35.6": {
+          "y": 0.8
+        },
+        "35.7": {
+          "y": 0.8
+        },
+        "35.0": {
+          "font_size_delta": 2
+        }
+      }
+    },
+    {
+      "name": "Hook, Driving Melodic Punk, Distorted Power Chords, High Energy",
+      "type": "hook",
+      "lines": [
+        36,
+        37,
+        38
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#31301a",
+        "gradient_colors": [
+          "#31301a",
+          "#343922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1695
+      },
+      "lines_overrides": {
+        "36": {
+          "font_size": 82,
+          "background_color": "#32321b",
+          "gradient_colors": [
+            "#32321b",
+            "#3d4428"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        },
+        "37": {
+          "font_size": 82,
+          "background_color": "#2e2e19",
+          "gradient_colors": [
+            "#2e2e19",
+            "#394026"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        },
+        "38": {
+          "font_size": 82,
+          "background_color": "#33341c",
+          "gradient_colors": [
+            "#33341c",
+            "#3d4529"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Post-Hook",
+      "type": "post-hook",
+      "lines": [
+        39
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#30301a",
+        "gradient_colors": [
+          "#30301a",
+          "#343922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.3,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1689
+      },
+      "lines_overrides": {
+        "39": {
+          "font_size": 82,
+          "background_color": "#30301a",
+          "gradient_colors": [
+            "#30301a",
+            "#343922"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      }
+    },
+    {
+      "name": "Outro, Spoken Word, Silence, Vinyl Static",
+      "type": "outro",
+      "lines": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#1f1e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "fade_out",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "smooth",
+        "text_style": "neon",
+        "font_family": 1218
+      },
+      "lines_overrides": {
+        "40": {
+          "font_size": 69,
+          "text_align": "left",
+          "background_color": "#121219",
+          "gradient_colors": [
+            "#121219",
+            "#201f2a"
+          ]
+        },
+        "41": {
+          "font_size": 70,
+          "text_align": "left",
+          "background_color": "#0f1016",
+          "gradient_colors": [
+            "#0f1016",
+            "#1e1d27"
+          ]
+        },
+        "42": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#121319",
+          "gradient_colors": [
+            "#121319",
+            "#21202a"
+          ]
+        },
+        "43": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#0f0f15",
+          "gradient_colors": [
+            "#0f0f15",
+            "#1e1d26"
+          ]
+        },
+        "44": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#12131a",
+          "gradient_colors": [
+            "#12131a",
+            "#22202b"
+          ]
+        },
+        "45": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#0e0f14",
+          "gradient_colors": [
+            "#0e0f14",
+            "#1e1c25"
+          ]
+        }
+      },
+      "words_overrides": {
+        "40.0": {
+          "y": 0.5
+        },
+        "40.1": {
+          "y": 0.5
+        },
+        "40.2": {
+          "y": 0.5
+        },
+        "41.0": {
+          "y": 0.5
+        },
+        "41.1": {
+          "y": 0.5
+        },
+        "41.2": {
+          "y": 0.5
+        },
+        "42.0": {
+          "y": 0.5
+        },
+        "42.1": {
+          "y": 0.5
+        },
+        "42.2": {
+          "y": 0.5
+        },
+        "42.3": {
+          "y": 0.5
+        },
+        "43.0": {
+          "y": 0.5
+        },
+        "43.1": {
+          "y": 0.5
+        },
+        "43.2": {
+          "y": 0.5
+        },
+        "43.3": {
+          "y": 0.5
+        },
+        "44.0": {
+          "y": 0.5
+        },
+        "44.1": {
+          "y": 0.5
+        },
+        "44.2": {
+          "y": 0.5
+        },
+        "44.3": {
+          "y": 0.5
+        },
+        "44.4": {
+          "y": 0.5
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,2209 @@
+{
+  "name": "Nathan's Song",
+  "defaults": {
+    "background_type": "gradient",
+    "background_color": "#191726",
+    "gradient_colors": [
+      "#191726",
+      "#2c2437"
+    ],
+    "gradient_direction": "diagonal_tl_br",
+    "texture_type": "vignette_heavy",
+    "texture_opacity": 0.2,
+    "texture_blend_mode": "multiply",
+    "text_auto_contrast": true,
+    "font_size": 112,
+    "animation_type": "fade",
+    "animation_speed": 1.0,
+    "reveal_mode": "progressive",
+    "reveal_words": 1,
+    "reveal_slide": false,
+    "reactivity": [
+      "vocals"
+    ],
+    "text_align": "center"
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#4cc9f0",
+    "text_position": "center",
+    "letter_spacing": 1,
+    "text_shadow": false,
+    "outline": false
+  },
+  "sections": [
+    {
+      "name": "Verse 1 - Begin with energetic alt-rock foundation, rap-influenced female vocals with clear delivery",
+      "type": "verse_1_-_begin_with_energetic_alt-rock_foundation",
+      "lines": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#191726",
+        "gradient_colors": [
+          "#191726",
+          "#2c2437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 1
+      },
+      "lines_overrides": {
+        "0": {
+          "text_align": "left",
+          "background_color": "#1b1828",
+          "gradient_colors": [
+            "#1b1828",
+            "#2e2639"
+          ]
+        },
+        "1": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#181623",
+          "gradient_colors": [
+            "#181623",
+            "#2a2335"
+          ]
+        },
+        "2": {
+          "text_align": "left",
+          "background_color": "#1c1929",
+          "gradient_colors": [
+            "#1c1929",
+            "#2f273a"
+          ]
+        },
+        "3": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#171522",
+          "gradient_colors": [
+            "#171522",
+            "#2a2233"
+          ]
+        }
+      },
+      "words_overrides": {
+        "0.1": {
+          "y": 0.8
+        },
+        "0.2": {
+          "y": 0.8
+        },
+        "0.3": {
+          "y": 0.8
+        },
+        "0.4": {
+          "y": 0.8
+        },
+        "0.5": {
+          "y": 0.8
+        },
+        "0.6": {
+          "y": 0.8
+        },
+        "0.7": {
+          "y": 0.8
+        },
+        "0.8": {
+          "y": 0.8
+        },
+        "0.9": {
+          "y": 0.8
+        },
+        "1.5": {
+          "y": 0.8
+        },
+        "1.6": {
+          "y": 0.8
+        },
+        "1.7": {
+          "y": 0.8
+        },
+        "1.8": {
+          "y": 0.8
+        },
+        "1.9": {
+          "y": 0.8
+        },
+        "2.6": {
+          "y": 0.8
+        },
+        "2.7": {
+          "y": 0.8
+        },
+        "2.8": {
+          "y": 0.8
+        },
+        "3.8": {
+          "y": 0.8
+        },
+        "3.9": {
+          "y": 0.8
+        },
+        "3.10": {
+          "y": 0.8
+        },
+        "3.11": {
+          "y": 0.8
+        },
+        "3.12": {
+          "y": 0.8
+        },
+        "3.13": {
+          "y": 0.8
+        },
+        "3.0": {
+          "y": 0.2
+        },
+        "3.1": {
+          "y": 0.2
+        },
+        "3.2": {
+          "y": 0.5
+        },
+        "3.3": {
+          "y": 0.5
+        },
+        "3.4": {
+          "y": 0.5
+        },
+        "3.5": {
+          "y": 0.5
+        },
+        "3.6": {
+          "y": 0.5
+        },
+        "3.7": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Pre-Chorus - Introduce atmospheric elements, building tension, female, melodic",
+      "type": "pre-chorus_-_introduce_atmospheric_elements",
+      "lines": [
+        4,
+        5
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#191521",
+        "gradient_colors": [
+          "#191521",
+          "#2b2333"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 35
+      },
+      "lines_overrides": {
+        "4": {
+          "text_align": "left",
+          "background_color": "#1a1623",
+          "gradient_colors": [
+            "#1a1623",
+            "#2d2434"
+          ]
+        },
+        "5": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#16131d",
+          "gradient_colors": [
+            "#16131d",
+            "#29202f"
+          ]
+        }
+      },
+      "words_overrides": {
+        "4.7": {
+          "y": 0.8
+        },
+        "4.8": {
+          "y": 0.8
+        },
+        "4.9": {
+          "y": 0.8
+        },
+        "4.10": {
+          "y": 0.8
+        },
+        "4.11": {
+          "y": 0.8
+        },
+        "5.7": {
+          "y": 0.8
+        },
+        "5.8": {
+          "y": 0.8
+        },
+        "5.9": {
+          "y": 0.8
+        },
+        "5.10": {
+          "y": 0.8
+        },
+        "5.11": {
+          "y": 0.8
+        },
+        "5.12": {
+          "y": 0.8
+        },
+        "5.13": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Verse 1 Continued - Gradually add electronic textures beneath rock foundation, female",
+      "type": "verse_1_continued_-_gradually_add_electronic_textures_beneath_rock_foundation",
+      "lines": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#1e1726",
+        "gradient_colors": [
+          "#1e1726",
+          "#312437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 83
+      },
+      "lines_overrides": {
+        "6": {
+          "text_align": "left",
+          "background_color": "#1f1928",
+          "gradient_colors": [
+            "#1f1928",
+            "#34263a"
+          ]
+        },
+        "7": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1c1624",
+          "gradient_colors": [
+            "#1c1624",
+            "#302335"
+          ]
+        },
+        "8": {
+          "text_align": "left",
+          "background_color": "#201929",
+          "gradient_colors": [
+            "#201929",
+            "#35263a"
+          ]
+        },
+        "9": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1c1523",
+          "gradient_colors": [
+            "#1c1523",
+            "#302335"
+          ]
+        },
+        "10": {
+          "text_align": "left",
+          "background_color": "#211a2a",
+          "gradient_colors": [
+            "#211a2a",
+            "#36273b"
+          ]
+        },
+        "11": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#1c1522",
+          "gradient_colors": [
+            "#1c1522",
+            "#2f2234"
+          ]
+        }
+      },
+      "words_overrides": {
+        "6.4": {
+          "y": 0.8
+        },
+        "6.5": {
+          "y": 0.8
+        },
+        "6.6": {
+          "y": 0.8
+        },
+        "6.7": {
+          "y": 0.8
+        },
+        "6.8": {
+          "y": 0.8
+        },
+        "6.9": {
+          "y": 0.8
+        },
+        "6.10": {
+          "y": 0.8
+        },
+        "7.6": {
+          "y": 0.8
+        },
+        "7.7": {
+          "y": 0.8
+        },
+        "7.8": {
+          "y": 0.8
+        },
+        "7.9": {
+          "y": 0.8
+        },
+        "7.10": {
+          "y": 0.8
+        },
+        "8.6": {
+          "y": 0.8
+        },
+        "8.7": {
+          "y": 0.8
+        },
+        "8.8": {
+          "y": 0.8
+        },
+        "8.9": {
+          "y": 0.8
+        },
+        "8.10": {
+          "y": 0.8
+        },
+        "8.11": {
+          "y": 0.8
+        },
+        "9.4": {
+          "y": 0.2
+        },
+        "9.5": {
+          "y": 0.5
+        },
+        "9.6": {
+          "y": 0.5
+        },
+        "9.7": {
+          "y": 0.5
+        },
+        "9.8": {
+          "y": 0.5
+        },
+        "9.9": {
+          "y": 0.5
+        },
+        "9.10": {
+          "y": 0.8
+        },
+        "9.11": {
+          "y": 0.8
+        },
+        "9.12": {
+          "y": 0.8
+        },
+        "9.13": {
+          "y": 0.8
+        },
+        "10.6": {
+          "y": 0.8
+        },
+        "10.7": {
+          "y": 0.8
+        },
+        "10.8": {
+          "y": 0.8
+        },
+        "10.9": {
+          "y": 0.8
+        },
+        "10.10": {
+          "y": 0.8
+        },
+        "11.9": {
+          "y": 0.8
+        },
+        "11.10": {
+          "y": 0.8
+        },
+        "9.0": {
+          "y": 0.2
+        },
+        "9.1": {
+          "y": 0.2
+        },
+        "9.2": {
+          "y": 0.2
+        },
+        "9.3": {
+          "y": 0.2
+        }
+      }
+    },
+    {
+      "name": "Refrain - Full dynamic explosion with layered vocals, anthemic feel with string elements, female, melodic",
+      "type": "refrain_-_full_dynamic_explosion_with_layered_vocals",
+      "lines": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#31331b",
+        "gradient_colors": [
+          "#31331b",
+          "#313921"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1749
+      },
+      "lines_overrides": {
+        "12": {
+          "background_color": "#33351c",
+          "gradient_colors": [
+            "#33351c",
+            "#3d4629"
+          ]
+        },
+        "13": {
+          "background_color": "#2e3019",
+          "gradient_colors": [
+            "#2e3019",
+            "#384126"
+          ]
+        },
+        "14": {
+          "font_size": 75,
+          "background_color": "#33361d",
+          "gradient_colors": [
+            "#33361d",
+            "#3d472a"
+          ]
+        },
+        "15": {
+          "background_color": "#2c2e18",
+          "gradient_colors": [
+            "#2c2e18",
+            "#364025"
+          ]
+        }
+      },
+      "words_overrides": {
+        "12.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "12.1": {
+          "y": 0.5
+        },
+        "12.2": {
+          "y": 0.5
+        },
+        "12.3": {
+          "y": 0.5
+        },
+        "12.4": {
+          "y": 0.5
+        },
+        "13.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "13.1": {
+          "y": 0.5
+        },
+        "14.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "14.1": {
+          "y": 0.5
+        },
+        "14.2": {
+          "y": 0.5
+        },
+        "14.3": {
+          "y": 0.5
+        },
+        "14.4": {
+          "y": 0.5
+        },
+        "14.5": {
+          "y": 0.5
+        },
+        "14.6": {
+          "y": 0.5
+        },
+        "15.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "15.1": {
+          "y": 0.5
+        },
+        "15.2": {
+          "y": 0.5
+        },
+        "15.3": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Refrain - Atmospheric break with ambient textures, female, melodic",
+      "type": "post-refrain_-_atmospheric_break_with_ambient_textures",
+      "lines": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#201727",
+        "gradient_colors": [
+          "#201727",
+          "#342437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 191
+      },
+      "lines_overrides": {
+        "16": {
+          "text_align": "left",
+          "background_color": "#221929",
+          "gradient_colors": [
+            "#221929",
+            "#37263a"
+          ]
+        },
+        "17": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1e1624",
+          "gradient_colors": [
+            "#1e1624",
+            "#332335"
+          ]
+        },
+        "18": {
+          "text_align": "left",
+          "background_color": "#24192a",
+          "gradient_colors": [
+            "#24192a",
+            "#39273b"
+          ]
+        },
+        "19": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#1e1523",
+          "gradient_colors": [
+            "#1e1523",
+            "#322234"
+          ]
+        }
+      },
+      "words_overrides": {
+        "16.1": {
+          "y": 0.8
+        },
+        "16.2": {
+          "y": 0.8
+        },
+        "16.3": {
+          "y": 0.8
+        },
+        "16.4": {
+          "y": 0.8
+        },
+        "16.5": {
+          "y": 0.8
+        },
+        "16.6": {
+          "y": 0.8
+        },
+        "16.7": {
+          "y": 0.8
+        },
+        "17.3": {
+          "y": 0.8
+        },
+        "17.4": {
+          "y": 0.8
+        },
+        "17.5": {
+          "y": 0.8
+        },
+        "18.4": {
+          "y": 0.8
+        },
+        "18.5": {
+          "y": 0.8
+        },
+        "18.6": {
+          "y": 0.8
+        },
+        "18.7": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Verse 2 - Shift toward more experimental sound with increased electronic elements, female",
+      "type": "verse_2_-_shift_toward_more_experimental_sound_with_increased_electronic_elements",
+      "lines": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#221726",
+        "gradient_colors": [
+          "#221726",
+          "#362437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 306
+      },
+      "lines_overrides": {
+        "20": {
+          "text_align": "left",
+          "background_color": "#241828",
+          "gradient_colors": [
+            "#241828",
+            "#392639"
+          ]
+        },
+        "21": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#201624",
+          "gradient_colors": [
+            "#201624",
+            "#352335"
+          ]
+        },
+        "22": {
+          "text_align": "left",
+          "background_color": "#261929",
+          "gradient_colors": [
+            "#261929",
+            "#3b273a"
+          ]
+        },
+        "23": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#1f1522",
+          "gradient_colors": [
+            "#1f1522",
+            "#342233"
+          ]
+        }
+      },
+      "words_overrides": {
+        "20.1": {
+          "y": 0.8
+        },
+        "20.2": {
+          "y": 0.8
+        },
+        "20.3": {
+          "y": 0.8
+        },
+        "20.4": {
+          "y": 0.8
+        },
+        "20.5": {
+          "y": 0.8
+        },
+        "20.6": {
+          "y": 0.8
+        },
+        "20.7": {
+          "y": 0.8
+        },
+        "21.5": {
+          "y": 0.8
+        },
+        "21.6": {
+          "y": 0.8
+        },
+        "21.7": {
+          "y": 0.8
+        },
+        "21.8": {
+          "y": 0.8
+        },
+        "21.9": {
+          "y": 0.8
+        },
+        "22.1": {
+          "y": 0.2
+        },
+        "22.2": {
+          "y": 0.5
+        },
+        "22.3": {
+          "y": 0.5
+        },
+        "22.4": {
+          "y": 0.5
+        },
+        "22.5": {
+          "y": 0.5
+        },
+        "22.6": {
+          "y": 0.5
+        },
+        "22.7": {
+          "y": 0.8
+        },
+        "22.8": {
+          "y": 0.8
+        },
+        "22.9": {
+          "y": 0.8
+        },
+        "22.10": {
+          "y": 0.8
+        },
+        "23.2": {
+          "y": 0.5
+        },
+        "23.3": {
+          "y": 0.5
+        },
+        "23.4": {
+          "y": 0.5
+        },
+        "23.5": {
+          "y": 0.5
+        },
+        "23.6": {
+          "y": 0.8
+        },
+        "23.7": {
+          "y": 0.8
+        },
+        "23.8": {
+          "y": 0.8
+        },
+        "23.9": {
+          "y": 0.8
+        },
+        "23.10": {
+          "y": 0.8
+        },
+        "23.11": {
+          "y": 0.8
+        },
+        "22.0": {
+          "y": 0.2
+        },
+        "23.0": {
+          "y": 0.2
+        },
+        "23.1": {
+          "y": 0.2
+        }
+      }
+    },
+    {
+      "name": "Verse 2 Continued - Further evolution with textured percussion and ambient soundscapes, female",
+      "type": "verse_2_continued_-_further_evolution_with_textured_percussion_and_ambient_soundscapes",
+      "lines": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#251727",
+        "gradient_colors": [
+          "#251727",
+          "#372434"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "cinematic",
+        "text_style": "neon",
+        "font_family": 393
+      },
+      "lines_overrides": {
+        "24": {
+          "text_align": "left",
+          "background_color": "#271929",
+          "gradient_colors": [
+            "#271929",
+            "#3a2637"
+          ]
+        },
+        "25": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#231624",
+          "gradient_colors": [
+            "#231624",
+            "#362333"
+          ]
+        },
+        "26": {
+          "text_align": "left",
+          "background_color": "#271929",
+          "gradient_colors": [
+            "#271929",
+            "#3a2637"
+          ]
+        },
+        "27": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#221624",
+          "gradient_colors": [
+            "#221624",
+            "#352332"
+          ]
+        },
+        "28": {
+          "text_align": "left",
+          "background_color": "#28192a",
+          "gradient_colors": [
+            "#28192a",
+            "#3b2738"
+          ]
+        },
+        "29": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#221523",
+          "gradient_colors": [
+            "#221523",
+            "#352332"
+          ]
+        },
+        "30": {
+          "text_align": "left",
+          "background_color": "#291a2a",
+          "gradient_colors": [
+            "#291a2a",
+            "#3b2738"
+          ]
+        },
+        "31": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#221523",
+          "gradient_colors": [
+            "#221523",
+            "#342231"
+          ]
+        }
+      },
+      "words_overrides": {
+        "24.6": {
+          "y": 0.8
+        },
+        "24.7": {
+          "y": 0.8
+        },
+        "24.8": {
+          "y": 0.8
+        },
+        "24.9": {
+          "y": 0.8
+        },
+        "24.10": {
+          "y": 0.8
+        },
+        "25.4": {
+          "y": 0.8
+        },
+        "25.5": {
+          "y": 0.8
+        },
+        "25.6": {
+          "y": 0.8
+        },
+        "25.7": {
+          "y": 0.8
+        },
+        "25.8": {
+          "y": 0.8
+        },
+        "26.5": {
+          "y": 0.8
+        },
+        "26.6": {
+          "y": 0.8
+        },
+        "26.7": {
+          "y": 0.8
+        },
+        "26.8": {
+          "y": 0.8
+        },
+        "26.9": {
+          "y": 0.8
+        },
+        "27.3": {
+          "y": 0.8
+        },
+        "27.4": {
+          "y": 0.8
+        },
+        "27.5": {
+          "y": 0.8
+        },
+        "27.6": {
+          "y": 0.8
+        },
+        "27.7": {
+          "y": 0.8
+        },
+        "27.8": {
+          "y": 0.8
+        },
+        "27.9": {
+          "y": 0.8
+        },
+        "28.4": {
+          "y": 0.8
+        },
+        "28.5": {
+          "y": 0.8
+        },
+        "28.6": {
+          "y": 0.8
+        },
+        "28.7": {
+          "y": 0.8
+        },
+        "28.8": {
+          "y": 0.8
+        },
+        "29.4": {
+          "y": 0.8
+        },
+        "29.5": {
+          "y": 0.8
+        },
+        "29.6": {
+          "y": 0.8
+        },
+        "29.7": {
+          "y": 0.8
+        },
+        "29.8": {
+          "y": 0.8
+        },
+        "30.3": {
+          "y": 0.8
+        },
+        "30.4": {
+          "y": 0.8
+        },
+        "30.5": {
+          "y": 0.8
+        },
+        "30.6": {
+          "y": 0.8
+        },
+        "30.7": {
+          "y": 0.8
+        },
+        "30.8": {
+          "y": 0.8
+        },
+        "30.9": {
+          "y": 0.8
+        },
+        "31.7": {
+          "y": 0.8
+        },
+        "31.8": {
+          "y": 0.8
+        },
+        "31.9": {
+          "y": 0.8
+        },
+        "31.10": {
+          "y": 0.8
+        },
+        "31.0": {
+          "y": 0.2
+        },
+        "31.1": {
+          "y": 0.2
+        },
+        "31.2": {
+          "y": 0.5
+        },
+        "31.3": {
+          "y": 0.5
+        },
+        "31.4": {
+          "y": 0.5
+        },
+        "31.5": {
+          "y": 0.8
+        },
+        "31.6": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Refrain - Return to anthemic energy but with added textural depth, female, melodic",
+      "type": "refrain_-_return_to_anthemic_energy_but_with_added_textural_depth",
+      "lines": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#32341b",
+        "gradient_colors": [
+          "#32341b",
+          "#323a21"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1695
+      },
+      "lines_overrides": {
+        "32": {
+          "background_color": "#34361c",
+          "gradient_colors": [
+            "#34361c",
+            "#3e4729"
+          ]
+        },
+        "33": {
+          "background_color": "#2f311a",
+          "gradient_colors": [
+            "#2f311a",
+            "#394327"
+          ]
+        },
+        "34": {
+          "font_size": 75,
+          "background_color": "#35371d",
+          "gradient_colors": [
+            "#35371d",
+            "#3e492a"
+          ]
+        },
+        "35": {
+          "background_color": "#2d3019",
+          "gradient_colors": [
+            "#2d3019",
+            "#374126"
+          ]
+        }
+      },
+      "words_overrides": {
+        "32.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "32.1": {
+          "y": 0.5
+        },
+        "32.2": {
+          "y": 0.5
+        },
+        "32.3": {
+          "y": 0.5
+        },
+        "32.4": {
+          "y": 0.5
+        },
+        "33.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "33.1": {
+          "y": 0.5
+        },
+        "34.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "34.1": {
+          "y": 0.5
+        },
+        "34.2": {
+          "y": 0.5
+        },
+        "34.3": {
+          "y": 0.5
+        },
+        "34.4": {
+          "y": 0.5
+        },
+        "34.5": {
+          "y": 0.5
+        },
+        "34.6": {
+          "y": 0.5
+        },
+        "35.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "35.1": {
+          "y": 0.5
+        },
+        "35.2": {
+          "y": 0.5
+        },
+        "35.3": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Refrain - More atmospheric than first, with ethereal vocal layers, female, melodic",
+      "type": "post-refrain_-_more_atmospheric_than_first",
+      "lines": [
+        36,
+        37,
+        38,
+        39
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#291929",
+        "gradient_colors": [
+          "#291929",
+          "#372432"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "dreamy",
+        "text_style": "neon",
+        "font_family": 512
+      },
+      "lines_overrides": {
+        "36": {
+          "text_align": "left",
+          "background_color": "#2b1a2b",
+          "gradient_colors": [
+            "#2b1a2b",
+            "#3d2737"
+          ]
+        },
+        "37": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#271726",
+          "gradient_colors": [
+            "#271726",
+            "#382432"
+          ]
+        },
+        "38": {
+          "text_align": "left",
+          "background_color": "#2d1b2c",
+          "gradient_colors": [
+            "#2d1b2c",
+            "#3e2837"
+          ]
+        },
+        "39": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#251624",
+          "gradient_colors": [
+            "#251624",
+            "#372330"
+          ]
+        }
+      },
+      "words_overrides": {
+        "36.1": {
+          "y": 0.8
+        },
+        "36.2": {
+          "y": 0.8
+        },
+        "36.3": {
+          "y": 0.8
+        },
+        "36.4": {
+          "y": 0.8
+        },
+        "36.5": {
+          "y": 0.8
+        },
+        "36.6": {
+          "y": 0.8
+        },
+        "36.7": {
+          "y": 0.8
+        },
+        "37.3": {
+          "y": 0.8
+        },
+        "37.4": {
+          "y": 0.8
+        },
+        "37.5": {
+          "y": 0.8
+        },
+        "38.4": {
+          "y": 0.8
+        },
+        "38.5": {
+          "y": 0.8
+        },
+        "38.6": {
+          "y": 0.8
+        },
+        "38.7": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Bridge - Strip back to atmospheric elements, ethereal vocals with piano and ambient textures, female, mysterious",
+      "type": "bridge_-_strip_back_to_atmospheric_elements",
+      "lines": [
+        40,
+        41,
+        42,
+        43
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#1b141f",
+        "gradient_colors": [
+          "#1b141f",
+          "#2f2130"
+        ],
+        "texture_type": "vignette_soft",
+        "texture_opacity": 0.4,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "line-by-line",
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "slide_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "dreamy",
+        "text_style": "hologram",
+        "font_family": 1218
+      },
+      "lines_overrides": {
+        "40": {
+          "text_align": "center",
+          "background_color": "#1d1521",
+          "gradient_colors": [
+            "#1d1521",
+            "#312332"
+          ]
+        },
+        "41": {
+          "text_align": "center",
+          "background_color": "#19121c",
+          "gradient_colors": [
+            "#19121c",
+            "#2d202e"
+          ]
+        },
+        "42": {
+          "text_align": "center",
+          "background_color": "#1f1622",
+          "gradient_colors": [
+            "#1f1622",
+            "#332433"
+          ]
+        },
+        "43": {
+          "text_align": "center",
+          "background_color": "#18121b",
+          "gradient_colors": [
+            "#18121b",
+            "#2c1f2d"
+          ]
+        }
+      },
+      "words_overrides": {
+        "40.0": {
+          "y": 0.5
+        },
+        "40.1": {
+          "y": 0.8
+        },
+        "40.2": {
+          "y": 0.8
+        },
+        "40.3": {
+          "y": 0.8
+        },
+        "40.4": {
+          "y": 0.8
+        },
+        "40.5": {
+          "y": 0.8
+        },
+        "40.6": {
+          "y": 0.8
+        },
+        "41.0": {
+          "y": 0.5
+        },
+        "41.1": {
+          "y": 0.5
+        },
+        "41.2": {
+          "y": 0.5
+        },
+        "41.3": {
+          "y": 0.5
+        },
+        "41.4": {
+          "y": 0.8
+        },
+        "41.5": {
+          "y": 0.8
+        },
+        "41.6": {
+          "y": 0.8
+        },
+        "41.7": {
+          "y": 0.8
+        },
+        "42.0": {
+          "y": 0.5
+        },
+        "42.1": {
+          "y": 0.5
+        },
+        "42.2": {
+          "y": 0.5
+        },
+        "42.3": {
+          "y": 0.5
+        },
+        "42.4": {
+          "y": 0.8
+        },
+        "42.5": {
+          "y": 0.8
+        },
+        "42.6": {
+          "y": 0.8
+        },
+        "42.7": {
+          "y": 0.8
+        },
+        "42.8": {
+          "y": 0.8
+        },
+        "43.0": {
+          "y": 0.5
+        },
+        "43.1": {
+          "y": 0.5
+        },
+        "43.2": {
+          "y": 0.5
+        },
+        "43.3": {
+          "y": 0.8
+        },
+        "43.4": {
+          "y": 0.8
+        },
+        "43.5": {
+          "y": 0.8
+        },
+        "43.6": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Bridge Buildup - Gradually layer instruments with increasing intensity, female, honest & powerful",
+      "type": "bridge_buildup_-_gradually_layer_instruments_with_increasing_intensity",
+      "lines": [
+        44,
+        45,
+        46,
+        47
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#201624",
+        "gradient_colors": [
+          "#201624",
+          "#342435"
+        ],
+        "texture_type": "vignette_soft",
+        "texture_opacity": 0.25,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "line-by-line",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "top",
+        "animation_type": "slide_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "dreamy",
+        "text_style": "hologram",
+        "font_family": 301
+      },
+      "lines_overrides": {
+        "44": {
+          "text_align": "center",
+          "background_color": "#211826",
+          "gradient_colors": [
+            "#211826",
+            "#362537"
+          ]
+        },
+        "45": {
+          "text_align": "center",
+          "background_color": "#1d1521",
+          "gradient_colors": [
+            "#1d1521",
+            "#322233"
+          ]
+        },
+        "46": {
+          "text_align": "center",
+          "background_color": "#231827",
+          "gradient_colors": [
+            "#231827",
+            "#382639"
+          ]
+        },
+        "47": {
+          "text_align": "center",
+          "background_color": "#1d1420",
+          "gradient_colors": [
+            "#1d1420",
+            "#312132"
+          ]
+        }
+      },
+      "words_overrides": {
+        "44.0": {
+          "y": 0.5
+        },
+        "44.1": {
+          "y": 0.5
+        },
+        "44.2": {
+          "y": 0.5
+        },
+        "44.3": {
+          "y": 0.5
+        },
+        "44.4": {
+          "y": 0.8
+        },
+        "44.5": {
+          "y": 0.8
+        },
+        "44.6": {
+          "y": 0.8
+        },
+        "44.7": {
+          "y": 0.8
+        },
+        "45.0": {
+          "y": 0.5
+        },
+        "45.1": {
+          "y": 0.5
+        },
+        "45.2": {
+          "y": 0.5
+        },
+        "45.3": {
+          "y": 0.5
+        },
+        "45.4": {
+          "y": 0.8
+        },
+        "45.5": {
+          "y": 0.8
+        },
+        "45.6": {
+          "y": 0.8
+        },
+        "45.7": {
+          "y": 0.8
+        },
+        "45.8": {
+          "y": 0.8
+        },
+        "46.0": {
+          "y": 0.5
+        },
+        "46.1": {
+          "y": 0.5
+        },
+        "46.2": {
+          "y": 0.5
+        },
+        "46.3": {
+          "y": 0.5
+        },
+        "46.4": {
+          "y": 0.8
+        },
+        "46.5": {
+          "y": 0.8
+        },
+        "46.6": {
+          "y": 0.8
+        },
+        "46.7": {
+          "y": 0.8
+        },
+        "47.0": {
+          "y": 0.5
+        },
+        "47.1": {
+          "y": 0.5
+        },
+        "47.2": {
+          "y": 0.5
+        },
+        "47.3": {
+          "y": 0.5
+        },
+        "47.4": {
+          "y": 0.8
+        },
+        "47.5": {
+          "y": 0.8
+        },
+        "47.6": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Final Refrain - Mature, fully-realized sound with complex layering and emotional power, female, anthemic",
+      "type": "final_refrain_-_mature",
+      "lines": [
+        48,
+        49,
+        50,
+        51
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#34361c",
+        "gradient_colors": [
+          "#34361c",
+          "#323a21"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1659
+      },
+      "lines_overrides": {
+        "48": {
+          "background_color": "#36381d",
+          "gradient_colors": [
+            "#36381d",
+            "#3f4a2a"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        },
+        "49": {
+          "background_color": "#31331a",
+          "gradient_colors": [
+            "#31331a",
+            "#3b4527"
+          ]
+        },
+        "50": {
+          "font_size": 75,
+          "background_color": "#373a1e",
+          "gradient_colors": [
+            "#373a1e",
+            "#3f4b2b"
+          ]
+        },
+        "51": {
+          "background_color": "#2f321a",
+          "gradient_colors": [
+            "#2f321a",
+            "#394427"
+          ]
+        }
+      },
+      "words_overrides": {
+        "48.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "48.1": {
+          "y": 0.5
+        },
+        "48.2": {
+          "y": 0.5
+        },
+        "48.3": {
+          "y": 0.5
+        },
+        "48.4": {
+          "y": 0.5
+        },
+        "49.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "49.1": {
+          "y": 0.5
+        },
+        "50.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "50.1": {
+          "y": 0.5
+        },
+        "50.2": {
+          "y": 0.5
+        },
+        "50.3": {
+          "y": 0.5
+        },
+        "50.4": {
+          "y": 0.5
+        },
+        "50.5": {
+          "y": 0.5
+        },
+        "50.6": {
+          "y": 0.5
+        },
+        "51.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "51.1": {
+          "y": 0.5
+        },
+        "51.2": {
+          "y": 0.5
+        },
+        "51.3": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Final Refrain - Peak intensity with all elements combined, female, declarative",
+      "type": "post-final_refrain_-_peak_intensity_with_all_elements_combined",
+      "lines": [
+        52,
+        53,
+        54,
+        55
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#35371c",
+        "gradient_colors": [
+          "#35371c",
+          "#323a21"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "energetic",
+        "text_style": "neon",
+        "font_family": 1638
+      },
+      "lines_overrides": {
+        "52": {
+          "background_color": "#37391d",
+          "gradient_colors": [
+            "#37391d",
+            "#404a2a"
+          ]
+        },
+        "53": {
+          "background_color": "#32341a",
+          "gradient_colors": [
+            "#32341a",
+            "#3b4527"
+          ]
+        },
+        "54": {
+          "font_size": 75,
+          "background_color": "#373a1e",
+          "gradient_colors": [
+            "#373a1e",
+            "#404b2b"
+          ]
+        },
+        "55": {
+          "background_color": "#2f321a",
+          "gradient_colors": [
+            "#2f321a",
+            "#394427"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      },
+      "words_overrides": {
+        "52.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "53.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "53.1": {
+          "y": 0.5
+        },
+        "53.2": {
+          "y": 0.5
+        },
+        "54.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "54.1": {
+          "y": 0.5
+        },
+        "54.2": {
+          "y": 0.5
+        },
+        "54.3": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Outro - Begin with full band intensity, then gradually strip to atmospheric elements, complex time signatures and wandering synth patterns, female, softly spoken in appreciation and love.",
+      "type": "outro_-_begin_with_full_band_intensity",
+      "lines": [
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#12131a",
+        "gradient_colors": [
+          "#12131a",
+          "#21202b"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "fade_out",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "smooth",
+        "text_style": "neon",
+        "font_family": 1284
+      },
+      "lines_overrides": {
+        "56": {
+          "font_size": 69,
+          "text_align": "left",
+          "background_color": "#13141c",
+          "gradient_colors": [
+            "#13141c",
+            "#23212d"
+          ]
+        },
+        "57": {
+          "font_size": 70,
+          "text_align": "left",
+          "background_color": "#111118",
+          "gradient_colors": [
+            "#111118",
+            "#201e29"
+          ]
+        },
+        "58": {
+          "font_size": 70,
+          "text_align": "left",
+          "background_color": "#14151d",
+          "gradient_colors": [
+            "#14151d",
+            "#23212e"
+          ]
+        },
+        "59": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#101118",
+          "gradient_colors": [
+            "#101118",
+            "#1f1e29"
+          ]
+        },
+        "60": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#14151d",
+          "gradient_colors": [
+            "#14151d",
+            "#24222e"
+          ]
+        },
+        "61": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#101117",
+          "gradient_colors": [
+            "#101117",
+            "#1f1d28"
+          ]
+        },
+        "62": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#14151e",
+          "gradient_colors": [
+            "#14151e",
+            "#24222e"
+          ]
+        },
+        "63": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#101017",
+          "gradient_colors": [
+            "#101017",
+            "#1f1d28"
+          ]
+        },
+        "64": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#15151e",
+          "gradient_colors": [
+            "#15151e",
+            "#25222f"
+          ]
+        }
+      },
+      "words_overrides": {
+        "57.0": {
+          "y": 0.5
+        },
+        "57.1": {
+          "y": 0.5
+        },
+        "57.2": {
+          "y": 0.5
+        },
+        "57.3": {
+          "y": 0.5
+        },
+        "58.0": {
+          "y": 0.5
+        },
+        "58.1": {
+          "y": 0.5
+        },
+        "58.2": {
+          "y": 0.5
+        },
+        "58.3": {
+          "y": 0.5
+        },
+        "58.4": {
+          "y": 0.5
+        },
+        "59.0": {
+          "y": 0.5
+        },
+        "59.1": {
+          "y": 0.5
+        },
+        "59.2": {
+          "y": 0.5
+        },
+        "59.3": {
+          "y": 0.5
+        },
+        "59.4": {
+          "y": 0.5
+        },
+        "59.5": {
+          "y": 0.5
+        },
+        "59.6": {
+          "y": 0.5
+        },
+        "60.0": {
+          "y": 0.5
+        },
+        "60.1": {
+          "y": 0.5
+        },
+        "60.2": {
+          "y": 0.5
+        },
+        "60.3": {
+          "y": 0.5
+        },
+        "61.0": {
+          "y": 0.5
+        },
+        "61.1": {
+          "y": 0.5
+        },
+        "61.2": {
+          "y": 0.5
+        },
+        "62.0": {
+          "y": 0.5
+        },
+        "62.1": {
+          "y": 0.5
+        },
+        "62.2": {
+          "y": 0.5
+        },
+        "62.3": {
+          "y": 0.5
+        },
+        "62.4": {
+          "y": 0.5
+        },
+        "62.5": {
+          "y": 0.5
+        },
+        "62.6": {
+          "y": 0.5
+        },
+        "63.0": {
+          "y": 0.5
+        },
+        "63.1": {
+          "y": 0.5
+        },
+        "63.2": {
+          "y": 0.5
+        },
+        "63.3": {
+          "y": 0.5
+        },
+        "64.0": {
+          "y": 0.5
+        },
+        "64.1": {
+          "y": 0.5
+        },
+        "64.2": {
+          "y": 0.5
+        },
+        "64.3": {
+          "y": 0.5
+        },
+        "64.4": {
+          "y": 0.5
+        },
+        "64.5": {
+          "y": 0.5
+        }
+      }
+    }
+  ]
+}
