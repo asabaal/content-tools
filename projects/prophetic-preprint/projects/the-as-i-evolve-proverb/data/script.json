@@ -60,7 +60,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "dreamy",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1
       },
@@ -116,7 +116,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1771
       },
@@ -186,7 +186,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1752
       },
@@ -275,7 +275,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1749
       },
@@ -392,7 +392,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1727
       },
@@ -461,7 +461,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1712
       },
@@ -537,7 +537,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1698
       },
@@ -624,7 +624,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1695
       },
@@ -699,7 +699,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1689
       },

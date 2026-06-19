@@ -30,12 +30,12 @@ from render.font_styles import (
 
 
 class TestFontStyle:
-    def test_all_9_styles(self):
-        assert len(FontStyle) == 9
+    def test_all_11_styles(self):
+        assert len(FontStyle) == 11
 
     def test_style_values(self):
         names = {s.value for s in FontStyle}
-        assert names == {"neon", "graffiti", "chrome", "fire", "ice", "gold", "hologram", "matrix", "basic"}
+        assert names == {"neon", "graffiti", "chrome", "fire", "ice", "gold", "hologram", "matrix", "basic", "clean_white", "dramatic_red"}
 
 
 class TestCreateBaseText:

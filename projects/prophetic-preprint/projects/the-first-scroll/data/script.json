@@ -2,26 +2,28 @@
   "name": "THE FIRST SCROLL",
   "defaults": {
     "background_type": "gradient",
-    "background_color": "#1a1828",
+    "background_color": "#0E0B09",
     "gradient_colors": [
-      "#1a1828",
-      "#2a2437"
+      "#0E0B09",
+      "#3A2016"
     ],
     "gradient_direction": "diagonal_tl_br",
     "texture_type": "vignette_heavy",
-    "texture_opacity": 0.2,
+    "texture_opacity": 0.3,
     "texture_blend_mode": "multiply",
     "text_auto_contrast": true,
-    "font_size": 112,
-    "animation_type": "fade",
+    "font_size": 54,
+    "animation_type": "fade_in",
     "animation_speed": 1.0,
-    "reveal_mode": "progressive",
+    "reveal_mode": "line-by-line",
     "reveal_words": 1,
     "reveal_slide": false,
     "reactivity": [
       "vocals"
     ],
-    "text_align": "center"
+    "text_align": "center",
+    "text_style": "clean_white",
+    "bg_animation_preset": "minimal"
   },
   "caption_style": {
     "font_family": 0,
@@ -62,17 +64,18 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
+        "gradient_direction": "linear",
         "background_color": "#1a1828",
         "gradient_colors": [
-          "#1a1828",
-          "#2a2437"
+          "#0E0B09",
+          "#3A2016",
+          "#CBB68A"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.2,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "progressive",
+        "reveal_mode": "line-by-line",
         "reveal_words": 1,
         "reactivity": [
           "vocals"
@@ -80,8 +83,8 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "dreamy",
-        "text_style": "neon",
+        "bg_animation_preset": "cinematic",
+        "text_style": "clean_white",
         "font_family": 1
       },
       "lines_overrides": {

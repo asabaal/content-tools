@@ -61,7 +61,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 10
       },
@@ -215,7 +215,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 35
       },
@@ -331,7 +331,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 83
       },
@@ -549,7 +549,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 126
       },
@@ -965,7 +965,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 191
       },
@@ -1159,7 +1159,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 306
       },
@@ -1279,7 +1279,7 @@
         "text_position": "bottom",
         "animation_type": "fade_out",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 174
       },
@@ -1410,7 +1410,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 462
       },

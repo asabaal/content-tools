@@ -61,7 +61,7 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 10
       },
@@ -125,7 +125,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 35
       },
@@ -200,7 +200,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 83
       },
@@ -350,7 +350,7 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1749
       },
@@ -483,7 +483,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 191
       },
@@ -560,7 +560,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 306
       },
@@ -881,7 +881,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 393
       },
@@ -954,7 +954,7 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1695
       },
@@ -1088,7 +1088,7 @@
         "text_position": "top",
         "animation_type": "slide_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "dreamy",
+        "bg_animation_preset": "minimal",
         "text_style": "hologram",
         "font_family": 232
       },
@@ -1312,7 +1312,7 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1679
       },
@@ -1450,7 +1450,7 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 1674
       },
@@ -1587,7 +1587,7 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
+        "bg_animation_preset": "minimal",
         "text_style": "neon",
         "font_family": 668
       },

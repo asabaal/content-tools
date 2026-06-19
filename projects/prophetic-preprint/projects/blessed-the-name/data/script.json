@@ -2,18 +2,18 @@
   "name": "blessed-the-name",
   "defaults": {
     "background_type": "gradient",
-    "background_color": "#111117",
+    "background_color": "#05050A",
     "gradient_colors": [
-      "#111117",
-      "#211e29"
+      "#05050A",
+      "#21104A"
     ],
     "gradient_direction": "diagonal_tl_br",
     "texture_type": "vignette_heavy",
     "texture_opacity": 0.2,
     "texture_blend_mode": "multiply",
     "text_auto_contrast": true,
-    "font_size": 112,
-    "animation_type": "fade",
+    "font_size": 56,
+    "animation_type": "fade_in",
     "animation_speed": 1.0,
     "reveal_mode": "progressive",
     "reveal_words": 1,
@@ -21,7 +21,8 @@
     "reactivity": [
       "vocals"
     ],
-    "text_align": "center"
+    "text_align": "center",
+    "text_style": "elegant_gold"
   },
   "caption_style": {
     "font_family": 0,
@@ -52,11 +53,12 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
+        "gradient_direction": "rings_4",
         "background_color": "#111117",
         "gradient_colors": [
-          "#111117",
-          "#211e29"
+          "#05050A",
+          "#21104A",
+          "#E5B84B"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.5,
@@ -70,8 +72,8 @@
         "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
-        "text_style": "neon",
+        "bg_animation_preset": "cinematic",
+        "text_style": "elegant_gold",
         "font_family": 10
       },
       "lines_overrides": {
@@ -413,26 +415,27 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "vertical_top_bottom",
+        "gradient_direction": "burst_6",
         "background_color": "#111117",
         "gradient_colors": [
-          "#111117",
-          "#211e29"
+          "#21104A",
+          "#E5B84B",
+          "#FFF1C2"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.5,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
-        "reveal_mode": "progressive",
+        "font_size": 82,
+        "reveal_mode": "karaoke",
         "reveal_words": 1,
         "reactivity": [
           "energy"
         ],
         "text_position": "top",
         "animation_type": "scale_in",
-        "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
-        "text_style": "neon",
+        "animation_speed": 0.5,
+        "bg_animation_preset": "energetic",
+        "text_style": "elegant_gold",
         "font_family": 1771
       },
       "lines_overrides": {
@@ -453,11 +456,12 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tr_bl",
+        "gradient_direction": "rings_4",
         "background_color": "#252817",
         "gradient_colors": [
-          "#252817",
-          "#2e3823"
+          "#05050A",
+          "#21104A",
+          "#E5B84B"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.3,
@@ -472,8 +476,8 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "elegant_gold",
         "font_family": 1752
       },
       "lines_overrides": {
@@ -511,26 +515,27 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "horizontal_left_right",
+        "gradient_direction": "rings_4",
         "background_color": "#292c18",
         "gradient_colors": [
-          "#292c18",
-          "#2e3822"
+          "#05050A",
+          "#E5B84B",
+          "#FFF1C2"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.3,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 64,
         "reveal_mode": "karaoke",
         "reactivity": [
           "drums",
           "energy"
         ],
         "text_position": "bottom",
-        "animation_type": "bounce_in",
+        "animation_type": "scale_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "text_style": "elegant_gold",
         "font_family": 1749
       },
       "lines_overrides": {
@@ -631,17 +636,17 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
+        "gradient_direction": "rings_3",
         "background_color": "#2b2f19",
         "gradient_colors": [
-          "#2b2f19",
-          "#2e3922"
+          "#05050A",
+          "#21104A"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.3,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "drums",
           "energy"
@@ -649,8 +654,8 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "elegant_gold",
         "font_family": 1727
       },
       "lines_overrides": {
@@ -706,11 +711,12 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "vertical_top_bottom",
+        "gradient_direction": "bands",
         "background_color": "#181622",
         "gradient_colors": [
-          "#181622",
-          "#2a2334"
+          "#05050A",
+          "#21104A",
+          "#E5B84B"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.35,
@@ -724,8 +730,8 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "clean_white",
         "font_family": 306
       },
       "lines_overrides": {
@@ -958,17 +964,18 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tr_bl",
+        "gradient_direction": "spot_field",
         "background_color": "#31361c",
         "gradient_colors": [
-          "#31361c",
-          "#2f3a21"
+          "#05050A",
+          "#E5B84B",
+          "#7DEBFF"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "progressive",
+        "reveal_mode": "line-by-line",
         "reveal_words": 2,
         "reactivity": [
           "vocals"
@@ -976,8 +983,8 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "dreamy",
+        "text_style": "clean_white",
         "font_family": 1698
       },
       "lines_overrides": {
@@ -1026,11 +1033,12 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "horizontal_left_right",
+        "gradient_direction": "rings_4",
         "background_color": "#2c301a",
         "gradient_colors": [
-          "#2c301a",
-          "#2e3922"
+          "#05050A",
+          "#21104A",
+          "#E5B84B"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
@@ -1045,8 +1053,8 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "elegant_gold",
         "font_family": 1695
       },
       "lines_overrides": {
@@ -1084,26 +1092,27 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
+        "gradient_direction": "rings_4",
         "background_color": "#2d311a",
         "gradient_colors": [
-          "#2d311a",
-          "#2e3922"
+          "#05050A",
+          "#E5B84B",
+          "#FFF1C2"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 64,
         "reveal_mode": "karaoke",
         "reactivity": [
           "drums",
           "energy"
         ],
         "text_position": "bottom",
-        "animation_type": "bounce_in",
+        "animation_type": "scale_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "text_style": "elegant_gold",
         "font_family": 1689
       },
       "lines_overrides": {
@@ -1200,17 +1209,17 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "vertical_top_bottom",
+        "gradient_direction": "rings_3",
         "background_color": "#2a2e19",
         "gradient_colors": [
-          "#2a2e19",
-          "#2e3922"
+          "#05050A",
+          "#21104A"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.3,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "drums",
           "energy"
@@ -1218,8 +1227,8 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "elegant_gold",
         "font_family": 1679
       },
       "lines_overrides": {
@@ -1278,11 +1287,12 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tr_bl",
+        "gradient_direction": "bands",
         "background_color": "#1b1624",
         "gradient_colors": [
-          "#1b1624",
-          "#2e2435"
+          "#05050A",
+          "#21104A",
+          "#E5B84B"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.2,
@@ -1296,8 +1306,8 @@
         "text_position": "center",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "cinematic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "clean_white",
         "font_family": 641
       },
       "lines_overrides": {
@@ -1567,25 +1577,26 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "horizontal_left_right",
+        "gradient_direction": "rings_4",
         "background_color": "#2e331a",
         "gradient_colors": [
-          "#2e331a",
-          "#2e3921"
+          "#05050A",
+          "#21104A",
+          "#E5B84B"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
         ],
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "elegant_gold",
         "font_family": 1659
       },
       "lines_overrides": {
@@ -1622,27 +1633,28 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
+        "gradient_direction": "rings_4",
         "background_color": "#2c301a",
         "gradient_colors": [
-          "#2c301a",
-          "#2e3922"
+          "#05050A",
+          "#E5B84B",
+          "#FFF1C2"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.3,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
-        "reveal_mode": "progressive",
+        "font_size": 64,
+        "reveal_mode": "karaoke",
         "reveal_words": 2,
         "reactivity": [
           "drums",
           "energy"
         ],
         "text_position": "bottom",
-        "animation_type": "bounce_in",
+        "animation_type": "scale_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "text_style": "elegant_gold",
         "font_family": 1638
       },
       "lines_overrides": {
@@ -1744,17 +1756,17 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "vertical_top_bottom",
+        "gradient_direction": "rings_3",
         "background_color": "#2d311a",
         "gradient_colors": [
-          "#2d311a",
-          "#2e3922"
+          "#05050A",
+          "#21104A"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "drums",
           "energy"
@@ -1762,8 +1774,8 @@
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "elegant_gold",
         "font_family": 1621
       },
       "lines_overrides": {
@@ -1817,11 +1829,12 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
+        "gradient_direction": "diamond",
         "background_color": "#1c141f",
         "gradient_colors": [
-          "#1c141f",
-          "#312231"
+          "#05050A",
+          "#E5B84B",
+          "#FFF1C2"
         ],
         "texture_type": "vignette_soft",
         "texture_opacity": 0.25,
@@ -1834,8 +1847,8 @@
         "text_position": "top",
         "animation_type": "slide_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "dreamy",
-        "text_style": "hologram",
+        "bg_animation_preset": "minimal",
+        "text_style": "elegant_gold",
         "font_family": 405
       },
       "lines_overrides": {
@@ -1933,25 +1946,26 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "horizontal_left_right",
+        "gradient_direction": "rings_4",
         "background_color": "#2e331b",
         "gradient_colors": [
-          "#2e331b",
-          "#2e3921"
+          "#05050A",
+          "#21104A",
+          "#E5B84B"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
         ],
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "elegant_gold",
         "font_family": 1590
       },
       "lines_overrides": {
@@ -1995,25 +2009,26 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
+        "gradient_direction": "rings_4",
         "background_color": "#2d321a",
         "gradient_colors": [
-          "#2d321a",
-          "#2e3922"
+          "#05050A",
+          "#E5B84B",
+          "#FFF1C2"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 64,
         "reveal_mode": "karaoke",
         "reactivity": [
           "vocals"
         ],
         "text_position": "bottom",
-        "animation_type": "bounce_in",
+        "animation_type": "scale_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "text_style": "elegant_gold",
         "font_family": 1563
       },
       "lines_overrides": {
@@ -2190,25 +2205,25 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "vertical_top_bottom",
+        "gradient_direction": "rings_3",
         "background_color": "#2f331b",
         "gradient_colors": [
-          "#2f331b",
-          "#2e3a21"
+          "#05050A",
+          "#21104A"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
         ],
         "text_position": "bottom",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "energetic",
-        "text_style": "neon",
+        "bg_animation_preset": "smooth",
+        "text_style": "elegant_gold",
         "font_family": 1558
       },
       "lines_overrides": {
@@ -2276,11 +2291,11 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tr_bl",
+        "gradient_direction": "rings_3",
         "background_color": "#111218",
         "gradient_colors": [
-          "#111218",
-          "#201e29"
+          "#05050A",
+          "#21104A"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.35,
@@ -2293,9 +2308,9 @@
         ],
         "text_position": "bottom",
         "animation_type": "fade_out",
-        "animation_speed": 1.0,
-        "bg_animation_preset": "smooth",
-        "text_style": "neon",
+        "animation_speed": 0.6,
+        "bg_animation_preset": "minimal",
+        "text_style": "elegant_gold",
         "font_family": 567
       },
       "lines_overrides": {

@@ -23,6 +23,8 @@ class FontStyle(Enum):
     HOLOGRAM = "hologram"
     MATRIX = "matrix"
     BASIC = "basic"
+    CLEAN_WHITE = "clean_white"
+    DRAMATIC_RED = "dramatic_red"
 
 
 _FONTS_DIR = Path(__file__).resolve().parent.parent.parent / "fonts"
@@ -416,6 +418,57 @@ def _generate_basic(text: str, size: int, family: int = 0, style_colors: Optiona
     return canvas
 
 
+def _generate_clean_white(text: str, size: int, family: int = 0, style_colors: Optional[dict] = None) -> np.ndarray:
+    sc = style_colors or {}
+    core_color = sc.get("core_color", (240, 240, 240))
+    base = _create_base_text(text, size, family=family)
+    pad = 30
+    h, w = base.shape[:2]
+    canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
+
+    shadow = base.copy()
+    shadow[:, :, :3] = 0
+    shadow[:, :, 3] = np.where(shadow[:, :, 3] > 0, 120, 0)
+    shadow_blur = _apply_glow(shadow, (0, 0, 0), 6, 120)
+    _composite(canvas, shadow_blur, pad + 3, pad + 3)
+
+    colored = base.copy()
+    colored[:, :, 0] = core_color[0]
+    colored[:, :, 1] = core_color[1]
+    colored[:, :, 2] = core_color[2]
+    colored[:, :, 3] = np.where(colored[:, :, 3] > 0, 255, 0)
+    _composite(canvas, colored, pad, pad)
+    return canvas
+
+
+def _generate_dramatic_red(text: str, size: int, family: int = 0, style_colors: Optional[dict] = None) -> np.ndarray:
+    sc = style_colors or {}
+    red = sc.get("core_color", (200, 51, 51))
+    glow_c = sc.get("glow_color", (120, 20, 20))
+    base = _create_base_text(text, size, family=family)
+    pad = 50
+    h, w = base.shape[:2]
+    canvas = np.zeros((h + pad * 2, w + pad * 2, 4), dtype=np.uint8)
+
+    glow = _apply_glow(base, glow_c, 12, 100)
+    _composite(canvas, glow, pad, pad)
+
+    outline = _create_outline(base, max(2, size // 16))
+    outline[:, :, 0] = 0
+    outline[:, :, 1] = 0
+    outline[:, :, 2] = 0
+    outline[:, :, 3] = np.where(outline[:, :, 3] > 0, 200, 0)
+    _composite(canvas, outline, pad, pad)
+
+    colored = base.copy()
+    colored[:, :, 0] = red[0]
+    colored[:, :, 1] = red[1]
+    colored[:, :, 2] = red[2]
+    colored[:, :, 3] = np.where(colored[:, :, 3] > 0, 255, 0)
+    _composite(canvas, colored, pad, pad)
+    return canvas
+
+
 _STYLE_GENERATORS = {
     FontStyle.NEON: _generate_neon,
     FontStyle.GRAFFITI: _generate_graffiti,
@@ -426,6 +479,14 @@ _STYLE_GENERATORS = {
     FontStyle.HOLOGRAM: _generate_hologram,
     FontStyle.MATRIX: _generate_matrix,
     FontStyle.BASIC: _generate_basic,
+    FontStyle.CLEAN_WHITE: _generate_clean_white,
+    FontStyle.DRAMATIC_RED: _generate_dramatic_red,
+}
+
+
+_STYLE_ALIASES = {
+    "elegant_gold": FontStyle.GOLD,
+    "hip_hop": FontStyle.GRAFFITI,
 }
 
 
@@ -439,10 +500,13 @@ def generate_styled_text(
     style_colors: Optional[dict] = None,
 ) -> Image.Image:
     if isinstance(style, str):
-        try:
-            style = FontStyle(style)
-        except ValueError:
-            style = FontStyle.BASIC
+        if style in _STYLE_ALIASES:
+            style = _STYLE_ALIASES[style]
+        else:
+            try:
+                style = FontStyle(style)
+            except ValueError:
+                style = FontStyle.BASIC
 
     generator = _STYLE_GENERATORS.get(style, _generate_basic)
     arr = generator(text, size, family, style_colors=style_colors)
