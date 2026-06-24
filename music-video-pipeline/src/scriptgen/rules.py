@@ -403,6 +403,13 @@ _SECTION_CATEGORY_PREF = {
     "interlude": "handwriting",
 }
 
+_NONVIABLE_FONTS = {
+    1748,  # Yarndings 12 — renders text as knitted/cross-stitch chart pictographs
+    1749,  # Yarndings 12 Charted — renders text as knitted/cross-stitch chart pictographs
+    1750,  # Yarndings 20 — renders text as knitted/cross-stitch chart pictographs
+    1751,  # Yarndings 20 Charted — renders text as knitted/cross-stitch chart pictographs
+}
+
 _font_pool_cache = None
 
 
@@ -419,7 +426,7 @@ def _load_font_pool() -> dict:
             for name, info in data.items():
                 cat = info.get("category", "sans")
                 fid = info["id"]
-                if cat in _font_pool_cache:
+                if cat in _font_pool_cache and fid not in _NONVIABLE_FONTS:
                     _font_pool_cache[cat].append(fid)
         except Exception:
             pass

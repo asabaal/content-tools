@@ -1094,3 +1094,68 @@ BLESSED opens the heavenly court; MISCLASSIFIED breaks the false grid;
 THE FIRST SCROLL reveals the oracle; CULTURE CREATOR exposes artifact power;
 THE DEVIL'S PLAYBOOK teaches the tactics; COVENANT KEEPING GOD closes the
 archive in covenant rest.
+
+# ---------------------------------------------------------------------------
+# Nonviable Font Registry
+# ---------------------------------------------------------------------------
+# Fonts that are registered in font_registry.json but must never be selected
+# for lyric text rendering because they produce unreadable output.
+#
+# Each entry records: font identifier, reason rejected, replacement guidance,
+# and which projects/scripts were affected when it was removed.
+
+- font_identifier: 1749
+  font_registry_name: Yarndings 12 Charted
+  font_file: Yarndings12Charted-Regular.ttf
+  category: display
+  reason_rejected: >
+    Renders all Latin characters as knitted/cross-stitch chart pictographs
+    (hearts, diamonds, crosses, snowflakes, geometric patterns).
+    Not viable for textual words, captions, scripture, or lyric-video use
+    of any kind.
+  replacement_font: Aboreto (10) for elegant_gold contexts;
+    Staatliches (1599) for dramatic_red contexts;
+    Underdog (1695) for clean_white contexts;
+    or any standard readable display/sans font.
+  projects_scripts_changed:
+    - asabaal (section 3 — Hook): replaced with Aboreto (10)
+    - blessed-the-name (section 3 — Hook): replaced with Aboreto (10)
+    - covenant-keeping-god (section 3 — Chorus): replaced with Aboreto (10)
+    - misclassified (section 3 — Hook): replaced with Staatliches (1599)
+    - the-devil-s-playbook (section 3 — Pre Hook): replaced with Underdog (1695)
+
+- font_identifier: 1748
+  font_registry_name: Yarndings 12
+  font_file: Yarndings12-Regular.ttf
+  category: display
+  reason_rejected: >
+    Pictographic display face — every Latin character maps to a knitted/cross-stitch
+    chart symbol. Unreadable for words, captions, scripture, or lyric text.
+  replacement_font: any standard readable display/sans font (see 1749 guidance).
+  projects_scripts_changed: none (pre-emptive blacklist; never selected into a script)
+
+- font_identifier: 1750
+  font_registry_name: Yarndings 20
+  font_file: Yarndings20-Regular.ttf
+  category: display
+  reason_rejected: >
+    Pictographic display face — every Latin character maps to a knitted/cross-stitch
+    chart symbol. Unreadable for words, captions, scripture, or lyric text.
+  replacement_font: any standard readable display/sans font (see 1749 guidance).
+  projects_scripts_changed: none (pre-emptive blacklist; never selected into a script)
+
+- font_identifier: 1751
+  font_registry_name: Yarndings 20 Charted
+  font_file: Yarndings20Charted-Regular.ttf
+  category: display
+  reason_rejected: >
+    Pictographic display face — every Latin character maps to a knitted/cross-stitch
+    chart symbol. Unreadable for words, captions, scripture, or lyric text.
+  replacement_font: any standard readable display/sans font (see 1749 guidance).
+  projects_scripts_changed: none (pre-emptive blacklist; never selected into a script)
+
+# Runtime blacklist locations (code):
+#   download_fonts.py — NONVIABLE_FONTS set (prevents future download)
+#   rules.py — _NONVIABLE_FONTS set (prevents script-generation selection)
+#   font_styles.py — _NONVIABLE_FONTS set (prevents render-time loading)
+# All four Yarndings faces (1748-1751) are blocked in every location.

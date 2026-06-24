@@ -25,6 +25,13 @@ SKIP_FONT_NAMES = {
     "Noto Sans", "Noto Serif",  # These are massive CJK font families
 }
 
+NONVIABLE_FONTS = {
+    "Yarndings 12",  # renders all text as knitted/cross-stitch chart pictographs; not readable
+    "Yarndings 12 Charted",  # renders all text as knitted/cross-stitch chart pictographs; not readable
+    "Yarndings 20",  # renders all text as knitted/cross-stitch chart pictographs; not readable
+    "Yarndings 20 Charted",  # renders all text as knitted/cross-stitch chart pictographs; not readable
+}
+
 
 def parse_metadata(meta_path: Path) -> dict | None:
     if not meta_path.exists():
@@ -124,7 +131,7 @@ def process_fonts():
         category = meta.get("category", "SANS_SERIF") if meta else "SANS_SERIF"
         font_name = meta.get("name", dirname) if meta else dirname
 
-        if font_name in SKIP_FONT_NAMES:
+        if font_name in SKIP_FONT_NAMES or font_name in NONVIABLE_FONTS:
             continue
 
         # Find all TTF files in the directory

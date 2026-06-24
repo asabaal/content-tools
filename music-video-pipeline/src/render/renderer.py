@@ -436,6 +436,12 @@ class VideoRenderer:
     def _apply_bg_motion(self, img: Image.Image, t: float, v: Dict) -> Image.Image:
         preset_name = v.get("bg_animation_preset", "")
         if not preset_name:
+            sec = self._find_nearest_section(t)
+            if sec:
+                preset = get_preset_for_section(sec.get("type", ""))
+                if preset:
+                    preset_name = preset.name
+        if not preset_name:
             return img
         preset = get_preset(preset_name)
         reactivity = v.get("reactivity", [])

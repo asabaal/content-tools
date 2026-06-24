@@ -38,6 +38,12 @@ _LEGACY_FONT_FILES = {
     6: ("Oswald-Bold.ttf", "Oswald-Regular.ttf"),
 }
 _font_registry = None
+_NONVIABLE_FONTS = {
+    1748,  # Yarndings 12 — renders text as knitted/cross-stitch chart pictographs
+    1749,  # Yarndings 12 Charted — renders text as knitted/cross-stitch chart pictographs
+    1750,  # Yarndings 20 — renders text as knitted/cross-stitch chart pictographs
+    1751,  # Yarndings 20 Charted — renders text as knitted/cross-stitch chart pictographs
+}
 
 
 def _load_registry() -> dict:
@@ -60,7 +66,7 @@ def _load_registry() -> dict:
 
 def _find_font(size: int, bold: bool = True, family: int = 0) -> ImageFont.FreeTypeFont:
     reg = _load_registry()
-    if family > 0 and family in reg:
+    if family > 0 and family in reg and family not in _NONVIABLE_FONTS:
         bold_name, regular_name = reg[family]
         name = bold_name if bold else regular_name
         path = _FONTS_DIR / name

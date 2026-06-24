@@ -12,10 +12,10 @@
     "texture_opacity": 0.08,
     "texture_blend_mode": "multiply",
     "text_auto_contrast": true,
-    "font_size": 54,
+    "font_size": 60,
     "animation_type": "fade_in",
     "animation_speed": 1.0,
-    "reveal_mode": "line-by-line",
+    "reveal_mode": "progressive",
     "reveal_words": 1,
     "reveal_slide": false,
     "reactivity": [
@@ -75,7 +75,7 @@
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "line-by-line",
+        "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
           "vocals"

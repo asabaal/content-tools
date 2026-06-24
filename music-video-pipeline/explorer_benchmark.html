@@ -555,6 +555,90 @@ body {
     font-weight: 700;
     margin-left: 4px;
 }
+/* Prompt viewer */
+.prompt-system {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #e6edf3;
+    line-height: 1.6;
+}
+.prompt-system::before {
+    content: 'System Prompt';
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+.prompt-user {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 14px 18px;
+    white-space: pre-wrap;
+    font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #e6edf3;
+    word-break: break-word;
+}
+.prompt-user .placeholder {
+    display: inline-block;
+    padding: 1px 6px;
+    margin: 0 1px;
+    border-radius: 4px;
+    background: rgba(210,153,34,0.15);
+    color: #d29922;
+    font-weight: 600;
+    font-size: 11px;
+    font-family: monospace;
+}
+.prompt-user .placeholder:hover {
+    background: rgba(210,153,34,0.25);
+}
+.prompt-case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.prompt-case-meta .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    background: #161b22;
+    border: 1px solid #30363d;
+    color: #8b949e;
+}
+.prompt-case-meta .meta-badge .mval { color: #4cc9f0; }
+.prompt-unavailable {
+    text-align: center;
+    padding: 40px;
+    color: #8b949e;
+}
+.prompt-unavailable h3 { color: #e6edf3; margin-bottom: 8px; }
+.prompt-unavailable .btn-small {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 14px;
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #e6edf3;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.prompt-unavailable .btn-small:hover { border-color: #4cc9f0; }
 @media (max-width: 800px) {
     .sidebar { display: none; }
     .main-content { margin-left: 0; }
@@ -566,8 +650,10 @@ body {
 <div class="topbar">
     <h1>GLM-4.7-Flash Benchmark Explorer</h1>
     <span class="path" id="currentPath">no directory selected</span>
-    <button class="btn" id="selectDirBtn">Select Results Directory</button>
+    <button class="btn" id="selectDirBtn">Select Benchmark Directory</button>
     <input type="file" id="dirInput" webkitdirectory style="display:none">
+    <button class="btn" id="loadPromptsBtn" style="display:none">Load Prompts</button>
+    <input type="file" id="promptsDirInput" webkitdirectory style="display:none">
 </div>
 
 <nav class="sidebar" id="sidebar">
@@ -581,15 +667,20 @@ body {
     <div class="welcome" id="welcomeScreen">
         <div class="icon">🎬</div>
         <h2>GLM-4.7-Flash Benchmark Explorer</h2>
-        <p>Select a results directory to browse benchmark case responses. The filesystem picker lets you navigate to <code style="color:#e6edf3;background:#161b22;padding:2px 6px;border-radius:3px;font-size:12px">benchmarks/glm47flash_music_video_v0/results/</code></p>
+        <p>Select the benchmark directory (<code style="color:#e6edf3;background:#161b22;padding:2px 6px;border-radius:3px;font-size:12px">glm47flash_music_video_v0/</code>) to browse results, prompts, and case definitions together. If you select <code style="color:#8b949e;font-size:12px">results/</code> directly, prompts can be added separately.</p>
     </div>
 </div>
 
 <script>
 let rootHandle = null;
-let filesCache = []; // {path: string, name: string, caseDir: string, handle: FileSystemFileHandle, status: string}
+let promptsHandle = null;
+let casesHandle = null;
+let filesCache = [];
 let currentFile = null;
 let currentData = null;
+let promptsCache = {}; // caseName -> markdown string
+let casesCache = {};   // caseName -> case definition JSON
+let promptsLoaded = false;
 
 const sidebar = document.getElementById('sidebar');
 const mainContent = document.getElementById('mainContent');
@@ -597,6 +688,8 @@ const welcomeScreen = document.getElementById('welcomeScreen');
 const currentPath = document.getElementById('currentPath');
 const selectDirBtn = document.getElementById('selectDirBtn');
 const dirInput = document.getElementById('dirInput');
+const loadPromptsBtn = document.getElementById('loadPromptsBtn');
+const promptsDirInput = document.getElementById('promptsDirInput');
 
 selectDirBtn.addEventListener('click', async () => {
     if (window.showDirectoryPicker) {
@@ -619,6 +712,35 @@ dirInput.addEventListener('change', async (e) => {
     e.target.value = '';
 });
 
+loadPromptsBtn.addEventListener('click', () => {
+    if (window.showDirectoryPicker) {
+        promptsDirInput.click();
+    } else {
+        promptsDirInput.click();
+    }
+});
+
+promptsDirInput.addEventListener('change', async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+    const groups = {};
+    for (const f of files) {
+        const parts = f.webkitRelativePath.split('/');
+        const name = parts[parts.length - 1];
+        const caseName = name.replace(/\.md$/, '');
+        groups[caseName] = await f.text();
+    }
+    promptsCache = groups;
+    promptsLoaded = true;
+    loadPromptsBtn.style.display = 'none';
+    // Refresh current view if a result is loaded
+    if (currentData) {
+        displayAttempt(currentData, currentData.case_name || 'unknown',
+            `attempt_${currentData.attempt || 0}.json`);
+    }
+    e.target.value = '';
+});
+
 function fileStatus(data) {
     if (!data || data.dry_run) return 'dry';
     if (data.error) return 'err';
@@ -630,11 +752,40 @@ function fileStatus(data) {
 async function loadDirectory(dirHandle) {
     rootHandle = dirHandle;
     currentPath.textContent = dirHandle.name;
+
+    // Auto-detect subdirectories
+    promptsHandle = null;
+    casesHandle = null;
+    let resultsHandle = null;
+    for await (const entry of dirHandle.values()) {
+        if (entry.kind === 'directory') {
+            if (entry.name === 'results') resultsHandle = entry;
+            else if (entry.name === 'prompts') promptsHandle = entry;
+            else if (entry.name === 'cases') casesHandle = entry;
+        }
+    }
+
+    // If no results dir, treat the selected dir as results directly
+    if (!resultsHandle) {
+        resultsHandle = dirHandle;
+    }
+
+    // Load prompts and case defs if found
+    if (promptsHandle) {
+        await loadPromptsFromHandle(promptsHandle);
+        loadPromptsBtn.style.display = 'none';
+    } else {
+        loadPromptsBtn.style.display = 'block';
+    }
+    if (casesHandle) {
+        await loadCaseDefsFromHandle(casesHandle);
+    }
+
     sidebar.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
     filesCache = [];
 
     const entries = [];
-    for await (const entry of dirHandle.values()) {
+    for await (const entry of resultsHandle.values()) {
         if (entry.kind === 'directory') {
             entries.push(entry);
         }
@@ -675,10 +826,69 @@ async function loadDirectory(dirHandle) {
     welcomeScreen.style.display = 'none';
 }
 
+async function loadPromptsFromHandle(handle) {
+    promptsCache = {};
+    for await (const entry of handle.values()) {
+        if (entry.kind === 'file' && entry.name.endsWith('.md')) {
+            const caseName = entry.name.replace(/\.md$/, '');
+            try {
+                const file = await entry.getFile();
+                promptsCache[caseName] = await file.text();
+            } catch {}
+        }
+    }
+    promptsLoaded = true;
+}
+
+async function loadCaseDefsFromHandle(handle) {
+    casesCache = {};
+    for await (const entry of handle.values()) {
+        if (entry.kind === 'file' && entry.name.endsWith('.json')) {
+            const caseName = entry.name.replace(/\.json$/, '');
+            try {
+                const file = await entry.getFile();
+                casesCache[caseName] = JSON.parse(await file.text());
+            } catch {}
+        }
+    }
+}
+
 async function loadFilesFromInput(files, rootName) {
     currentPath.textContent = rootName;
     sidebar.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
     filesCache = [];
+
+    // Try to find prompts/ in the uploaded files
+    // Also try to find case defs
+    const promptFiles = {};
+    const caseFiles = {};
+    for (const f of files) {
+        const parts = f.webkitRelativePath.split('/');
+        if (parts.length >= 2 && parts[1] === 'prompts' && parts[parts.length-1].endsWith('.md')) {
+            const caseName = parts[parts.length-1].replace(/\.md$/, '');
+            promptFiles[caseName] = f;
+        }
+        if (parts.length >= 2 && parts[1] === 'cases' && parts[parts.length-1].endsWith('.json')) {
+            const caseName = parts[parts.length-1].replace(/\.json$/, '');
+            caseFiles[caseName] = f;
+        }
+    }
+
+    if (Object.keys(promptFiles).length) {
+        for (const [cn, f] of Object.entries(promptFiles)) {
+            promptsCache[cn] = await f.text();
+        }
+        promptsLoaded = true;
+        loadPromptsBtn.style.display = 'none';
+    } else {
+        loadPromptsBtn.style.display = 'block';
+    }
+
+    if (Object.keys(caseFiles).length) {
+        for (const [cn, f] of Object.entries(caseFiles)) {
+            try { casesCache[cn] = JSON.parse(await f.text()); } catch {}
+        }
+    }
 
     const groups = {};
     for (const f of files) {
@@ -830,6 +1040,7 @@ function displayAttempt(data, caseName, fileName) {
 
     const tabs = [
         { id: 'parsed', label: 'Parsed Output' },
+        { id: 'prompt', label: 'Prompt' },
         { id: 'raw', label: 'Raw Response' },
         { id: 'meta', label: 'Metadata' },
         { id: 'validation', label: 'Validation' },
@@ -873,6 +1084,11 @@ function displayAttempt(data, caseName, fileName) {
                 <button class="toggle-raw-btn" id="toggleRawBtn" onclick="toggleRawView()">Show Raw JSON</button>
             </div>
             <div id="parsedViewer" class="json-viewer">${data.parsed_output ? renderPretty(data.parsed_output) : data.parse_error ? `<span style="color:#f85149">${data.parse_error}</span>` : '<span style="color:#8b949e">No parsed output</span>'}</div>
+        </div>
+
+        <div class="tab-content" id="tab-prompt">
+            <div class="section-title">Prompt</div>
+            <div id="promptViewer">${renderPrompt(caseName, data)}</div>
         </div>
 
         <div class="tab-content" id="tab-raw">
@@ -1130,6 +1346,53 @@ function renderSafeBoundary(obj) {
     if (obj.reasoning_summary) {
         html += `<div class="boundary-reasoning">${esc(obj.reasoning_summary)}</div>`;
     }
+    html += '</div>';
+    return html;
+}
+
+function renderPrompt(caseName, data) {
+    const caseDef = casesCache[caseName];
+    const promptMarkdown = promptsCache[caseName];
+
+    if (!promptMarkdown && !caseDef) {
+        const hasSeparate = !promptsLoaded;
+        return `<div class="prompt-unavailable">
+            <h3>Prompt Not Available</h3>
+            <p>${hasSeparate ? 'Select a benchmark directory that includes a <code>prompts/</code> subdirectory, or use the "Load Prompts" button to load prompt templates separately.' : 'No prompt template found for this case.'}</p>
+        </div>`;
+    }
+
+    let html = '<div class="pretty-view">';
+
+    // Case definition meta badges
+    if (caseDef) {
+        html += '<div class="prompt-case-meta">';
+        const meta = [
+            ['Model', caseDef.model],
+            ['Temp', caseDef.temperature],
+            ['Max Tokens', caseDef.max_tokens],
+            ['Version', caseDef.version],
+            ['Display', caseDef.display_name],
+        ];
+        for (const [label, val] of meta) {
+            if (val != null) html += `<span class="meta-badge">${label}: <span class="mval">${val}</span></span>`;
+        }
+        html += '</div>';
+
+        // System prompt
+        if (caseDef.system_prompt) {
+            html += `<div class="prompt-system">${esc(caseDef.system_prompt)}</div>`;
+        }
+    }
+
+    // User prompt template with placeholder highlighting
+    if (promptMarkdown) {
+        let rendered = esc(promptMarkdown);
+        // Highlight {{PLACEHOLDERS}} with styled tags
+        rendered = rendered.replace(/\{\{(\w+)\}\}/g, '<span class="placeholder">{{$1}}</span>');
+        html += `<div class="prompt-user">${rendered}</div>`;
+    }
+
     html += '</div>';
     return html;
 }

@@ -12,7 +12,7 @@
     "texture_opacity": 0.08,
     "texture_blend_mode": "multiply",
     "text_auto_contrast": true,
-    "font_size": 52,
+    "font_size": 58,
     "animation_type": "fade_in",
     "animation_speed": 1.0,
     "reveal_mode": "progressive",
@@ -70,15 +70,15 @@
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "line-by-line",
+        "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
           "vocals"
         ],
-        "text_position": "center",
+        "text_position": "top",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "minimal",
+        "bg_animation_preset": "smooth",
         "text_style": "clean_white",
         "font_family": 10
       },
@@ -439,7 +439,7 @@
         "reveal_mode": "line-by-line",
         "reveal_words": 1,
         "reactivity": [],
-        "text_position": "center",
+        "text_position": "top",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "smooth",
@@ -606,7 +606,7 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "energetic",
         "text_style": "elegant_gold",
-        "font_family": 1749
+        "font_family": 10
       },
       "lines_overrides": {
         "23": {
@@ -933,7 +933,7 @@
         "reveal_mode": "line-by-line",
         "reveal_words": 1,
         "reactivity": [],
-        "text_position": "center",
+        "text_position": "top",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "smooth",
@@ -1631,7 +1631,7 @@
         "reactivity": [
           "vocals"
         ],
-        "text_position": "center",
+        "text_position": "top",
         "animation_type": "fade_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "smooth",
@@ -2250,7 +2250,7 @@
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "line-by-line",
+        "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
           "energy"
@@ -2258,7 +2258,7 @@
         "text_position": "bottom",
         "animation_type": "fade_out",
         "animation_speed": 0.7,
-        "bg_animation_preset": "minimal",
+        "bg_animation_preset": "smooth",
         "text_style": "elegant_gold",
         "font_family": 1336
       },
