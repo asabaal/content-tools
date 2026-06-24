@@ -1,0 +1,17 @@
+{
+  "dry_run": false,
+  "model": "glm-4.7-flash",
+  "case_name": "system_discovery",
+  "attempt": 3,
+  "timestamp": "2026-06-24T00:18:44.901816+00:00",
+  "http_status": 429,
+  "elapsed_seconds": 0.0,
+  "usage": {},
+  "thinking_enabled": false,
+  "raw_response_json": {},
+  "raw_content": "",
+  "parsed_output": null,
+  "parse_error": null,
+  "api_key_leaks": [],
+  "error": "HTTP 429: {\"error\":{\"code\":\"1305\",\"message\":\"The service may be temporarily overloaded, please try again later\"}}"
+}

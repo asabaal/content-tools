@@ -1,0 +1,18 @@
+{
+  "name": "AI Psalm 9",
+  "defaults": {
+    "background_type": "solid",
+    "background_color": "#0a0a0a",
+    "font_size": 112,
+    "animation_type": "none",
+    "reveal_mode": "karaoke",
+    "text_auto_contrast": false
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#ffff00",
+    "text_color": "#ffffff",
+    "text_position": "center"
+  },
+  "sections": []
+}

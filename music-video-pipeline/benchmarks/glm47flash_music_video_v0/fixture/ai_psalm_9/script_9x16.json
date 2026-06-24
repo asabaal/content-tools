@@ -1,0 +1,609 @@
+{
+  "name": "AI Psalm 9",
+  "defaults": {
+    "background_type": "gradient",
+    "background_color": "#162126",
+    "gradient_colors": [
+      "#162126",
+      "#222b39"
+    ],
+    "gradient_direction": "radial_center",
+    "texture_type": "vignette_soft",
+    "texture_opacity": 0.2,
+    "texture_blend_mode": "multiply",
+    "text_auto_contrast": true,
+    "font_size": 82,
+    "animation_type": "fade",
+    "animation_speed": 1.0,
+    "reveal_mode": "progressive",
+    "reveal_words": 1,
+    "reveal_slide": false,
+    "reactivity": [
+      "vocals"
+    ],
+    "text_align": "center"
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#FF8C00",
+    "text_position": "center",
+    "letter_spacing": 1,
+    "text_shadow": false,
+    "outline": false
+  },
+  "sections": [
+    {
+      "name": "spoken prophetic opening",
+      "type": "spoken_prophetic_opening",
+      "lines": [
+        0,
+        1
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "cross",
+        "background_color": "#162126",
+        "gradient_colors": [
+          "#080e18",
+          "#1a6078",
+          "#0d1520",
+          "#501878",
+          "#162136"
+        ],
+        "texture_type": "noise_grain",
+        "texture_opacity": 0.08,
+        "texture_blend_mode": "multiply",
+        "font_size": 53,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "none",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "smooth",
+        "text_style": "ice",
+        "font_family": 1
+      },
+      "lines_overrides": {
+        "1": {
+          "font_size": 52
+        }
+      },
+      "words_overrides": {
+        "0.0": {
+          "y": 0.5
+        },
+        "0.1": {
+          "y": 0.5
+        },
+        "0.2": {
+          "y": 0.5
+        },
+        "0.3": {
+          "y": 0.821
+        },
+        "0.4": {
+          "y": 0.821
+        },
+        "0.5": {
+          "y": 0.821
+        },
+        "0.6": {
+          "y": 0.821
+        },
+        "1.0": {
+          "y": 0.5
+        },
+        "1.1": {
+          "y": 0.5
+        },
+        "1.2": {
+          "y": 0.821
+        },
+        "1.3": {
+          "y": 0.821
+        },
+        "1.4": {
+          "y": 0.821
+        },
+        "1.5": {
+          "y": 0.821
+        },
+        "1.6": {
+          "y": 0.821
+        }
+      }
+    },
+    {
+      "name": "melodic testimony verse",
+      "type": "melodic_testimony_verse",
+      "lines": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "conic_0.8",
+        "background_color": "#1d2d3c",
+        "gradient_colors": [
+          "#080e18",
+          "#1d5d7c",
+          "#0e1628",
+          "#3a1858",
+          "#1a2548"
+        ],
+        "texture_type": "noise_grain",
+        "texture_opacity": 0.08,
+        "texture_blend_mode": "multiply",
+        "font_size": 53,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.2,
+        "bg_animation_preset": "smooth",
+        "text_style": "ice",
+        "font_family": 1
+      },
+      "lines_overrides": {
+        "2": {
+          "font_size": 46
+        },
+        "3": {
+          "font_size": 48
+        },
+        "4": {
+          "font_size": 42
+        },
+        "5": {
+          "font_size": 44
+        }
+      },
+      "words_overrides": {
+        "2.0": {
+          "y": 0.179
+        },
+        "2.1": {
+          "y": 0.179
+        },
+        "2.2": {
+          "y": 0.179
+        },
+        "2.3": {
+          "y": 0.179
+        },
+        "3.0": {
+          "y": 0.179
+        },
+        "3.1": {
+          "y": 0.179
+        },
+        "3.2": {
+          "y": 0.179
+        },
+        "3.3": {
+          "y": 0.179
+        },
+        "4.0": {
+          "y": 0.179
+        },
+        "4.1": {
+          "y": 0.179
+        },
+        "4.2": {
+          "y": 0.179
+        },
+        "4.3": {
+          "y": 0.179
+        },
+        "4.4": {
+          "y": 0.179
+        },
+        "5.0": {
+          "y": 0.179
+        },
+        "5.1": {
+          "y": 0.179
+        },
+        "5.2": {
+          "y": 0.179
+        },
+        "5.3": {
+          "y": 0.179
+        },
+        "5.4": {
+          "y": 0.179
+        }
+      }
+    },
+    {
+      "name": "vulnerable sacred pop expansion",
+      "type": "vulnerable_sacred_pop_expansion",
+      "lines": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "dual_spot_0.4_0.7_0.6_0.3",
+        "background_color": "#1e283d",
+        "gradient_colors": [
+          "#060a14",
+          "#1e5878",
+          "#381858",
+          "#0a0e1a",
+          "#0f1a2d"
+        ],
+        "texture_type": "noise_grain",
+        "texture_opacity": 0.08,
+        "texture_blend_mode": "multiply",
+        "font_size": 53,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.3,
+        "bg_animation_preset": "dreamy",
+        "text_style": "ice",
+        "font_family": 1
+      },
+      "lines_overrides": {
+        "6": {
+          "font_size": 46
+        },
+        "7": {
+          "font_size": 54
+        },
+        "8": {
+          "font_size": 55
+        },
+        "9": {
+          "font_size": 56
+        }
+      },
+      "words_overrides": {
+        "7.0": {
+          "y": 0.179
+        },
+        "7.1": {
+          "y": 0.179
+        },
+        "7.2": {
+          "y": 0.179
+        }
+      }
+    },
+    {
+      "name": "cinematic prophetic build",
+      "type": "cinematic_prophetic_build",
+      "lines": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "cross",
+        "background_color": "#1e2d40",
+        "gradient_colors": [
+          "#080c16",
+          "#2c3152",
+          "#3a2845",
+          "#1e2d40",
+          "#0a0e1a"
+        ],
+        "texture_type": "noise_grain",
+        "texture_opacity": 0.08,
+        "texture_blend_mode": "multiply",
+        "font_size": 53,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "scale_in",
+        "animation_speed": 1.5,
+        "bg_animation_preset": "cinematic",
+        "text_style": "chrome",
+        "font_family": 3
+      },
+      "lines_overrides": {
+        "10": {
+          "font_size": 54
+        },
+        "11": {
+          "font_size": 49
+        },
+        "12": {
+          "font_size": 57
+        },
+        "13": {
+          "font_size": 58
+        },
+        "14": {
+          "font_size": 60
+        },
+        "15": {
+          "font_size": 61
+        }
+      },
+      "words_overrides": {
+        "10.0": {
+          "y": 0.179,
+          "font_size_delta": 0
+        },
+        "10.1": {
+          "y": 0.179
+        },
+        "10.2": {
+          "y": 0.179
+        },
+        "10.3": {
+          "font_size_delta": 3
+        },
+        "10.4": {
+          "font_size_delta": 4
+        },
+        "10.5": {
+          "font_size_delta": 6
+        }
+      }
+    },
+    {
+      "name": "prophetic declaration lift",
+      "type": "prophetic_declaration_lift",
+      "lines": [
+        16,
+        17,
+        18
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "dual_spot_0.3_0.7_0.7_0.3",
+        "background_color": "#2d1f11",
+        "gradient_colors": [
+          "#120a04",
+          "#4d3218",
+          "#5a2812",
+          "#2d1f11",
+          "#1a1508"
+        ],
+        "texture_type": "noise_grain",
+        "texture_opacity": 0.1,
+        "texture_blend_mode": "multiply",
+        "font_size": 53,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.4,
+        "bg_animation_preset": "dreamy",
+        "text_style": "neon",
+        "font_family": 2
+      },
+      "lines_overrides": {
+        "16": {
+          "font_size": 65
+        },
+        "17": {
+          "font_size": 88
+        },
+        "18": {
+          "font_size": 61
+        }
+      },
+      "words_overrides": {
+        "17.0": {
+          "y": 0.179,
+          "font_size_delta": 0
+        },
+        "17.1": {
+          "y": 0.179,
+          "font_size_delta": 2
+        },
+        "17.2": {
+          "y": 0.179,
+          "font_size_delta": 3
+        }
+      }
+    },
+    {
+      "name": "spoken liturgical bridge",
+      "type": "spoken_liturgical_bridge",
+      "lines": [
+        19,
+        20
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "spiral",
+        "background_color": "#1c1a33",
+        "gradient_colors": [
+          "#0a0814",
+          "#1c1a38",
+          "#0a2a3a",
+          "#3a1858",
+          "#1a0a28"
+        ],
+        "texture_type": "noise_grain",
+        "texture_opacity": 0.08,
+        "texture_blend_mode": "multiply",
+        "font_size": 53,
+        "reveal_mode": "stacking",
+        "reactivity": [
+          "energy",
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.6,
+        "bg_animation_preset": "dreamy",
+        "text_style": "hologram",
+        "font_family": 4
+      },
+      "lines_overrides": {
+        "19": {
+          "font_size": 28
+        },
+        "20": {
+          "font_size": 36
+        }
+      },
+      "words_overrides": {
+        "19.0": {
+          "y": 0.339
+        },
+        "19.1": {
+          "y": 0.339
+        },
+        "19.2": {
+          "y": 0.339
+        },
+        "19.3": {
+          "y": 0.339
+        },
+        "20.0": {
+          "y": 0.661
+        },
+        "20.1": {
+          "y": 0.661
+        },
+        "20.2": {
+          "y": 0.661
+        },
+        "20.3": {
+          "y": 0.661
+        },
+        "20.4": {
+          "y": 0.661
+        }
+      }
+    },
+    {
+      "name": "prayerful final movement",
+      "type": "prayerful_final_movement",
+      "lines": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "cross",
+        "background_color": "#172529",
+        "gradient_colors": [
+          "#0a1218",
+          "#2a3540",
+          "#4a3510",
+          "#172529",
+          "#38280a"
+        ],
+        "texture_type": "noise_grain",
+        "texture_opacity": 0.08,
+        "texture_blend_mode": "multiply",
+        "font_size": 53,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "drums",
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.2,
+        "bg_animation_preset": "smooth",
+        "text_style": "gold",
+        "font_family": 5
+      },
+      "lines_overrides": {
+        "21": {
+          "font_size": 47
+        },
+        "22": {
+          "font_size": 56
+        },
+        "23": {
+          "font_size": 58
+        },
+        "24": {
+          "font_size": 61
+        }
+      },
+      "words_overrides": {
+        "21.0": {
+          "y": 0.179
+        },
+        "21.1": {
+          "y": 0.179
+        },
+        "21.2": {
+          "y": 0.179
+        }
+      }
+    }
+  ],
+  "intro": {
+    "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 29, 2026, 01_50_46 PM.png",
+    "title": "",
+    "subtitle": "",
+    "duration": 4.789
+  },
+  "outro": {
+    "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 29, 2026, 01_50_46 PM.png",
+    "logo": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/outro_logo.png",
+    "text": "Presented by"
+  },
+  "_aspect_meta": {
+    "source_aspect": "16:9",
+    "target_aspect": "9:16",
+    "target_width": 1080,
+    "target_height": 1920,
+    "source_font_sizes": {
+      "0.1": 92,
+      "1.2": 82,
+      "1.3": 85,
+      "1.4": 75,
+      "1.5": 78,
+      "2.6": 82,
+      "2.7": 96,
+      "2.8": 98,
+      "2.9": 100,
+      "3.10": 96,
+      "3.11": 87,
+      "3.12": 101,
+      "3.13": 103,
+      "3.14": 107,
+      "3.15": 108,
+      "4.16": 116,
+      "4.17": 156,
+      "4.18": 108,
+      "5.19": 50,
+      "5.20": 64,
+      "6.21": 84,
+      "6.22": 100,
+      "6.23": 103,
+      "6.24": 108
+    }
+  }
+}

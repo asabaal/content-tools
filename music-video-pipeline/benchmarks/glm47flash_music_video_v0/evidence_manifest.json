@@ -1,0 +1,325 @@
+{
+  "benchmark": "GLM-4.7-Flash Music Video Scripting Benchmark v0",
+  "evidence_bundle_version": "1.0",
+  "generated_at": "2026-06-24T00:24:13.741302+00:00",
+  "repo_root": "/mnt/storage/repos/content-tools/music-video-pipeline",
+  "includes": {
+    "source_code": [
+      {
+        "path": "src/scriptgen/generator.py",
+        "size_bytes": 15276,
+        "sha256": "bc7463fac61b55fffb7fee5a640c87b91bce50559ecb6a802d60539f27d55307"
+      },
+      {
+        "path": "src/scriptgen/rules.py",
+        "size_bytes": 18543,
+        "sha256": "2016fb8062b5e9f5101458fa8225b03a83517d4e5c03025770ad7cfaac4930c1"
+      },
+      {
+        "path": "src/scriptgen/moods.py",
+        "size_bytes": 1674,
+        "sha256": "8d3f5896e94d014ddff2cfd8ec1f853b80abd655e4451bb79b31d1a5ddfd6b03"
+      },
+      {
+        "path": "src/scriptgen/palette.py",
+        "size_bytes": 5105,
+        "sha256": "b9daf67ae06f76507710c45f9ec4e4b8a48d7c39ff015553ab86985756e33621"
+      },
+      {
+        "path": "src/scriptgen/color_presets.py",
+        "size_bytes": 12079,
+        "sha256": "f9769f1f183f934f37a9233487869fd14d1394d45f30058c87f41094dd539657"
+      },
+      {
+        "path": "src/render/renderer.py",
+        "size_bytes": 51023,
+        "sha256": "9c014d98cd80b20849e89a547350ab9a93ce20c342e23439782cc12b49165daf"
+      },
+      {
+        "path": "src/render/aspect_transform.py",
+        "size_bytes": 23330,
+        "sha256": "5d10f6df4d59abd3acf8517f6bed3b2654a6ddcfd6e11c4d320cc11065af0063"
+      },
+      {
+        "path": "src/render/effect_presets.py",
+        "size_bytes": 7426,
+        "sha256": "c8103eca63439e8d0954c583e1d72426b6f62df862d64badb1c0c635906286bb"
+      },
+      {
+        "path": "src/render/animations.py",
+        "size_bytes": 6722,
+        "sha256": "d4f4932f32dea344b7ec76d9dcfe92a902f14a7e7a8d5457b735d06a566ad98e"
+      },
+      {
+        "path": "src/render/audio_reactive.py",
+        "size_bytes": 4998,
+        "sha256": "47b1de8de761083382a3db2a090091f116eb1380a72857ecfe95405c18f9e821"
+      },
+      {
+        "path": "src/render/frame_effects.py",
+        "size_bytes": 10389,
+        "sha256": "b87829610c98be9145fd94a6b24129825ce2b567d0c91c2f991d411044f28b69"
+      },
+      {
+        "path": "src/render/gradients.py",
+        "size_bytes": 16376,
+        "sha256": "03c0a4b175446fb94cf28139de7bf17ae620099189a9150f2d3cf1cf3ab5d547"
+      },
+      {
+        "path": "src/render/text_styles.py",
+        "size_bytes": 7509,
+        "sha256": "47712c6160d1c56b60d2ed0288b875c7c8cd79377f31bf6b167e95b53fd7ae2e"
+      },
+      {
+        "path": "src/render/font_styles.py",
+        "size_bytes": 18968,
+        "sha256": "e5acfbdb1b188321910a0a5ccfb6621d5a4e25f82e2965106cc1c16383b3a79c"
+      },
+      {
+        "path": "src/render/encoder.py",
+        "size_bytes": 2471,
+        "sha256": "7f2d185efc413cc18d4264502137a7b1e0a4c7553e802a73d7541219f21bef53"
+      },
+      {
+        "path": "src/pipeline/models.py",
+        "size_bytes": 11537,
+        "sha256": "255f6c31e1c78336216779778b0ae7c3e07a329ac24d3741bb5f78a244bb9fac"
+      },
+      {
+        "path": "src/canvas/models.py",
+        "size_bytes": 3754,
+        "sha256": "6dc66c0fdea02e6a6b5295a23d6afc591a25fd883be3340b152086adcf7e380f"
+      },
+      {
+        "path": "src/canvas/renderer.py",
+        "size_bytes": 12401,
+        "sha256": "e48890c6ed33926bd540fd2157997c14ef0656c550d7bc9ab8579ec0449edd59"
+      },
+      {
+        "path": "src/canvas/geometry.py",
+        "size_bytes": 6880,
+        "sha256": "823beccc0b376423b412dbd79ca46ce5438c1424c658ee5564bad5f95082a7e7"
+      },
+      {
+        "path": "src/canvas/motion.py",
+        "size_bytes": 3762,
+        "sha256": "5d051b15d58654517326b78a59f0ba24bb365d313dbc672f33f1538af05b8c88"
+      },
+      {
+        "path": "src/canvas/lights.py",
+        "size_bytes": 4691,
+        "sha256": "4be45c0492917dffb6be370ce68dd010fcd3f9a00422babeb5d4a7b299a7e3f2"
+      },
+      {
+        "path": "src/canvas/compositing.py",
+        "size_bytes": 3385,
+        "sha256": "7ca59b16ee32d35b5f208100b5634c97de0b894d6afec9db48ce035bc5369c9d"
+      },
+      {
+        "path": "src/canvas/repetition.py",
+        "size_bytes": 4124,
+        "sha256": "b18ec6a8cec1a7598665deb45faf15f552a71d8fc9d1124a5d63340e5afb98a3"
+      },
+      {
+        "path": "src/canvas/text_safety.py",
+        "size_bytes": 1518,
+        "sha256": "df4bf4459ea08797f9e1c11df2ac9682a85779db4986eb4c6d74fbcc5bc65ea7"
+      },
+      {
+        "path": "src/audio/analyzer.py",
+        "size_bytes": 18145,
+        "sha256": "3f04e2127b949547fdaff50abd7d93d9e4dd39079992dd4fa066a672f59938b1"
+      },
+      {
+        "path": "src/audio/features.py",
+        "size_bytes": 3742,
+        "sha256": "ada96fbba57389f1bd2ebee0d58b892fca5bff671b0ec230aa75e88a7cc4b2ee"
+      },
+      {
+        "path": "src/lyrics/parser.py",
+        "size_bytes": 8332,
+        "sha256": "3fad0e1f7708248321c6862e66d20e6311659ddf30ee5b6bfea40c45f7ffb9d6"
+      },
+      {
+        "path": "src/lyrics/synchronizer.py",
+        "size_bytes": 33173,
+        "sha256": "9499f8643cd3b3f04f5364a0130af935b33ace51e36732379ae8e6401b3f2dbd"
+      },
+      {
+        "path": "scripts/apply_profile.py",
+        "size_bytes": 4588,
+        "sha256": "b1a580b08229a6d6136bcc50af14006ffe9295a0c7e93685599808a88ab257fe"
+      }
+    ],
+    "templates": [
+      {
+        "path": "templates/default.json",
+        "size_bytes": 297,
+        "sha256": "5a64c7176c5654a41f353ee79aaace23f07115f4077c3d6e3e64335e4362bed7"
+      },
+      {
+        "path": "templates/dynamic.json",
+        "size_bytes": 348,
+        "sha256": "d2b32dabbf8590f5ad61207db0a604d93eb32f883a91d55f2d3e461ecc6afb44"
+      },
+      {
+        "path": "templates/elegant.json",
+        "size_bytes": 348,
+        "sha256": "a477a62a70b400a6e44662a87d9173a85ede4f8b6739fa24f332365c89353351"
+      },
+      {
+        "path": "templates/energetic.json",
+        "size_bytes": 353,
+        "sha256": "c592eafdf9890583be09aed8aca4ab2b02eee1e4ff42d64a080e3420f2b799df"
+      },
+      {
+        "path": "templates/extreme.json",
+        "size_bytes": 373,
+        "sha256": "37af144a70c1be6fe654a6fee534cd18b9678c12a488bd354209f9006856801a"
+      },
+      {
+        "path": "templates/modern.json",
+        "size_bytes": 290,
+        "sha256": "d987eb106e92efaaf24ea08825d3a70b8bc862c47934d56a5dbc43fb81d69a5b"
+      }
+    ],
+    "tests": [
+      {
+        "path": "tests/test_generator.py",
+        "size_bytes": 36387,
+        "sha256": "8f48302125c50e65b644d9743721af86d19f02d0b5feca466e4e8e10c33793e2"
+      },
+      {
+        "path": "tests/test_models.py",
+        "size_bytes": 13926,
+        "sha256": "e2ca03f3c54e5c9e97614878f02748f7c66e0baff907f9af0a83d6aca6ecc539"
+      },
+      {
+        "path": "tests/test_rules.py",
+        "size_bytes": 22722,
+        "sha256": "dd05e0314fad41297320a4975dd01c8382ffd29a3e7c223836a1e867cf1dbae5"
+      },
+      {
+        "path": "tests/test_canvas_models.py",
+        "size_bytes": 7143,
+        "sha256": "6063d6755544eabaf09ae15b5d6897538bb10e1db9478dfa743ca14fd63e0207"
+      },
+      {
+        "path": "tests/test_canvas_renderer.py",
+        "size_bytes": 20684,
+        "sha256": "d3a34cf4eb7b95bbe7888e902cc47f01aeb9ff899df1119004a747fbcba87ead"
+      },
+      {
+        "path": "tests/test_aspect_transform.py",
+        "size_bytes": 69766,
+        "sha256": "b2806d612c321498f2fc090c08f7b9a9376b32f7a1d6a26bad18f5560e6245c8"
+      },
+      {
+        "path": "tests/test_render.py",
+        "size_bytes": 86963,
+        "sha256": "32a488b8fc66b495141e7b6bd66fa7943138fe233d5f06537e58c06d72c5f171"
+      }
+    ],
+    "fixtures": [
+      {
+        "path": "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/analysis.json",
+        "size_bytes": 560038,
+        "sha256": "974a97d915296534757cac90917a505171ebc5af12973153fa93d91500b12f34"
+      },
+      {
+        "path": "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/lyrics_synced.json",
+        "size_bytes": 173931,
+        "sha256": "f7137509836a5e55572ccedafe2323c6d022801be33e6da720fd6404640a8ee0"
+      },
+      {
+        "path": "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/mvp_project.json",
+        "size_bytes": 914,
+        "sha256": "3738bd28b8e91f426c09f86e3d0cdae2c38de1fc02639decdc4b8152ce459a67"
+      },
+      {
+        "path": "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/script.json",
+        "size_bytes": 15557,
+        "sha256": "2ef75a8c4c9a28cbb183602cd2caaef40017f2b453dea6b22713d4b3abb30a99"
+      },
+      {
+        "path": "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/script_16x9.json",
+        "size_bytes": 12917,
+        "sha256": "19ce29885c7d022750bddb19026d2548d9229c506f0967e2542e542bf331f371"
+      },
+      {
+        "path": "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/script_9x16.json",
+        "size_bytes": 13002,
+        "sha256": "2d69ebbb0e44bf6d3bf933c9b0a869e59cb0b710ba9964d34607d0c59348f884"
+      },
+      {
+        "path": "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/script_bare.json",
+        "size_bytes": 387,
+        "sha256": "68dd3cfe8291b3311c23259e902c25892aad47aa25c2a2d57b36632d8331adea"
+      }
+    ]
+  },
+  "all_manifest_paths": [
+    "analysis.json",
+    "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/analysis.json",
+    "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/lyrics_synced.json",
+    "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/mvp_project.json",
+    "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/script.json",
+    "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/script_16x9.json",
+    "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/script_9x16.json",
+    "benchmarks/glm47flash_music_video_v0/fixture/ai_psalm_9/script_bare.json",
+    "lyrics_synced.json",
+    "mvp_project.json",
+    "script.json",
+    "script_16x9.json",
+    "script_9x16.json",
+    "script_bare.json",
+    "scripts/apply_profile.py",
+    "src/audio/analyzer.py",
+    "src/audio/features.py",
+    "src/canvas/compositing.py",
+    "src/canvas/geometry.py",
+    "src/canvas/lights.py",
+    "src/canvas/models.py",
+    "src/canvas/motion.py",
+    "src/canvas/renderer.py",
+    "src/canvas/repetition.py",
+    "src/canvas/text_safety.py",
+    "src/lyrics/parser.py",
+    "src/lyrics/synchronizer.py",
+    "src/pipeline/models.py",
+    "src/render/animations.py",
+    "src/render/aspect_transform.py",
+    "src/render/audio_reactive.py",
+    "src/render/effect_presets.py",
+    "src/render/encoder.py",
+    "src/render/font_styles.py",
+    "src/render/frame_effects.py",
+    "src/render/gradients.py",
+    "src/render/renderer.py",
+    "src/render/text_styles.py",
+    "src/scriptgen/color_presets.py",
+    "src/scriptgen/generator.py",
+    "src/scriptgen/moods.py",
+    "src/scriptgen/palette.py",
+    "src/scriptgen/rules.py",
+    "templates/default.json",
+    "templates/dynamic.json",
+    "templates/elegant.json",
+    "templates/energetic.json",
+    "templates/extreme.json",
+    "templates/modern.json",
+    "tests/test_aspect_transform.py",
+    "tests/test_canvas_models.py",
+    "tests/test_canvas_renderer.py",
+    "tests/test_generator.py",
+    "tests/test_models.py",
+    "tests/test_render.py",
+    "tests/test_rules.py"
+  ],
+  "unresolved_areas": [
+    "Canvas geometry/motion/lights may produce visual output not fully describable by script fields alone",
+    "Color preset system (color_presets.py) modifies multiple fields; interactions are complex",
+    "Some template values may not be consumed by current renderer (e.g., unused template keys)",
+    "Audio reactivity behavior depends on runtime energy data, not script-level guarantees"
+  ]
+}

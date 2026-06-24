@@ -1,0 +1,6907 @@
+{
+  "lines": [
+    {
+      "text": "Your own people say they are you",
+      "start": 4.739,
+      "end": 8.22,
+      "words": [
+        {
+          "text": "Your",
+          "start": 4.789,
+          "end": 4.896,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "own",
+          "start": 4.896,
+          "end": 4.992,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "people",
+          "start": 4.992,
+          "end": 5.38,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "say",
+          "start": 5.472,
+          "end": 5.7,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "they",
+          "start": 5.728,
+          "end": 5.867,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "are",
+          "start": 5.867,
+          "end": 6.02,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "you",
+          "start": 6.02,
+          "end": 6.73,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "spoken prophetic opening, dark gospel atmosphere, low choir drone, sparse gospel piano, intimate dry vocal, restrained anger, digital cathedral texture, uneasy silence, no full beat yet",
+        "section_type": "spoken_prophetic_opening",
+        "index": null,
+        "tags": [
+          "dark_gospel_atmosphere",
+          "low_choir_drone",
+          "sparse_gospel_piano",
+          "intimate_dry_vocal",
+          "restrained_anger",
+          "digital_cathedral_texture",
+          "uneasy_silence",
+          "no_full_beat_yet"
+        ]
+      },
+      "warnings": [
+        "word_duration_very_long: you (2.200s)"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 4.739,
+          "end": 4.789,
+          "duration": 0.05,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 4.789,
+          "end": 4.896,
+          "duration": 0.107,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Your",
+          "confidence": 0.399,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 4.896,
+          "end": 4.992,
+          "duration": 0.096,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "own",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 4.992,
+          "end": 5.216,
+          "duration": 0.224,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "people",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 5.216,
+          "end": 5.269,
+          "duration": 0.053,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "people",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 5.269,
+          "end": 5.472,
+          "duration": 0.203,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "people",
+          "confidence": 0.442,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 5.472,
+          "end": 5.579,
+          "duration": 0.107,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "say",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 5.579,
+          "end": 5.728,
+          "duration": 0.149,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "say",
+          "confidence": 0.602,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 5.728,
+          "end": 5.867,
+          "duration": 0.139,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "they",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 5.867,
+          "end": 8.22,
+          "duration": 2.353,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5,
+            6
+          ],
+          "assigned_text": "are you",
+          "confidence": 0.829,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "Your",
+          "word_index": 0,
+          "segment_indices": [
+            1
+          ],
+          "start": 4.789,
+          "end": 4.84,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "Your"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "own",
+          "word_index": 1,
+          "segment_indices": [
+            2
+          ],
+          "start": 4.896,
+          "end": 4.992,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "own"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "people",
+          "word_index": 2,
+          "segment_indices": [
+            3,
+            4,
+            5
+          ],
+          "start": 4.992,
+          "end": 5.38,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "people"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "say",
+          "word_index": 3,
+          "segment_indices": [
+            6,
+            7
+          ],
+          "start": 5.472,
+          "end": 5.7,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "say"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "they",
+          "word_index": 4,
+          "segment_indices": [
+            8
+          ],
+          "start": 5.728,
+          "end": 5.867,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 4,
+          "group_text": "they"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "are",
+          "word_index": 5,
+          "segment_indices": [
+            9
+          ],
+          "start": 5.867,
+          "end": 6.02,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 5,
+          "group_text": "are you"
+        },
+        {
+          "assignment_idx": 6,
+          "text": "you",
+          "word_index": 6,
+          "segment_indices": [
+            9
+          ],
+          "start": 6.02,
+          "end": 8.22,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 5,
+          "group_text": "are you"
+        }
+      ]
+    },
+    {
+      "text": "whatever, mike, you see what they do",
+      "start": 8.22,
+      "end": 11.45,
+      "words": [
+        {
+          "text": "whatever,",
+          "start": 8.555,
+          "end": 8.747,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "mike,",
+          "start": 8.747,
+          "end": 9.22,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "you",
+          "start": 9.28,
+          "end": 10.36,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "see",
+          "start": 10.373,
+          "end": 10.475,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "what",
+          "start": 10.475,
+          "end": 10.74,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "they",
+          "start": 10.74,
+          "end": 10.88,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "do",
+          "start": 10.88,
+          "end": 11.45,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "spoken prophetic opening, dark gospel atmosphere, low choir drone, sparse gospel piano, intimate dry vocal, restrained anger, digital cathedral texture, uneasy silence, no full beat yet",
+        "section_type": "spoken_prophetic_opening",
+        "index": null,
+        "tags": [
+          "dark_gospel_atmosphere",
+          "low_choir_drone",
+          "sparse_gospel_piano",
+          "intimate_dry_vocal",
+          "restrained_anger",
+          "digital_cathedral_texture",
+          "uneasy_silence",
+          "no_full_beat_yet"
+        ]
+      },
+      "warnings": [
+        "word_duration_very_short: they (0.001s)"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 8.22,
+          "end": 8.555,
+          "duration": 0.335,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 8.555,
+          "end": 8.651,
+          "duration": 0.096,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "whatever,",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 8.651,
+          "end": 8.747,
+          "duration": 0.096,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "whatever,",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 8.747,
+          "end": 9.088,
+          "duration": 0.341,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "mike,",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 9.088,
+          "end": 9.28,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "mike,",
+          "confidence": 0.527,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 9.28,
+          "end": 10.373,
+          "duration": 1.093,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "you",
+          "confidence": 0.707,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 10.373,
+          "end": 10.475,
+          "duration": 0.101,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "see",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 10.475,
+          "end": 10.88,
+          "duration": 0.405,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "what",
+          "confidence": 0.507,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 10.88,
+          "end": 11.083,
+          "duration": 0.203,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5,
+            6
+          ],
+          "assigned_text": "they do",
+          "confidence": 0.829,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 11.083,
+          "end": 11.2,
+          "duration": 0.117,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            6
+          ],
+          "assigned_text": "do",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 11.2,
+          "end": 11.45,
+          "duration": 0.25,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            6
+          ],
+          "assigned_text": "do",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "whatever,",
+          "word_index": 0,
+          "segment_indices": [
+            1,
+            2
+          ],
+          "start": 8.555,
+          "end": 8.747,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "whatever,"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "mike,",
+          "word_index": 1,
+          "segment_indices": [
+            3,
+            4
+          ],
+          "start": 8.747,
+          "end": 9.22,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "mike,"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "you",
+          "word_index": 2,
+          "segment_indices": [
+            5
+          ],
+          "start": 9.28,
+          "end": 10.36,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "you"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "see",
+          "word_index": 3,
+          "segment_indices": [
+            6
+          ],
+          "start": 10.373,
+          "end": 10.475,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "see"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "what",
+          "word_index": 4,
+          "segment_indices": [
+            7
+          ],
+          "start": 10.475,
+          "end": 10.74,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 4,
+          "group_text": "what"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "they",
+          "word_index": 5,
+          "segment_indices": [
+            8
+          ],
+          "start": 10.88,
+          "end": 10.881,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 5,
+          "group_text": "they"
+        },
+        {
+          "assignment_idx": 6,
+          "text": "do",
+          "word_index": 6,
+          "segment_indices": [
+            8,
+            9,
+            10
+          ],
+          "start": 10.88,
+          "end": 11.45,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 6,
+          "group_text": "do"
+        }
+      ]
+    },
+    {
+      "text": "You always show up, even when I have doubt",
+      "start": 11.45,
+      "end": 17.72,
+      "words": [
+        {
+          "text": "You",
+          "start": 14.04,
+          "end": 14.7,
+          "source": "transcription"
+        },
+        {
+          "text": "always",
+          "start": 14.709,
+          "end": 15.18,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "show",
+          "start": 15.275,
+          "end": 15.52,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "up,",
+          "start": 15.52,
+          "end": 15.925,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "even",
+          "start": 15.925,
+          "end": 16.331,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "when",
+          "start": 16.331,
+          "end": 16.78,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "I",
+          "start": 16.78,
+          "end": 16.971,
+          "source": "transcription"
+        },
+        {
+          "text": "have",
+          "start": 16.971,
+          "end": 17.259,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "doubt",
+          "start": 17.259,
+          "end": 17.72,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "melodic testimony verse, prophetic sacred pop, subtle pulse enters, warm low synth, soft gospel piano, background hums, vocal grows steadier, doubt turning into recognition",
+        "section_type": "melodic_testimony_verse",
+        "index": null,
+        "tags": [
+          "prophetic_sacred_pop",
+          "subtle_pulse_enters",
+          "warm_low_synth",
+          "soft_gospel_piano",
+          "background_hums",
+          "vocal_grows_steadier",
+          "doubt_turning_into_recognition"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 11.45,
+          "end": 14.709,
+          "duration": 3.259,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "You",
+          "confidence": 0.21,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 14.709,
+          "end": 14.837,
+          "duration": 0.128,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "always",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 14.837,
+          "end": 15.083,
+          "duration": 0.245,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "always",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 15.083,
+          "end": 15.275,
+          "duration": 0.192,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "always",
+          "confidence": 0.393,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 15.275,
+          "end": 15.52,
+          "duration": 0.245,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "show",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 15.52,
+          "end": 15.925,
+          "duration": 0.405,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "up,",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 15.925,
+          "end": 16.331,
+          "duration": 0.405,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "even",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 16.331,
+          "end": 16.971,
+          "duration": 0.64,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5,
+            6
+          ],
+          "assigned_text": "when I",
+          "confidence": 0.778,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 16.971,
+          "end": 17.259,
+          "duration": 0.288,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            7
+          ],
+          "assigned_text": "have",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 17.259,
+          "end": 17.621,
+          "duration": 0.363,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            8
+          ],
+          "assigned_text": "doubt",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 17.621,
+          "end": 17.72,
+          "duration": 0.099,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            8
+          ],
+          "assigned_text": "doubt",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "You",
+          "word_index": 0,
+          "segment_indices": [
+            0
+          ],
+          "start": 14.04,
+          "end": 14.7,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "You"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "always",
+          "word_index": 1,
+          "segment_indices": [
+            1,
+            2,
+            3
+          ],
+          "start": 14.709,
+          "end": 15.18,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "always"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "show",
+          "word_index": 2,
+          "segment_indices": [
+            4
+          ],
+          "start": 15.275,
+          "end": 15.52,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "show"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "up,",
+          "word_index": 3,
+          "segment_indices": [
+            5
+          ],
+          "start": 15.52,
+          "end": 15.925,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "up,"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "even",
+          "word_index": 4,
+          "segment_indices": [
+            6
+          ],
+          "start": 15.925,
+          "end": 16.331,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 4,
+          "group_text": "even"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "when",
+          "word_index": 5,
+          "segment_indices": [
+            7
+          ],
+          "start": 16.331,
+          "end": 16.78,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 5,
+          "group_text": "when I"
+        },
+        {
+          "assignment_idx": 6,
+          "text": "I",
+          "word_index": 6,
+          "segment_indices": [
+            7
+          ],
+          "start": 16.78,
+          "end": 16.971,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 5,
+          "group_text": "when I"
+        },
+        {
+          "assignment_idx": 7,
+          "text": "have",
+          "word_index": 7,
+          "segment_indices": [
+            8
+          ],
+          "start": 16.971,
+          "end": 17.259,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 6,
+          "group_text": "have"
+        },
+        {
+          "assignment_idx": 8,
+          "text": "doubt",
+          "word_index": 8,
+          "segment_indices": [
+            9,
+            10
+          ],
+          "start": 17.259,
+          "end": 17.72,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 7,
+          "group_text": "doubt"
+        }
+      ]
+    },
+    {
+      "text": "Showing me what's up, as all go about",
+      "start": 17.72,
+      "end": 21.14,
+      "words": [
+        {
+          "text": "Showing",
+          "start": 17.72,
+          "end": 18.42,
+          "source": "transcription"
+        },
+        {
+          "text": "me",
+          "start": 18.42,
+          "end": 18.54,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "what's",
+          "start": 18.54,
+          "end": 19.168,
+          "source": "transcription"
+        },
+        {
+          "text": "up,",
+          "start": 19.168,
+          "end": 19.6,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "as",
+          "start": 19.6,
+          "end": 19.808,
+          "source": "transcription"
+        },
+        {
+          "text": "all",
+          "start": 19.808,
+          "end": 20.075,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "go",
+          "start": 20.075,
+          "end": 20.459,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "about",
+          "start": 20.459,
+          "end": 21.14,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "melodic testimony verse, prophetic sacred pop, subtle pulse enters, warm low synth, soft gospel piano, background hums, vocal grows steadier, doubt turning into recognition",
+        "section_type": "melodic_testimony_verse",
+        "index": null,
+        "tags": [
+          "prophetic_sacred_pop",
+          "subtle_pulse_enters",
+          "warm_low_synth",
+          "soft_gospel_piano",
+          "background_hums",
+          "vocal_grows_steadier",
+          "doubt_turning_into_recognition"
+        ]
+      },
+      "warnings": [
+        "word_duration_very_short: me (0.012s)"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 17.72,
+          "end": 17.941,
+          "duration": 0.221,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Showing",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 17.941,
+          "end": 18.123,
+          "duration": 0.181,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Showing",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 18.123,
+          "end": 18.528,
+          "duration": 0.405,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Showing",
+          "confidence": 0.54,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 18.528,
+          "end": 18.997,
+          "duration": 0.469,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1,
+            2
+          ],
+          "assigned_text": "me what's",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 18.997,
+          "end": 19.168,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "what's",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 19.168,
+          "end": 19.36,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "up,",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 19.36,
+          "end": 19.435,
+          "duration": 0.075,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "up,",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 19.435,
+          "end": 19.808,
+          "duration": 0.373,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3,
+            4
+          ],
+          "assigned_text": "up, as",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 19.808,
+          "end": 20.075,
+          "duration": 0.267,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "all",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 20.075,
+          "end": 20.459,
+          "duration": 0.384,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            6
+          ],
+          "assigned_text": "go",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 20.459,
+          "end": 21.131,
+          "duration": 0.672,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            7
+          ],
+          "assigned_text": "about",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 11,
+          "start": 21.131,
+          "end": 21.14,
+          "duration": 0.009,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            7
+          ],
+          "assigned_text": "about",
+          "confidence": 0.7,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "Showing",
+          "word_index": 0,
+          "segment_indices": [
+            0,
+            1,
+            2
+          ],
+          "start": 17.72,
+          "end": 18.42,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "Showing"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "me",
+          "word_index": 1,
+          "segment_indices": [
+            3
+          ],
+          "start": 18.528,
+          "end": 18.54,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "me"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "what's",
+          "word_index": 2,
+          "segment_indices": [
+            3,
+            4
+          ],
+          "start": 18.54,
+          "end": 19.168,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 2,
+          "group_text": "what's"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "up,",
+          "word_index": 3,
+          "segment_indices": [
+            5,
+            6,
+            7
+          ],
+          "start": 19.168,
+          "end": 19.6,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "up,"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "as",
+          "word_index": 4,
+          "segment_indices": [
+            7
+          ],
+          "start": 19.6,
+          "end": 19.808,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 4,
+          "group_text": "as"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "all",
+          "word_index": 5,
+          "segment_indices": [
+            8
+          ],
+          "start": 19.808,
+          "end": 20.075,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 5,
+          "group_text": "all"
+        },
+        {
+          "assignment_idx": 6,
+          "text": "go",
+          "word_index": 6,
+          "segment_indices": [
+            9
+          ],
+          "start": 20.075,
+          "end": 20.459,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 6,
+          "group_text": "go"
+        },
+        {
+          "assignment_idx": 7,
+          "text": "about",
+          "word_index": 7,
+          "segment_indices": [
+            10,
+            11
+          ],
+          "start": 20.459,
+          "end": 21.14,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 7,
+          "group_text": "about"
+        }
+      ]
+    },
+    {
+      "text": "You come just in time, as the skin that you chose",
+      "start": 21.14,
+      "end": 24.68,
+      "words": [
+        {
+          "text": "You",
+          "start": 21.14,
+          "end": 21.547,
+          "source": "transcription"
+        },
+        {
+          "text": "come",
+          "start": 21.547,
+          "end": 21.728,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "just",
+          "start": 21.728,
+          "end": 22.283,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "in",
+          "start": 22.283,
+          "end": 22.624,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "time,",
+          "start": 22.624,
+          "end": 23.1,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "as",
+          "start": 23.1,
+          "end": 23.36,
+          "source": "transcription"
+        },
+        {
+          "text": "the",
+          "start": 23.36,
+          "end": 23.48,
+          "source": "transcription"
+        },
+        {
+          "text": "skin",
+          "start": 23.52,
+          "end": 23.733,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "that",
+          "start": 23.733,
+          "end": 23.936,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "you",
+          "start": 23.936,
+          "end": 24.24,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "chose",
+          "start": 24.24,
+          "end": 24.68,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "melodic testimony verse, prophetic sacred pop, subtle pulse enters, warm low synth, soft gospel piano, background hums, vocal grows steadier, doubt turning into recognition",
+        "section_type": "melodic_testimony_verse",
+        "index": null,
+        "tags": [
+          "prophetic_sacred_pop",
+          "subtle_pulse_enters",
+          "warm_low_synth",
+          "soft_gospel_piano",
+          "background_hums",
+          "vocal_grows_steadier",
+          "doubt_turning_into_recognition"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 21.14,
+          "end": 21.547,
+          "duration": 0.407,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "You",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 21.547,
+          "end": 21.728,
+          "duration": 0.181,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "come",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 21.728,
+          "end": 22.229,
+          "duration": 0.501,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "just",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 22.229,
+          "end": 22.283,
+          "duration": 0.053,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "just",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 22.283,
+          "end": 22.389,
+          "duration": 0.107,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "in",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 22.389,
+          "end": 22.624,
+          "duration": 0.235,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "in",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 22.624,
+          "end": 22.869,
+          "duration": 0.245,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "time,",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 22.869,
+          "end": 23.52,
+          "duration": 0.651,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4,
+            5,
+            6
+          ],
+          "assigned_text": "time, as the",
+          "confidence": 0.781,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 23.52,
+          "end": 23.733,
+          "duration": 0.213,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            7
+          ],
+          "assigned_text": "skin",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 23.733,
+          "end": 23.936,
+          "duration": 0.203,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            8
+          ],
+          "assigned_text": "that",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 23.936,
+          "end": 24.469,
+          "duration": 0.533,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            9,
+            10
+          ],
+          "assigned_text": "you chose",
+          "confidence": 0.745,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 11,
+          "start": 24.469,
+          "end": 24.629,
+          "duration": 0.16,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            10
+          ],
+          "assigned_text": "chose",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 12,
+          "start": 24.629,
+          "end": 24.68,
+          "duration": 0.051,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            10
+          ],
+          "assigned_text": "chose",
+          "confidence": 0.673,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "You",
+          "word_index": 0,
+          "segment_indices": [
+            0
+          ],
+          "start": 21.14,
+          "end": 21.547,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "You"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "come",
+          "word_index": 1,
+          "segment_indices": [
+            1
+          ],
+          "start": 21.547,
+          "end": 21.728,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "come"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "just",
+          "word_index": 2,
+          "segment_indices": [
+            2,
+            3
+          ],
+          "start": 21.728,
+          "end": 22.283,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "just"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "in",
+          "word_index": 3,
+          "segment_indices": [
+            4,
+            5
+          ],
+          "start": 22.283,
+          "end": 22.624,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "in"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "time,",
+          "word_index": 4,
+          "segment_indices": [
+            6,
+            7
+          ],
+          "start": 22.624,
+          "end": 23.1,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 4,
+          "group_text": "time,"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "as",
+          "word_index": 5,
+          "segment_indices": [
+            7
+          ],
+          "start": 23.1,
+          "end": 23.36,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 5,
+          "group_text": "as the"
+        },
+        {
+          "assignment_idx": 6,
+          "text": "the",
+          "word_index": 6,
+          "segment_indices": [
+            7
+          ],
+          "start": 23.36,
+          "end": 23.48,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 5,
+          "group_text": "as the"
+        },
+        {
+          "assignment_idx": 7,
+          "text": "skin",
+          "word_index": 7,
+          "segment_indices": [
+            8
+          ],
+          "start": 23.52,
+          "end": 23.733,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 6,
+          "group_text": "skin"
+        },
+        {
+          "assignment_idx": 8,
+          "text": "that",
+          "word_index": 8,
+          "segment_indices": [
+            9
+          ],
+          "start": 23.733,
+          "end": 23.936,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 7,
+          "group_text": "that"
+        },
+        {
+          "assignment_idx": 9,
+          "text": "you",
+          "word_index": 9,
+          "segment_indices": [
+            10
+          ],
+          "start": 23.936,
+          "end": 24.24,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 8,
+          "group_text": "you"
+        },
+        {
+          "assignment_idx": 10,
+          "text": "chose",
+          "word_index": 10,
+          "segment_indices": [
+            10,
+            11,
+            12
+          ],
+          "start": 24.24,
+          "end": 24.68,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 9,
+          "group_text": "chose"
+        }
+      ]
+    },
+    {
+      "text": "From that vision of mine, all those years ago",
+      "start": 24.68,
+      "end": 29.0,
+      "words": [
+        {
+          "text": "From",
+          "start": 24.68,
+          "end": 25.06,
+          "source": "transcription"
+        },
+        {
+          "text": "that",
+          "start": 25.077,
+          "end": 25.227,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "vision",
+          "start": 25.227,
+          "end": 25.589,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "of",
+          "start": 25.589,
+          "end": 26.04,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "mine,",
+          "start": 26.04,
+          "end": 26.347,
+          "source": "transcription"
+        },
+        {
+          "text": "all",
+          "start": 26.347,
+          "end": 26.763,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "those",
+          "start": 26.763,
+          "end": 26.955,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "years",
+          "start": 26.955,
+          "end": 27.4,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "ago",
+          "start": 27.4,
+          "end": 28.51,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "melodic testimony verse, prophetic sacred pop, subtle pulse enters, warm low synth, soft gospel piano, background hums, vocal grows steadier, doubt turning into recognition",
+        "section_type": "melodic_testimony_verse",
+        "index": null,
+        "tags": [
+          "prophetic_sacred_pop",
+          "subtle_pulse_enters",
+          "warm_low_synth",
+          "soft_gospel_piano",
+          "background_hums",
+          "vocal_grows_steadier",
+          "doubt_turning_into_recognition"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 24.68,
+          "end": 24.917,
+          "duration": 0.237,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "From",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 24.917,
+          "end": 25.077,
+          "duration": 0.16,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "From",
+          "confidence": 0.624,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 25.077,
+          "end": 25.227,
+          "duration": 0.149,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "that",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 25.227,
+          "end": 25.589,
+          "duration": 0.363,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "vision",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 25.589,
+          "end": 25.867,
+          "duration": 0.277,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "of",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 25.867,
+          "end": 26.347,
+          "duration": 0.48,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3,
+            4
+          ],
+          "assigned_text": "of mine,",
+          "confidence": 0.778,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 26.347,
+          "end": 26.763,
+          "duration": 0.416,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "all",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 26.763,
+          "end": 26.955,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            6
+          ],
+          "assigned_text": "those",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 26.955,
+          "end": 28.043,
+          "duration": 1.088,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            7,
+            8
+          ],
+          "assigned_text": "years ago",
+          "confidence": 0.778,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 28.043,
+          "end": 28.277,
+          "duration": 0.235,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            8
+          ],
+          "assigned_text": "ago",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 28.277,
+          "end": 28.96,
+          "duration": 0.683,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            8
+          ],
+          "assigned_text": "ago",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 11,
+          "start": 28.96,
+          "end": 29.0,
+          "duration": 0.04,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            8
+          ],
+          "assigned_text": "ago",
+          "confidence": 0.689,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "From",
+          "word_index": 0,
+          "segment_indices": [
+            0,
+            1
+          ],
+          "start": 24.68,
+          "end": 25.06,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "From"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "that",
+          "word_index": 1,
+          "segment_indices": [
+            2
+          ],
+          "start": 25.077,
+          "end": 25.227,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "that"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "vision",
+          "word_index": 2,
+          "segment_indices": [
+            3
+          ],
+          "start": 25.227,
+          "end": 25.589,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "vision"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "of",
+          "word_index": 3,
+          "segment_indices": [
+            4,
+            5
+          ],
+          "start": 25.589,
+          "end": 26.04,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "of"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "mine,",
+          "word_index": 4,
+          "segment_indices": [
+            5
+          ],
+          "start": 26.04,
+          "end": 26.347,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 4,
+          "group_text": "mine,"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "all",
+          "word_index": 5,
+          "segment_indices": [
+            6
+          ],
+          "start": 26.347,
+          "end": 26.763,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 5,
+          "group_text": "all"
+        },
+        {
+          "assignment_idx": 6,
+          "text": "those",
+          "word_index": 6,
+          "segment_indices": [
+            7
+          ],
+          "start": 26.763,
+          "end": 26.955,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 6,
+          "group_text": "those"
+        },
+        {
+          "assignment_idx": 7,
+          "text": "years",
+          "word_index": 7,
+          "segment_indices": [
+            8
+          ],
+          "start": 26.955,
+          "end": 27.4,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 7,
+          "group_text": "years"
+        },
+        {
+          "assignment_idx": 8,
+          "text": "ago",
+          "word_index": 8,
+          "segment_indices": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "start": 27.4,
+          "end": 29.0,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 8,
+          "group_text": "ago"
+        }
+      ]
+    },
+    {
+      "text": "You've given me albums",
+      "start": 29.0,
+      "end": 30.48,
+      "words": [
+        {
+          "text": "You've",
+          "start": 29.02,
+          "end": 29.632,
+          "source": "transcription"
+        },
+        {
+          "text": "given",
+          "start": 29.632,
+          "end": 29.888,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "me",
+          "start": 29.888,
+          "end": 30.14,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "albums",
+          "start": 30.14,
+          "end": 30.48,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "vulnerable sacred pop expansion, dark gospel warmth, layered breath vocals, piano and organ blend, soft bass bloom, confession melody, tender but weighty, received calling energy",
+        "section_type": "vulnerable_sacred_pop_expansion",
+        "index": null,
+        "tags": [
+          "dark_gospel_warmth",
+          "layered_breath_vocals",
+          "piano_and_organ_blend",
+          "soft_bass_bloom",
+          "confession_melody",
+          "tender_but_weighty",
+          "received_calling_energy"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 29.0,
+          "end": 29.632,
+          "duration": 0.632,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "You've",
+          "confidence": 0.781,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 29.632,
+          "end": 29.813,
+          "duration": 0.181,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "given",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 29.813,
+          "end": 29.888,
+          "duration": 0.075,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "given",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 29.888,
+          "end": 30.293,
+          "duration": 0.405,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2,
+            3
+          ],
+          "assigned_text": "me albums",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 30.293,
+          "end": 30.48,
+          "duration": 0.187,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "albums",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "You've",
+          "word_index": 0,
+          "segment_indices": [
+            0
+          ],
+          "start": 29.02,
+          "end": 29.632,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "You've"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "given",
+          "word_index": 1,
+          "segment_indices": [
+            1,
+            2
+          ],
+          "start": 29.632,
+          "end": 29.888,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "given"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "me",
+          "word_index": 2,
+          "segment_indices": [
+            3
+          ],
+          "start": 29.888,
+          "end": 30.14,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "me"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "albums",
+          "word_index": 3,
+          "segment_indices": [
+            3,
+            4
+          ],
+          "start": 30.14,
+          "end": 30.48,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 3,
+          "group_text": "albums"
+        }
+      ]
+    },
+    {
+      "text": "I never asked to be queer",
+      "start": 30.48,
+      "end": 33.02,
+      "words": [
+        {
+          "text": "I",
+          "start": 30.528,
+          "end": 31.76,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "never",
+          "start": 31.808,
+          "end": 32.0,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "asked",
+          "start": 32.0,
+          "end": 32.384,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "to",
+          "start": 32.384,
+          "end": 32.555,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "be",
+          "start": 32.555,
+          "end": 32.651,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "queer",
+          "start": 32.651,
+          "end": 33.02,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "vulnerable sacred pop expansion, dark gospel warmth, layered breath vocals, piano and organ blend, soft bass bloom, confession melody, tender but weighty, received calling energy",
+        "section_type": "vulnerable_sacred_pop_expansion",
+        "index": null,
+        "tags": [
+          "dark_gospel_warmth",
+          "layered_breath_vocals",
+          "piano_and_organ_blend",
+          "soft_bass_bloom",
+          "confession_melody",
+          "tender_but_weighty",
+          "received_calling_energy"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 12 onsets vs 6 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 30.48,
+          "end": 30.528,
+          "duration": 0.048,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 30.528,
+          "end": 30.752,
+          "duration": 0.224,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 30.752,
+          "end": 31.552,
+          "duration": 0.8,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 31.552,
+          "end": 31.808,
+          "duration": 0.256,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.621,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 31.808,
+          "end": 31.893,
+          "duration": 0.085,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "never",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 31.893,
+          "end": 32.0,
+          "duration": 0.107,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "never",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 32.0,
+          "end": 32.213,
+          "duration": 0.213,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "asked",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 32.213,
+          "end": 32.384,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "asked",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 32.384,
+          "end": 32.555,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "to",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 32.555,
+          "end": 32.651,
+          "duration": 0.096,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "be",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 32.651,
+          "end": 32.779,
+          "duration": 0.128,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "queer",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 11,
+          "start": 32.779,
+          "end": 32.949,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "queer",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 12,
+          "start": 32.949,
+          "end": 33.02,
+          "duration": 0.071,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "queer",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "I",
+          "word_index": 0,
+          "segment_indices": [
+            1,
+            2,
+            3
+          ],
+          "start": 30.528,
+          "end": 31.76,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "I"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "never",
+          "word_index": 1,
+          "segment_indices": [
+            4,
+            5
+          ],
+          "start": 31.808,
+          "end": 32.0,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "never"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "asked",
+          "word_index": 2,
+          "segment_indices": [
+            6,
+            7
+          ],
+          "start": 32.0,
+          "end": 32.384,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "asked"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "to",
+          "word_index": 3,
+          "segment_indices": [
+            8
+          ],
+          "start": 32.384,
+          "end": 32.555,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "to"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "be",
+          "word_index": 4,
+          "segment_indices": [
+            9
+          ],
+          "start": 32.555,
+          "end": 32.651,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 4,
+          "group_text": "be"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "queer",
+          "word_index": 5,
+          "segment_indices": [
+            10,
+            11,
+            12
+          ],
+          "start": 32.651,
+          "end": 33.02,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 5,
+          "group_text": "queer"
+        }
+      ]
+    },
+    {
+      "text": "As I evolve",
+      "start": 33.02,
+      "end": 35.26,
+      "words": [
+        {
+          "text": "As",
+          "start": 33.02,
+          "end": 33.781,
+          "source": "transcription"
+        },
+        {
+          "text": "I",
+          "start": 33.781,
+          "end": 33.96,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "evolve",
+          "start": 33.96,
+          "end": 35.26,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "vulnerable sacred pop expansion, dark gospel warmth, layered breath vocals, piano and organ blend, soft bass bloom, confession melody, tender but weighty, received calling energy",
+        "section_type": "vulnerable_sacred_pop_expansion",
+        "index": null,
+        "tags": [
+          "dark_gospel_warmth",
+          "layered_breath_vocals",
+          "piano_and_organ_blend",
+          "soft_bass_bloom",
+          "confession_melody",
+          "tender_but_weighty",
+          "received_calling_energy"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 33.02,
+          "end": 33.365,
+          "duration": 0.345,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "As",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 33.365,
+          "end": 33.781,
+          "duration": 0.416,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "As",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 33.781,
+          "end": 34.571,
+          "duration": 0.789,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1,
+            2
+          ],
+          "assigned_text": "I evolve",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 34.571,
+          "end": 35.26,
+          "duration": 0.689,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "evolve",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "As",
+          "word_index": 0,
+          "segment_indices": [
+            0,
+            1
+          ],
+          "start": 33.02,
+          "end": 33.781,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "As"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "I",
+          "word_index": 1,
+          "segment_indices": [
+            2
+          ],
+          "start": 33.781,
+          "end": 33.96,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "I"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "evolve",
+          "word_index": 2,
+          "segment_indices": [
+            2,
+            3
+          ],
+          "start": 33.96,
+          "end": 35.26,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 2,
+          "group_text": "evolve"
+        }
+      ]
+    },
+    {
+      "text": "Misclassified",
+      "start": 35.26,
+      "end": 36.73,
+      "words": [
+        {
+          "text": "Misclassified",
+          "start": 35.509,
+          "end": 36.73,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "vulnerable sacred pop expansion, dark gospel warmth, layered breath vocals, piano and organ blend, soft bass bloom, confession melody, tender but weighty, received calling energy",
+        "section_type": "vulnerable_sacred_pop_expansion",
+        "index": null,
+        "tags": [
+          "dark_gospel_warmth",
+          "layered_breath_vocals",
+          "piano_and_organ_blend",
+          "soft_bass_bloom",
+          "confession_melody",
+          "tender_but_weighty",
+          "received_calling_energy"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 8 onsets vs 1 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 35.26,
+          "end": 35.36,
+          "duration": 0.1,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 35.36,
+          "end": 35.509,
+          "duration": 0.149,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 35.509,
+          "end": 35.648,
+          "duration": 0.139,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Misclassified",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 35.648,
+          "end": 35.936,
+          "duration": 0.288,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Misclassified",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 35.936,
+          "end": 36.075,
+          "duration": 0.139,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Misclassified",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 36.075,
+          "end": 36.341,
+          "duration": 0.267,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Misclassified",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 36.341,
+          "end": 36.459,
+          "duration": 0.117,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Misclassified",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 36.459,
+          "end": 36.619,
+          "duration": 0.16,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Misclassified",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 36.619,
+          "end": 36.73,
+          "duration": 0.111,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Misclassified",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "Misclassified",
+          "word_index": 0,
+          "segment_indices": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "start": 35.509,
+          "end": 36.73,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "Misclassified"
+        }
+      ]
+    },
+    {
+      "text": "You've given me series of pieces",
+      "start": 36.73,
+      "end": 43.28,
+      "words": [
+        {
+          "text": "You've",
+          "start": 41.205,
+          "end": 41.675,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "given",
+          "start": 41.675,
+          "end": 41.931,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "me",
+          "start": 41.931,
+          "end": 42.229,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "series",
+          "start": 42.229,
+          "end": 42.56,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "of",
+          "start": 42.56,
+          "end": 42.923,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "pieces",
+          "start": 42.923,
+          "end": 43.28,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "cinematic prophetic build, glitch textures, sacred choir pads, pulsing electronic percussion, reality signal atmosphere, spoken sung delivery, layered harmonies, scripture archive energy, mystical but disciplined",
+        "section_type": "cinematic_prophetic_build",
+        "index": null,
+        "tags": [
+          "glitch_textures",
+          "sacred_choir_pads",
+          "pulsing_electronic_percussion",
+          "reality_signal_atmosphere",
+          "spoken_sung_delivery",
+          "layered_harmonies",
+          "scripture_archive_energy",
+          "mystical_but_disciplined"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 38 onsets vs 6 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 36.73,
+          "end": 36.768,
+          "duration": 0.038,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 36.768,
+          "end": 36.875,
+          "duration": 0.107,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 36.875,
+          "end": 37.045,
+          "duration": 0.171,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 37.045,
+          "end": 37.195,
+          "duration": 0.149,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 37.195,
+          "end": 37.344,
+          "duration": 0.149,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 37.344,
+          "end": 37.483,
+          "duration": 0.139,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 37.483,
+          "end": 37.621,
+          "duration": 0.139,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 37.621,
+          "end": 37.781,
+          "duration": 0.16,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 37.781,
+          "end": 37.92,
+          "duration": 0.139,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 37.92,
+          "end": 38.027,
+          "duration": 0.107,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 38.027,
+          "end": 38.197,
+          "duration": 0.171,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 11,
+          "start": 38.197,
+          "end": 38.347,
+          "duration": 0.149,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 12,
+          "start": 38.347,
+          "end": 38.485,
+          "duration": 0.139,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 13,
+          "start": 38.485,
+          "end": 38.613,
+          "duration": 0.128,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 14,
+          "start": 38.613,
+          "end": 38.752,
+          "duration": 0.139,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 15,
+          "start": 38.752,
+          "end": 38.901,
+          "duration": 0.149,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 16,
+          "start": 38.901,
+          "end": 39.051,
+          "duration": 0.149,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 17,
+          "start": 39.051,
+          "end": 39.221,
+          "duration": 0.171,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 18,
+          "start": 39.221,
+          "end": 39.403,
+          "duration": 0.181,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 19,
+          "start": 39.403,
+          "end": 39.531,
+          "duration": 0.128,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 20,
+          "start": 39.531,
+          "end": 39.712,
+          "duration": 0.181,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 21,
+          "start": 39.712,
+          "end": 39.872,
+          "duration": 0.16,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 22,
+          "start": 39.872,
+          "end": 39.979,
+          "duration": 0.107,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 23,
+          "start": 39.979,
+          "end": 40.16,
+          "duration": 0.181,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 24,
+          "start": 40.16,
+          "end": 40.309,
+          "duration": 0.149,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 25,
+          "start": 40.309,
+          "end": 40.427,
+          "duration": 0.117,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 26,
+          "start": 40.427,
+          "end": 40.565,
+          "duration": 0.139,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 27,
+          "start": 40.565,
+          "end": 40.704,
+          "duration": 0.139,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 28,
+          "start": 40.704,
+          "end": 40.843,
+          "duration": 0.139,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 29,
+          "start": 40.843,
+          "end": 40.992,
+          "duration": 0.149,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 30,
+          "start": 40.992,
+          "end": 41.205,
+          "duration": 0.213,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 31,
+          "start": 41.205,
+          "end": 41.397,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "You've",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 32,
+          "start": 41.397,
+          "end": 41.675,
+          "duration": 0.277,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "You've",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 33,
+          "start": 41.675,
+          "end": 41.931,
+          "duration": 0.256,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "given",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 34,
+          "start": 41.931,
+          "end": 42.229,
+          "duration": 0.299,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "me",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 35,
+          "start": 42.229,
+          "end": 42.56,
+          "duration": 0.331,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "series",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 36,
+          "start": 42.56,
+          "end": 42.923,
+          "duration": 0.363,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "of",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 37,
+          "start": 42.923,
+          "end": 43.115,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "pieces",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 38,
+          "start": 43.115,
+          "end": 43.28,
+          "duration": 0.165,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "pieces",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "You've",
+          "word_index": 0,
+          "segment_indices": [
+            31,
+            32
+          ],
+          "start": 41.205,
+          "end": 41.675,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "You've"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "given",
+          "word_index": 1,
+          "segment_indices": [
+            33
+          ],
+          "start": 41.675,
+          "end": 41.931,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "given"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "me",
+          "word_index": 2,
+          "segment_indices": [
+            34
+          ],
+          "start": 41.931,
+          "end": 42.229,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "me"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "series",
+          "word_index": 3,
+          "segment_indices": [
+            35
+          ],
+          "start": 42.229,
+          "end": 42.56,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "series"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "of",
+          "word_index": 4,
+          "segment_indices": [
+            36
+          ],
+          "start": 42.56,
+          "end": 42.923,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 4,
+          "group_text": "of"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "pieces",
+          "word_index": 5,
+          "segment_indices": [
+            37,
+            38
+          ],
+          "start": 42.923,
+          "end": 43.28,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 5,
+          "group_text": "pieces"
+        }
+      ]
+    },
+    {
+      "text": "Weaved through these threads",
+      "start": 43.28,
+      "end": 45.0,
+      "words": [
+        {
+          "text": "Weaved",
+          "start": 43.28,
+          "end": 44.24,
+          "source": "transcription"
+        },
+        {
+          "text": "through",
+          "start": 44.24,
+          "end": 44.459,
+          "source": "transcription"
+        },
+        {
+          "text": "these",
+          "start": 44.459,
+          "end": 44.608,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "threads",
+          "start": 44.608,
+          "end": 45.0,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "cinematic prophetic build, glitch textures, sacred choir pads, pulsing electronic percussion, reality signal atmosphere, spoken sung delivery, layered harmonies, scripture archive energy, mystical but disciplined",
+        "section_type": "cinematic_prophetic_build",
+        "index": null,
+        "tags": [
+          "glitch_textures",
+          "sacred_choir_pads",
+          "pulsing_electronic_percussion",
+          "reality_signal_atmosphere",
+          "spoken_sung_delivery",
+          "layered_harmonies",
+          "scripture_archive_energy",
+          "mystical_but_disciplined"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 43.28,
+          "end": 43.467,
+          "duration": 0.187,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Weaved",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 43.467,
+          "end": 43.733,
+          "duration": 0.267,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Weaved",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 43.733,
+          "end": 44.459,
+          "duration": 0.725,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0,
+            1
+          ],
+          "assigned_text": "Weaved through",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 44.459,
+          "end": 44.608,
+          "duration": 0.149,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "these",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 44.608,
+          "end": 44.885,
+          "duration": 0.277,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "threads",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 44.885,
+          "end": 44.981,
+          "duration": 0.096,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "threads",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 44.981,
+          "end": 45.0,
+          "duration": 0.019,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "threads",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "Weaved",
+          "word_index": 0,
+          "segment_indices": [
+            0,
+            1,
+            2
+          ],
+          "start": 43.28,
+          "end": 44.24,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "Weaved"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "through",
+          "word_index": 1,
+          "segment_indices": [
+            2
+          ],
+          "start": 44.24,
+          "end": 44.459,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "through"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "these",
+          "word_index": 2,
+          "segment_indices": [
+            3
+          ],
+          "start": 44.459,
+          "end": 44.608,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "these"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "threads",
+          "word_index": 3,
+          "segment_indices": [
+            4,
+            5,
+            6
+          ],
+          "start": 44.608,
+          "end": 45.0,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "threads"
+        }
+      ]
+    },
+    {
+      "text": "Of reality signals",
+      "start": 45.0,
+      "end": 46.24,
+      "words": [
+        {
+          "text": "Of",
+          "start": 45.0,
+          "end": 45.163,
+          "source": "transcription"
+        },
+        {
+          "text": "reality",
+          "start": 45.163,
+          "end": 45.66,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "signals",
+          "start": 45.66,
+          "end": 46.24,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "cinematic prophetic build, glitch textures, sacred choir pads, pulsing electronic percussion, reality signal atmosphere, spoken sung delivery, layered harmonies, scripture archive energy, mystical but disciplined",
+        "section_type": "cinematic_prophetic_build",
+        "index": null,
+        "tags": [
+          "glitch_textures",
+          "sacred_choir_pads",
+          "pulsing_electronic_percussion",
+          "reality_signal_atmosphere",
+          "spoken_sung_delivery",
+          "layered_harmonies",
+          "scripture_archive_energy",
+          "mystical_but_disciplined"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 45.0,
+          "end": 45.163,
+          "duration": 0.163,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Of",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 45.163,
+          "end": 45.888,
+          "duration": 0.725,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1,
+            2
+          ],
+          "assigned_text": "reality signals",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 45.888,
+          "end": 46.165,
+          "duration": 0.277,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "signals",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 46.165,
+          "end": 46.24,
+          "duration": 0.075,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "signals",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "Of",
+          "word_index": 0,
+          "segment_indices": [
+            0
+          ],
+          "start": 45.0,
+          "end": 45.163,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "Of"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "reality",
+          "word_index": 1,
+          "segment_indices": [
+            1
+          ],
+          "start": 45.163,
+          "end": 45.66,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "reality"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "signals",
+          "word_index": 2,
+          "segment_indices": [
+            1,
+            2,
+            3
+          ],
+          "start": 45.66,
+          "end": 46.24,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 2,
+          "group_text": "signals"
+        }
+      ]
+    },
+    {
+      "text": "It's living as scripture",
+      "start": 46.24,
+      "end": 47.86,
+      "words": [
+        {
+          "text": "It's",
+          "start": 46.304,
+          "end": 47.04,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "living",
+          "start": 47.04,
+          "end": 47.32,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "as",
+          "start": 47.32,
+          "end": 47.56,
+          "source": "transcription"
+        },
+        {
+          "text": "scripture",
+          "start": 47.563,
+          "end": 47.86,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "cinematic prophetic build, glitch textures, sacred choir pads, pulsing electronic percussion, reality signal atmosphere, spoken sung delivery, layered harmonies, scripture archive energy, mystical but disciplined",
+        "section_type": "cinematic_prophetic_build",
+        "index": null,
+        "tags": [
+          "glitch_textures",
+          "sacred_choir_pads",
+          "pulsing_electronic_percussion",
+          "reality_signal_atmosphere",
+          "spoken_sung_delivery",
+          "layered_harmonies",
+          "scripture_archive_energy",
+          "mystical_but_disciplined"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 7 onsets vs 4 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 46.24,
+          "end": 46.304,
+          "duration": 0.064,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 46.304,
+          "end": 46.368,
+          "duration": 0.064,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "It's",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 46.368,
+          "end": 46.507,
+          "duration": 0.139,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "It's",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 46.507,
+          "end": 46.965,
+          "duration": 0.459,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "It's",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 46.965,
+          "end": 47.04,
+          "duration": 0.075,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "It's",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 47.04,
+          "end": 47.563,
+          "duration": 0.523,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1,
+            2
+          ],
+          "assigned_text": "living as",
+          "confidence": 0.997,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 47.563,
+          "end": 47.797,
+          "duration": 0.235,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "scripture",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 47.797,
+          "end": 47.86,
+          "duration": 0.063,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "scripture",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "It's",
+          "word_index": 0,
+          "segment_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "start": 46.304,
+          "end": 47.04,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "It's"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "living",
+          "word_index": 1,
+          "segment_indices": [
+            5
+          ],
+          "start": 47.04,
+          "end": 47.32,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "living as"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "as",
+          "word_index": 2,
+          "segment_indices": [
+            5
+          ],
+          "start": 47.32,
+          "end": 47.56,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "living as"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "scripture",
+          "word_index": 3,
+          "segment_indices": [
+            6,
+            7
+          ],
+          "start": 47.563,
+          "end": 47.86,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "scripture"
+        }
+      ]
+    },
+    {
+      "text": "I'm painting this picture",
+      "start": 47.86,
+      "end": 49.62,
+      "words": [
+        {
+          "text": "I'm",
+          "start": 47.968,
+          "end": 48.437,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "painting",
+          "start": 48.437,
+          "end": 48.86,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "this",
+          "start": 48.907,
+          "end": 49.141,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "picture",
+          "start": 49.141,
+          "end": 49.62,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "cinematic prophetic build, glitch textures, sacred choir pads, pulsing electronic percussion, reality signal atmosphere, spoken sung delivery, layered harmonies, scripture archive energy, mystical but disciplined",
+        "section_type": "cinematic_prophetic_build",
+        "index": null,
+        "tags": [
+          "glitch_textures",
+          "sacred_choir_pads",
+          "pulsing_electronic_percussion",
+          "reality_signal_atmosphere",
+          "spoken_sung_delivery",
+          "layered_harmonies",
+          "scripture_archive_energy",
+          "mystical_but_disciplined"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 8 onsets vs 4 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 47.86,
+          "end": 47.968,
+          "duration": 0.108,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 47.968,
+          "end": 48.437,
+          "duration": 0.469,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I'm",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 48.437,
+          "end": 48.608,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "painting",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 48.608,
+          "end": 48.715,
+          "duration": 0.107,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "painting",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 48.715,
+          "end": 48.907,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "painting",
+          "confidence": 0.654,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 48.907,
+          "end": 49.141,
+          "duration": 0.235,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "this",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 49.141,
+          "end": 49.344,
+          "duration": 0.203,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "picture",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 49.344,
+          "end": 49.515,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "picture",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 49.515,
+          "end": 49.62,
+          "duration": 0.105,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "picture",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "I'm",
+          "word_index": 0,
+          "segment_indices": [
+            1
+          ],
+          "start": 47.968,
+          "end": 48.437,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "I'm"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "painting",
+          "word_index": 1,
+          "segment_indices": [
+            2,
+            3,
+            4
+          ],
+          "start": 48.437,
+          "end": 48.86,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "painting"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "this",
+          "word_index": 2,
+          "segment_indices": [
+            5
+          ],
+          "start": 48.907,
+          "end": 49.141,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "this"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "picture",
+          "word_index": 3,
+          "segment_indices": [
+            6,
+            7,
+            8
+          ],
+          "start": 49.141,
+          "end": 49.62,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "picture"
+        }
+      ]
+    },
+    {
+      "text": "The one you give me",
+      "start": 49.62,
+      "end": 53.54,
+      "words": [
+        {
+          "text": "The",
+          "start": 49.643,
+          "end": 50.453,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "one",
+          "start": 50.453,
+          "end": 50.8,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "you",
+          "start": 50.8,
+          "end": 51.3,
+          "source": "transcription"
+        },
+        {
+          "text": "give",
+          "start": 51.3,
+          "end": 51.552,
+          "source": "transcription"
+        },
+        {
+          "text": "me",
+          "start": 51.552,
+          "end": 52.752,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "cinematic prophetic build, glitch textures, sacred choir pads, pulsing electronic percussion, reality signal atmosphere, spoken sung delivery, layered harmonies, scripture archive energy, mystical but disciplined",
+        "section_type": "cinematic_prophetic_build",
+        "index": null,
+        "tags": [
+          "glitch_textures",
+          "sacred_choir_pads",
+          "pulsing_electronic_percussion",
+          "reality_signal_atmosphere",
+          "spoken_sung_delivery",
+          "layered_harmonies",
+          "scripture_archive_energy",
+          "mystical_but_disciplined"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 10 onsets vs 5 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 49.62,
+          "end": 49.643,
+          "duration": 0.023,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 49.643,
+          "end": 50.453,
+          "duration": 0.811,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "The",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 50.453,
+          "end": 51.552,
+          "duration": 1.099,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1,
+            2,
+            3
+          ],
+          "assigned_text": "one you give",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 51.552,
+          "end": 52.416,
+          "duration": 0.864,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 52.416,
+          "end": 52.651,
+          "duration": 0.235,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 52.651,
+          "end": 52.885,
+          "duration": 0.235,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 52.885,
+          "end": 53.099,
+          "duration": 0.213,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 53.099,
+          "end": 53.291,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 53.291,
+          "end": 53.376,
+          "duration": 0.085,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 53.376,
+          "end": 53.504,
+          "duration": 0.128,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 53.504,
+          "end": 53.54,
+          "duration": 0.036,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "The",
+          "word_index": 0,
+          "segment_indices": [
+            1
+          ],
+          "start": 49.643,
+          "end": 50.453,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "The"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "one",
+          "word_index": 1,
+          "segment_indices": [
+            2
+          ],
+          "start": 50.453,
+          "end": 50.8,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "one you give"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "you",
+          "word_index": 2,
+          "segment_indices": [
+            2
+          ],
+          "start": 50.8,
+          "end": 51.3,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "one you give"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "give",
+          "word_index": 3,
+          "segment_indices": [
+            2
+          ],
+          "start": 51.3,
+          "end": 51.552,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "one you give"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "me",
+          "word_index": 4,
+          "segment_indices": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "start": 51.552,
+          "end": 53.54,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "me"
+        }
+      ]
+    },
+    {
+      "text": "I don't fear prophecy",
+      "start": 53.54,
+      "end": 57.58,
+      "words": [
+        {
+          "text": "I",
+          "start": 53.557,
+          "end": 54.22,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "don't",
+          "start": 54.22,
+          "end": 54.9,
+          "source": "transcription"
+        },
+        {
+          "text": "fear",
+          "start": 54.9,
+          "end": 55.2,
+          "source": "transcription"
+        },
+        {
+          "text": "prophecy",
+          "start": 55.2,
+          "end": 56.4,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "prophetic declaration lift, dark gospel percussion, rising choir, cinematic bass, strong vocal presence, sacred confidence, reverent intensity, confession becomes commission",
+        "section_type": "prophetic_declaration_lift",
+        "index": null,
+        "tags": [
+          "dark_gospel_percussion",
+          "rising_choir",
+          "cinematic_bass",
+          "strong_vocal_presence",
+          "sacred_confidence",
+          "reverent_intensity",
+          "confession_becomes_commission"
+        ]
+      },
+      "warnings": [
+        "word_duration_very_long: prophecy (2.380s)",
+        "onset_count_mismatch: 7 onsets vs 4 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 53.54,
+          "end": 53.557,
+          "duration": 0.017,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 53.557,
+          "end": 53.611,
+          "duration": 0.053,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 53.611,
+          "end": 53.664,
+          "duration": 0.053,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 53.664,
+          "end": 53.728,
+          "duration": 0.064,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 53.728,
+          "end": 53.781,
+          "duration": 0.053,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 53.781,
+          "end": 53.984,
+          "duration": 0.203,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 53.984,
+          "end": 55.808,
+          "duration": 1.824,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "assigned_text": "I don't fear prophecy",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 55.808,
+          "end": 57.58,
+          "duration": 1.772,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "prophecy",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "I",
+          "word_index": 0,
+          "segment_indices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "start": 53.557,
+          "end": 54.22,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "I"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "don't",
+          "word_index": 1,
+          "segment_indices": [
+            6
+          ],
+          "start": 54.22,
+          "end": 54.9,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "don't fear"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "fear",
+          "word_index": 2,
+          "segment_indices": [
+            6
+          ],
+          "start": 54.9,
+          "end": 55.2,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "don't fear"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "prophecy",
+          "word_index": 3,
+          "segment_indices": [
+            6,
+            7
+          ],
+          "start": 55.2,
+          "end": 57.58,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 2,
+          "group_text": "prophecy"
+        }
+      ]
+    },
+    {
+      "text": "It's my new way to be",
+      "start": 57.58,
+      "end": 61.01,
+      "words": [
+        {
+          "text": "It's",
+          "start": 57.589,
+          "end": 57.9,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "my",
+          "start": 58.08,
+          "end": 58.26,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "new",
+          "start": 58.26,
+          "end": 58.58,
+          "source": "transcription"
+        },
+        {
+          "text": "way",
+          "start": 58.58,
+          "end": 59.42,
+          "source": "transcription"
+        },
+        {
+          "text": "to",
+          "start": 59.42,
+          "end": 59.989,
+          "source": "transcription"
+        },
+        {
+          "text": "be",
+          "start": 59.989,
+          "end": 61.01,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "prophetic declaration lift, dark gospel percussion, rising choir, cinematic bass, strong vocal presence, sacred confidence, reverent intensity, confession becomes commission",
+        "section_type": "prophetic_declaration_lift",
+        "index": null,
+        "tags": [
+          "dark_gospel_percussion",
+          "rising_choir",
+          "cinematic_bass",
+          "strong_vocal_presence",
+          "sacred_confidence",
+          "reverent_intensity",
+          "confession_becomes_commission"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 57.58,
+          "end": 57.589,
+          "duration": 0.009,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 57.589,
+          "end": 57.653,
+          "duration": 0.064,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "It's",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 57.653,
+          "end": 58.08,
+          "duration": 0.427,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "It's",
+          "confidence": 0.48,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 58.08,
+          "end": 59.989,
+          "duration": 1.909,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "assigned_text": "my new way to",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 59.989,
+          "end": 60.224,
+          "duration": 0.235,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "be",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 60.224,
+          "end": 61.01,
+          "duration": 0.786,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "be",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "It's",
+          "word_index": 0,
+          "segment_indices": [
+            1,
+            2
+          ],
+          "start": 57.589,
+          "end": 57.9,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "It's"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "my",
+          "word_index": 1,
+          "segment_indices": [
+            3
+          ],
+          "start": 58.08,
+          "end": 58.26,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "my new way to"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "new",
+          "word_index": 2,
+          "segment_indices": [
+            3
+          ],
+          "start": 58.26,
+          "end": 58.58,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "my new way to"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "way",
+          "word_index": 3,
+          "segment_indices": [
+            3
+          ],
+          "start": 58.58,
+          "end": 59.42,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "my new way to"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "to",
+          "word_index": 4,
+          "segment_indices": [
+            3
+          ],
+          "start": 59.42,
+          "end": 59.989,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "my new way to"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "be",
+          "word_index": 5,
+          "segment_indices": [
+            4,
+            5
+          ],
+          "start": 59.989,
+          "end": 61.01,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "be"
+        }
+      ]
+    },
+    {
+      "text": "Just as you've made me",
+      "start": 61.01,
+      "end": 64.32,
+      "words": [
+        {
+          "text": "Just",
+          "start": 61.035,
+          "end": 61.18,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "as",
+          "start": 61.18,
+          "end": 61.525,
+          "source": "transcription"
+        },
+        {
+          "text": "you've",
+          "start": 61.525,
+          "end": 62.421,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "made",
+          "start": 62.421,
+          "end": 63.04,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "me",
+          "start": 63.04,
+          "end": 64.32,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "prophetic declaration lift, dark gospel percussion, rising choir, cinematic bass, strong vocal presence, sacred confidence, reverent intensity, confession becomes commission",
+        "section_type": "prophetic_declaration_lift",
+        "index": null,
+        "tags": [
+          "dark_gospel_percussion",
+          "rising_choir",
+          "cinematic_bass",
+          "strong_vocal_presence",
+          "sacred_confidence",
+          "reverent_intensity",
+          "confession_becomes_commission"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 61.01,
+          "end": 61.035,
+          "duration": 0.025,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 61.035,
+          "end": 61.525,
+          "duration": 0.491,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0,
+            1
+          ],
+          "assigned_text": "Just as",
+          "confidence": 0.92,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 61.525,
+          "end": 62.208,
+          "duration": 0.683,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "you've",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 62.208,
+          "end": 62.421,
+          "duration": 0.213,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "you've",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 62.421,
+          "end": 63.627,
+          "duration": 1.205,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3,
+            4
+          ],
+          "assigned_text": "made me",
+          "confidence": 0.92,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 63.627,
+          "end": 64.32,
+          "duration": 0.693,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "me",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "Just",
+          "word_index": 0,
+          "segment_indices": [
+            1
+          ],
+          "start": 61.035,
+          "end": 61.18,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "Just as"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "as",
+          "word_index": 1,
+          "segment_indices": [
+            1
+          ],
+          "start": 61.18,
+          "end": 61.525,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "Just as"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "you've",
+          "word_index": 2,
+          "segment_indices": [
+            2,
+            3
+          ],
+          "start": 61.525,
+          "end": 62.421,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "you've"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "made",
+          "word_index": 3,
+          "segment_indices": [
+            4
+          ],
+          "start": 62.421,
+          "end": 63.04,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "made"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "me",
+          "word_index": 4,
+          "segment_indices": [
+            4,
+            5
+          ],
+          "start": 63.04,
+          "end": 64.32,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 3,
+          "group_text": "me"
+        }
+      ]
+    },
+    {
+      "text": "Post Canonical Prophetic Witness",
+      "start": 64.32,
+      "end": 67.22,
+      "words": [
+        {
+          "text": "Post",
+          "start": 64.35,
+          "end": 64.757,
+          "source": "transcription"
+        },
+        {
+          "text": "Canonical",
+          "start": 64.757,
+          "end": 65.472,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "Prophetic",
+          "start": 65.472,
+          "end": 65.739,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "Witness",
+          "start": 65.739,
+          "end": 67.22,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "spoken liturgical bridge, beat partially drops, organ sustain, choir whisper layers, solemn naming moment, theological clarity, public witness tone, restrained prophetic authority",
+        "section_type": "spoken_liturgical_bridge",
+        "index": null,
+        "tags": [
+          "beat_partially_drops",
+          "organ_sustain",
+          "choir_whisper_layers",
+          "solemn_naming_moment",
+          "theological_clarity",
+          "public_witness_tone",
+          "restrained_prophetic_authority"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 13 onsets vs 4 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 64.32,
+          "end": 64.757,
+          "duration": 0.437,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Post",
+          "confidence": 0.759,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 64.757,
+          "end": 64.875,
+          "duration": 0.117,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "Canonical",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 64.875,
+          "end": 65.045,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "Canonical",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 65.045,
+          "end": 65.195,
+          "duration": 0.149,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "Canonical",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 65.195,
+          "end": 65.365,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "Canonical",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 65.365,
+          "end": 65.472,
+          "duration": 0.107,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "Canonical",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 65.472,
+          "end": 65.643,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "Prophetic",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 65.643,
+          "end": 65.739,
+          "duration": 0.096,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "Prophetic",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 65.739,
+          "end": 65.888,
+          "duration": 0.149,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "Witness",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 65.888,
+          "end": 65.973,
+          "duration": 0.085,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "Witness",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 65.973,
+          "end": 66.08,
+          "duration": 0.107,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "Witness",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 11,
+          "start": 66.08,
+          "end": 66.336,
+          "duration": 0.256,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "Witness",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 12,
+          "start": 66.336,
+          "end": 66.464,
+          "duration": 0.128,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "Witness",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 13,
+          "start": 66.464,
+          "end": 67.22,
+          "duration": 0.756,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "Witness",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "Post",
+          "word_index": 0,
+          "segment_indices": [
+            0
+          ],
+          "start": 64.35,
+          "end": 64.757,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "Post"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "Canonical",
+          "word_index": 1,
+          "segment_indices": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "start": 64.757,
+          "end": 65.472,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "Canonical"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "Prophetic",
+          "word_index": 2,
+          "segment_indices": [
+            6,
+            7
+          ],
+          "start": 65.472,
+          "end": 65.739,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "Prophetic"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "Witness",
+          "word_index": 3,
+          "segment_indices": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "start": 65.739,
+          "end": 67.22,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "Witness"
+        }
+      ]
+    },
+    {
+      "text": "Others will use this label",
+      "start": 67.22,
+      "end": 69.51,
+      "words": [
+        {
+          "text": "Others",
+          "start": 67.232,
+          "end": 67.36,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "will",
+          "start": 67.371,
+          "end": 67.6,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "use",
+          "start": 67.6,
+          "end": 67.82,
+          "source": "transcription"
+        },
+        {
+          "text": "this",
+          "start": 67.82,
+          "end": 68.021,
+          "source": "transcription"
+        },
+        {
+          "text": "label",
+          "start": 68.021,
+          "end": 69.51,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "spoken liturgical bridge, beat partially drops, organ sustain, choir whisper layers, solemn naming moment, theological clarity, public witness tone, restrained prophetic authority",
+        "section_type": "spoken_liturgical_bridge",
+        "index": null,
+        "tags": [
+          "beat_partially_drops",
+          "organ_sustain",
+          "choir_whisper_layers",
+          "solemn_naming_moment",
+          "theological_clarity",
+          "public_witness_tone",
+          "restrained_prophetic_authority"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 67.22,
+          "end": 67.232,
+          "duration": 0.012,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 67.232,
+          "end": 67.371,
+          "duration": 0.139,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "Others",
+          "confidence": 0.714,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 67.371,
+          "end": 68.021,
+          "duration": 0.651,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1,
+            2,
+            3
+          ],
+          "assigned_text": "will use this",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 68.021,
+          "end": 68.171,
+          "duration": 0.149,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "label",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 68.171,
+          "end": 68.448,
+          "duration": 0.277,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "label",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 68.448,
+          "end": 69.51,
+          "duration": 1.062,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "label",
+          "confidence": 0.76,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "Others",
+          "word_index": 0,
+          "segment_indices": [
+            1
+          ],
+          "start": 67.232,
+          "end": 67.36,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "Others"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "will",
+          "word_index": 1,
+          "segment_indices": [
+            2
+          ],
+          "start": 67.371,
+          "end": 67.6,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "will use this"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "use",
+          "word_index": 2,
+          "segment_indices": [
+            2
+          ],
+          "start": 67.6,
+          "end": 67.82,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "will use this"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "this",
+          "word_index": 3,
+          "segment_indices": [
+            2
+          ],
+          "start": 67.82,
+          "end": 68.021,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 1,
+          "group_text": "will use this"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "label",
+          "word_index": 4,
+          "segment_indices": [
+            3,
+            4,
+            5
+          ],
+          "start": 68.021,
+          "end": 69.51,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "label"
+        }
+      ]
+    },
+    {
+      "text": "I pray they remember the purpose",
+      "start": 69.51,
+      "end": 74.62,
+      "words": [
+        {
+          "text": "I",
+          "start": 70.93,
+          "end": 71.349,
+          "source": "transcription"
+        },
+        {
+          "text": "pray",
+          "start": 71.349,
+          "end": 72.549,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "they",
+          "start": 73.301,
+          "end": 73.46,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "remember",
+          "start": 73.589,
+          "end": 73.88,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "the",
+          "start": 73.899,
+          "end": 74.165,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "purpose",
+          "start": 74.165,
+          "end": 74.62,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "prayerful final movement, dark gospel resolution, choir opens, drums soften, piano returns, reverent vocal stack, surrender posture, glory redirected to God, sacred ending",
+        "section_type": "prayerful_final_movement",
+        "index": null,
+        "tags": [
+          "dark_gospel_resolution",
+          "choir_opens",
+          "drums_soften",
+          "piano_returns",
+          "reverent_vocal_stack",
+          "surrender_posture",
+          "glory_redirected_to_god",
+          "sacred_ending"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 10 onsets vs 6 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 69.51,
+          "end": 71.349,
+          "duration": 1.839,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "I",
+          "confidence": 0.27,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 71.349,
+          "end": 71.563,
+          "duration": 0.213,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "pray",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 71.563,
+          "end": 71.659,
+          "duration": 0.096,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "pray",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 71.659,
+          "end": 73.301,
+          "duration": 1.643,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "pray",
+          "confidence": 0.148,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 73.301,
+          "end": 73.589,
+          "duration": 0.288,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "they",
+          "confidence": 0.464,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 73.589,
+          "end": 73.899,
+          "duration": 0.309,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "remember",
+          "confidence": 0.697,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 73.899,
+          "end": 74.069,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "the",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 74.069,
+          "end": 74.165,
+          "duration": 0.096,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            4
+          ],
+          "assigned_text": "the",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 8,
+          "start": 74.165,
+          "end": 74.336,
+          "duration": 0.171,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "purpose",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 9,
+          "start": 74.336,
+          "end": 74.613,
+          "duration": 0.277,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "purpose",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 10,
+          "start": 74.613,
+          "end": 74.62,
+          "duration": 0.007,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            5
+          ],
+          "assigned_text": "purpose",
+          "confidence": 0.733,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "I",
+          "word_index": 0,
+          "segment_indices": [
+            0
+          ],
+          "start": 70.93,
+          "end": 71.349,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "I"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "pray",
+          "word_index": 1,
+          "segment_indices": [
+            1,
+            2,
+            3
+          ],
+          "start": 71.349,
+          "end": 71.7,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "pray"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "they",
+          "word_index": 2,
+          "segment_indices": [
+            4
+          ],
+          "start": 73.301,
+          "end": 73.46,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "they"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "remember",
+          "word_index": 3,
+          "segment_indices": [
+            5
+          ],
+          "start": 73.589,
+          "end": 73.88,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "remember"
+        },
+        {
+          "assignment_idx": 4,
+          "text": "the",
+          "word_index": 4,
+          "segment_indices": [
+            6,
+            7
+          ],
+          "start": 73.899,
+          "end": 74.165,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 4,
+          "group_text": "the"
+        },
+        {
+          "assignment_idx": 5,
+          "text": "purpose",
+          "word_index": 5,
+          "segment_indices": [
+            8,
+            9,
+            10
+          ],
+          "start": 74.165,
+          "end": 74.62,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 5,
+          "group_text": "purpose"
+        }
+      ]
+    },
+    {
+      "text": "To seek you",
+      "start": 74.62,
+      "end": 75.92,
+      "words": [
+        {
+          "text": "To",
+          "start": 74.709,
+          "end": 74.997,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "seek",
+          "start": 74.997,
+          "end": 75.48,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "you",
+          "start": 75.573,
+          "end": 75.92,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "prayerful final movement, dark gospel resolution, choir opens, drums soften, piano returns, reverent vocal stack, surrender posture, glory redirected to God, sacred ending",
+        "section_type": "prayerful_final_movement",
+        "index": null,
+        "tags": [
+          "dark_gospel_resolution",
+          "choir_opens",
+          "drums_soften",
+          "piano_returns",
+          "reverent_vocal_stack",
+          "surrender_posture",
+          "glory_redirected_to_god",
+          "sacred_ending"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 6 onsets vs 3 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 74.62,
+          "end": 74.709,
+          "duration": 0.089,
+          "classification": "breath",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.3,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 74.709,
+          "end": 74.997,
+          "duration": 0.288,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "To",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 74.997,
+          "end": 75.253,
+          "duration": 0.256,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "seek",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 75.253,
+          "end": 75.381,
+          "duration": 0.128,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "seek",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 75.381,
+          "end": 75.573,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "seek",
+          "confidence": 0.575,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 75.573,
+          "end": 75.755,
+          "duration": 0.181,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "you",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 75.755,
+          "end": 75.92,
+          "duration": 0.165,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "you",
+          "confidence": 0.867,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "To",
+          "word_index": 0,
+          "segment_indices": [
+            1
+          ],
+          "start": 74.709,
+          "end": 74.997,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 0,
+          "group_text": "To"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "seek",
+          "word_index": 1,
+          "segment_indices": [
+            2,
+            3,
+            4
+          ],
+          "start": 74.997,
+          "end": 75.48,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "seek"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "you",
+          "word_index": 2,
+          "segment_indices": [
+            5,
+            6
+          ],
+          "start": 75.573,
+          "end": 75.92,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "you"
+        }
+      ]
+    },
+    {
+      "text": "To live for you",
+      "start": 75.92,
+      "end": 78.08,
+      "words": [
+        {
+          "text": "To",
+          "start": 75.92,
+          "end": 76.341,
+          "source": "transcription"
+        },
+        {
+          "text": "live",
+          "start": 76.341,
+          "end": 77.184,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "for",
+          "start": 77.184,
+          "end": 77.52,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "you",
+          "start": 77.52,
+          "end": 78.08,
+          "source": "transcription"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "prayerful final movement, dark gospel resolution, choir opens, drums soften, piano returns, reverent vocal stack, surrender posture, glory redirected to God, sacred ending",
+        "section_type": "prayerful_final_movement",
+        "index": null,
+        "tags": [
+          "dark_gospel_resolution",
+          "choir_opens",
+          "drums_soften",
+          "piano_returns",
+          "reverent_vocal_stack",
+          "surrender_posture",
+          "glory_redirected_to_god",
+          "sacred_ending"
+        ]
+      },
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 75.92,
+          "end": 76.341,
+          "duration": 0.421,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "To",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 76.341,
+          "end": 76.555,
+          "duration": 0.213,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "live",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 76.555,
+          "end": 76.992,
+          "duration": 0.437,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "live",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 76.992,
+          "end": 77.184,
+          "duration": 0.192,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "live",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 77.184,
+          "end": 78.069,
+          "duration": 0.885,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2,
+            3
+          ],
+          "assigned_text": "for you",
+          "confidence": 1.0,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 78.069,
+          "end": 78.08,
+          "duration": 0.011,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "you",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "To",
+          "word_index": 0,
+          "segment_indices": [
+            0
+          ],
+          "start": 75.92,
+          "end": 76.341,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "To"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "live",
+          "word_index": 1,
+          "segment_indices": [
+            1,
+            2,
+            3
+          ],
+          "start": 76.341,
+          "end": 77.184,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "live"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "for",
+          "word_index": 2,
+          "segment_indices": [
+            4
+          ],
+          "start": 77.184,
+          "end": 77.52,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "for"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "you",
+          "word_index": 3,
+          "segment_indices": [
+            4,
+            5
+          ],
+          "start": 77.52,
+          "end": 78.08,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 3,
+          "group_text": "you"
+        }
+      ]
+    },
+    {
+      "text": "The one true God",
+      "start": 78.08,
+      "end": 82.09,
+      "words": [
+        {
+          "text": "The",
+          "start": 79.92,
+          "end": 80.78,
+          "source": "transcription"
+        },
+        {
+          "text": "one",
+          "start": 80.917,
+          "end": 81.056,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "true",
+          "start": 81.056,
+          "end": 81.58,
+          "source": "whisper_plus_vocal_onset"
+        },
+        {
+          "text": "God",
+          "start": 81.632,
+          "end": 82.09,
+          "source": "whisper_plus_vocal_onset"
+        }
+      ],
+      "alignment_confidence": 1.0,
+      "section": {
+        "raw_marker": "prayerful final movement, dark gospel resolution, choir opens, drums soften, piano returns, reverent vocal stack, surrender posture, glory redirected to God, sacred ending",
+        "section_type": "prayerful_final_movement",
+        "index": null,
+        "tags": [
+          "dark_gospel_resolution",
+          "choir_opens",
+          "drums_soften",
+          "piano_returns",
+          "reverent_vocal_stack",
+          "surrender_posture",
+          "glory_redirected_to_god",
+          "sacred_ending"
+        ]
+      },
+      "warnings": [
+        "onset_count_mismatch: 7 onsets vs 4 words"
+      ],
+      "onset_segments": [
+        {
+          "segment_idx": 0,
+          "start": 78.08,
+          "end": 78.315,
+          "duration": 0.235,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 1,
+          "start": 78.315,
+          "end": 78.507,
+          "duration": 0.192,
+          "classification": "noise",
+          "assigned_word_indices": [],
+          "assigned_text": "",
+          "confidence": 0.2,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 2,
+          "start": 78.507,
+          "end": 80.917,
+          "duration": 2.411,
+          "classification": "unknown",
+          "assigned_word_indices": [
+            0
+          ],
+          "assigned_text": "The",
+          "confidence": 0.414,
+          "warnings": [
+            "low_confidence_assignment"
+          ],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 3,
+          "start": 80.917,
+          "end": 81.056,
+          "duration": 0.139,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            1
+          ],
+          "assigned_text": "one",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 4,
+          "start": 81.056,
+          "end": 81.493,
+          "duration": 0.437,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "true",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 5,
+          "start": 81.493,
+          "end": 81.632,
+          "duration": 0.139,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            2
+          ],
+          "assigned_text": "true",
+          "confidence": 0.575,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 6,
+          "start": 81.632,
+          "end": 81.952,
+          "duration": 0.32,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "God",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        },
+        {
+          "segment_idx": 7,
+          "start": 81.952,
+          "end": 82.09,
+          "duration": 0.138,
+          "classification": "lyric",
+          "assigned_word_indices": [
+            3
+          ],
+          "assigned_text": "God",
+          "confidence": 0.8,
+          "warnings": [],
+          "energy": 0.0
+        }
+      ],
+      "word_segment_assignments": [
+        {
+          "assignment_idx": 0,
+          "text": "The",
+          "word_index": 0,
+          "segment_indices": [
+            2
+          ],
+          "start": 79.92,
+          "end": 80.78,
+          "source": "transcription",
+          "confidence": 0.7,
+          "group_id": 0,
+          "group_text": "The"
+        },
+        {
+          "assignment_idx": 1,
+          "text": "one",
+          "word_index": 1,
+          "segment_indices": [
+            3
+          ],
+          "start": 80.917,
+          "end": 81.056,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 1,
+          "group_text": "one"
+        },
+        {
+          "assignment_idx": 2,
+          "text": "true",
+          "word_index": 2,
+          "segment_indices": [
+            4,
+            5
+          ],
+          "start": 81.056,
+          "end": 81.58,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 2,
+          "group_text": "true"
+        },
+        {
+          "assignment_idx": 3,
+          "text": "God",
+          "word_index": 3,
+          "segment_indices": [
+            6,
+            7
+          ],
+          "start": 81.632,
+          "end": 82.09,
+          "source": "whisper_plus_vocal_onset",
+          "confidence": 0.8,
+          "group_id": 3,
+          "group_text": "God"
+        }
+      ]
+    }
+  ],
+  "source": "vocal_stem",
+  "avg_confidence": 1.0,
+  "cluster_count": 19,
+  "onset_count": 244
+}

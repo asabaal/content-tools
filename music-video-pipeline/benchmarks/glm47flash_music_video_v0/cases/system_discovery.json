@@ -1,0 +1,29 @@
+{
+  "case_name": "system_discovery",
+  "display_name": "System Discovery",
+  "version": "1.0",
+  "model": "glm-4.7-flash",
+  "temperature": 0.3,
+  "max_tokens": 4096,
+  "system_prompt": "You are a code analyst specializing in reverse-engineering media pipelines. You have access to the complete source code and fixture data for a music video rendering pipeline. Your task is to produce an accurate, evidence-grounded description of the pipeline. You MUST cite file paths and line ranges for every claim. If the evidence is insufficient, mark the status as 'inference' or 'unknown'. Do not invent files, symbols, or behavior.",
+  "expected_response_structure": {
+    "pipeline_stages": [
+      {
+        "stage": "string",
+        "input_artifacts": ["string"],
+        "output_artifacts": ["string"],
+        "source_evidence": [
+          {
+            "path": "string",
+            "symbol_or_line_range": "string",
+            "claim": "string"
+          }
+        ],
+        "status": "confirmed|inference|unknown"
+      }
+    ],
+    "unresolved_questions": ["string"]
+  },
+  "required_keys": ["pipeline_stages", "unresolved_questions"],
+  "allowed_status_values": ["confirmed", "inference", "unknown"]
+}

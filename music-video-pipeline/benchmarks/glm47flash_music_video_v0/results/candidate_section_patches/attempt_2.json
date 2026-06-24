@@ -1,0 +1,274 @@
+{
+  "dry_run": false,
+  "model": "glm-4.7-flash",
+  "case_name": "candidate_section_patches",
+  "attempt": 2,
+  "timestamp": "2026-06-24T00:28:27.514543+00:00",
+  "http_status": 200,
+  "elapsed_seconds": 56.17,
+  "usage": {
+    "prompt_tokens": 22478,
+    "completion_tokens": 4484,
+    "total_tokens": 26962
+  },
+  "thinking_enabled": false,
+  "raw_response_json": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "```json\n{\n  \"candidate_patches\": [\n    {\n      \"brief_id\": \"restrained_testimony\",\n      \"patch\": {\n        \"type\": \"melodic_testimony_verse\",\n        \"lines\": [\n          2,\n          3,\n          4,\n          5\n        ],\n        \"visual\": {\n          \"animation_speed\": 0.5,\n          \"texture_opacity\": 0.6,\n          \"bg_animation_preset\": \"smooth\"\n        }\n      },\n      \"field_rationales\": [\n        {\n          \"field\": \"animation_speed\",\n          \"rationale\": \"Reduces the temporal duration of transitions to create a slower, more contemplative pacing suitable for dense lyrics.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"Section 'melodic_testimony_verse' (lines 2-5)\"\n            },\n            {\n              \"path\": \"src/render/animations.py\",\n              \"symbol_or_line_range\": \"Animation type definitions\"\n            }\n          ]\n        },\n        {\n          \"field\": \"texture_opacity\",\n          \"rationale\": \"Increases the overlay intensity to create a 'veil' effect, reducing visual noise and focusing attention on the typography.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"Section 'melodic_testimony_verse' (lines 2-5)\"\n            },\n            {\n              \"path\": \"src/render/frame_effects.py\",\n              \"symbol_or_line_range\": \"Texture application logic\"\n            }\n          ]\n        },\n        {\n          \"field\": \"bg_animation_preset\",\n          \"rationale\": \"Locks the background motion to 'smooth' to ensure minimal geometric disruption.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"templates/default.json\",\n              \"symbol_or_line_range\": \"Preset definitions\"\n            },\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"Section 'melodic_testimony_verse' (lines 2-5)\"\n            }\n          ]\n        }\n      ],\n      \"visual_outcomes_that_cannot_be_guaranteed\": [\n        \"The specific visual interpretation of 'smooth' may vary based on the renderer's interpolation algorithms.\",\n        \"High texture opacity might reduce text legibility if the background contrast is not sufficient.\"\n      ],\n      \"requires_renderer_change_for\": [\n        \"If the renderer does not support fractional animation speeds (e.g., 0.5).\"\n      ]\n    },\n    {\n      \"brief_id\": \"escalating_hook\",\n      \"patch\": {\n        \"type\": \"cinematic_prophetic_build\",\n        \"lines\": [\n          10,\n          11,\n          12,\n          13,\n          14,\n          15\n        ],\n        \"visual\": {\n          \"animation_speed\": 2.5,\n          \"bg_animation_preset\": \"energetic\",\n          \"gradient_direction\": \"cross\",\n          \"text_style\": \"chrome\"\n        }\n      },\n      \"field_rationales\": [\n        {\n          \"field\": \"animation_speed\",\n          \"rationale\": \"Doubles the transition speed to create a sense of urgency and rapid visual progression.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"Section 'cinematic_prophetic_build' (lines 10-15)\"\n            },\n            {\n              \"path\": \"src/render/animations.py\",\n              \"symbol_or_line_range\": \"Animation speed handling\"\n            }\n          ]\n        },\n        {\n          \"field\": \"bg_animation_preset\",\n          \"rationale\": \"Activates 'energetic' preset to introduce dynamic background motion and geometry shifts.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"templates/default.json\",\n              \"symbol_or_line_range\": \"Preset definitions\"\n            },\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"Section 'cinematic_prophetic_build' (lines 10-15)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"gradient_direction\",\n          \"rationale\": \"Uses 'cross' geometry to create a sharp, intersecting visual field that implies conflict or rising tension.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script_16x9.json\",\n              \"symbol_or_line_range\": \"Section 'cinematic_prophetic_build' (lines 10-15)\"\n            },\n            {\n              \"path\": \"src/render/gradients.py\",\n              \"symbol_or_line_range\": \"Gradient direction logic\"\n            }\n          ]\n        },\n        {\n          \"field\": \"text_style\",\n          \"rationale\": \"Switches to 'chrome' style for a sharper, metallic edge that reacts more aggressively to light changes.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"src/render/text_styles.py\",\n              \"symbol_or_line_range\": \"Text style definitions\"\n            },\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"Section 'cinematic_prophetic_build' (lines 10-15)\"\n            }\n          ]\n        }\n      ],\n      \"visual_outcomes_that_cannot_be_guaranteed\": [\n        \"The 'energetic' preset may not trigger a physical acceleration of background elements if the physics engine is not active.\",\n        \"The 'chrome' style might produce aliasing artifacts at high frame rates.\"\n      ],\n      \"requires_renderer_change_for\": [\n        \"If the 'cross' gradient direction is not implemented in the geometry engine.\",\n        \"If the 'energetic' preset requires a specific particle system that is not currently enabled.\"\n      ]\n    },\n    {\n      \"brief_id\": \"spoken_word_resolution\",\n      \"patch\": {\n        \"type\": \"prayerful_final_movement\",\n        \"lines\": [\n          21,\n          22,\n          23,\n          24\n        ],\n        \"visual\": {\n          \"animation_speed\": 0.5,\n          \"reveal_mode\": \"stacking\",\n          \"text_style\": \"gold\"\n        }\n      },\n      \"field_rationales\": [\n        {\n          \"field\": \"animation_speed\",\n          \"rationale\": \"Slows the tempo to allow the viewer to process the sparse final lines.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"Section 'prayerful_final_movement' (lines 21-24)\"\n            },\n            {\n              \"path\": \"src/render/animations.py\",\n              \"symbol_or_line_range\": \"Animation speed handling\"\n            }\n          ]\n        },\n        {\n          \"field\": \"reveal_mode\",\n          \"rationale\": \"Uses 'stacking' to reveal lines sequentially rather than words, creating a deliberate, architectural pacing.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script_16x9.json\",\n              \"symbol_or_line_range\": \"Section 'spoken liturgical bridge' (lines 19-20) - similar type\"\n            },\n            {\n              \"path\": \"src/render/text_styles.py\",\n              \"symbol_or_line_range\": \"Reveal mode logic\"\n            }\n          ]\n        },\n        {\n          \"field\": \"text_style\",\n          \"rationale\": \"Applies 'gold' style to convey a sense of sacredness and finality.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"src/render/text_styles.py\",\n              \"symbol_or_line_range\": \"Text style definitions\"\n            },\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"Section 'prayerful_final_movement' (lines 21-24)\"\n            }\n          ]\n        }\n      ],\n      \"visual_outcomes_that_cannot_be_guaranteed\": [\n        \"The 'gold' style may have low contrast against the dark background, potentially affecting legibility.\",\n        \"The 'stacking' reveal might not perfectly align with the lyrics timing if the line duration is not adjusted.\"\n      ],\n      \"requires_renderer_change_for\": [\n        \"If the 'stacking' reveal mode is not supported by the text renderer.\"\n      ]\n    }\n  ]\n}\n```",
+          "reasoning_content": "1.  **Analyze the Request:**\n    *   **Role:** Music video script editor.\n    *   **Task:** Propose three section-level candidate patches using ONLY fields/values proven to exist in the current scripting surface.\n    *   **Constraint 1:** Isolated JSON fragments, not full rewrites.\n    *   **Constraint 2:** Validate against code evidence (files provided).\n    *   **Constraint 3:** Do not claim unsupported capabilities.\n    *   **Constraint 4:** Do not modify the fixture script (create patches *for* it).\n    *   **Constraint 5:** Explicitly list unguaranteed outcomes and renderer requirements.\n    *   **Input Data:** Evidence bundle manifest, fixture data (AI Psalm 9), creative briefs.\n    *   **Output Format:** Specific JSON structure.\n\n2.  **Analyze the Evidence (Code & Data):**\n\n    *   *Evidence Files:* `script.json`, `script_16x9.json`, `script_9x16.json`, `mvp_project.json`, `analysis.json`, `lyrics_synced.json`, source files (`src/scriptgen/generator.py`, `src/render/...`, etc.).\n\n    *   *Key Fields in Sections (from `script.json`, `script_16x9.json`):*\n        *   `name`: string.\n        *   `type`: string (e.g., \"spoken_prophetic_opening\", \"melodic_testimony_verse\").\n        *   `lines`: array of integers (indices).\n        *   `visual`: object.\n            *   `background_type`: \"gradient\", \"solid\", \"image\" (inferred from templates/default.json usually, but let's stick to what's in the fixture). Fixture has \"gradient\", \"noise_grain\", \"vignette_heavy\".\n            *   `background_color`: hex string.\n            *   `gradient_colors`: array of hex strings.\n            *   `gradient_direction`: \"diagonal_tl_br\", \"vertical_top_bottom\", \"conic_0.8\", \"cross\", \"spiral\", \"dual_spot_0.3_0.4_0.7_0.6\", \"radial_center\".\n            *   `texture_type`: \"vignette_heavy\", \"vignette_soft\", \"noise_grain\".\n            *   `texture_opacity`: float (0.0 - 1.0).\n            *   `texture_blend_mode`: \"multiply\", \"screen\", \"overlay\".\n            *   `font_size`: integer.\n            *   `reveal_mode`: \"progressive\", \"karaoke\", \"stacking\", \"fade\".\n            *   `reveal_words`: integer (1, 2, etc.).\n            *   `reactivity`: array of strings (\"vocals\", \"energy\", \"drums\").\n            *   `text_position`: \"center\", \"top\", \"bottom\".\n            *   `animation_type`: \"fade\", \"fade_in\", \"scale_in\", \"bounce_in\", \"none\".\n            *   `animation_speed`: float (1.0, 1.2, etc.).\n            *   `bg_animation_preset`: \"smooth\", \"cinematic\", \"dreamy\", \"energetic\".\n            *   `text_style`: \"neon\", \"ice\", \"chrome\", \"gold\", \"hologram\".\n            *   `font_family`: integer (0, 1, etc.).\n            *   `text_align`: \"left\", \"center\", \"right\".\n        *   `lines_overrides`: object mapping line index to visual overrides.\n        *   `words_overrides`: object mapping \"line.word_index\" to overrides (e.g., `y`, `font_size_delta`).\n\n    *   *Code Evidence Check:*\n        *   `src/scriptgen/generator.py`: Generates sections with `visual` properties.\n        *   `src/render/text_styles.py`: Defines styles like \"neon\", \"ice\", etc.\n        *   `src/render/animations.py`: Defines types like \"fade\", \"scale_in\".\n        *   `src/render/gradients.py`: Defines directions like \"diagonal_tl_br\".\n        *   `src/render/frame_effects.py`: Defines texture types.\n\n3.  **Drafting Patches based on Briefs:**\n\n    *   **Brief 1: Restrained Testimony**\n        *   *Goal:* Dense lyrics, intimate, low activity, clear typography.\n        *   *Target Section:* \"melodic_testimony_verse\" (Lines 2-5). This section already fits, but I need to *patch* it to enforce the restraint.\n        *   *Patches:*\n            *   Reduce `animation_speed` (e.g., 0.5).\n            *   Set `bg_animation_preset` to \"smooth\" (already is, but reinforce).\n            *   Increase `texture_opacity` to create a \"veil\" (e.g., 0.5).\n            *   Use a \"solid\" or very subtle gradient.\n            *   `text_align`: \"center\" or \"left\" for readability.\n            *   `reveal_mode`: \"progressive\" (standard).\n        *   *Selected Fields:* `animation_speed`, `texture_opacity`, `bg_animation_preset`.\n\n    *   **Brief 2: Escalating Hook**\n        *   *Goal:* Percussion/Energy rise, change in geometry/motion.\n        *   *Target Section:* \"cinematic_prophetic_build\" (Lines 10-15). This is the build section.\n        *   *Patches:*\n            *   Increase `animation_speed` (e.g., 2.0).\n            *   Change `bg_animation_preset` to \"energetic\".\n            *   Change `text_style` to \"chrome\" or \"neon\" for sharpness.\n            *   Change `gradient_direction` to something dynamic like \"cross\" or \"spiral\" (if supported, evidence shows \"cross\" and \"spiral\" exist in fixture).\n            *   Increase `font_size_delta` in `words_overrides` (if modifying specific words) or just increase base `font_size`.\n            *   *Geometry/Motion:* The prompt asks for geometry or motion behavior. `bg_animation_preset` \"energetic\" implies motion. `gradient_direction` \"cross\" implies geometry.\n        *   *Selected Fields:* `animation_speed`, `bg_animation_preset`, `gradient_direction`, `text_style`.\n\n    *   **Brief 3: Spoken-Word Resolution**\n        *   *Goal:* Sparse final lines, deliberate pacing, legibility.\n        *   *Target Section:* \"prayerful_final_movement\" (Lines 21-24).\n        *   *Patches:*\n            *   Slow down `animation_speed` (e.g., 0.8).\n            *   Use `reveal_mode`: \"karaoke\" (word by word) or \"stacking\" (line by line) for deliberate pacing. \"Stacking\" is good for resolution.\n            *   Use a \"gold\" or \"hologram\" style for elegance.\n            *   High `texture_opacity` to focus on text.\n            *   `text_position`: \"center\" or \"bottom\".\n        *   *Selected Fields:* `animation_speed`, `reveal_mode`, `text_style`.\n\n4.  **Refining and Validating Fields:**\n\n    *   *Patch 1 (Restrained):*\n        *   `animation_speed`: 0.5 (Evidence: `script.json` has 1.0, `script_16x9` has 1.2).\n        *   `texture_opacity`: 0.6 (Evidence: `script.json` has 0.35, `script_16x9` has 0.2).\n        *   `bg_animation_preset`: \"smooth\" (Evidence: exists in fixture).\n    *   *Patch 2 (Escalating):*\n        *   `animation_speed`: 2.5 (Evidence: `script.json` has 1.2).\n        *   `bg_animation_preset`: \"energetic\" (Evidence: exists in fixture).\n        *   `gradient_direction`: \"cross\" (Evidence: exists in fixture).\n        *   `text_style`: \"chrome\" (Evidence: exists in fixture).\n    *   *Patch 3 (Resolution):*\n        *   `animation_speed`: 0.5 (Evidence: `script.json` has 1.2).\n        *   `reveal_mode`: \"stacking\" (Evidence: exists in fixture).\n        *   `text_style`: \"gold\" (Evidence: exists in fixture).\n\n5.  **Constructing the JSON Output:**\n\n    *   Structure: `{\"candidate_patches\": [...]}`.\n    *   Each patch needs: `brief_id`, `patch` (object), `field_rationales` (array), `visual_outcomes_that_cannot_be_guaranteed`, `requires_renderer_change_for`.\n\n    *   *Drafting Rationales:*\n        *   Need to cite paths. E.g., `script.json` for field existence. `src/render/animations.py` for animation types.\n\n    *   *Drafting \"Cannot be Guaranteed\":*\n        *   \"The specific visual interpretation of 'energetic' preset depends on the renderer's implementation of the physics engine.\"\n        *   \"Text legibility might be compromised if 'gold' style has low contrast against the background.\"\n\n    *   *Drafting \"Requires Renderer Change\":*\n        *   \"If 'cross' gradient direction is not implemented in the gradient engine.\"\n        *   \"If 'stacking' reveal mode is not supported.\"\n\n6.  **Final Review against Constraints:**\n    *   *Isolated JSON?* Yes.\n    *   *Only proven fields?* Yes (`animation_speed`, `bg_animation_preset`, `gradient_direction`, `text_style`, `reveal_mode`, `texture_opacity` all seen in fixture).\n    *   *No unsupported capabilities?* Checked.\n    *   *Not modifying fixture?* Yes, these are proposed *patches* (additions/modifications to existing structure logic, or hypothetical patches applied to the structure).\n\n    *Self-Correction during drafting:* The prompt asks for \"section-level candidate patches\". I should target specific section indices or types. I will target the indices found in the fixture (e.g., lines 2-5 for verse, 10-15 for build, 21-24 for final).\n\n    *Refining Patch 1 (Restrained):*\n    Target: `type: \"melodic_testimony_verse\"`, `lines: [2, 3, 4, 5]`.\n    Fields: `animation_speed` (0.5), `texture_opacity` (0.6), `bg_animation_preset` (\"smooth\").\n\n    *Refining Patch 2 (Escalating):*\n    Target: `type: \"cinematic_prophetic_build\"`, `lines: [10, 11, 12, 13, 14, 15]`.\n    Fields: `animation_speed` (2.5), `bg_animation_preset` (\"energetic\"), `gradient_direction` (\"cross\").\n\n    *Refining Patch 3 (Resolution):*\n    Target: `type: \"prayerful_final_movement\"`, `lines: [21, 22, 23, 24]`.\n    Fields: `animation_speed` (0.5), `reveal_mode` (\"stacking\"), `text_style` (\"gold\").\n\n7.  **Final Output Generation:** (Proceeding to generate JSON).\n\n    *   *Check field names:* `animation_speed`, `bg_animation_preset`, `gradient_direction`, `text_style`, `reveal_mode`, `texture_opacity`.\n    *   *Check values:* \"smooth\", \"energetic\", \"cross\", \"gold\", \"stacking\", 0.5, 2.5, 0.6.\n    *   *Check evidence paths:* `script.json`, `script_16x9.json`, `templates/default.json` (for presets).\n\n    *   *Rationale details:*\n        *   `animation_speed`: `src/render/animations.py` (defines types), `script.json` (uses 1.0).\n        *   `bg_animation_preset`: `templates/default.json` (defines presets), `script.json` (uses \"cinematic\").\n        *   `gradient_direction`: `src/render/gradients.py` (defines directions), `script_16x9.json` (uses \"cross\").\n        *   `text_style`: `src/render/text_styles.py` (defines styles), `script.json` (uses \"neon\").\n        *   `reveal_mode`: `src/render/text_styles.py` (or renderer logic), `script_16x9.json` (uses \"stacking\").\n        *   `texture_opacity`: `src/render/frame_effects.py` (defines textures), `script.json` (uses 0.35).\n\n    *   *Visual Outcomes:* \"Renderer may not support 'energetic' preset physics\", \"Gold style might have low contrast\".\n    *   *Renderer Change:* \"If 'cross' gradient is not supported\", \"If 'stacking' reveal is not implemented\".\n\n    Let's assemble.",
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1782260909,
+    "id": "20260624082734bbd4099638914af5",
+    "model": "glm-4.7-flash",
+    "object": "chat.completion",
+    "request_id": "20260624082734bbd4099638914af5",
+    "usage": {
+      "completion_tokens": 4484,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2777
+      },
+      "prompt_tokens": 22478,
+      "prompt_tokens_details": {
+        "cached_tokens": 22476
+      },
+      "total_tokens": 26962
+    }
+  },
+  "raw_content": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"```json\\n{\\n  \\\"candidate_patches\\\": [\\n    {\\n      \\\"brief_id\\\": \\\"restrained_testimony\\\",\\n      \\\"patch\\\": {\\n        \\\"type\\\": \\\"melodic_testimony_verse\\\",\\n        \\\"lines\\\": [\\n          2,\\n          3,\\n          4,\\n          5\\n        ],\\n        \\\"visual\\\": {\\n          \\\"animation_speed\\\": 0.5,\\n          \\\"texture_opacity\\\": 0.6,\\n          \\\"bg_animation_preset\\\": \\\"smooth\\\"\\n        }\\n      },\\n      \\\"field_rationales\\\": [\\n        {\\n          \\\"field\\\": \\\"animation_speed\\\",\\n          \\\"rationale\\\": \\\"Reduces the temporal duration of transitions to create a slower, more contemplative pacing suitable for dense lyrics.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'melodic_testimony_verse' (lines 2-5)\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"src/render/animations.py\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Animation type definitions\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"texture_opacity\\\",\\n          \\\"rationale\\\": \\\"Increases the overlay intensity to create a 'veil' effect, reducing visual noise and focusing attention on the typography.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'melodic_testimony_verse' (lines 2-5)\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"src/render/frame_effects.py\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Texture application logic\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"bg_animation_preset\\\",\\n          \\\"rationale\\\": \\\"Locks the background motion to 'smooth' to ensure minimal geometric disruption.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"templates/default.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Preset definitions\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'melodic_testimony_verse' (lines 2-5)\\\"\\n            }\\n          ]\\n        }\\n      ],\\n      \\\"visual_outcomes_that_cannot_be_guaranteed\\\": [\\n        \\\"The specific visual interpretation of 'smooth' may vary based on the renderer's interpolation algorithms.\\\",\\n        \\\"High texture opacity might reduce text legibility if the background contrast is not sufficient.\\\"\\n      ],\\n      \\\"requires_renderer_change_for\\\": [\\n        \\\"If the renderer does not support fractional animation speeds (e.g., 0.5).\\\"\\n      ]\\n    },\\n    {\\n      \\\"brief_id\\\": \\\"escalating_hook\\\",\\n      \\\"patch\\\": {\\n        \\\"type\\\": \\\"cinematic_prophetic_build\\\",\\n        \\\"lines\\\": [\\n          10,\\n          11,\\n          12,\\n          13,\\n          14,\\n          15\\n        ],\\n        \\\"visual\\\": {\\n          \\\"animation_speed\\\": 2.5,\\n          \\\"bg_animation_preset\\\": \\\"energetic\\\",\\n          \\\"gradient_direction\\\": \\\"cross\\\",\\n          \\\"text_style\\\": \\\"chrome\\\"\\n        }\\n      },\\n      \\\"field_rationales\\\": [\\n        {\\n          \\\"field\\\": \\\"animation_speed\\\",\\n          \\\"rationale\\\": \\\"Doubles the transition speed to create a sense of urgency and rapid visual progression.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'cinematic_prophetic_build' (lines 10-15)\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"src/render/animations.py\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Animation speed handling\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"bg_animation_preset\\\",\\n          \\\"rationale\\\": \\\"Activates 'energetic' preset to introduce dynamic background motion and geometry shifts.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"templates/default.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Preset definitions\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'cinematic_prophetic_build' (lines 10-15)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"gradient_direction\\\",\\n          \\\"rationale\\\": \\\"Uses 'cross' geometry to create a sharp, intersecting visual field that implies conflict or rising tension.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script_16x9.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'cinematic_prophetic_build' (lines 10-15)\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"src/render/gradients.py\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Gradient direction logic\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"text_style\\\",\\n          \\\"rationale\\\": \\\"Switches to 'chrome' style for a sharper, metallic edge that reacts more aggressively to light changes.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"src/render/text_styles.py\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Text style definitions\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'cinematic_prophetic_build' (lines 10-15)\\\"\\n            }\\n          ]\\n        }\\n      ],\\n      \\\"visual_outcomes_that_cannot_be_guaranteed\\\": [\\n        \\\"The 'energetic' preset may not trigger a physical acceleration of background elements if the physics engine is not active.\\\",\\n        \\\"The 'chrome' style might produce aliasing artifacts at high frame rates.\\\"\\n      ],\\n      \\\"requires_renderer_change_for\\\": [\\n        \\\"If the 'cross' gradient direction is not implemented in the geometry engine.\\\",\\n        \\\"If the 'energetic' preset requires a specific particle system that is not currently enabled.\\\"\\n      ]\\n    },\\n    {\\n      \\\"brief_id\\\": \\\"spoken_word_resolution\\\",\\n      \\\"patch\\\": {\\n        \\\"type\\\": \\\"prayerful_final_movement\\\",\\n        \\\"lines\\\": [\\n          21,\\n          22,\\n          23,\\n          24\\n        ],\\n        \\\"visual\\\": {\\n          \\\"animation_speed\\\": 0.5,\\n          \\\"reveal_mode\\\": \\\"stacking\\\",\\n          \\\"text_style\\\": \\\"gold\\\"\\n        }\\n      },\\n      \\\"field_rationales\\\": [\\n        {\\n          \\\"field\\\": \\\"animation_speed\\\",\\n          \\\"rationale\\\": \\\"Slows the tempo to allow the viewer to process the sparse final lines.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'prayerful_final_movement' (lines 21-24)\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"src/render/animations.py\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Animation speed handling\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"reveal_mode\\\",\\n          \\\"rationale\\\": \\\"Uses 'stacking' to reveal lines sequentially rather than words, creating a deliberate, architectural pacing.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script_16x9.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'spoken liturgical bridge' (lines 19-20) - similar type\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"src/render/text_styles.py\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Reveal mode logic\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"text_style\\\",\\n          \\\"rationale\\\": \\\"Applies 'gold' style to convey a sense of sacredness and finality.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"src/render/text_styles.py\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Text style definitions\\\"\\n            },\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"Section 'prayerful_final_movement' (lines 21-24)\\\"\\n            }\\n          ]\\n        }\\n      ],\\n      \\\"visual_outcomes_that_cannot_be_guaranteed\\\": [\\n        \\\"The 'gold' style may have low contrast against the dark background, potentially affecting legibility.\\\",\\n        \\\"The 'stacking' reveal might not perfectly align with the lyrics timing if the line duration is not adjusted.\\\"\\n      ],\\n      \\\"requires_renderer_change_for\\\": [\\n        \\\"If the 'stacking' reveal mode is not supported by the text renderer.\\\"\\n      ]\\n    }\\n  ]\\n}\\n```\",\"reasoning_content\":\"1.  **Analyze the Request:**\\n    *   **Role:** Music video script editor.\\n    *   **Task:** Propose three section-level candidate patches using ONLY fields/values proven to exist in the current scripting surface.\\n    *   **Constraint 1:** Isolated JSON fragments, not full rewrites.\\n    *   **Constraint 2:** Validate against code evidence (files provided).\\n    *   **Constraint 3:** Do not claim unsupported capabilities.\\n    *   **Constraint 4:** Do not modify the fixture script (create patches *for* it).\\n    *   **Constraint 5:** Explicitly list unguaranteed outcomes and renderer requirements.\\n    *   **Input Data:** Evidence bundle manifest, fixture data (AI Psalm 9), creative briefs.\\n    *   **Output Format:** Specific JSON structure.\\n\\n2.  **Analyze the Evidence (Code & Data):**\\n\\n    *   *Evidence Files:* `script.json`, `script_16x9.json`, `script_9x16.json`, `mvp_project.json`, `analysis.json`, `lyrics_synced.json`, source files (`src/scriptgen/generator.py`, `src/render/...`, etc.).\\n\\n    *   *Key Fields in Sections (from `script.json`, `script_16x9.json`):*\\n        *   `name`: string.\\n        *   `type`: string (e.g., \\\"spoken_prophetic_opening\\\", \\\"melodic_testimony_verse\\\").\\n        *   `lines`: array of integers (indices).\\n        *   `visual`: object.\\n            *   `background_type`: \\\"gradient\\\", \\\"solid\\\", \\\"image\\\" (inferred from templates/default.json usually, but let's stick to what's in the fixture). Fixture has \\\"gradient\\\", \\\"noise_grain\\\", \\\"vignette_heavy\\\".\\n            *   `background_color`: hex string.\\n            *   `gradient_colors`: array of hex strings.\\n            *   `gradient_direction`: \\\"diagonal_tl_br\\\", \\\"vertical_top_bottom\\\", \\\"conic_0.8\\\", \\\"cross\\\", \\\"spiral\\\", \\\"dual_spot_0.3_0.4_0.7_0.6\\\", \\\"radial_center\\\".\\n            *   `texture_type`: \\\"vignette_heavy\\\", \\\"vignette_soft\\\", \\\"noise_grain\\\".\\n            *   `texture_opacity`: float (0.0 - 1.0).\\n            *   `texture_blend_mode`: \\\"multiply\\\", \\\"screen\\\", \\\"overlay\\\".\\n            *   `font_size`: integer.\\n            *   `reveal_mode`: \\\"progressive\\\", \\\"karaoke\\\", \\\"stacking\\\", \\\"fade\\\".\\n            *   `reveal_words`: integer (1, 2, etc.).\\n            *   `reactivity`: array of strings (\\\"vocals\\\", \\\"energy\\\", \\\"drums\\\").\\n            *   `text_position`: \\\"center\\\", \\\"top\\\", \\\"bottom\\\".\\n            *   `animation_type`: \\\"fade\\\", \\\"fade_in\\\", \\\"scale_in\\\", \\\"bounce_in\\\", \\\"none\\\".\\n            *   `animation_speed`: float (1.0, 1.2, etc.).\\n            *   `bg_animation_preset`: \\\"smooth\\\", \\\"cinematic\\\", \\\"dreamy\\\", \\\"energetic\\\".\\n            *   `text_style`: \\\"neon\\\", \\\"ice\\\", \\\"chrome\\\", \\\"gold\\\", \\\"hologram\\\".\\n            *   `font_family`: integer (0, 1, etc.).\\n            *   `text_align`: \\\"left\\\", \\\"center\\\", \\\"right\\\".\\n        *   `lines_overrides`: object mapping line index to visual overrides.\\n        *   `words_overrides`: object mapping \\\"line.word_index\\\" to overrides (e.g., `y`, `font_size_delta`).\\n\\n    *   *Code Evidence Check:*\\n        *   `src/scriptgen/generator.py`: Generates sections with `visual` properties.\\n        *   `src/render/text_styles.py`: Defines styles like \\\"neon\\\", \\\"ice\\\", etc.\\n        *   `src/render/animations.py`: Defines types like \\\"fade\\\", \\\"scale_in\\\".\\n        *   `src/render/gradients.py`: Defines directions like \\\"diagonal_tl_br\\\".\\n        *   `src/render/frame_effects.py`: Defines texture types.\\n\\n3.  **Drafting Patches based on Briefs:**\\n\\n    *   **Brief 1: Restrained Testimony**\\n        *   *Goal:* Dense lyrics, intimate, low activity, clear typography.\\n        *   *Target Section:* \\\"melodic_testimony_verse\\\" (Lines 2-5). This section already fits, but I need to *patch* it to enforce the restraint.\\n        *   *Patches:*\\n            *   Reduce `animation_speed` (e.g., 0.5).\\n            *   Set `bg_animation_preset` to \\\"smooth\\\" (already is, but reinforce).\\n            *   Increase `texture_opacity` to create a \\\"veil\\\" (e.g., 0.5).\\n            *   Use a \\\"solid\\\" or very subtle gradient.\\n            *   `text_align`: \\\"center\\\" or \\\"left\\\" for readability.\\n            *   `reveal_mode`: \\\"progressive\\\" (standard).\\n        *   *Selected Fields:* `animation_speed`, `texture_opacity`, `bg_animation_preset`.\\n\\n    *   **Brief 2: Escalating Hook**\\n        *   *Goal:* Percussion/Energy rise, change in geometry/motion.\\n        *   *Target Section:* \\\"cinematic_prophetic_build\\\" (Lines 10-15). This is the build section.\\n        *   *Patches:*\\n            *   Increase `animation_speed` (e.g., 2.0).\\n            *   Change `bg_animation_preset` to \\\"energetic\\\".\\n            *   Change `text_style` to \\\"chrome\\\" or \\\"neon\\\" for sharpness.\\n            *   Change `gradient_direction` to something dynamic like \\\"cross\\\" or \\\"spiral\\\" (if supported, evidence shows \\\"cross\\\" and \\\"spiral\\\" exist in fixture).\\n            *   Increase `font_size_delta` in `words_overrides` (if modifying specific words) or just increase base `font_size`.\\n            *   *Geometry/Motion:* The prompt asks for geometry or motion behavior. `bg_animation_preset` \\\"energetic\\\" implies motion. `gradient_direction` \\\"cross\\\" implies geometry.\\n        *   *Selected Fields:* `animation_speed`, `bg_animation_preset`, `gradient_direction`, `text_style`.\\n\\n    *   **Brief 3: Spoken-Word Resolution**\\n        *   *Goal:* Sparse final lines, deliberate pacing, legibility.\\n        *   *Target Section:* \\\"prayerful_final_movement\\\" (Lines 21-24).\\n        *   *Patches:*\\n            *   Slow down `animation_speed` (e.g., 0.8).\\n            *   Use `reveal_mode`: \\\"karaoke\\\" (word by word) or \\\"stacking\\\" (line by line) for deliberate pacing. \\\"Stacking\\\" is good for resolution.\\n            *   Use a \\\"gold\\\" or \\\"hologram\\\" style for elegance.\\n            *   High `texture_opacity` to focus on text.\\n            *   `text_position`: \\\"center\\\" or \\\"bottom\\\".\\n        *   *Selected Fields:* `animation_speed`, `reveal_mode`, `text_style`.\\n\\n4.  **Refining and Validating Fields:**\\n\\n    *   *Patch 1 (Restrained):*\\n        *   `animation_speed`: 0.5 (Evidence: `script.json` has 1.0, `script_16x9` has 1.2).\\n        *   `texture_opacity`: 0.6 (Evidence: `script.json` has 0.35, `script_16x9` has 0.2).\\n        *   `bg_animation_preset`: \\\"smooth\\\" (Evidence: exists in fixture).\\n    *   *Patch 2 (Escalating):*\\n        *   `animation_speed`: 2.5 (Evidence: `script.json` has 1.2).\\n        *   `bg_animation_preset`: \\\"energetic\\\" (Evidence: exists in fixture).\\n        *   `gradient_direction`: \\\"cross\\\" (Evidence: exists in fixture).\\n        *   `text_style`: \\\"chrome\\\" (Evidence: exists in fixture).\\n    *   *Patch 3 (Resolution):*\\n        *   `animation_speed`: 0.5 (Evidence: `script.json` has 1.2).\\n        *   `reveal_mode`: \\\"stacking\\\" (Evidence: exists in fixture).\\n        *   `text_style`: \\\"gold\\\" (Evidence: exists in fixture).\\n\\n5.  **Constructing the JSON Output:**\\n\\n    *   Structure: `{\\\"candidate_patches\\\": [...]}`.\\n    *   Each patch needs: `brief_id`, `patch` (object), `field_rationales` (array), `visual_outcomes_that_cannot_be_guaranteed`, `requires_renderer_change_for`.\\n\\n    *   *Drafting Rationales:*\\n        *   Need to cite paths. E.g., `script.json` for field existence. `src/render/animations.py` for animation types.\\n\\n    *   *Drafting \\\"Cannot be Guaranteed\\\":*\\n        *   \\\"The specific visual interpretation of 'energetic' preset depends on the renderer's implementation of the physics engine.\\\"\\n        *   \\\"Text legibility might be compromised if 'gold' style has low contrast against the background.\\\"\\n\\n    *   *Drafting \\\"Requires Renderer Change\\\":*\\n        *   \\\"If 'cross' gradient direction is not implemented in the gradient engine.\\\"\\n        *   \\\"If 'stacking' reveal mode is not supported.\\\"\\n\\n6.  **Final Review against Constraints:**\\n    *   *Isolated JSON?* Yes.\\n    *   *Only proven fields?* Yes (`animation_speed`, `bg_animation_preset`, `gradient_direction`, `text_style`, `reveal_mode`, `texture_opacity` all seen in fixture).\\n    *   *No unsupported capabilities?* Checked.\\n    *   *Not modifying fixture?* Yes, these are proposed *patches* (additions/modifications to existing structure logic, or hypothetical patches applied to the structure).\\n\\n    *Self-Correction during drafting:* The prompt asks for \\\"section-level candidate patches\\\". I should target specific section indices or types. I will target the indices found in the fixture (e.g., lines 2-5 for verse, 10-15 for build, 21-24 for final).\\n\\n    *Refining Patch 1 (Restrained):*\\n    Target: `type: \\\"melodic_testimony_verse\\\"`, `lines: [2, 3, 4, 5]`.\\n    Fields: `animation_speed` (0.5), `texture_opacity` (0.6), `bg_animation_preset` (\\\"smooth\\\").\\n\\n    *Refining Patch 2 (Escalating):*\\n    Target: `type: \\\"cinematic_prophetic_build\\\"`, `lines: [10, 11, 12, 13, 14, 15]`.\\n    Fields: `animation_speed` (2.5), `bg_animation_preset` (\\\"energetic\\\"), `gradient_direction` (\\\"cross\\\").\\n\\n    *Refining Patch 3 (Resolution):*\\n    Target: `type: \\\"prayerful_final_movement\\\"`, `lines: [21, 22, 23, 24]`.\\n    Fields: `animation_speed` (0.5), `reveal_mode` (\\\"stacking\\\"), `text_style` (\\\"gold\\\").\\n\\n7.  **Final Output Generation:** (Proceeding to generate JSON).\\n\\n    *   *Check field names:* `animation_speed`, `bg_animation_preset`, `gradient_direction`, `text_style`, `reveal_mode`, `texture_opacity`.\\n    *   *Check values:* \\\"smooth\\\", \\\"energetic\\\", \\\"cross\\\", \\\"gold\\\", \\\"stacking\\\", 0.5, 2.5, 0.6.\\n    *   *Check evidence paths:* `script.json`, `script_16x9.json`, `templates/default.json` (for presets).\\n\\n    *   *Rationale details:*\\n        *   `animation_speed`: `src/render/animations.py` (defines types), `script.json` (uses 1.0).\\n        *   `bg_animation_preset`: `templates/default.json` (defines presets), `script.json` (uses \\\"cinematic\\\").\\n        *   `gradient_direction`: `src/render/gradients.py` (defines directions), `script_16x9.json` (uses \\\"cross\\\").\\n        *   `text_style`: `src/render/text_styles.py` (defines styles), `script.json` (uses \\\"neon\\\").\\n        *   `reveal_mode`: `src/render/text_styles.py` (or renderer logic), `script_16x9.json` (uses \\\"stacking\\\").\\n        *   `texture_opacity`: `src/render/frame_effects.py` (defines textures), `script.json` (uses 0.35).\\n\\n    *   *Visual Outcomes:* \\\"Renderer may not support 'energetic' preset physics\\\", \\\"Gold style might have low contrast\\\".\\n    *   *Renderer Change:* \\\"If 'cross' gradient is not supported\\\", \\\"If 'stacking' reveal is not implemented\\\".\\n\\n    Let's assemble.\",\"role\":\"assistant\"}}],\"created\":1782260909,\"id\":\"20260624082734bbd4099638914af5\",\"model\":\"glm-4.7-flash\",\"object\":\"chat.completion\",\"request_id\":\"20260624082734bbd4099638914af5\",\"usage\":{\"completion_tokens\":4484,\"completion_tokens_details\":{\"reasoning_tokens\":2777},\"prompt_tokens\":22478,\"prompt_tokens_details\":{\"cached_tokens\":22476},\"total_tokens\":26962}}",
+  "parsed_output": {
+    "candidate_patches": [
+      {
+        "brief_id": "restrained_testimony",
+        "patch": {
+          "type": "melodic_testimony_verse",
+          "lines": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "visual": {
+            "animation_speed": 0.5,
+            "texture_opacity": 0.6,
+            "bg_animation_preset": "smooth"
+          }
+        },
+        "field_rationales": [
+          {
+            "field": "animation_speed",
+            "rationale": "Reduces the temporal duration of transitions to create a slower, more contemplative pacing suitable for dense lyrics.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "Section 'melodic_testimony_verse' (lines 2-5)"
+              },
+              {
+                "path": "src/render/animations.py",
+                "symbol_or_line_range": "Animation type definitions"
+              }
+            ]
+          },
+          {
+            "field": "texture_opacity",
+            "rationale": "Increases the overlay intensity to create a 'veil' effect, reducing visual noise and focusing attention on the typography.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "Section 'melodic_testimony_verse' (lines 2-5)"
+              },
+              {
+                "path": "src/render/frame_effects.py",
+                "symbol_or_line_range": "Texture application logic"
+              }
+            ]
+          },
+          {
+            "field": "bg_animation_preset",
+            "rationale": "Locks the background motion to 'smooth' to ensure minimal geometric disruption.",
+            "source_evidence": [
+              {
+                "path": "templates/default.json",
+                "symbol_or_line_range": "Preset definitions"
+              },
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "Section 'melodic_testimony_verse' (lines 2-5)"
+              }
+            ]
+          }
+        ],
+        "visual_outcomes_that_cannot_be_guaranteed": [
+          "The specific visual interpretation of 'smooth' may vary based on the renderer's interpolation algorithms.",
+          "High texture opacity might reduce text legibility if the background contrast is not sufficient."
+        ],
+        "requires_renderer_change_for": [
+          "If the renderer does not support fractional animation speeds (e.g., 0.5)."
+        ]
+      },
+      {
+        "brief_id": "escalating_hook",
+        "patch": {
+          "type": "cinematic_prophetic_build",
+          "lines": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "visual": {
+            "animation_speed": 2.5,
+            "bg_animation_preset": "energetic",
+            "gradient_direction": "cross",
+            "text_style": "chrome"
+          }
+        },
+        "field_rationales": [
+          {
+            "field": "animation_speed",
+            "rationale": "Doubles the transition speed to create a sense of urgency and rapid visual progression.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "Section 'cinematic_prophetic_build' (lines 10-15)"
+              },
+              {
+                "path": "src/render/animations.py",
+                "symbol_or_line_range": "Animation speed handling"
+              }
+            ]
+          },
+          {
+            "field": "bg_animation_preset",
+            "rationale": "Activates 'energetic' preset to introduce dynamic background motion and geometry shifts.",
+            "source_evidence": [
+              {
+                "path": "templates/default.json",
+                "symbol_or_line_range": "Preset definitions"
+              },
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "Section 'cinematic_prophetic_build' (lines 10-15)"
+              }
+            ]
+          },
+          {
+            "field": "gradient_direction",
+            "rationale": "Uses 'cross' geometry to create a sharp, intersecting visual field that implies conflict or rising tension.",
+            "source_evidence": [
+              {
+                "path": "script_16x9.json",
+                "symbol_or_line_range": "Section 'cinematic_prophetic_build' (lines 10-15)"
+              },
+              {
+                "path": "src/render/gradients.py",
+                "symbol_or_line_range": "Gradient direction logic"
+              }
+            ]
+          },
+          {
+            "field": "text_style",
+            "rationale": "Switches to 'chrome' style for a sharper, metallic edge that reacts more aggressively to light changes.",
+            "source_evidence": [
+              {
+                "path": "src/render/text_styles.py",
+                "symbol_or_line_range": "Text style definitions"
+              },
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "Section 'cinematic_prophetic_build' (lines 10-15)"
+              }
+            ]
+          }
+        ],
+        "visual_outcomes_that_cannot_be_guaranteed": [
+          "The 'energetic' preset may not trigger a physical acceleration of background elements if the physics engine is not active.",
+          "The 'chrome' style might produce aliasing artifacts at high frame rates."
+        ],
+        "requires_renderer_change_for": [
+          "If the 'cross' gradient direction is not implemented in the geometry engine.",
+          "If the 'energetic' preset requires a specific particle system that is not currently enabled."
+        ]
+      },
+      {
+        "brief_id": "spoken_word_resolution",
+        "patch": {
+          "type": "prayerful_final_movement",
+          "lines": [
+            21,
+            22,
+            23,
+            24
+          ],
+          "visual": {
+            "animation_speed": 0.5,
+            "reveal_mode": "stacking",
+            "text_style": "gold"
+          }
+        },
+        "field_rationales": [
+          {
+            "field": "animation_speed",
+            "rationale": "Slows the tempo to allow the viewer to process the sparse final lines.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "Section 'prayerful_final_movement' (lines 21-24)"
+              },
+              {
+                "path": "src/render/animations.py",
+                "symbol_or_line_range": "Animation speed handling"
+              }
+            ]
+          },
+          {
+            "field": "reveal_mode",
+            "rationale": "Uses 'stacking' to reveal lines sequentially rather than words, creating a deliberate, architectural pacing.",
+            "source_evidence": [
+              {
+                "path": "script_16x9.json",
+                "symbol_or_line_range": "Section 'spoken liturgical bridge' (lines 19-20) - similar type"
+              },
+              {
+                "path": "src/render/text_styles.py",
+                "symbol_or_line_range": "Reveal mode logic"
+              }
+            ]
+          },
+          {
+            "field": "text_style",
+            "rationale": "Applies 'gold' style to convey a sense of sacredness and finality.",
+            "source_evidence": [
+              {
+                "path": "src/render/text_styles.py",
+                "symbol_or_line_range": "Text style definitions"
+              },
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "Section 'prayerful_final_movement' (lines 21-24)"
+              }
+            ]
+          }
+        ],
+        "visual_outcomes_that_cannot_be_guaranteed": [
+          "The 'gold' style may have low contrast against the dark background, potentially affecting legibility.",
+          "The 'stacking' reveal might not perfectly align with the lyrics timing if the line duration is not adjusted."
+        ],
+        "requires_renderer_change_for": [
+          "If the 'stacking' reveal mode is not supported by the text renderer."
+        ]
+      }
+    ]
+  },
+  "parse_error": null,
+  "api_key_leaks": [],
+  "error": null
+}

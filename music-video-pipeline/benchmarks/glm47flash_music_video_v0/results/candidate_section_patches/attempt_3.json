@@ -1,0 +1,276 @@
+{
+  "dry_run": false,
+  "model": "glm-4.7-flash",
+  "case_name": "candidate_section_patches",
+  "attempt": 3,
+  "timestamp": "2026-06-24T00:29:38.298291+00:00",
+  "http_status": 200,
+  "elapsed_seconds": 70.78,
+  "usage": {
+    "prompt_tokens": 22478,
+    "completion_tokens": 4945,
+    "total_tokens": 27423
+  },
+  "thinking_enabled": false,
+  "raw_response_json": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "```json\n{\n  \"candidate_patches\": [\n    {\n      \"brief_id\": \"restrained_testimony\",\n      \"patch\": {\n        \"sections\": [\n          {\n            \"name\": \"melodic testimony verse\",\n            \"visual\": {\n              \"font_size\": 50,\n              \"animation_type\": \"fade\",\n              \"texture_opacity\": 0.1,\n              \"reactivity\": [\n                \"vocals\"\n              ]\n            }\n          }\n        ]\n      },\n      \"field_rationales\": [\n        {\n          \"field\": \"font_size\",\n          \"rationale\": \"Reducing font size from 72 to 50 creates a more intimate, less overwhelming visual presence suitable for dense lyrics.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"1-10 (defaults), 1 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"animation_type\",\n          \"rationale\": \"Switching from 'fade_in' to 'fade' reduces the initial motion intensity, aligning with the restrained brief.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"1-10 (defaults)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"texture_opacity\",\n          \"rationale\": \"Lowering opacity from 0.35 to 0.1 reduces visual noise and clutter, prioritizing lyric clarity.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"1-10 (defaults), 1 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"reactivity\",\n          \"rationale\": \"Changing reactivity from 'energy' to 'vocals' ensures the visual responds to the vocal performance rather than the general energy level, maintaining intimacy.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"1-10 (defaults)\"\n            }\n          ]\n        }\n      ],\n      \"visual_outcomes_that_cannot_be_guaranteed\": [\n        \"Exact alignment of text sizing with specific vocal phrasing nuances\",\n        \"Consistent font rendering across all playback devices\"\n      ],\n      \"requires_renderer_change_for\": []\n    },\n    {\n      \"brief_id\": \"escalating_hook\",\n      \"patch\": {\n        \"sections\": [\n          {\n            \"name\": \"cinematic prophetic build\",\n            \"visual\": {\n              \"animation_type\": \"scale_in\",\n              \"animation_speed\": 2.0,\n              \"bg_animation_preset\": \"energetic\",\n              \"reactivity\": [\n                \"drums\",\n                \"energy\"\n              ]\n            },\n            \"words_overrides\": {\n              \"10.0\": {\n                \"font_size_delta\": 5\n              }\n            }\n          }\n        ]\n      },\n      \"field_rationales\": [\n        {\n          \"field\": \"animation_type\",\n          \"rationale\": \"Changing from 'fade_in' to 'scale_in' introduces a geometric expansion that visually escalates energy.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"3 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"animation_speed\",\n          \"rationale\": \"Increasing speed from 1.0 to 2.0 accelerates the visual motion to match the rising percussion.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"3 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"bg_animation_preset\",\n          \"rationale\": \"Switching from 'cinematic' to 'energetic' alters the background motion behavior to be more dynamic.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"5 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"reactivity\",\n          \"rationale\": \"Adding 'drums' to reactivity ensures the visual reacts specifically to the rising percussion layer.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script.json\",\n              \"symbol_or_line_range\": \"1-10 (defaults)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"font_size_delta\",\n          \"rationale\": \"Applying a positive delta to the first word of the section creates a visual 'drop' or emphasis on the first beat.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script_16x9.json\",\n              \"symbol_or_line_range\": \"3 (section words_overrides)\"\n            }\n          ]\n        }\n      ],\n      \"visual_outcomes_that_cannot_be_guaranteed\": [\n        \"Synchronization of visual expansion with specific drum hit timing\",\n        \"Consistent interpretation of 'energetic' background preset across renderers\"\n      ],\n      \"requires_renderer_change_for\": []\n    },\n    {\n      \"brief_id\": \"spoken_word_resolution\",\n      \"patch\": {\n        \"sections\": [\n          {\n            \"name\": \"prayerful final movement\",\n            \"visual\": {\n              \"reveal_mode\": \"stacking\",\n              \"text_style\": \"gold\",\n              \"bg_animation_preset\": \"smooth\",\n              \"texture_type\": \"vignette_soft\"\n            },\n            \"lines_overrides\": {\n              \"21\": {\n                \"font_size\": 100\n              }\n            }\n          }\n        ]\n      },\n      \"field_rationales\": [\n        {\n          \"field\": \"reveal_mode\",\n          \"rationale\": \"Changing from 'progressive' to 'stacking' allows lines to build vertically, creating a deliberate, sparse structure.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script_16x9.json\",\n              \"symbol_or_line_range\": \"6 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"text_style\",\n          \"rationale\": \"Switching from 'neon' to 'gold' provides a warmer, more legible, and solemn aesthetic for the resolution.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script_16x9.json\",\n              \"symbol_or_line_range\": \"6 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"bg_animation_preset\",\n          \"rationale\": \"Changing from 'cinematic' to 'smooth' removes the dynamic background motion, allowing focus on the text.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script_16x9.json\",\n              \"symbol_or_line_range\": \"6 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"texture_type\",\n          \"rationale\": \"Changing from 'noise_grain' to 'vignette_soft' reduces texture noise, minimizing visual clutter.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script_16x9.json\",\n              \"symbol_or_line_range\": \"6 (section visual)\"\n            }\n          ]\n        },\n        {\n          \"field\": \"font_size\",\n          \"rationale\": \"Increasing font size for the first line ensures maximum legibility and impact in the final moments.\",\n          \"source_evidence\": [\n            {\n              \"path\": \"script_16x9.json\",\n              \"symbol_or_line_range\": \"6 (section lines_overrides)\"\n            }\n          ]\n        }\n      ],\n      \"visual_outcomes_that_cannot_be_guaranteed\": [\n        \"Perfect vertical stacking alignment with lyrics timing\",\n        \"Exact color match for 'gold' text style on all displays\"\n      ],\n      \"requires_renderer_change_for\": []\n    }\n  ]\n}\n```",
+          "reasoning_content": "1.  **Analyze the Request:**\n    *   **Role:** Music video script editor.\n    *   **Task:** Propose three section-level candidate patches.\n    *   **Constraint 1:** Use ONLY fields/values proven to exist in the current scripting surface (Evidence).\n    *   **Constraint 2:** Each patch must be an isolated JSON fragment, not a full rewrite.\n    *   **Constraint 3:** Validate field names against code evidence.\n    *   **Constraint 4:** Do not claim unsupported capabilities.\n    *   **Input Data:** Evidence bundle paths and fixture data (AI Psalm 9 project).\n    *   **Creative Briefs:**\n        1.  *Restrained Testimony:* Dense lyrics, intimate, low activity, clear typography.\n        2.  *Escalating Hook:* Percussion/energy rise, actual change in geometry/motion.\n        3.  *Spoken-Word Resolution:* Sparse, deliberate, legible, no clutter.\n    *   **Output Format:** Specific JSON structure.\n\n2.  **Analyze the Evidence (Code & Data):**\n    *   *Files:* `script.json`, `script_16x9.json`, `script_9x16.json`, `analysis.json`, `lyrics_synced.json`, `mvp_project.json`, `src/...` (Python files).\n    *   *Script Structure:*\n        *   Top level: `name`, `defaults`, `caption_style`, `sections`.\n        *   `defaults`: `background_type`, `background_color`, `gradient_colors`, `gradient_direction`, `texture_type`, `texture_opacity`, `texture_blend_mode`, `text_auto_contrast`, `font_size`, `animation_type`, `animation_speed`, `reveal_mode`, `reveal_words`, `reveal_slide`, `reactivity`, `text_align`.\n        *   `caption_style`: `font_family`, `highlight_color`, `text_position`, `letter_spacing`, `text_shadow`, `outline`.\n        *   `sections`: Array of objects.\n        *   `section`: `name`, `type`, `lines` (indices), `visual` (object), `lines_overrides` (object), `words_overrides` (object).\n        *   `visual`: `background_type`, `gradient_direction`, `background_color`, `gradient_colors`, `texture_type`, `texture_opacity`, `texture_blend_mode`, `font_size`, `reveal_mode`, `reveal_words`, `reactivity`, `text_position`, `animation_type`, `animation_speed`, `bg_animation_preset`, `text_style`, `font_family`.\n    *   *Animation Types:* `fade`, `fade_in`, `scale_in`, `bounce_in`, `none`.\n    *   *Reactivity:* `vocals`, `energy`, `drums`.\n    *   *Background Types:* `gradient`, `solid`.\n    *   *Texture Types:* `vignette_heavy`, `vignette_soft`, `noise_grain`.\n    *   *Gradient Directions:* `diagonal_tl_br`, `vertical_top_bottom`, `diagonal_tr_bl`, `horizontal_left_right`, `radial_center`, `cross`, `conic_0.8`, `dual_spot_0.3_0.4_0.7_0.6`, `spiral`.\n    *   *Text Styles:* `neon`, `ice`, `chrome`, `gold`, `hologram`.\n    *   *Reveal Modes:* `progressive`, `karaoke`, `stacking`.\n\n3.  **Map Briefs to Sections & Patches:**\n\n    *   **Brief 1: Restrained Testimony**\n        *   *Goal:* Intimate, low activity, clear typography.\n        *   *Target Section:* \"melodic testimony verse\" (Lines 2-5). This fits the \"testimony\" theme and is currently active.\n        *   *Visual Changes:*\n            *   Reduce `font_size` (from 72 to something smaller, e.g., 50) for intimacy.\n            *   Change `animation_type` to `none` or `fade` (slow) to reduce motion.\n            *   Change `text_style` to something cleaner (e.g., `neon` is already there, maybe `ice` or just keep `neon` but reduce size). Let's stick to `neon` but reduce size and opacity.\n            *   Reduce `texture_opacity` to 0.1 to reduce visual clutter.\n            *   `reveal_mode`: `progressive` is fine, but maybe `karaoke` is too active? Let's stick to `progressive` with slow speed.\n            *   `reactivity`: `energy` might be too chaotic. `vocals` is better for \"intimate\".\n        *   *Draft Patch:* Target section index 1 (melodic testimony verse). Modify `visual` object.\n\n    *   **Brief 2: Escalating Hook**\n        *   *Goal:* Percussion/energy rise, geometry/motion change.\n        *   *Target Section:* \"cinematic prophetic build\" (Lines 10-15). This is the build-up section.\n        *   *Visual Changes:*\n            *   Increase `animation_speed` (from 1.0 to 2.0 or 1.5).\n            *   Change `animation_type` to `scale_in` (more dynamic than `fade_in`).\n            *   Change `bg_animation_preset` to `cinematic` (already there, maybe `energetic`? Evidence shows `energetic` exists in `prophetic_declaration_lift`).\n            *   Increase `font_size` or use `font_size_delta` (Evidence shows `font_size_delta` in `words_overrides` for section 3).\n            *   Change `text_style` to `chrome` or `neon` for high contrast.\n            *   `reactivity`: Add `drums` to `reactivity` list.\n        *   *Draft Patch:* Target section index 3 (cinematic prophetic build). Modify `visual` and `words_overrides`.\n\n    *   **Brief 3: Spoken-Word Resolution**\n        *   *Goal:* Sparse, deliberate, legible, no clutter.\n        *   *Target Section:* \"prayerful final movement\" (Lines 21-24). This is the end.\n        *   *Visual Changes:*\n            *   `reveal_mode`: `stacking` (stacks lines up, good for sparse text).\n            *   `text_position`: `center` (already).\n            *   `animation_type`: `fade_in` (slow).\n            *   `bg_animation_preset`: `smooth` (calm).\n            *   `text_style`: `gold` (elegant, legible).\n            *   `texture_type`: `vignette_soft` (less noise).\n            *   `lines_overrides`: Increase spacing or font size slightly to ensure legibility.\n        *   *Draft Patch:* Target section index 6 (prayerful final movement). Modify `visual` and `lines_overrides`.\n\n4.  **Refine Patches (JSON Construction & Validation):**\n\n    *   *Patch 1 (Restrained Testimony):*\n        *   Target: Section 1 (Melodic Testimony Verse).\n        *   Fields: `visual.font_size`, `visual.animation_type`, `visual.texture_opacity`, `visual.reactivity`.\n        *   Values: `50` (intimate), `fade` (subtle), `0.1` (clean), `[\"vocals\"]`.\n        *   *Check Evidence:* `script.json` shows `font_size: 72`, `animation_type: \"fade_in\"`, `texture_opacity: 0.35`, `reactivity: [\"energy\"]`. `script_9x16.json` shows `font_size: 53`. Values are valid.\n\n    *   *Patch 2 (Escalating Hook):*\n        *   Target: Section 3 (Cinematic Prophetic Build).\n        *   Fields: `visual.animation_type`, `visual.animation_speed`, `visual.bg_animation_preset`, `visual.reactivity`, `words_overrides` (using `font_size_delta`).\n        *   Values: `scale_in` (from `fade_in`), `2.0` (from `1.0`), `energetic` (from `cinematic`), `[\"drums\", \"energy\"]`, `{\"10.0\": {\"font_size_delta\": 5}}`.\n        *   *Check Evidence:* `script.json` shows `animation_type: \"fade_in\"`, `bg_animation_preset: \"cinematic\"`. `script_16x9.json` shows `words_overrides` with `font_size_delta`. `prophetic_declaration_lift` uses `bg_animation_preset: \"energetic\"`. Values are valid.\n\n    *   *Patch 3 (Spoken-Word Resolution):*\n        *   Target: Section 6 (Prayerful Final Movement).\n        *   Fields: `visual.reveal_mode`, `visual.text_style`, `visual.bg_animation_preset`, `visual.texture_type`, `lines_overrides`.\n        *   Values: `stacking` (from `progressive`), `gold` (from `neon`), `smooth` (from `cinematic`), `vignette_soft` (from `noise_grain`), `{\"21\": {\"font_size\": 100}}` (increase for legibility).\n        *   *Check Evidence:* `script_16x9.json` shows `reveal_mode: \"stacking\"` in \"spoken liturgical bridge\". `script_16x9.json` shows `text_style: \"gold\"` in \"prayerful final movement\". `script_16x9.json` shows `texture_type: \"noise_grain\"`. Values are valid.\n\n5.  **Construct Field Rationales:**\n    *   Need to cite paths and specific lines/values from the evidence.\n    *   *Example:* `font_size` -> `script.json` lines 1-10 (defaults) and section 1 visual.\n\n6.  **Final Review against Constraints:**\n    *   Isolated JSON? Yes.\n    *   Only proven fields? Yes.\n    *   No unsupported capabilities? Yes.\n    *   Specific output format? Yes.\n\n7.  **Drafting the JSON:**\n\n    *   *Patch 1:*\n        *   `brief_id`: \"restrained_testimony\"\n        *   `patch`: `{\"sections\": [{\"name\": \"melodic testimony verse\", \"visual\": {\"font_size\": 50, \"animation_type\": \"fade\", \"texture_opacity\": 0.1, \"reactivity\": [\"vocals\"]}}]}`\n        *   *Correction:* The prompt asks for \"section-level candidate patches\". It implies I should target a specific section or modify the structure. The `script.json` structure has a list of sections. I will target the specific section index or name. The prompt says \"propose three section-level candidate patches\". I will target the specific section object.\n\n    *   *Patch 2:*\n        *   `brief_id`: \"escalating_hook\"\n        *   `patch`: `{\"sections\": [{\"name\": \"cinematic prophetic build\", \"visual\": {\"animation_type\": \"scale_in\", \"animation_speed\": 2.0, \"bg_animation_preset\": \"energetic\", \"reactivity\": [\"drums\", \"energy\"]}, \"words_overrides\": {\"10.0\": {\"font_size_delta\": 5}}}]}`\n\n    *   *Patch 3:*\n        *   `brief_id`: \"spoken_word_resolution\"\n        *   `patch`: `{\"sections\": [{\"name\": \"prayerful final movement\", \"visual\": {\"reveal_mode\": \"stacking\", \"text_style\": \"gold\", \"bg_animation_preset\": \"smooth\", \"texture_type\": \"vignette_soft\"}, \"lines_overrides\": {\"21\": {\"font_size\": 100}}}]}`\n\n    *   *Refining Rationales:*\n        *   Need to map `script.json` or `script_16x9.json` lines.\n        *   `font_size`: `script.json` defaults `font_size: 112`.\n        *   `animation_type`: `script.json` defaults `animation_type: \"fade\"`.\n        *   `reactivity`: `script.json` defaults `reactivity: [\"vocals\"]`.\n        *   `scale_in`: `script.json` section 3 uses `fade_in`.\n        *   `energetic`: `script.json` section 5 uses `bg_animation_preset: \"energetic\"`.\n        *   `stacking`: `script_16x9.json` section 6 uses `reveal_mode: \"stacking\"`.\n        *   `gold`: `script_16x9.json` section 6 uses `text_style: \"gold\"`.\n\n8.  **Final Polish:** Ensure the JSON is valid and strictly follows the requested structure.\n\n    *   *Self-Correction on Patch 1:* \"Restrained Testimony\" should be on the \"Melodic Testimony Verse\". I will use the section name found in the evidence.\n    *   *Self-Correction on Patch 2:* \"Escalating Hook\" should be on the \"Cinematic Prophetic Build\".\n    *   *Self-Correction on Patch 3:* \"Spoken-Word Resolution\" should be on the \"Prayerful Final Movement\".\n\n    *   *Visual Outcomes that cannot be guaranteed:* \"Exact timing synchronization with specific drum hits\" (depends on audio analysis), \"Specific font rendering on all devices\" (depends on font availability).\n\n    *   *Requires Renderer Change:* None, these are standard script properties.\n\n    *   *Formatting:* The output must be a single JSON object with `candidate_patches`.\n\n    Let's write the JSON content.\n\n    *   Patch 1:\n        *   Target: Section 1 (Melodic Testimony Verse).\n        *   Changes: `font_size` (72 -> 50), `animation_type` (fade_in -> fade), `texture_opacity` (0.35 -> 0.1), `reactivity` (energy -> vocals).\n    *   Patch 2:\n        *   Target: Section 3 (Cinematic Prophetic Build).\n        *   Changes: `animation_type` (fade_in -> scale_in), `animation_speed` (1.0 -> 2.0), `bg_animation_preset` (cinematic -> energetic), `reactivity` (vocals -> drums, energy), `words_overrides` (font_size_delta).\n    *   Patch 3:\n        *   Target: Section 6 (Prayerful Final Movement).\n        *   Changes: `reveal_mode` (progressive -> stacking), `text_style` (neon -> gold), `bg_animation_preset` (cinematic -> smooth), `texture_type` (noise_grain -> vignette_soft), `lines_overrides` (font_size).\n\n    *   *Evidence Mapping:*\n        *   `script.json` lines 1-10 (defaults).\n        *   `script.json` section 1 (Melodic Testimony Verse).\n        *   `script.json` section 3 (Cinematic Prophetic Build).\n        *   `script_16x9.json` section 6 (Prayerful Final Movement).\n\n    *   *Wait, the prompt asks for \"patch\": {}.*\n    *   I will structure the patch to target the specific section by name or index. Since the script is an array, I'll use the name to identify it, or just the object structure. The prompt says \"patch\": {}.\n\n    Let's assemble.",
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1782260979,
+    "id": "2026062408283085422de896d046cd",
+    "model": "glm-4.7-flash",
+    "object": "chat.completion",
+    "request_id": "2026062408283085422de896d046cd",
+    "usage": {
+      "completion_tokens": 4945,
+      "completion_tokens_details": {
+        "reasoning_tokens": 3321
+      },
+      "prompt_tokens": 22478,
+      "prompt_tokens_details": {
+        "cached_tokens": 22476
+      },
+      "total_tokens": 27423
+    }
+  },
+  "raw_content": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"```json\\n{\\n  \\\"candidate_patches\\\": [\\n    {\\n      \\\"brief_id\\\": \\\"restrained_testimony\\\",\\n      \\\"patch\\\": {\\n        \\\"sections\\\": [\\n          {\\n            \\\"name\\\": \\\"melodic testimony verse\\\",\\n            \\\"visual\\\": {\\n              \\\"font_size\\\": 50,\\n              \\\"animation_type\\\": \\\"fade\\\",\\n              \\\"texture_opacity\\\": 0.1,\\n              \\\"reactivity\\\": [\\n                \\\"vocals\\\"\\n              ]\\n            }\\n          }\\n        ]\\n      },\\n      \\\"field_rationales\\\": [\\n        {\\n          \\\"field\\\": \\\"font_size\\\",\\n          \\\"rationale\\\": \\\"Reducing font size from 72 to 50 creates a more intimate, less overwhelming visual presence suitable for dense lyrics.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"1-10 (defaults), 1 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"animation_type\\\",\\n          \\\"rationale\\\": \\\"Switching from 'fade_in' to 'fade' reduces the initial motion intensity, aligning with the restrained brief.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"1-10 (defaults)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"texture_opacity\\\",\\n          \\\"rationale\\\": \\\"Lowering opacity from 0.35 to 0.1 reduces visual noise and clutter, prioritizing lyric clarity.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"1-10 (defaults), 1 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"reactivity\\\",\\n          \\\"rationale\\\": \\\"Changing reactivity from 'energy' to 'vocals' ensures the visual responds to the vocal performance rather than the general energy level, maintaining intimacy.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"1-10 (defaults)\\\"\\n            }\\n          ]\\n        }\\n      ],\\n      \\\"visual_outcomes_that_cannot_be_guaranteed\\\": [\\n        \\\"Exact alignment of text sizing with specific vocal phrasing nuances\\\",\\n        \\\"Consistent font rendering across all playback devices\\\"\\n      ],\\n      \\\"requires_renderer_change_for\\\": []\\n    },\\n    {\\n      \\\"brief_id\\\": \\\"escalating_hook\\\",\\n      \\\"patch\\\": {\\n        \\\"sections\\\": [\\n          {\\n            \\\"name\\\": \\\"cinematic prophetic build\\\",\\n            \\\"visual\\\": {\\n              \\\"animation_type\\\": \\\"scale_in\\\",\\n              \\\"animation_speed\\\": 2.0,\\n              \\\"bg_animation_preset\\\": \\\"energetic\\\",\\n              \\\"reactivity\\\": [\\n                \\\"drums\\\",\\n                \\\"energy\\\"\\n              ]\\n            },\\n            \\\"words_overrides\\\": {\\n              \\\"10.0\\\": {\\n                \\\"font_size_delta\\\": 5\\n              }\\n            }\\n          }\\n        ]\\n      },\\n      \\\"field_rationales\\\": [\\n        {\\n          \\\"field\\\": \\\"animation_type\\\",\\n          \\\"rationale\\\": \\\"Changing from 'fade_in' to 'scale_in' introduces a geometric expansion that visually escalates energy.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"3 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"animation_speed\\\",\\n          \\\"rationale\\\": \\\"Increasing speed from 1.0 to 2.0 accelerates the visual motion to match the rising percussion.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"3 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"bg_animation_preset\\\",\\n          \\\"rationale\\\": \\\"Switching from 'cinematic' to 'energetic' alters the background motion behavior to be more dynamic.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"5 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"reactivity\\\",\\n          \\\"rationale\\\": \\\"Adding 'drums' to reactivity ensures the visual reacts specifically to the rising percussion layer.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"1-10 (defaults)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"font_size_delta\\\",\\n          \\\"rationale\\\": \\\"Applying a positive delta to the first word of the section creates a visual 'drop' or emphasis on the first beat.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script_16x9.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"3 (section words_overrides)\\\"\\n            }\\n          ]\\n        }\\n      ],\\n      \\\"visual_outcomes_that_cannot_be_guaranteed\\\": [\\n        \\\"Synchronization of visual expansion with specific drum hit timing\\\",\\n        \\\"Consistent interpretation of 'energetic' background preset across renderers\\\"\\n      ],\\n      \\\"requires_renderer_change_for\\\": []\\n    },\\n    {\\n      \\\"brief_id\\\": \\\"spoken_word_resolution\\\",\\n      \\\"patch\\\": {\\n        \\\"sections\\\": [\\n          {\\n            \\\"name\\\": \\\"prayerful final movement\\\",\\n            \\\"visual\\\": {\\n              \\\"reveal_mode\\\": \\\"stacking\\\",\\n              \\\"text_style\\\": \\\"gold\\\",\\n              \\\"bg_animation_preset\\\": \\\"smooth\\\",\\n              \\\"texture_type\\\": \\\"vignette_soft\\\"\\n            },\\n            \\\"lines_overrides\\\": {\\n              \\\"21\\\": {\\n                \\\"font_size\\\": 100\\n              }\\n            }\\n          }\\n        ]\\n      },\\n      \\\"field_rationales\\\": [\\n        {\\n          \\\"field\\\": \\\"reveal_mode\\\",\\n          \\\"rationale\\\": \\\"Changing from 'progressive' to 'stacking' allows lines to build vertically, creating a deliberate, sparse structure.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script_16x9.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"6 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"text_style\\\",\\n          \\\"rationale\\\": \\\"Switching from 'neon' to 'gold' provides a warmer, more legible, and solemn aesthetic for the resolution.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script_16x9.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"6 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"bg_animation_preset\\\",\\n          \\\"rationale\\\": \\\"Changing from 'cinematic' to 'smooth' removes the dynamic background motion, allowing focus on the text.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script_16x9.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"6 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"texture_type\\\",\\n          \\\"rationale\\\": \\\"Changing from 'noise_grain' to 'vignette_soft' reduces texture noise, minimizing visual clutter.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script_16x9.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"6 (section visual)\\\"\\n            }\\n          ]\\n        },\\n        {\\n          \\\"field\\\": \\\"font_size\\\",\\n          \\\"rationale\\\": \\\"Increasing font size for the first line ensures maximum legibility and impact in the final moments.\\\",\\n          \\\"source_evidence\\\": [\\n            {\\n              \\\"path\\\": \\\"script_16x9.json\\\",\\n              \\\"symbol_or_line_range\\\": \\\"6 (section lines_overrides)\\\"\\n            }\\n          ]\\n        }\\n      ],\\n      \\\"visual_outcomes_that_cannot_be_guaranteed\\\": [\\n        \\\"Perfect vertical stacking alignment with lyrics timing\\\",\\n        \\\"Exact color match for 'gold' text style on all displays\\\"\\n      ],\\n      \\\"requires_renderer_change_for\\\": []\\n    }\\n  ]\\n}\\n```\",\"reasoning_content\":\"1.  **Analyze the Request:**\\n    *   **Role:** Music video script editor.\\n    *   **Task:** Propose three section-level candidate patches.\\n    *   **Constraint 1:** Use ONLY fields/values proven to exist in the current scripting surface (Evidence).\\n    *   **Constraint 2:** Each patch must be an isolated JSON fragment, not a full rewrite.\\n    *   **Constraint 3:** Validate field names against code evidence.\\n    *   **Constraint 4:** Do not claim unsupported capabilities.\\n    *   **Input Data:** Evidence bundle paths and fixture data (AI Psalm 9 project).\\n    *   **Creative Briefs:**\\n        1.  *Restrained Testimony:* Dense lyrics, intimate, low activity, clear typography.\\n        2.  *Escalating Hook:* Percussion/energy rise, actual change in geometry/motion.\\n        3.  *Spoken-Word Resolution:* Sparse, deliberate, legible, no clutter.\\n    *   **Output Format:** Specific JSON structure.\\n\\n2.  **Analyze the Evidence (Code & Data):**\\n    *   *Files:* `script.json`, `script_16x9.json`, `script_9x16.json`, `analysis.json`, `lyrics_synced.json`, `mvp_project.json`, `src/...` (Python files).\\n    *   *Script Structure:*\\n        *   Top level: `name`, `defaults`, `caption_style`, `sections`.\\n        *   `defaults`: `background_type`, `background_color`, `gradient_colors`, `gradient_direction`, `texture_type`, `texture_opacity`, `texture_blend_mode`, `text_auto_contrast`, `font_size`, `animation_type`, `animation_speed`, `reveal_mode`, `reveal_words`, `reveal_slide`, `reactivity`, `text_align`.\\n        *   `caption_style`: `font_family`, `highlight_color`, `text_position`, `letter_spacing`, `text_shadow`, `outline`.\\n        *   `sections`: Array of objects.\\n        *   `section`: `name`, `type`, `lines` (indices), `visual` (object), `lines_overrides` (object), `words_overrides` (object).\\n        *   `visual`: `background_type`, `gradient_direction`, `background_color`, `gradient_colors`, `texture_type`, `texture_opacity`, `texture_blend_mode`, `font_size`, `reveal_mode`, `reveal_words`, `reactivity`, `text_position`, `animation_type`, `animation_speed`, `bg_animation_preset`, `text_style`, `font_family`.\\n    *   *Animation Types:* `fade`, `fade_in`, `scale_in`, `bounce_in`, `none`.\\n    *   *Reactivity:* `vocals`, `energy`, `drums`.\\n    *   *Background Types:* `gradient`, `solid`.\\n    *   *Texture Types:* `vignette_heavy`, `vignette_soft`, `noise_grain`.\\n    *   *Gradient Directions:* `diagonal_tl_br`, `vertical_top_bottom`, `diagonal_tr_bl`, `horizontal_left_right`, `radial_center`, `cross`, `conic_0.8`, `dual_spot_0.3_0.4_0.7_0.6`, `spiral`.\\n    *   *Text Styles:* `neon`, `ice`, `chrome`, `gold`, `hologram`.\\n    *   *Reveal Modes:* `progressive`, `karaoke`, `stacking`.\\n\\n3.  **Map Briefs to Sections & Patches:**\\n\\n    *   **Brief 1: Restrained Testimony**\\n        *   *Goal:* Intimate, low activity, clear typography.\\n        *   *Target Section:* \\\"melodic testimony verse\\\" (Lines 2-5). This fits the \\\"testimony\\\" theme and is currently active.\\n        *   *Visual Changes:*\\n            *   Reduce `font_size` (from 72 to something smaller, e.g., 50) for intimacy.\\n            *   Change `animation_type` to `none` or `fade` (slow) to reduce motion.\\n            *   Change `text_style` to something cleaner (e.g., `neon` is already there, maybe `ice` or just keep `neon` but reduce size). Let's stick to `neon` but reduce size and opacity.\\n            *   Reduce `texture_opacity` to 0.1 to reduce visual clutter.\\n            *   `reveal_mode`: `progressive` is fine, but maybe `karaoke` is too active? Let's stick to `progressive` with slow speed.\\n            *   `reactivity`: `energy` might be too chaotic. `vocals` is better for \\\"intimate\\\".\\n        *   *Draft Patch:* Target section index 1 (melodic testimony verse). Modify `visual` object.\\n\\n    *   **Brief 2: Escalating Hook**\\n        *   *Goal:* Percussion/energy rise, geometry/motion change.\\n        *   *Target Section:* \\\"cinematic prophetic build\\\" (Lines 10-15). This is the build-up section.\\n        *   *Visual Changes:*\\n            *   Increase `animation_speed` (from 1.0 to 2.0 or 1.5).\\n            *   Change `animation_type` to `scale_in` (more dynamic than `fade_in`).\\n            *   Change `bg_animation_preset` to `cinematic` (already there, maybe `energetic`? Evidence shows `energetic` exists in `prophetic_declaration_lift`).\\n            *   Increase `font_size` or use `font_size_delta` (Evidence shows `font_size_delta` in `words_overrides` for section 3).\\n            *   Change `text_style` to `chrome` or `neon` for high contrast.\\n            *   `reactivity`: Add `drums` to `reactivity` list.\\n        *   *Draft Patch:* Target section index 3 (cinematic prophetic build). Modify `visual` and `words_overrides`.\\n\\n    *   **Brief 3: Spoken-Word Resolution**\\n        *   *Goal:* Sparse, deliberate, legible, no clutter.\\n        *   *Target Section:* \\\"prayerful final movement\\\" (Lines 21-24). This is the end.\\n        *   *Visual Changes:*\\n            *   `reveal_mode`: `stacking` (stacks lines up, good for sparse text).\\n            *   `text_position`: `center` (already).\\n            *   `animation_type`: `fade_in` (slow).\\n            *   `bg_animation_preset`: `smooth` (calm).\\n            *   `text_style`: `gold` (elegant, legible).\\n            *   `texture_type`: `vignette_soft` (less noise).\\n            *   `lines_overrides`: Increase spacing or font size slightly to ensure legibility.\\n        *   *Draft Patch:* Target section index 6 (prayerful final movement). Modify `visual` and `lines_overrides`.\\n\\n4.  **Refine Patches (JSON Construction & Validation):**\\n\\n    *   *Patch 1 (Restrained Testimony):*\\n        *   Target: Section 1 (Melodic Testimony Verse).\\n        *   Fields: `visual.font_size`, `visual.animation_type`, `visual.texture_opacity`, `visual.reactivity`.\\n        *   Values: `50` (intimate), `fade` (subtle), `0.1` (clean), `[\\\"vocals\\\"]`.\\n        *   *Check Evidence:* `script.json` shows `font_size: 72`, `animation_type: \\\"fade_in\\\"`, `texture_opacity: 0.35`, `reactivity: [\\\"energy\\\"]`. `script_9x16.json` shows `font_size: 53`. Values are valid.\\n\\n    *   *Patch 2 (Escalating Hook):*\\n        *   Target: Section 3 (Cinematic Prophetic Build).\\n        *   Fields: `visual.animation_type`, `visual.animation_speed`, `visual.bg_animation_preset`, `visual.reactivity`, `words_overrides` (using `font_size_delta`).\\n        *   Values: `scale_in` (from `fade_in`), `2.0` (from `1.0`), `energetic` (from `cinematic`), `[\\\"drums\\\", \\\"energy\\\"]`, `{\\\"10.0\\\": {\\\"font_size_delta\\\": 5}}`.\\n        *   *Check Evidence:* `script.json` shows `animation_type: \\\"fade_in\\\"`, `bg_animation_preset: \\\"cinematic\\\"`. `script_16x9.json` shows `words_overrides` with `font_size_delta`. `prophetic_declaration_lift` uses `bg_animation_preset: \\\"energetic\\\"`. Values are valid.\\n\\n    *   *Patch 3 (Spoken-Word Resolution):*\\n        *   Target: Section 6 (Prayerful Final Movement).\\n        *   Fields: `visual.reveal_mode`, `visual.text_style`, `visual.bg_animation_preset`, `visual.texture_type`, `lines_overrides`.\\n        *   Values: `stacking` (from `progressive`), `gold` (from `neon`), `smooth` (from `cinematic`), `vignette_soft` (from `noise_grain`), `{\\\"21\\\": {\\\"font_size\\\": 100}}` (increase for legibility).\\n        *   *Check Evidence:* `script_16x9.json` shows `reveal_mode: \\\"stacking\\\"` in \\\"spoken liturgical bridge\\\". `script_16x9.json` shows `text_style: \\\"gold\\\"` in \\\"prayerful final movement\\\". `script_16x9.json` shows `texture_type: \\\"noise_grain\\\"`. Values are valid.\\n\\n5.  **Construct Field Rationales:**\\n    *   Need to cite paths and specific lines/values from the evidence.\\n    *   *Example:* `font_size` -> `script.json` lines 1-10 (defaults) and section 1 visual.\\n\\n6.  **Final Review against Constraints:**\\n    *   Isolated JSON? Yes.\\n    *   Only proven fields? Yes.\\n    *   No unsupported capabilities? Yes.\\n    *   Specific output format? Yes.\\n\\n7.  **Drafting the JSON:**\\n\\n    *   *Patch 1:*\\n        *   `brief_id`: \\\"restrained_testimony\\\"\\n        *   `patch`: `{\\\"sections\\\": [{\\\"name\\\": \\\"melodic testimony verse\\\", \\\"visual\\\": {\\\"font_size\\\": 50, \\\"animation_type\\\": \\\"fade\\\", \\\"texture_opacity\\\": 0.1, \\\"reactivity\\\": [\\\"vocals\\\"]}}]}`\\n        *   *Correction:* The prompt asks for \\\"section-level candidate patches\\\". It implies I should target a specific section or modify the structure. The `script.json` structure has a list of sections. I will target the specific section index or name. The prompt says \\\"propose three section-level candidate patches\\\". I will target the specific section object.\\n\\n    *   *Patch 2:*\\n        *   `brief_id`: \\\"escalating_hook\\\"\\n        *   `patch`: `{\\\"sections\\\": [{\\\"name\\\": \\\"cinematic prophetic build\\\", \\\"visual\\\": {\\\"animation_type\\\": \\\"scale_in\\\", \\\"animation_speed\\\": 2.0, \\\"bg_animation_preset\\\": \\\"energetic\\\", \\\"reactivity\\\": [\\\"drums\\\", \\\"energy\\\"]}, \\\"words_overrides\\\": {\\\"10.0\\\": {\\\"font_size_delta\\\": 5}}}]}`\\n\\n    *   *Patch 3:*\\n        *   `brief_id`: \\\"spoken_word_resolution\\\"\\n        *   `patch`: `{\\\"sections\\\": [{\\\"name\\\": \\\"prayerful final movement\\\", \\\"visual\\\": {\\\"reveal_mode\\\": \\\"stacking\\\", \\\"text_style\\\": \\\"gold\\\", \\\"bg_animation_preset\\\": \\\"smooth\\\", \\\"texture_type\\\": \\\"vignette_soft\\\"}, \\\"lines_overrides\\\": {\\\"21\\\": {\\\"font_size\\\": 100}}}]}`\\n\\n    *   *Refining Rationales:*\\n        *   Need to map `script.json` or `script_16x9.json` lines.\\n        *   `font_size`: `script.json` defaults `font_size: 112`.\\n        *   `animation_type`: `script.json` defaults `animation_type: \\\"fade\\\"`.\\n        *   `reactivity`: `script.json` defaults `reactivity: [\\\"vocals\\\"]`.\\n        *   `scale_in`: `script.json` section 3 uses `fade_in`.\\n        *   `energetic`: `script.json` section 5 uses `bg_animation_preset: \\\"energetic\\\"`.\\n        *   `stacking`: `script_16x9.json` section 6 uses `reveal_mode: \\\"stacking\\\"`.\\n        *   `gold`: `script_16x9.json` section 6 uses `text_style: \\\"gold\\\"`.\\n\\n8.  **Final Polish:** Ensure the JSON is valid and strictly follows the requested structure.\\n\\n    *   *Self-Correction on Patch 1:* \\\"Restrained Testimony\\\" should be on the \\\"Melodic Testimony Verse\\\". I will use the section name found in the evidence.\\n    *   *Self-Correction on Patch 2:* \\\"Escalating Hook\\\" should be on the \\\"Cinematic Prophetic Build\\\".\\n    *   *Self-Correction on Patch 3:* \\\"Spoken-Word Resolution\\\" should be on the \\\"Prayerful Final Movement\\\".\\n\\n    *   *Visual Outcomes that cannot be guaranteed:* \\\"Exact timing synchronization with specific drum hits\\\" (depends on audio analysis), \\\"Specific font rendering on all devices\\\" (depends on font availability).\\n\\n    *   *Requires Renderer Change:* None, these are standard script properties.\\n\\n    *   *Formatting:* The output must be a single JSON object with `candidate_patches`.\\n\\n    Let's write the JSON content.\\n\\n    *   Patch 1:\\n        *   Target: Section 1 (Melodic Testimony Verse).\\n        *   Changes: `font_size` (72 -> 50), `animation_type` (fade_in -> fade), `texture_opacity` (0.35 -> 0.1), `reactivity` (energy -> vocals).\\n    *   Patch 2:\\n        *   Target: Section 3 (Cinematic Prophetic Build).\\n        *   Changes: `animation_type` (fade_in -> scale_in), `animation_speed` (1.0 -> 2.0), `bg_animation_preset` (cinematic -> energetic), `reactivity` (vocals -> drums, energy), `words_overrides` (font_size_delta).\\n    *   Patch 3:\\n        *   Target: Section 6 (Prayerful Final Movement).\\n        *   Changes: `reveal_mode` (progressive -> stacking), `text_style` (neon -> gold), `bg_animation_preset` (cinematic -> smooth), `texture_type` (noise_grain -> vignette_soft), `lines_overrides` (font_size).\\n\\n    *   *Evidence Mapping:*\\n        *   `script.json` lines 1-10 (defaults).\\n        *   `script.json` section 1 (Melodic Testimony Verse).\\n        *   `script.json` section 3 (Cinematic Prophetic Build).\\n        *   `script_16x9.json` section 6 (Prayerful Final Movement).\\n\\n    *   *Wait, the prompt asks for \\\"patch\\\": {}.*\\n    *   I will structure the patch to target the specific section by name or index. Since the script is an array, I'll use the name to identify it, or just the object structure. The prompt says \\\"patch\\\": {}.\\n\\n    Let's assemble.\",\"role\":\"assistant\"}}],\"created\":1782260979,\"id\":\"2026062408283085422de896d046cd\",\"model\":\"glm-4.7-flash\",\"object\":\"chat.completion\",\"request_id\":\"2026062408283085422de896d046cd\",\"usage\":{\"completion_tokens\":4945,\"completion_tokens_details\":{\"reasoning_tokens\":3321},\"prompt_tokens\":22478,\"prompt_tokens_details\":{\"cached_tokens\":22476},\"total_tokens\":27423}}",
+  "parsed_output": {
+    "candidate_patches": [
+      {
+        "brief_id": "restrained_testimony",
+        "patch": {
+          "sections": [
+            {
+              "name": "melodic testimony verse",
+              "visual": {
+                "font_size": 50,
+                "animation_type": "fade",
+                "texture_opacity": 0.1,
+                "reactivity": [
+                  "vocals"
+                ]
+              }
+            }
+          ]
+        },
+        "field_rationales": [
+          {
+            "field": "font_size",
+            "rationale": "Reducing font size from 72 to 50 creates a more intimate, less overwhelming visual presence suitable for dense lyrics.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "1-10 (defaults), 1 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "animation_type",
+            "rationale": "Switching from 'fade_in' to 'fade' reduces the initial motion intensity, aligning with the restrained brief.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "1-10 (defaults)"
+              }
+            ]
+          },
+          {
+            "field": "texture_opacity",
+            "rationale": "Lowering opacity from 0.35 to 0.1 reduces visual noise and clutter, prioritizing lyric clarity.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "1-10 (defaults), 1 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "reactivity",
+            "rationale": "Changing reactivity from 'energy' to 'vocals' ensures the visual responds to the vocal performance rather than the general energy level, maintaining intimacy.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "1-10 (defaults)"
+              }
+            ]
+          }
+        ],
+        "visual_outcomes_that_cannot_be_guaranteed": [
+          "Exact alignment of text sizing with specific vocal phrasing nuances",
+          "Consistent font rendering across all playback devices"
+        ],
+        "requires_renderer_change_for": []
+      },
+      {
+        "brief_id": "escalating_hook",
+        "patch": {
+          "sections": [
+            {
+              "name": "cinematic prophetic build",
+              "visual": {
+                "animation_type": "scale_in",
+                "animation_speed": 2.0,
+                "bg_animation_preset": "energetic",
+                "reactivity": [
+                  "drums",
+                  "energy"
+                ]
+              },
+              "words_overrides": {
+                "10.0": {
+                  "font_size_delta": 5
+                }
+              }
+            }
+          ]
+        },
+        "field_rationales": [
+          {
+            "field": "animation_type",
+            "rationale": "Changing from 'fade_in' to 'scale_in' introduces a geometric expansion that visually escalates energy.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "3 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "animation_speed",
+            "rationale": "Increasing speed from 1.0 to 2.0 accelerates the visual motion to match the rising percussion.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "3 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "bg_animation_preset",
+            "rationale": "Switching from 'cinematic' to 'energetic' alters the background motion behavior to be more dynamic.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "5 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "reactivity",
+            "rationale": "Adding 'drums' to reactivity ensures the visual reacts specifically to the rising percussion layer.",
+            "source_evidence": [
+              {
+                "path": "script.json",
+                "symbol_or_line_range": "1-10 (defaults)"
+              }
+            ]
+          },
+          {
+            "field": "font_size_delta",
+            "rationale": "Applying a positive delta to the first word of the section creates a visual 'drop' or emphasis on the first beat.",
+            "source_evidence": [
+              {
+                "path": "script_16x9.json",
+                "symbol_or_line_range": "3 (section words_overrides)"
+              }
+            ]
+          }
+        ],
+        "visual_outcomes_that_cannot_be_guaranteed": [
+          "Synchronization of visual expansion with specific drum hit timing",
+          "Consistent interpretation of 'energetic' background preset across renderers"
+        ],
+        "requires_renderer_change_for": []
+      },
+      {
+        "brief_id": "spoken_word_resolution",
+        "patch": {
+          "sections": [
+            {
+              "name": "prayerful final movement",
+              "visual": {
+                "reveal_mode": "stacking",
+                "text_style": "gold",
+                "bg_animation_preset": "smooth",
+                "texture_type": "vignette_soft"
+              },
+              "lines_overrides": {
+                "21": {
+                  "font_size": 100
+                }
+              }
+            }
+          ]
+        },
+        "field_rationales": [
+          {
+            "field": "reveal_mode",
+            "rationale": "Changing from 'progressive' to 'stacking' allows lines to build vertically, creating a deliberate, sparse structure.",
+            "source_evidence": [
+              {
+                "path": "script_16x9.json",
+                "symbol_or_line_range": "6 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "text_style",
+            "rationale": "Switching from 'neon' to 'gold' provides a warmer, more legible, and solemn aesthetic for the resolution.",
+            "source_evidence": [
+              {
+                "path": "script_16x9.json",
+                "symbol_or_line_range": "6 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "bg_animation_preset",
+            "rationale": "Changing from 'cinematic' to 'smooth' removes the dynamic background motion, allowing focus on the text.",
+            "source_evidence": [
+              {
+                "path": "script_16x9.json",
+                "symbol_or_line_range": "6 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "texture_type",
+            "rationale": "Changing from 'noise_grain' to 'vignette_soft' reduces texture noise, minimizing visual clutter.",
+            "source_evidence": [
+              {
+                "path": "script_16x9.json",
+                "symbol_or_line_range": "6 (section visual)"
+              }
+            ]
+          },
+          {
+            "field": "font_size",
+            "rationale": "Increasing font size for the first line ensures maximum legibility and impact in the final moments.",
+            "source_evidence": [
+              {
+                "path": "script_16x9.json",
+                "symbol_or_line_range": "6 (section lines_overrides)"
+              }
+            ]
+          }
+        ],
+        "visual_outcomes_that_cannot_be_guaranteed": [
+          "Perfect vertical stacking alignment with lyrics timing",
+          "Exact color match for 'gold' text style on all displays"
+        ],
+        "requires_renderer_change_for": []
+      }
+    ]
+  },
+  "parse_error": null,
+  "api_key_leaks": [],
+  "error": null
+}

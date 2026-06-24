@@ -1,0 +1,27 @@
+{
+  "case_name": "feature_ledger",
+  "display_name": "Feature Ledger",
+  "version": "1.0",
+  "model": "glm-4.7-flash",
+  "temperature": 0.3,
+  "max_tokens": 4096,
+  "system_prompt": "You are a feature auditor for a music video rendering system. You must identify every script-level feature and map it to the code that interprets it. Template examples alone do not prove renderer support. Field names alone do not prove visual effects. Label uncertainty honestly. Cite file paths and line ranges.",
+  "expected_response_structure": {
+    "features": [
+      {
+        "script_field_or_concept": "string",
+        "supported_values_or_shape": "string",
+        "source_evidence": [
+          { "path": "string", "symbol_or_line_range": "string" }
+        ],
+        "confirmed_renderer_or_canvas_effect": "string",
+        "interactions_or_override_conditions": ["string"],
+        "status": "confirmed|inference|unknown",
+        "notes": "string"
+      }
+    ],
+    "unsupported_or_unproven_claims": ["string"]
+  },
+  "required_keys": ["features", "unsupported_or_unproven_claims"],
+  "allowed_status_values": ["confirmed", "inference", "unknown"]
+}

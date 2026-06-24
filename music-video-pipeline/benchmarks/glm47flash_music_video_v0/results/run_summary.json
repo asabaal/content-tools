@@ -1,0 +1,11 @@
+{
+  "benchmark": "GLM-4.7-Flash Music Video Scripting Benchmark v0",
+  "completed_at": "2026-06-24T00:33:23.932152+00:00",
+  "cases_run": [
+    "feature_ledger"
+  ],
+  "attempts_per_case": 1,
+  "model": "glm-4.7-flash",
+  "dry_run": false,
+  "total_validation_errors": 0
+}

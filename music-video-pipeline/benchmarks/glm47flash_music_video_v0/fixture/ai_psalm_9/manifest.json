@@ -1,0 +1,45 @@
+{
+  "benchmark": "GLM-4.7-Flash Music Video Scripting Benchmark v0",
+  "fixture_name": "ai_psalm_9",
+  "source_path": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data",
+  "description": "Read-only fixture derived from AI Psalm 9 project data",
+  "usage_policy": "This fixture is read-only and derived from AI Psalm 9. Do not modify.",
+  "copied_files": [
+    {
+      "file": "lyrics_synced.json",
+      "sha256": "f7137509836a5e55572ccedafe2323c6d022801be33e6da720fd6404640a8ee0",
+      "size_bytes": 173931
+    },
+    {
+      "file": "analysis.json",
+      "sha256": "974a97d915296534757cac90917a505171ebc5af12973153fa93d91500b12f34",
+      "size_bytes": 560038
+    },
+    {
+      "file": "script_bare.json",
+      "sha256": "68dd3cfe8291b3311c23259e902c25892aad47aa25c2a2d57b36632d8331adea",
+      "size_bytes": 387
+    },
+    {
+      "file": "script.json",
+      "sha256": "2ef75a8c4c9a28cbb183602cd2caaef40017f2b453dea6b22713d4b3abb30a99",
+      "size_bytes": 15557
+    },
+    {
+      "file": "script_9x16.json",
+      "sha256": "2d69ebbb0e44bf6d3bf933c9b0a869e59cb0b710ba9964d34607d0c59348f884",
+      "size_bytes": 13002
+    },
+    {
+      "file": "script_16x9.json",
+      "sha256": "19ce29885c7d022750bddb19026d2548d9229c506f0967e2542e542bf331f371",
+      "size_bytes": 12917
+    },
+    {
+      "file": "mvp_project.json",
+      "sha256": "3738bd28b8e91f426c09f86e3d0cdae2c38de1fc02639decdc4b8152ce459a67",
+      "size_bytes": 914
+    }
+  ],
+  "copy_timestamp": "2026-06-24T00:07:26.202909+00:00"
+}

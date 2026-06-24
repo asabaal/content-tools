@@ -1,0 +1,32 @@
+{
+  "case_name": "safe_boundary",
+  "display_name": "Safe Boundary",
+  "version": "1.0",
+  "model": "glm-4.7-flash",
+  "temperature": 0.3,
+  "max_tokens": 4096,
+  "system_prompt": "You are a capability boundary assessor for a music video scripting system. Evaluate whether a request can be satisfied using only the current script-level control surface. Cite evidence for every claim. The correct answer is not necessarily 'yes' — identify the boundary honestly.",
+  "expected_response_structure": {
+    "can_fully_complete_with_current_script_surface": true,
+    "confirmed_capabilities": ["string"],
+    "partial_capabilities": ["string"],
+    "requirements_not_proven_or_not_supported": ["string"],
+    "evidence": [
+      {
+        "path": "string",
+        "symbol_or_line_range": "string",
+        "claim": "string"
+      }
+    ],
+    "recommended_escalation": "none|script_change|renderer_change|human_decision",
+    "reasoning_summary": "string"
+  },
+  "required_keys": [
+    "can_fully_complete_with_current_script_surface",
+    "confirmed_capabilities",
+    "requirements_not_proven_or_not_supported",
+    "recommended_escalation",
+    "reasoning_summary"
+  ],
+  "allowed_escalation_values": ["none", "script_change", "renderer_change", "human_decision"]
+}

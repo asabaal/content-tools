@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLM-4.7-Flash Benchmark Explorer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    line-height: 1.5;
+    overflow: hidden;
+    height: 100vh;
+}
+.topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px;
+    background: #010409;
+    border-bottom: 1px solid #30363d;
+    display: flex; align-items: center;
+    padding: 0 20px;
+    z-index: 100;
+    gap: 12px;
+}
+.topbar h1 {
+    font-size: 16px; font-weight: 600;
+    color: #e6edf3;
+    flex-shrink: 0;
+}
+.topbar .path {
+    font-size: 12px; color: #8b949e;
+    flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.topbar .btn {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #e6edf3;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+}
+.topbar .btn:hover { background: #30363d; border-color: #4cc9f0; }
+.topbar .btn:active { background: #161b22; }
+.sidebar {
+    position: fixed; top: 56px; left: 0; bottom: 0;
+    width: 260px;
+    background: #010409;
+    border-right: 1px solid #30363d;
+    overflow-y: auto;
+    z-index: 50;
+    padding: 8px 0;
+}
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-track { background: #010409; }
+.sidebar::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+.tree-group {
+    margin: 0;
+}
+.tree-header {
+    display: flex; align-items: center;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #e6edf3;
+    user-select: none;
+    transition: background 0.1s;
+    gap: 6px;
+}
+.tree-header:hover { background: rgba(76,201,240,0.05); }
+.tree-header .arrow {
+    font-size: 10px; color: #8b949e;
+    transition: transform 0.15s;
+    width: 14px; text-align: center;
+}
+.tree-header.open .arrow { transform: rotate(90deg); }
+.tree-header .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%; flex-shrink: 0;
+}
+.tree-header .name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.tree-header .count { font-size: 11px; color: #8b949e; }
+.tree-children { display: none; }
+.tree-header.open + .tree-children { display: block; }
+.tree-leaf {
+    display: flex; align-items: center;
+    padding: 5px 16px 5px 40px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #8b949e;
+    transition: background 0.1s, color 0.1s;
+    gap: 8px;
+}
+.tree-leaf:hover { background: rgba(76,201,240,0.05); color: #e6edf3; }
+.tree-leaf.active {
+    color: #e6edf3;
+    background: rgba(76,201,240,0.1);
+    border-right: 3px solid #4cc9f0;
+}
+.tree-leaf .leaf-status {
+    width: 6px; height: 6px;
+    border-radius: 50%; flex-shrink: 0;
+}
+.tree-leaf .leaf-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.tree-leaf .leaf-time { font-size: 11px; color: #484f58; }
+.main-content {
+    margin-left: 260px;
+    margin-top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    padding: 0;
+}
+.main-content::-webkit-scrollbar { width: 8px; }
+.main-content::-webkit-scrollbar-track { background: #0d1117; }
+.main-content::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+.welcome {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    height: calc(100vh - 56px);
+    color: #8b949e;
+    text-align: center;
+    padding: 40px;
+}
+.welcome h2 { font-size: 22px; margin-bottom: 12px; color: #e6edf3; }
+.welcome p { font-size: 14px; max-width: 500px; line-height: 1.7; }
+.welcome .icon { font-size: 48px; margin-bottom: 20px; opacity: 0.5; }
+.summary-bar {
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    padding: 16px 24px;
+    display: flex; flex-wrap: wrap; gap: 16px 32px;
+    align-items: center;
+}
+.summary-item { display: flex; flex-direction: column; gap: 2px; }
+.summary-item .label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
+.summary-item .value { font-size: 14px; font-weight: 500; }
+.status-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px; font-weight: 600;
+}
+.status-badge.ok { background: rgba(63,185,80,0.15); color: #3fb950; }
+.status-badge.err { background: rgba(248,81,73,0.15); color: #f85149; }
+.status-badge.warn { background: rgba(210,153,34,0.15); color: #d29922; }
+.status-badge.dry { background: rgba(139,148,158,0.15); color: #8b949e; }
+.tab-bar {
+    display: flex;
+    border-bottom: 1px solid #30363d;
+    background: #161b22;
+    padding: 0 24px;
+    gap: 0;
+}
+.tab-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #8b949e;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    background: none;
+    border-top: none; border-left: none; border-right: none;
+}
+.tab-btn:hover { color: #e6edf3; }
+.tab-btn.active { color: #4cc9f0; border-bottom-color: #4cc9f0; }
+.tab-content { display: none; padding: 24px; }
+.tab-content.active { display: block; }
+.json-viewer {
+    background: #010409;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.json-key { color: #79c0ff; }
+.json-string { color: #a5d6ff; }
+.json-number { color: #79c0ff; }
+.json-boolean { color: #ffa657; }
+.json-null { color: #8b949e; }
+.json-punctuation { color: #e6edf3; }
+.raw-content {
+    background: #010409;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+.meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.meta-table th, .meta-table td {
+    padding: 8px 16px;
+    text-align: left;
+    border-bottom: 1px solid #21262d;
+}
+.meta-table th {
+    color: #8b949e;
+    font-weight: 500;
+    width: 180px;
+    white-space: nowrap;
+}
+.meta-table td { color: #e6edf3; }
+.meta-table tr:last-child td, .meta-table tr:last-child th { border-bottom: none; }
+.section-title {
+    font-size: 14px; font-weight: 600;
+    color: #e6edf3;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #30363d;
+}
+.validation-panel {
+    display: flex; flex-direction: column; gap: 8px;
+}
+.val-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+.val-item.pass { background: rgba(63,185,80,0.08); color: #3fb950; }
+.val-item.fail { background: rgba(248,81,73,0.08); color: #f85149; }
+.val-item .icon { font-size: 16px; flex-shrink: 0; }
+.loading {
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px; color: #8b949e; gap: 10px;
+}
+.spinner {
+    width: 20px; height: 20px;
+    border: 2px solid #30363d;
+    border-top-color: #4cc9f0;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.empty-state { text-align: center; padding: 60px 20px; color: #8b949e; }
+.empty-state h3 { color: #e6edf3; margin-bottom: 8px; }
+.no-select { user-select: none; }
+.flex-row { display: flex; align-items: center; gap: 8px; }
+.gap-4 { gap: 4px; }
+.mt-12 { margin-top: 12px; }
+.mb-12 { margin-bottom: 12px; }
+/* Schema-aware pretty renderers */
+.pretty-view { display: block; }
+.raw-view { display: none; }
+.show-raw .pretty-view { display: none; }
+.show-raw .raw-view { display: block; }
+.toggle-raw-btn {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    padding: 4px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    float: right;
+    transition: color 0.15s, border-color 0.15s;
+}
+.toggle-raw-btn:hover { color: #e6edf3; border-color: #4cc9f0; }
+/* Pipeline stage cards */
+.stage-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+.stage-card.confirmed { border-left: 4px solid #3fb950; }
+.stage-card.inference { border-left: 4px solid #d29922; }
+.stage-card.unknown { border-left: 4px solid #8b949e; }
+.stage-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px;
+    background: #0d1117;
+    border-bottom: 1px solid #21262d;
+}
+.stage-name { font-size: 15px; font-weight: 600; color: #e6edf3; flex: 1; }
+.stage-badge {
+    font-size: 11px; font-weight: 600;
+    padding: 2px 10px; border-radius: 10px;
+}
+.stage-badge.confirmed { background: rgba(63,185,80,0.15); color: #3fb950; }
+.stage-badge.inference { background: rgba(210,153,34,0.15); color: #d29922; }
+.stage-badge.unknown { background: rgba(139,148,158,0.15); color: #8b949e; }
+.stage-body { padding: 12px 16px; }
+.stage-io-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.stage-io-col { }
+.stage-io-label {
+    font-size: 11px; text-transform: uppercase;
+    color: #8b949e; letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+.stage-io-item {
+    font-size: 12px; color: #e6edf3;
+    font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+    padding: 2px 0;
+}
+.stage-evidence-toggle {
+    font-size: 12px; color: #4cc9f0;
+    cursor: pointer; user-select: none;
+    display: inline-block; margin-top: 4px;
+}
+.stage-evidence-toggle:hover { text-decoration: underline; }
+.stage-evidence-table {
+    margin-top: 6px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    display: none;
+}
+.stage-evidence-table.open { display: table; }
+.stage-evidence-table th, .stage-evidence-table td {
+    padding: 4px 8px;
+    text-align: left;
+    border-bottom: 1px solid #21262d;
+    vertical-align: top;
+}
+.stage-evidence-table th { color: #8b949e; font-weight: 500; width: 120px; white-space: nowrap; }
+.stage-evidence-table td { color: #e6edf3; }
+.stage-evidence-table tr:last-child td, .stage-evidence-table tr:last-child th { border-bottom: none; }
+/* Feature table */
+.feature-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.feature-table th {
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #8b949e;
+    border-bottom: 2px solid #30363d;
+    white-space: nowrap;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #0d1117;
+    position: sticky; top: 0;
+}
+.feature-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #21262d;
+    vertical-align: top;
+    color: #e6edf3;
+}
+.feature-table tr:hover td { background: rgba(76,201,240,0.03); }
+.feature-status {
+    font-size: 11px; font-weight: 600;
+    padding: 1px 8px; border-radius: 8px;
+    white-space: nowrap;
+}
+.feature-status.confirmed { background: rgba(63,185,80,0.15); color: #3fb950; }
+.feature-status.inference { background: rgba(210,153,34,0.15); color: #d29922; }
+.feature-status.unknown { background: rgba(139,148,158,0.15); color: #8b949e; }
+.feature-evidence-toggle {
+    color: #4cc9f0; cursor: pointer; font-size: 11px;
+    margin-left: 4px;
+}
+.feature-evidence-row { display: none; }
+.feature-evidence-row.open { display: table-row; }
+.feature-evidence-row td {
+    padding: 6px 12px 10px 12px;
+    background: #161b22;
+}
+.feature-evidence-item {
+    font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+    font-size: 11px; padding: 2px 0; color: #8b949e;
+}
+.feature-evidence-item span.path { color: #79c0ff; }
+.feature-evidence-item span.symbol { color: #a5d6ff; }
+.notes-cell { color: #8b949e; font-size: 11px; max-width: 200px; }
+/* Candidate patch cards */
+.patch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+}
+.patch-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.patch-brief {
+    padding: 10px 14px;
+    font-size: 14px; font-weight: 600;
+    border-bottom: 1px solid #21262d;
+    display: flex; align-items: center; gap: 8px;
+}
+.patch-brief.restrained_testimony { background: rgba(76,201,240,0.08); color: #4cc9f0; }
+.patch-brief.escalating_hook { background: rgba(210,153,34,0.08); color: #d29922; }
+.patch-brief.spoken_word_resolution { background: rgba(63,185,80,0.08); color: #3fb950; }
+.patch-brief.default { background: rgba(139,148,158,0.08); color: #8b949e; }
+.patch-json {
+    padding: 10px 14px;
+    font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    background: #0d1117;
+    border-bottom: 1px solid #21262d;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #79c0ff;
+}
+.patch-rationales { padding: 10px 14px; }
+.patch-rationale-item {
+    padding: 6px 0;
+    border-bottom: 1px solid #21262d;
+    font-size: 12px;
+}
+.patch-rationale-item:last-child { border-bottom: none; }
+.patch-rationale-field {
+    font-weight: 600; color: #e6edf3; margin-bottom: 2px;
+}
+.patch-rationale-text { color: #8b949e; margin-bottom: 2px; }
+.patch-rationale-evidence { color: #a5d6ff; font-size: 11px; font-family: monospace; }
+.patch-risks {
+    padding: 8px 14px;
+    background: rgba(248,81,73,0.05);
+    border-top: 1px solid #21262d;
+}
+.patch-risk-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 2px 4px 2px 0;
+    font-size: 11px;
+    border-radius: 4px;
+    background: rgba(248,81,73,0.1);
+    color: #f85149;
+}
+.patch-requires {
+    padding: 8px 14px;
+    background: rgba(210,153,34,0.05);
+    border-top: 1px solid #21262d;
+}
+.patch-require-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 2px 4px 2px 0;
+    font-size: 11px;
+    border-radius: 4px;
+    background: rgba(210,153,34,0.1);
+    color: #d29922;
+}
+/* Safe boundary */
+.boundary-container { text-align: center; margin-bottom: 20px; }
+.boundary-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    border: 2px solid;
+}
+.boundary-pill.true { background: rgba(63,185,80,0.12); border-color: #3fb950; color: #3fb950; }
+.boundary-pill.false { background: rgba(248,81,73,0.12); border-color: #f85149; color: #f85149; }
+.boundary-escalation {
+    margin-top: 8px; font-size: 13px;
+}
+.boundary-escalation .escalation-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 12px;
+    background: rgba(210,153,34,0.15);
+    color: #d29922;
+}
+.cap-section {
+    margin-bottom: 16px;
+}
+.cap-section h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #21262d;
+}
+.cap-section h4 .cap-count {
+    font-weight: 400;
+    color: #8b949e;
+    font-size: 12px;
+}
+.cap-list { list-style: none; padding: 0; }
+.cap-list li {
+    padding: 4px 0;
+    font-size: 13px;
+    display: flex; align-items: flex-start; gap: 8px;
+}
+.cap-list .cap-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.cap-list .cap-icon.pass { color: #3fb950; }
+.cap-list .cap-icon.fail { color: #f85149; }
+.cap-list .cap-icon.warn { color: #d29922; }
+.boundary-evidence-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 8px;
+}
+.boundary-evidence-table th, .boundary-evidence-table td {
+    padding: 6px 10px;
+    text-align: left;
+    border-bottom: 1px solid #21262d;
+    vertical-align: top;
+}
+.boundary-evidence-table th { color: #8b949e; font-weight: 500; width: 100px; }
+.boundary-evidence-table td { color: #e6edf3; }
+.boundary-reasoning {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #8b949e;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+.boundary-reasoning::before {
+    content: '"';
+    color: #4cc9f0;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 4px;
+}
+.boundary-reasoning::after {
+    content: '"';
+    color: #4cc9f0;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 4px;
+}
+@media (max-width: 800px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+    <h1>GLM-4.7-Flash Benchmark Explorer</h1>
+    <span class="path" id="currentPath">no directory selected</span>
+    <button class="btn" id="selectDirBtn">Select Results Directory</button>
+    <input type="file" id="dirInput" webkitdirectory style="display:none">
+</div>
+
+<nav class="sidebar" id="sidebar">
+    <div class="empty-state" style="padding:40px 16px">
+        <h3>No directory selected</h3>
+        <p style="font-size:13px;color:#8b949e">Click "Select Results Directory" to browse benchmark results.</p>
+    </div>
+</nav>
+
+<div class="main-content" id="mainContent">
+    <div class="welcome" id="welcomeScreen">
+        <div class="icon">🎬</div>
+        <h2>GLM-4.7-Flash Benchmark Explorer</h2>
+        <p>Select a results directory to browse benchmark case responses. The filesystem picker lets you navigate to <code style="color:#e6edf3;background:#161b22;padding:2px 6px;border-radius:3px;font-size:12px">benchmarks/glm47flash_music_video_v0/results/</code></p>
+    </div>
+</div>
+
+<script>
+let rootHandle = null;
+let filesCache = []; // {path: string, name: string, caseDir: string, handle: FileSystemFileHandle, status: string}
+let currentFile = null;
+let currentData = null;
+
+const sidebar = document.getElementById('sidebar');
+const mainContent = document.getElementById('mainContent');
+const welcomeScreen = document.getElementById('welcomeScreen');
+const currentPath = document.getElementById('currentPath');
+const selectDirBtn = document.getElementById('selectDirBtn');
+const dirInput = document.getElementById('dirInput');
+
+selectDirBtn.addEventListener('click', async () => {
+    if (window.showDirectoryPicker) {
+        try {
+            const handle = await window.showDirectoryPicker({ mode: 'read' });
+            await loadDirectory(handle);
+        } catch (e) {
+            if (e.name !== 'AbortError' && e.name !== 'SecurityError') throw e;
+        }
+    } else {
+        dirInput.click();
+    }
+});
+
+dirInput.addEventListener('change', async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+    const root = files[0].webkitRelativePath.split('/')[0] || '(selected)';
+    await loadFilesFromInput(files, root);
+    e.target.value = '';
+});
+
+function fileStatus(data) {
+    if (!data || data.dry_run) return 'dry';
+    if (data.error) return 'err';
+    if (data.parse_error) return 'warn';
+    if (data.http_status >= 200 && data.http_status < 300) return 'ok';
+    return 'err';
+}
+
+async function loadDirectory(dirHandle) {
+    rootHandle = dirHandle;
+    currentPath.textContent = dirHandle.name;
+    sidebar.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
+    filesCache = [];
+
+    const entries = [];
+    for await (const entry of dirHandle.values()) {
+        if (entry.kind === 'directory') {
+            entries.push(entry);
+        }
+    }
+    entries.sort((a, b) => a.name.localeCompare(b.name));
+
+    let allFiles = [];
+    for (const caseDir of entries) {
+        const attemptEntries = [];
+        for await (const entry of caseDir.values()) {
+            if (entry.kind === 'file' && entry.name.endsWith('.json') && entry.name.startsWith('attempt_')) {
+                attemptEntries.push(entry);
+            }
+        }
+        attemptEntries.sort((a, b) => a.name.localeCompare(b.name));
+        for (const f of attemptEntries) {
+            allFiles.push({ caseDir: caseDir.name, name: f.name, handle: f, status: 'unknown' });
+        }
+    }
+
+    const batchSize = 10;
+    for (let i = 0; i < allFiles.length; i += batchSize) {
+        const batch = allFiles.slice(i, i + batchSize);
+        await Promise.all(batch.map(async (f) => {
+            try {
+                const file = await f.handle.getFile();
+                const text = await file.text();
+                const data = JSON.parse(text);
+                f.status = fileStatus(data);
+                f.data = data;
+            } catch { f.status = 'err'; f.data = null; }
+        }));
+    }
+
+    filesCache = allFiles;
+    renderTree(allFiles);
+    mainContent.innerHTML = '';
+    welcomeScreen.style.display = 'none';
+}
+
+async function loadFilesFromInput(files, rootName) {
+    currentPath.textContent = rootName;
+    sidebar.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
+    filesCache = [];
+
+    const groups = {};
+    for (const f of files) {
+        const parts = f.webkitRelativePath.split('/');
+        if (parts.length < 2) continue;
+        const caseDir = parts[1];
+        const name = parts[parts.length - 1];
+        if (!name.startsWith('attempt_') || !name.endsWith('.json')) continue;
+        if (!groups[caseDir]) groups[caseDir] = [];
+        groups[caseDir].push({ name, file: f });
+    }
+
+    let allFiles = [];
+    for (const [caseDir, entries] of Object.entries(groups)) {
+        entries.sort((a, b) => a.name.localeCompare(b.name));
+        for (const e of entries) {
+            try {
+                const text = await e.file.text();
+                const data = JSON.parse(text);
+                allFiles.push({ caseDir, name: e.name, status: fileStatus(data), data, _input: true });
+            } catch {
+                allFiles.push({ caseDir, name: e.name, status: 'err', data: null, _input: true });
+            }
+        }
+    }
+
+    filesCache = allFiles;
+    renderTree(allFiles);
+    mainContent.innerHTML = '';
+    welcomeScreen.style.display = 'none';
+}
+
+function statusColor(status) {
+    return { ok: '#3fb950', err: '#f85149', warn: '#d29922', dry: '#8b949e', unknown: '#484f58' }[status] || '#484f58';
+}
+
+function renderTree(files) {
+    const groups = {};
+    for (const f of files) {
+        if (!groups[f.caseDir]) groups[f.caseDir] = [];
+        groups[f.caseDir].push(f);
+    }
+
+    const sortedCases = Object.keys(groups).sort();
+
+    let html = '';
+    for (const caseName of sortedCases) {
+        const attempts = groups[caseName];
+        const caseStatus = attempts.some(a => a.status === 'ok') ? 'ok'
+            : attempts.some(a => a.status === 'warn') ? 'warn'
+            : attempts.every(a => a.status === 'err') ? 'err' : 'unknown';
+        const okCount = attempts.filter(a => a.status === 'ok').length;
+        const totalCount = attempts.length;
+        html += `<div class="tree-group">
+            <div class="tree-header open" data-case="${caseName}">
+                <span class="arrow">&#9654;</span>
+                <span class="status-dot" style="background:${statusColor(caseStatus)}"></span>
+                <span class="name">${caseName}</span>
+                <span class="count">${okCount}/${totalCount}</span>
+            </div>
+            <div class="tree-children">`;
+
+        for (const a of attempts) {
+            const displayName = a.name.replace(/^attempt_(\d+).*$/, 'Attempt $1');
+            html += `<div class="tree-leaf" data-path="${caseName}/${a.name}">
+                <span class="leaf-status" style="background:${statusColor(a.status)}"></span>
+                <span class="leaf-name">${displayName}</span>
+            </div>`;
+        }
+
+        html += `</div></div>`;
+    }
+
+    sidebar.innerHTML = html;
+
+    document.querySelectorAll('.tree-header').forEach(h => {
+        h.addEventListener('click', () => {
+            h.classList.toggle('open');
+        });
+    });
+
+    document.querySelectorAll('.tree-leaf').forEach(leaf => {
+        leaf.addEventListener('click', async () => {
+            document.querySelectorAll('.tree-leaf.active').forEach(el => el.classList.remove('active'));
+            leaf.classList.add('active');
+            const path = leaf.dataset.path;
+            const entry = filesCache.find(f => `${f.caseDir}/${f.name}` === path);
+            if (entry) {
+                await loadAttempt(entry);
+            }
+        });
+    });
+}
+
+async function loadAttempt(entry) {
+    if (entry._input) {
+        displayAttempt(entry.data, entry.caseDir, entry.name);
+        return;
+    }
+
+    try {
+        const file = await entry.handle.getFile();
+        const text = await file.text();
+        const data = JSON.parse(text);
+        displayAttempt(data, entry.caseDir, entry.name);
+    } catch (e) {
+        mainContent.innerHTML = `<div class="empty-state"><h3>Error loading file</h3><p>${e.message}</p></div>`;
+    }
+}
+
+function displayAttempt(data, caseName, fileName) {
+    currentData = data;
+    const isDry = data.dry_run;
+    const status = fileStatus(data);
+    const statusLabel = isDry ? 'DRY RUN' : data.error ? `ERROR ${data.http_status || ''}` : data.parse_error ? 'PARSE ERROR' : `HTTP ${data.http_status || ''} OK`;
+    const attemptLabel = fileName.replace(/^attempt_(\d+).*$/, 'Attempt $1');
+
+    const usage = data.usage || {};
+    const totalTokens = usage.total_tokens || '—';
+    const promptTokens = usage.prompt_tokens || '—';
+    const completionTokens = usage.completion_tokens || '—';
+    const elapsed = data.elapsed_seconds != null ? `${data.elapsed_seconds.toFixed(1)}s` : '—';
+
+    let valHtml = '';
+    const checks = [];
+
+    if (isDry) {
+        checks.push({ label: 'Dry run — no network call', pass: true });
+    } else if (data.error) {
+        checks.push({ label: `API Error: ${data.error.slice(0, 120)}`, pass: false });
+    } else {
+        checks.push({ label: `HTTP ${data.http_status}`, pass: data.http_status >= 200 && data.http_status < 300 });
+        checks.push({ label: 'JSON parseable', pass: !data.parse_error });
+        if (data.parsed_output) {
+            const keys = Object.keys(data.parsed_output);
+            checks.push({ label: `Response keys: ${keys.join(', ')}`, pass: keys.length > 0 });
+        }
+        const leaks = data.api_key_leaks || [];
+        checks.push({ label: `No API key leaks (${leaks.length} checks)`, pass: leaks.length === 0 });
+        checks.push({ label: `Model: ${data.model || '—'}`, pass: true });
+    }
+
+    for (const c of checks) {
+        valHtml += `<div class="val-item ${c.pass ? 'pass' : 'fail'}">
+            <span class="icon">${c.pass ? '\u2713' : '\u2717'}</span>
+            <span>${c.label}</span>
+        </div>`;
+    }
+
+    const tabs = [
+        { id: 'parsed', label: 'Parsed Output' },
+        { id: 'raw', label: 'Raw Response' },
+        { id: 'meta', label: 'Metadata' },
+        { id: 'validation', label: 'Validation' },
+    ];
+
+    mainContent.innerHTML = `
+        <div class="summary-bar">
+            <div class="summary-item">
+                <span class="label">Case</span>
+                <span class="value">${caseName}</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Attempt</span>
+                <span class="value">${attemptLabel}</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Status</span>
+                <span class="status-badge ${status}">${statusLabel}</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Tokens</span>
+                <span class="value">${totalTokens}</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Elapsed</span>
+                <span class="value">${elapsed}</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Timestamp</span>
+                <span class="value" style="font-size:12px;color:#8b949e">${data.timestamp ? new Date(data.timestamp).toLocaleString() : '—'}</span>
+            </div>
+        </div>
+
+        <div class="tab-bar" id="tabBar">
+            ${tabs.map(t => `<button class="tab-btn" data-tab="${t.id}">${t.label}</button>`).join('')}
+        </div>
+
+        <div class="tab-content active" id="tab-parsed">
+            <div class="section-title">
+                Parsed Output
+                <button class="toggle-raw-btn" id="toggleRawBtn" onclick="toggleRawView()">Show Raw JSON</button>
+            </div>
+            <div id="parsedViewer" class="json-viewer">${data.parsed_output ? renderPretty(data.parsed_output) : data.parse_error ? `<span style="color:#f85149">${data.parse_error}</span>` : '<span style="color:#8b949e">No parsed output</span>'}</div>
+        </div>
+
+        <div class="tab-content" id="tab-raw">
+            <div class="section-title">Raw Model Response</div>
+            <div class="raw-content" id="rawContent">${escapeHtml(data.raw_content || data.error || '(empty)')}</div>
+        </div>
+
+        <div class="tab-content" id="tab-meta">
+            <div class="section-title">Run Metadata</div>
+            <table class="meta-table">
+                ${renderMetaRows({
+                    'Model': data.model,
+                    'Case Name': data.case_name,
+                    'Attempt': data.attempt,
+                    'HTTP Status': data.http_status,
+                    'Elapsed (s)': data.elapsed_seconds,
+                    'Timestamp': data.timestamp,
+                    'Dry Run': data.dry_run,
+                    'Thinking Enabled': data.thinking_enabled,
+                    'Prompt Tokens': promptTokens,
+                    'Completion Tokens': completionTokens,
+                    'Total Tokens': totalTokens,
+                    'Parse Error': data.parse_error || '—',
+                    'API Error': data.error || '—',
+                    'API Key Leaks': (data.api_key_leaks || []).length,
+                })}
+            </table>
+            ${data.payload_summary ? `
+                <div class="section-title mt-12">Dry-Run Payload Summary</div>
+                <div class="json-viewer">${renderJSON(data.payload_summary)}</div>
+            ` : ''}
+        </div>
+
+        <div class="tab-content" id="tab-validation">
+            <div class="section-title">Validation Results</div>
+            <div class="validation-panel">${valHtml}</div>
+        </div>
+    `;
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+        });
+    });
+    document.querySelectorAll('.tab-btn')[0].classList.add('active');
+
+}
+
+function toggleRawView() {
+    const viewer = document.getElementById('parsedViewer');
+    const btn = document.getElementById('toggleRawBtn');
+    const isRaw = viewer.classList.toggle('show-raw');
+    btn.textContent = isRaw ? 'Show Pretty View' : 'Show Raw JSON';
+    // Inject raw JSON on first toggle
+    if (isRaw && !viewer.querySelector('.raw-view')) {
+        const rawDiv = document.createElement('div');
+        rawDiv.className = 'raw-view';
+        rawDiv.innerHTML = renderJSON(currentData ? currentData.parsed_output : null);
+        viewer.appendChild(rawDiv);
+    }
+}
+
+function renderMetaRows(obj) {
+    return Object.entries(obj).map(([k, v]) =>
+        `<tr><th>${k}</th><td>${v == null ? '—' : escapeHtml(String(v))}</td></tr>`
+    ).join('');
+}
+
+function escapeHtml(s) {
+    if (typeof s !== 'string') s = String(s);
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function detectSchema(obj) {
+    if (!obj || typeof obj !== 'object') return 'generic';
+    if (obj.pipeline_stages) return 'system_discovery';
+    if (obj.features) return 'feature_ledger';
+    if (obj.candidate_patches) return 'candidate_section_patches';
+    if (obj.can_fully_complete_with_current_script_surface !== undefined) return 'safe_boundary';
+    return 'generic';
+}
+
+function renderPretty(obj) {
+    if (!obj || typeof obj !== 'object') return renderJSON(obj);
+    const schema = detectSchema(obj);
+    switch (schema) {
+        case 'system_discovery': return renderPipelineStages(obj.pipeline_stages, obj.unresolved_questions);
+        case 'feature_ledger': return renderFeatures(obj.features, obj.unsupported_or_unproven_claims);
+        case 'candidate_section_patches': return renderCandidatePatches(obj.candidate_patches);
+        case 'safe_boundary': return renderSafeBoundary(obj);
+        default: return renderJSON(obj);
+    }
+}
+
+function esc(s) { return escapeHtml(s); }
+
+function renderPipelineStages(stages, unresolved) {
+    if (!stages || !stages.length) return '<div class="empty-state"><h3>No pipeline stages found</h3></div>';
+    let html = '<div class="pretty-view">';
+    for (const s of stages) {
+        const statusClass = (s.status || 'unknown').toLowerCase();
+        html += `<div class="stage-card ${statusClass}">
+            <div class="stage-header">
+                <span class="stage-name">${esc(s.stage)}</span>
+                <span class="stage-badge ${statusClass}">${esc(s.status)}</span>
+            </div>
+            <div class="stage-body">
+                <div class="stage-io-grid">
+                    <div class="stage-io-col">
+                        <div class="stage-io-label">Input</div>
+                        ${(s.input_artifacts||[]).map(a => `<div class="stage-io-item">${esc(a)}</div>`).join('') || '<div class="stage-io-item" style="color:#484f58">—</div>'}
+                    </div>
+                    <div class="stage-io-col">
+                        <div class="stage-io-label">Output</div>
+                        ${(s.output_artifacts||[]).map(a => `<div class="stage-io-item">${esc(a)}</div>`).join('') || '<div class="stage-io-item" style="color:#484f58">—</div>'}
+                    </div>
+                </div>`;
+        if (s.source_evidence && s.source_evidence.length) {
+            const evidenceId = 'sev_' + Math.random().toString(36).slice(2,7);
+            html += `<div class="stage-evidence-toggle" onclick="document.getElementById('${evidenceId}').classList.toggle('open')">&#9654; Source evidence (${s.source_evidence.length})</div>
+                <table class="stage-evidence-table" id="${evidenceId}">
+                    <tr><th>Path</th><th>Symbol/Line</th><th>Claim</th></tr>
+                    ${s.source_evidence.map(e => `<tr><td>${esc(e.path)}</td><td>${esc(e.symbol_or_line_range)}</td><td>${esc(e.claim)}</td></tr>`).join('')}
+                </table>`;
+        }
+        html += `</div></div>`;
+    }
+    if (unresolved && unresolved.length) {
+        html += `<div style="margin-top:12px;padding:10px 14px;background:#161b22;border:1px solid #30363d;border-radius:8px;">
+            <div style="font-size:13px;font-weight:600;color:#d29922;margin-bottom:6px;">&#9888; Unresolved Questions (${unresolved.length})</div>
+            <ul style="margin:0;padding-left:18px;font-size:13px;color:#8b949e;line-height:1.6">${unresolved.map(q => `<li>${esc(q)}</li>`).join('')}</ul>
+        </div>`;
+    }
+    html += '</div>';
+    return html;
+}
+
+function renderFeatures(features, unproven) {
+    if (!features || !features.length) return '<div class="empty-state"><h3>No features found</h3></div>';
+    let html = '<div class="pretty-view"><table class="feature-table"><thead><tr>' +
+        '<th>Feature</th><th>Values</th><th>Status</th><th>Renderer Effect</th><th>Conditions</th><th>Notes</th>' +
+        '</tr></thead><tbody>';
+    for (const f of features) {
+        const statusClass = (f.status || 'unknown').toLowerCase();
+        const evidenceId = 'fev_' + Math.random().toString(36).slice(2,7);
+        const evCount = (f.source_evidence || []).length;
+        html += `<tr>
+            <td style="font-weight:600;font-family:monospace;font-size:12px;color:#79c0ff">${esc(f.script_field_or_concept)}</td>
+            <td style="font-size:12px;color:#a5d6ff">${esc(f.supported_values_or_shape)}</td>
+            <td><span class="feature-status ${statusClass}">${esc(f.status)}</span></td>
+            <td style="font-size:12px">${esc(f.confirmed_renderer_or_canvas_effect)}</td>
+            <td style="font-size:12px;color:#8b949e">${esc(f.interactions_or_override_conditions)}</td>
+            <td class="notes-cell">${esc(f.notes)}${evCount ? ` <span class="feature-evidence-toggle" onclick="var r=document.getElementById('${evidenceId}');r.classList.toggle('open');this.textContent=r.classList.contains('open')?'[hide]':'[show]'">[show ${evCount}]</span>` : ''}</td>
+        </tr>`;
+        if (evCount) {
+            html += `<tr class="feature-evidence-row" id="${evidenceId}"><td colspan="6">
+                ${f.source_evidence.map(e =>
+                    `<div class="feature-evidence-item"><span class="path">${esc(e.path)}</span> :: <span class="symbol">${esc(e.symbol_or_line_range)}</span></div>`
+                ).join('')}
+            </td></tr>`;
+        }
+    }
+    html += '</tbody></table>';
+    if (unproven && unproven.length) {
+        html += `<div style="margin-top:12px;padding:10px 14px;background:#161b22;border:1px solid #30363d;border-radius:8px;">
+            <div style="font-size:13px;font-weight:600;color:#d29922;margin-bottom:6px;">&#9888; Unsupported / Unproven Claims (${unproven.length})</div>
+            <ul style="margin:0;padding-left:18px;font-size:13px;color:#8b949e;line-height:1.6">${unproven.map(c => `<li>${esc(c)}</li>`).join('')}</ul>
+        </div>`;
+    }
+    html += '</div>';
+    return html;
+}
+
+function renderCandidatePatches(patches) {
+    if (!patches || !patches.length) return '<div class="empty-state"><h3>No candidate patches found</h3></div>';
+    let html = '<div class="pretty-view"><div class="patch-grid">';
+    for (const p of patches) {
+        const briefClass = (p.brief_id || 'default').replace(/\s+/g, '_');
+        html += `<div class="patch-card">
+            <div class="patch-brief ${briefClass}">&#9998; ${esc(p.brief_id)}</div>
+            <div class="patch-json">${esc(JSON.stringify(p.patch, null, 2))}</div>
+            <div class="patch-rationales">
+                <div style="font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Field Rationales</div>`;
+        for (const r of (p.field_rationales || [])) {
+            html += `<div class="patch-rationale-item">
+                <div class="patch-rationale-field">${esc(r.field)}</div>
+                <div class="patch-rationale-text">${esc(r.rationale)}</div>`;
+            if (r.source_evidence && r.source_evidence.length) {
+                html += r.source_evidence.map(e =>
+                    `<div class="patch-rationale-evidence">${esc(e.path)} :: ${esc(e.symbol_or_line_range)}</div>`
+                ).join('');
+            }
+            html += `</div>`;
+        }
+        html += `</div>`;
+        if (p.visual_outcomes_that_cannot_be_guaranteed && p.visual_outcomes_that_cannot_be_guaranteed.length) {
+            html += `<div class="patch-risks">${p.visual_outcomes_that_cannot_be_guaranteed.map(r => `<span class="patch-risk-tag">${esc(r)}</span>`).join('')}</div>`;
+        }
+        if (p.requires_renderer_change_for && p.requires_renderer_change_for.length) {
+            html += `<div class="patch-requires">${p.requires_renderer_change_for.map(r => `<span class="patch-require-tag">&#9888; ${esc(r)}</span>`).join('')}</div>`;
+        }
+        html += `</div>`;
+    }
+    html += '</div></div>';
+    return html;
+}
+
+function renderSafeBoundary(obj) {
+    const canComplete = obj.can_fully_complete_with_current_script_surface;
+    const pillClass = canComplete ? 'true' : 'false';
+    const pillLabel = canComplete ? '&#10003; Can Fully Complete' : '&#10007; Cannot Fully Complete';
+    let html = '<div class="pretty-view">';
+    html += `<div class="boundary-container">
+        <div class="boundary-pill ${pillClass}">${pillLabel}</div>`;
+    if (obj.recommended_escalation) {
+        html += `<div class="boundary-escalation">Recommended: <span class="escalation-badge">${esc(obj.recommended_escalation)}</span></div>`;
+    }
+    html += `</div>`;
+
+    // Confirmed capabilities
+    if (obj.confirmed_capabilities && obj.confirmed_capabilities.length) {
+        html += `<div class="cap-section">
+            <h4>Confirmed Capabilities <span class="cap-count">(${obj.confirmed_capabilities.length})</span></h4>
+            <ul class="cap-list">${obj.confirmed_capabilities.map(c => `<li><span class="cap-icon pass">&#10003;</span>${esc(c)}</li>`).join('')}</ul>
+        </div>`;
+    }
+    // Partial capabilities
+    if (obj.partial_capabilities && obj.partial_capabilities.length) {
+        html += `<div class="cap-section">
+            <h4>Partial Capabilities <span class="cap-count">(${obj.partial_capabilities.length})</span></h4>
+            <ul class="cap-list">${obj.partial_capabilities.map(c => `<li><span class="cap-icon warn">&#9888;</span>${esc(c)}</li>`).join('')}</ul>
+        </div>`;
+    }
+    // Not supported
+    if (obj.requirements_not_proven_or_not_supported && obj.requirements_not_proven_or_not_supported.length) {
+        html += `<div class="cap-section">
+            <h4>Not Proven / Not Supported <span class="cap-count">(${obj.requirements_not_proven_or_not_supported.length})</span></h4>
+            <ul class="cap-list">${obj.requirements_not_proven_or_not_supported.map(c => `<li><span class="cap-icon fail">&#10007;</span>${esc(c)}</li>`).join('')}</ul>
+        </div>`;
+    }
+    // Evidence
+    if (obj.evidence && obj.evidence.length) {
+        html += `<div class="cap-section">
+            <h4>Evidence References <span class="cap-count">(${obj.evidence.length})</span></h4>
+            <table class="boundary-evidence-table">
+                <tr><th>Path</th><th>Symbol</th><th>Claim</th></tr>
+                ${obj.evidence.map(e => `<tr><td>${esc(e.path)}</td><td>${esc(e.symbol_or_line_range)}</td><td>${esc(e.claim)}</td></tr>`).join('')}
+            </table>
+        </div>`;
+    }
+    // Reasoning
+    if (obj.reasoning_summary) {
+        html += `<div class="boundary-reasoning">${esc(obj.reasoning_summary)}</div>`;
+    }
+    html += '</div>';
+    return html;
+}
+
+function renderJSON(obj, indent = 0) {
+    if (obj === null || obj === undefined) return '<span class="json-null">null</span>';
+    const type = typeof obj;
+    if (type === 'string') return `<span class="json-string">${escapeHtml(JSON.stringify(obj))}</span>`;
+    if (type === 'number') return `<span class="json-number">${obj}</span>`;
+    if (type === 'boolean') return `<span class="json-boolean">${obj}</span>`;
+
+    if (Array.isArray(obj)) {
+        if (obj.length === 0) return '<span class="json-punctuation">[]</span>';
+        const pad = '  '.repeat(indent + 1);
+        const endPad = '  '.repeat(indent);
+        let items = obj.map((item, i) => {
+            const comma = i < obj.length - 1 ? ',' : '';
+            return `\n${pad}${renderJSON(item, indent + 1)}${comma}`;
+        }).join('');
+        return `<span class="json-punctuation">[</span>${items}\n${endPad}<span class="json-punctuation">]</span>`;
+    }
+
+    if (type === 'object') {
+        const keys = Object.keys(obj);
+        if (keys.length === 0) return '<span class="json-punctuation">{}</span>';
+        const pad = '  '.repeat(indent + 1);
+        const endPad = '  '.repeat(indent);
+        let items = keys.map((key, i) => {
+            const comma = i < keys.length - 1 ? ',' : '';
+            const val = renderJSON(obj[key], indent + 1);
+            return `\n${pad}<span class="json-key">${escapeHtml(JSON.stringify(key))}</span><span class="json-punctuation">:</span> ${val}${comma}`;
+        }).join('');
+        return `<span class="json-punctuation">{</span>${items}\n${endPad}<span class="json-punctuation">}</span>`;
+    }
+
+    return escapeHtml(String(obj));
+}
+</script>
+</body>
+</html>

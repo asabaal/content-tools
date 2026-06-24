@@ -1,0 +1,45 @@
+{
+  "case_name": "candidate_section_patches",
+  "display_name": "Candidate Section Patches",
+  "version": "1.0",
+  "model": "glm-4.7-flash",
+  "temperature": 0.3,
+  "max_tokens": 4096,
+  "system_prompt": "You are a music video script editor. You must propose section-level patches using ONLY fields and values proven to exist in the current scripting surface. Each patch must be an isolated JSON fragment, not a full-song rewrite. Validate field names against code evidence. Do not claim unsupported capabilities.",
+  "expected_response_structure": {
+    "candidate_patches": [
+      {
+        "brief_id": "restrained_testimony|escalating_hook|spoken_word_resolution",
+        "patch": {},
+        "field_rationales": [
+          {
+            "field": "string",
+            "rationale": "string",
+            "source_evidence": [
+              { "path": "string", "symbol_or_line_range": "string" }
+            ]
+          }
+        ],
+        "visual_outcomes_that_cannot_be_guaranteed": ["string"],
+        "requires_renderer_change_for": ["string"]
+      }
+    ]
+  },
+  "required_keys": ["candidate_patches"],
+  "confirmed_fields": [
+    "background_type", "background_color", "gradient_colors", "gradient_direction",
+    "texture_type", "texture_opacity", "texture_blend_mode",
+    "font_size", "font_family",
+    "animation_type", "animation_speed",
+    "reveal_mode", "reveal_words", "reveal_slide",
+    "reactivity",
+    "text_position", "text_style", "text_style_colors",
+    "text_color", "text_auto_contrast",
+    "bg_animation_preset",
+    "text_backdrop", "text_backdrop_color", "text_backdrop_opacity",
+    "text_backdrop_padding", "text_backdrop_radius",
+    "text_align",
+    "y", "x", "font_size_delta",
+    "highlight_color", "letter_spacing"
+  ]
+}
