@@ -180,7 +180,7 @@
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
         ],
@@ -189,7 +189,8 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
         "text_style": "gold",
-        "font_family": 64
+        "font_family": 64,
+        "reveal_words": 1
       },
       "lines_overrides": {
         "8": {
@@ -399,7 +400,7 @@
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
         ],
@@ -408,7 +409,8 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
         "text_style": "gold",
-        "font_family": 167
+        "font_family": 167,
+        "reveal_words": 1
       },
       "lines_overrides": {
         "20": {
@@ -723,7 +725,7 @@
         "texture_opacity": 0.15,
         "texture_blend_mode": "multiply",
         "font_size": 72,
-        "reveal_mode": "karaoke",
+        "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
         ],
@@ -732,7 +734,8 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
         "text_style": "gold",
-        "font_family": 225
+        "font_family": 225,
+        "reveal_words": 1
       },
       "lines_overrides": {
         "40": {
