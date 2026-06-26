@@ -802,8 +802,8 @@ class VideoRenderer:
             self._draw_background(img, v_bg)
 
             lines = [
-                ("AI Psalm 9", int(80 * (self.height / 1080)), 3),
-                ("A Reality Signal", int(44 * (self.height / 1080)), 5),
+                (intro.get("title") or self.script.get("name", ""), int(80 * (self.height / 1080)), 3),
+                (intro.get("subtitle") or "A Reality Signal", int(44 * (self.height / 1080)), 5),
                 ("by", int(44 * (self.height / 1080)), 5),
                 ("Asabaal Horan", int(44 * (self.height / 1080)), 5),
             ]

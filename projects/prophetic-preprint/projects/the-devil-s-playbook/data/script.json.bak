@@ -2420,6 +2420,19 @@
           0,
           "lines_overrides",
           "0",
+          "background_color"
+        ],
+        "before": "#1b141e",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "0",
           "gradient_colors"
         ],
         "before": [
@@ -2435,10 +2448,10 @@
           "sections",
           0,
           "lines_overrides",
-          "0",
+          "1",
           "background_color"
         ],
-        "before": "#1b141e",
+        "before": "#17111a",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2464,10 +2477,10 @@
           "sections",
           0,
           "lines_overrides",
-          "1",
+          "2",
           "background_color"
         ],
-        "before": "#17111a",
+        "before": "#1b141e",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2493,10 +2506,10 @@
           "sections",
           0,
           "lines_overrides",
-          "2",
+          "3",
           "background_color"
         ],
-        "before": "#1b141e",
+        "before": "#17111a",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2522,10 +2535,10 @@
           "sections",
           0,
           "lines_overrides",
-          "3",
+          "4",
           "background_color"
         ],
-        "before": "#17111a",
+        "before": "#1b141f",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2551,10 +2564,10 @@
           "sections",
           0,
           "lines_overrides",
-          "4",
+          "5",
           "background_color"
         ],
-        "before": "#1b141f",
+        "before": "#171119",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2580,10 +2593,10 @@
           "sections",
           0,
           "lines_overrides",
-          "5",
+          "6",
           "background_color"
         ],
-        "before": "#171119",
+        "before": "#1c151f",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2609,10 +2622,10 @@
           "sections",
           0,
           "lines_overrides",
-          "6",
+          "7",
           "background_color"
         ],
-        "before": "#1c151f",
+        "before": "#161119",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2638,10 +2651,10 @@
           "sections",
           0,
           "lines_overrides",
-          "7",
+          "8",
           "background_color"
         ],
-        "before": "#161119",
+        "before": "#1c151f",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2667,10 +2680,10 @@
           "sections",
           0,
           "lines_overrides",
-          "8",
+          "9",
           "background_color"
         ],
-        "before": "#1c151f",
+        "before": "#161019",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2696,10 +2709,10 @@
           "sections",
           0,
           "lines_overrides",
-          "9",
+          "10",
           "background_color"
         ],
-        "before": "#161019",
+        "before": "#1d1520",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2716,19 +2729,6 @@
           "#1d1520",
           "#302331"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          0,
-          "lines_overrides",
-          "10",
-          "background_color"
-        ],
-        "before": "#1d1520",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2784,6 +2784,19 @@
           1,
           "lines_overrides",
           "11",
+          "background_color"
+        ],
+        "before": "#1e1622",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "11",
           "gradient_colors"
         ],
         "before": [
@@ -2799,10 +2812,10 @@
           "sections",
           1,
           "lines_overrides",
-          "11",
+          "12",
           "background_color"
         ],
-        "before": "#1e1622",
+        "before": "#19121c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2819,19 +2832,6 @@
           "#19121c",
           "#2d1f2d"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          1,
-          "lines_overrides",
-          "12",
-          "background_color"
-        ],
-        "before": "#19121c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2887,6 +2887,19 @@
           2,
           "lines_overrides",
           "13",
+          "background_color"
+        ],
+        "before": "#1a1827",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "lines_overrides",
+          "13",
           "gradient_colors"
         ],
         "before": [
@@ -2902,10 +2915,10 @@
           "sections",
           2,
           "lines_overrides",
-          "13",
+          "14",
           "background_color"
         ],
-        "before": "#1a1827",
+        "before": "#171523",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2931,10 +2944,10 @@
           "sections",
           2,
           "lines_overrides",
-          "14",
+          "15",
           "background_color"
         ],
-        "before": "#171523",
+        "before": "#1b1827",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2960,10 +2973,10 @@
           "sections",
           2,
           "lines_overrides",
-          "15",
+          "16",
           "background_color"
         ],
-        "before": "#1b1827",
+        "before": "#171522",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -2989,10 +3002,10 @@
           "sections",
           2,
           "lines_overrides",
-          "16",
+          "17",
           "background_color"
         ],
-        "before": "#171522",
+        "before": "#1b1928",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3018,10 +3031,10 @@
           "sections",
           2,
           "lines_overrides",
-          "17",
+          "18",
           "background_color"
         ],
-        "before": "#1b1928",
+        "before": "#171522",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3047,10 +3060,10 @@
           "sections",
           2,
           "lines_overrides",
-          "18",
+          "19",
           "background_color"
         ],
-        "before": "#171522",
+        "before": "#1c1928",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3076,10 +3089,10 @@
           "sections",
           2,
           "lines_overrides",
-          "19",
+          "20",
           "background_color"
         ],
-        "before": "#1c1928",
+        "before": "#171421",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3096,19 +3109,6 @@
           "#171421",
           "#292232"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          2,
-          "lines_overrides",
-          "20",
-          "background_color"
-        ],
-        "before": "#171421",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3163,13 +3163,15 @@
           "sections",
           3,
           "lines_overrides",
-          "22",
-          "gradient_colors"
+          "21"
         ],
-        "before": [
-          "#272a17",
-          "#333b24"
-        ],
+        "before": {
+          "background_color": "#2e301a",
+          "gradient_colors": [
+            "#2e301a",
+            "#394127"
+          ]
+        },
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3192,15 +3194,13 @@
           "sections",
           3,
           "lines_overrides",
-          "21"
+          "22",
+          "gradient_colors"
         ],
-        "before": {
-          "background_color": "#2e301a",
-          "gradient_colors": [
-            "#2e301a",
-            "#394127"
-          ]
-        },
+        "before": [
+          "#272a17",
+          "#333b24"
+        ],
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3255,158 +3255,13 @@
           "sections",
           4,
           "lines_overrides",
-          "25",
-          "gradient_colors"
-        ],
-        "before": [
-          "#31331b",
-          "#3b4529"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "25",
-          "background_color"
-        ],
-        "before": "#31331b",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "27",
-          "gradient_colors"
-        ],
-        "before": [
-          "#32341c",
-          "#3b4529"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "27",
-          "background_color"
-        ],
-        "before": "#32341c",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "28",
-          "gradient_colors"
-        ],
-        "before": [
-          "#2b2d18",
-          "#363f25"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "28",
-          "background_color"
-        ],
-        "before": "#2b2d18",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "29",
-          "gradient_colors"
-        ],
-        "before": [
-          "#32341c",
-          "#3b4629"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "29",
-          "background_color"
-        ],
-        "before": "#32341c",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "30",
-          "gradient_colors"
-        ],
-        "before": [
-          "#2a2d18",
-          "#353e25"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "30",
-          "background_color"
-        ],
-        "before": "#2a2d18",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          4,
-          "lines_overrides",
-          "26"
+          "23"
         ],
         "before": {
-          "background_color": "#2c2e18",
+          "background_color": "#31331b",
           "gradient_colors": [
-            "#2c2e18",
-            "#363f25"
+            "#31331b",
+            "#3b4428"
           ]
         },
         "after": null,
@@ -3436,15 +3291,160 @@
           "sections",
           4,
           "lines_overrides",
-          "23"
+          "25",
+          "background_color"
+        ],
+        "before": "#31331b",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "25",
+          "gradient_colors"
+        ],
+        "before": [
+          "#31331b",
+          "#3b4529"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "26"
         ],
         "before": {
-          "background_color": "#31331b",
+          "background_color": "#2c2e18",
           "gradient_colors": [
-            "#31331b",
-            "#3b4428"
+            "#2c2e18",
+            "#363f25"
           ]
         },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "27",
+          "background_color"
+        ],
+        "before": "#32341c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "27",
+          "gradient_colors"
+        ],
+        "before": [
+          "#32341c",
+          "#3b4529"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "28",
+          "background_color"
+        ],
+        "before": "#2b2d18",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "28",
+          "gradient_colors"
+        ],
+        "before": [
+          "#2b2d18",
+          "#363f25"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "29",
+          "background_color"
+        ],
+        "before": "#32341c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "29",
+          "gradient_colors"
+        ],
+        "before": [
+          "#32341c",
+          "#3b4629"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "30",
+          "background_color"
+        ],
+        "before": "#2a2d18",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "30",
+          "gradient_colors"
+        ],
+        "before": [
+          "#2a2d18",
+          "#353e25"
+        ],
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3500,6 +3500,19 @@
           5,
           "lines_overrides",
           "31",
+          "background_color"
+        ],
+        "before": "#33341c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "31",
           "gradient_colors"
         ],
         "before": [
@@ -3515,10 +3528,10 @@
           "sections",
           5,
           "lines_overrides",
-          "31",
+          "32",
           "background_color"
         ],
-        "before": "#33341c",
+        "before": "#2c2e18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3535,19 +3548,6 @@
           "#2c2e18",
           "#364025"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          5,
-          "lines_overrides",
-          "32",
-          "background_color"
-        ],
-        "before": "#2c2e18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3603,6 +3603,19 @@
           6,
           "lines_overrides",
           "33",
+          "background_color"
+        ],
+        "before": "#121219",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "33",
           "gradient_colors"
         ],
         "before": [
@@ -3618,10 +3631,10 @@
           "sections",
           6,
           "lines_overrides",
-          "33",
+          "34",
           "background_color"
         ],
-        "before": "#121219",
+        "before": "#0f0f15",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3647,10 +3660,10 @@
           "sections",
           6,
           "lines_overrides",
-          "34",
+          "35",
           "background_color"
         ],
-        "before": "#0f0f15",
+        "before": "#12121a",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3676,10 +3689,10 @@
           "sections",
           6,
           "lines_overrides",
-          "35",
+          "36",
           "background_color"
         ],
-        "before": "#12121a",
+        "before": "#0f0f15",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3705,10 +3718,10 @@
           "sections",
           6,
           "lines_overrides",
-          "36",
+          "37",
           "background_color"
         ],
-        "before": "#0f0f15",
+        "before": "#13121a",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3734,10 +3747,10 @@
           "sections",
           6,
           "lines_overrides",
-          "37",
+          "38",
           "background_color"
         ],
-        "before": "#13121a",
+        "before": "#0f0e14",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3763,10 +3776,10 @@
           "sections",
           6,
           "lines_overrides",
-          "38",
+          "39",
           "background_color"
         ],
-        "before": "#0f0e14",
+        "before": "#13131a",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3792,10 +3805,10 @@
           "sections",
           6,
           "lines_overrides",
-          "39",
+          "40",
           "background_color"
         ],
-        "before": "#13131a",
+        "before": "#0e0e14",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3821,10 +3834,10 @@
           "sections",
           6,
           "lines_overrides",
-          "40",
+          "41",
           "background_color"
         ],
-        "before": "#0e0e14",
+        "before": "#13131b",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3841,19 +3854,6 @@
           "#13131b",
           "#24212c"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          6,
-          "lines_overrides",
-          "41",
-          "background_color"
-        ],
-        "before": "#13131b",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3908,13 +3908,15 @@
           "sections",
           7,
           "lines_overrides",
-          "43",
-          "gradient_colors"
+          "42"
         ],
-        "before": [
-          "#282a17",
-          "#333c24"
-        ],
+        "before": {
+          "background_color": "#2e301a",
+          "gradient_colors": [
+            "#2e301a",
+            "#394127"
+          ]
+        },
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -3937,15 +3939,13 @@
           "sections",
           7,
           "lines_overrides",
-          "42"
+          "43",
+          "gradient_colors"
         ],
-        "before": {
-          "background_color": "#2e301a",
-          "gradient_colors": [
-            "#2e301a",
-            "#394127"
-          ]
-        },
+        "before": [
+          "#282a17",
+          "#333c24"
+        ],
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4001,6 +4001,19 @@
           8,
           "lines_overrides",
           "44",
+          "background_color"
+        ],
+        "before": "#31331b",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          8,
+          "lines_overrides",
+          "44",
           "gradient_colors"
         ],
         "before": [
@@ -4016,10 +4029,10 @@
           "sections",
           8,
           "lines_overrides",
-          "44",
+          "45",
           "background_color"
         ],
-        "before": "#31331b",
+        "before": "#2d2e19",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4045,10 +4058,10 @@
           "sections",
           8,
           "lines_overrides",
-          "45",
+          "46",
           "background_color"
         ],
-        "before": "#2d2e19",
+        "before": "#31331b",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4074,10 +4087,10 @@
           "sections",
           8,
           "lines_overrides",
-          "46",
+          "47",
           "background_color"
         ],
-        "before": "#31331b",
+        "before": "#2c2e18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4103,10 +4116,10 @@
           "sections",
           8,
           "lines_overrides",
-          "47",
+          "48",
           "background_color"
         ],
-        "before": "#2c2e18",
+        "before": "#31341c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4132,10 +4145,10 @@
           "sections",
           8,
           "lines_overrides",
-          "48",
+          "49",
           "background_color"
         ],
-        "before": "#31341c",
+        "before": "#2b2d18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4161,10 +4174,10 @@
           "sections",
           8,
           "lines_overrides",
-          "49",
+          "50",
           "background_color"
         ],
-        "before": "#2b2d18",
+        "before": "#32341c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4190,10 +4203,10 @@
           "sections",
           8,
           "lines_overrides",
-          "50",
+          "51",
           "background_color"
         ],
-        "before": "#32341c",
+        "before": "#2a2c18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4210,19 +4223,6 @@
           "#2a2c18",
           "#353e25"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          8,
-          "lines_overrides",
-          "51",
-          "background_color"
-        ],
-        "before": "#2a2c18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4278,6 +4278,19 @@
           9,
           "lines_overrides",
           "52",
+          "background_color"
+        ],
+        "before": "#33351c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          9,
+          "lines_overrides",
+          "52",
           "gradient_colors"
         ],
         "before": [
@@ -4293,10 +4306,10 @@
           "sections",
           9,
           "lines_overrides",
-          "52",
+          "53",
           "background_color"
         ],
-        "before": "#33351c",
+        "before": "#2c2f18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4313,19 +4326,6 @@
           "#2c2f18",
           "#364025"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          9,
-          "lines_overrides",
-          "53",
-          "background_color"
-        ],
-        "before": "#2c2f18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4381,6 +4381,19 @@
           10,
           "lines_overrides",
           "54",
+          "background_color"
+        ],
+        "before": "#1c1726",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          10,
+          "lines_overrides",
+          "54",
           "gradient_colors"
         ],
         "before": [
@@ -4396,10 +4409,10 @@
           "sections",
           10,
           "lines_overrides",
-          "54",
+          "55",
           "background_color"
         ],
-        "before": "#1c1726",
+        "before": "#191522",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4425,10 +4438,10 @@
           "sections",
           10,
           "lines_overrides",
-          "55",
+          "56",
           "background_color"
         ],
-        "before": "#191522",
+        "before": "#1c1826",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4454,10 +4467,10 @@
           "sections",
           10,
           "lines_overrides",
-          "56",
+          "57",
           "background_color"
         ],
-        "before": "#1c1826",
+        "before": "#181521",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4483,10 +4496,10 @@
           "sections",
           10,
           "lines_overrides",
-          "57",
+          "58",
           "background_color"
         ],
-        "before": "#181521",
+        "before": "#1d1827",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4512,10 +4525,10 @@
           "sections",
           10,
           "lines_overrides",
-          "58",
+          "59",
           "background_color"
         ],
-        "before": "#1d1827",
+        "before": "#181420",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4541,10 +4554,10 @@
           "sections",
           10,
           "lines_overrides",
-          "59",
+          "60",
           "background_color"
         ],
-        "before": "#181420",
+        "before": "#1d1927",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4570,10 +4583,10 @@
           "sections",
           10,
           "lines_overrides",
-          "60",
+          "61",
           "background_color"
         ],
-        "before": "#1d1927",
+        "before": "#181420",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4590,19 +4603,6 @@
           "#181420",
           "#2b2131"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          10,
-          "lines_overrides",
-          "61",
-          "background_color"
-        ],
-        "before": "#181420",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4658,6 +4658,19 @@
           11,
           "lines_overrides",
           "62",
+          "background_color"
+        ],
+        "before": "#2f301a",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          11,
+          "lines_overrides",
+          "62",
           "gradient_colors"
         ],
         "before": [
@@ -4673,10 +4686,10 @@
           "sections",
           11,
           "lines_overrides",
-          "62",
+          "63",
           "background_color"
         ],
-        "before": "#2f301a",
+        "before": "#282a17",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4693,19 +4706,6 @@
           "#282a17",
           "#333c24"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          11,
-          "lines_overrides",
-          "63",
-          "background_color"
-        ],
-        "before": "#282a17",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4760,41 +4760,84 @@
           "sections",
           12,
           "lines_overrides",
-          "71",
-          "gradient_colors"
-        ],
-        "before": [
-          "#2a2c18",
-          "#343e25"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "71",
-          "background_color"
-        ],
-        "before": "#2a2c18",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "70"
+          "64"
         ],
         "before": {
-          "background_color": "#31341c",
+          "background_color": "#31321b",
           "gradient_colors": [
-            "#31341c",
+            "#31321b",
+            "#3b4428"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "65"
+        ],
+        "before": {
+          "background_color": "#2c2e19",
+          "gradient_colors": [
+            "#2c2e19",
+            "#373f26"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "66"
+        ],
+        "before": {
+          "background_color": "#31331b",
+          "gradient_colors": [
+            "#31331b",
+            "#3b4429"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "67"
+        ],
+        "before": {
+          "background_color": "#2b2d18",
+          "gradient_colors": [
+            "#2b2d18",
+            "#363f25"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "68"
+        ],
+        "before": {
+          "background_color": "#31331c",
+          "gradient_colors": [
+            "#31331c",
             "#3b4529"
           ]
         },
@@ -4825,12 +4868,12 @@
           "sections",
           12,
           "lines_overrides",
-          "68"
+          "70"
         ],
         "before": {
-          "background_color": "#31331c",
+          "background_color": "#31341c",
           "gradient_colors": [
-            "#31331c",
+            "#31341c",
             "#3b4529"
           ]
         },
@@ -4843,15 +4886,10 @@
           "sections",
           12,
           "lines_overrides",
-          "67"
+          "71",
+          "background_color"
         ],
-        "before": {
-          "background_color": "#2b2d18",
-          "gradient_colors": [
-            "#2b2d18",
-            "#363f25"
-          ]
-        },
+        "before": "#2a2c18",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4861,51 +4899,13 @@
           "sections",
           12,
           "lines_overrides",
-          "66"
+          "71",
+          "gradient_colors"
         ],
-        "before": {
-          "background_color": "#31331b",
-          "gradient_colors": [
-            "#31331b",
-            "#3b4429"
-          ]
-        },
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "65"
+        "before": [
+          "#2a2c18",
+          "#343e25"
         ],
-        "before": {
-          "background_color": "#2c2e19",
-          "gradient_colors": [
-            "#2c2e19",
-            "#373f26"
-          ]
-        },
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "64"
-        ],
-        "before": {
-          "background_color": "#31321b",
-          "gradient_colors": [
-            "#31321b",
-            "#3b4428"
-          ]
-        },
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4961,6 +4961,19 @@
           13,
           "lines_overrides",
           "72",
+          "background_color"
+        ],
+        "before": "#34351c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          13,
+          "lines_overrides",
+          "72",
           "gradient_colors"
         ],
         "before": [
@@ -4976,10 +4989,10 @@
           "sections",
           13,
           "lines_overrides",
-          "72",
+          "73",
           "background_color"
         ],
-        "before": "#34351c",
+        "before": "#2c2f19",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -4996,19 +5009,6 @@
           "#2c2f19",
           "#374126"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          13,
-          "lines_overrides",
-          "73",
-          "background_color"
-        ],
-        "before": "#2c2f19",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5064,6 +5064,19 @@
           14,
           "lines_overrides",
           "74",
+          "background_color"
+        ],
+        "before": "#1d1520",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          14,
+          "lines_overrides",
+          "74",
           "gradient_colors"
         ],
         "before": [
@@ -5079,10 +5092,10 @@
           "sections",
           14,
           "lines_overrides",
-          "74",
+          "75",
           "background_color"
         ],
-        "before": "#1d1520",
+        "before": "#19121c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5108,10 +5121,10 @@
           "sections",
           14,
           "lines_overrides",
-          "75",
+          "76",
           "background_color"
         ],
-        "before": "#19121c",
+        "before": "#1d1521",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5137,10 +5150,10 @@
           "sections",
           14,
           "lines_overrides",
-          "76",
+          "77",
           "background_color"
         ],
-        "before": "#1d1521",
+        "before": "#19121c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5166,10 +5179,10 @@
           "sections",
           14,
           "lines_overrides",
-          "77",
+          "78",
           "background_color"
         ],
-        "before": "#19121c",
+        "before": "#1d1521",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5195,10 +5208,10 @@
           "sections",
           14,
           "lines_overrides",
-          "78",
+          "79",
           "background_color"
         ],
-        "before": "#1d1521",
+        "before": "#19121c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5224,10 +5237,10 @@
           "sections",
           14,
           "lines_overrides",
-          "79",
+          "80",
           "background_color"
         ],
-        "before": "#19121c",
+        "before": "#1d1521",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5253,10 +5266,10 @@
           "sections",
           14,
           "lines_overrides",
-          "80",
+          "81",
           "background_color"
         ],
-        "before": "#1d1521",
+        "before": "#19121c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5282,10 +5295,10 @@
           "sections",
           14,
           "lines_overrides",
-          "81",
+          "82",
           "background_color"
         ],
-        "before": "#19121c",
+        "before": "#1e1621",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5311,10 +5324,10 @@
           "sections",
           14,
           "lines_overrides",
-          "82",
+          "83",
           "background_color"
         ],
-        "before": "#1e1621",
+        "before": "#19121c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5340,10 +5353,10 @@
           "sections",
           14,
           "lines_overrides",
-          "83",
+          "84",
           "background_color"
         ],
-        "before": "#19121c",
+        "before": "#1e1621",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5369,10 +5382,10 @@
           "sections",
           14,
           "lines_overrides",
-          "84",
+          "85",
           "background_color"
         ],
-        "before": "#1e1621",
+        "before": "#18121b",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5398,10 +5411,10 @@
           "sections",
           14,
           "lines_overrides",
-          "85",
+          "86",
           "background_color"
         ],
-        "before": "#18121b",
+        "before": "#1e1622",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5427,10 +5440,10 @@
           "sections",
           14,
           "lines_overrides",
-          "86",
+          "87",
           "background_color"
         ],
-        "before": "#1e1622",
+        "before": "#18121b",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5456,10 +5469,10 @@
           "sections",
           14,
           "lines_overrides",
-          "87",
+          "88",
           "background_color"
         ],
-        "before": "#18121b",
+        "before": "#1e1622",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5485,10 +5498,10 @@
           "sections",
           14,
           "lines_overrides",
-          "88",
+          "89",
           "background_color"
         ],
-        "before": "#1e1622",
+        "before": "#18121b",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5514,10 +5527,10 @@
           "sections",
           14,
           "lines_overrides",
-          "89",
+          "90",
           "background_color"
         ],
-        "before": "#18121b",
+        "before": "#1f1622",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5543,10 +5556,10 @@
           "sections",
           14,
           "lines_overrides",
-          "90",
+          "91",
           "background_color"
         ],
-        "before": "#1f1622",
+        "before": "#18111b",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5572,10 +5585,10 @@
           "sections",
           14,
           "lines_overrides",
-          "91",
+          "92",
           "background_color"
         ],
-        "before": "#18111b",
+        "before": "#1f1622",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5592,19 +5605,6 @@
           "#1f1622",
           "#332433"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          14,
-          "lines_overrides",
-          "92",
-          "background_color"
-        ],
-        "before": "#1f1622",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5660,6 +5660,19 @@
           15,
           "lines_overrides",
           "93",
+          "background_color"
+        ],
+        "before": "#13141b",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          15,
+          "lines_overrides",
+          "93",
           "gradient_colors"
         ],
         "before": [
@@ -5675,10 +5688,10 @@
           "sections",
           15,
           "lines_overrides",
-          "93",
+          "94",
           "background_color"
         ],
-        "before": "#13141b",
+        "before": "#101117",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5704,10 +5717,10 @@
           "sections",
           15,
           "lines_overrides",
-          "94",
+          "95",
           "background_color"
         ],
-        "before": "#101117",
+        "before": "#13141b",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5733,10 +5746,10 @@
           "sections",
           15,
           "lines_overrides",
-          "95",
+          "96",
           "background_color"
         ],
-        "before": "#13141b",
+        "before": "#101016",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5762,10 +5775,10 @@
           "sections",
           15,
           "lines_overrides",
-          "96",
+          "97",
           "background_color"
         ],
-        "before": "#101016",
+        "before": "#13141c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5791,10 +5804,10 @@
           "sections",
           15,
           "lines_overrides",
-          "97",
+          "98",
           "background_color"
         ],
-        "before": "#13141c",
+        "before": "#0f1016",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5820,10 +5833,10 @@
           "sections",
           15,
           "lines_overrides",
-          "98",
+          "99",
           "background_color"
         ],
-        "before": "#0f1016",
+        "before": "#14141c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5849,10 +5862,10 @@
           "sections",
           15,
           "lines_overrides",
-          "99",
+          "100",
           "background_color"
         ],
-        "before": "#14141c",
+        "before": "#0f0f15",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5869,19 +5882,6 @@
           "#0f0f15",
           "#1e1c26"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          15,
-          "lines_overrides",
-          "100",
-          "background_color"
-        ],
-        "before": "#0f0f15",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5936,13 +5936,15 @@
           "sections",
           16,
           "lines_overrides",
-          "102",
-          "gradient_colors"
+          "101"
         ],
-        "before": [
-          "#292b17",
-          "#343d24"
-        ],
+        "before": {
+          "background_color": "#30311b",
+          "gradient_colors": [
+            "#30311b",
+            "#3a4328"
+          ]
+        },
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -5965,15 +5967,13 @@
           "sections",
           16,
           "lines_overrides",
-          "101"
+          "102",
+          "gradient_colors"
         ],
-        "before": {
-          "background_color": "#30311b",
-          "gradient_colors": [
-            "#30311b",
-            "#3a4328"
-          ]
-        },
+        "before": [
+          "#292b17",
+          "#343d24"
+        ],
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -6029,6 +6029,19 @@
           17,
           "lines_overrides",
           "103",
+          "background_color"
+        ],
+        "before": "#13141b",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          17,
+          "lines_overrides",
+          "103",
           "gradient_colors"
         ],
         "before": [
@@ -6044,10 +6057,10 @@
           "sections",
           17,
           "lines_overrides",
-          "103",
+          "104",
           "background_color"
         ],
-        "before": "#13141b",
+        "before": "#101017",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -6073,10 +6086,10 @@
           "sections",
           17,
           "lines_overrides",
-          "104",
+          "105",
           "background_color"
         ],
-        "before": "#101017",
+        "before": "#14141c",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -6102,10 +6115,10 @@
           "sections",
           17,
           "lines_overrides",
-          "105",
+          "106",
           "background_color"
         ],
-        "before": "#14141c",
+        "before": "#0f0f15",
         "after": null,
         "before_missing": false,
         "after_missing": true
@@ -6122,19 +6135,6 @@
           "#0f0f15",
           "#1e1c27"
         ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          17,
-          "lines_overrides",
-          "106",
-          "background_color"
-        ],
-        "before": "#0f0f15",
         "after": null,
         "before_missing": false,
         "after_missing": true

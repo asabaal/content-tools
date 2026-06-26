@@ -1,0 +1,66 @@
+{
+  "name": "reality_signal_slate_v2",
+  "description": "Branded intro/outro scenes + AI Psalm 9-style 5-stop geometric section backgrounds (per-line bg stripped), centering, and per-type sizing. Per-song intro title is injected at apply time. Idempotent and invertible.",
+  "steps": [
+    {
+      "transform": "add_branded_scenes",
+      "selector": {},
+      "params": {
+        "branding_image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
+        "logo_path": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/outro_logo.png",
+        "subtitle": "A Reality Signal",
+        "text": "Presented by"
+      }
+    },
+    {
+      "transform": "geometric_backgrounds",
+      "selector": {},
+      "params": { "accent_lightness": 0.24 }
+    },
+    {
+      "transform": "center_text",
+      "selector": {},
+      "params": {}
+    },
+    {
+      "transform": "symmetrize_phrase_rows",
+      "selector": {},
+      "params": {}
+    },
+    {
+      "transform": "set_section_font",
+      "selector": { "section": "hook" },
+      "params": { "size": 92, "uniform_lines": true }
+    },
+    {
+      "transform": "set_section_font",
+      "selector": { "section": "interlude" },
+      "params": { "size": 82, "uniform_lines": true }
+    },
+    {
+      "transform": "set_section_font",
+      "selector": { "section": "post_hook" },
+      "params": { "size": 84, "uniform_lines": true }
+    },
+    {
+      "transform": "set_section_font",
+      "selector": { "section": "outro" },
+      "params": { "size": 76, "uniform_lines": true }
+    },
+    {
+      "transform": "set_section_visual",
+      "selector": { "section": "hook" },
+      "params": { "bg_animation_preset": "energetic" }
+    },
+    {
+      "transform": "set_section_visual",
+      "selector": { "section": "chorus" },
+      "params": { "bg_animation_preset": "cinematic" }
+    },
+    {
+      "transform": "set_section_visual",
+      "selector": { "section": "climax" },
+      "params": { "bg_animation_preset": "intense" }
+    }
+  ]
+}

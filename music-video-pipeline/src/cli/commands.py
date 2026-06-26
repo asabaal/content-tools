@@ -1592,13 +1592,14 @@ def _generate_contact_sheet(audit_dir: Path, word_entries: list, frame_w: int, f
 
 @cli.command()
 @click.option("--project", "-p", "project_dir", default=None, help="Path to project directory")
-@click.option("--target-aspect", required=True, type=click.Choice(["16:9", "9:16"]), help="Target aspect ratio")
+@click.option("--target-aspect", default=None, type=click.Choice(["16:9", "9:16"]), help="Target aspect ratio")
 @click.option("--source-aspect", default=None, type=click.Choice(["16:9", "9:16"]), help="Source aspect ratio (auto-detected if omitted)")
+@click.option("--recipe", default=None, help="Apply a transform recipe (name or path) before aspect retarget/render")
 @click.option("--output", "-o", default=None, help="Output video path (default: auto-named in output/)")
 @click.option("--skip-audit", is_flag=True, help="Skip post-transform audit")
 @click.option("--skip-render", is_flag=True, help="Skip rendering (only generate transformed script)")
-def transform(project_dir, target_aspect, source_aspect, output, skip_audit, skip_render):
-    """Transform project script to a different aspect ratio and render."""
+def transform(project_dir, target_aspect, source_aspect, recipe, output, skip_audit, skip_render):
+    """Transform project script (recipe and/or aspect retarget) and render."""
     from render.renderer import VideoRenderer
     from render.aspect_transform import (
         ASPECT_16_9,
@@ -1620,6 +1621,54 @@ def transform(project_dir, target_aspect, source_aspect, output, skip_audit, ski
     if not (data_dir / "lyrics_synced.json").exists():
         raise click.ClickException("lyrics_synced.json not found. Run sync first.")
 
+    base_script_path = data_dir / "script.json"
+    recipe_staged_path = data_dir / "script._recipe.json"
+
+    if recipe:
+        from transform import REGISTRY, ScriptContext
+        from transform.recipes import load_recipe
+
+        ctx = ScriptContext(
+            script=json.loads(base_script_path.read_text(encoding="utf-8")),
+            lyrics_synced=json.loads((data_dir / "lyrics_synced.json").read_text(encoding="utf-8")),
+            project_dir=proj_dir,
+        )
+        rec = load_recipe(recipe)
+        rec.apply(ctx, REGISTRY)
+        click.echo(f"\n  Applied recipe: {rec.name}")
+
+        if target_aspect is None:
+            bak = base_script_path.with_suffix(".json.bak")
+            bak.write_text(base_script_path.read_text(encoding="utf-8"), encoding="utf-8")
+            base_script_path.write_text(json.dumps(ctx.script, indent=2, ensure_ascii=False), encoding="utf-8")
+            click.echo(f"    Saved: {base_script_path.name} (backup: {bak.name})")
+            if skip_render:
+                return
+            from render.renderer import VideoRenderer
+            out_path = Path(output) if output else (proj_dir / "output" / "video.mp4")
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            renderer = VideoRenderer(proj_dir)
+            renderer.load()
+            audio_path = renderer.audio_path
+            if not audio_path:
+                audio_rel = proj.paths.audio
+                if audio_rel:
+                    candidate = Path(audio_rel)
+                    if not candidate.is_absolute():
+                        candidate = proj_dir / audio_rel
+                    if candidate.exists():
+                        audio_path = candidate
+            click.echo(f"\n  Rendering... {out_path}")
+            renderer.render(out_path, audio_path=audio_path)
+            size_mb = out_path.stat().st_size / (1024 * 1024)
+            click.echo(f"  Done! {out_path} ({size_mb:.1f} MB)")
+            return
+
+        recipe_staged_path.write_text(json.dumps(ctx.script, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    if target_aspect is None and not recipe:
+        raise click.ClickException("Provide --target-aspect or --recipe.")
+
     if source_aspect is None:
         source_aspect = detect_aspect_ratio(proj_dir)
         click.echo(f"  Auto-detected source aspect ratio: {source_aspect}")
@@ -1629,7 +1678,9 @@ def transform(project_dir, target_aspect, source_aspect, output, skip_audit, ski
 
     source_ar_tag = source_aspect.replace(":", "x")
     source_script_path = data_dir / f"script_{source_ar_tag}.json"
-    if not source_script_path.exists():
+    if recipe_staged_path.exists():
+        source_script_path = recipe_staged_path
+    elif not source_script_path.exists():
         source_script_path = data_dir / "script.json"
 
     original_script_text = source_script_path.read_text(encoding="utf-8")
@@ -1664,6 +1715,8 @@ def transform(project_dir, target_aspect, source_aspect, output, skip_audit, ski
         json.dumps(transformed, indent=2, ensure_ascii=False), encoding="utf-8"
     )
     click.echo(f"    Saved: {transformed_path}")
+    if recipe_staged_path.exists():
+        recipe_staged_path.unlink()
 
     layout_issues = check_layout_issues(transformed, target_aspect, source_script=original_script)
     if layout_issues:

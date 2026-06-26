@@ -1,0 +1,13 @@
+{
+  "name": "retarget_aspect",
+  "description": "Retarget a script between aspect ratios (16:9 <-> 9:16). Provide source_aspect in params, or a project_dir to auto-detect.",
+  "steps": [
+    {
+      "transform": "retarget_aspect",
+      "selector": {},
+      "params": {
+        "target_aspect": "9:16"
+      }
+    }
+  ]
+}

@@ -43,6 +43,7 @@ _NONVIABLE_FONTS = {
     1749,  # Yarndings 12 Charted — renders text as knitted/cross-stitch chart pictographs
     1750,  # Yarndings 20 — renders text as knitted/cross-stitch chart pictographs
     1751,  # Yarndings 20 Charted — renders text as knitted/cross-stitch chart pictographs
+    799,   # KumarOneOutline-Regular — FreeType "execution context too long" on getbbox at all sizes
 }
 
 
