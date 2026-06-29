@@ -1,0 +1,2087 @@
+{
+  "name": "child-of-god-who-you-be",
+  "defaults": {
+    "background_type": "gradient",
+    "background_color": "#111118",
+    "gradient_colors": [
+      "#111118",
+      "#211e29"
+    ],
+    "gradient_direction": "diagonal_tl_br",
+    "texture_type": "vignette_heavy",
+    "texture_opacity": 0.2,
+    "texture_blend_mode": "multiply",
+    "text_auto_contrast": true,
+    "font_size": 112,
+    "animation_type": "fade",
+    "animation_speed": 1.0,
+    "reveal_mode": "progressive",
+    "reveal_words": 1,
+    "reveal_slide": false,
+    "reactivity": [
+      "vocals"
+    ],
+    "text_align": "center"
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#4cc9f0",
+    "text_position": "center",
+    "letter_spacing": 1,
+    "text_shadow": false,
+    "outline": false
+  },
+  "sections": [
+    {
+      "name": "Intro",
+      "type": "intro",
+      "lines": [
+        0,
+        1
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#111118",
+        "gradient_colors": [
+          "#111118",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 10
+      },
+      "lines_overrides": {
+        "0": {
+          "text_align": "left",
+          "background_color": "#121219",
+          "gradient_colors": [
+            "#121219",
+            "#22202a"
+          ]
+        },
+        "1": {
+          "text_align": "left",
+          "background_color": "#0f0e15",
+          "gradient_colors": [
+            "#0f0e15",
+            "#1f1c26"
+          ]
+        }
+      },
+      "words_overrides": {
+        "0.0": {
+          "y": 0.5
+        },
+        "0.1": {
+          "y": 0.5
+        },
+        "0.2": {
+          "y": 0.5
+        },
+        "0.3": {
+          "y": 0.5
+        },
+        "0.4": {
+          "y": 0.8
+        },
+        "0.5": {
+          "y": 0.8
+        },
+        "0.6": {
+          "y": 0.8
+        },
+        "0.7": {
+          "y": 0.8
+        },
+        "0.8": {
+          "y": 0.8
+        },
+        "1.0": {
+          "y": 0.5
+        },
+        "1.1": {
+          "y": 0.5
+        },
+        "1.2": {
+          "y": 0.5
+        },
+        "1.3": {
+          "y": 0.5
+        },
+        "1.4": {
+          "y": 0.5
+        },
+        "1.5": {
+          "y": 0.8
+        },
+        "1.6": {
+          "y": 0.8
+        },
+        "1.7": {
+          "y": 0.8
+        },
+        "1.8": {
+          "y": 0.8
+        },
+        "1.9": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Hook",
+      "type": "hook",
+      "lines": [
+        2,
+        3
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#32321b",
+        "gradient_colors": [
+          "#32321b",
+          "#333922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1771
+      },
+      "lines_overrides": {
+        "2": {
+          "background_color": "#34341c",
+          "gradient_colors": [
+            "#34341c",
+            "#3e4629"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        },
+        "3": {
+          "background_color": "#2d2f19",
+          "gradient_colors": [
+            "#2d2f19",
+            "#384026"
+          ]
+        }
+      },
+      "words_overrides": {
+        "2.0": {
+          "y": 0.5
+        },
+        "2.1": {
+          "y": 0.5
+        },
+        "2.2": {
+          "y": 0.5
+        },
+        "2.3": {
+          "y": 0.5
+        },
+        "3.0": {
+          "y": 0.5
+        },
+        "3.1": {
+          "y": 0.5
+        },
+        "3.2": {
+          "y": 0.5
+        },
+        "3.3": {
+          "y": 0.5
+        },
+        "3.4": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Hook",
+      "type": "post-hook",
+      "lines": [
+        4,
+        5,
+        6
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#33331b",
+        "gradient_colors": [
+          "#33331b",
+          "#333921"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1752
+      },
+      "lines_overrides": {
+        "4": {
+          "background_color": "#35351c",
+          "gradient_colors": [
+            "#35351c",
+            "#3f4729"
+          ]
+        },
+        "5": {
+          "font_size": 75,
+          "background_color": "#2f311a",
+          "gradient_colors": [
+            "#2f311a",
+            "#3a4227"
+          ]
+        },
+        "6": {
+          "background_color": "#35371d",
+          "gradient_colors": [
+            "#35371d",
+            "#3f482a"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      },
+      "words_overrides": {
+        "4.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "4.1": {
+          "y": 0.5
+        },
+        "4.2": {
+          "y": 0.5
+        },
+        "4.3": {
+          "y": 0.5
+        },
+        "4.4": {
+          "y": 0.5
+        },
+        "4.5": {
+          "y": 0.5
+        },
+        "4.6": {
+          "y": 0.5
+        },
+        "5.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "5.1": {
+          "y": 0.5
+        },
+        "5.2": {
+          "y": 0.5
+        },
+        "5.3": {
+          "y": 0.5
+        },
+        "6.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "6.1": {
+          "y": 0.5
+        },
+        "6.2": {
+          "y": 0.5
+        },
+        "6.3": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Verse",
+      "type": "verse",
+      "lines": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#191725",
+        "gradient_colors": [
+          "#191725",
+          "#2b2437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 126
+      },
+      "lines_overrides": {
+        "7": {
+          "text_align": "left",
+          "background_color": "#1a1827",
+          "gradient_colors": [
+            "#1a1827",
+            "#2d2538"
+          ]
+        },
+        "8": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#181623",
+          "gradient_colors": [
+            "#181623",
+            "#2a2335"
+          ]
+        },
+        "9": {
+          "text_align": "left",
+          "background_color": "#1a1827",
+          "gradient_colors": [
+            "#1a1827",
+            "#2d2639"
+          ]
+        },
+        "10": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#181523",
+          "gradient_colors": [
+            "#181523",
+            "#2a2334"
+          ]
+        },
+        "11": {
+          "text_align": "left",
+          "background_color": "#1b1828",
+          "gradient_colors": [
+            "#1b1828",
+            "#2e2639"
+          ]
+        },
+        "12": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#171523",
+          "gradient_colors": [
+            "#171523",
+            "#2a2234"
+          ]
+        },
+        "13": {
+          "text_align": "left",
+          "background_color": "#1b1928",
+          "gradient_colors": [
+            "#1b1928",
+            "#2e2639"
+          ]
+        },
+        "14": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#171522",
+          "gradient_colors": [
+            "#171522",
+            "#2a2234"
+          ]
+        },
+        "15": {
+          "text_align": "left",
+          "background_color": "#1c1928",
+          "gradient_colors": [
+            "#1c1928",
+            "#2f263a"
+          ]
+        },
+        "16": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#171522",
+          "gradient_colors": [
+            "#171522",
+            "#292233"
+          ]
+        }
+      },
+      "words_overrides": {
+        "7.4": {
+          "y": 0.8
+        },
+        "7.5": {
+          "y": 0.8
+        },
+        "7.6": {
+          "y": 0.8
+        },
+        "7.7": {
+          "y": 0.8
+        },
+        "7.8": {
+          "y": 0.8
+        },
+        "8.5": {
+          "y": 0.8
+        },
+        "8.6": {
+          "y": 0.8
+        },
+        "8.7": {
+          "y": 0.8
+        },
+        "8.8": {
+          "y": 0.8
+        },
+        "8.9": {
+          "y": 0.8
+        },
+        "9.4": {
+          "y": 0.8
+        },
+        "9.5": {
+          "y": 0.8
+        },
+        "9.6": {
+          "y": 0.8
+        },
+        "9.7": {
+          "y": 0.8
+        },
+        "9.8": {
+          "y": 0.8
+        },
+        "10.4": {
+          "y": 0.8
+        },
+        "10.5": {
+          "y": 0.8
+        },
+        "10.6": {
+          "y": 0.8
+        },
+        "10.7": {
+          "y": 0.8
+        },
+        "11.2": {
+          "y": 0.8
+        },
+        "11.3": {
+          "y": 0.8
+        },
+        "11.4": {
+          "y": 0.8
+        },
+        "11.5": {
+          "y": 0.8
+        },
+        "11.6": {
+          "y": 0.8
+        },
+        "11.7": {
+          "y": 0.8
+        },
+        "12.3": {
+          "y": 0.8
+        },
+        "12.4": {
+          "y": 0.8
+        },
+        "12.5": {
+          "y": 0.8
+        },
+        "12.6": {
+          "y": 0.8
+        },
+        "13.6": {
+          "y": 0.8
+        },
+        "13.7": {
+          "y": 0.8
+        },
+        "13.8": {
+          "y": 0.8
+        },
+        "13.9": {
+          "y": 0.8
+        },
+        "13.10": {
+          "y": 0.8
+        },
+        "14.3": {
+          "y": 0.8
+        },
+        "14.4": {
+          "y": 0.8
+        },
+        "14.5": {
+          "y": 0.8
+        },
+        "15.1": {
+          "y": 0.8
+        },
+        "15.2": {
+          "y": 0.8
+        },
+        "15.3": {
+          "y": 0.8
+        },
+        "15.4": {
+          "y": 0.8
+        },
+        "15.5": {
+          "y": 0.8
+        },
+        "16.2": {
+          "y": 0.8
+        },
+        "16.3": {
+          "y": 0.8
+        },
+        "16.4": {
+          "y": 0.8
+        },
+        "16.5": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Hook",
+      "type": "hook",
+      "lines": [
+        17,
+        18
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#32321b",
+        "gradient_colors": [
+          "#32321b",
+          "#333922"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1727
+      },
+      "lines_overrides": {
+        "17": {
+          "background_color": "#34341c",
+          "gradient_colors": [
+            "#34341c",
+            "#3e4629"
+          ]
+        },
+        "18": {
+          "background_color": "#2d2f19",
+          "gradient_colors": [
+            "#2d2f19",
+            "#384026"
+          ]
+        }
+      },
+      "words_overrides": {
+        "17.0": {
+          "y": 0.5
+        },
+        "17.1": {
+          "y": 0.5
+        },
+        "17.2": {
+          "y": 0.5
+        },
+        "17.3": {
+          "y": 0.5
+        },
+        "18.0": {
+          "y": 0.5
+        },
+        "18.1": {
+          "y": 0.5
+        },
+        "18.2": {
+          "y": 0.5
+        },
+        "18.3": {
+          "y": 0.5
+        },
+        "18.4": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Hook",
+      "type": "post-hook",
+      "lines": [
+        19,
+        20,
+        21
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#33341b",
+        "gradient_colors": [
+          "#33341b",
+          "#333921"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1712
+      },
+      "lines_overrides": {
+        "19": {
+          "background_color": "#35351c",
+          "gradient_colors": [
+            "#35351c",
+            "#3f4729"
+          ]
+        },
+        "20": {
+          "font_size": 75,
+          "background_color": "#30311a",
+          "gradient_colors": [
+            "#30311a",
+            "#3a4227"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        },
+        "21": {
+          "background_color": "#35371d",
+          "gradient_colors": [
+            "#35371d",
+            "#3f482a"
+          ]
+        }
+      },
+      "words_overrides": {
+        "19.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "19.1": {
+          "y": 0.5
+        },
+        "19.2": {
+          "y": 0.5
+        },
+        "19.3": {
+          "y": 0.5
+        },
+        "19.4": {
+          "y": 0.5
+        },
+        "19.5": {
+          "y": 0.5
+        },
+        "19.6": {
+          "y": 0.5
+        },
+        "20.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "20.1": {
+          "y": 0.5
+        },
+        "20.2": {
+          "y": 0.5
+        },
+        "20.3": {
+          "y": 0.5
+        },
+        "21.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "21.1": {
+          "y": 0.5
+        },
+        "21.2": {
+          "y": 0.5
+        },
+        "21.3": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Verse 2",
+      "type": "verse",
+      "lines": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#1b1726",
+        "gradient_colors": [
+          "#1b1726",
+          "#2e2437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 393
+      },
+      "lines_overrides": {
+        "22": {
+          "text_align": "left",
+          "background_color": "#1d1828",
+          "gradient_colors": [
+            "#1d1828",
+            "#302639"
+          ]
+        },
+        "23": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1a1624",
+          "gradient_colors": [
+            "#1a1624",
+            "#2d2335"
+          ]
+        },
+        "24": {
+          "text_align": "left",
+          "background_color": "#1d1828",
+          "gradient_colors": [
+            "#1d1828",
+            "#302639"
+          ]
+        },
+        "25": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1a1624",
+          "gradient_colors": [
+            "#1a1624",
+            "#2d2335"
+          ]
+        },
+        "26": {
+          "text_align": "left",
+          "background_color": "#1d1928",
+          "gradient_colors": [
+            "#1d1928",
+            "#31263a"
+          ]
+        },
+        "27": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1a1623",
+          "gradient_colors": [
+            "#1a1623",
+            "#2d2335"
+          ]
+        },
+        "28": {
+          "text_align": "left",
+          "background_color": "#1e1929",
+          "gradient_colors": [
+            "#1e1929",
+            "#31263a"
+          ]
+        },
+        "29": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#1a1523",
+          "gradient_colors": [
+            "#1a1523",
+            "#2c2334"
+          ]
+        },
+        "30": {
+          "text_align": "left",
+          "background_color": "#1e1929",
+          "gradient_colors": [
+            "#1e1929",
+            "#32273a"
+          ]
+        },
+        "31": {
+          "font_size": 71,
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#191523",
+          "gradient_colors": [
+            "#191523",
+            "#2c2234"
+          ]
+        }
+      },
+      "words_overrides": {
+        "22.4": {
+          "y": 0.8
+        },
+        "22.5": {
+          "y": 0.8
+        },
+        "22.6": {
+          "y": 0.8
+        },
+        "22.7": {
+          "y": 0.8
+        },
+        "22.8": {
+          "y": 0.8
+        },
+        "23.4": {
+          "y": 0.8
+        },
+        "23.5": {
+          "y": 0.8
+        },
+        "23.6": {
+          "y": 0.8
+        },
+        "23.7": {
+          "y": 0.8
+        },
+        "23.8": {
+          "y": 0.8
+        },
+        "23.9": {
+          "y": 0.8
+        },
+        "23.10": {
+          "y": 0.8
+        },
+        "23.11": {
+          "y": 0.8
+        },
+        "23.12": {
+          "y": 0.8
+        },
+        "24.5": {
+          "y": 0.8
+        },
+        "24.6": {
+          "y": 0.8
+        },
+        "24.7": {
+          "y": 0.8
+        },
+        "24.8": {
+          "y": 0.8
+        },
+        "25.6": {
+          "y": 0.8
+        },
+        "25.7": {
+          "y": 0.8
+        },
+        "25.8": {
+          "y": 0.8
+        },
+        "25.9": {
+          "y": 0.8
+        },
+        "25.10": {
+          "y": 0.8
+        },
+        "26.6": {
+          "y": 0.8
+        },
+        "26.7": {
+          "y": 0.8
+        },
+        "26.8": {
+          "y": 0.8
+        },
+        "26.9": {
+          "y": 0.8
+        },
+        "26.10": {
+          "y": 0.8
+        },
+        "27.5": {
+          "y": 0.8
+        },
+        "27.6": {
+          "y": 0.8
+        },
+        "27.7": {
+          "y": 0.8
+        },
+        "27.8": {
+          "y": 0.8
+        },
+        "27.9": {
+          "y": 0.8
+        },
+        "28.4": {
+          "y": 0.8
+        },
+        "28.5": {
+          "y": 0.8
+        },
+        "28.6": {
+          "y": 0.8
+        },
+        "28.7": {
+          "y": 0.8
+        },
+        "29.4": {
+          "y": 0.8
+        },
+        "29.5": {
+          "y": 0.8
+        },
+        "29.6": {
+          "y": 0.8
+        },
+        "29.7": {
+          "y": 0.8
+        },
+        "29.8": {
+          "y": 0.8
+        },
+        "29.9": {
+          "y": 0.8
+        },
+        "30.3": {
+          "y": 0.8
+        },
+        "30.4": {
+          "y": 0.8
+        },
+        "30.5": {
+          "y": 0.8
+        },
+        "30.6": {
+          "y": 0.8
+        },
+        "30.7": {
+          "y": 0.8
+        },
+        "30.8": {
+          "y": 0.8
+        },
+        "30.9": {
+          "y": 0.8
+        },
+        "30.10": {
+          "y": 0.8
+        },
+        "30.11": {
+          "y": 0.8
+        },
+        "31.3": {
+          "y": 0.5
+        },
+        "31.4": {
+          "y": 0.5
+        },
+        "31.5": {
+          "y": 0.8
+        },
+        "31.6": {
+          "y": 0.8
+        },
+        "31.7": {
+          "y": 0.8
+        },
+        "31.8": {
+          "y": 0.8
+        },
+        "31.9": {
+          "y": 0.8
+        },
+        "31.0": {
+          "y": 0.2
+        },
+        "31.1": {
+          "y": 0.2
+        },
+        "31.2": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Hook",
+      "type": "hook",
+      "lines": [
+        32,
+        33
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#32331b",
+        "gradient_colors": [
+          "#32331b",
+          "#333921"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1695
+      },
+      "lines_overrides": {
+        "32": {
+          "background_color": "#34351c",
+          "gradient_colors": [
+            "#34351c",
+            "#3e4629"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        },
+        "33": {
+          "background_color": "#2e2f19",
+          "gradient_colors": [
+            "#2e2f19",
+            "#384126"
+          ],
+          "reveal_mode": "progressive",
+          "reveal_words": 1
+        }
+      },
+      "words_overrides": {
+        "32.0": {
+          "y": 0.5
+        },
+        "32.1": {
+          "y": 0.5
+        },
+        "32.2": {
+          "y": 0.5
+        },
+        "32.3": {
+          "y": 0.5
+        },
+        "33.0": {
+          "y": 0.5
+        },
+        "33.1": {
+          "y": 0.5
+        },
+        "33.2": {
+          "y": 0.5
+        },
+        "33.3": {
+          "y": 0.5
+        },
+        "33.4": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Post-Hook",
+      "type": "post-hook",
+      "lines": [
+        34,
+        35,
+        36
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#33331b",
+        "gradient_colors": [
+          "#33331b",
+          "#333921"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.15,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "karaoke",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "bottom",
+        "animation_type": "bounce_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1689
+      },
+      "lines_overrides": {
+        "34": {
+          "background_color": "#35351c",
+          "gradient_colors": [
+            "#35351c",
+            "#3f4729"
+          ]
+        },
+        "35": {
+          "font_size": 75,
+          "background_color": "#30311a",
+          "gradient_colors": [
+            "#30311a",
+            "#3a4227"
+          ]
+        },
+        "36": {
+          "background_color": "#35371d",
+          "gradient_colors": [
+            "#35371d",
+            "#3f482a"
+          ]
+        }
+      },
+      "words_overrides": {
+        "34.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "34.1": {
+          "y": 0.5
+        },
+        "34.2": {
+          "y": 0.5
+        },
+        "34.3": {
+          "y": 0.5
+        },
+        "34.4": {
+          "y": 0.5
+        },
+        "34.5": {
+          "y": 0.5
+        },
+        "34.6": {
+          "y": 0.5
+        },
+        "35.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "35.1": {
+          "y": 0.5
+        },
+        "35.2": {
+          "y": 0.5
+        },
+        "35.3": {
+          "y": 0.5
+        },
+        "36.0": {
+          "y": 0.5,
+          "font_size_delta": 2
+        },
+        "36.1": {
+          "y": 0.5
+        },
+        "36.2": {
+          "y": 0.5
+        },
+        "36.3": {
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "name": "Bridge",
+      "type": "bridge",
+      "lines": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#1d1521",
+        "gradient_colors": [
+          "#1d1521",
+          "#312233"
+        ],
+        "texture_type": "vignette_soft",
+        "texture_opacity": 0.25,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "line-by-line",
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "top",
+        "animation_type": "slide_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "hologram",
+        "font_family": 1218
+      },
+      "lines_overrides": {
+        "37": {
+          "text_align": "center",
+          "background_color": "#1e1623",
+          "gradient_colors": [
+            "#1e1623",
+            "#322434"
+          ]
+        },
+        "38": {
+          "text_align": "center",
+          "background_color": "#1b141f",
+          "gradient_colors": [
+            "#1b141f",
+            "#2f2131"
+          ]
+        },
+        "39": {
+          "text_align": "center",
+          "background_color": "#1f1724",
+          "gradient_colors": [
+            "#1f1724",
+            "#332435"
+          ]
+        },
+        "40": {
+          "text_align": "center",
+          "background_color": "#1b131f",
+          "gradient_colors": [
+            "#1b131f",
+            "#2f2130"
+          ]
+        },
+        "41": {
+          "text_align": "center",
+          "background_color": "#201724",
+          "gradient_colors": [
+            "#201724",
+            "#342436"
+          ]
+        },
+        "42": {
+          "text_align": "center",
+          "background_color": "#1b131e",
+          "gradient_colors": [
+            "#1b131e",
+            "#2e202f"
+          ]
+        }
+      },
+      "words_overrides": {
+        "37.0": {
+          "y": 0.5
+        },
+        "37.1": {
+          "y": 0.5
+        },
+        "37.2": {
+          "y": 0.5
+        },
+        "37.3": {
+          "y": 0.5
+        },
+        "37.4": {
+          "y": 0.5
+        },
+        "37.5": {
+          "y": 0.8
+        },
+        "37.6": {
+          "y": 0.8
+        },
+        "37.7": {
+          "y": 0.8
+        },
+        "37.8": {
+          "y": 0.8
+        },
+        "37.9": {
+          "y": 0.8
+        },
+        "38.0": {
+          "y": 0.5
+        },
+        "38.1": {
+          "y": 0.5
+        },
+        "38.2": {
+          "y": 0.5
+        },
+        "38.3": {
+          "y": 0.5
+        },
+        "38.4": {
+          "y": 0.5
+        },
+        "38.5": {
+          "y": 0.5
+        },
+        "38.6": {
+          "y": 0.8
+        },
+        "38.7": {
+          "y": 0.8
+        },
+        "38.8": {
+          "y": 0.8
+        },
+        "38.9": {
+          "y": 0.8
+        },
+        "39.0": {
+          "y": 0.5
+        },
+        "39.1": {
+          "y": 0.5
+        },
+        "39.2": {
+          "y": 0.5
+        },
+        "39.3": {
+          "y": 0.5
+        },
+        "39.4": {
+          "y": 0.5
+        },
+        "39.5": {
+          "y": 0.5
+        },
+        "39.6": {
+          "y": 0.5
+        },
+        "39.7": {
+          "y": 0.5
+        },
+        "39.8": {
+          "y": 0.5
+        },
+        "39.9": {
+          "y": 0.8
+        },
+        "39.10": {
+          "y": 0.8
+        },
+        "40.0": {
+          "y": 0.5
+        },
+        "40.1": {
+          "y": 0.5
+        },
+        "40.2": {
+          "y": 0.5
+        },
+        "40.3": {
+          "y": 0.8
+        },
+        "40.4": {
+          "y": 0.8
+        },
+        "40.5": {
+          "y": 0.8
+        },
+        "40.6": {
+          "y": 0.8
+        },
+        "40.7": {
+          "y": 0.8
+        },
+        "40.8": {
+          "y": 0.8
+        },
+        "40.9": {
+          "y": 0.8
+        },
+        "40.10": {
+          "y": 0.8
+        },
+        "41.0": {
+          "y": 0.2
+        },
+        "41.1": {
+          "y": 0.2
+        },
+        "41.2": {
+          "y": 0.2
+        },
+        "41.3": {
+          "y": 0.5
+        },
+        "41.4": {
+          "y": 0.5
+        },
+        "41.5": {
+          "y": 0.5
+        },
+        "41.6": {
+          "y": 0.5
+        },
+        "41.7": {
+          "y": 0.5
+        },
+        "41.8": {
+          "y": 0.5
+        },
+        "41.9": {
+          "y": 0.8
+        },
+        "41.10": {
+          "y": 0.8
+        },
+        "41.11": {
+          "y": 0.8
+        },
+        "41.12": {
+          "y": 0.8
+        },
+        "41.13": {
+          "y": 0.8
+        },
+        "41.14": {
+          "y": 0.8
+        },
+        "42.0": {
+          "y": 0.2
+        },
+        "42.1": {
+          "y": 0.2
+        },
+        "42.2": {
+          "y": 0.2
+        },
+        "42.3": {
+          "y": 0.5
+        },
+        "42.4": {
+          "y": 0.5
+        },
+        "42.5": {
+          "y": 0.5
+        },
+        "42.6": {
+          "y": 0.5
+        },
+        "42.7": {
+          "y": 0.8
+        },
+        "42.8": {
+          "y": 0.8
+        },
+        "42.9": {
+          "y": 0.8
+        },
+        "42.10": {
+          "y": 0.8
+        },
+        "42.11": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Interlude",
+      "type": "interlude",
+      "lines": [
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#271828",
+        "gradient_colors": [
+          "#271828",
+          "#372434"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 618
+      },
+      "lines_overrides": {
+        "43": {
+          "text_align": "left",
+          "background_color": "#28192a",
+          "gradient_colors": [
+            "#28192a",
+            "#3b2738"
+          ]
+        },
+        "44": {
+          "text_align": "left",
+          "background_color": "#251727",
+          "gradient_colors": [
+            "#251727",
+            "#382435"
+          ]
+        },
+        "45": {
+          "text_align": "left",
+          "background_color": "#29192a",
+          "gradient_colors": [
+            "#29192a",
+            "#3c2738"
+          ]
+        },
+        "46": {
+          "text_align": "left",
+          "background_color": "#251726",
+          "gradient_colors": [
+            "#251726",
+            "#382435"
+          ]
+        },
+        "47": {
+          "text_align": "left",
+          "background_color": "#29192a",
+          "gradient_colors": [
+            "#29192a",
+            "#3c2738"
+          ]
+        },
+        "48": {
+          "text_align": "left",
+          "background_color": "#251726",
+          "gradient_colors": [
+            "#251726",
+            "#382435"
+          ]
+        },
+        "49": {
+          "text_align": "left",
+          "background_color": "#29192b",
+          "gradient_colors": [
+            "#29192b",
+            "#3c2739"
+          ]
+        },
+        "50": {
+          "text_align": "left",
+          "background_color": "#251726",
+          "gradient_colors": [
+            "#251726",
+            "#372434"
+          ]
+        },
+        "51": {
+          "text_align": "left",
+          "background_color": "#291a2b",
+          "gradient_colors": [
+            "#291a2b",
+            "#3c2739"
+          ]
+        },
+        "52": {
+          "text_align": "left",
+          "background_color": "#251726",
+          "gradient_colors": [
+            "#251726",
+            "#372434"
+          ]
+        },
+        "53": {
+          "text_align": "left",
+          "background_color": "#2a1a2b",
+          "gradient_colors": [
+            "#2a1a2b",
+            "#3c2739"
+          ]
+        },
+        "54": {
+          "text_align": "left",
+          "background_color": "#251726",
+          "gradient_colors": [
+            "#251726",
+            "#372434"
+          ]
+        },
+        "55": {
+          "text_align": "left",
+          "background_color": "#2a1a2b",
+          "gradient_colors": [
+            "#2a1a2b",
+            "#3c2739"
+          ]
+        },
+        "56": {
+          "text_align": "left",
+          "background_color": "#251626",
+          "gradient_colors": [
+            "#251626",
+            "#372434"
+          ]
+        },
+        "57": {
+          "text_align": "left",
+          "background_color": "#2a1a2b",
+          "gradient_colors": [
+            "#2a1a2b",
+            "#3c2739"
+          ]
+        },
+        "58": {
+          "text_align": "left",
+          "background_color": "#241625",
+          "gradient_colors": [
+            "#241625",
+            "#372433"
+          ]
+        },
+        "59": {
+          "text_align": "left",
+          "background_color": "#2a1a2b",
+          "gradient_colors": [
+            "#2a1a2b",
+            "#3d2739"
+          ]
+        },
+        "60": {
+          "text_align": "left",
+          "background_color": "#241625",
+          "gradient_colors": [
+            "#241625",
+            "#372433"
+          ]
+        },
+        "61": {
+          "text_align": "left",
+          "background_color": "#2a1a2c",
+          "gradient_colors": [
+            "#2a1a2c",
+            "#3d2739"
+          ]
+        },
+        "62": {
+          "text_align": "left",
+          "background_color": "#241625",
+          "gradient_colors": [
+            "#241625",
+            "#372333"
+          ]
+        },
+        "63": {
+          "text_align": "left",
+          "background_color": "#2b1a2c",
+          "gradient_colors": [
+            "#2b1a2c",
+            "#3d2839"
+          ]
+        },
+        "64": {
+          "text_align": "left",
+          "background_color": "#241625",
+          "gradient_colors": [
+            "#241625",
+            "#362333"
+          ]
+        },
+        "65": {
+          "text_align": "left",
+          "background_color": "#2b1a2c",
+          "gradient_colors": [
+            "#2b1a2c",
+            "#3d2839"
+          ]
+        }
+      },
+      "words_overrides": {
+        "43.4": {
+          "y": 0.8
+        },
+        "43.5": {
+          "y": 0.8
+        },
+        "43.6": {
+          "y": 0.8
+        },
+        "43.7": {
+          "y": 0.8
+        },
+        "44.4": {
+          "y": 0.8
+        },
+        "44.5": {
+          "y": 0.8
+        },
+        "44.6": {
+          "y": 0.8
+        },
+        "44.7": {
+          "y": 0.8
+        },
+        "45.4": {
+          "y": 0.8
+        },
+        "45.5": {
+          "y": 0.8
+        },
+        "45.6": {
+          "y": 0.8
+        },
+        "45.7": {
+          "y": 0.8
+        },
+        "46.4": {
+          "y": 0.8
+        },
+        "46.5": {
+          "y": 0.8
+        },
+        "46.6": {
+          "y": 0.8
+        },
+        "46.7": {
+          "y": 0.8
+        },
+        "47.4": {
+          "y": 0.8
+        },
+        "47.5": {
+          "y": 0.8
+        },
+        "47.6": {
+          "y": 0.8
+        },
+        "47.7": {
+          "y": 0.8
+        },
+        "48.4": {
+          "y": 0.8
+        },
+        "48.5": {
+          "y": 0.8
+        },
+        "48.6": {
+          "y": 0.8
+        },
+        "48.7": {
+          "y": 0.8
+        },
+        "49.4": {
+          "y": 0.8
+        },
+        "49.5": {
+          "y": 0.8
+        },
+        "49.6": {
+          "y": 0.8
+        },
+        "49.7": {
+          "y": 0.8
+        },
+        "50.4": {
+          "y": 0.8
+        },
+        "50.5": {
+          "y": 0.8
+        },
+        "50.6": {
+          "y": 0.8
+        },
+        "50.7": {
+          "y": 0.8
+        },
+        "51.4": {
+          "y": 0.8
+        },
+        "51.5": {
+          "y": 0.8
+        },
+        "51.6": {
+          "y": 0.8
+        },
+        "51.7": {
+          "y": 0.8
+        },
+        "52.4": {
+          "y": 0.8
+        },
+        "52.5": {
+          "y": 0.8
+        },
+        "52.6": {
+          "y": 0.8
+        },
+        "52.7": {
+          "y": 0.8
+        },
+        "53.4": {
+          "y": 0.8
+        },
+        "53.5": {
+          "y": 0.8
+        },
+        "53.6": {
+          "y": 0.8
+        },
+        "53.7": {
+          "y": 0.8
+        },
+        "54.4": {
+          "y": 0.8
+        },
+        "54.5": {
+          "y": 0.8
+        },
+        "54.6": {
+          "y": 0.8
+        },
+        "54.7": {
+          "y": 0.8
+        },
+        "65.4": {
+          "y": 0.8
+        },
+        "65.5": {
+          "y": 0.8
+        },
+        "65.6": {
+          "y": 0.8
+        },
+        "65.7": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Outro",
+      "type": "outro",
+      "lines": [
+        66,
+        67
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#1f1e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "fade_out",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1229
+      },
+      "lines_overrides": {
+        "66": {
+          "font_size": 69,
+          "text_align": "left",
+          "background_color": "#121319",
+          "gradient_colors": [
+            "#121319",
+            "#211f2a"
+          ]
+        },
+        "67": {
+          "font_size": 72,
+          "text_align": "left",
+          "background_color": "#0e0f14",
+          "gradient_colors": [
+            "#0e0f14",
+            "#1d1c25"
+          ]
+        }
+      },
+      "words_overrides": {
+        "66.0": {
+          "y": 0.2
+        },
+        "66.1": {
+          "y": 0.2
+        },
+        "66.2": {
+          "y": 0.2
+        },
+        "67.0": {
+          "y": 0.5
+        },
+        "67.1": {
+          "y": 0.5
+        },
+        "67.2": {
+          "y": 0.5
+        },
+        "67.3": {
+          "y": 0.5
+        },
+        "66.3": {
+          "y": 0.2
+        },
+        "66.4": {
+          "y": 0.5
+        },
+        "66.5": {
+          "y": 0.5
+        },
+        "66.6": {
+          "y": 0.5
+        },
+        "66.7": {
+          "y": 0.5
+        },
+        "66.8": {
+          "y": 0.5
+        },
+        "66.9": {
+          "y": 0.8
+        },
+        "66.10": {
+          "y": 0.8
+        },
+        "66.11": {
+          "y": 0.8
+        },
+        "66.12": {
+          "y": 0.8
+        },
+        "66.13": {
+          "y": 0.8
+        },
+        "66.14": {
+          "y": 0.8
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,703 @@
+{
+  "name": "here-goes",
+  "defaults": {
+    "background_type": "gradient",
+    "background_color": "#111117",
+    "gradient_colors": [
+      "#111117",
+      "#211e29"
+    ],
+    "gradient_direction": "diagonal_tl_br",
+    "texture_type": "vignette_heavy",
+    "texture_opacity": 0.2,
+    "texture_blend_mode": "multiply",
+    "text_auto_contrast": true,
+    "font_size": 112,
+    "animation_type": "fade",
+    "animation_speed": 1.0,
+    "reveal_mode": "progressive",
+    "reveal_words": 1,
+    "reveal_slide": false,
+    "reactivity": [
+      "vocals"
+    ],
+    "text_align": "center"
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#4cc9f0",
+    "text_position": "center",
+    "letter_spacing": 1,
+    "text_shadow": false,
+    "outline": false
+  },
+  "sections": [
+    {
+      "name": "Intro",
+      "type": "intro",
+      "lines": [
+        0
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 10
+      },
+      "lines_overrides": {
+        "0": {
+          "background_color": "#111117",
+          "gradient_colors": [
+            "#111117",
+            "#211e29"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Verse 1",
+      "type": "verse",
+      "lines": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#171521",
+        "gradient_colors": [
+          "#171521",
+          "#292232"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 35
+      },
+      "lines_overrides": {
+        "1": {
+          "background_color": "#191723",
+          "gradient_colors": [
+            "#191723",
+            "#2c2434"
+          ]
+        },
+        "2": {
+          "font_size": 71,
+          "background_color": "#15131e",
+          "gradient_colors": [
+            "#15131e",
+            "#27202f"
+          ]
+        },
+        "3": {
+          "background_color": "#191724",
+          "gradient_colors": [
+            "#191724",
+            "#2c2435"
+          ]
+        },
+        "4": {
+          "font_size": 71,
+          "background_color": "#15131d",
+          "gradient_colors": [
+            "#15131d",
+            "#27202e"
+          ]
+        },
+        "5": {
+          "background_color": "#1a1724",
+          "gradient_colors": [
+            "#1a1724",
+            "#2d2535"
+          ]
+        },
+        "6": {
+          "font_size": 71,
+          "background_color": "#14121d",
+          "gradient_colors": [
+            "#14121d",
+            "#26202e"
+          ]
+        },
+        "7": {
+          "background_color": "#1a1825",
+          "gradient_colors": [
+            "#1a1825",
+            "#2d2536"
+          ]
+        },
+        "8": {
+          "font_size": 71,
+          "background_color": "#14121c",
+          "gradient_colors": [
+            "#14121c",
+            "#261f2d"
+          ]
+        },
+        "9": {
+          "background_color": "#1b1825",
+          "gradient_colors": [
+            "#1b1825",
+            "#2e2536"
+          ]
+        },
+        "10": {
+          "font_size": 71,
+          "background_color": "#14121c",
+          "gradient_colors": [
+            "#14121c",
+            "#261f2d"
+          ]
+        },
+        "11": {
+          "background_color": "#1b1826",
+          "gradient_colors": [
+            "#1b1826",
+            "#2e2637"
+          ]
+        },
+        "12": {
+          "font_size": 71,
+          "background_color": "#14111b",
+          "gradient_colors": [
+            "#14111b",
+            "#261f2d"
+          ]
+        },
+        "13": {
+          "text_position": "bottom",
+          "background_color": "#1c1826",
+          "gradient_colors": [
+            "#1c1826",
+            "#2f2637"
+          ]
+        }
+      },
+      "words_overrides": {
+        "3.1": {
+          "y": 0.8
+        },
+        "3.2": {
+          "y": 0.8
+        },
+        "3.3": {
+          "y": 0.8
+        },
+        "3.4": {
+          "y": 0.8
+        },
+        "3.5": {
+          "y": 0.8
+        },
+        "6.3": {
+          "y": 0.8
+        },
+        "6.4": {
+          "y": 0.8
+        },
+        "6.5": {
+          "y": 0.8
+        },
+        "12.4": {
+          "y": 0.8
+        },
+        "12.5": {
+          "y": 0.8
+        },
+        "12.6": {
+          "y": 0.8
+        },
+        "12.7": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Verse 2",
+      "type": "verse",
+      "lines": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#1a1623",
+        "gradient_colors": [
+          "#1a1623",
+          "#2e2334"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 83
+      },
+      "lines_overrides": {
+        "14": {
+          "text_align": "left",
+          "background_color": "#1c1826",
+          "gradient_colors": [
+            "#1c1826",
+            "#302537"
+          ]
+        },
+        "15": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#181420",
+          "gradient_colors": [
+            "#181420",
+            "#2b2131"
+          ]
+        },
+        "16": {
+          "text_align": "left",
+          "background_color": "#1d1826",
+          "gradient_colors": [
+            "#1d1826",
+            "#312537"
+          ]
+        },
+        "17": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#18141f",
+          "gradient_colors": [
+            "#18141f",
+            "#2b2131"
+          ]
+        },
+        "18": {
+          "text_align": "left",
+          "background_color": "#1d1827",
+          "gradient_colors": [
+            "#1d1827",
+            "#312638"
+          ]
+        },
+        "19": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#18131f",
+          "gradient_colors": [
+            "#18131f",
+            "#2b2130"
+          ]
+        },
+        "20": {
+          "text_align": "left",
+          "background_color": "#1e1927",
+          "gradient_colors": [
+            "#1e1927",
+            "#322638"
+          ]
+        },
+        "21": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#17131e",
+          "gradient_colors": [
+            "#17131e",
+            "#2b2030"
+          ]
+        },
+        "22": {
+          "text_align": "left",
+          "background_color": "#1e1928",
+          "gradient_colors": [
+            "#1e1928",
+            "#332639"
+          ]
+        },
+        "23": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#17131e",
+          "gradient_colors": [
+            "#17131e",
+            "#2a202f"
+          ]
+        },
+        "24": {
+          "text_align": "left",
+          "background_color": "#1f1928",
+          "gradient_colors": [
+            "#1f1928",
+            "#332739"
+          ]
+        },
+        "25": {
+          "font_size": 71,
+          "text_align": "left",
+          "background_color": "#17121d",
+          "gradient_colors": [
+            "#17121d",
+            "#2a202f"
+          ]
+        },
+        "26": {
+          "text_position": "bottom",
+          "text_align": "left",
+          "background_color": "#1f1929",
+          "gradient_colors": [
+            "#1f1929",
+            "#34273a"
+          ]
+        }
+      },
+      "words_overrides": {
+        "15.3": {
+          "y": 0.8
+        },
+        "15.4": {
+          "y": 0.8
+        },
+        "15.5": {
+          "y": 0.8
+        },
+        "15.6": {
+          "y": 0.8
+        },
+        "16.4": {
+          "y": 0.8
+        },
+        "16.5": {
+          "y": 0.8
+        },
+        "16.6": {
+          "y": 0.8
+        },
+        "16.7": {
+          "y": 0.8
+        },
+        "21.4": {
+          "y": 0.8
+        },
+        "21.5": {
+          "y": 0.8
+        },
+        "21.6": {
+          "y": 0.8
+        },
+        "21.7": {
+          "y": 0.8
+        },
+        "21.8": {
+          "y": 0.8
+        },
+        "22.4": {
+          "y": 0.8
+        },
+        "22.5": {
+          "y": 0.8
+        },
+        "22.6": {
+          "y": 0.8
+        },
+        "22.7": {
+          "y": 0.8
+        },
+        "22.8": {
+          "y": 0.8
+        },
+        "24.4": {
+          "y": 0.8
+        },
+        "24.5": {
+          "y": 0.8
+        },
+        "24.6": {
+          "y": 0.8
+        },
+        "24.7": {
+          "y": 0.8
+        },
+        "25.4": {
+          "y": 0.8
+        },
+        "25.5": {
+          "y": 0.8
+        },
+        "25.6": {
+          "y": 0.8
+        },
+        "25.7": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Bridge/Interlude",
+      "type": "bridge/interlude",
+      "lines": [
+        27,
+        28
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#19121c",
+        "gradient_colors": [
+          "#19121c",
+          "#2d202c"
+        ],
+        "texture_type": "vignette_soft",
+        "texture_opacity": 0.4,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "line-by-line",
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "slide_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "hologram",
+        "font_family": 911
+      },
+      "lines_overrides": {
+        "27": {
+          "text_align": "center",
+          "background_color": "#1c141e",
+          "gradient_colors": [
+            "#1c141e",
+            "#2f222f"
+          ]
+        },
+        "28": {
+          "text_align": "center",
+          "background_color": "#150f16",
+          "gradient_colors": [
+            "#150f16",
+            "#271c26"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Verse 3",
+      "type": "verse",
+      "lines": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#1f1726",
+        "gradient_colors": [
+          "#1f1726",
+          "#332437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 191
+      },
+      "lines_overrides": {
+        "29": {
+          "background_color": "#211929",
+          "gradient_colors": [
+            "#211929",
+            "#36263a"
+          ]
+        },
+        "30": {
+          "font_size": 71,
+          "background_color": "#1c1523",
+          "gradient_colors": [
+            "#1c1523",
+            "#312234"
+          ]
+        },
+        "31": {
+          "background_color": "#221929",
+          "gradient_colors": [
+            "#221929",
+            "#37273b"
+          ]
+        },
+        "32": {
+          "font_size": 71,
+          "background_color": "#1c1522",
+          "gradient_colors": [
+            "#1c1522",
+            "#302233"
+          ]
+        },
+        "33": {
+          "background_color": "#231a2a",
+          "gradient_colors": [
+            "#231a2a",
+            "#38273b"
+          ]
+        },
+        "34": {
+          "font_size": 71,
+          "background_color": "#1b1421",
+          "gradient_colors": [
+            "#1b1421",
+            "#302133"
+          ]
+        },
+        "35": {
+          "background_color": "#231a2b",
+          "gradient_colors": [
+            "#231a2b",
+            "#39283c"
+          ]
+        },
+        "36": {
+          "font_size": 71,
+          "background_color": "#1b1421",
+          "gradient_colors": [
+            "#1b1421",
+            "#2f2132"
+          ]
+        },
+        "37": {
+          "text_position": "bottom",
+          "background_color": "#241b2c",
+          "gradient_colors": [
+            "#241b2c",
+            "#3a283d"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Outro",
+      "type": "outro",
+      "lines": [
+        38
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#101117",
+        "gradient_colors": [
+          "#101117",
+          "#201e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.35,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "bottom",
+        "animation_type": "fade_out",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1041
+      },
+      "lines_overrides": {
+        "38": {
+          "text_align": "left",
+          "background_color": "#101117",
+          "gradient_colors": [
+            "#101117",
+            "#201e29"
+          ]
+        }
+      },
+      "words_overrides": {
+        "38.0": {
+          "y": 0.5
+        },
+        "38.1": {
+          "y": 0.5
+        },
+        "38.2": {
+          "y": 0.5
+        }
+      }
+    }
+  ]
+}

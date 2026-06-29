@@ -1,0 +1,764 @@
+{
+  "name": "THE AS I EVOLVE PROVERB",
+  "defaults": {
+    "background_type": "gradient",
+    "background_color": "#1b1829",
+    "gradient_colors": [
+      "#1b1829",
+      "#2d2437"
+    ],
+    "gradient_direction": "diagonal_tl_br",
+    "texture_type": "vignette_heavy",
+    "texture_opacity": 0.2,
+    "texture_blend_mode": "multiply",
+    "text_auto_contrast": true,
+    "font_size": 112,
+    "animation_type": "fade",
+    "animation_speed": 1.0,
+    "reveal_mode": "progressive",
+    "reveal_words": 1,
+    "reveal_slide": false,
+    "reactivity": [
+      "vocals"
+    ],
+    "text_align": "center"
+  },
+  "caption_style": {
+    "font_family": 0,
+    "highlight_color": "#4cc9f0",
+    "text_position": "center",
+    "letter_spacing": 1,
+    "text_shadow": false,
+    "outline": false
+  },
+  "sections": [
+    {
+      "name": "Atom 1",
+      "type": "atom",
+      "lines": [
+        0,
+        1,
+        2
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#1b1829",
+        "gradient_colors": [
+          "#1b1829",
+          "#2d2437"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.2,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "vocals"
+        ],
+        "text_position": "center",
+        "animation_type": "fade_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1
+      },
+      "lines_overrides": {
+        "0": {
+          "background_color": "#1d1a2c",
+          "gradient_colors": [
+            "#1d1a2c",
+            "#31273d"
+          ]
+        },
+        "1": {
+          "font_size": 71,
+          "background_color": "#191625",
+          "gradient_colors": [
+            "#191625",
+            "#2c2336"
+          ]
+        },
+        "2": {
+          "background_color": "#201c2f",
+          "gradient_colors": [
+            "#201c2f",
+            "#352940"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Atom 2",
+      "type": "atom",
+      "lines": [
+        3,
+        4
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1771
+      },
+      "lines_overrides": {
+        "3": {
+          "text_align": "left",
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212a"
+          ]
+        },
+        "4": {
+          "text_align": "left",
+          "background_color": "#0d0d12",
+          "gradient_colors": [
+            "#0d0d12",
+            "#1d1b23"
+          ]
+        }
+      },
+      "words_overrides": {
+        "4.0": {
+          "y": 0.5
+        },
+        "4.1": {
+          "y": 0.5
+        },
+        "4.2": {
+          "y": 0.5
+        },
+        "4.3": {
+          "y": 0.8
+        },
+        "4.4": {
+          "y": 0.8
+        },
+        "4.5": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Atom 3",
+      "type": "atom",
+      "lines": [
+        5,
+        6
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1752
+      },
+      "lines_overrides": {
+        "5": {
+          "text_align": "left",
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212a"
+          ]
+        },
+        "6": {
+          "text_align": "left",
+          "background_color": "#0d0d12",
+          "gradient_colors": [
+            "#0d0d12",
+            "#1d1b23"
+          ]
+        }
+      },
+      "words_overrides": {
+        "5.0": {
+          "y": 0.5
+        },
+        "5.1": {
+          "y": 0.5
+        },
+        "5.2": {
+          "y": 0.5
+        },
+        "5.3": {
+          "y": 0.8
+        },
+        "5.4": {
+          "y": 0.8
+        },
+        "5.5": {
+          "y": 0.8
+        },
+        "6.0": {
+          "y": 0.5
+        },
+        "6.1": {
+          "y": 0.5
+        },
+        "6.2": {
+          "y": 0.5
+        },
+        "6.3": {
+          "y": 0.8
+        },
+        "6.4": {
+          "y": 0.8
+        },
+        "6.5": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Atom 4",
+      "type": "atom",
+      "lines": [
+        7,
+        8,
+        9
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1749
+      },
+      "lines_overrides": {
+        "7": {
+          "text_align": "left",
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212a"
+          ]
+        },
+        "8": {
+          "text_align": "left",
+          "background_color": "#0e0e13",
+          "gradient_colors": [
+            "#0e0e13",
+            "#1e1c24"
+          ]
+        },
+        "9": {
+          "text_align": "left",
+          "background_color": "#15151c",
+          "gradient_colors": [
+            "#15151c",
+            "#26232d"
+          ]
+        }
+      },
+      "words_overrides": {
+        "7.0": {
+          "y": 0.5
+        },
+        "7.1": {
+          "y": 0.5
+        },
+        "7.2": {
+          "y": 0.5
+        },
+        "7.3": {
+          "y": 0.5
+        },
+        "7.4": {
+          "y": 0.8
+        },
+        "7.5": {
+          "y": 0.8
+        },
+        "7.6": {
+          "y": 0.8
+        },
+        "7.7": {
+          "y": 0.8
+        },
+        "8.0": {
+          "y": 0.5
+        },
+        "8.1": {
+          "y": 0.5
+        },
+        "8.2": {
+          "y": 0.5
+        },
+        "8.3": {
+          "y": 0.5
+        },
+        "8.4": {
+          "y": 0.8
+        },
+        "8.5": {
+          "y": 0.8
+        },
+        "8.6": {
+          "y": 0.8
+        },
+        "8.7": {
+          "y": 0.8
+        },
+        "8.8": {
+          "y": 0.8
+        },
+        "8.9": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Atom 5",
+      "type": "atom",
+      "lines": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1727
+      },
+      "lines_overrides": {
+        "10": {
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212a"
+          ]
+        },
+        "11": {
+          "background_color": "#0e0e14",
+          "gradient_colors": [
+            "#0e0e14",
+            "#1f1c25"
+          ]
+        },
+        "12": {
+          "background_color": "#14141b",
+          "gradient_colors": [
+            "#14141b",
+            "#25222c"
+          ]
+        },
+        "13": {
+          "background_color": "#0e0d12",
+          "gradient_colors": [
+            "#0e0d12",
+            "#1e1b23"
+          ]
+        },
+        "14": {
+          "background_color": "#15151c",
+          "gradient_colors": [
+            "#15151c",
+            "#26232d"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Atom 6",
+      "type": "atom",
+      "lines": [
+        15,
+        16
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "vertical_top_bottom",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1712
+      },
+      "lines_overrides": {
+        "15": {
+          "text_align": "left",
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212a"
+          ]
+        },
+        "16": {
+          "text_align": "left",
+          "background_color": "#0d0d12",
+          "gradient_colors": [
+            "#0d0d12",
+            "#1d1b23"
+          ]
+        }
+      },
+      "words_overrides": {
+        "16.0": {
+          "y": 0.5
+        },
+        "16.1": {
+          "y": 0.5
+        },
+        "16.2": {
+          "y": 0.5
+        },
+        "16.3": {
+          "y": 0.8
+        },
+        "16.4": {
+          "y": 0.8
+        },
+        "16.5": {
+          "y": 0.8
+        },
+        "16.6": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Atom 7",
+      "type": "atom",
+      "lines": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tr_bl",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1698
+      },
+      "lines_overrides": {
+        "17": {
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212a"
+          ]
+        },
+        "18": {
+          "background_color": "#0e0e14",
+          "gradient_colors": [
+            "#0e0e14",
+            "#1f1c25"
+          ]
+        },
+        "19": {
+          "background_color": "#14141b",
+          "gradient_colors": [
+            "#14141b",
+            "#25222c"
+          ]
+        },
+        "20": {
+          "background_color": "#0e0d12",
+          "gradient_colors": [
+            "#0e0d12",
+            "#1e1b23"
+          ]
+        },
+        "21": {
+          "background_color": "#15151c",
+          "gradient_colors": [
+            "#15151c",
+            "#26232d"
+          ]
+        }
+      },
+      "words_overrides": {
+        "18.0": {
+          "y": 0.5
+        },
+        "18.1": {
+          "y": 0.8
+        },
+        "18.2": {
+          "y": 0.8
+        },
+        "18.3": {
+          "y": 0.8
+        },
+        "18.4": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Atom 8",
+      "type": "atom",
+      "lines": [
+        22,
+        23,
+        24
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "horizontal_left_right",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1695
+      },
+      "lines_overrides": {
+        "22": {
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212a"
+          ]
+        },
+        "23": {
+          "background_color": "#0e0e13",
+          "gradient_colors": [
+            "#0e0e13",
+            "#1e1c24"
+          ]
+        },
+        "24": {
+          "background_color": "#15151c",
+          "gradient_colors": [
+            "#15151c",
+            "#26232d"
+          ]
+        }
+      },
+      "words_overrides": {
+        "23.0": {
+          "y": 0.5
+        },
+        "23.1": {
+          "y": 0.8
+        },
+        "23.2": {
+          "y": 0.8
+        },
+        "23.3": {
+          "y": 0.8
+        },
+        "23.4": {
+          "y": 0.8
+        },
+        "23.5": {
+          "y": 0.8
+        }
+      }
+    },
+    {
+      "name": "Atom 9",
+      "type": "atom",
+      "lines": [
+        25,
+        26
+      ],
+      "visual": {
+        "background_type": "gradient",
+        "gradient_direction": "diagonal_tl_br",
+        "background_color": "#111117",
+        "gradient_colors": [
+          "#111117",
+          "#211e29"
+        ],
+        "texture_type": "vignette_heavy",
+        "texture_opacity": 0.5,
+        "texture_blend_mode": "multiply",
+        "font_size": 72,
+        "reveal_mode": "progressive",
+        "reveal_words": 1,
+        "reactivity": [
+          "energy"
+        ],
+        "text_position": "top",
+        "animation_type": "scale_in",
+        "animation_speed": 1.0,
+        "bg_animation_preset": "minimal",
+        "text_style": "neon",
+        "font_family": 1689
+      },
+      "lines_overrides": {
+        "25": {
+          "text_align": "left",
+          "background_color": "#13131a",
+          "gradient_colors": [
+            "#13131a",
+            "#23212a"
+          ]
+        },
+        "26": {
+          "text_align": "left",
+          "background_color": "#0d0d12",
+          "gradient_colors": [
+            "#0d0d12",
+            "#1d1b23"
+          ]
+        }
+      },
+      "words_overrides": {
+        "25.0": {
+          "y": 0.5
+        },
+        "25.1": {
+          "y": 0.5
+        },
+        "25.2": {
+          "y": 0.5
+        },
+        "25.3": {
+          "y": 0.8
+        },
+        "25.4": {
+          "y": 0.8
+        },
+        "25.5": {
+          "y": 0.8
+        },
+        "26.0": {
+          "y": 0.5
+        },
+        "26.1": {
+          "y": 0.5
+        },
+        "26.2": {
+          "y": 0.5
+        },
+        "26.3": {
+          "y": 0.8
+        },
+        "26.4": {
+          "y": 0.8
+        },
+        "26.5": {
+          "y": 0.8
+        }
+      }
+    }
+  ]
+}

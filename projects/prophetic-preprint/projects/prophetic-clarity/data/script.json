@@ -49,11 +49,14 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
-        "background_color": "#111117",
+        "gradient_direction": "cross",
+        "background_color": "#020203",
         "gradient_colors": [
-          "#111117",
-          "#211e29"
+          "#020203",
+          "#312259",
+          "#040405",
+          "#212145",
+          "#030304"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.5,
@@ -64,7 +67,7 @@
         "reactivity": [
           "energy"
         ],
-        "text_position": "top",
+        "text_position": "center",
         "animation_type": "scale_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "minimal",
@@ -73,236 +76,186 @@
       },
       "lines_overrides": {
         "0": {
-          "text_align": "left",
-          "background_color": "#121219",
-          "gradient_colors": [
-            "#121219",
-            "#22202a"
-          ]
+          "text_align": "left"
         },
         "1": {
-          "text_align": "left",
-          "background_color": "#0f0f15",
-          "gradient_colors": [
-            "#0f0f15",
-            "#1f1d26"
-          ]
+          "text_align": "left"
         },
         "2": {
-          "text_align": "left",
-          "background_color": "#121219",
-          "gradient_colors": [
-            "#121219",
-            "#23202a"
-          ]
+          "text_align": "left"
         },
         "3": {
-          "text_align": "left",
-          "background_color": "#0f0f15",
-          "gradient_colors": [
-            "#0f0f15",
-            "#1f1d26"
-          ]
+          "text_align": "left"
         },
         "4": {
-          "text_align": "left",
-          "background_color": "#13131a",
-          "gradient_colors": [
-            "#13131a",
-            "#23202b"
-          ]
+          "text_align": "left"
         },
         "5": {
-          "text_align": "left",
-          "background_color": "#0f0f14",
-          "gradient_colors": [
-            "#0f0f14",
-            "#1f1c25"
-          ]
+          "text_align": "left"
         },
         "6": {
-          "text_align": "left",
-          "background_color": "#13131a",
-          "gradient_colors": [
-            "#13131a",
-            "#24212b"
-          ]
+          "text_align": "left"
         },
         "7": {
-          "text_align": "left",
-          "background_color": "#0e0e14",
-          "gradient_colors": [
-            "#0e0e14",
-            "#1f1c25"
-          ]
+          "text_align": "left"
         },
         "8": {
-          "text_align": "left",
-          "background_color": "#14131b",
-          "gradient_colors": [
-            "#14131b",
-            "#24212b"
-          ]
+          "text_align": "left"
         },
         "9": {
-          "text_align": "left",
-          "background_color": "#0e0e13",
-          "gradient_colors": [
-            "#0e0e13",
-            "#1e1c24"
-          ]
+          "text_align": "left"
         }
       },
       "words_overrides": {
         "0.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "0.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "0.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "0.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "0.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "0.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "0.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "0.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "1.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "1.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "1.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "1.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "1.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "1.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "1.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "1.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "2.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "2.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "2.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "2.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "2.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "2.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "2.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "2.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "2.8": {
-          "y": 0.8
+          "y": 0.58
         },
         "3.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "3.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "3.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "3.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "3.4": {
-          "y": 0.5
+          "y": 0.42
         },
         "3.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "3.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "3.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "3.8": {
-          "y": 0.8
+          "y": 0.58
         },
         "3.9": {
-          "y": 0.8
+          "y": 0.58
         },
         "3.10": {
-          "y": 0.8
+          "y": 0.58
         },
         "5.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "5.1": {
-          "y": 0.8
+          "y": 0.58
         },
         "5.2": {
-          "y": 0.8
+          "y": 0.58
         },
         "5.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "7.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "7.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "7.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "7.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "7.4": {
-          "y": 0.5
+          "y": 0.42
         },
         "7.5": {
-          "y": 0.5
+          "y": 0.42
         },
         "7.6": {
-          "y": 0.5
+          "y": 0.42
         },
         "7.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "7.8": {
-          "y": 0.8
+          "y": 0.58
         },
         "7.9": {
-          "y": 0.8
+          "y": 0.58
         }
       }
     },
@@ -321,11 +274,14 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "vertical_top_bottom",
-        "background_color": "#181623",
+        "gradient_direction": "conic_0.8",
+        "background_color": "#020203",
         "gradient_colors": [
-          "#181623",
-          "#2a2334"
+          "#020203",
+          "#2a2259",
+          "#040405",
+          "#302145",
+          "#030304"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.35,
@@ -345,132 +301,145 @@
       },
       "lines_overrides": {
         "10": {
-          "text_align": "left",
-          "background_color": "#191725",
-          "gradient_colors": [
-            "#191725",
-            "#2b2436"
-          ]
+          "text_align": "left"
         },
         "11": {
           "font_size": 71,
-          "text_align": "left",
-          "background_color": "#161420",
-          "gradient_colors": [
-            "#161420",
-            "#282232"
-          ]
+          "text_align": "left"
         },
         "12": {
-          "text_align": "left",
-          "background_color": "#1a1725",
-          "gradient_colors": [
-            "#1a1725",
-            "#2c2536"
-          ]
+          "text_align": "left"
         },
         "13": {
           "font_size": 71,
-          "text_align": "left",
-          "background_color": "#161420",
-          "gradient_colors": [
-            "#161420",
-            "#282131"
-          ]
+          "text_align": "left"
         },
         "14": {
-          "text_align": "left",
-          "background_color": "#1a1826",
-          "gradient_colors": [
-            "#1a1826",
-            "#2d2537"
-          ]
+          "text_align": "left"
         },
         "15": {
           "font_size": 71,
-          "text_align": "left",
-          "background_color": "#16141f",
-          "gradient_colors": [
-            "#16141f",
-            "#282131"
-          ]
+          "text_align": "left"
         },
         "16": {
-          "text_align": "left",
-          "background_color": "#1b1826",
-          "gradient_colors": [
-            "#1b1826",
-            "#2e2638"
-          ]
+          "text_align": "left"
         },
         "17": {
           "font_size": 71,
-          "text_position": "bottom",
-          "text_align": "left",
-          "background_color": "#16131f",
-          "gradient_colors": [
-            "#16131f",
-            "#282130"
-          ]
+          "text_align": "left"
         }
       },
       "words_overrides": {
         "10.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "10.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "10.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "11.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "11.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "11.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "13.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "13.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "13.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "13.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "14.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "14.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "14.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "15.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "15.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "15.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "17.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "17.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "17.5": {
-          "y": 0.8
+          "y": 0.58
+        },
+        "10.0": {
+          "y": 0.42
+        },
+        "10.1": {
+          "y": 0.42
+        },
+        "10.2": {
+          "y": 0.42
+        },
+        "11.0": {
+          "y": 0.42
+        },
+        "11.1": {
+          "y": 0.42
+        },
+        "11.2": {
+          "y": 0.42
+        },
+        "13.0": {
+          "y": 0.42
+        },
+        "13.1": {
+          "y": 0.42
+        },
+        "13.2": {
+          "y": 0.42
+        },
+        "14.0": {
+          "y": 0.42
+        },
+        "14.1": {
+          "y": 0.42
+        },
+        "14.2": {
+          "y": 0.42
+        },
+        "15.0": {
+          "y": 0.42
+        },
+        "15.1": {
+          "y": 0.42
+        },
+        "15.2": {
+          "y": 0.42
+        },
+        "17.0": {
+          "y": 0.42
+        },
+        "17.1": {
+          "y": 0.42
+        },
+        "17.2": {
+          "y": 0.42
         }
       }
     },
@@ -485,11 +454,14 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tr_bl",
-        "background_color": "#30311a",
+        "gradient_direction": "dual_spot_0.3_0.4_0.7_0.6",
+        "background_color": "#030302",
         "gradient_colors": [
-          "#30311a",
-          "#313922"
+          "#030302",
+          "#565922",
+          "#050504",
+          "#384521",
+          "#040403"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
@@ -499,78 +471,87 @@
         "reactivity": [
           "vocals"
         ],
-        "text_position": "bottom",
+        "text_position": "center",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "minimal",
+        "bg_animation_preset": "cinematic",
         "text_style": "neon",
         "font_family": 1752
       },
       "lines_overrides": {
         "18": {
-          "font_size": 82,
-          "background_color": "#32341b",
-          "gradient_colors": [
-            "#32341b",
-            "#3c4529"
-          ]
-        },
-        "19": {
-          "background_color": "#2d2f19",
-          "gradient_colors": [
-            "#2d2f19",
-            "#374026"
-          ]
+          "font_size": 82
         },
         "20": {
-          "font_size": 75,
-          "background_color": "#32351c",
-          "gradient_colors": [
-            "#32351c",
-            "#3c4629"
-          ]
-        },
-        "21": {
-          "background_color": "#2b2d18",
-          "gradient_colors": [
-            "#2b2d18",
-            "#353f25"
-          ]
+          "font_size": 75
         }
       },
       "words_overrides": {
         "19.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "19.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "19.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "20.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "20.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "20.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "21.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "21.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "21.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "21.3": {
-          "y": 0.5
+          "y": 0.42
+        },
+        "19.3": {
+          "y": 0.58
+        },
+        "19.4": {
+          "y": 0.58
+        },
+        "19.5": {
+          "y": 0.58
+        },
+        "19.6": {
+          "y": 0.58
+        },
+        "20.3": {
+          "y": 0.58
+        },
+        "20.4": {
+          "y": 0.58
+        },
+        "20.5": {
+          "y": 0.58
+        },
+        "21.4": {
+          "y": 0.58
+        },
+        "21.5": {
+          "y": 0.58
+        },
+        "21.6": {
+          "y": 0.58
+        },
+        "21.7": {
+          "y": 0.58
         }
       }
     },
@@ -589,11 +570,14 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "horizontal_left_right",
-        "background_color": "#1b1725",
+        "gradient_direction": "spiral",
+        "background_color": "#030203",
         "gradient_colors": [
-          "#1b1725",
-          "#2e2436"
+          "#030203",
+          "#402259",
+          "#050405",
+          "#422145",
+          "#030304"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.2,
@@ -613,138 +597,160 @@
       },
       "lines_overrides": {
         "22": {
-          "text_align": "left",
-          "background_color": "#1c1827",
-          "gradient_colors": [
-            "#1c1827",
-            "#302538"
-          ]
+          "text_align": "left"
         },
         "23": {
           "font_size": 71,
-          "text_align": "left",
-          "background_color": "#191523",
-          "gradient_colors": [
-            "#191523",
-            "#2c2334"
-          ]
+          "text_align": "left"
         },
         "24": {
-          "text_align": "left",
-          "background_color": "#1d1827",
-          "gradient_colors": [
-            "#1d1827",
-            "#302639"
-          ]
+          "text_align": "left"
         },
         "25": {
           "font_size": 71,
-          "text_align": "left",
-          "background_color": "#191522",
-          "gradient_colors": [
-            "#191522",
-            "#2c2233"
-          ]
+          "text_align": "left"
         },
         "26": {
-          "text_align": "left",
-          "background_color": "#1e1928",
-          "gradient_colors": [
-            "#1e1928",
-            "#312639"
-          ]
+          "text_align": "left"
         },
         "27": {
           "font_size": 71,
-          "text_align": "left",
-          "background_color": "#191521",
-          "gradient_colors": [
-            "#191521",
-            "#2c2233"
-          ]
+          "text_align": "left"
         },
         "28": {
-          "text_align": "left",
-          "background_color": "#1e1929",
-          "gradient_colors": [
-            "#1e1929",
-            "#32263a"
-          ]
+          "text_align": "left"
         },
         "29": {
           "font_size": 71,
-          "text_position": "bottom",
-          "text_align": "left",
-          "background_color": "#191421",
-          "gradient_colors": [
-            "#191421",
-            "#2c2132"
-          ]
+          "text_align": "left"
         }
       },
       "words_overrides": {
         "23.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "23.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "23.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "24.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "24.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "24.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "25.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "25.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "25.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "26.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "26.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "26.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "26.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "28.5": {
-          "y": 0.8
+          "y": 0.58
         },
         "28.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "28.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "28.8": {
-          "y": 0.8
+          "y": 0.58
         },
         "28.9": {
-          "y": 0.8
+          "y": 0.58
         },
         "29.3": {
-          "y": 0.8
+          "y": 0.58
         },
         "29.4": {
-          "y": 0.8
+          "y": 0.58
         },
         "29.5": {
-          "y": 0.8
+          "y": 0.58
+        },
+        "23.0": {
+          "y": 0.42
+        },
+        "23.1": {
+          "y": 0.42
+        },
+        "23.2": {
+          "y": 0.42
+        },
+        "24.0": {
+          "y": 0.42
+        },
+        "24.1": {
+          "y": 0.42
+        },
+        "24.2": {
+          "y": 0.42
+        },
+        "25.0": {
+          "y": 0.42
+        },
+        "25.1": {
+          "y": 0.42
+        },
+        "25.2": {
+          "y": 0.42
+        },
+        "26.0": {
+          "y": 0.42
+        },
+        "26.1": {
+          "y": 0.42
+        },
+        "26.2": {
+          "y": 0.42
+        },
+        "26.3": {
+          "y": 0.42
+        },
+        "28.0": {
+          "y": 0.42
+        },
+        "28.1": {
+          "y": 0.42
+        },
+        "28.2": {
+          "y": 0.42
+        },
+        "28.3": {
+          "y": 0.42
+        },
+        "28.4": {
+          "y": 0.42
+        },
+        "29.0": {
+          "y": 0.42
+        },
+        "29.1": {
+          "y": 0.42
+        },
+        "29.2": {
+          "y": 0.42
         }
       }
     },
@@ -759,11 +765,14 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tl_br",
-        "background_color": "#30321a",
+        "gradient_direction": "diamond",
+        "background_color": "#030302",
         "gradient_colors": [
-          "#30321a",
-          "#313922"
+          "#030302",
+          "#545922",
+          "#050504",
+          "#384521",
+          "#040403"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
@@ -773,78 +782,87 @@
         "reactivity": [
           "vocals"
         ],
-        "text_position": "bottom",
+        "text_position": "center",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "minimal",
+        "bg_animation_preset": "cinematic",
         "text_style": "neon",
         "font_family": 1727
       },
       "lines_overrides": {
         "30": {
-          "font_size": 82,
-          "background_color": "#32341c",
-          "gradient_colors": [
-            "#32341c",
-            "#3c4529"
-          ]
-        },
-        "31": {
-          "background_color": "#2d2f19",
-          "gradient_colors": [
-            "#2d2f19",
-            "#374126"
-          ]
+          "font_size": 82
         },
         "32": {
-          "font_size": 75,
-          "background_color": "#33351c",
-          "gradient_colors": [
-            "#33351c",
-            "#3c472a"
-          ]
-        },
-        "33": {
-          "background_color": "#2b2e18",
-          "gradient_colors": [
-            "#2b2e18",
-            "#353f25"
-          ]
+          "font_size": 75
         }
       },
       "words_overrides": {
         "31.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "31.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "31.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "32.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "32.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "32.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "33.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "33.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "33.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "33.3": {
-          "y": 0.5
+          "y": 0.42
+        },
+        "31.3": {
+          "y": 0.58
+        },
+        "31.4": {
+          "y": 0.58
+        },
+        "31.5": {
+          "y": 0.58
+        },
+        "31.6": {
+          "y": 0.58
+        },
+        "32.3": {
+          "y": 0.58
+        },
+        "32.4": {
+          "y": 0.58
+        },
+        "32.5": {
+          "y": 0.58
+        },
+        "33.4": {
+          "y": 0.58
+        },
+        "33.5": {
+          "y": 0.58
+        },
+        "33.6": {
+          "y": 0.58
+        },
+        "33.7": {
+          "y": 0.58
         }
       }
     },
@@ -860,11 +878,14 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "horizontal_left_right",
-        "background_color": "#1b141f",
+        "gradient_direction": "rings_4",
+        "background_color": "#030203",
         "gradient_colors": [
-          "#1b141f",
-          "#2f2130"
+          "#030203",
+          "#452259",
+          "#050405",
+          "#422145",
+          "#030304"
         ],
         "texture_type": "vignette_soft",
         "texture_opacity": 0.4,
@@ -874,7 +895,7 @@
         "reactivity": [
           "energy"
         ],
-        "text_position": "top",
+        "text_position": "center",
         "animation_type": "slide_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "minimal",
@@ -884,230 +905,205 @@
       "lines_overrides": {
         "34": {
           "text_align": "center",
-          "background_color": "#1d1521",
-          "gradient_colors": [
-            "#1d1521",
-            "#312332"
-          ],
           "reveal_mode": "progressive",
           "reveal_words": 1
         },
         "35": {
-          "text_align": "center",
-          "background_color": "#19131d",
-          "gradient_colors": [
-            "#19131d",
-            "#2d202e"
-          ]
+          "text_align": "center"
         },
         "36": {
-          "text_align": "center",
-          "background_color": "#1e1622",
-          "gradient_colors": [
-            "#1e1622",
-            "#322333"
-          ]
+          "text_align": "center"
         },
         "37": {
-          "text_align": "center",
-          "background_color": "#19121c",
-          "gradient_colors": [
-            "#19121c",
-            "#2c1f2d"
-          ]
+          "text_align": "center"
         },
         "38": {
-          "text_align": "center",
-          "background_color": "#1f1723",
-          "gradient_colors": [
-            "#1f1723",
-            "#342434"
-          ]
+          "text_align": "center"
         }
       },
       "words_overrides": {
         "34.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "34.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "34.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "34.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "34.4": {
-          "y": 0.5
+          "y": 0.42
         },
         "34.5": {
-          "y": 0.5
+          "y": 0.42
         },
         "34.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "34.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "34.8": {
-          "y": 0.8
+          "y": 0.58
         },
         "34.9": {
-          "y": 0.8
+          "y": 0.58
         },
         "34.10": {
-          "y": 0.8
+          "y": 0.58
         },
         "34.11": {
-          "y": 0.8
+          "y": 0.58
         },
         "35.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "35.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "35.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "35.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "35.4": {
-          "y": 0.5
+          "y": 0.42
         },
         "35.5": {
-          "y": 0.5
+          "y": 0.42
         },
         "35.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "35.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "35.8": {
-          "y": 0.8
+          "y": 0.58
         },
         "35.9": {
-          "y": 0.8
+          "y": 0.58
         },
         "35.10": {
-          "y": 0.8
+          "y": 0.58
         },
         "35.11": {
-          "y": 0.8
+          "y": 0.58
         },
         "36.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "36.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "36.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "36.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "36.4": {
-          "y": 0.5
+          "y": 0.42
         },
         "36.5": {
-          "y": 0.5
+          "y": 0.42
         },
         "36.6": {
-          "y": 0.5
+          "y": 0.42
         },
         "36.7": {
-          "y": 0.5
+          "y": 0.42
         },
         "36.8": {
-          "y": 0.8
+          "y": 0.58
         },
         "36.9": {
-          "y": 0.8
+          "y": 0.58
         },
         "36.10": {
-          "y": 0.8
+          "y": 0.58
         },
         "36.11": {
-          "y": 0.8
+          "y": 0.58
         },
         "36.12": {
-          "y": 0.8
+          "y": 0.58
         },
         "36.13": {
-          "y": 0.8
+          "y": 0.58
         },
         "37.0": {
-          "y": 0.5
+          "y": 0.34
         },
         "37.1": {
-          "y": 0.5
+          "y": 0.34
         },
         "37.2": {
-          "y": 0.8
+          "y": 0.5
         },
         "37.3": {
-          "y": 0.8
+          "y": 0.5
         },
         "37.4": {
-          "y": 0.8
+          "y": 0.66
         },
         "37.5": {
-          "y": 0.8
+          "y": 0.66
         },
         "37.6": {
-          "y": 0.8
+          "y": 0.66
         },
         "37.7": {
-          "y": 0.8
+          "y": 0.66
         },
         "37.8": {
-          "y": 0.8
+          "y": 0.66
         },
         "37.9": {
-          "y": 0.8
+          "y": 0.66
         },
         "38.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "38.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "38.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "38.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "38.4": {
-          "y": 0.5
+          "y": 0.42
         },
         "38.5": {
-          "y": 0.5
+          "y": 0.42
         },
         "38.6": {
-          "y": 0.8
+          "y": 0.58
         },
         "38.7": {
-          "y": 0.8
+          "y": 0.58
         },
         "38.8": {
-          "y": 0.8
+          "y": 0.58
         },
         "38.9": {
-          "y": 0.8
+          "y": 0.58
         },
         "38.10": {
-          "y": 0.8
+          "y": 0.58
         },
         "38.11": {
-          "y": 0.8
+          "y": 0.58
         },
         "38.12": {
-          "y": 0.8
+          "y": 0.58
         }
       }
     },
@@ -1126,11 +1122,14 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "diagonal_tr_bl",
-        "background_color": "#31331b",
+        "gradient_direction": "dual_spot_0.3_0.3_0.7_0.7",
+        "background_color": "#030302",
         "gradient_colors": [
-          "#31331b",
-          "#313921"
+          "#030302",
+          "#545922",
+          "#050504",
+          "#394521",
+          "#040403"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.15,
@@ -1140,143 +1139,159 @@
         "reactivity": [
           "vocals"
         ],
-        "text_position": "bottom",
+        "text_position": "center",
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
-        "bg_animation_preset": "minimal",
+        "bg_animation_preset": "cinematic",
         "text_style": "neon",
         "font_family": 1698
       },
       "lines_overrides": {
         "39": {
           "font_size": 82,
-          "background_color": "#33351c",
-          "gradient_colors": [
-            "#33351c",
-            "#3d4629"
-          ],
           "reveal_mode": "progressive",
           "reveal_words": 1
-        },
-        "40": {
-          "background_color": "#2f3019",
-          "gradient_colors": [
-            "#2f3019",
-            "#394226"
-          ]
         },
         "41": {
-          "background_color": "#33361c",
-          "gradient_colors": [
-            "#33361c",
-            "#3d4729"
-          ],
           "reveal_mode": "progressive",
           "reveal_words": 1
         },
-        "42": {
-          "background_color": "#2e3019",
-          "gradient_colors": [
-            "#2e3019",
-            "#384126"
-          ]
-        },
         "43": {
-          "font_size": 85,
-          "background_color": "#33361c",
-          "gradient_colors": [
-            "#33361c",
-            "#3d482a"
-          ]
-        },
-        "44": {
-          "background_color": "#2d2f19",
-          "gradient_colors": [
-            "#2d2f19",
-            "#374126"
-          ]
-        },
-        "45": {
-          "background_color": "#34371d",
-          "gradient_colors": [
-            "#34371d",
-            "#3d482a"
-          ]
-        },
-        "46": {
-          "background_color": "#2c2f19",
-          "gradient_colors": [
-            "#2c2f19",
-            "#364025"
-          ]
+          "font_size": 85
         }
       },
       "words_overrides": {
         "40.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "40.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "40.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "41.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "41.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "41.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "42.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "42.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "42.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "42.3": {
-          "y": 0.5
+          "y": 0.42
         },
         "44.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "44.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "44.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "45.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "45.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "45.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "46.0": {
-          "y": 0.5,
+          "y": 0.42,
           "font_size_delta": 2
         },
         "46.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "46.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "46.3": {
-          "y": 0.5
+          "y": 0.42
+        },
+        "40.3": {
+          "y": 0.58
+        },
+        "40.4": {
+          "y": 0.58
+        },
+        "40.5": {
+          "y": 0.58
+        },
+        "40.6": {
+          "y": 0.58
+        },
+        "41.3": {
+          "y": 0.58
+        },
+        "41.4": {
+          "y": 0.58
+        },
+        "41.5": {
+          "y": 0.58
+        },
+        "42.4": {
+          "y": 0.58
+        },
+        "42.5": {
+          "y": 0.58
+        },
+        "42.6": {
+          "y": 0.58
+        },
+        "42.7": {
+          "y": 0.58
+        },
+        "44.3": {
+          "y": 0.58
+        },
+        "44.4": {
+          "y": 0.58
+        },
+        "44.5": {
+          "y": 0.58
+        },
+        "44.6": {
+          "y": 0.58
+        },
+        "45.3": {
+          "y": 0.58
+        },
+        "45.4": {
+          "y": 0.58
+        },
+        "45.5": {
+          "y": 0.58
+        },
+        "46.4": {
+          "y": 0.58
+        },
+        "46.5": {
+          "y": 0.58
+        },
+        "46.6": {
+          "y": 0.58
+        },
+        "46.7": {
+          "y": 0.58
         }
       }
     },
@@ -1290,22 +1305,25 @@
       ],
       "visual": {
         "background_type": "gradient",
-        "gradient_direction": "horizontal_left_right",
-        "background_color": "#12131a",
+        "gradient_direction": "burst",
+        "background_color": "#020203",
         "gradient_colors": [
-          "#12131a",
-          "#21202b"
+          "#020203",
+          "#222959",
+          "#040405",
+          "#242145",
+          "#030304"
         ],
         "texture_type": "vignette_heavy",
         "texture_opacity": 0.35,
         "texture_blend_mode": "multiply",
-        "font_size": 72,
+        "font_size": 76,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
           "vocals"
         ],
-        "text_position": "bottom",
+        "text_position": "center",
         "animation_type": "fade_out",
         "animation_speed": 1.0,
         "bg_animation_preset": "minimal",
@@ -1314,65 +1332,6049 @@
       },
       "lines_overrides": {
         "47": {
-          "font_size": 79,
-          "text_align": "left",
-          "background_color": "#13141c",
-          "gradient_colors": [
-            "#13141c",
-            "#23212d"
-          ]
+          "font_size": 76,
+          "text_align": "left"
         },
         "48": {
-          "font_size": 71,
-          "text_align": "left",
-          "background_color": "#101117",
-          "gradient_colors": [
-            "#101117",
-            "#1f1e28"
-          ]
+          "font_size": 76,
+          "text_align": "left"
         },
         "49": {
-          "font_size": 72,
-          "text_align": "left",
-          "background_color": "#15151e",
-          "gradient_colors": [
-            "#15151e",
-            "#25222f"
-          ]
+          "font_size": 76,
+          "text_align": "left"
         }
       },
       "words_overrides": {
         "47.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "47.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "47.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "48.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "48.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "48.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "49.0": {
-          "y": 0.5
+          "y": 0.42
         },
         "49.1": {
-          "y": 0.5
+          "y": 0.42
         },
         "49.2": {
-          "y": 0.5
+          "y": 0.42
         },
         "49.3": {
-          "y": 0.5
+          "y": 0.42
+        },
+        "47.3": {
+          "y": 0.58
+        },
+        "47.4": {
+          "y": 0.58
+        },
+        "47.5": {
+          "y": 0.58
+        },
+        "47.6": {
+          "y": 0.58
+        },
+        "48.3": {
+          "y": 0.58
+        },
+        "48.4": {
+          "y": 0.58
+        },
+        "48.5": {
+          "y": 0.58
+        },
+        "49.4": {
+          "y": 0.58
+        },
+        "49.5": {
+          "y": 0.58
+        },
+        "49.6": {
+          "y": 0.58
+        },
+        "49.7": {
+          "y": 0.58
         }
       }
     }
-  ]
+  ],
+  "intro": {
+    "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
+    "title": "PROPHETIC CLARITY",
+    "subtitle": "A Reality Signal",
+    "duration": 6.54
+  },
+  "outro": {
+    "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
+    "logo": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/outro_logo.png",
+    "text": "Presented by"
+  },
+  "_transforms": {
+    "version": 1,
+    "recipe": "reality_signal_slate_v2",
+    "steps": [
+      {
+        "transform": "add_branded_scenes",
+        "selector": {},
+        "params": {
+          "branding_image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
+          "logo_path": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/outro_logo.png",
+          "subtitle": "A Reality Signal",
+          "text": "Presented by",
+          "title": "PROPHETIC CLARITY"
+        }
+      },
+      {
+        "transform": "geometric_backgrounds",
+        "selector": {},
+        "params": {
+          "accent_lightness": 0.24
+        }
+      },
+      {
+        "transform": "center_text",
+        "selector": {},
+        "params": {}
+      },
+      {
+        "transform": "symmetrize_phrase_rows",
+        "selector": {},
+        "params": {}
+      },
+      {
+        "transform": "set_section_font",
+        "selector": {
+          "section": "hook"
+        },
+        "params": {
+          "size": 92,
+          "uniform_lines": true
+        }
+      },
+      {
+        "transform": "set_section_font",
+        "selector": {
+          "section": "interlude"
+        },
+        "params": {
+          "size": 82,
+          "uniform_lines": true
+        }
+      },
+      {
+        "transform": "set_section_font",
+        "selector": {
+          "section": "post_hook"
+        },
+        "params": {
+          "size": 84,
+          "uniform_lines": true
+        }
+      },
+      {
+        "transform": "set_section_font",
+        "selector": {
+          "section": "outro"
+        },
+        "params": {
+          "size": 76,
+          "uniform_lines": true
+        }
+      },
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "section": "hook"
+        },
+        "params": {
+          "bg_animation_preset": "energetic"
+        }
+      },
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "section": "chorus"
+        },
+        "params": {
+          "bg_animation_preset": "cinematic"
+        }
+      },
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "section": "climax"
+        },
+        "params": {
+          "bg_animation_preset": "intense"
+        }
+      }
+    ],
+    "journal": [
+      {
+        "addr": [
+          "intro"
+        ],
+        "before": null,
+        "after": {
+          "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
+          "title": "PROPHETIC CLARITY",
+          "subtitle": "A Reality Signal",
+          "duration": 6.54
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "outro"
+        ],
+        "before": null,
+        "after": {
+          "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
+          "logo": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/outro_logo.png",
+          "text": "Presented by"
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "visual",
+          "gradient_direction"
+        ],
+        "before": "diagonal_tl_br",
+        "after": "cross",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "visual",
+          "background_color"
+        ],
+        "before": "#111117",
+        "after": "#020203",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "visual",
+          "gradient_colors"
+        ],
+        "before": [
+          "#111117",
+          "#211e29"
+        ],
+        "after": [
+          "#020203",
+          "#312259",
+          "#040405",
+          "#212145",
+          "#030304"
+        ],
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "0",
+          "background_color"
+        ],
+        "before": "#121219",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "0",
+          "gradient_colors"
+        ],
+        "before": [
+          "#121219",
+          "#22202a"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "1",
+          "background_color"
+        ],
+        "before": "#0f0f15",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "1",
+          "gradient_colors"
+        ],
+        "before": [
+          "#0f0f15",
+          "#1f1d26"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "2",
+          "background_color"
+        ],
+        "before": "#121219",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "2",
+          "gradient_colors"
+        ],
+        "before": [
+          "#121219",
+          "#23202a"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "3",
+          "background_color"
+        ],
+        "before": "#0f0f15",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "3",
+          "gradient_colors"
+        ],
+        "before": [
+          "#0f0f15",
+          "#1f1d26"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "4",
+          "background_color"
+        ],
+        "before": "#13131a",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "4",
+          "gradient_colors"
+        ],
+        "before": [
+          "#13131a",
+          "#23202b"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "5",
+          "background_color"
+        ],
+        "before": "#0f0f14",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "5",
+          "gradient_colors"
+        ],
+        "before": [
+          "#0f0f14",
+          "#1f1c25"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "6",
+          "background_color"
+        ],
+        "before": "#13131a",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "6",
+          "gradient_colors"
+        ],
+        "before": [
+          "#13131a",
+          "#24212b"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "7",
+          "background_color"
+        ],
+        "before": "#0e0e14",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "7",
+          "gradient_colors"
+        ],
+        "before": [
+          "#0e0e14",
+          "#1f1c25"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "8",
+          "background_color"
+        ],
+        "before": "#14131b",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "8",
+          "gradient_colors"
+        ],
+        "before": [
+          "#14131b",
+          "#24212b"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "9",
+          "background_color"
+        ],
+        "before": "#0e0e13",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "lines_overrides",
+          "9",
+          "gradient_colors"
+        ],
+        "before": [
+          "#0e0e13",
+          "#1e1c24"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "visual",
+          "gradient_direction"
+        ],
+        "before": "vertical_top_bottom",
+        "after": "conic_0.8",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "visual",
+          "background_color"
+        ],
+        "before": "#181623",
+        "after": "#020203",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "visual",
+          "gradient_colors"
+        ],
+        "before": [
+          "#181623",
+          "#2a2334"
+        ],
+        "after": [
+          "#020203",
+          "#2a2259",
+          "#040405",
+          "#302145",
+          "#030304"
+        ],
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "10",
+          "background_color"
+        ],
+        "before": "#191725",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "10",
+          "gradient_colors"
+        ],
+        "before": [
+          "#191725",
+          "#2b2436"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "11",
+          "background_color"
+        ],
+        "before": "#161420",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "11",
+          "gradient_colors"
+        ],
+        "before": [
+          "#161420",
+          "#282232"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "12",
+          "background_color"
+        ],
+        "before": "#1a1725",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "12",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1a1725",
+          "#2c2536"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "13",
+          "background_color"
+        ],
+        "before": "#161420",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "13",
+          "gradient_colors"
+        ],
+        "before": [
+          "#161420",
+          "#282131"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "14",
+          "background_color"
+        ],
+        "before": "#1a1826",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "14",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1a1826",
+          "#2d2537"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "15",
+          "background_color"
+        ],
+        "before": "#16141f",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "15",
+          "gradient_colors"
+        ],
+        "before": [
+          "#16141f",
+          "#282131"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "16",
+          "background_color"
+        ],
+        "before": "#1b1826",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "16",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1b1826",
+          "#2e2638"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "17",
+          "background_color"
+        ],
+        "before": "#16131f",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "17",
+          "gradient_colors"
+        ],
+        "before": [
+          "#16131f",
+          "#282130"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "visual",
+          "gradient_direction"
+        ],
+        "before": "diagonal_tr_bl",
+        "after": "dual_spot_0.3_0.4_0.7_0.6",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "visual",
+          "background_color"
+        ],
+        "before": "#30311a",
+        "after": "#030302",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "visual",
+          "gradient_colors"
+        ],
+        "before": [
+          "#30311a",
+          "#313922"
+        ],
+        "after": [
+          "#030302",
+          "#565922",
+          "#050504",
+          "#384521",
+          "#040403"
+        ],
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "lines_overrides",
+          "18",
+          "background_color"
+        ],
+        "before": "#32341b",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "lines_overrides",
+          "18",
+          "gradient_colors"
+        ],
+        "before": [
+          "#32341b",
+          "#3c4529"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "lines_overrides",
+          "19"
+        ],
+        "before": {
+          "background_color": "#2d2f19",
+          "gradient_colors": [
+            "#2d2f19",
+            "#374026"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "lines_overrides",
+          "20",
+          "background_color"
+        ],
+        "before": "#32351c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "lines_overrides",
+          "20",
+          "gradient_colors"
+        ],
+        "before": [
+          "#32351c",
+          "#3c4629"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "lines_overrides",
+          "21"
+        ],
+        "before": {
+          "background_color": "#2b2d18",
+          "gradient_colors": [
+            "#2b2d18",
+            "#353f25"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "visual",
+          "gradient_direction"
+        ],
+        "before": "horizontal_left_right",
+        "after": "spiral",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "visual",
+          "background_color"
+        ],
+        "before": "#1b1725",
+        "after": "#030203",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "visual",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1b1725",
+          "#2e2436"
+        ],
+        "after": [
+          "#030203",
+          "#402259",
+          "#050405",
+          "#422145",
+          "#030304"
+        ],
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "22",
+          "background_color"
+        ],
+        "before": "#1c1827",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "22",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1c1827",
+          "#302538"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "23",
+          "background_color"
+        ],
+        "before": "#191523",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "23",
+          "gradient_colors"
+        ],
+        "before": [
+          "#191523",
+          "#2c2334"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "24",
+          "background_color"
+        ],
+        "before": "#1d1827",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "24",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1d1827",
+          "#302639"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "25",
+          "background_color"
+        ],
+        "before": "#191522",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "25",
+          "gradient_colors"
+        ],
+        "before": [
+          "#191522",
+          "#2c2233"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "26",
+          "background_color"
+        ],
+        "before": "#1e1928",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "26",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1e1928",
+          "#312639"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "27",
+          "background_color"
+        ],
+        "before": "#191521",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "27",
+          "gradient_colors"
+        ],
+        "before": [
+          "#191521",
+          "#2c2233"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "28",
+          "background_color"
+        ],
+        "before": "#1e1929",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "28",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1e1929",
+          "#32263a"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "29",
+          "background_color"
+        ],
+        "before": "#191421",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "29",
+          "gradient_colors"
+        ],
+        "before": [
+          "#191421",
+          "#2c2132"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "visual",
+          "gradient_direction"
+        ],
+        "before": "diagonal_tl_br",
+        "after": "diamond",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "visual",
+          "background_color"
+        ],
+        "before": "#30321a",
+        "after": "#030302",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "visual",
+          "gradient_colors"
+        ],
+        "before": [
+          "#30321a",
+          "#313922"
+        ],
+        "after": [
+          "#030302",
+          "#545922",
+          "#050504",
+          "#384521",
+          "#040403"
+        ],
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "30",
+          "background_color"
+        ],
+        "before": "#32341c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "30",
+          "gradient_colors"
+        ],
+        "before": [
+          "#32341c",
+          "#3c4529"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "31"
+        ],
+        "before": {
+          "background_color": "#2d2f19",
+          "gradient_colors": [
+            "#2d2f19",
+            "#374126"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "32",
+          "background_color"
+        ],
+        "before": "#33351c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "32",
+          "gradient_colors"
+        ],
+        "before": [
+          "#33351c",
+          "#3c472a"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "lines_overrides",
+          "33"
+        ],
+        "before": {
+          "background_color": "#2b2e18",
+          "gradient_colors": [
+            "#2b2e18",
+            "#353f25"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "visual",
+          "gradient_direction"
+        ],
+        "before": "horizontal_left_right",
+        "after": "rings_4",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "visual",
+          "background_color"
+        ],
+        "before": "#1b141f",
+        "after": "#030203",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "visual",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1b141f",
+          "#2f2130"
+        ],
+        "after": [
+          "#030203",
+          "#452259",
+          "#050405",
+          "#422145",
+          "#030304"
+        ],
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "34",
+          "background_color"
+        ],
+        "before": "#1d1521",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "34",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1d1521",
+          "#312332"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "35",
+          "background_color"
+        ],
+        "before": "#19131d",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "35",
+          "gradient_colors"
+        ],
+        "before": [
+          "#19131d",
+          "#2d202e"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "36",
+          "background_color"
+        ],
+        "before": "#1e1622",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "36",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1e1622",
+          "#322333"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "37",
+          "background_color"
+        ],
+        "before": "#19121c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "37",
+          "gradient_colors"
+        ],
+        "before": [
+          "#19121c",
+          "#2c1f2d"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "38",
+          "background_color"
+        ],
+        "before": "#1f1723",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "lines_overrides",
+          "38",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1f1723",
+          "#342434"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "visual",
+          "gradient_direction"
+        ],
+        "before": "diagonal_tr_bl",
+        "after": "dual_spot_0.3_0.3_0.7_0.7",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "visual",
+          "background_color"
+        ],
+        "before": "#31331b",
+        "after": "#030302",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "visual",
+          "gradient_colors"
+        ],
+        "before": [
+          "#31331b",
+          "#313921"
+        ],
+        "after": [
+          "#030302",
+          "#545922",
+          "#050504",
+          "#394521",
+          "#040403"
+        ],
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "39",
+          "background_color"
+        ],
+        "before": "#33351c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "39",
+          "gradient_colors"
+        ],
+        "before": [
+          "#33351c",
+          "#3d4629"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "40"
+        ],
+        "before": {
+          "background_color": "#2f3019",
+          "gradient_colors": [
+            "#2f3019",
+            "#394226"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "41",
+          "background_color"
+        ],
+        "before": "#33361c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "41",
+          "gradient_colors"
+        ],
+        "before": [
+          "#33361c",
+          "#3d4729"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "42"
+        ],
+        "before": {
+          "background_color": "#2e3019",
+          "gradient_colors": [
+            "#2e3019",
+            "#384126"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "43",
+          "background_color"
+        ],
+        "before": "#33361c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "43",
+          "gradient_colors"
+        ],
+        "before": [
+          "#33361c",
+          "#3d482a"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "44"
+        ],
+        "before": {
+          "background_color": "#2d2f19",
+          "gradient_colors": [
+            "#2d2f19",
+            "#374126"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "45"
+        ],
+        "before": {
+          "background_color": "#34371d",
+          "gradient_colors": [
+            "#34371d",
+            "#3d482a"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "lines_overrides",
+          "46"
+        ],
+        "before": {
+          "background_color": "#2c2f19",
+          "gradient_colors": [
+            "#2c2f19",
+            "#364025"
+          ]
+        },
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "visual",
+          "gradient_direction"
+        ],
+        "before": "horizontal_left_right",
+        "after": "burst",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "visual",
+          "background_color"
+        ],
+        "before": "#12131a",
+        "after": "#020203",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "visual",
+          "gradient_colors"
+        ],
+        "before": [
+          "#12131a",
+          "#21202b"
+        ],
+        "after": [
+          "#020203",
+          "#222959",
+          "#040405",
+          "#242145",
+          "#030304"
+        ],
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "47",
+          "background_color"
+        ],
+        "before": "#13141c",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "47",
+          "gradient_colors"
+        ],
+        "before": [
+          "#13141c",
+          "#23212d"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "48",
+          "background_color"
+        ],
+        "before": "#101117",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "48",
+          "gradient_colors"
+        ],
+        "before": [
+          "#101117",
+          "#1f1e28"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "49",
+          "background_color"
+        ],
+        "before": "#15151e",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "49",
+          "gradient_colors"
+        ],
+        "before": [
+          "#15151e",
+          "#25222f"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "visual",
+          "text_position"
+        ],
+        "before": "top",
+        "after": "center",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "lines_overrides",
+          "17",
+          "text_position"
+        ],
+        "before": "bottom",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "visual",
+          "text_position"
+        ],
+        "before": "bottom",
+        "after": "center",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "lines_overrides",
+          "29",
+          "text_position"
+        ],
+        "before": "bottom",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "visual",
+          "text_position"
+        ],
+        "before": "bottom",
+        "after": "center",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "visual",
+          "text_position"
+        ],
+        "before": "top",
+        "after": "center",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "visual",
+          "text_position"
+        ],
+        "before": "bottom",
+        "after": "center",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "visual",
+          "text_position"
+        ],
+        "before": "bottom",
+        "after": "center",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "0.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "0.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "0.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "0.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "0.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "0.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "0.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "0.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "1.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "1.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "1.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "1.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "1.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "1.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "1.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "1.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "2.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.4",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.9",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "3.10",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "5.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "5.1",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "5.2",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "5.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.4",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.5",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.6",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          0,
+          "words_overrides",
+          "7.9",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "10.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "10.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "10.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "11.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "11.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "11.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "13.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "13.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "13.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "13.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "14.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "14.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "14.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "15.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "15.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "15.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "17.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "17.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "17.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "10.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "10.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "10.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "11.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "11.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "11.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "13.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "13.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "13.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "14.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "14.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "14.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "15.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "15.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "15.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "17.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "17.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          1,
+          "words_overrides",
+          "17.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "19.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "19.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "19.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "20.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "20.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "20.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "21.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "21.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "21.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "21.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "19.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "19.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "19.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "19.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "20.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "20.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "20.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "21.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "21.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "21.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "words_overrides",
+          "21.7"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "23.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "23.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "23.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "24.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "24.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "24.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "25.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "25.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "25.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "26.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "26.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "26.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "26.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.9",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "29.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "29.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "29.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "23.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "23.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "23.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "24.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "24.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "24.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "25.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "25.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "25.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "26.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "26.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "26.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "26.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "28.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "29.0"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "29.1"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          3,
+          "words_overrides",
+          "29.2"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.42
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "31.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "31.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "31.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "32.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "32.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "32.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "33.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "33.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "33.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "33.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "31.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "31.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "31.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "31.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "32.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "32.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "32.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "33.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "33.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "33.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "words_overrides",
+          "33.7"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.4",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.5",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.9",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.10",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "34.11",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.4",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.5",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.9",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.10",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "35.11",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.4",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.5",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.6",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.7",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.9",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.10",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.11",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.12",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "36.13",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.34,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.34,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.2",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.5,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.3",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.5,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.4",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.66,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.5",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.66,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.66,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.66,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.66,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "37.9",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.66,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.4",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.5",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.6",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.7",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.8",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.9",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.10",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.11",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "words_overrides",
+          "38.12",
+          "y"
+        ],
+        "before": 0.8,
+        "after": 0.58,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "40.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "40.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "40.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "41.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "41.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "41.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "42.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "42.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "42.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "42.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "44.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "44.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "44.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "45.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "45.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "45.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "46.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "46.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "46.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "46.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "40.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "40.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "40.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "40.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "41.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "41.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "41.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "42.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "42.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "42.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "42.7"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "44.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "44.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "44.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "44.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "45.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "45.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "45.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "46.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "46.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "46.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "words_overrides",
+          "46.7"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "47.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "47.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "47.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "48.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "48.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "48.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "49.0",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "49.1",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "49.2",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "49.3",
+          "y"
+        ],
+        "before": 0.5,
+        "after": 0.42,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "47.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "47.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "47.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "47.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "48.3"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "48.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "48.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "49.4"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "49.5"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "49.6"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "words_overrides",
+          "49.7"
+        ],
+        "before": null,
+        "after": {
+          "y": 0.58
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "visual",
+          "font_size"
+        ],
+        "before": 72,
+        "after": 76,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "47",
+          "font_size"
+        ],
+        "before": 79,
+        "after": 76,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "48",
+          "font_size"
+        ],
+        "before": 71,
+        "after": 76,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "lines_overrides",
+          "49",
+          "font_size"
+        ],
+        "before": 72,
+        "after": 76,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          2,
+          "visual",
+          "bg_animation_preset"
+        ],
+        "before": "minimal",
+        "after": "cinematic",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          4,
+          "visual",
+          "bg_animation_preset"
+        ],
+        "before": "minimal",
+        "after": "cinematic",
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "visual",
+          "bg_animation_preset"
+        ],
+        "before": "minimal",
+        "after": "cinematic",
+        "before_missing": false,
+        "after_missing": false
+      }
+    ]
+  }
 }
