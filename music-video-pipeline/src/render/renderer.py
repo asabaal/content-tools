@@ -480,6 +480,8 @@ class VideoRenderer:
         return bool(ts) and ts != "basic"
 
     def _get_styled_text(self, text: str, style: str, size: int, family: int = 0, style_colors: Optional[dict] = None) -> Image.Image:
+        if style_colors:
+            style_colors = {k: tuple(v) if isinstance(v, list) else v for k, v in style_colors.items()}
         key = (text, style, size, family, tuple(sorted((style_colors or {}).items())) if style_colors else None)
         if key not in self._styled_cache:
             self._styled_cache[key] = generate_styled_text(text, style, size, family=family, style_colors=style_colors)
@@ -936,6 +938,64 @@ class VideoRenderer:
 
         return img
 
+    def _render_interstitial(self, t: float) -> Optional[Image.Image]:
+        interstitials = self.script.get("interstitials", [])
+        for ins in interstitials:
+            start = float(ins.get("start", 0))
+            end = float(ins.get("end", 0))
+            if start <= t <= end:
+                img = Image.new("RGB", (self.width, self.height), (10, 10, 30))
+                ins_type = ins.get("type", "")
+                if ins_type == "image":
+                    image_path = ins.get("path", "")
+                    if image_path:
+                        v_img = {
+                            "background_type": "image",
+                            "background_image": image_path,
+                            "background_image_opacity": 1.0,
+                            "background_image_fit": "cover",
+                            "background_color": "#000000",
+                        }
+                        self._draw_background(img, v_img)
+                elif ins_type == "title":
+                    v_bg = dict(self.defaults)
+                    self._draw_background(img, v_bg)
+                    txt_layer = Image.new("RGBA", (self.width, self.height), (0, 0, 0, 0))
+                    draw = ImageDraw.Draw(txt_layer)
+                    title = ins.get("title", "")
+                    subtitle = ins.get("subtitle", "")
+                    lines = []
+                    if title:
+                        lines.append((title, int(80 * (self.height / 1080)), 3))
+                    if subtitle:
+                        lines.append((subtitle, int(44 * (self.height / 1080)), 5))
+                    lines.append(("by", int(44 * (self.height / 1080)), 5))
+                    lines.append(("Asabaal Horan", int(44 * (self.height / 1080)), 5))
+                    if lines:
+                        line_heights = []
+                        for text, size, family in lines:
+                            font = self._get_font(size, family=family)
+                            bbox = draw.textbbox((0, 0), text, font=font)
+                            line_heights.append(bbox[3] - bbox[1])
+                        line_spacing = int(12 * (self.height / 1080))
+                        total_h = sum(line_heights) + line_spacing * (len(lines) - 1)
+                        y = (self.height - total_h) / 2
+                        for text, size, family in lines:
+                            font = self._get_font(size, family=family)
+                            bbox = draw.textbbox((0, 0), text, font=font)
+                            tw = bbox[2] - bbox[0]
+                            th = bbox[3] - bbox[1]
+                            cx = (self.width - tw) / 2
+                            shadow_offset = max(2, int(2 * (self.height / 1080)))
+                            draw.text((cx + shadow_offset, y + shadow_offset), text, fill=(0, 0, 0, 180), font=font)
+                            draw.text((cx, y), text, fill=(220, 220, 230, 255), font=font)
+                            y += th + line_spacing
+                    img_rgba = img.convert("RGBA")
+                    img_rgba = Image.alpha_composite(img_rgba, txt_layer)
+                    img = img_rgba.convert("RGB")
+                return img
+        return None
+
     def _find_nearest_section(self, t: float) -> Optional[Dict]:
         best_sec = None
         best_dist = float("inf")
@@ -964,6 +1024,9 @@ class VideoRenderer:
         line_idx, word_idx = self._find_active_word(t)
 
         if line_idx < 0:
+            interstitial = self._render_interstitial(t)
+            if interstitial is not None:
+                return interstitial
             intro_frame = self._render_intro_frame(t)
             if intro_frame is not None:
                 return intro_frame
@@ -1047,6 +1110,9 @@ class VideoRenderer:
 
     def _render_text_on_bg(self, bg: Image.Image, line_idx: int, word_idx: int, t: float = 0.0) -> Image.Image:
         if line_idx < 0:
+            interstitial = self._render_interstitial(t)
+            if interstitial is not None:
+                return interstitial
             intro_frame = self._render_intro_frame(t)
             if intro_frame is not None:
                 return intro_frame
@@ -1137,7 +1203,10 @@ class VideoRenderer:
                 return bg_frame
 
         sec = self._find_section(line_idx) if line_idx >= 0 else None
-        sec_key = sec.get("name", "__none__") if sec else "__default__"
+        if sec:
+            sec_key = (sec.get("name", "__none__"), line_idx)
+        else:
+            sec_key = "__default__"
 
         if sec_key not in bg_cache:
             bg = Image.new("RGB", (self.width, self.height), (10, 10, 30))

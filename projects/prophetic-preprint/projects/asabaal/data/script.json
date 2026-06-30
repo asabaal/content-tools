@@ -357,8 +357,15 @@
         "animation_type": "fade_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "smooth",
-        "text_style": "elegant_gold",
-        "font_family": 119
+        "text_style": "clean_white",
+        "font_family": 119,
+        "text_style_colors": {
+          "core_color": [
+            100,
+            180,
+            255
+          ]
+        }
       },
       "lines_overrides": {},
       "words_overrides": {}
@@ -396,9 +403,16 @@
         "animation_type": "scale_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
-        "text_style": "elegant_gold",
+        "text_style": "clean_white",
         "font_family": 1752,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_style_colors": {
+          "core_color": [
+            76,
+            175,
+            80
+          ]
+        }
       },
       "lines_overrides": {
         "20": {
@@ -417,107 +431,164 @@
       },
       "words_overrides": {
         "19.0": {
-          "y": 0.34,
-          "font_size_delta": 2
+          "y": 0.35
         },
         "19.1": {
-          "y": 0.34
-        },
-        "20.0": {
-          "y": 0.42,
-          "font_size_delta": 2
-        },
-        "20.1": {
-          "y": 0.42
-        },
-        "20.2": {
-          "y": 0.42
-        },
-        "20.3": {
-          "y": 0.42
-        },
-        "21.0": {
-          "y": 0.34,
-          "font_size_delta": 2
-        },
-        "21.1": {
-          "y": 0.34
-        },
-        "22.0": {
-          "y": 0.42,
-          "font_size_delta": 2
-        },
-        "22.1": {
-          "y": 0.42
-        },
-        "22.2": {
-          "y": 0.42
-        },
-        "22.3": {
-          "y": 0.42
-        },
-        "22.4": {
-          "y": 0.42
+          "y": 0.35
         },
         "19.2": {
-          "y": 0.5
+          "y": 0.35
         },
         "19.3": {
-          "y": 0.5
+          "y": 0.35
         },
         "19.4": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "19.5": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "19.6": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "19.7": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "19.8": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "19.9": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "19.10": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "19.11": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "20.0": {
+          "y": 0.35
+        },
+        "20.1": {
+          "y": 0.35
+        },
+        "20.2": {
+          "y": 0.35
+        },
+        "20.3": {
+          "y": 0.35
         },
         "20.4": {
-          "y": 0.58
+          "y": 0.55
         },
         "20.5": {
-          "y": 0.58
+          "y": 0.55
         },
         "20.6": {
-          "y": 0.58
+          "y": 0.55
         },
         "20.7": {
-          "y": 0.58
+          "y": 0.55
         },
         "20.8": {
-          "y": 0.58
+          "y": 0.55
+        },
+        "20.9": {
+          "y": 0.55
+        },
+        "20.10": {
+          "y": 0.55
+        },
+        "20.11": {
+          "y": 0.55
+        },
+        "21.0": {
+          "y": 0.35
+        },
+        "21.1": {
+          "y": 0.35
         },
         "21.2": {
-          "y": 0.5
+          "y": 0.35
         },
         "21.3": {
-          "y": 0.5
+          "y": 0.35
         },
         "21.4": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "21.5": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "21.6": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "21.7": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "21.8": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "21.9": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "21.10": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "21.11": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "22.0": {
+          "y": 0.35
+        },
+        "22.1": {
+          "y": 0.35
+        },
+        "22.2": {
+          "y": 0.35
+        },
+        "22.3": {
+          "y": 0.35
+        },
+        "22.4": {
+          "y": 0.35
         },
         "22.5": {
-          "y": 0.58
+          "y": 0.55
         },
         "22.6": {
-          "y": 0.58
+          "y": 0.55
         },
         "22.7": {
-          "y": 0.58
+          "y": 0.55
         },
         "22.8": {
-          "y": 0.58
+          "y": 0.55
+        },
+        "22.9": {
+          "y": 0.55
+        },
+        "22.10": {
+          "y": 0.55
+        },
+        "22.11": {
+          "y": 0.55
         }
       }
     },
@@ -555,9 +626,16 @@
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "energetic",
-        "text_style": "elegant_gold",
+        "text_style": "clean_white",
         "font_family": 10,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_style_colors": {
+          "core_color": [
+            156,
+            39,
+            176
+          ]
+        }
       },
       "lines_overrides": {},
       "words_overrides": {}
@@ -925,8 +1003,15 @@
         "animation_type": "fade_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "smooth",
-        "text_style": "elegant_gold",
-        "font_family": 374
+        "text_style": "clean_white",
+        "font_family": 374,
+        "text_style_colors": {
+          "core_color": [
+            100,
+            180,
+            255
+          ]
+        }
       },
       "lines_overrides": {},
       "words_overrides": {}
@@ -1144,9 +1229,16 @@
         "animation_type": "scale_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
-        "text_style": "elegant_gold",
+        "text_style": "clean_white",
         "font_family": 1695,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_style_colors": {
+          "core_color": [
+            76,
+            175,
+            80
+          ]
+        }
       },
       "lines_overrides": {
         "55": {
@@ -1167,110 +1259,164 @@
       },
       "words_overrides": {
         "55.0": {
-          "y": 0.34,
-          "font_size_delta": 2
+          "y": 0.35
         },
         "55.1": {
-          "y": 0.34
-        },
-        "56.0": {
-          "y": 0.42,
-          "font_size_delta": 2
-        },
-        "56.1": {
-          "y": 0.42
-        },
-        "56.2": {
-          "y": 0.42
-        },
-        "56.3": {
-          "y": 0.42
-        },
-        "57.0": {
-          "y": 0.34,
-          "font_size_delta": 2
-        },
-        "57.1": {
-          "y": 0.34
-        },
-        "58.0": {
-          "y": 0.42,
-          "font_size_delta": 2
-        },
-        "58.1": {
-          "y": 0.42
-        },
-        "58.2": {
-          "y": 0.42
-        },
-        "58.3": {
-          "y": 0.42
-        },
-        "58.4": {
-          "y": 0.42
+          "y": 0.35
         },
         "55.2": {
-          "y": 0.5
+          "y": 0.35
         },
         "55.3": {
-          "y": 0.5
+          "y": 0.35
         },
         "55.4": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "55.5": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "55.6": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "55.7": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "55.8": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "55.9": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "55.10": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "55.11": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "56.0": {
+          "y": 0.35
+        },
+        "56.1": {
+          "y": 0.35
+        },
+        "56.2": {
+          "y": 0.35
+        },
+        "56.3": {
+          "y": 0.35
         },
         "56.4": {
-          "y": 0.58
+          "y": 0.55
         },
         "56.5": {
-          "y": 0.58
+          "y": 0.55
         },
         "56.6": {
-          "y": 0.58
+          "y": 0.55
         },
         "56.7": {
-          "y": 0.58
+          "y": 0.55
         },
         "56.8": {
-          "y": 0.58
+          "y": 0.55
+        },
+        "56.9": {
+          "y": 0.55
+        },
+        "56.10": {
+          "y": 0.55
+        },
+        "56.11": {
+          "y": 0.55
+        },
+        "57.0": {
+          "y": 0.35
+        },
+        "57.1": {
+          "y": 0.35
         },
         "57.2": {
-          "y": 0.5
+          "y": 0.35
         },
         "57.3": {
-          "y": 0.5
+          "y": 0.35
         },
         "57.4": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "57.5": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "57.6": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "57.7": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "57.8": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "57.9": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "57.10": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "57.11": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "58.0": {
+          "y": 0.35
+        },
+        "58.1": {
+          "y": 0.35
+        },
+        "58.2": {
+          "y": 0.35
+        },
+        "58.3": {
+          "y": 0.35
+        },
+        "58.4": {
+          "y": 0.35
         },
         "58.5": {
-          "y": 0.58
+          "y": 0.55
         },
         "58.6": {
-          "y": 0.58
+          "y": 0.55
         },
         "58.7": {
-          "y": 0.58
+          "y": 0.55
         },
         "58.8": {
-          "y": 0.58
+          "y": 0.55
+        },
+        "58.9": {
+          "y": 0.55
+        },
+        "58.10": {
+          "y": 0.55
+        },
+        "58.11": {
+          "y": 0.55
         }
       }
     },
@@ -1308,9 +1454,16 @@
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "energetic",
-        "text_style": "elegant_gold",
+        "text_style": "clean_white",
         "font_family": 1689,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_style_colors": {
+          "core_color": [
+            156,
+            39,
+            176
+          ]
+        }
       },
       "lines_overrides": {
         "62": {
@@ -1665,8 +1818,15 @@
         "animation_type": "fade_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "smooth",
-        "text_style": "elegant_gold",
-        "font_family": 618
+        "text_style": "clean_white",
+        "font_family": 618,
+        "text_style_colors": {
+          "core_color": [
+            100,
+            180,
+            255
+          ]
+        }
       },
       "lines_overrides": {},
       "words_overrides": {}
@@ -1703,9 +1863,16 @@
         "animation_type": "scale_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
-        "text_style": "elegant_gold",
+        "text_style": "clean_white",
         "font_family": 1659,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_style_colors": {
+          "core_color": [
+            76,
+            175,
+            80
+          ]
+        }
       },
       "lines_overrides": {
         "78": {
@@ -1722,110 +1889,164 @@
       },
       "words_overrides": {
         "77.0": {
-          "y": 0.34,
-          "font_size_delta": 2
+          "y": 0.35
         },
         "77.1": {
-          "y": 0.34
-        },
-        "78.0": {
-          "y": 0.42,
-          "font_size_delta": 2
-        },
-        "78.1": {
-          "y": 0.42
-        },
-        "78.2": {
-          "y": 0.42
-        },
-        "78.3": {
-          "y": 0.42
-        },
-        "79.0": {
-          "y": 0.34,
-          "font_size_delta": 2
-        },
-        "79.1": {
-          "y": 0.34
-        },
-        "80.0": {
-          "y": 0.42,
-          "font_size_delta": 2
-        },
-        "80.1": {
-          "y": 0.42
-        },
-        "80.2": {
-          "y": 0.42
-        },
-        "80.3": {
-          "y": 0.42
-        },
-        "80.4": {
-          "y": 0.42
+          "y": 0.35
         },
         "77.2": {
-          "y": 0.5
+          "y": 0.35
         },
         "77.3": {
-          "y": 0.5
+          "y": 0.35
         },
         "77.4": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "77.5": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "77.6": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "77.7": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "77.8": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "77.9": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "77.10": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "77.11": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "78.0": {
+          "y": 0.35
+        },
+        "78.1": {
+          "y": 0.35
+        },
+        "78.2": {
+          "y": 0.35
+        },
+        "78.3": {
+          "y": 0.35
         },
         "78.4": {
-          "y": 0.58
+          "y": 0.55
         },
         "78.5": {
-          "y": 0.58
+          "y": 0.55
         },
         "78.6": {
-          "y": 0.58
+          "y": 0.55
         },
         "78.7": {
-          "y": 0.58
+          "y": 0.55
         },
         "78.8": {
-          "y": 0.58
+          "y": 0.55
+        },
+        "78.9": {
+          "y": 0.55
+        },
+        "78.10": {
+          "y": 0.55
+        },
+        "78.11": {
+          "y": 0.55
+        },
+        "79.0": {
+          "y": 0.35
+        },
+        "79.1": {
+          "y": 0.35
         },
         "79.2": {
-          "y": 0.5
+          "y": 0.35
         },
         "79.3": {
-          "y": 0.5
+          "y": 0.35
         },
         "79.4": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "79.5": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "79.6": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "79.7": {
-          "y": 0.66
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "79.8": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "79.9": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "79.10": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "79.11": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "80.0": {
+          "y": 0.35
+        },
+        "80.1": {
+          "y": 0.35
+        },
+        "80.2": {
+          "y": 0.35
+        },
+        "80.3": {
+          "y": 0.35
+        },
+        "80.4": {
+          "y": 0.35
         },
         "80.5": {
-          "y": 0.58
+          "y": 0.55
         },
         "80.6": {
-          "y": 0.58
+          "y": 0.55
         },
         "80.7": {
-          "y": 0.58
+          "y": 0.55
         },
         "80.8": {
-          "y": 0.58
+          "y": 0.55
+        },
+        "80.9": {
+          "y": 0.55
+        },
+        "80.10": {
+          "y": 0.55
+        },
+        "80.11": {
+          "y": 0.55
         }
       }
     },
@@ -1864,7 +2085,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 64,
+        "font_size": 90,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
@@ -1875,63 +2096,78 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "intense",
         "text_style": "elegant_gold",
-        "font_family": 748
+        "font_family": 748,
+        "text_style_colors": {
+          "core_color": [
+            255,
+            215,
+            0
+          ]
+        }
       },
       "lines_overrides": {
         "81": {
-          "text_align": "left"
+          "text_align": "left",
+          "font_size": 90
         },
         "82": {
-          "font_size": 71,
+          "font_size": 90,
           "text_align": "left"
         },
         "83": {
-          "text_align": "left"
+          "text_align": "left",
+          "font_size": 90
         },
         "84": {
-          "font_size": 71,
+          "font_size": 90,
           "text_align": "left"
         },
         "85": {
-          "text_align": "left"
+          "text_align": "left",
+          "font_size": 90
         },
         "86": {
-          "font_size": 71,
+          "font_size": 90,
           "text_align": "left"
         },
         "87": {
-          "text_align": "left"
+          "text_align": "left",
+          "font_size": 90
         },
         "88": {
-          "font_size": 71,
+          "font_size": 90,
           "text_align": "left"
         },
         "89": {
-          "text_align": "left"
+          "text_align": "left",
+          "font_size": 90
         },
         "90": {
-          "font_size": 71,
+          "font_size": 90,
           "text_align": "left"
         },
         "91": {
-          "text_align": "left"
+          "text_align": "left",
+          "font_size": 90
         },
         "92": {
-          "font_size": 71,
+          "font_size": 90,
           "text_align": "left"
         },
         "93": {
-          "text_align": "left"
+          "text_align": "left",
+          "font_size": 90
         },
         "94": {
-          "font_size": 71,
+          "font_size": 90,
           "text_align": "left"
         },
         "95": {
-          "text_align": "left"
+          "text_align": "left",
+          "font_size": 90
         },
         "96": {
-          "font_size": 71,
+          "font_size": 90,
           "text_align": "left"
         }
       },
@@ -2081,12 +2317,7 @@
         98,
         99,
         100,
-        101,
-        102,
-        103,
-        104,
-        105,
-        106
+        101
       ],
       "visual": {
         "background_type": "gradient",
@@ -2102,7 +2333,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 92,
+        "font_size": 140,
         "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
@@ -2111,42 +2342,32 @@
         "animation_type": "bounce_in",
         "animation_speed": 1.0,
         "bg_animation_preset": "energetic",
-        "text_style": "elegant_gold",
+        "text_style": "clean_white",
         "font_family": 1621,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_style_colors": {
+          "core_color": [
+            156,
+            39,
+            176
+          ]
+        }
       },
       "lines_overrides": {
         "97": {
-          "reveal_mode": "progressive",
-          "reveal_words": 1,
-          "font_size": 92
+          "font_size": 140
         },
         "98": {
-          "font_size": 92
+          "font_size": 140
         },
         "99": {
-          "font_size": 92
+          "font_size": 140
         },
         "100": {
-          "font_size": 92
+          "font_size": 140
         },
         "101": {
-          "font_size": 92
-        },
-        "102": {
-          "font_size": 92
-        },
-        "103": {
-          "font_size": 92
-        },
-        "104": {
-          "font_size": 92
-        },
-        "105": {
-          "font_size": 92
-        },
-        "106": {
-          "font_size": 92
+          "font_size": 140
         }
       },
       "words_overrides": {}
@@ -2242,7 +2463,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 76,
+        "font_size": 80,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
@@ -2252,60 +2473,67 @@
         "animation_type": "fade_out",
         "animation_speed": 0.7,
         "bg_animation_preset": "smooth",
-        "text_style": "elegant_gold",
-        "font_family": 1336
+        "text_style": "clean_white",
+        "font_family": 1336,
+        "text_style_colors": {
+          "core_color": [
+            130,
+            190,
+            240
+          ]
+        }
       },
       "lines_overrides": {
         "112": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "113": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "114": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "115": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "116": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "117": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "118": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "119": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "120": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "121": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "122": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "123": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         },
         "124": {
-          "font_size": 76,
+          "font_size": 80,
           "text_align": "left"
         }
       },
@@ -2499,17 +2727,6 @@
       }
     }
   ],
-  "intro": {
-    "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
-    "title": "ASABAAL",
-    "subtitle": "A Reality Signal",
-    "duration": 0.0
-  },
-  "outro": {
-    "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
-    "logo": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/outro_logo.png",
-    "text": "Presented by"
-  },
   "_transforms": {
     "version": 1,
     "recipe": "reality_signal_slate_v2",
@@ -13599,5 +13816,20 @@
         "after_missing": false
       }
     ]
-  }
+  },
+  "interstitials": [
+    {
+      "start": 9.0,
+      "end": 10.01,
+      "type": "image",
+      "path": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png"
+    },
+    {
+      "start": 21.0,
+      "end": 22.8,
+      "type": "title",
+      "title": "ASABAAL",
+      "subtitle": "A Reality Signal"
+    }
+  ]
 }

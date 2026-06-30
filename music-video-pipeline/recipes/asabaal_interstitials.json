@@ -1,0 +1,26 @@
+{
+  "name": "asabaal_interstitials",
+  "description": "Add branded interstitial scenes at line-gap indices 1 (branding image) and 2 (title slide)",
+  "steps": [
+    {
+      "transform": "add_interstitial_branding",
+      "params": {
+        "insertions": {
+          "1": {
+            "type": "image",
+            "path": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
+            "start": 9.0,
+            "end": 10.01
+          },
+          "2": {
+            "type": "title",
+            "title": "ASABAAL",
+            "subtitle": "A Reality Signal",
+            "start": 21.0,
+            "end": 22.8
+          }
+        }
+      }
+    }
+  ]
+}
