@@ -327,7 +327,8 @@
         "14.5": {
           "y": 0.58
         }
-      }
+      },
+      "font_size": 72
     },
     {
       "name": "Interlude",
@@ -368,7 +369,16 @@
         }
       },
       "lines_overrides": {},
-      "words_overrides": {}
+      "words_overrides": {},
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          100,
+          180,
+          255
+        ]
+      },
+      "font_size": 82
     },
     {
       "name": "Chorus",
@@ -393,7 +403,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 60,
+        "font_size": 98,
         "reveal_mode": "progressive",
         "reactivity": [
           "drums",
@@ -567,7 +577,7 @@
           "y": 0.35
         },
         "22.4": {
-          "y": 0.35
+          "y": 0.55
         },
         "22.5": {
           "y": 0.55
@@ -590,7 +600,16 @@
         "22.11": {
           "y": 0.55
         }
-      }
+      },
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          40,
+          140,
+          45
+        ]
+      },
+      "font_size": 98
     },
     {
       "name": "Hook",
@@ -616,7 +635,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 92,
+        "font_size": 110,
         "reveal_mode": "progressive",
         "reactivity": [
           "drums",
@@ -638,7 +657,16 @@
         }
       },
       "lines_overrides": {},
-      "words_overrides": {}
+      "words_overrides": {},
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          156,
+          39,
+          176
+        ]
+      },
+      "font_size": 110
     },
     {
       "name": "Verse, rapped",
@@ -655,7 +683,8 @@
         36,
         37,
         38,
-        39
+        39,
+        40
       ],
       "visual": {
         "background_type": "gradient",
@@ -973,13 +1002,14 @@
         "39.3": {
           "y": 0.42
         }
-      }
+      },
+      "font_size": 72
     },
     {
       "name": "Interlude",
       "type": "interlude",
       "lines": [
-        40
+        41
       ],
       "visual": {
         "background_type": "gradient",
@@ -1014,13 +1044,21 @@
         }
       },
       "lines_overrides": {},
-      "words_overrides": {}
+      "words_overrides": {},
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          100,
+          180,
+          255
+        ]
+      },
+      "font_size": 82
     },
     {
       "name": "Verse 2, rapped",
       "type": "verse",
       "lines": [
-        41,
         42,
         43,
         44,
@@ -1033,7 +1071,8 @@
         51,
         52,
         53,
-        54
+        54,
+        55
       ],
       "visual": {
         "background_type": "gradient",
@@ -1064,25 +1103,25 @@
         "text_align": "left"
       },
       "lines_overrides": {
-        "42": {
+        "43": {
           "font_size": 71
         },
-        "44": {
+        "45": {
           "font_size": 71
         },
-        "46": {
+        "47": {
           "font_size": 71
         },
-        "48": {
+        "49": {
           "font_size": 71
         },
-        "50": {
+        "51": {
           "font_size": 71
         },
-        "52": {
+        "53": {
           "font_size": 71
         },
-        "54": {
+        "55": {
           "font_size": 71
         }
       },
@@ -1195,16 +1234,17 @@
         "54.2": {
           "y": 0.42
         }
-      }
+      },
+      "font_size": 72
     },
     {
       "name": "Chorus",
       "type": "chorus",
       "lines": [
-        55,
         56,
         57,
-        58
+        58,
+        59
       ],
       "visual": {
         "background_type": "gradient",
@@ -1220,7 +1260,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 60,
+        "font_size": 98,
         "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
@@ -1241,67 +1281,23 @@
         }
       },
       "lines_overrides": {
-        "55": {
-          "reveal_mode": "progressive",
-          "reveal_words": 1
-        },
         "56": {
           "reveal_mode": "progressive",
           "reveal_words": 1
         },
         "57": {
-          "font_size": 75
+          "reveal_mode": "progressive",
+          "reveal_words": 1
         },
         "58": {
+          "font_size": 75
+        },
+        "59": {
           "reveal_mode": "progressive",
           "reveal_words": 1
         }
       },
       "words_overrides": {
-        "55.0": {
-          "y": 0.35
-        },
-        "55.1": {
-          "y": 0.35
-        },
-        "55.2": {
-          "y": 0.35
-        },
-        "55.3": {
-          "y": 0.35
-        },
-        "55.4": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "55.5": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "55.6": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "55.7": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "55.8": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "55.9": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "55.10": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "55.11": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
         "56.0": {
           "y": 0.35
         },
@@ -1315,28 +1311,36 @@
           "y": 0.35
         },
         "56.4": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "56.5": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "56.6": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "56.7": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "56.8": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "56.9": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "56.10": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "56.11": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "57.0": {
           "y": 0.35
@@ -1351,36 +1355,28 @@
           "y": 0.35
         },
         "57.4": {
-          "y": 0.55,
-          "font_size_delta": 2
+          "y": 0.55
         },
         "57.5": {
-          "y": 0.55,
-          "font_size_delta": 2
+          "y": 0.55
         },
         "57.6": {
-          "y": 0.55,
-          "font_size_delta": 2
+          "y": 0.55
         },
         "57.7": {
-          "y": 0.55,
-          "font_size_delta": 2
+          "y": 0.55
         },
         "57.8": {
-          "y": 0.55,
-          "font_size_delta": 2
+          "y": 0.55
         },
         "57.9": {
-          "y": 0.55,
-          "font_size_delta": 2
+          "y": 0.55
         },
         "57.10": {
-          "y": 0.55,
-          "font_size_delta": 2
+          "y": 0.55
         },
         "57.11": {
-          "y": 0.55,
-          "font_size_delta": 2
+          "y": 0.55
         },
         "58.0": {
           "y": 0.35
@@ -1395,40 +1391,93 @@
           "y": 0.35
         },
         "58.4": {
-          "y": 0.35
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "58.5": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "58.6": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "58.7": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "58.8": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "58.9": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "58.10": {
-          "y": 0.55
+          "y": 0.55,
+          "font_size_delta": 2
         },
         "58.11": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "59.0": {
+          "y": 0.35
+        },
+        "59.1": {
+          "y": 0.35
+        },
+        "59.2": {
+          "y": 0.35
+        },
+        "59.3": {
+          "y": 0.35
+        },
+        "59.4": {
+          "y": 0.55
+        },
+        "59.5": {
+          "y": 0.55
+        },
+        "59.6": {
+          "y": 0.55
+        },
+        "59.7": {
+          "y": 0.55
+        },
+        "59.8": {
+          "y": 0.55
+        },
+        "59.9": {
+          "y": 0.55
+        },
+        "59.10": {
+          "y": 0.55
+        },
+        "59.11": {
           "y": 0.55
         }
-      }
+      },
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          40,
+          140,
+          45
+        ]
+      },
+      "font_size": 98
     },
     {
       "name": "Hook",
       "type": "hook",
       "lines": [
-        59,
         60,
         61,
         62,
-        63
+        63,
+        64
       ],
       "visual": {
         "background_type": "gradient",
@@ -1444,7 +1493,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 92,
+        "font_size": 110,
         "reveal_mode": "progressive",
         "reactivity": [
           "drums",
@@ -1467,30 +1516,29 @@
       },
       "lines_overrides": {
         "62": {
+          "font_size": 92
+        },
+        "64": {
           "reveal_mode": "progressive",
           "reveal_words": 1,
           "font_size": 92
-        },
-        "59": {
-          "font_size": 92
-        },
-        "60": {
-          "font_size": 92
-        },
-        "61": {
-          "font_size": 92
-        },
-        "63": {
-          "font_size": 92
         }
       },
-      "words_overrides": {}
+      "words_overrides": {},
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          156,
+          39,
+          176
+        ]
+      },
+      "font_size": 110
     },
     {
       "name": "Verse 3, rapped",
       "type": "verse",
       "lines": [
-        64,
         65,
         66,
         67,
@@ -1501,7 +1549,8 @@
         72,
         73,
         74,
-        75
+        75,
+        76
       ],
       "visual": {
         "background_type": "gradient",
@@ -1532,46 +1581,7 @@
         "text_align": "left"
       },
       "lines_overrides": {
-        "64": {
-          "text_align": "left"
-        },
-        "65": {
-          "font_size": 71,
-          "text_align": "left"
-        },
-        "66": {
-          "text_align": "left"
-        },
-        "67": {
-          "font_size": 71,
-          "text_align": "left"
-        },
-        "68": {
-          "text_align": "left"
-        },
-        "69": {
-          "font_size": 71,
-          "text_align": "left"
-        },
-        "70": {
-          "text_align": "left"
-        },
-        "71": {
-          "font_size": 71,
-          "text_align": "left"
-        },
-        "72": {
-          "text_align": "left"
-        },
-        "73": {
-          "font_size": 71,
-          "text_align": "left"
-        },
-        "74": {
-          "text_align": "left"
-        },
-        "75": {
-          "font_size": 71,
+        "76": {
           "text_align": "left"
         }
       },
@@ -1786,13 +1796,15 @@
         "75.3": {
           "y": 0.42
         }
-      }
+      },
+      "font_size": 72
     },
     {
       "name": "Interlude",
       "type": "interlude",
       "lines": [
-        76
+        77,
+        78
       ],
       "visual": {
         "background_type": "gradient",
@@ -1829,16 +1841,25 @@
         }
       },
       "lines_overrides": {},
-      "words_overrides": {}
+      "words_overrides": {},
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          100,
+          180,
+          255
+        ]
+      },
+      "font_size": 82
     },
     {
       "name": "Chorus",
       "type": "chorus",
       "lines": [
-        77,
-        78,
         79,
-        80
+        80,
+        81,
+        82
       ],
       "visual": {
         "background_type": "gradient",
@@ -1854,7 +1875,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 60,
+        "font_size": 98,
         "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
@@ -1875,99 +1896,19 @@
         }
       },
       "lines_overrides": {
-        "78": {
+        "80": {
           "reveal_mode": "progressive",
           "reveal_words": 1
         },
-        "79": {
+        "81": {
           "font_size": 75
         },
-        "80": {
+        "82": {
           "reveal_mode": "progressive",
           "reveal_words": 1
         }
       },
       "words_overrides": {
-        "77.0": {
-          "y": 0.35
-        },
-        "77.1": {
-          "y": 0.35
-        },
-        "77.2": {
-          "y": 0.35
-        },
-        "77.3": {
-          "y": 0.35
-        },
-        "77.4": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "77.5": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "77.6": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "77.7": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "77.8": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "77.9": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "77.10": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "77.11": {
-          "y": 0.55,
-          "font_size_delta": 2
-        },
-        "78.0": {
-          "y": 0.35
-        },
-        "78.1": {
-          "y": 0.35
-        },
-        "78.2": {
-          "y": 0.35
-        },
-        "78.3": {
-          "y": 0.35
-        },
-        "78.4": {
-          "y": 0.55
-        },
-        "78.5": {
-          "y": 0.55
-        },
-        "78.6": {
-          "y": 0.55
-        },
-        "78.7": {
-          "y": 0.55
-        },
-        "78.8": {
-          "y": 0.55
-        },
-        "78.9": {
-          "y": 0.55
-        },
-        "78.10": {
-          "y": 0.55
-        },
-        "78.11": {
-          "y": 0.55
-        },
         "79.0": {
           "y": 0.35
         },
@@ -2025,7 +1966,7 @@
           "y": 0.35
         },
         "80.4": {
-          "y": 0.35
+          "y": 0.55
         },
         "80.5": {
           "y": 0.55
@@ -2047,15 +1988,102 @@
         },
         "80.11": {
           "y": 0.55
+        },
+        "81.0": {
+          "y": 0.35
+        },
+        "81.1": {
+          "y": 0.35
+        },
+        "81.2": {
+          "y": 0.35
+        },
+        "81.3": {
+          "y": 0.35
+        },
+        "81.4": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "81.5": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "81.6": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "81.7": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "81.8": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "81.9": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "81.10": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "81.11": {
+          "y": 0.55,
+          "font_size_delta": 2
+        },
+        "82.0": {
+          "y": 0.35
+        },
+        "82.1": {
+          "y": 0.35
+        },
+        "82.2": {
+          "y": 0.35
+        },
+        "82.3": {
+          "y": 0.35
+        },
+        "82.4": {
+          "y": 0.55
+        },
+        "82.5": {
+          "y": 0.55
+        },
+        "82.6": {
+          "y": 0.55
+        },
+        "82.7": {
+          "y": 0.55
+        },
+        "82.8": {
+          "y": 0.55
+        },
+        "82.9": {
+          "y": 0.55
+        },
+        "82.10": {
+          "y": 0.55
+        },
+        "82.11": {
+          "y": 0.55
         }
-      }
+      },
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          40,
+          140,
+          45
+        ]
+      },
+      "font_size": 98
     },
     {
       "name": "Climax",
       "type": "climax",
       "lines": [
-        81,
-        82,
         83,
         84,
         85,
@@ -2069,7 +2097,9 @@
         93,
         94,
         95,
-        96
+        96,
+        97,
+        98
       ],
       "visual": {
         "background_type": "gradient",
@@ -2085,7 +2115,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 90,
+        "font_size": 110,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
@@ -2106,67 +2136,11 @@
         }
       },
       "lines_overrides": {
-        "81": {
+        "97": {
           "text_align": "left",
           "font_size": 90
         },
-        "82": {
-          "font_size": 90,
-          "text_align": "left"
-        },
-        "83": {
-          "text_align": "left",
-          "font_size": 90
-        },
-        "84": {
-          "font_size": 90,
-          "text_align": "left"
-        },
-        "85": {
-          "text_align": "left",
-          "font_size": 90
-        },
-        "86": {
-          "font_size": 90,
-          "text_align": "left"
-        },
-        "87": {
-          "text_align": "left",
-          "font_size": 90
-        },
-        "88": {
-          "font_size": 90,
-          "text_align": "left"
-        },
-        "89": {
-          "text_align": "left",
-          "font_size": 90
-        },
-        "90": {
-          "font_size": 90,
-          "text_align": "left"
-        },
-        "91": {
-          "text_align": "left",
-          "font_size": 90
-        },
-        "92": {
-          "font_size": 90,
-          "text_align": "left"
-        },
-        "93": {
-          "text_align": "left",
-          "font_size": 90
-        },
-        "94": {
-          "font_size": 90,
-          "text_align": "left"
-        },
-        "95": {
-          "text_align": "left",
-          "font_size": 90
-        },
-        "96": {
+        "98": {
           "font_size": 90,
           "text_align": "left"
         }
@@ -2307,17 +2281,19 @@
         "96.2": {
           "y": 0.42
         }
-      }
+      },
+      "font_size": 110,
+      "override_text_style": "elegant_gold"
     },
     {
       "name": "Hook",
       "type": "hook",
       "lines": [
-        97,
-        98,
         99,
         100,
-        101
+        101,
+        102,
+        103
       ],
       "visual": {
         "background_type": "gradient",
@@ -2333,7 +2309,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 140,
+        "font_size": 110,
         "reveal_mode": "progressive",
         "reactivity": [
           "vocals"
@@ -2354,33 +2330,33 @@
         }
       },
       "lines_overrides": {
-        "97": {
+        "102": {
           "font_size": 140
         },
-        "98": {
-          "font_size": 140
-        },
-        "99": {
-          "font_size": 140
-        },
-        "100": {
-          "font_size": 140
-        },
-        "101": {
+        "103": {
           "font_size": 140
         }
       },
-      "words_overrides": {}
+      "words_overrides": {},
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          156,
+          39,
+          176
+        ]
+      },
+      "font_size": 110
     },
     {
       "name": "Post-Hook",
       "type": "post-hook",
       "lines": [
+        104,
+        105,
+        106,
         107,
-        108,
-        109,
-        110,
-        111
+        108
       ],
       "visual": {
         "background_type": "gradient",
@@ -2409,32 +2385,34 @@
         "font_family": 1599
       },
       "lines_overrides": {
-        "109": {
+        "106": {
           "font_size": 84,
           "reveal_mode": "progressive",
           "reveal_words": 1
         },
-        "111": {
+        "104": {
+          "font_size": 84
+        },
+        "105": {
           "reveal_mode": "progressive",
           "reveal_words": 1,
           "font_size": 84
         },
         "107": {
           "font_size": 84
-        },
-        "108": {
-          "font_size": 84
-        },
-        "110": {
-          "font_size": 84
         }
       },
-      "words_overrides": {}
+      "words_overrides": {},
+      "override_text_style": "elegant_gold",
+      "font_size": 84
     },
     {
       "name": "Outro, Spoken word",
       "type": "outro",
       "lines": [
+        109,
+        110,
+        111,
         112,
         113,
         114,
@@ -2444,10 +2422,7 @@
         118,
         119,
         120,
-        121,
-        122,
-        123,
-        124
+        121
       ],
       "visual": {
         "background_type": "gradient",
@@ -2463,7 +2438,7 @@
         "texture_type": "noise_grain",
         "texture_opacity": 0.08,
         "texture_blend_mode": "multiply",
-        "font_size": 80,
+        "font_size": 100,
         "reveal_mode": "progressive",
         "reveal_words": 1,
         "reactivity": [
@@ -2484,6 +2459,18 @@
         }
       },
       "lines_overrides": {
+        "109": {
+          "font_size": 80,
+          "text_align": "left"
+        },
+        "110": {
+          "font_size": 80,
+          "text_align": "left"
+        },
+        "111": {
+          "font_size": 80,
+          "text_align": "left"
+        },
         "112": {
           "font_size": 80,
           "text_align": "left"
@@ -2521,18 +2508,6 @@
           "text_align": "left"
         },
         "121": {
-          "font_size": 80,
-          "text_align": "left"
-        },
-        "122": {
-          "font_size": 80,
-          "text_align": "left"
-        },
-        "123": {
-          "font_size": 80,
-          "text_align": "left"
-        },
-        "124": {
           "font_size": 80,
           "text_align": "left"
         }
@@ -2724,7 +2699,16 @@
         "124.4": {
           "y": 0.58
         }
-      }
+      },
+      "override_text_style": "clean_white",
+      "text_style_colors": {
+        "core_color": [
+          130,
+          190,
+          240
+        ]
+      },
+      "font_size": 100
     }
   ],
   "_transforms": {
@@ -4219,7 +4203,7 @@
           "sections",
           5,
           "lines_overrides",
-          "40"
+          "41"
         ],
         "before": {
           "background_color": "#221624",
@@ -4283,7 +4267,7 @@
           "sections",
           6,
           "lines_overrides",
-          "42",
+          "43",
           "background_color"
         ],
         "before": "#181521",
@@ -4296,7 +4280,7 @@
           "sections",
           6,
           "lines_overrides",
-          "42",
+          "43",
           "gradient_colors"
         ],
         "before": [
@@ -4312,7 +4296,7 @@
           "sections",
           6,
           "lines_overrides",
-          "44",
+          "45",
           "background_color"
         ],
         "before": "#181420",
@@ -4325,7 +4309,7 @@
           "sections",
           6,
           "lines_overrides",
-          "44",
+          "45",
           "gradient_colors"
         ],
         "before": [
@@ -4341,7 +4325,7 @@
           "sections",
           6,
           "lines_overrides",
-          "46",
+          "47",
           "background_color"
         ],
         "before": "#181420",
@@ -4354,7 +4338,7 @@
           "sections",
           6,
           "lines_overrides",
-          "46",
+          "47",
           "gradient_colors"
         ],
         "before": [
@@ -4370,7 +4354,7 @@
           "sections",
           6,
           "lines_overrides",
-          "48",
+          "49",
           "background_color"
         ],
         "before": "#181420",
@@ -4383,7 +4367,7 @@
           "sections",
           6,
           "lines_overrides",
-          "48",
+          "49",
           "gradient_colors"
         ],
         "before": [
@@ -4399,7 +4383,7 @@
           "sections",
           6,
           "lines_overrides",
-          "50",
+          "51",
           "background_color"
         ],
         "before": "#18141f",
@@ -4412,7 +4396,7 @@
           "sections",
           6,
           "lines_overrides",
-          "50",
+          "51",
           "gradient_colors"
         ],
         "before": [
@@ -4428,7 +4412,7 @@
           "sections",
           6,
           "lines_overrides",
-          "52",
+          "53",
           "background_color"
         ],
         "before": "#17141f",
@@ -4441,7 +4425,7 @@
           "sections",
           6,
           "lines_overrides",
-          "52",
+          "53",
           "gradient_colors"
         ],
         "before": [
@@ -4457,7 +4441,7 @@
           "sections",
           6,
           "lines_overrides",
-          "54",
+          "55",
           "background_color"
         ],
         "before": "#17131f",
@@ -4470,7 +4454,7 @@
           "sections",
           6,
           "lines_overrides",
-          "54",
+          "55",
           "gradient_colors"
         ],
         "before": [
@@ -4486,7 +4470,7 @@
           "sections",
           6,
           "lines_overrides",
-          "41"
+          "42"
         ],
         "before": {
           "background_color": "#1b1725",
@@ -4504,7 +4488,7 @@
           "sections",
           6,
           "lines_overrides",
-          "43"
+          "44"
         ],
         "before": {
           "background_color": "#1c1725",
@@ -4522,7 +4506,7 @@
           "sections",
           6,
           "lines_overrides",
-          "45"
+          "46"
         ],
         "before": {
           "background_color": "#1c1826",
@@ -4540,7 +4524,7 @@
           "sections",
           6,
           "lines_overrides",
-          "47"
+          "48"
         ],
         "before": {
           "background_color": "#1c1826",
@@ -4558,7 +4542,7 @@
           "sections",
           6,
           "lines_overrides",
-          "49"
+          "50"
         ],
         "before": {
           "background_color": "#1d1826",
@@ -4576,7 +4560,7 @@
           "sections",
           6,
           "lines_overrides",
-          "51"
+          "52"
         ],
         "before": {
           "background_color": "#1d1826",
@@ -4594,7 +4578,7 @@
           "sections",
           6,
           "lines_overrides",
-          "53"
+          "54"
         ],
         "before": {
           "background_color": "#1d1827",
@@ -4658,7 +4642,7 @@
           "sections",
           7,
           "lines_overrides",
-          "55",
+          "57",
           "background_color"
         ],
         "before": "#33351c",
@@ -4671,7 +4655,7 @@
           "sections",
           7,
           "lines_overrides",
-          "55",
+          "57",
           "gradient_colors"
         ],
         "before": [
@@ -4687,7 +4671,7 @@
           "sections",
           7,
           "lines_overrides",
-          "56",
+          "58",
           "background_color"
         ],
         "before": "#2d3019",
@@ -4700,7 +4684,7 @@
           "sections",
           7,
           "lines_overrides",
-          "56",
+          "58",
           "gradient_colors"
         ],
         "before": [
@@ -4716,7 +4700,7 @@
           "sections",
           7,
           "lines_overrides",
-          "57",
+          "59",
           "background_color"
         ],
         "before": "#33361d",
@@ -4729,7 +4713,7 @@
           "sections",
           7,
           "lines_overrides",
-          "57",
+          "59",
           "gradient_colors"
         ],
         "before": [
@@ -4745,7 +4729,7 @@
           "sections",
           7,
           "lines_overrides",
-          "58",
+          "59",
           "background_color"
         ],
         "before": "#2b2e18",
@@ -4758,7 +4742,7 @@
           "sections",
           7,
           "lines_overrides",
-          "58",
+          "59",
           "gradient_colors"
         ],
         "before": [
@@ -4820,7 +4804,7 @@
           "sections",
           8,
           "lines_overrides",
-          "62",
+          "63",
           "background_color"
         ],
         "before": "#2b2d18",
@@ -4833,7 +4817,7 @@
           "sections",
           8,
           "lines_overrides",
-          "62",
+          "63",
           "gradient_colors"
         ],
         "before": [
@@ -4849,7 +4833,7 @@
           "sections",
           8,
           "lines_overrides",
-          "59"
+          "60"
         ],
         "before": {
           "background_color": "#31331b",
@@ -4867,7 +4851,7 @@
           "sections",
           8,
           "lines_overrides",
-          "60"
+          "61"
         ],
         "before": {
           "background_color": "#2c2e19",
@@ -4885,7 +4869,7 @@
           "sections",
           8,
           "lines_overrides",
-          "61"
+          "62"
         ],
         "before": {
           "background_color": "#31341c",
@@ -4903,7 +4887,7 @@
           "sections",
           8,
           "lines_overrides",
-          "63"
+          "64"
         ],
         "before": {
           "background_color": "#32351c",
@@ -4955,7 +4939,7 @@
           "sections",
           9,
           "lines_overrides",
-          "64",
+          "65",
           "background_color"
         ],
         "before": "#1f1827",
@@ -4968,7 +4952,7 @@
           "sections",
           9,
           "lines_overrides",
-          "64",
+          "65",
           "gradient_colors"
         ],
         "before": [
@@ -4984,7 +4968,7 @@
           "sections",
           9,
           "lines_overrides",
-          "65",
+          "66",
           "background_color"
         ],
         "before": "#1b1523",
@@ -4997,7 +4981,7 @@
           "sections",
           9,
           "lines_overrides",
-          "65",
+          "66",
           "gradient_colors"
         ],
         "before": [
@@ -5013,7 +4997,7 @@
           "sections",
           9,
           "lines_overrides",
-          "66",
+          "67",
           "background_color"
         ],
         "before": "#1f1827",
@@ -5026,7 +5010,7 @@
           "sections",
           9,
           "lines_overrides",
-          "66",
+          "67",
           "gradient_colors"
         ],
         "before": [
@@ -5042,7 +5026,7 @@
           "sections",
           9,
           "lines_overrides",
-          "67",
+          "68",
           "background_color"
         ],
         "before": "#1b1523",
@@ -5055,7 +5039,7 @@
           "sections",
           9,
           "lines_overrides",
-          "67",
+          "68",
           "gradient_colors"
         ],
         "before": [
@@ -5071,7 +5055,7 @@
           "sections",
           9,
           "lines_overrides",
-          "68",
+          "69",
           "background_color"
         ],
         "before": "#201928",
@@ -5084,7 +5068,7 @@
           "sections",
           9,
           "lines_overrides",
-          "68",
+          "69",
           "gradient_colors"
         ],
         "before": [
@@ -5100,7 +5084,7 @@
           "sections",
           9,
           "lines_overrides",
-          "69",
+          "70",
           "background_color"
         ],
         "before": "#1b1522",
@@ -5113,7 +5097,7 @@
           "sections",
           9,
           "lines_overrides",
-          "69",
+          "70",
           "gradient_colors"
         ],
         "before": [
@@ -5129,7 +5113,7 @@
           "sections",
           9,
           "lines_overrides",
-          "70",
+          "71",
           "background_color"
         ],
         "before": "#201928",
@@ -5142,7 +5126,7 @@
           "sections",
           9,
           "lines_overrides",
-          "70",
+          "71",
           "gradient_colors"
         ],
         "before": [
@@ -5158,7 +5142,7 @@
           "sections",
           9,
           "lines_overrides",
-          "71",
+          "72",
           "background_color"
         ],
         "before": "#1b1522",
@@ -5171,7 +5155,7 @@
           "sections",
           9,
           "lines_overrides",
-          "71",
+          "72",
           "gradient_colors"
         ],
         "before": [
@@ -5187,7 +5171,7 @@
           "sections",
           9,
           "lines_overrides",
-          "72",
+          "73",
           "background_color"
         ],
         "before": "#201929",
@@ -5200,7 +5184,7 @@
           "sections",
           9,
           "lines_overrides",
-          "72",
+          "73",
           "gradient_colors"
         ],
         "before": [
@@ -5216,7 +5200,7 @@
           "sections",
           9,
           "lines_overrides",
-          "73",
+          "74",
           "background_color"
         ],
         "before": "#1b1521",
@@ -5229,7 +5213,7 @@
           "sections",
           9,
           "lines_overrides",
-          "73",
+          "74",
           "gradient_colors"
         ],
         "before": [
@@ -5245,7 +5229,7 @@
           "sections",
           9,
           "lines_overrides",
-          "74",
+          "75",
           "background_color"
         ],
         "before": "#211929",
@@ -5258,7 +5242,7 @@
           "sections",
           9,
           "lines_overrides",
-          "74",
+          "75",
           "gradient_colors"
         ],
         "before": [
@@ -5274,7 +5258,7 @@
           "sections",
           9,
           "lines_overrides",
-          "75",
+          "76",
           "background_color"
         ],
         "before": "#1b1421",
@@ -5287,7 +5271,7 @@
           "sections",
           9,
           "lines_overrides",
-          "75",
+          "76",
           "gradient_colors"
         ],
         "before": [
@@ -5349,7 +5333,7 @@
           "sections",
           10,
           "lines_overrides",
-          "76"
+          "77"
         ],
         "before": {
           "background_color": "#251727",
@@ -5413,7 +5397,7 @@
           "sections",
           11,
           "lines_overrides",
-          "78",
+          "82",
           "background_color"
         ],
         "before": "#2d3019",
@@ -5426,7 +5410,7 @@
           "sections",
           11,
           "lines_overrides",
-          "78",
+          "82",
           "gradient_colors"
         ],
         "before": [
@@ -5442,7 +5426,7 @@
           "sections",
           11,
           "lines_overrides",
-          "79",
+          "81",
           "background_color"
         ],
         "before": "#33361d",
@@ -5455,7 +5439,7 @@
           "sections",
           11,
           "lines_overrides",
-          "79",
+          "81",
           "gradient_colors"
         ],
         "before": [
@@ -5471,7 +5455,7 @@
           "sections",
           11,
           "lines_overrides",
-          "80",
+          "82",
           "background_color"
         ],
         "before": "#2b2e18",
@@ -5484,7 +5468,7 @@
           "sections",
           11,
           "lines_overrides",
-          "80",
+          "82",
           "gradient_colors"
         ],
         "before": [
@@ -5500,7 +5484,7 @@
           "sections",
           11,
           "lines_overrides",
-          "77"
+          "81"
         ],
         "before": {
           "background_color": "#33351c",
@@ -5565,7 +5549,7 @@
           "sections",
           12,
           "lines_overrides",
-          "81",
+          "83",
           "background_color"
         ],
         "before": "#201826",
@@ -5578,7 +5562,7 @@
           "sections",
           12,
           "lines_overrides",
-          "81",
+          "83",
           "gradient_colors"
         ],
         "before": [
@@ -5594,64 +5578,6 @@
           "sections",
           12,
           "lines_overrides",
-          "82",
-          "background_color"
-        ],
-        "before": "#1d1522",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "82",
-          "gradient_colors"
-        ],
-        "before": [
-          "#1d1522",
-          "#312233"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "83",
-          "background_color"
-        ],
-        "before": "#211827",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "83",
-          "gradient_colors"
-        ],
-        "before": [
-          "#211827",
-          "#352538"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
           "84",
           "background_color"
         ],
@@ -5753,6 +5679,64 @@
           12,
           "lines_overrides",
           "87",
+          "gradient_colors"
+        ],
+        "before": [
+          "#211827",
+          "#352538"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "88",
+          "background_color"
+        ],
+        "before": "#1d1522",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "88",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1d1522",
+          "#312233"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "89",
+          "background_color"
+        ],
+        "before": "#211827",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "89",
           "gradient_colors"
         ],
         "before": [
@@ -5768,7 +5752,7 @@
           "sections",
           12,
           "lines_overrides",
-          "88",
+          "90",
           "background_color"
         ],
         "before": "#1c1521",
@@ -5781,7 +5765,7 @@
           "sections",
           12,
           "lines_overrides",
-          "88",
+          "90",
           "gradient_colors"
         ],
         "before": [
@@ -5797,7 +5781,7 @@
           "sections",
           12,
           "lines_overrides",
-          "89",
+          "91",
           "background_color"
         ],
         "before": "#221827",
@@ -5810,7 +5794,7 @@
           "sections",
           12,
           "lines_overrides",
-          "89",
+          "91",
           "gradient_colors"
         ],
         "before": [
@@ -5826,64 +5810,6 @@
           "sections",
           12,
           "lines_overrides",
-          "90",
-          "background_color"
-        ],
-        "before": "#1c1421",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "90",
-          "gradient_colors"
-        ],
-        "before": [
-          "#1c1421",
-          "#302232"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "91",
-          "background_color"
-        ],
-        "before": "#221928",
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
-          "91",
-          "gradient_colors"
-        ],
-        "before": [
-          "#221928",
-          "#372639"
-        ],
-        "after": null,
-        "before_missing": false,
-        "after_missing": true
-      },
-      {
-        "addr": [
-          "sections",
-          12,
-          "lines_overrides",
           "92",
           "background_color"
         ],
@@ -5956,6 +5882,64 @@
           12,
           "lines_overrides",
           "94",
+          "gradient_colors"
+        ],
+        "before": [
+          "#1c1421",
+          "#302232"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "95",
+          "background_color"
+        ],
+        "before": "#221928",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "95",
+          "gradient_colors"
+        ],
+        "before": [
+          "#221928",
+          "#372639"
+        ],
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "96",
+          "background_color"
+        ],
+        "before": "#1c1421",
+        "after": null,
+        "before_missing": false,
+        "after_missing": true
+      },
+      {
+        "addr": [
+          "sections",
+          12,
+          "lines_overrides",
+          "96",
           "gradient_colors"
         ],
         "before": [
@@ -5971,7 +5955,7 @@
           "sections",
           12,
           "lines_overrides",
-          "95",
+          "97",
           "background_color"
         ],
         "before": "#231928",
@@ -5984,7 +5968,7 @@
           "sections",
           12,
           "lines_overrides",
-          "95",
+          "97",
           "gradient_colors"
         ],
         "before": [
@@ -6000,7 +5984,7 @@
           "sections",
           12,
           "lines_overrides",
-          "96",
+          "98",
           "background_color"
         ],
         "before": "#1c1420",
@@ -6013,7 +5997,7 @@
           "sections",
           12,
           "lines_overrides",
-          "96",
+          "98",
           "gradient_colors"
         ],
         "before": [
@@ -6075,7 +6059,7 @@
           "sections",
           13,
           "lines_overrides",
-          "97",
+          "99",
           "background_color"
         ],
         "before": "#33351c",
@@ -6088,7 +6072,7 @@
           "sections",
           13,
           "lines_overrides",
-          "97",
+          "99",
           "gradient_colors"
         ],
         "before": [
@@ -6104,7 +6088,7 @@
           "sections",
           13,
           "lines_overrides",
-          "98"
+          "100"
         ],
         "before": {
           "background_color": "#2e3019",
@@ -6122,7 +6106,7 @@
           "sections",
           13,
           "lines_overrides",
-          "99"
+          "101"
         ],
         "before": {
           "background_color": "#33351c",
@@ -6140,7 +6124,7 @@
           "sections",
           13,
           "lines_overrides",
-          "100"
+          "102"
         ],
         "before": {
           "background_color": "#2e3019",
@@ -6158,7 +6142,7 @@
           "sections",
           13,
           "lines_overrides",
-          "101"
+          "103"
         ],
         "before": {
           "background_color": "#33361c",
@@ -6311,7 +6295,7 @@
           "sections",
           14,
           "lines_overrides",
-          "109",
+          "106",
           "background_color"
         ],
         "before": "#34371d",
@@ -6324,7 +6308,7 @@
           "sections",
           14,
           "lines_overrides",
-          "109",
+          "106",
           "gradient_colors"
         ],
         "before": [
@@ -6340,7 +6324,7 @@
           "sections",
           14,
           "lines_overrides",
-          "111",
+          "108",
           "background_color"
         ],
         "before": "#34381d",
@@ -6353,7 +6337,7 @@
           "sections",
           14,
           "lines_overrides",
-          "111",
+          "108",
           "gradient_colors"
         ],
         "before": [
@@ -6369,7 +6353,7 @@
           "sections",
           14,
           "lines_overrides",
-          "107"
+          "104"
         ],
         "before": {
           "background_color": "#34361c",
@@ -6387,7 +6371,7 @@
           "sections",
           14,
           "lines_overrides",
-          "108"
+          "105"
         ],
         "before": {
           "background_color": "#2f311a",
@@ -6405,7 +6389,7 @@
           "sections",
           14,
           "lines_overrides",
-          "110"
+          "107"
         ],
         "before": {
           "background_color": "#2d3019",
@@ -6469,7 +6453,7 @@
           "sections",
           15,
           "lines_overrides",
-          "112",
+          "109",
           "background_color"
         ],
         "before": "#121319",
@@ -6482,7 +6466,7 @@
           "sections",
           15,
           "lines_overrides",
-          "112",
+          "109",
           "gradient_colors"
         ],
         "before": [
@@ -6498,7 +6482,7 @@
           "sections",
           15,
           "lines_overrides",
-          "113",
+          "110",
           "background_color"
         ],
         "before": "#0f1015",
@@ -6511,7 +6495,7 @@
           "sections",
           15,
           "lines_overrides",
-          "113",
+          "110",
           "gradient_colors"
         ],
         "before": [
@@ -6527,7 +6511,7 @@
           "sections",
           15,
           "lines_overrides",
-          "114",
+          "111",
           "background_color"
         ],
         "before": "#121319",
@@ -6540,7 +6524,7 @@
           "sections",
           15,
           "lines_overrides",
-          "114",
+          "111",
           "gradient_colors"
         ],
         "before": [
@@ -6556,7 +6540,7 @@
           "sections",
           15,
           "lines_overrides",
-          "115",
+          "112",
           "background_color"
         ],
         "before": "#0f0f15",
@@ -6569,7 +6553,7 @@
           "sections",
           15,
           "lines_overrides",
-          "115",
+          "112",
           "gradient_colors"
         ],
         "before": [
@@ -6585,7 +6569,7 @@
           "sections",
           15,
           "lines_overrides",
-          "116",
+          "113",
           "background_color"
         ],
         "before": "#12131a",
@@ -6598,7 +6582,7 @@
           "sections",
           15,
           "lines_overrides",
-          "116",
+          "113",
           "gradient_colors"
         ],
         "before": [
@@ -6614,7 +6598,7 @@
           "sections",
           15,
           "lines_overrides",
-          "117",
+          "114",
           "background_color"
         ],
         "before": "#0f0f15",
@@ -6627,7 +6611,7 @@
           "sections",
           15,
           "lines_overrides",
-          "117",
+          "114",
           "gradient_colors"
         ],
         "before": [
@@ -6643,7 +6627,7 @@
           "sections",
           15,
           "lines_overrides",
-          "118",
+          "115",
           "background_color"
         ],
         "before": "#13131a",
@@ -6656,7 +6640,7 @@
           "sections",
           15,
           "lines_overrides",
-          "118",
+          "115",
           "gradient_colors"
         ],
         "before": [
@@ -6672,7 +6656,7 @@
           "sections",
           15,
           "lines_overrides",
-          "119",
+          "116",
           "background_color"
         ],
         "before": "#0e0f14",
@@ -6685,7 +6669,7 @@
           "sections",
           15,
           "lines_overrides",
-          "119",
+          "116",
           "gradient_colors"
         ],
         "before": [
@@ -6701,7 +6685,7 @@
           "sections",
           15,
           "lines_overrides",
-          "120",
+          "117",
           "background_color"
         ],
         "before": "#13131a",
@@ -6714,7 +6698,7 @@
           "sections",
           15,
           "lines_overrides",
-          "120",
+          "117",
           "gradient_colors"
         ],
         "before": [
@@ -6730,7 +6714,7 @@
           "sections",
           15,
           "lines_overrides",
-          "121",
+          "118",
           "background_color"
         ],
         "before": "#0e0f14",
@@ -6743,7 +6727,7 @@
           "sections",
           15,
           "lines_overrides",
-          "121",
+          "118",
           "gradient_colors"
         ],
         "before": [
@@ -6759,7 +6743,7 @@
           "sections",
           15,
           "lines_overrides",
-          "122",
+          "119",
           "background_color"
         ],
         "before": "#13141b",
@@ -6772,7 +6756,7 @@
           "sections",
           15,
           "lines_overrides",
-          "122",
+          "119",
           "gradient_colors"
         ],
         "before": [
@@ -6788,7 +6772,7 @@
           "sections",
           15,
           "lines_overrides",
-          "123",
+          "120",
           "background_color"
         ],
         "before": "#0e0e14",
@@ -6801,7 +6785,7 @@
           "sections",
           15,
           "lines_overrides",
-          "123",
+          "120",
           "gradient_colors"
         ],
         "before": [
@@ -6817,7 +6801,7 @@
           "sections",
           15,
           "lines_overrides",
-          "124",
+          "121",
           "background_color"
         ],
         "before": "#13141b",
@@ -6830,7 +6814,7 @@
           "sections",
           15,
           "lines_overrides",
-          "124",
+          "121",
           "gradient_colors"
         ],
         "before": [
@@ -6919,7 +6903,7 @@
           "sections",
           6,
           "lines_overrides",
-          "54",
+          "55",
           "text_position"
         ],
         "before": "bottom",
@@ -6956,7 +6940,7 @@
           "sections",
           9,
           "lines_overrides",
-          "75",
+          "76",
           "text_position"
         ],
         "before": "bottom",
@@ -6993,7 +6977,7 @@
           "sections",
           12,
           "lines_overrides",
-          "96",
+          "98",
           "text_position"
         ],
         "before": "bottom",
@@ -13291,25 +13275,11 @@
           "sections",
           8,
           "lines_overrides",
-          "62",
+          "63",
           "font_size"
         ],
         "before": null,
         "after": 92,
-        "before_missing": true,
-        "after_missing": false
-      },
-      {
-        "addr": [
-          "sections",
-          8,
-          "lines_overrides",
-          "59"
-        ],
-        "before": null,
-        "after": {
-          "font_size": 92
-        },
         "before_missing": true,
         "after_missing": false
       },
@@ -13346,7 +13316,21 @@
           "sections",
           8,
           "lines_overrides",
-          "63"
+          "62"
+        ],
+        "before": null,
+        "after": {
+          "font_size": 92
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          8,
+          "lines_overrides",
+          "64"
         ],
         "before": null,
         "after": {
@@ -13372,39 +13356,11 @@
           "sections",
           13,
           "lines_overrides",
-          "97",
+          "99",
           "font_size"
         ],
         "before": null,
         "after": 92,
-        "before_missing": true,
-        "after_missing": false
-      },
-      {
-        "addr": [
-          "sections",
-          13,
-          "lines_overrides",
-          "98"
-        ],
-        "before": null,
-        "after": {
-          "font_size": 92
-        },
-        "before_missing": true,
-        "after_missing": false
-      },
-      {
-        "addr": [
-          "sections",
-          13,
-          "lines_overrides",
-          "99"
-        ],
-        "before": null,
-        "after": {
-          "font_size": 92
-        },
         "before_missing": true,
         "after_missing": false
       },
@@ -13428,6 +13384,34 @@
           13,
           "lines_overrides",
           "101"
+        ],
+        "before": null,
+        "after": {
+          "font_size": 92
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          13,
+          "lines_overrides",
+          "102"
+        ],
+        "before": null,
+        "after": {
+          "font_size": 92
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          13,
+          "lines_overrides",
+          "103"
         ],
         "before": null,
         "after": {
@@ -13559,7 +13543,7 @@
           "sections",
           14,
           "lines_overrides",
-          "109",
+          "106",
           "font_size"
         ],
         "before": 75,
@@ -13572,7 +13556,7 @@
           "sections",
           14,
           "lines_overrides",
-          "111",
+          "108",
           "font_size"
         ],
         "before": null,
@@ -13585,35 +13569,35 @@
           "sections",
           14,
           "lines_overrides",
+          "104"
+        ],
+        "before": null,
+        "after": {
+          "font_size": 84
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          14,
+          "lines_overrides",
+          "105"
+        ],
+        "before": null,
+        "after": {
+          "font_size": 84
+        },
+        "before_missing": true,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          14,
+          "lines_overrides",
           "107"
-        ],
-        "before": null,
-        "after": {
-          "font_size": 84
-        },
-        "before_missing": true,
-        "after_missing": false
-      },
-      {
-        "addr": [
-          "sections",
-          14,
-          "lines_overrides",
-          "108"
-        ],
-        "before": null,
-        "after": {
-          "font_size": 84
-        },
-        "before_missing": true,
-        "after_missing": false
-      },
-      {
-        "addr": [
-          "sections",
-          14,
-          "lines_overrides",
-          "110"
         ],
         "before": null,
         "after": {
@@ -13639,10 +13623,49 @@
           "sections",
           15,
           "lines_overrides",
-          "112",
+          "109",
           "font_size"
         ],
         "before": 69,
+        "after": 76,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          15,
+          "lines_overrides",
+          "110",
+          "font_size"
+        ],
+        "before": 70,
+        "after": 76,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          15,
+          "lines_overrides",
+          "111",
+          "font_size"
+        ],
+        "before": 70,
+        "after": 76,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          15,
+          "lines_overrides",
+          "112",
+          "font_size"
+        ],
+        "before": 70,
         "after": 76,
         "before_missing": false,
         "after_missing": false
@@ -13668,7 +13691,7 @@
           "114",
           "font_size"
         ],
-        "before": 70,
+        "before": 71,
         "after": 76,
         "before_missing": false,
         "after_missing": false
@@ -13681,7 +13704,7 @@
           "115",
           "font_size"
         ],
-        "before": 70,
+        "before": 71,
         "after": 76,
         "before_missing": false,
         "after_missing": false
@@ -13694,7 +13717,7 @@
           "116",
           "font_size"
         ],
-        "before": 70,
+        "before": 71,
         "after": 76,
         "before_missing": false,
         "after_missing": false
@@ -13720,7 +13743,7 @@
           "118",
           "font_size"
         ],
-        "before": 71,
+        "before": 72,
         "after": 76,
         "before_missing": false,
         "after_missing": false
@@ -13733,7 +13756,7 @@
           "119",
           "font_size"
         ],
-        "before": 71,
+        "before": 72,
         "after": 76,
         "before_missing": false,
         "after_missing": false
@@ -13746,7 +13769,7 @@
           "120",
           "font_size"
         ],
-        "before": 71,
+        "before": 72,
         "after": 76,
         "before_missing": false,
         "after_missing": false
@@ -13757,45 +13780,6 @@
           15,
           "lines_overrides",
           "121",
-          "font_size"
-        ],
-        "before": 72,
-        "after": 76,
-        "before_missing": false,
-        "after_missing": false
-      },
-      {
-        "addr": [
-          "sections",
-          15,
-          "lines_overrides",
-          "122",
-          "font_size"
-        ],
-        "before": 72,
-        "after": 76,
-        "before_missing": false,
-        "after_missing": false
-      },
-      {
-        "addr": [
-          "sections",
-          15,
-          "lines_overrides",
-          "123",
-          "font_size"
-        ],
-        "before": 72,
-        "after": 76,
-        "before_missing": false,
-        "after_missing": false
-      },
-      {
-        "addr": [
-          "sections",
-          15,
-          "lines_overrides",
-          "124",
           "font_size"
         ],
         "before": 72,
@@ -13831,5 +13815,10 @@
       "title": "ASABAAL",
       "subtitle": "A Reality Signal"
     }
-  ]
+  ],
+  "outro": {
+    "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
+    "logo": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/asabaal/data/assets/outro_logo.png",
+    "text": "Presented by"
+  }
 }
