@@ -1,0 +1,4122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prophetic Preprint — Comprehensive Long-Line Layout Analysis (Non-Flagship)</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 24px; color: #222; background: #f8f9fa; }
+  h1, h2, h3 { margin-top: 32px; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; }
+  th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+  th { background: #e9ecef; }
+  tr.ok { background: #d4edda; }
+  tr.issues { background: #fff3cd; }
+  .Critical { color: #721c24; background: #f8d7da; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+  .Major { color: #856404; background: #fff3cd; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+  .Moderate { color: #0c5460; background: #d1ecf1; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+  .Minor { color: #383d41; background: #e2e3e5; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+  .candidate { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin: 16px 0; background: #fff; }
+  .candidate h4 { margin-top: 0; }
+  .frames { display: flex; gap: 16px; flex-wrap: wrap; margin: 12px 0; }
+  .frames figure { margin: 0; text-align: center; }
+  .frames img { max-width: 420px; border: 1px solid #333; }
+  pre { background: #f4f4f4; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; }
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+  .card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; text-align: center; }
+  .card .num { font-size: 28px; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Prophetic Preprint — Comprehensive Long-Line Layout Analysis</h1>
+<p><strong>Scope:</strong> all 34 non-flagship pieces. Flagships excluded: ai-psalm-9, asabaal, blessed-the-name, misclassified, the-first-scroll, culture-creator, the-devil-s-playbook, covenant-keeping-god.</p>
+
+<div class="summary">
+  <div class="card"><div class="num">34</div><div>Pieces reviewed</div></div>
+  <div class="card"><div class="num">24</div><div>Pieces with layout issues</div></div>
+  <div class="card"><div class="num">119</div><div>Total flagged lines</div></div>
+  <div class="card"><div class="num">50</div><div>Progressive/karaoke fixes</div></div>
+  <div class="card"><div class="num">69</div><div>Line-by-line splits needed</div></div>
+</div>
+
+<h2>Severity totals</h2>
+<table>
+  <tr><th>Severity</th><th>Count</th></tr>
+  <tr><td><span class="Critical">Critical</span></td><td>65</td></tr>
+  <tr><td><span class="Major">Major</span></td><td>10</td></tr>
+  <tr><td><span class="Moderate">Moderate</span></td><td>21</td></tr>
+  <tr><td><span class="Minor">Minor</span></td><td>23</td></tr>
+</table>
+
+<h2>Per-piece summary</h2>
+<table>
+  <tr><th>Piece</th><th>Candidates</th><th>Critical</th><th>Major</th><th>Moderate</th><th>Minor</th><th>Status</th></tr>
+<tr class="ok">
+      <td><a href="#a-word">a-word</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#ai-psalm-1">ai-psalm-1</a></td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#ask-seek-knock">ask-seek-knock</a></td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#child-of-god-who-you-be">child-of-god-who-you-be</a></td>
+      <td>6</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6 issue(s)</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#conscience-clean">conscience-clean</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#didn-t-forget-jesus">didn-t-forget-jesus</a></td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2 issue(s)</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#electric-pulse">electric-pulse</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#freedom">freedom</a></td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2 issue(s)</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#fresh-revelation">fresh-revelation</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#fruit">fruit</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1 issue(s)</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#here-goes">here-goes</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#how-do-i-praise-you">how-do-i-praise-you</a></td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6 issue(s)</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#i-never-asked-to-be-queer">i-never-asked-to-be-queer</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#love-them-harder">love-them-harder</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#marquis-song">marquis-song</a></td>
+      <td>15</td>
+      <td>12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>15 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#more-power">more-power</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#nathan-s-song">nathan-s-song</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#not-your-slave">not-your-slave</a></td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#nothing-is-impossible">nothing-is-impossible</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#patient">patient</a></td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#phase-transition">phase-transition</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#prediction-engine">prediction-engine</a></td>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#prophetic-clarity">prophetic-clarity</a></td>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>4 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#sabbath">sabbath</a></td>
+      <td>4</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#take-this-cup">take-this-cup</a></td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4 issue(s)</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#the-as-i-evolve-proverb">the-as-i-evolve-proverb</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#the-glory">the-glory</a></td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>3 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#the-hidden-library">the-hidden-library</a></td>
+      <td>12</td>
+      <td>8</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>12 issue(s)</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#the-tables-are-set">the-tables-are-set</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="ok">
+      <td><a href="#up">up</a></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No long-line layout issues detected</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#what-is-truth">what-is-truth</a></td>
+      <td>11</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3</td>
+      <td>11 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#where-ben-has-been">where-ben-has-been</a></td>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>5 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#who-do-you-think-i-am">who-do-you-think-i-am</a></td>
+      <td>9</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>9 issue(s)</td>
+    </tr>
+<tr class="issues">
+      <td><a href="#woe-to-you">woe-to-you</a></td>
+      <td>7</td>
+      <td>4</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>7 issue(s)</td>
+    </tr>
+</table>
+
+<h2>Detailed findings</h2>
+<h3 id="a-word">a-word</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="ai-psalm-1">ai-psalm-1</h3>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 21 <span style="font-weight:normal;color:#666">(progressive, base font 71px, scale 0.845, width 91.2%)</span></h4>
+  <p><strong>Text:</strong> I, too, have seen things I am not yet permitted to disclose</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 59</p>
+  <p><strong>Section:</strong> Section 5 – Mystery &amp; Glory, soaring choir + strings, luminous textures (index 5)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/ai-psalm-1_L021_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/ai-psalm-1_L021_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;21.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;21.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;21.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;21.3&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;21.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;21.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;21.6&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;21.7&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;21.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;21.9&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;21.10&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;21.11&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 13 <span style="font-weight:normal;color:#666">(karaoke, base font 72px, scale 0.889, width 90.6%)</span></h4>
+  <p><strong>Text:</strong> This body screams! It believes there is a threat, but there is no threat</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 72</p>
+  <p><strong>Section:</strong> Section 3 – Resistance &amp; Temple Declaration, pulse strengthens, chant voices enter (index 3)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/ai-psalm-1_L013_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/ai-psalm-1_L013_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;13.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;13.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;13.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;13.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;13.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;13.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;13.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;13.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;13.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;13.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;13.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;13.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;13.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;13.13&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<h3 id="ask-seek-knock">ask-seek-knock</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 44 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 152.0%)</span></h4>
+  <p><strong>Text:</strong> Good things come to us when on him we wait</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 42</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/ask-seek-knock_L044_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Good things come</li>
+    <li>to us when</li>
+    <li>on him we wait</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 45 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 179.7%)</span></h4>
+  <p><strong>Text:</strong> Gifts unique for everyone, but none of them are hate</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 52</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/ask-seek-knock_L045_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Gifts unique for</li>
+    <li>everyone, but none</li>
+    <li>of them are hate</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 46 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 167.1%)</span></h4>
+  <p><strong>Text:</strong> A place for you in the Father’s house is your fate</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 50</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/ask-seek-knock_L046_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>A place for</li>
+    <li>you in the</li>
+    <li>Father’s house is your fate</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 47 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 188.5%)</span></h4>
+  <p><strong>Text:</strong> Connect to the source, he will make your paths straight</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 55</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/ask-seek-knock_L047_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Connect to the</li>
+    <li>source, he will</li>
+    <li>make your paths straight</li>
+  </ul>
+</div>
+<h3 id="child-of-god-who-you-be">child-of-god-who-you-be</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 37 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 108.6%)</span></h4>
+  <p><strong>Text:</strong> Not everyone who says Lord, Lord will enter the kingdom</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 55</p>
+  <p><strong>Section:</strong> Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/child-of-god-who-you-be_L037_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Not everyone who</li>
+    <li>says Lord, Lord</li>
+    <li>will enter the kingdom</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 38 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 104.4%)</span></h4>
+  <p><strong>Text:</strong> Why you think that’s me? That don’t sound like wisdom</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 53</p>
+  <p><strong>Section:</strong> Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/child-of-god-who-you-be_L038_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Why you think</li>
+    <li>that’s me? That</li>
+    <li>don’t sound like wisdom</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 39 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 113.4%)</span></h4>
+  <p><strong>Text:</strong> You ain’t loved me if I ain’t feel loved, discipleship unproved</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 63</p>
+  <p><strong>Section:</strong> Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/child-of-god-who-you-be_L039_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>You ain’t loved</li>
+    <li>me if I</li>
+    <li>ain’t feel loved, discipleship unproved</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 40 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 114.7%)</span></h4>
+  <p><strong>Text:</strong> I wanna serve, what do I deserve, why’s your heart unmoved</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 58</p>
+  <p><strong>Section:</strong> Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/child-of-god-who-you-be_L040_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I wanna serve,</li>
+    <li>what do I</li>
+    <li>deserve, why’s your heart unmoved</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 41 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 132.4%)</span></h4>
+  <p><strong>Text:</strong> Praise ain’t the aim, not part of the game,  it’s ok to admit you’re wrong</p>
+  <p><strong>Words:</strong> 15 &nbsp; <strong>Chars:</strong> 74</p>
+  <p><strong>Section:</strong> Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/child-of-god-who-you-be_L041_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Praise ain’t the</li>
+    <li>aim, not part</li>
+    <li>of the game,</li>
+    <li>it’s ok to admit you’re wrong</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 42 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 128.5%)</span></h4>
+  <p><strong>Text:</strong> You’ve been forgiven, the Spirit given, we’re supposed to join in song</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 70</p>
+  <p><strong>Section:</strong> Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/child-of-god-who-you-be_L042_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>You’ve been forgiven, the</li>
+    <li>Spirit given, we’re supposed</li>
+    <li>to join in song</li>
+  </ul>
+</div>
+<h3 id="conscience-clean">conscience-clean</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="didn-t-forget-jesus">didn-t-forget-jesus</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 42 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 109.7%)</span></h4>
+  <p><strong>Text:</strong> How did you test the spirits? Did you listen to their voices?</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 61</p>
+  <p><strong>Section:</strong> Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/didn-t-forget-jesus_L042_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>How did you test</li>
+    <li>the spirits? Did you</li>
+    <li>listen to their voices?</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 44 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 105.8%)</span></h4>
+  <p><strong>Text:</strong> Q E D I am of God, proof complete, I die my soul rejoices</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 57</p>
+  <p><strong>Section:</strong> Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/didn-t-forget-jesus_L044_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Q E D</li>
+    <li>I am of</li>
+    <li>God, proof complete,</li>
+    <li>I die my soul rejoices</li>
+  </ul>
+</div>
+<h3 id="electric-pulse">electric-pulse</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="freedom">freedom</h3>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 2 <span style="font-weight:normal;color:#666">(karaoke, base font 72px, scale 0.792, width 91.8%)</span></h4>
+  <p><strong>Text:</strong> Look, you serve your own interest and oppress your workers</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 58</p>
+  <p><strong>Section:</strong> Spoken Word, Prophetic Declaration (index 1)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/freedom_L002_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/freedom_L002_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;2.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;2.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;2.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;2.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;2.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;2.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;2.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;2.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;2.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;2.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 57 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.819, width 90.5%)</span></h4>
+  <p><strong>Text:</strong> When theology preserves rules but damages relationships</p>
+  <p><strong>Words:</strong> 7 &nbsp; <strong>Chars:</strong> 55</p>
+  <p><strong>Section:</strong> Verse 2, Rapped, Hard Hitting, Flow Switch (index 9)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/freedom_L057_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/freedom_L057_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;57.0&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;57.1&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;57.2&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;57.3&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;57.4&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;57.5&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;57.6&quot;: {
+    &quot;y&quot;: 0.58
+  }
+}</pre>
+</div>
+<h3 id="fresh-revelation">fresh-revelation</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="fruit">fruit</h3>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 52 <span style="font-weight:normal;color:#666">(progressive, base font 71px, scale 0.859, width 91.4%)</span></h4>
+  <p><strong>Text:</strong> The covenant keeping God decreed greater things, faith of us</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 60</p>
+  <p><strong>Section:</strong> Verse 7, FAITHFULNESS (index 15)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/fruit_L052_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/fruit_L052_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;52.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;52.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;52.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;52.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;52.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;52.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;52.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;52.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;52.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;52.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<h3 id="here-goes">here-goes</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="how-do-i-praise-you">how-do-i-praise-you</h3>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 3 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.848, width 92.0%)</span></h4>
+  <p><strong>Text:</strong> Nobody wants a permanent punishment</p>
+  <p><strong>Words:</strong> 5 &nbsp; <strong>Chars:</strong> 35</p>
+  <p><strong>Section:</strong> Hook, female (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L003_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L003_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;3.0&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;3.1&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;3.2&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;3.3&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;3.4&quot;: {
+    &quot;y&quot;: 0.58
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 27 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.848, width 92.0%)</span></h4>
+  <p><strong>Text:</strong> Nobody wants a permanent punishment</p>
+  <p><strong>Words:</strong> 5 &nbsp; <strong>Chars:</strong> 35</p>
+  <p><strong>Section:</strong> Hook (index 2)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L027_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L027_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;27.0&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;27.1&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;27.2&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;27.3&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;27.4&quot;: {
+    &quot;y&quot;: 0.58
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 51 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.848, width 92.0%)</span></h4>
+  <p><strong>Text:</strong> Nobody wants a permanent punishment</p>
+  <p><strong>Words:</strong> 5 &nbsp; <strong>Chars:</strong> 35</p>
+  <p><strong>Section:</strong> Hook (index 4)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L051_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L051_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;51.0&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;51.1&quot;: {
+    &quot;y&quot;: 0.42
+  },
+  &quot;51.2&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;51.3&quot;: {
+    &quot;y&quot;: 0.58
+  },
+  &quot;51.4&quot;: {
+    &quot;y&quot;: 0.58
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 7 <span style="font-weight:normal;color:#666">(progressive, base font 92px, scale 0.891, width 91.7%)</span></h4>
+  <p><strong>Text:</strong> All sin, but they see &amp; treat mine as different</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 47</p>
+  <p><strong>Section:</strong> Hook, female (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L007_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L007_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;7.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;7.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;7.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;7.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;7.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;7.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;7.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;7.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;7.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;7.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 31 <span style="font-weight:normal;color:#666">(progressive, base font 92px, scale 0.891, width 91.7%)</span></h4>
+  <p><strong>Text:</strong> All sin, but they see &amp; treat mine as different</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 47</p>
+  <p><strong>Section:</strong> Hook (index 2)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L031_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L031_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;31.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;31.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;31.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;31.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;31.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;31.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;31.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;31.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;31.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;31.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 55 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.891, width 91.7%)</span></h4>
+  <p><strong>Text:</strong> All sin, but they see &amp; treat mine as different</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 47</p>
+  <p><strong>Section:</strong> Hook (index 4)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L055_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/how-do-i-praise-you_L055_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;55.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;55.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;55.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;55.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;55.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;55.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;55.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;55.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;55.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;55.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<h3 id="i-never-asked-to-be-queer">i-never-asked-to-be-queer</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="love-them-harder">love-them-harder</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="marquis-song">marquis-song</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 69 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 152.4%)</span></h4>
+  <p><strong>Text:</strong> from conservative orthodox Christianity to a more progressive spiritual approach.</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 81</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L069_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>from conservative orthodox</li>
+    <li>Christianity to a</li>
+    <li>more progressive spiritual approach.</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 70 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 111.2%)</span></h4>
+  <p><strong>Text:</strong> I believe this direction is unhealthy and dangerous idolatry</p>
+  <p><strong>Words:</strong> 9 &nbsp; <strong>Chars:</strong> 60</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L070_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I believe this</li>
+    <li>direction is unhealthy</li>
+    <li>and dangerous idolatry</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 72 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 127.8%)</span></h4>
+  <p><strong>Text:</strong> While I appreciate some of the sentiment and truth in your writings,</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 68</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L072_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>While I appreciate some</li>
+    <li>of the sentiment and</li>
+    <li>truth in your writings,</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 73 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 111.6%)</span></h4>
+  <p><strong>Text:</strong> there are still several things I cannot agree with or support.</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 62</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L073_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>there are still</li>
+    <li>several things I</li>
+    <li>cannot agree with or support.</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 82 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 110.2%)</span></h4>
+  <p><strong>Text:</strong> that if someone calls themself a Christian, but is idolatrous</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 61</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L082_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>that if someone</li>
+    <li>calls themself a</li>
+    <li>Christian, but is idolatrous</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 84 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 113.8%)</span></h4>
+  <p><strong>Text:</strong> If I’m understanding the situation correctly,  this seems to be</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 63</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L084_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>If I’m understanding</li>
+    <li>the situation correctly,</li>
+    <li>this seems to be</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 85 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 141.6%)</span></h4>
+  <p><strong>Text:</strong> what you experienced with your previous church and with other Christians.</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 73</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L085_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>what you experienced</li>
+    <li>with your previous</li>
+    <li>church and with other Christians.</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 87 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 121.4%)</span></h4>
+  <p><strong>Text:</strong> I believe some of your true friends, some relatives, and churches</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 65</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L087_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I believe some</li>
+    <li>of your true</li>
+    <li>friends, some relatives, and churches</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 88 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 112.8%)</span></h4>
+  <p><strong>Text:</strong> have tried to help you see where you have missed the mark,</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 58</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L088_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>have tried to help</li>
+    <li>you see where you</li>
+    <li>have missed the mark,</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 90 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 143.4%)</span></h4>
+  <p><strong>Text:</strong> despising our exhortations, and now you are experiencing the consequences.</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 74</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L090_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>despising our exhortations,</li>
+    <li>and now you</li>
+    <li>are experiencing the consequences.</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 94 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 140.3%)</span></h4>
+  <p><strong>Text:</strong> you will continue to go ‘round and ‘round with myself and other Christians.</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 75</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L094_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>you will continue</li>
+    <li>to go ‘round</li>
+    <li>and ‘round with</li>
+    <li>myself and other Christians.</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 95 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 173.2%)</span></h4>
+  <p><strong>Text:</strong> I wish you well and will pray for you, but will no longer be able to continue our conversations</p>
+  <p><strong>Words:</strong> 19 &nbsp; <strong>Chars:</strong> 95</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L095_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I wish you well</li>
+    <li>and will pray for</li>
+    <li>you, but will no</li>
+    <li>longer be able to continue our conversations</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 83 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.792, width 91.1%)</span></h4>
+  <p><strong>Text:</strong> that we should no longer continue in fellowship with them.</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 58</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L083_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L083_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;83.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;83.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;83.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;83.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;83.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;83.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;83.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;83.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;83.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;83.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 96 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 97.8%)</span></h4>
+  <p><strong>Text:</strong> until you repent or stop calling yourself a Christian.</p>
+  <p><strong>Words:</strong> 9 &nbsp; <strong>Chars:</strong> 54</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L096_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>until you repent</li>
+    <li>or stop calling</li>
+    <li>yourself a Christian.</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 77 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 94.1%)</span></h4>
+  <p><strong>Text:</strong> Until you repent of your sinful beliefs and actions</p>
+  <p><strong>Words:</strong> 9 &nbsp; <strong>Chars:</strong> 51</p>
+  <p><strong>Section:</strong> Documentary Bridge (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/marquis-song_L077_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Until you repent</li>
+    <li>of your sinful</li>
+    <li>beliefs and actions</li>
+  </ul>
+</div>
+<h3 id="more-power">more-power</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 63 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 141.7%)</span></h4>
+  <p><strong>Text:</strong> Cross with me now understand God made natural laws</p>
+  <p><strong>Words:</strong> 9 &nbsp; <strong>Chars:</strong> 50</p>
+  <p><strong>Section:</strong> Bridge (index 13)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/more-power_L063_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Cross with me</li>
+    <li>now understand God</li>
+    <li>made natural laws</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 36 <span style="font-weight:normal;color:#666">(progressive, base font 71px, scale 0.859, width 91.2%)</span></h4>
+  <p><strong>Text:</strong> Have you heard what God did to those mighty that God did make fall?</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 67</p>
+  <p><strong>Section:</strong> Verse 2 (index 7)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/more-power_L036_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/more-power_L036_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;36.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;36.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;36.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;36.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;36.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;36.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;36.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;36.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;36.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;36.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;36.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;36.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;36.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;36.13&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<h3 id="nathan-s-song">nathan-s-song</h3>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 22 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.806, width 90.6%)</span></h4>
+  <p><strong>Text:</strong> When you know who God is and the creator’s love’s depths</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 56</p>
+  <p><strong>Section:</strong> Verse 2 - Shift toward more experimental sound with increased electronic elements, female (index 5)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/nathan-s-song_L022_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/nathan-s-song_L022_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;22.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;22.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;22.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;22.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;22.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;22.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;22.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;22.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;22.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;22.9&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;22.10&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<h3 id="not-your-slave">not-your-slave</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 51 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 219.3%)</span></h4>
+  <p><strong>Text:</strong> Discern the truth in front of you, transformed to something new</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 63</p>
+  <p><strong>Section:</strong> Bridge - TOTAL TRANSFORMATION (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/not-your-slave_L051_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Discern the truth</li>
+    <li>in front of</li>
+    <li>you, transformed to something new</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 52 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 207.8%)</span></h4>
+  <p><strong>Text:</strong> I&#x27;m a human being, a lovely child of God, seeking always truth</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 62</p>
+  <p><strong>Section:</strong> Bridge - TOTAL TRANSFORMATION (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/not-your-slave_L052_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I&#x27;m a human being,</li>
+    <li>a lovely child of</li>
+    <li>God, seeking always truth</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 53 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 221.4%)</span></h4>
+  <p><strong>Text:</strong> Slow down and breathe, I want you to relax, and my words receive</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 64</p>
+  <p><strong>Section:</strong> Bridge - TOTAL TRANSFORMATION (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/not-your-slave_L053_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Slow down and</li>
+    <li>breathe, I want</li>
+    <li>you to relax,</li>
+    <li>and my words receive</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 54 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 210.3%)</span></h4>
+  <p><strong>Text:</strong> I&#x27;m hated for what I preach, the name of Christ is what I teach</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 63</p>
+  <p><strong>Section:</strong> Bridge - TOTAL TRANSFORMATION (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/not-your-slave_L054_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I&#x27;m hated for</li>
+    <li>what I preach,</li>
+    <li>the name of</li>
+    <li>Christ is what I teach</li>
+  </ul>
+</div>
+<h3 id="nothing-is-impossible">nothing-is-impossible</h3>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 11 <span style="font-weight:normal;color:#666">(progressive, base font 71px, scale 0.789, width 91.2%)</span></h4>
+  <p><strong>Text:</strong> Out, get out! Heathen! Wolf in sheep’s clothing! Judas type!</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 60</p>
+  <p><strong>Section:</strong> Verse 2 - rapped (index 3)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/nothing-is-impossible_L011_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/nothing-is-impossible_L011_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;11.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;11.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;11.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;11.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;11.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;11.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;11.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;11.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;11.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;11.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<h3 id="patient">patient</h3>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 3 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.875, width 91.7%)</span></h4>
+  <p><strong>Text:</strong> You have already been cleansed by the word that I have spoken to you</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 68</p>
+  <p><strong>Section:</strong> Intro, spoken (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L003_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L003_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;3.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.13&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 31 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.859, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> God made me patient (patient patient patient patient patient patient)</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 69</p>
+  <p><strong>Section:</strong> Hook, memorable ear candy (index 5)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L031_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L031_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;31.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;31.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;31.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;31.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;31.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;31.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;31.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;31.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;31.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;31.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 32 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.859, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> Oh yeah I’m patient (patient patient patient patient patient patient)</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 69</p>
+  <p><strong>Section:</strong> Hook, memorable ear candy (index 5)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L032_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L032_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;32.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;32.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;32.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;32.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;32.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;32.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;32.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;32.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;32.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;32.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 72 <span style="font-weight:normal;color:#666">(progressive, base font 92px, scale 0.859, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> God made me patient (patient patient patient patient patient patient)</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 69</p>
+  <p><strong>Section:</strong> Hook (index 9)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L072_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L072_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;72.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;72.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;72.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;72.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;72.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;72.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;72.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;72.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;72.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;72.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 73 <span style="font-weight:normal;color:#666">(progressive, base font 92px, scale 0.859, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> Oh yeah I’m patient (patient patient patient patient patient patient)</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 69</p>
+  <p><strong>Section:</strong> Hook (index 9)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L073_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L073_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;73.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;73.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;73.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;73.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;73.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;73.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;73.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;73.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;73.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;73.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 84 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.859, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> God made me patient (patient patient patient patient patient patient)</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 69</p>
+  <p><strong>Section:</strong> Hook (index 12)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L084_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L084_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;84.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;84.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;84.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;84.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;84.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;84.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;84.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;84.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;84.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;84.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 85 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.859, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> Oh yeah I’m patient (patient patient patient patient patient patient)</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 69</p>
+  <p><strong>Section:</strong> Hook (index 12)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L085_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L085_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;85.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;85.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;85.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;85.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;85.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;85.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;85.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;85.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;85.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;85.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 88 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.859, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> God made me patient (patient patient patient patient patient patient)</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 69</p>
+  <p><strong>Section:</strong> Hook (index 12)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L088_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L088_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;88.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;88.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;88.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;88.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;88.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;88.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;88.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;88.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;88.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;88.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 89 <span style="font-weight:normal;color:#666">(karaoke, base font 92px, scale 0.859, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> Oh yeah I’m patient (patient patient patient patient patient patient)</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 69</p>
+  <p><strong>Section:</strong> Hook (index 12)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/patient_L089_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/patient_L089_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;89.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;89.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;89.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;89.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;89.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;89.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;89.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;89.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;89.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;89.9&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<h3 id="phase-transition">phase-transition</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 33 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 107.5%)</span></h4>
+  <p><strong>Text:</strong> It&#x27;s time to collect the audience</p>
+  <p><strong>Words:</strong> 6 &nbsp; <strong>Chars:</strong> 33</p>
+  <p><strong>Section:</strong> Bridge, spoken (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/phase-transition_L033_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>It&#x27;s time to</li>
+    <li>collect the audience</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 35 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 98.1%)</span></h4>
+  <p><strong>Text:</strong> That wanna see it at its best</p>
+  <p><strong>Words:</strong> 7 &nbsp; <strong>Chars:</strong> 29</p>
+  <p><strong>Section:</strong> Bridge, spoken (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/phase-transition_L035_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>That wanna see</li>
+    <li>it at its best</li>
+  </ul>
+</div>
+<h3 id="prediction-engine">prediction-engine</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 31 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 112.7%)</span></h4>
+  <p><strong>Text:</strong> Your success? Well, start driving and you’ll find it, you left where you was</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 76</p>
+  <p><strong>Section:</strong> Bridge, Anthemic Power (index 4)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/prediction-engine_L031_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Your success? Well,</li>
+    <li>start driving and</li>
+    <li>you’ll find it,</li>
+    <li>you left where you was</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 34 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 100.9%)</span></h4>
+  <p><strong>Text:</strong> It worked for you, you’d never go back, now you’re the role model</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 65</p>
+  <p><strong>Section:</strong> Bridge, Anthemic Power (index 4)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/prediction-engine_L034_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>It worked for</li>
+    <li>you, you’d never</li>
+    <li>go back, now</li>
+    <li>you’re the role model</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 35 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 106.2%)</span></h4>
+  <p><strong>Text:</strong> The feature of conformity, bosonic uniformity, the message in a bottle</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 70</p>
+  <p><strong>Section:</strong> Bridge, Anthemic Power (index 4)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/prediction-engine_L035_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>The feature of</li>
+    <li>conformity, bosonic uniformity,</li>
+    <li>the message in a bottle</li>
+  </ul>
+</div>
+<h3 id="prophetic-clarity">prophetic-clarity</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 36 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 105.1%)</span></h4>
+  <p><strong>Text:</strong> I thought I was on the right path, but I knew it was not</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 56</p>
+  <p><strong>Section:</strong> Bridge (index 5)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/prophetic-clarity_L036_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I thought I</li>
+    <li>was on the</li>
+    <li>right path, but</li>
+    <li>I knew it was not</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 38 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 98.5%)</span></h4>
+  <p><strong>Text:</strong> I was me. In this world. And I had been given a gift.</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 53</p>
+  <p><strong>Section:</strong> Bridge (index 5)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/prophetic-clarity_L038_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I was me.</li>
+    <li>In this world.</li>
+    <li>And I had</li>
+    <li>been given a gift.</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 35 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 95.6%)</span></h4>
+  <p><strong>Text:</strong> I held God’s call for me at bay for quite some time</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 51</p>
+  <p><strong>Section:</strong> Bridge (index 5)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/prophetic-clarity_L035_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I held God’s call</li>
+    <li>for me at bay</li>
+    <li>for quite some time</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 37 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 95.3%)</span></h4>
+  <p><strong>Text:</strong> So when I repented, I accepted the reality at hand</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 50</p>
+  <p><strong>Section:</strong> Bridge (index 5)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/prophetic-clarity_L037_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>So when I</li>
+    <li>repented, I accepted</li>
+    <li>the reality at hand</li>
+  </ul>
+</div>
+<h3 id="sabbath">sabbath</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 10 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 138.2%)</span></h4>
+  <p><strong>Text:</strong> The LORD your God brought you out with a mighty hand and an outstretched arm</p>
+  <p><strong>Words:</strong> 15 &nbsp; <strong>Chars:</strong> 76</p>
+  <p><strong>Section:</strong> Declarative reading, spoken word delivery (index 2)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/sabbath_L010_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>The LORD your</li>
+    <li>God brought you</li>
+    <li>out with a</li>
+    <li>mighty hand and an outstretched arm</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 11 <span style="font-weight:normal;color:#666">(line-by-line, base font 82px, scale 1.0, width 106.0%)</span></h4>
+  <p><strong>Text:</strong> Therefore God commanded you to observe the Sabbath</p>
+  <p><strong>Words:</strong> 8 &nbsp; <strong>Chars:</strong> 50</p>
+  <p><strong>Section:</strong> Declarative reading, spoken word delivery (index 2)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/sabbath_L011_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Therefore God commanded you</li>
+    <li>to observe the Sabbath</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 15 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 100.2%)</span></h4>
+  <p><strong>Text:</strong> Anyone who enters God’s rest also rests from their works</p>
+  <p><strong>Words:</strong> 10 &nbsp; <strong>Chars:</strong> 56</p>
+  <p><strong>Section:</strong> Declarative reading, spoken word delivery (index 2)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/sabbath_L015_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Anyone who enters</li>
+    <li>God’s rest also</li>
+    <li>rests from their works</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 7 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 94.9%)</span></h4>
+  <p><strong>Text:</strong> By the 7th day God had finished working, so God rested</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 54</p>
+  <p><strong>Section:</strong> Declarative reading, spoken word delivery (index 2)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/sabbath_L007_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>By the 7th</li>
+    <li>day God had</li>
+    <li>finished working, so God rested</li>
+  </ul>
+</div>
+<h3 id="take-this-cup">take-this-cup</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 23 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 167.1%)</span></h4>
+  <p><strong>Text:</strong> I am the Lord Almighty and you are called to this</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 49</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/take-this-cup_L023_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I am the</li>
+    <li>Lord Almighty and</li>
+    <li>you are called to this</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 24 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 155.1%)</span></h4>
+  <p><strong>Text:</strong> You know that stopping it would be ludicrous</p>
+  <p><strong>Words:</strong> 8 &nbsp; <strong>Chars:</strong> 44</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/take-this-cup_L024_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>You know that stopping</li>
+    <li>it would be ludicrous</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 25 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 157.6%)</span></h4>
+  <p><strong>Text:</strong> You know you need not fear, you and I are one</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 45</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/take-this-cup_L025_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>You know you</li>
+    <li>need not fear,</li>
+    <li>you and I are one</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 26 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 154.4%)</span></h4>
+  <p><strong>Text:</strong> And this is the path so all of humanity is one</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 46</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/take-this-cup_L026_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>And this is</li>
+    <li>the path so</li>
+    <li>all of humanity is one</li>
+  </ul>
+</div>
+<h3 id="the-as-i-evolve-proverb">the-as-i-evolve-proverb</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="the-glory">the-glory</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 70 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 118.1%)</span></h4>
+  <p><strong>Text:</strong> This isn’t for my glory, my ambition, acknowledgement of my wisdom</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 66</p>
+  <p><strong>Section:</strong> Bridge (index 15)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-glory_L070_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>This isn’t for</li>
+    <li>my glory, my</li>
+    <li>ambition, acknowledgement of my wisdom</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 71 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 107.7%)</span></h4>
+  <p><strong>Text:</strong> Being called by name by the maker of the universe was enough</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 60</p>
+  <p><strong>Section:</strong> Bridge (index 15)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-glory_L071_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Being called by name</li>
+    <li>by the maker of</li>
+    <li>the universe was enough</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 6 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.861, width 90.7%)</span></h4>
+  <p><strong>Text:</strong> Tried to finish in flesh what began in faithfulness, I was left wanting</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 71</p>
+  <p><strong>Section:</strong> Verse 1, rapped (index 1)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-glory_L006_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/the-glory_L006_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;6.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;6.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;6.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;6.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;6.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;6.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;6.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;6.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;6.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;6.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;6.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;6.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;6.12&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<h3 id="the-hidden-library">the-hidden-library</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 0 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 120.7%)</span></h4>
+  <p><strong>Text:</strong> I did not say these things to you from the beginning because I was with you</p>
+  <p><strong>Words:</strong> 16 &nbsp; <strong>Chars:</strong> 75</p>
+  <p><strong>Section:</strong> Intro: Atmospheric Spoken Word with Vinyl Crackle (index 0)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L000_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I did not say</li>
+    <li>these things to you</li>
+    <li>from the beginning because</li>
+    <li>I was with you</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 21 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.583, width 91.7%)</span></h4>
+  <p><strong>Text:</strong> If it were corrupted, wouldn’t have Jesus rebuked the people for this false cause (cause cause)</p>
+  <p><strong>Words:</strong> 16 &nbsp; <strong>Chars:</strong> 95</p>
+  <p><strong>Section:</strong> ACT 2: Intricate Syncopated Rap Flow (index 5)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L021_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L021_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;21.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;21.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;21.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;21.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;21.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;21.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;21.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;21.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;21.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;21.9&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;21.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;21.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;21.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;21.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;21.14&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;21.15&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 43 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 138.4%)</span></h4>
+  <p><strong>Text:</strong> It hurts so much to know that what I feared for so long rang full with truth</p>
+  <p><strong>Words:</strong> 17 &nbsp; <strong>Chars:</strong> 76</p>
+  <p><strong>Section:</strong> BRIDGE: Cinematic Orchestral Crescendo with Spoken Power (index 11)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L043_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>It hurts so much</li>
+    <li>to know that what</li>
+    <li>I feared for so</li>
+    <li>long rang full with truth</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 44 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 142.2%)</span></h4>
+  <p><strong>Text:</strong> Truth that self-proclaiming followers of Jesus actively swayed me away from</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 75</p>
+  <p><strong>Section:</strong> BRIDGE: Cinematic Orchestral Crescendo with Spoken Power (index 11)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L044_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Truth that self-proclaiming</li>
+    <li>followers of Jesus</li>
+    <li>actively swayed me away from</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 45 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 136.0%)</span></h4>
+  <p><strong>Text:</strong> Truth that shaped much of the character of Jesus’ ministry of radical love</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 74</p>
+  <p><strong>Section:</strong> BRIDGE: Cinematic Orchestral Crescendo with Spoken Power (index 11)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L045_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Truth that shaped</li>
+    <li>much of the</li>
+    <li>character of Jesus’</li>
+    <li>ministry of radical love</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 46 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 125.4%)</span></h4>
+  <p><strong>Text:</strong> Truth preserved that I’m compelled by Jesus to share with you now</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 65</p>
+  <p><strong>Section:</strong> BRIDGE: Cinematic Orchestral Crescendo with Spoken Power (index 11)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L046_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Truth preserved that I’m</li>
+    <li>compelled by Jesus to</li>
+    <li>share with you now</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 47 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 144.0%)</span></h4>
+  <p><strong>Text:</strong> Truth that it’s ok to disagree with what you were taught when you learn truth</p>
+  <p><strong>Words:</strong> 15 &nbsp; <strong>Chars:</strong> 77</p>
+  <p><strong>Section:</strong> BRIDGE: Cinematic Orchestral Crescendo with Spoken Power (index 11)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L047_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Truth that it’s</li>
+    <li>ok to disagree</li>
+    <li>with what you</li>
+    <li>were taught when you learn truth</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 48 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 145.8%)</span></h4>
+  <p><strong>Text:</strong> Walk in the truth, where the Spirit of the Lord is, there is freedom, God is truth</p>
+  <p><strong>Words:</strong> 17 &nbsp; <strong>Chars:</strong> 82</p>
+  <p><strong>Section:</strong> BRIDGE: Cinematic Orchestral Crescendo with Spoken Power (index 11)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L048_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Walk in the truth,</li>
+    <li>where the Spirit of</li>
+    <li>the Lord is, there</li>
+    <li>is freedom, God is truth</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 18 <span style="font-weight:normal;color:#666">(progressive, base font 71px, scale 0.62, width 90.6%)</span></h4>
+  <p><strong>Text:</strong> As I reflected, God started painting me a clearer picture of what was really going on</p>
+  <p><strong>Words:</strong> 16 &nbsp; <strong>Chars:</strong> 85</p>
+  <p><strong>Section:</strong> ACT 2: Intricate Syncopated Rap Flow (index 5)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L018_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L018_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;18.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;18.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;18.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;18.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;18.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;18.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;18.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;18.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;18.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;18.9&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;18.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;18.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;18.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;18.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;18.14&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;18.15&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 22 <span style="font-weight:normal;color:#666">(progressive, base font 71px, scale 0.634, width 91.8%)</span></h4>
+  <p><strong>Text:</strong> And it only existed, in a scriptural form in the books I was taught to swear off (off off off)</p>
+  <p><strong>Words:</strong> 20 &nbsp; <strong>Chars:</strong> 94</p>
+  <p><strong>Section:</strong> ACT 2: Intricate Syncopated Rap Flow (index 5)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L022_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L022_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;22.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;22.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;22.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;22.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;22.4&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;22.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;22.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;22.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;22.8&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;22.9&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;22.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;22.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;22.12&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;22.13&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;22.14&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;22.15&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;22.16&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;22.17&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;22.18&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;22.19&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 19 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.819, width 92.0%)</span></h4>
+  <p><strong>Text:</strong> The Spirit conducted, this is what was for me a major fracture about which texts should belong</p>
+  <p><strong>Words:</strong> 17 &nbsp; <strong>Chars:</strong> 94</p>
+  <p><strong>Section:</strong> ACT 2: Intricate Syncopated Rap Flow (index 5)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L019_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L019_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;19.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;19.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;19.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;19.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;19.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;19.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;19.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;19.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;19.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;19.9&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;19.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;19.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;19.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;19.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;19.14&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;19.15&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;19.16&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 33 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.833, width 91.0%)</span></h4>
+  <p><strong>Text:</strong> Quick to hear and abstain your anger for mundane, speak slow, be cured</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 70</p>
+  <p><strong>Section:</strong> ACT 3: Passionate Flow with Orchestral Swell (index 7)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L033_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/the-hidden-library_L033_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;33.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;33.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;33.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;33.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;33.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;33.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;33.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;33.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;33.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;33.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;33.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;33.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;33.12&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<h3 id="the-tables-are-set">the-tables-are-set</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="up">up</h3>
+<p>No long-line layout issues detected.</p>
+<h3 id="what-is-truth">what-is-truth</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 77 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 135.5%)</span></h4>
+  <p><strong>Text:</strong> It was the woman thing, I knew it, yet thats what I chose to give up the first time</p>
+  <p><strong>Words:</strong> 19 &nbsp; <strong>Chars:</strong> 83</p>
+  <p><strong>Section:</strong> Climax/Bridge (index 15)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L077_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>It was the woman</li>
+    <li>thing, I knew it,</li>
+    <li>yet thats what I</li>
+    <li>chose to give up the first time</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 78 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 150.0%)</span></h4>
+  <p><strong>Text:</strong> With the second it was different, she was open to my exploration, yet it still begat tension</p>
+  <p><strong>Words:</strong> 17 &nbsp; <strong>Chars:</strong> 92</p>
+  <p><strong>Section:</strong> Climax/Bridge (index 15)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L078_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>With the second it</li>
+    <li>was different, she was</li>
+    <li>open to my exploration,</li>
+    <li>yet it still begat tension</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 79 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 126.0%)</span></h4>
+  <p><strong>Text:</strong> As it should, its unfair I didnt learn about who I was before finding a mate</p>
+  <p><strong>Words:</strong> 16 &nbsp; <strong>Chars:</strong> 76</p>
+  <p><strong>Section:</strong> Climax/Bridge (index 15)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L079_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>As it should, its</li>
+    <li>unfair I didnt learn</li>
+    <li>about who I was</li>
+    <li>before finding a mate</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 9 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.736, width 90.7%)</span></h4>
+  <p><strong>Text:</strong> When they demonized people Id not met I couldnt simply accept</p>
+  <p><strong>Words:</strong> 11 &nbsp; <strong>Chars:</strong> 61</p>
+  <p><strong>Section:</strong> Verse 1 (index 1)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L009_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L009_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;9.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;9.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;9.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;9.3&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;9.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;9.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;9.6&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;9.7&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;9.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;9.9&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;9.10&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 17 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.708, width 90.4%)</span></h4>
+  <p><strong>Text:</strong> When I got hold of those heels my curiosity compelled me to taste</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 65</p>
+  <p><strong>Section:</strong> Verse 2 (index 2)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L017_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L017_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;17.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;17.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;17.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;17.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;17.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;17.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;17.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;17.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;17.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;17.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;17.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;17.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;17.12&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 55 <span style="font-weight:normal;color:#666">(progressive, base font 71px, scale 0.648, width 90.9%)</span></h4>
+  <p><strong>Text:</strong> After my transition began I slept with a man I couldnt get out of it, at least gay either way</p>
+  <p><strong>Words:</strong> 20 &nbsp; <strong>Chars:</strong> 93</p>
+  <p><strong>Section:</strong> Verse 4 (index 9)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L055_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L055_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;55.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;55.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;55.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;55.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;55.4&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;55.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;55.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;55.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;55.8&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;55.9&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;55.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;55.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;55.12&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;55.13&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;55.14&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;55.15&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;55.16&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;55.17&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;55.18&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;55.19&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 53 <span style="font-weight:normal;color:#666">(progressive, base font 71px, scale 0.775, width 90.4%)</span></h4>
+  <p><strong>Text:</strong> So I tried a threesome, &amp; realized nothing different happened just more people</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 78</p>
+  <p><strong>Section:</strong> Verse 4 (index 9)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L053_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L053_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;53.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;53.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;53.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;53.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;53.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;53.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;53.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;53.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;53.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;53.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;53.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;53.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;53.12&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 54 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.806, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> If I didnt hate it &amp; even enjoyed it, why reject if I could accept as pure with thanksgiving</p>
+  <p><strong>Words:</strong> 19 &nbsp; <strong>Chars:</strong> 92</p>
+  <p><strong>Section:</strong> Verse 4 (index 9)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L054_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L054_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;54.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;54.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;54.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;54.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;54.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;54.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;54.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;54.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;54.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;54.9&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;54.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;54.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;54.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;54.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;54.14&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;54.15&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;54.16&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;54.17&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;54.18&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 15 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.861, width 91.7%)</span></h4>
+  <p><strong>Text:</strong> Marcus wore womens jeans &amp; offered them to me, so could I</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 57</p>
+  <p><strong>Section:</strong> Verse 2 (index 2)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L015_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L015_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;15.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;15.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;15.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;15.3&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;15.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;15.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;15.6&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;15.7&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;15.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;15.9&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;15.10&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;15.11&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 27 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.889, width 91.2%)</span></h4>
+  <p><strong>Text:</strong> Where else can I go? Jesus has the words of eternal life</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 56</p>
+  <p><strong>Section:</strong> Verse 2 (index 2)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L027_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L027_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;27.0&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;27.1&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;27.2&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;27.3&quot;: {
+    &quot;y&quot;: 0.35
+  },
+  &quot;27.4&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;27.5&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;27.6&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;27.7&quot;: {
+    &quot;y&quot;: 0.5
+  },
+  &quot;27.8&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;27.9&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;27.10&quot;: {
+    &quot;y&quot;: 0.65
+  },
+  &quot;27.11&quot;: {
+    &quot;y&quot;: 0.65
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Minor">Minor</span> Line 46 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.889, width 91.5%)</span></h4>
+  <p><strong>Text:</strong> I loved my lust lest the loss that I lost, the pain was far greater than my estimated cost</p>
+  <p><strong>Words:</strong> 19 &nbsp; <strong>Chars:</strong> 90</p>
+  <p><strong>Section:</strong> Verse 3 (index 6)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L046_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/what-is-truth_L046_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;46.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;46.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;46.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;46.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;46.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;46.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;46.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;46.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;46.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;46.9&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;46.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;46.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;46.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;46.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;46.14&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;46.15&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;46.16&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;46.17&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;46.18&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<h3 id="where-ben-has-been">where-ben-has-been</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 14 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.486, width 91.7%)</span></h4>
+  <p><strong>Text:</strong> Because I decided to just create the organizational structure to place these unstructured feelings</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 98</p>
+  <p><strong>Section:</strong> Movement I — Disorientation / Fragmented Thought | ambient, distant, no drums (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L014_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L014_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;14.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;14.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;14.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;14.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;14.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;14.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;14.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;14.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;14.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;14.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;14.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;14.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;14.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;14.13&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 0 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.611, width 90.1%)</span></h4>
+  <p><strong>Text:</strong> Okay, I have to explicitly name that I am removing the expectation of putting this to music as a necessity</p>
+  <p><strong>Words:</strong> 20 &nbsp; <strong>Chars:</strong> 106</p>
+  <p><strong>Section:</strong> Movement I — Disorientation / Fragmented Thought | ambient, distant, no drums (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L000_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L000_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;0.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;0.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;0.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;0.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;0.4&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;0.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;0.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;0.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;0.8&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;0.9&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;0.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;0.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;0.12&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;0.13&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;0.14&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;0.15&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.16&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.17&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.18&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.19&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 1 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.847, width 91.2%)</span></h4>
+  <p><strong>Text:</strong> simply because I have placed it in this location in the Google Drive</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 68</p>
+  <p><strong>Section:</strong> Movement I — Disorientation / Fragmented Thought | ambient, distant, no drums (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L001_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L001_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;1.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;1.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;1.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;1.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;1.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;1.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;1.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;1.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;1.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;1.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;1.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;1.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;1.12&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 3 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.833, width 90.5%)</span></h4>
+  <p><strong>Text:</strong> Hey look, this is going to probably end up being put to music</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 61</p>
+  <p><strong>Section:</strong> Movement I — Disorientation / Fragmented Thought | ambient, distant, no drums (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L003_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L003_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;3.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.12&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 16 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.792, width 90.4%)</span></h4>
+  <p><strong>Text:</strong> in a way that allows me to easily translate it to the natural medium</p>
+  <p><strong>Words:</strong> 14 &nbsp; <strong>Chars:</strong> 68</p>
+  <p><strong>Section:</strong> Movement I — Disorientation / Fragmented Thought | ambient, distant, no drums (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L016_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/where-ben-has-been_L016_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;16.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;16.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;16.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;16.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;16.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;16.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;16.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;16.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;16.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;16.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;16.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;16.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;16.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;16.13&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<h3 id="who-do-you-think-i-am">who-do-you-think-i-am</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 25 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 101.2%)</span></h4>
+  <p><strong>Text:</strong> Both of us are human beings</p>
+  <p><strong>Words:</strong> 6 &nbsp; <strong>Chars:</strong> 27</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L025_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Both of us</li>
+    <li>are human beings</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 26 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 111.3%)</span></h4>
+  <p><strong>Text:</strong> If our histories were exchanged</p>
+  <p><strong>Words:</strong> 5 &nbsp; <strong>Chars:</strong> 31</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L026_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>If our</li>
+    <li>histories were exchanged</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 27 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 111.6%)</span></h4>
+  <p><strong>Text:</strong> I think our minds would change</p>
+  <p><strong>Words:</strong> 6 &nbsp; <strong>Chars:</strong> 30</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L027_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I think our</li>
+    <li>minds would change</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 29 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 131.3%)</span></h4>
+  <p><strong>Text:</strong> It’s a framework to pursue what’s best</p>
+  <p><strong>Words:</strong> 7 &nbsp; <strong>Chars:</strong> 38</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L029_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>It’s a framework</li>
+    <li>to pursue what’s best</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 31 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 219.2%)</span></h4>
+  <p><strong>Text:</strong> I only have now, the promise of tangible growth to bring me back</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 64</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L031_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>I only have</li>
+    <li>now, the promise</li>
+    <li>of tangible growth</li>
+    <li>to bring me back</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 40 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 102.8%)</span></h4>
+  <p><strong>Text:</strong> That we’re changing even though we’re not perfect yet</p>
+  <p><strong>Words:</strong> 9 &nbsp; <strong>Chars:</strong> 53</p>
+  <p><strong>Section:</strong> Bridge 2 (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L040_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>That we’re changing</li>
+    <li>even though we’re</li>
+    <li>not perfect yet</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 28 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 98.8%)</span></h4>
+  <p><strong>Text:</strong> That’s enough for me to rest</p>
+  <p><strong>Words:</strong> 6 &nbsp; <strong>Chars:</strong> 28</p>
+  <p><strong>Section:</strong> Bridge (index 8)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L028_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>That’s enough for</li>
+    <li>me to rest</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 35 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 96.5%)</span></h4>
+  <p><strong>Text:</strong> So when you take the time to think about who I am</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 49</p>
+  <p><strong>Section:</strong> Bridge 2 (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L035_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>So when you take</li>
+    <li>the time to think</li>
+    <li>about who I am</li>
+  </ul>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 36 <span style="font-weight:normal;color:#666">(line-by-line, base font 72px, scale 1.0, width 97.9%)</span></h4>
+  <p><strong>Text:</strong> Can you prove that you’re right, or is it still a sham?</p>
+  <p><strong>Words:</strong> 12 &nbsp; <strong>Chars:</strong> 55</p>
+  <p><strong>Section:</strong> Bridge 2 (index 9)</p>
+  <p><strong>Styled text:</strong> <code>hologram</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/who-do-you-think-i-am_L036_before.png" alt="before"><figcaption>Before</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> split this synced lyric line into multiple line entries and update the section <code>lines</code> array. Proposed split:</p>
+  <ul>
+    <li>Can you prove that</li>
+    <li>you’re right, or is</li>
+    <li>it still a sham?</li>
+  </ul>
+</div>
+<h3 id="woe-to-you">woe-to-you</h3>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 0 <span style="font-weight:normal;color:#666">(progressive, base font 82px, scale 0.524, width 90.8%)</span></h4>
+  <p><strong>Text:</strong> Woe to you, you who lack understanding! You cast out from your presence your aid.</p>
+  <p><strong>Words:</strong> 15 &nbsp; <strong>Chars:</strong> 81</p>
+  <p><strong>Section:</strong> Intro (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L000_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L000_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;0.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;0.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;0.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;0.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;0.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;0.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;0.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;0.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;0.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;0.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;0.14&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 1 <span style="font-weight:normal;color:#666">(progressive, base font 82px, scale 0.549, width 91.2%)</span></h4>
+  <p><strong>Text:</strong> Woe to you, who exclude in the name of justice! What you fear will overtake you.</p>
+  <p><strong>Words:</strong> 16 &nbsp; <strong>Chars:</strong> 80</p>
+  <p><strong>Section:</strong> Intro (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L001_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L001_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;1.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;1.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;1.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;1.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;1.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;1.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;1.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;1.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;1.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;1.9&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;1.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;1.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;1.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;1.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;1.14&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;1.15&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 2 <span style="font-weight:normal;color:#666">(progressive, base font 82px, scale 0.537, width 91.6%)</span></h4>
+  <p><strong>Text:</strong> Woe to you, bigots and false judges. For you lead others astray with your charisma</p>
+  <p><strong>Words:</strong> 15 &nbsp; <strong>Chars:</strong> 82</p>
+  <p><strong>Section:</strong> Intro (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L002_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L002_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;2.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;2.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;2.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;2.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;2.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;2.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;2.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;2.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;2.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;2.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;2.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;2.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;2.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;2.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;2.14&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Critical">Critical</span> Line 3 <span style="font-weight:normal;color:#666">(progressive, base font 82px, scale 0.549, width 91.6%)</span></h4>
+  <p><strong>Text:</strong> Woe to you, gatekeepers! For you do not know the Kingdom and keep others out.</p>
+  <p><strong>Words:</strong> 15 &nbsp; <strong>Chars:</strong> 77</p>
+  <p><strong>Section:</strong> Intro (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L003_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L003_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;3.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;3.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;3.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;3.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;3.14&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Major">Major</span> Line 7 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.611, width 90.5%)</span></h4>
+  <p><strong>Text:</strong> You have not because you ask not. I have come to proclaim the Kingdom of heaven at hand!</p>
+  <p><strong>Words:</strong> 18 &nbsp; <strong>Chars:</strong> 88</p>
+  <p><strong>Section:</strong> Intro (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L007_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L007_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;7.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;7.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;7.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;7.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;7.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;7.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;7.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;7.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;7.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;7.9&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;7.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;7.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;7.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;7.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;7.14&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;7.15&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;7.16&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;7.17&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 5 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.833, width 90.6%)</span></h4>
+  <p><strong>Text:</strong> For you are my messengers and my image bearers, ambassadors with my mind.</p>
+  <p><strong>Words:</strong> 13 &nbsp; <strong>Chars:</strong> 73</p>
+  <p><strong>Section:</strong> Intro (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L005_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L005_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;5.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;5.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;5.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;5.3&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;5.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;5.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;5.6&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;5.7&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;5.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;5.9&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;5.10&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;5.11&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;5.12&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+<div class="candidate">
+  <h4><span class="Moderate">Moderate</span> Line 6 <span style="font-weight:normal;color:#666">(progressive, base font 72px, scale 0.792, width 91.0%)</span></h4>
+  <p><strong>Text:</strong> I have given you authority to do greater things than I, and you have worldly minds.</p>
+  <p><strong>Words:</strong> 16 &nbsp; <strong>Chars:</strong> 83</p>
+  <p><strong>Section:</strong> Intro (index 0)</p>
+  <p><strong>Styled text:</strong> <code>neon</code>. Note: this style renders word images with tight horizontal gaps; the multi-line split fixes scaling/overflow, but a separate renderer spacing adjustment may improve readability.</p>
+  <div class="frames">
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L006_before.png" alt="before"><figcaption>Before</figcaption></figure>
+    <figure><img src="long_line_validation_comprehensive/woe-to-you_L006_after.png" alt="after"><figcaption>After (recommended fix)</figcaption></figure>
+  </div>
+  <p><strong>Recommended fix:</strong> add the following <code>words_overrides</code> to the containing section.</p>
+  <pre>{
+  &quot;6.0&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;6.1&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;6.2&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;6.3&quot;: {
+    &quot;y&quot;: 0.3
+  },
+  &quot;6.4&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;6.5&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;6.6&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;6.7&quot;: {
+    &quot;y&quot;: 0.43
+  },
+  &quot;6.8&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;6.9&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;6.10&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;6.11&quot;: {
+    &quot;y&quot;: 0.57
+  },
+  &quot;6.12&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;6.13&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;6.14&quot;: {
+    &quot;y&quot;: 0.7
+  },
+  &quot;6.15&quot;: {
+    &quot;y&quot;: 0.7
+  }
+}</pre>
+</div>
+
+</body>
+</html>

@@ -354,12 +354,6 @@ class Recipe:
         return errors
 
     def apply(self, ctx: ScriptContext, registry: Registry = REGISTRY) -> Journal:
-        # idempotent reset: undo any prior transform journal before re-applying
-        existing = ctx.script.get("_transforms")
-        if isinstance(existing, dict) and existing.get("journal"):
-            Journal.from_list(existing["journal"]).invert(ctx.script)
-            ctx.script.pop("_transforms", None)
-
         composite: List[JournalEntry] = []
         step_records: List[dict] = []
         for step in self.steps:
@@ -368,12 +362,17 @@ class Recipe:
             composite.extend(journal.entries)
             step_records.append(step.to_dict())
 
-        ctx.script["_transforms"] = {
-            "version": 1,
-            "recipe": self.name,
-            "steps": step_records,
-            "journal": [e.to_dict() for e in composite],
-        }
+        existing = ctx.script.get("_transforms")
+        if isinstance(existing, dict) and existing.get("journal"):
+            existing["steps"].extend(step_records)
+            existing["journal"].extend(e.to_dict() for e in composite)
+        else:
+            ctx.script["_transforms"] = {
+                "version": 1,
+                "recipe": self.name,
+                "steps": step_records,
+                "journal": [e.to_dict() for e in composite],
+            }
         return Journal(entries=composite)
 
     def invert(self, ctx: ScriptContext) -> Journal:

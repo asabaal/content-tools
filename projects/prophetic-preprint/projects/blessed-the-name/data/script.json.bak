@@ -529,7 +529,7 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "energetic",
         "text_style": "neon",
-        "font_family": 167,
+        "font_family": 306,
         "reveal_words": 1
       },
       "lines_overrides": {
@@ -952,7 +952,7 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "dreamy",
         "text_style": "neon",
-        "font_family": 246,
+        "font_family": 35,
         "reveal_words": 1
       },
       "lines_overrides": {
@@ -1019,7 +1019,7 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "dreamy",
         "text_style": "neon",
-        "font_family": 281,
+        "font_family": 393,
         "reveal_words": 1
       },
       "lines_overrides": {
@@ -2558,7 +2558,72 @@
   "_transforms": {
     "version": 1,
     "recipe": "font_fix_blessed",
-    "steps": [],
-    "journal": []
+    "steps": [
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "index": 3
+        },
+        "params": {
+          "font_family": 306
+        }
+      },
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "index": 6
+        },
+        "params": {
+          "font_family": 35
+        }
+      },
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "index": 7
+        },
+        "params": {
+          "font_family": 393
+        }
+      }
+    ],
+    "journal": [
+      {
+        "addr": [
+          "sections",
+          3,
+          "visual",
+          "font_family"
+        ],
+        "before": 167,
+        "after": 306,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          6,
+          "visual",
+          "font_family"
+        ],
+        "before": 246,
+        "after": 35,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          7,
+          "visual",
+          "font_family"
+        ],
+        "before": 281,
+        "after": 393,
+        "before_missing": false,
+        "after_missing": false
+      }
+    ]
   }
 }

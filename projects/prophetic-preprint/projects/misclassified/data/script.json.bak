@@ -67,7 +67,7 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "smooth",
         "text_style": "neon",
-        "font_family": 10
+        "font_family": 126
       },
       "lines_overrides": {
         "0": {
@@ -804,7 +804,7 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
         "text_style": "neon",
-        "font_family": 306
+        "font_family": 191
       },
       "lines_overrides": {
         "25": {
@@ -1427,7 +1427,51 @@
   "_transforms": {
     "version": 1,
     "recipe": "font_fix_misclassified",
-    "steps": [],
-    "journal": []
+    "steps": [
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "index": 0
+        },
+        "params": {
+          "font_family": 126
+        }
+      },
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "index": 5
+        },
+        "params": {
+          "font_family": 191
+        }
+      }
+    ],
+    "journal": [
+      {
+        "addr": [
+          "sections",
+          0,
+          "visual",
+          "font_family"
+        ],
+        "before": 10,
+        "after": 126,
+        "before_missing": false,
+        "after_missing": false
+      },
+      {
+        "addr": [
+          "sections",
+          5,
+          "visual",
+          "font_family"
+        ],
+        "before": 306,
+        "after": 191,
+        "before_missing": false,
+        "after_missing": false
+      }
+    ]
   }
 }

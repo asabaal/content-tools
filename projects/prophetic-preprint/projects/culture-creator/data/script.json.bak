@@ -547,7 +547,7 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "dreamy",
         "text_style": "neon",
-        "font_family": 143,
+        "font_family": 83,
         "reveal_words": 1
       },
       "lines_overrides": {
@@ -2544,7 +2544,30 @@
   "_transforms": {
     "version": 1,
     "recipe": "font_fix_culture_creator",
-    "steps": [],
-    "journal": []
+    "steps": [
+      {
+        "transform": "set_section_visual",
+        "selector": {
+          "index": 2
+        },
+        "params": {
+          "font_family": 83
+        }
+      }
+    ],
+    "journal": [
+      {
+        "addr": [
+          "sections",
+          2,
+          "visual",
+          "font_family"
+        ],
+        "before": 143,
+        "after": 83,
+        "before_missing": false,
+        "after_missing": false
+      }
+    ]
   }
 }
