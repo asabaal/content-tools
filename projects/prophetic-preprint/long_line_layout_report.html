@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prophetic Preprint — Long-Line Layout Review</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.5; max-width: 1400px; margin: 0 auto; padding: 24px; color: #222; background: #f7f7f7; }
+  h1, h2, h3 { color: #111; }
+  h1 { border-bottom: 2px solid #333; padding-bottom: 12px; }
+  .summary-box { background: #fff; border-radius: 8px; padding: 20px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .stat { background: #f0f4f8; padding: 12px; border-radius: 6px; text-align: center; }
+  .stat .number { font-size: 1.8em; font-weight: bold; color: #1a5fb4; }
+  .stat .label { font-size: 0.85em; color: #555; }
+  table { width: 100%; border-collapse: collapse; background: #fff; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { background: #e8e8e8; font-weight: 600; }
+  tr:hover { background: #f5f5f5; }
+  .severity-critical { color: #c01c28; font-weight: bold; }
+  .severity-major { color: #e66100; font-weight: bold; }
+  .severity-moderate { color: #986a21; font-weight: bold; }
+  .confidence-high { color: #1c7ed6; }
+  .confidence-medium { color: #666; }
+  .frames { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .frame { width: 320px; border: 1px solid #ccc; border-radius: 4px; overflow: hidden; background: #000; }
+  .frame img { width: 100%; display: block; }
+  .frame-caption { font-size: 0.75em; padding: 4px 8px; background: #222; color: #fff; }
+  .current-text { font-family: monospace; background: #f0f0f0; padding: 6px; border-radius: 4px; margin: 4px 0; white-space: pre-wrap; }
+  .proposed-text { font-family: monospace; background: #e8f4e8; padding: 6px; border-radius: 4px; margin: 4px 0; white-space: pre-wrap; }
+  .rationale { font-size: 0.9em; color: #444; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75em; font-weight: 600; }
+  .badge-critical { background: #ffdad8; color: #7a1f1a; }
+  .badge-major { background: #ffe2c4; color: #7a3e00; }
+  .badge-moderate { background: #fff1c4; color: #6b5300; }
+  .section { margin: 32px 0; }
+  ul { padding-left: 20px; }
+  li { margin: 6px 0; }
+  .implementation { background: #fff; border-left: 4px solid #1a5fb4; padding: 16px; border-radius: 0 8px 8px 0; }
+</style>
+</head>
+<body>
+
+<h1>Prophetic Preprint — Long-Line Layout Review</h1>
+<p>Review of all 42 lyric-video scripts to identify single lyric lines that are too long for clean, readable presentation, with recommended script-level multi-line revisions.</p>
+
+<div class="summary-box">
+  <h2>Executive Summary</h2>
+  <div class="stat-grid">
+    <div class="stat"><div class="number">42</div><div class="label">Pieces scanned</div></div>
+    <div class="stat"><div class="number">32</div><div class="label">Long-line candidates</div></div>
+    <div class="stat"><div class="number">3</div><div class="label">Visually verified (audit overflow)</div></div>
+    <div class="stat"><div class="number">29</div><div class="label">Script-based candidates</div></div>
+    <div class="stat"><div class="number">12</div><div class="label">Before/after renders</div></div>
+    <div class="stat"><div class="number">16</div><div class="label">2-line recommendations</div></div>
+    <div class="stat"><div class="number">16</div><div class="label">3+ line recommendations</div></div>
+  </div>
+  <p style="margin-top:16px;">
+    <strong>Severity breakdown:</strong>
+    <span class="badge badge-critical">Critical: 3</span>
+    <span class="badge badge-major">Major: 20</span>
+    <span class="badge badge-moderate">Moderate: 9</span>
+  </p>
+  <p><strong>Key finding:</strong> Most problems occur in spoken-word/narrative sections with small base font sizes (72–76 px). The renderer scales text down to as little as 49% of base size to fit long lines, and several lines overflow the frame edges. Multi-line layouts via <code>words_overrides</code> restore full font size and keep text within the safe area.</p>
+</div>
+
+<div class="section">
+  <h2>Pattern Analysis</h2>
+  <ul>
+    <li><strong>Most affected artifacts:</strong> <code>where-ben-has-been</code>, <code>the-hidden-library</code>, <code>woe-to-you</code>, <code>blessed-the-name</code>, and <code>what-is-truth</code> account for the majority of severe long-line cases.</li>
+    <li><strong>Common font size:</strong> Nearly all problematic lines use <code>font_size: 72</code> (intro/spoken-word preset). At this size, lines over ~50 characters trigger scaling; lines over ~75 characters often overflow.</li>
+    <li><strong>Line type:</strong> Spoken-word, narrative, and repetitive-vamp lines dominate the list. Dense rap or chant passages also appear.</li>
+    <li><strong>Audit correlation:</strong> All 7 audit overflow warnings at 960×540 fall inside this candidate set, confirming the measurement-based detection.</li>
+    <li><strong>Renderer note:</strong> Styled-text sections (e.g., <code>text_style: "neon"</code>) render word images with minimal horizontal gap. The multi-line split still solves the scaling/overflow problem, but a separate renderer word-spacing adjustment may further improve readability in those styles.</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>Candidate &amp; Recommendation Table</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Artifact</th>
+        <th>Line</th>
+        <th>Severity / Conf</th>
+        <th>Metrics</th>
+        <th>Current → Proposed</th>
+        <th>Validation</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td>1</td>
+        <td><code>where-ben-has-been</code></td>
+        <td>14</td>
+        <td><span class="severity-critical">Critical</span><br><span class="confidence-high">High</span><br><small>Audit overflow: 3 word(s)</small></td>
+        <td>98 chars<br>14 words<br>font 72<br>scale 49%</td>
+        <td>
+          <div class="current-text">Because I decided to just create the organizational structure to place these unstructured feelings</div>
+          <div class="proposed-text">1. Because I decided to just create
+2. the organizational structure
+3. to place these unstructured feelings</div>
+          <div class="rationale">Original two-row layout still leaves bottom row scaled to ~49% of base font. Three rows keeps all text at full size.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/where-ben-has-been_line14_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/where-ben-has-been_line14_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td><code>the-hidden-library</code></td>
+        <td>21</td>
+        <td><span class="severity-critical">Critical</span><br><span class="confidence-high">High</span><br><small>Audit overflow: 2 word(s)</small></td>
+        <td>95 chars<br>16 words<br>font 72<br>scale 58%</td>
+        <td>
+          <div class="current-text">If it were corrupted, wouldn’t have Jesus rebuked the people for this false cause (cause cause)</div>
+          <div class="proposed-text">1. If it were corrupted,
+2. wouldn’t have Jesus rebuked the people
+3. for this false cause (cause cause)</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/the-hidden-library_line21_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/the-hidden-library_line21_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>3</td>
+        <td><code>woe-to-you</code></td>
+        <td>0</td>
+        <td><span class="severity-critical">Critical</span><br><span class="confidence-high">High</span><br><small>Audit overflow: 2 word(s)</small></td>
+        <td>81 chars<br>15 words<br>font 72<br>scale 60%</td>
+        <td>
+          <div class="current-text">Woe to you, you who lack understanding! You cast out from your presence your aid.</div>
+          <div class="proposed-text">1. Woe to you, you who lack understanding!
+2. You cast out from your presence your aid.</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/woe-to-you_line00_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/woe-to-you_line00_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>4</td>
+        <td><code>woe-to-you</code></td>
+        <td>2</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>82 chars<br>15 words<br>font 72<br>scale 61%</td>
+        <td>
+          <div class="current-text">Woe to you, bigots and false judges. For you lead others astray with your charisma</div>
+          <div class="proposed-text">1. Woe to you, bigots and false judges.
+2. For you lead others astray with your charisma</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/woe-to-you_line02_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/woe-to-you_line02_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>5</td>
+        <td><code>the-hidden-library</code></td>
+        <td>18</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>85 chars<br>16 words<br>font 72<br>scale 61%</td>
+        <td>
+          <div class="current-text">As I reflected, God started painting me a clearer picture of what was really going on</div>
+          <div class="proposed-text">1. As I reflected,
+2. God started painting me a clearer picture
+3. of what was really going on</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/the-hidden-library_line18_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/the-hidden-library_line18_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>6</td>
+        <td><code>where-ben-has-been</code></td>
+        <td>0</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>106 chars<br>20 words<br>font 72<br>scale 61%</td>
+        <td>
+          <div class="current-text">Okay, I have to explicitly name that I am removing the expectation of putting this to music as a necessity</div>
+          <div class="proposed-text">1. Okay, I have to explicitly name
+2. that I am removing the expectation of putting this to music as a necessity</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/where-ben-has-been_line00_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/where-ben-has-been_line00_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>7</td>
+        <td><code>woe-to-you</code></td>
+        <td>7</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>88 chars<br>18 words<br>font 72<br>scale 61%</td>
+        <td>
+          <div class="current-text">You have not because you ask not. I have come to proclaim the Kingdom of heaven at hand!</div>
+          <div class="proposed-text">1. You have not because you ask not.
+2. I have come to proclaim the Kingdom of heaven at hand!</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/woe-to-you_line07_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/woe-to-you_line07_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>8</td>
+        <td><code>blessed-the-name</code></td>
+        <td>71</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>81 chars<br>19 words<br>font 76<br>scale 62%</td>
+        <td>
+          <div class="current-text">For I tell you, you will not see me again until you say (In the name of the LORD)</div>
+          <div class="proposed-text">1. For I tell you,
+2. you will not see me again
+3. until you say (In the name of the LORD)</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/blessed-the-name_line71_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/blessed-the-name_line71_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>9</td>
+        <td><code>woe-to-you</code></td>
+        <td>3</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>77 chars<br>15 words<br>font 72<br>scale 62%</td>
+        <td>
+          <div class="current-text">Woe to you, gatekeepers! For you do not know the Kingdom and keep others out.</div>
+          <div class="proposed-text">1. Woe to you, gatekeepers!
+2. For you do not know the Kingdom
+3. and keep others out.</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/woe-to-you_line03_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/woe-to-you_line03_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>10</td>
+        <td><code>woe-to-you</code></td>
+        <td>1</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>80 chars<br>16 words<br>font 72<br>scale 62%</td>
+        <td>
+          <div class="current-text">Woe to you, who exclude in the name of justice! What you fear will overtake you.</div>
+          <div class="proposed-text">1. Woe to you, who exclude in the name of justice!
+2. What you fear will overtake you.</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/woe-to-you_line01_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/woe-to-you_line01_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>11</td>
+        <td><code>the-hidden-library</code></td>
+        <td>22</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>94 chars<br>20 words<br>font 72<br>scale 62%</td>
+        <td>
+          <div class="current-text">And it only existed, in a scriptural form in the books I was taught to swear off (off off off)</div>
+          <div class="proposed-text">1. And it only existed, in a scriptural form
+2. in the books I was taught to swear off from ever reading</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/the-hidden-library_line22_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/the-hidden-library_line22_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>12</td>
+        <td><code>what-is-truth</code></td>
+        <td>55</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>93 chars<br>20 words<br>font 72<br>scale 64%</td>
+        <td>
+          <div class="current-text">After my transition began I slept with a man I couldnt get out of it, at least gay either way</div>
+          <div class="proposed-text">1. After my transition began
+2. I slept with a man I couldnt get out of it,
+3. at least gay either way</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td>
+        <div class="frames">
+          <div class="frame"><div class="frame-caption">Before</div><img src="long_line_validation/what-is-truth_line55_before_final.png" alt="before"></div>
+          <div class="frame"><div class="frame-caption">After</div><img src="long_line_validation/what-is-truth_line55_after_final.png" alt="after"></div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>13</td>
+        <td><code>blessed-the-name</code></td>
+        <td>78</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>124 chars<br>25 words<br>font 76<br>scale 64%</td>
+        <td>
+          <div class="current-text">Holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy</div>
+          <div class="proposed-text">1. Holy holy holy holy holy holy holy holy holy holy holy holy
+2. holy holy holy holy holy holy holy holy holy holy holy holy</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>14</td>
+        <td><code>the-hidden-library</code></td>
+        <td>44</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>75 chars<br>11 words<br>font 72<br>scale 65%</td>
+        <td>
+          <div class="current-text">Truth that self-proclaiming followers of Jesus actively swayed me away from</div>
+          <div class="proposed-text">1. Truth that self-proclaiming followers of Jesus
+2. actively swayed me away from</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>15</td>
+        <td><code>the-hidden-library</code></td>
+        <td>45</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>74 chars<br>13 words<br>font 72<br>scale 68%</td>
+        <td>
+          <div class="current-text">Truth that shaped much of the character of Jesus’ ministry of radical love</div>
+          <div class="proposed-text">1. Truth that shaped much
+2. of the character of Jesus’ ministry
+3. of radical love</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>16</td>
+        <td><code>blessed-the-name</code></td>
+        <td>9</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>129 chars<br>26 words<br>font 72<br>scale 68%</td>
+        <td>
+          <div class="current-text">Holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy holy</div>
+          <div class="proposed-text">1. Holy holy holy holy holy holy holy holy holy
+2. holy holy holy holy holy holy holy holy</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>17</td>
+        <td><code>culture-creator</code></td>
+        <td>47</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>72 chars<br>11 words<br>font 72<br>scale 69%</td>
+        <td>
+          <div class="current-text">As such, participation in services and ministries is no longer permitted</div>
+          <div class="proposed-text">1. As such,
+2. participation in services and ministries
+3. is no longer permitted</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>18</td>
+        <td><code>marquis-song</code></td>
+        <td>72</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>68 chars<br>12 words<br>font 72<br>scale 69%</td>
+        <td>
+          <div class="current-text">While I appreciate some of the sentiment and truth in your writings,</div>
+          <div class="proposed-text">1. While I appreciate some of the sentiment
+2. and truth in your writings,</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>19</td>
+        <td><code>the-hidden-library</code></td>
+        <td>0</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>75 chars<br>16 words<br>font 72<br>scale 71%</td>
+        <td>
+          <div class="current-text">I did not say these things to you from the beginning because I was with you</div>
+          <div class="proposed-text">1. I did not say these things to you from the beginning
+2. because I was with you</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>20</td>
+        <td><code>what-is-truth</code></td>
+        <td>79</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>76 chars<br>16 words<br>font 72<br>scale 71%</td>
+        <td>
+          <div class="current-text">As it should, its unfair I didnt learn about who I was before finding a mate</div>
+          <div class="proposed-text">1. As it should,
+2. its unfair I didnt learn about
+3. who I was before finding a mate</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>21</td>
+        <td><code>what-is-truth</code></td>
+        <td>17</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>65 chars<br>13 words<br>font 72<br>scale 71%</td>
+        <td>
+          <div class="current-text">When I got hold of those heels my curiosity compelled me to taste</div>
+          <div class="proposed-text">1. When I got hold of those heels
+2. my curiosity compelled me to taste</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>22</td>
+        <td><code>the-first-scroll</code></td>
+        <td>3</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>97 chars<br>18 words<br>font 72<br>scale 72%</td>
+        <td>
+          <div class="current-text">I have sent my servants the prophets to declare truth to the nations, but they have not listened.</div>
+          <div class="proposed-text">1. I have sent my servants the prophets
+2. to declare truth to the nations,
+3. but they have not listened.</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>23</td>
+        <td><code>what-is-truth</code></td>
+        <td>9</td>
+        <td><span class="severity-major">Major</span><br><span class="confidence-medium">Medium</span></td>
+        <td>61 chars<br>11 words<br>font 72<br>scale 74%</td>
+        <td>
+          <div class="current-text">When they demonized people Id not met I couldnt simply accept</div>
+          <div class="proposed-text">1. When they demonized
+2. people Id not met
+3. I couldnt simply accept</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>24</td>
+        <td><code>asabaal</code></td>
+        <td>70</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>57 chars<br>12 words<br>font 72<br>scale 75%</td>
+        <td>
+          <div class="current-text">Would you believe what I found at the throne of our sire?</div>
+          <div class="proposed-text">1. Would you believe
+2. what I found at the throne of our sire?</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>25</td>
+        <td><code>what-is-truth</code></td>
+        <td>53</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>78 chars<br>13 words<br>font 72<br>scale 76%</td>
+        <td>
+          <div class="current-text">So I tried a threesome, & realized nothing different happened just more people</div>
+          <div class="proposed-text">1. So I tried a threesome,
+2. & realized nothing different happened
+3. just more people</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>26</td>
+        <td><code>marquis-song</code></td>
+        <td>95</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>95 chars<br>19 words<br>font 72<br>scale 76%</td>
+        <td>
+          <div class="current-text">I wish you well and will pray for you, but will no longer be able to continue our conversations</div>
+          <div class="proposed-text">1. I wish you well and will pray for you,
+2. but will no longer be able
+3. to continue our conversations</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>27</td>
+        <td><code>nothing-is-impossible</code></td>
+        <td>11</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>60 chars<br>10 words<br>font 72<br>scale 78%</td>
+        <td>
+          <div class="current-text">Out, get out! Heathen! Wolf in sheep’s clothing! Judas type!</div>
+          <div class="proposed-text">1. Out, get out! Heathen!
+2. Wolf in sheep’s clothing! Judas type!</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>28</td>
+        <td><code>freedom</code></td>
+        <td>2</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>58 chars<br>10 words<br>font 72<br>scale 79%</td>
+        <td>
+          <div class="current-text">Look, you serve your own interest and oppress your workers</div>
+          <div class="proposed-text">1. Look,
+2. you serve your own interest
+3. and oppress your workers</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>29</td>
+        <td><code>marquis-song</code></td>
+        <td>83</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>58 chars<br>10 words<br>font 72<br>scale 79%</td>
+        <td>
+          <div class="current-text">that we should no longer continue in fellowship with them.</div>
+          <div class="proposed-text">1. that we should no longer
+2. continue in fellowship with them.</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>30</td>
+        <td><code>misclassified</code></td>
+        <td>13</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>59 chars<br>12 words<br>font 72<br>scale 79%</td>
+        <td>
+          <div class="current-text">Where once I was crushed by chaos now I barter with balance</div>
+          <div class="proposed-text">1. Where once I was crushed by chaos
+2. now I barter with balance</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>31</td>
+        <td><code>where-ben-has-been</code></td>
+        <td>16</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>68 chars<br>14 words<br>font 72<br>scale 79%</td>
+        <td>
+          <div class="current-text">in a way that allows me to easily translate it to the natural medium</div>
+          <div class="proposed-text">1. in a way that allows me
+2. to easily translate it
+3. to the natural medium</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+      <tr>
+        <td>32</td>
+        <td><code>woe-to-you</code></td>
+        <td>6</td>
+        <td><span class="severity-moderate">Moderate</span><br><span class="confidence-medium">Medium</span></td>
+        <td>83 chars<br>16 words<br>font 72<br>scale 79%</td>
+        <td>
+          <div class="current-text">I have given you authority to do greater things than I, and you have worldly minds.</div>
+          <div class="proposed-text">1. I have given you authority
+2. to do greater things than I,
+3. and you have worldly minds.</div>
+          <div class="rationale">Split reduces horizontal crowding; preserves phrasing.</div>
+        </td>
+        <td><em>No render yet; recommendation based on script measurement.</em></td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<div class="section implementation">
+  <h2>Implementation Recommendation</h2>
+  <ol>
+    <li><strong>First batch — safe, high-confidence changes:</strong> Apply the 3 audit-verified Critical cases first (<code>where-ben-has-been</code> line 14, <code>the-hidden-library</code> line 21, <code>woe-to-you</code> line 0), then the remaining Critical/Major cases with rendered validation.</li>
+    <li><strong>Second batch — script-based candidates:</strong> Apply the Moderate and unrendered Major cases after a quick visual spot-check during re-render.</li>
+    <li><strong>Renderer improvement:</strong> Consider increasing inter-word spacing in styled-text renders so that multi-line word groups read more cleanly.</li>
+    <li><strong>Preserve originals:</strong> Save modified scripts as <code>script.json.linebreak-v1</code> or use the existing transform journaling system so changes are reversible.</li>
+  </ol>
+  <p><strong>Suggested immediate action:</strong> Start with <code>blessed-the-name</code> line 71 and <code>woe-to-you</code> line 0 — both show dramatic readability improvement in the rendered comparisons and are straightforward <code>words_overrides</code> additions.</p>
+</div>
+
+</body>
+</html>
