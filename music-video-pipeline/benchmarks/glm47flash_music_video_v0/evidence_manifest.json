@@ -1,7 +1,7 @@
 {
   "benchmark": "GLM-4.7-Flash Music Video Scripting Benchmark v0",
   "evidence_bundle_version": "1.0",
-  "generated_at": "2026-07-01T01:35:28.839128+00:00",
+  "generated_at": "2026-07-01T19:24:35.569607+00:00",
   "repo_root": "/mnt/storage/repos/content-tools/music-video-pipeline",
   "includes": {
     "source_code": [
@@ -32,8 +32,8 @@
       },
       {
         "path": "src/render/renderer.py",
-        "size_bytes": 56780,
-        "sha256": "3e3b742910ef28f1ac82e78813b5ccec09383022b4dacc92de27f320d672fda1"
+        "size_bytes": 56790,
+        "sha256": "9f1ed17a12032881c11679d285998ae1777ecbe24b09cc75c6f0a3dafdf1de58"
       },
       {
         "path": "src/render/aspect_transform.py",

@@ -213,7 +213,15 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
         "text_style": "neon",
-        "font_family": 35
+        "font_family": 35,
+        "text_color": "#ff9800",
+        "text_style_colors": {
+          "core_color": [
+            255,
+            152,
+            0
+          ]
+        }
       },
       "lines_overrides": {
         "8": {
@@ -621,7 +629,15 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
         "text_style": "neon",
-        "font_family": 83
+        "font_family": 83,
+        "text_color": "#4caf50",
+        "text_style_colors": {
+          "core_color": [
+            76,
+            175,
+            80
+          ]
+        }
       },
       "lines_overrides": {
         "18": {
@@ -762,7 +778,15 @@
         "bg_animation_preset": "energetic",
         "text_style": "neon",
         "font_family": 167,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_color": "#9c27b0",
+        "text_style_colors": {
+          "core_color": [
+            156,
+            39,
+            176
+          ]
+        }
       },
       "lines_overrides": {
         "21": {
@@ -860,7 +884,15 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
         "text_style": "neon",
-        "font_family": 191
+        "font_family": 191,
+        "text_color": "#ff9800",
+        "text_style_colors": {
+          "core_color": [
+            255,
+            152,
+            0
+          ]
+        }
       },
       "lines_overrides": {
         "25": {
@@ -1166,7 +1198,15 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "cinematic",
         "text_style": "neon",
-        "font_family": 393
+        "font_family": 393,
+        "text_color": "#4caf50",
+        "text_style_colors": {
+          "core_color": [
+            76,
+            175,
+            80
+          ]
+        }
       },
       "lines_overrides": {
         "33": {
@@ -1314,7 +1354,15 @@
         "bg_animation_preset": "energetic",
         "text_style": "neon",
         "font_family": 281,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_color": "#9c27b0",
+        "text_style_colors": {
+          "core_color": [
+            156,
+            39,
+            176
+          ]
+        }
       },
       "lines_overrides": {
         "36": {
@@ -1410,7 +1458,15 @@
         "animation_speed": 1.0,
         "bg_animation_preset": "smooth",
         "text_style": "neon",
-        "font_family": 1218
+        "font_family": 1218,
+        "text_color": "#ffd700",
+        "text_style_colors": {
+          "core_color": [
+            255,
+            215,
+            0
+          ]
+        }
       },
       "lines_overrides": {
         "40": {

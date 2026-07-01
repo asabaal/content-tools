@@ -693,14 +693,13 @@ class VideoRenderer:
         layout = self._layout_line(words, line_idx, v, font_size, font_family)
         self._draw_backdrop_group(img, layout, list(range(len(words))), v)
 
-        text_style_colors = v.get("text_style_colors")
-
         if self._has_styled_text(v):
             for j, w in enumerate(words):
+                wv = self.get_visual(line_idx, j)
                 r = layout[j]
                 is_active = j == word_idx
                 opacity = 1.0 if is_active else 0.75
-                styled = self._get_styled_text(w["text"], text_style, r["word_size"], font_family, style_colors=text_style_colors).copy()
+                styled = self._get_styled_text(w["text"], text_style, r["word_size"], font_family, style_colors=wv.get("text_style_colors")).copy()
                 sw, sh = styled.size
                 px = int(r["px_x"] - sw / 2)
                 py = int(r["px_y"] - sh / 2)
@@ -770,14 +769,13 @@ class VideoRenderer:
 
         self._draw_backdrop_group(img, layout, list(visible_range), v)
 
-        text_style_colors = v.get("text_style_colors")
-
         if self._has_styled_text(v):
             for idx in visible_range:
+                wv = self.get_visual(line_idx, idx)
                 r = layout[idx]
                 is_active = idx >= group_start and idx <= word_idx
                 opacity = 1.0 if is_active else 0.8
-                styled = self._get_styled_text(words[idx]["text"], text_style, r["word_size"], font_family, style_colors=text_style_colors).copy()
+                styled = self._get_styled_text(words[idx]["text"], text_style, r["word_size"], font_family, style_colors=wv.get("text_style_colors")).copy()
                 sw, sh = styled.size
                 px = int(r["px_x"] - sw / 2)
                 py = int(r["px_y"] - sh / 2)

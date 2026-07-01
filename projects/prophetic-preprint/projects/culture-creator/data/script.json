@@ -46,13 +46,11 @@
       "visual": {
         "background_type": "gradient",
         "gradient_direction": "cross",
-        "background_color": "#020203",
+        "background_color": "#1a1a2e",
         "gradient_colors": [
-          "#020203",
-          "#223759",
-          "#040405",
-          "#212245",
-          "#030304"
+          "#1a1a2e",
+          "#16213e",
+          "#0f3460"
         ],
         "texture_type": "vignette_soft",
         "texture_opacity": 0.5,
@@ -67,8 +65,16 @@
         "animation_type": "fade_in",
         "animation_speed": 0.7,
         "bg_animation_preset": "smooth",
-        "text_style": "ice",
-        "font_family": 10
+        "text_style": "clean_white",
+        "font_family": 10,
+        "text_color": "#e0e0e0",
+        "text_style_colors": {
+          "core_color": [
+            224,
+            224,
+            224
+          ]
+        }
       },
       "lines_overrides": {
         "0": {
@@ -540,7 +546,15 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "dreamy",
         "text_style": "ice",
-        "font_family": 126
+        "font_family": 126,
+        "text_color": "#e53935",
+        "text_style_colors": {
+          "core_color": [
+            229,
+            57,
+            53
+          ]
+        }
       },
       "lines_overrides": {
         "17": {
@@ -590,7 +604,15 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "dreamy",
         "text_style": "ice",
-        "font_family": 191
+        "font_family": 191,
+        "text_color": "#e53935",
+        "text_style_colors": {
+          "core_color": [
+            229,
+            57,
+            53
+          ]
+        }
       },
       "lines_overrides": {
         "20": {
@@ -951,7 +973,15 @@
         "bg_animation_preset": "cinematic",
         "text_style": "neon",
         "font_family": 246,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_color": "#1a237e",
+        "text_style_colors": {
+          "core_color": [
+            26,
+            35,
+            126
+          ]
+        }
       },
       "lines_overrides": {
         "34": {
@@ -1094,7 +1124,15 @@
         "bg_animation_preset": "energetic",
         "text_style": "neon",
         "font_family": 281,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_color": "#4caf50",
+        "text_style_colors": {
+          "core_color": [
+            76,
+            175,
+            80
+          ]
+        }
       },
       "lines_overrides": {
         "36": {
@@ -1233,7 +1271,15 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "dreamy",
         "text_style": "neon",
-        "font_family": 319
+        "font_family": 319,
+        "text_color": "#00bcd4",
+        "text_style_colors": {
+          "core_color": [
+            0,
+            188,
+            212
+          ]
+        }
       },
       "lines_overrides": {},
       "words_overrides": {}
@@ -1272,7 +1318,15 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "dreamy",
         "text_style": "ice",
-        "font_family": 570
+        "font_family": 570,
+        "text_color": "#e53935",
+        "text_style_colors": {
+          "core_color": [
+            229,
+            57,
+            53
+          ]
+        }
       },
       "lines_overrides": {
         "41": {
@@ -1322,7 +1376,15 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "dreamy",
         "text_style": "ice",
-        "font_family": 641
+        "font_family": 641,
+        "text_color": "#e53935",
+        "text_style_colors": {
+          "core_color": [
+            229,
+            57,
+            53
+          ]
+        }
       },
       "lines_overrides": {
         "44": {
@@ -1646,7 +1708,15 @@
         "bg_animation_preset": "cinematic",
         "text_style": "neon",
         "font_family": 488,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_color": "#1a237e",
+        "text_style_colors": {
+          "core_color": [
+            26,
+            35,
+            126
+          ]
+        }
       },
       "lines_overrides": {
         "54": {
@@ -1789,7 +1859,15 @@
         "animation_speed": 0.7,
         "bg_animation_preset": "energetic",
         "text_style": "neon",
-        "font_family": 527
+        "font_family": 527,
+        "text_color": "#4caf50",
+        "text_style_colors": {
+          "core_color": [
+            76,
+            175,
+            80
+          ]
+        }
       },
       "lines_overrides": {
         "56": {
@@ -1929,7 +2007,15 @@
         "bg_animation_preset": "dreamy",
         "text_style": "neon",
         "font_family": 557,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_color": "#00bcd4",
+        "text_style_colors": {
+          "core_color": [
+            0,
+            188,
+            212
+          ]
+        }
       },
       "lines_overrides": {},
       "words_overrides": {}

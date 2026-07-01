@@ -1768,7 +1768,15 @@
         "bg_animation_preset": "dreamy",
         "text_style": "neon",
         "font_family": 488,
-        "reveal_words": 1
+        "reveal_words": 1,
+        "text_color": "#4caf50",
+        "text_style_colors": {
+          "core_color": [
+            76,
+            175,
+            80
+          ]
+        }
       },
       "lines_overrides": {},
       "words_overrides": {
