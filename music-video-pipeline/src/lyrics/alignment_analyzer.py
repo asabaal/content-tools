@@ -497,6 +497,46 @@ def _compute_word_timings(
     return timings
 
 
+def align_words_from_segments(
+    lyric_text: str,
+    matched_segments: List[int],
+    segments: List[dict],
+    line_start: Optional[float] = None,
+    line_end: Optional[float] = None,
+    onset_times: Optional[np.ndarray] = None,
+    prev_line_end: float = 0.0,
+) -> List[dict]:
+    """Map a lyric line's words onto a stem's segment word timings.
+
+    Public, side-effect-free helper reused by the transformation layer. Returns
+    a list of ``{"word","start","end","source"}`` dicts for each word in
+    ``lyric_text``, aligned to the transcription ``segments`` selected by
+    ``matched_segments`` (indices). Word start/end come from the stem's own
+    per-word timestamps when matched, and are interpolated between neighbours
+    otherwise. Returns ``[]`` when no alignment is possible.
+    """
+    timings = _compute_word_timings(
+        lyric_text=lyric_text,
+        matched_segments=matched_segments,
+        transcription_segments=segments,
+        line_start=line_start,
+        line_end=line_end,
+        onset_times=onset_times,
+        prev_line_end=prev_line_end,
+    )
+    if not timings:
+        return []
+    return [
+        {
+            "word": wt.word,
+            "start": round(wt.start, 3),
+            "end": round(wt.end, 3),
+            "source": wt.source,
+        }
+        for wt in timings
+    ]
+
+
 def _compute_onset_word_timings(
     lyric_text: str,
     onset_times: np.ndarray,

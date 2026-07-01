@@ -30,6 +30,7 @@ from . import typography  # noqa: F401  (registers set_section_font, set_section
 from . import branding  # noqa: F401  (registers add_branded_scenes)
 from . import geometric  # noqa: F401  (registers geometric_backgrounds)
 from . import aspects  # noqa: F401  (registers retarget_aspect)
+from . import timing  # noqa: F401  (registers realign_from_stem)
 from . import recipes  # noqa: F401
 
 __all__ = [
@@ -49,5 +50,6 @@ __all__ = [
     "backgrounds",
     "typography",
     "aspects",
+    "timing",
     "recipes",
 ]

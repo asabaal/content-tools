@@ -104,6 +104,75 @@ class TestVideoRendererLoad:
             r.load()
 
 
+class TestTimingOverrides:
+    @pytest.fixture
+    def project_dir(self, tmp_path):
+        data_dir = tmp_path / "data"
+        data_dir.mkdir()
+        synced = {
+            "lines": [
+                {"index": 0, "text": "old line", "start": 10.0, "end": 20.0,
+                 "words": [{"text": "old", "start": 10.0, "end": 15.0},
+                           {"text": "line", "start": 15.0, "end": 20.0}]},
+                {"index": 1, "text": "untouched", "start": 21.0, "end": 22.0,
+                 "words": [{"text": "untouched", "start": 21.0, "end": 22.0}]},
+            ]
+        }
+        (data_dir / "lyrics_synced.json").write_text(json.dumps(synced), encoding="utf-8")
+        (data_dir / "analysis.json").write_text(
+            json.dumps({"duration": 30.0, "beat_times": []}), encoding="utf-8"
+        )
+        return tmp_path
+
+    def test_override_merges_into_synced(self, project_dir):
+        script = {
+            "defaults": {},
+            "timing_overrides": {
+                "0": {"start": 5.0, "end": 9.0,
+                      "words": [{"word": "new", "start": 5.0, "end": 7.0},
+                                {"word": "words", "start": 7.0, "end": 9.0}]},
+                "_provenance": {"stem": "backing_vocals"},
+            },
+        }
+        (project_dir / "data" / "script.json").write_text(json.dumps(script), encoding="utf-8")
+
+        r = VideoRenderer(project_dir)
+        r.load()
+        line0 = r.synced["lines"][0]
+        assert line0["start"] == 5.0 and line0["end"] == 9.0
+        # word key normalized to "text" for the draw path
+        assert [w["text"] for w in line0["words"]] == ["new", "words"]
+        assert line0["words"][0]["start"] == 5.0
+        # untouched line stays intact
+        assert r.synced["lines"][1]["start"] == 21.0
+
+    def test_find_active_word_follows_override(self, project_dir):
+        script = {
+            "defaults": {},
+            "timing_overrides": {
+                "0": {"start": 5.0, "end": 9.0,
+                      "words": [{"word": "new", "start": 5.0, "end": 7.0},
+                                {"word": "words", "start": 7.0, "end": 9.0}]},
+            },
+        }
+        (project_dir / "data" / "script.json").write_text(json.dumps(script), encoding="utf-8")
+
+        r = VideoRenderer(project_dir)
+        r.load()
+        # at t=6 the original line (10..20) would be inactive; override makes it active
+        line_idx, word_idx = r._find_active_word(6.0)
+        assert line_idx == 0
+        assert word_idx == 0
+
+    def test_no_override_is_noop(self, project_dir):
+        (project_dir / "data" / "script.json").write_text(
+            json.dumps({"defaults": {}}), encoding="utf-8"
+        )
+        r = VideoRenderer(project_dir)
+        r.load()
+        assert r.synced["lines"][0]["start"] == 10.0
+
+
 class TestVideoRendererGetVisual:
     @pytest.fixture
     def renderer(self, tmp_path):

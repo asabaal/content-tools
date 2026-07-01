@@ -154,6 +154,8 @@ class VideoRenderer:
         self.defaults = self.script.get("defaults", {})
         self.caption_style = self.script.get("caption_style", {})
 
+        self._apply_timing_overrides()
+
         proj_path = self.data_dir / "mvp_project.json"
         if proj_path.exists():
             proj = json.loads(proj_path.read_text(encoding="utf-8"))
@@ -195,6 +197,45 @@ class VideoRenderer:
 
     def _get_reveal_mode(self, v: Dict) -> str:
         return v.get("reveal_mode", "progressive")
+
+    def _apply_timing_overrides(self) -> None:
+        """Merge script-level ``timing_overrides`` over the loaded synced lines.
+
+        ``realign_from_stem`` and other timing transforms write per-line overrides
+        into ``script.json`` (a journaled, invertible layer). The renderer honours
+        them by deep-overwriting ``start``/``end``/``words`` on the affected
+        synced lines, so every downstream consumer (``_find_active_word``,
+        ``_compute_animation_progress``, the draw routines) sees corrected timing
+        without each one needing to know about overrides.
+        """
+        overrides = self.script.get("timing_overrides") or {}
+        if not isinstance(overrides, dict) or not overrides:
+            return
+        lines = self.synced.get("lines") or []
+        for key, entry in overrides.items():
+            if key == "_provenance" or not isinstance(entry, dict):
+                continue
+            try:
+                idx = int(key)
+            except (TypeError, ValueError):
+                continue
+            if idx < 0 or idx >= len(lines):
+                continue
+            line = lines[idx]
+            if "start" in entry:
+                line["start"] = entry["start"]
+            if "end" in entry:
+                line["end"] = entry["end"]
+            if isinstance(entry.get("words"), list):
+                line["words"] = [
+                    {
+                        "text": w.get("text", w.get("word", "")),
+                        "start": w["start"],
+                        "end": w["end"],
+                    }
+                    for w in entry["words"]
+                    if isinstance(w, dict) and "start" in w and "end" in w
+                ]
 
     def _find_active_word(self, t: float) -> Tuple[int, int]:
         for i, line in enumerate(self.synced.get("lines", [])):

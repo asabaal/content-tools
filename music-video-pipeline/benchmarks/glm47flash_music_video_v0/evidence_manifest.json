@@ -1,7 +1,7 @@
 {
   "benchmark": "GLM-4.7-Flash Music Video Scripting Benchmark v0",
   "evidence_bundle_version": "1.0",
-  "generated_at": "2026-06-24T00:24:13.741302+00:00",
+  "generated_at": "2026-07-01T01:35:28.839128+00:00",
   "repo_root": "/mnt/storage/repos/content-tools/music-video-pipeline",
   "includes": {
     "source_code": [
@@ -12,8 +12,8 @@
       },
       {
         "path": "src/scriptgen/rules.py",
-        "size_bytes": 18543,
-        "sha256": "2016fb8062b5e9f5101458fa8225b03a83517d4e5c03025770ad7cfaac4930c1"
+        "size_bytes": 19058,
+        "sha256": "660d73a00377539431f4cea37eb6e536486d4fc3682d79db764992bb5386ce39"
       },
       {
         "path": "src/scriptgen/moods.py",
@@ -32,13 +32,13 @@
       },
       {
         "path": "src/render/renderer.py",
-        "size_bytes": 51023,
-        "sha256": "9c014d98cd80b20849e89a547350ab9a93ce20c342e23439782cc12b49165daf"
+        "size_bytes": 56780,
+        "sha256": "3e3b742910ef28f1ac82e78813b5ccec09383022b4dacc92de27f320d672fda1"
       },
       {
         "path": "src/render/aspect_transform.py",
-        "size_bytes": 23330,
-        "sha256": "5d10f6df4d59abd3acf8517f6bed3b2654a6ddcfd6e11c4d320cc11065af0063"
+        "size_bytes": 933,
+        "sha256": "0f307e7629ec1b4ff1e7f94374268843262e985a682cddb401c7dcf1f5988476"
       },
       {
         "path": "src/render/effect_presets.py",
@@ -72,8 +72,8 @@
       },
       {
         "path": "src/render/font_styles.py",
-        "size_bytes": 18968,
-        "sha256": "e5acfbdb1b188321910a0a5ccfb6621d5a4e25f82e2965106cc1c16383b3a79c"
+        "size_bytes": 19485,
+        "sha256": "8678cd5b593f2f9247e15152426636911947d7b645614d6cc847678b433dd3a2"
       },
       {
         "path": "src/render/encoder.py",
@@ -142,8 +142,8 @@
       },
       {
         "path": "src/lyrics/synchronizer.py",
-        "size_bytes": 33173,
-        "sha256": "9499f8643cd3b3f04f5364a0130af935b33ace51e36732379ae8e6401b3f2dbd"
+        "size_bytes": 35226,
+        "sha256": "032e095298e3c8c2e9f12def7e56527d0d483793386163370fd2846c779cc054"
       },
       {
         "path": "scripts/apply_profile.py",
@@ -216,8 +216,8 @@
       },
       {
         "path": "tests/test_render.py",
-        "size_bytes": 86963,
-        "sha256": "32a488b8fc66b495141e7b6bd66fa7943138fe233d5f06537e58c06d72c5f171"
+        "size_bytes": 89781,
+        "sha256": "a9cb3da632d7c1640ffc7b8d9096a726d0074effb42270656f673eebc8b9085b"
       }
     ],
     "fixtures": [

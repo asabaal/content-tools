@@ -127,7 +127,7 @@ def resolve_section_indices(sections: List[dict], selector: Optional[Dict[str, A
 
 def resolve_line_keys(section: dict) -> List[int]:
     """Return the integer line indices a section governs (in order)."""
-    out: List[int] = []
+    out = []
     for value in section.get("lines", []) or []:
         try:
             out.append(int(value))
@@ -136,4 +136,43 @@ def resolve_line_keys(section: dict) -> List[int]:
     return out
 
 
-__all__ = ["resolve_section_indices", "resolve_line_keys"]
+def resolve_line_indices(sections: List[dict], selector: Optional[Dict[str, Any]] = None) -> List[int]:
+    """Resolve a selector to concrete, ordered, de-duplicated line indices.
+
+    Extends section-level selection with an explicit ``{"lines": [...]}`` form
+    for regions that span partial sections or cross section boundaries::
+
+        {"lines": [104, 105, 106]}        -> those exact indices
+        {"section": "post-hook"}          -> union of that section's lines
+        {}                                -> all lines in every section
+
+    Returned indices are sorted and unique.
+    """
+    if selector and "lines" in selector:
+        raw = selector["lines"]
+        vals = list(raw) if isinstance(raw, list) else [raw]
+        seen: set = set()
+        out: List[int] = []
+        for v in vals:
+            try:
+                li = int(v)
+            except (TypeError, ValueError):
+                continue
+            if li not in seen:
+                seen.add(li)
+                out.append(li)
+        return sorted(out)
+
+    sec_indices = resolve_section_indices(sections, selector)
+    seen = set()
+    out = []
+    for si in sec_indices:
+        if 0 <= si < len(sections):
+            for li in resolve_line_keys(sections[si]):
+                if li not in seen:
+                    seen.add(li)
+                    out.append(li)
+    return sorted(out)
+
+
+__all__ = ["resolve_section_indices", "resolve_line_keys", "resolve_line_indices"]

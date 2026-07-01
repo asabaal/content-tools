@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-from .selectors import resolve_section_indices
+from .selectors import resolve_section_indices, resolve_line_indices
 
 Address = Tuple[Any, ...]
 
@@ -232,6 +232,9 @@ class ScriptContext:
 
     def section_indices(self, selector: Optional[dict]) -> List[int]:
         return resolve_section_indices(self.sections, selector)
+
+    def line_indices(self, selector: Optional[dict]) -> List[int]:
+        return resolve_line_indices(self.sections, selector)
 
 
 # --------------------------------------------------------------------------- #

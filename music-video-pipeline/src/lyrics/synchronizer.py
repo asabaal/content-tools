@@ -18,6 +18,63 @@ MIN_CLUSTER_GAP = 0.8
 MIN_LINE_DURATION = 0.5
 
 
+def snap_to_nearest_beat(time: float, beat_times) -> float:
+    """Snap ``time`` to the nearest beat when within :data:`BEAT_SNAP_TOLERANCE`.
+
+    Pure helper (accepts a sequence or numpy array of beat times). Returns the
+    original time unchanged when there are no beats or none are in tolerance.
+    """
+    beat_times = np.asarray(beat_times, dtype=float)
+    if beat_times.size == 0:
+        return time
+    idx = int(np.argmin(np.abs(beat_times - time)))
+    nearest = float(beat_times[idx])
+    if abs(nearest - time) <= BEAT_SNAP_TOLERANCE:
+        return nearest
+    return time
+
+
+def reconcile_region_boundaries(
+    region_lines: List[dict],
+    prev_end: Optional[float] = None,
+    next_start: Optional[float] = None,
+) -> None:
+    """Make a realigned region sequential and clamp it to its neighbours.
+
+    Mutates ``region_lines`` in place. Each entry is a dict with ``start``,
+    ``end`` and an optional ``words`` list of ``{start,end}`` dicts, ordered by
+    playback. Adjacent overlapping lines are split at their boundary; the
+    region's outer edges are clamped to ``prev_end`` / ``next_start`` so the
+    realigned lines cannot overlap the surrounding (unchanged) lines.
+    """
+    if not region_lines:
+        return
+    for i in range(len(region_lines) - 1):
+        curr = region_lines[i]
+        nxt = region_lines[i + 1]
+        if curr["end"] > nxt["start"]:
+            boundary = (curr["end"] + nxt["start"]) / 2.0
+            curr["end"] = boundary
+            nxt["start"] = boundary
+            cwords = curr.get("words") or []
+            if cwords:
+                last = cwords[-1]
+                last["end"] = min(last["end"], boundary)
+                if last["end"] <= last["start"]:
+                    last["end"] = last["start"] + 0.04
+            nwords = nxt.get("words") or []
+            if nwords:
+                first = nwords[0]
+                first["start"] = max(first["start"], boundary)
+                if first["end"] <= first["start"]:
+                    first["end"] = first["start"] + 0.04
+    if prev_end is not None and region_lines[0]["start"] < prev_end:
+        region_lines[0]["start"] = prev_end
+    if next_start is not None and region_lines[-1]["end"] > next_start:
+        region_lines[-1]["end"] = next_start
+
+
+
 @dataclass
 class SyncedWord:
     text: str
@@ -659,14 +716,7 @@ class LyricSynchronizer:
         return self.audio_features.onset_times
 
     def _snap_to_nearest_beat(self, time: float) -> float:
-        beat_times = self.audio_features.beats.times
-        if len(beat_times) == 0:
-            return time
-        idx = int(np.argmin(np.abs(beat_times - time)))
-        nearest = float(beat_times[idx])
-        if abs(nearest - time) <= BEAT_SNAP_TOLERANCE:
-            return nearest
-        return time
+        return snap_to_nearest_beat(time, self.audio_features.beats.times)
 
     def _align_words(
         self,
