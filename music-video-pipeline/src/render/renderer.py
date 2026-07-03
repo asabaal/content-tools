@@ -537,7 +537,10 @@ class VideoRenderer:
         return [font.getbbox(w["text"])[2] for w in words]
 
     def _base_spacing(self, font_size: int) -> float:
-        return self.caption_style.get("letter_spacing", 1) * (self.height / 1080) * max(8, font_size * 0.08)
+        # Base inter-word gap. Previously this was too small (≈8 px at 1080p),
+        # making words render as if they were concatenated. Use a minimum gap
+        # of ~20 px and scale with font size so larger text stays readable.
+        return self.caption_style.get("letter_spacing", 1) * (self.height / 1080) * max(20, font_size * 0.22)
 
     def _draw_backdrop_group(self, img: Image.Image, layout: list, indices: list, v: Dict) -> None:
         enabled = v.get("text_backdrop", self.caption_style.get("text_backdrop", False))
@@ -594,7 +597,13 @@ class VideoRenderer:
             delta = wv.get("font_size_delta", 0)
             word_size = max(24, base_font_size + int(delta * sf))
             f = self._get_font(word_size, font_family)
-            wW = f.getbbox(words[wi]["text"])[2]
+            if use_styled:
+                wW = self._get_styled_text(
+                    words[wi]["text"], style, word_size, font_family,
+                    style_colors=wv.get("text_style_colors"),
+                ).size[0]
+            else:
+                wW = f.getbbox(words[wi]["text"])[2]
             resolved.append({"px_x": None, "px_y": int(word_y * self.height), "wW": wW, "word_size": word_size, "x": word_x})
 
         pinned = [(i, r) for i, r in enumerate(resolved) if r["x"] is not None]
@@ -626,8 +635,14 @@ class VideoRenderer:
                     min_size = max(24, int(base_font_size * 0.40))
                     for wi in group:
                         resolved[wi]["word_size"] = max(min_size, int(resolved[wi]["word_size"] * scale))
-                        f = self._get_font(resolved[wi]["word_size"], font_family)
-                        resolved[wi]["wW"] = f.getbbox(words[wi]["text"])[2]
+                        if use_styled:
+                            resolved[wi]["wW"] = self._get_styled_text(
+                                words[wi]["text"], style, resolved[wi]["word_size"], font_family,
+                                style_colors=self.get_visual(line_idx, wi).get("text_style_colors"),
+                            ).size[0]
+                        else:
+                            f = self._get_font(resolved[wi]["word_size"], font_family)
+                            resolved[wi]["wW"] = f.getbbox(words[wi]["text"])[2]
                     spacing = self._base_spacing(int(base_font_size * scale))
                     if use_styled:
                         spacing = max(spacing, int(base_font_size * scale) * 0.35)
@@ -1044,9 +1059,10 @@ class VideoRenderer:
                 continue
             first_line = self.synced["lines"][lines[0]]
             last_line = self.synced["lines"][lines[-1]]
-            sec_start = first_line.get("words", [{}])[0].get("start", 0)
+            first_words = first_line.get("words", [{}])
+            sec_start = first_words[0].get("start", first_line.get("start", 0)) if first_words else first_line.get("start", 0)
             last_words = last_line.get("words", [{}])
-            sec_end = last_words[-1].get("end", 0) if last_words else 0
+            sec_end = last_words[-1].get("end", last_line.get("end", 0)) if last_words else last_line.get("end", 0)
             if t < sec_start:
                 dist = sec_start - t
             elif t > sec_end:
