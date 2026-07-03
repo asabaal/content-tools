@@ -661,6 +661,7 @@ def run_server(project_dir: Optional[str] = None, port: int = 8900):  # pragma: 
     print(f"Editor:          http://localhost:{port}/editor")
     print(f"Line Timing:     http://localhost:{port}/line-timing")
     print(f"Analysis Review: http://localhost:{port}/tools/analysis/")
+    print(f"Lyrics Viewer:   http://localhost:{port}/tools/lyrics-viewer/")
     print("Press Ctrl+C to stop\n")
 
     with socketserver.TCPServer(("", port), PipelineHandler) as httpd:

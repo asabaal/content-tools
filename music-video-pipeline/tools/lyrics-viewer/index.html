@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyrics Timing Editor</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#1a1a2e; --bg2:#16213e; --bg3:#0f0f1a; --panel:#1e1e36; --panel2:#22223e;
+  --border:#2a2a4a; --border2:#3a3a5a;
+  --fg:#e0e0e0; --fg2:#aaa; --fg3:#666; --fg4:#555;
+  --accent:#4cc9f0; --accent-d:#3ab8df;
+  --lead:#f0a04c; --comb:#4cf0a0; --back:#c04cf0; --man:#f04c6a;
+  --warn:#f0c84c; --err:#f04c4c; --ok:#48bb78;
+}
+html,body{height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg);display:flex;flex-direction:column;overflow:hidden;font-size:13px}
+
+/* ---------- Header ---------- */
+.header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;gap:10px}
+.header h1{font-size:15px;font-weight:600;color:var(--accent);white-space:nowrap}
+.header h1 .sub{color:var(--fg3);font-weight:400;font-size:12px;margin-left:6px}
+.header-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.pill{font-size:11px;padding:3px 9px;border-radius:10px;background:var(--panel);color:var(--fg2);white-space:nowrap;border:1px solid var(--border)}
+.pill .ok{color:var(--ok)} .pill .warn{color:var(--warn)}
+.btn{padding:5px 11px;border:1px solid var(--border);border-radius:4px;background:var(--panel);color:var(--fg);cursor:pointer;font-size:12px;white-space:nowrap;line-height:1.4}
+.btn:hover{background:var(--panel2);border-color:var(--border2)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#0f0f1a;font-weight:600}
+.btn-primary:hover{background:var(--accent-d)}
+.btn-sm{padding:3px 7px;font-size:11px}
+.btn-danger{color:var(--err)}
+.menu{position:relative}
+.menu-dropdown{position:absolute;right:0;top:100%;margin-top:2px;background:var(--panel);border:1px solid var(--border2);border-radius:5px;min-width:200px;z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.4);display:none;padding:4px}
+.menu-dropdown.open{display:block}
+.menu-dropdown button{display:block;width:100%;text-align:left;padding:7px 10px;background:none;border:none;color:var(--fg);cursor:pointer;font-size:12px;border-radius:3px}
+.menu-dropdown button:hover{background:var(--panel2)}
+.menu-dropdown .desc{display:block;color:var(--fg3);font-size:10px;margin-top:2px}
+
+/* ---------- Audio bar ---------- */
+.audiobar{display:flex;align-items:center;gap:10px;padding:6px 14px;background:var(--bg3);border-bottom:1px solid var(--border);flex-shrink:0}
+.audiobar .playbtn{width:30px;height:30px;border-radius:50%;border:none;background:var(--accent);color:#0f0f1a;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.audiobar .playbtn:hover{background:var(--accent-d)}
+.scrubber{flex:1;height:22px;position:relative;cursor:pointer;background:var(--panel);border-radius:4px;border:1px solid var(--border)}
+.scrubber .progress{position:absolute;left:0;top:0;bottom:0;background:rgba(76,201,240,.18);border-radius:3px;pointer-events:none}
+.scrubber .ab-region{position:absolute;top:0;bottom:0;background:rgba(240,200,76,.22);border-left:1px solid var(--warn);border-right:1px solid var(--warn);pointer-events:none}
+.scrubber .ab-marker{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--warn);pointer-events:none}
+.scrubber .ab-marker.a{background:var(--ok)} .scrubber .ab-marker.b{background:var(--err)}
+.scrubber .playhead{position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--accent);border-radius:1px;pointer-events:none;box-shadow:0 0 4px var(--accent)}
+.time-readout{font-family:monospace;font-size:11px;color:var(--fg2);white-space:nowrap;min-width:120px;text-align:right}
+.ab-controls{display:flex;gap:4px;align-items:center}
+.ab-controls .btn{padding:3px 7px;font-size:11px}
+.loop-active{background:var(--warn)!important;color:#0f0f1a!important;border-color:var(--warn)!important}
+.split-active{background:var(--accent)!important;color:#0f0f1a!important;border-color:var(--accent)!important}
+
+/* ---------- Main 3-pane ---------- */
+.main{flex:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.pane-left{width:300px;border-right:1px solid var(--border);flex-shrink:0}
+.pane-mid{flex:1;min-width:0}
+.pane-right{width:360px;border-left:1px solid var(--border);flex-shrink:0}
+.pane-header{padding:7px 12px;background:var(--bg2);border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--accent);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;gap:8px}
+.pane-header .sub{color:var(--fg3);font-weight:400;font-size:11px}
+.pane-body{flex:1;overflow:auto;padding:8px}
+.pane-body::-webkit-scrollbar{width:10px;height:10px}
+.pane-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:5px}
+.pane-body::-webkit-scrollbar-track{background:transparent}
+
+/* ---------- Drop zone ---------- */
+.drop-zone{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--fg4);text-align:center;padding:40px}
+.drop-zone.dragover{background:rgba(76,201,240,.05)}
+.drop-zone .icon{font-size:54px;opacity:.3}
+.drop-zone p{font-size:14px;max-width:520px;line-height:1.6}
+.drop-zone code{background:var(--panel);padding:1px 5px;border-radius:3px;color:var(--accent);font-size:12px}
+
+/* ---------- Lyric queue ---------- */
+.section-block{margin-bottom:6px}
+.section-title{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);padding:8px 6px 4px;font-weight:600;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:2}
+.line-row{padding:6px 8px;border-radius:5px;cursor:pointer;margin:2px 0;border:1px solid transparent}
+.line-row:hover{background:var(--panel)}
+.line-row.active{background:var(--panel2);border-color:var(--border2)}
+.line-row .line-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:6px}
+.line-row .line-idx{font-family:monospace;font-size:10px;color:var(--fg4);min-width:24px}
+.line-row .line-text{font-size:12px;color:var(--fg2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.line-row.active .line-text{color:var(--fg)}
+.line-row .status-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.3)}
+.word-chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.word-chip{font-size:11px;padding:2px 7px;border-radius:9px;background:var(--panel);border:1px solid var(--border);cursor:pointer;user-select:none;transition:background .1s}
+.word-chip:hover{border-color:var(--border2)}
+.word-chip.has-time{border-color:var(--ok);color:var(--ok)}
+.word-chip.on-tl{border-color:var(--warn);color:var(--warn);border-style:dashed}
+.word-chip.selected{background:var(--accent);color:#0f0f1a;border-color:var(--accent);font-weight:600}
+.word-chip.manual{border-style:dashed}
+.add-tl-btn{font-size:10px;padding:2px 8px;border-radius:9px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.add-tl-btn:hover{background:var(--accent);color:#0f0f1a}
+.add-tl-btn.add-tl-active{background:var(--accent);color:#0f0f1a;font-weight:600}
+.status-unstarted{background:var(--fg4)}
+.status-partial{background:var(--warn)}
+.status-timed{background:var(--accent)}
+.status-review{background:var(--err)}
+.status-approved{background:var(--ok)}
+.status-flag{font-size:9px;padding:1px 5px;border-radius:3px;color:#0f0f1a;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+
+/* ---------- Evidence ---------- */
+.window-ctrl{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--fg3)}
+.window-ctrl input{width:42px;padding:2px 4px;border:1px solid var(--border);border-radius:3px;background:var(--panel);color:var(--fg);font-size:11px;text-align:center}
+.window-ctrl .btn-sm{padding:2px 6px}
+.stem-badge{font-size:9px;padding:1px 6px;border-radius:3px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+/* 3-column evidence layout: each stem is its own column with independent scroll */
+.ev-columns{flex:1;display:flex;min-height:0;gap:0}
+.ev-col{flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--border);min-width:0}
+.ev-col:last-child{border-right:none}
+.ev-col-head{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--bg2);border-bottom:1px solid var(--border);font-size:11px;font-weight:600;position:sticky;top:0;z-index:3;flex-shrink:0}
+.ev-col-head .stem-meta{margin-left:auto}
+.ev-col-scroll{flex:1;overflow:auto;padding:6px;min-height:0}
+.ev-col-scroll::-webkit-scrollbar{width:9px;height:9px}
+.ev-col-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:5px}
+.ev-col-scroll::-webkit-scrollbar-track{background:transparent}
+.ev-col.empty .ev-col-scroll{display:flex;align-items:center;justify-content:center}
+.stem-badge.lead{background:rgba(240,160,76,.2);color:var(--lead)}
+.stem-badge.combined{background:rgba(76,240,160,.18);color:var(--comb)}
+.stem-badge.backing{background:rgba(192,76,240,.18);color:var(--back)}
+.stem-meta{color:var(--fg3);font-size:10px;font-weight:400}
+.segment{border-top:1px solid var(--border)}
+.segment:first-child{border-top:none}
+.segment-head{display:flex;align-items:center;gap:6px;padding:4px 6px 4px 10px;font-size:11px;cursor:pointer;color:var(--fg2)}
+.segment-head:hover{background:var(--panel2)}
+.segment-head .seg-time{font-family:monospace;color:var(--fg3);font-size:10px;white-space:nowrap}
+.segment-head .seg-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.segment.collapsed .word-list{display:none}
+.word-list{padding:1px 4px 4px 10px}
+.word-row{display:flex;align-items:center;gap:5px;padding:2px 4px;border-radius:3px;font-size:11px;cursor:pointer;position:relative}
+.word-row:hover{background:var(--panel2)}
+.word-row.selected{background:rgba(76,201,240,.18);outline:1px solid var(--accent)}
+.word-row.playing{box-shadow:inset 2px 0 0 var(--accent)}
+.word-row .w-time{font-family:monospace;color:var(--fg3);font-size:10px;min-width:88px;white-space:nowrap}
+.word-row .w-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.word-row .w-text.long{color:var(--warn)}
+.word-row .w-prob{font-family:monospace;font-size:9px;color:var(--fg4);min-width:30px;text-align:right}
+.word-row .w-sel{font-family:monospace;font-size:10px;color:var(--accent);white-space:nowrap}
+.evidence-empty{color:var(--fg4);font-style:italic;padding:12px;text-align:center;font-size:11px}
+
+/* selection / assignment bar inside evidence pane */
+.selbar{position:sticky;bottom:0;background:var(--bg3);border-top:1px solid var(--border2);padding:8px 10px;display:flex;flex-direction:column;gap:6px;margin-top:auto}
+.selbar .sel-info{font-size:11px;color:var(--fg2);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.selbar .sel-info .src{font-family:monospace;color:var(--accent)}
+.selbar .trim-row{display:flex;align-items:center;gap:6px;font-size:11px}
+.selbar .trim-row label{color:var(--fg3);min-width:14px}
+.selbar input.num{width:64px;padding:3px 5px;border:1px solid var(--border2);border-radius:3px;background:var(--panel);color:var(--fg);font-family:monospace;font-size:11px}
+.selbar input.num:focus{border-color:var(--accent);outline:none}
+.selbar .actions{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.target-select{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--fg3)}
+.target-select .target-chips{display:flex;gap:3px;flex-wrap:wrap;max-width:180px}
+.target-chip{font-size:10px;padding:1px 6px;border-radius:8px;background:var(--panel);border:1px solid var(--accent);color:var(--accent)}
+
+/* ---------- Timeline (right) ---------- */
+.tl-line-group{margin-bottom:8px;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.tl-line-head{display:flex;align-items:center;gap:8px;padding:5px 9px;background:var(--panel);font-size:11px}
+.tl-line-head .li{font-family:monospace;font-size:9px;color:var(--fg4)}
+.tl-line-head .lt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg2)}
+.tl-line-head .status-flag{font-size:9px}
+.tl-assign{display:flex;align-items:center;gap:6px;padding:4px 9px;border-top:1px solid var(--border);font-size:11px;cursor:pointer;position:relative}
+.tl-assign:hover{background:var(--panel2)}
+.tl-assign.playing{box-shadow:inset 2px 0 0 var(--accent)}
+.tl-assign.flag-overlap{box-shadow:inset 3px 0 0 var(--err)}
+.tl-assign .ta-text{font-weight:500;min-width:54px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl-assign .ta-time{font-family:monospace;font-size:10px;color:var(--fg3);white-space:nowrap}
+.tl-assign .ta-src{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:700;text-transform:uppercase}
+.ta-src.lead{background:rgba(240,160,76,.2);color:var(--lead)}
+.ta-src.combined{background:rgba(76,240,160,.18);color:var(--comb)}
+.ta-src.backing{background:rgba(192,76,240,.18);color:var(--back)}
+.ta-src.manual,.ta-src.existing{background:rgba(240,76,106,.18);color:var(--man)}
+.ta-src.existing{background:rgba(102,102,102,.2);color:var(--fg2)}
+.ta-src.placeholder{background:rgba(102,102,102,.15);color:var(--fg3)}
+.tl-assign.placeholder{opacity:.65}
+.tl-assign.placeholder .ta-text{color:var(--warn)}
+.ta-untimed{font-style:italic;color:var(--warn);font-size:10px}
+.tl-assign .ta-flag{font-size:9px;padding:0 4px;border-radius:3px}
+.flag-backwards,.flag-zero,.flag-gap,.flag-overlap{font-family:monospace}
+.flag-backwards{color:var(--err)} .flag-zero{color:var(--warn)} .flag-gap{color:var(--fg4)} .flag-overlap{color:var(--err)}
+.ta-trim{font-size:9px;color:var(--warn)}
+.ta-wcount{font-size:9px;color:var(--fg4);font-weight:400}
+.tl-assign .ta-del{margin-left:auto;color:var(--fg4);cursor:pointer;padding:0 3px;border:none;background:none;font-size:13px}
+.tl-assign .ta-del:hover{color:var(--err)}
+.tl-assign.active-entry{box-shadow:inset 3px 0 0 var(--accent);background:rgba(76,201,240,.05)}
+.tl-empty{color:var(--fg4);font-style:italic;padding:16px;text-align:center;font-size:11px}
+/* coverage strip in the lyric queue */
+.cov-strip{margin-top:4px}
+.cov-pill{font-size:9px;padding:1px 6px;border-radius:8px;border:1px solid var(--border);color:var(--fg3);white-space:nowrap;display:inline-block}
+.cov-pill.cov-partial{border-color:var(--warn);color:var(--warn)}
+.cov-pill.cov-done{border-color:var(--ok);color:var(--ok)}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);color:var(--fg);padding:9px 18px;border-radius:6px;font-size:12px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:100;border:1px solid var(--border2);max-width:80vw;text-align:center}
+.toast.show{opacity:1}
+.toast.err{border-color:var(--err);color:var(--err)}
+.toast.ok{border-color:var(--ok);color:var(--ok)}
+
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<div class="header" id="header" style="display:none">
+  <h1>Lyrics Timing Editor <span class="sub" id="projName"></span></h1>
+  <div class="header-actions">
+    <span class="pill" id="progressPill">0/0 approved</span>
+    <button class="btn btn-sm" id="validateBtn" title="Run validation across all lines">Validate</button>
+    <div class="menu">
+      <button class="btn btn-sm" id="exportBtn">Export ▾</button>
+      <div class="menu-dropdown" id="exportMenu">
+        <button data-export="overrides"><b>timing_overrides</b><span class="desc">Renderer-ready block (keyed by synced line idx)</span></button>
+        <button data-export="script"><b>script.json</b> (merged)<span class="desc">Existing script + timing_overrides dropped in</span></button>
+        <button data-export="session"><b>Session JSON</b><span class="desc">Full editor state to resume later</span></button>
+      </div>
+    </div>
+    <button class="btn btn-sm" id="saveServerBtn" style="display:none">Save to server</button>
+    <button class="btn btn-sm" onclick="document.getElementById('dirInput').click()">Open…</button>
+    <input type="file" id="dirInput" webkitdirectory directory style="display:none">
+  </div>
+</div>
+
+<!-- ============ AUDIO BAR ============ -->
+<div class="audiobar" id="audiobar" style="display:none">
+  <button class="playbtn" id="playBtn">▶</button>
+  <div class="scrubber" id="scrubber">
+    <div class="progress" id="progress"></div>
+    <div class="ab-region" id="abRegion" style="display:none"></div>
+    <div class="ab-marker a" id="abA" style="display:none"></div>
+    <div class="ab-marker b" id="abB" style="display:none"></div>
+    <div class="playhead" id="playhead" style="left:0"></div>
+  </div>
+  <span class="time-readout" id="timeReadout">0:00.00 / 0:00.00</span>
+  <div class="ab-controls">
+    <button class="btn btn-sm" id="setABtn" title="Set loop start (A) to current playhead">A</button>
+    <button class="btn btn-sm" id="setBBtn" title="Set loop end (B) to current playhead">B</button>
+    <button class="btn btn-sm" id="loopBtn" title="Toggle A→B loop">⟳ Loop</button>
+    <button class="btn btn-sm" id="clearABtn" title="Clear A/B">✕</button>
+  </div>
+</div>
+<audio id="audio" preload="auto"></audio>
+
+<!-- ============ MAIN ============ -->
+<div class="main" id="main" style="display:none">
+
+  <!-- LEFT: lyric queue -->
+  <div class="pane pane-left">
+    <div class="pane-header">
+      <span>Lyric Queue <span class="sub" id="queueSub"></span></span>
+    </div>
+    <div class="pane-body" id="queueBody"></div>
+  </div>
+
+  <!-- MIDDLE: evidence -->
+  <div class="pane pane-mid">
+    <div class="pane-header">
+      <span>Evidence <span class="sub" id="evidenceSub">select a line</span></span>
+      <div class="window-ctrl">
+        <label title="When on, show only segments within ±window of the active line. When off, show the ENTIRE transcript." style="display:flex;align-items:center;gap:3px;cursor:pointer">
+          <input type="checkbox" id="focusToggle"> focus
+        </label>
+        <span class="hidden" id="winGroup">±</span>
+        <input type="number" id="windowInput" value="4" min="0" max="60" step="0.5" class="hidden" style="width:42px">
+        <span class="hidden" id="winUnit">s</span>
+        <button class="btn btn-sm hidden" id="winMinus">−</button>
+        <button class="btn btn-sm hidden" id="winPlus">+</button>
+      </div>
+    </div>
+    <div class="pane-body" id="evidenceBody" style="display:flex;flex-direction:column;padding:0">
+      <div id="evidenceList" class="ev-columns"></div>
+      <div class="selbar hidden" id="selbar">
+        <div class="sel-info" id="selInfo"></div>
+        <div class="trim-row">
+          <label>A</label><input type="number" class="num" id="selStart" step="0.01" min="0">
+          <label>B</label><input type="number" class="num" id="selEnd" step="0.01" min="0">
+          <button class="btn btn-sm" id="snapStartBtn" title="Snap A to current playhead">⇐ play</button>
+          <button class="btn btn-sm" id="snapEndBtn" title="Snap B to current playhead">play ⇒</button>
+        </div>
+        <div class="actions">
+          <div class="target-select">
+            <span>Assign →</span>
+            <span class="target-chips" id="targetChips"></span>
+          </div>
+          <button class="btn btn-sm" id="manualBtn" title="Use these A/B times as a manual range (no source reference)">Manual</button>
+          <button class="btn btn-sm btn-primary" id="assignBtn">Assign</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: timeline -->
+  <div class="pane pane-right">
+    <div class="pane-header">
+      <span>Constructed Timeline <span class="sub" id="tlSub"></span></span>
+      <button class="btn btn-sm" id="sortBtn" title="Toggle sort order">by time</button>
+    </div>
+    <div class="pane-body" id="timelineBody"></div>
+  </div>
+
+</div>
+
+<!-- ============ DROP ZONE ============ -->
+<div class="drop-zone" id="dropZone">
+  <div class="icon">&#x1F3B5;</div>
+  <p><strong>Select a project directory</strong> (e.g. <code>blessed-the-name</code>)</p>
+  <p style="font-size:12px;color:#555;line-height:1.7">
+    Looks for <code>data/lyrics.txt</code>, <code>data/lyrics_synced.json</code>, and<br>
+    <code>vocal_transcription_combined_vocals.json</code> · <code>_lead_vocals.json</code> · <code>_backing_vocals.json</code> · an audio <code>.wav</code><br>
+    Optional: <code>data/script.json</code> (to resume existing timing_overrides)
+  </p>
+  <button class="btn btn-primary" onclick="document.getElementById('dirInput').click()">Open Project Directory</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ====================================================================== *
+ *  Lyrics Timing Editor — state + DOM
+ * ====================================================================== */
+const $ = id => document.getElementById(id);
+const Q = (sel, root=document) => root.querySelector(sel);
+const QA = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+const ST = {
+  // ---- loaded data ----
+  projectName: '',
+  lyricsText: '',          // raw lyrics.txt
+  lines: [],               // [{syncedIdx, section, text, words:[{text, wordIdx}]}]
+  sections: [],            // [{name, firstLineIdx}] (for display grouping)
+  synced: [],              // lyrics_synced.json lines — used ONLY as an evidence focus anchor; never copied into the timeline
+  stems: {combined:null, lead:null, backing:null},  // transcription segment arrays
+  scriptJson: null,        // optional existing script.json
+  audioUrl: null,
+  audioName: '',
+
+  // ---- editor state ----
+  activeLineIdx: null,     // synced line index currently selected
+  selectedCanonical: [],   // [{syncedIdx, wordIdx}] targeted for assignment
+  // evidence selection (one stem at a time)
+  sel: null,               // {stem, segmentIdx, wordIdxStart, wordIdxStart, wordIdxEnd, start, end, origStart, origEnd, edited}
+  windowSec: 4.0,
+  evidenceFocus: false,   // when true, filter segments to ±windowSec around the active line; when false show ALL
+  sortByTime: true,
+  loopAB: false,
+  ab: {a:null, b:null},
+
+  // ---- timeline model ----
+  // A timeline is a list of ENTRIES. Each entry is a contiguous group of lyric
+  // words (a whole line, or a selected sub-range) that shares ONE time range.
+  // This mirrors how a human times lyrics: pick the line/group, then bind a range.
+  //   start/end == null  -> on the timeline but not yet timed (placeholder)
+  entries: [],             // [{id, syncedIdx, wordStartIdx, wordEndIdx, words:[{text,wordIdx}], start, end, source, provenance}]
+  activeEntryId: null,     // the entry currently targeted by Assign
+  lineStatus: {},          // {syncedIdx: 'unstarted'|'partial'|'timed'|'review'|'approved'}
+  flags: {},               // {syncedIdx: [flag strings]} computed by validate()
+
+  serverAvailable: false,
+};
+
+const STEM_KEYS = ['lead','combined','backing'];
+const STEM_LABEL = {lead:'Lead', combined:'Combined', backing:'Backing'};
+const STEM_KEY_FILE = {
+  lead: 'vocal_transcription_lead_vocals.json',
+  combined: 'vocal_transcription_combined_vocals.json',
+  backing: 'vocal_transcription_backing_vocals.json',
+};
+
+/* ---------- time helpers ---------- */
+function fmtTime(s){
+  if (s == null || isNaN(s)) return '--';
+  const m = Math.floor(s/60), sec = s - m*60;
+  return `${m}:${sec.toFixed(2).padStart(5,'0')}`;
+}
+function fmtTimeShort(s){
+  if (s == null || isNaN(s)) return '--';
+  return s.toFixed(2);
+}
+function clampNum(v, lo=0, hi=Infinity){ v = parseFloat(v); if(isNaN(v)) return lo; return Math.max(lo, Math.min(hi, v)); }
+
+/* ---------- toast ---------- */
+let toastTimer;
+function toast(msg, kind=''){
+  clearTimeout(toastTimer);
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + kind;
+  toastTimer = setTimeout(()=> t.className = 'toast ' + kind, 2000);
+}
+
+/* ====================================================================== *
+ *  LOAD PROJECT
+ * ====================================================================== */
+$('dirInput').addEventListener('change', e => { if (e.target.files.length) loadProject(e.target.files); });
+
+const dropZone = $('dropZone');
+;['dragenter','dragover'].forEach(ev => dropZone.addEventListener(ev, e => { e.preventDefault(); dropZone.classList.add('dragover'); }));
+;['dragleave','drop'].forEach(ev => dropZone.addEventListener(ev, e => { e.preventDefault(); dropZone.classList.remove('dragover'); }));
+dropZone.addEventListener('drop', e => { if (e.dataTransfer.files.length) loadProject(e.dataTransfer.files); });
+
+function loadProject(fileList){
+  const files = {};
+  for (const f of fileList){
+    const base = f.name;
+    // keep first occurrence of each basename
+    if (!files[base]) files[base] = f;
+    // detect .wav
+    if (/\.wav$/i.test(base) && !files.__wav) files.__wav = f;
+  }
+  const need = ['lyrics.txt','lyrics_synced.json'];
+  const missing = need.filter(n => !files[n]);
+  if (missing.length){ toast('Missing required files: ' + missing.join(', '), 'err'); return; }
+
+  const readers = [
+    readFile(files['lyrics.txt']),
+    readFile(files['lyrics_synced.json']),
+  ];
+  // transcriptions
+  const stemFiles = {};
+  for (const k of STEM_KEYS){
+    const f = files[STEM_KEY_FILE[k]];
+    stemFiles[k] = f || null;
+    if (f) readers.push(readFile(f));
+  }
+  // optional script.json
+  let scriptFile = files['script.json'] || null;
+  const scriptIdx = readers.length;
+  if (scriptFile) readers.push(readFile(scriptFile));
+
+  Promise.all(readers).then(results => {
+    ST.lyricsText = results[0];
+    const syncedRaw = JSON.parse(results[1]);
+    ST.synced = syncedRaw.lines || [];
+
+    let ri = 2;
+    for (const k of STEM_KEYS){
+      if (stemFiles[k]){
+        const parsed = JSON.parse(results[ri++]);
+        ST.stems[k] = (parsed && parsed.segments) ? parsed.segments : [];
+      } else {
+        ST.stems[k] = null;
+      }
+    }
+    if (scriptFile){
+      try { ST.scriptJson = JSON.parse(results[scriptIdx]); } catch(e){ ST.scriptJson = null; }
+    }
+
+    // audio
+    const wav = files.__wav;
+    if (wav){
+      if (ST.audioUrl) URL.revokeObjectURL(ST.audioUrl);
+      ST.audioUrl = URL.createObjectURL(wav);
+      ST.audioName = wav.name;
+      $('audio').src = ST.audioUrl;
+    }
+
+    ST.projectName = deriveProjectName(fileList);
+    buildModel();
+    tryRestoreSession();
+    showApp();
+  }).catch(err => {
+    toast('Load failed: ' + err.message, 'err');
+    console.error(err);
+  });
+}
+
+function deriveProjectName(fileList){
+  for (const f of fileList){
+    const rel = f.webkitRelativePath || '';
+    const parts = rel.split('/');
+    if (parts.length >= 2) return parts[0];
+  }
+  return 'project';
+}
+
+function readFile(file){
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.onerror = () => reject(r.error);
+    r.readAsText(file);
+  });
+}
+
+/* ====================================================================== *
+ *  MODEL BUILD — parse lyrics.txt aligned to synced indices
+ * ====================================================================== */
+function buildModel(){
+  const rawLines = ST.lyricsText.split('\n');
+  ST.lines = [];
+  ST.sections = [];
+  let syncedIdx = 0;
+  let currentSection = '';
+  let pendingSection = null;
+
+  for (let raw of rawLines){
+    const line = raw.replace(/\r$/,'');
+    const secMatch = line.match(/^\[(.+)\]\s*$/);
+    if (secMatch){
+      currentSection = secMatch[1];
+      pendingSection = currentSection;
+      continue;
+    }
+    if (line.trim() === '') continue;
+
+    // content line
+    const words = line.trim().split(/\s+/).filter(Boolean).map((t,i)=>({text:t, wordIdx:i}));
+    const entry = { syncedIdx, section: currentSection, text: line.trim(), words };
+    ST.lines.push(entry);
+    if (pendingSection !== null){
+      ST.sections.push({name: pendingSection, firstLineIdx: syncedIdx});
+      pendingSection = null;
+    }
+    syncedIdx++;
+  }
+
+  // The constructed timeline starts EMPTY. We do NOT import timing from
+  // lyrics_synced.json (that is the failed sync output) or from any existing
+  // timing_overrides — the whole point is to build the timeline by hand.
+  // ST.synced is retained only as a fallback centering hint for the evidence view.
+  ST.entries = [];
+  ST.activeEntryId = null;
+  ST.lineStatus = {};
+  recomputeAll();
+}
+
+function showApp(){
+  dropZone.style.display = 'none';
+  $('header').style.display = '';
+  $('audiobar').style.display = ST.audioUrl ? 'flex' : 'none';
+  $('main').style.display = '';
+  $('projName').textContent = '· ' + ST.projectName;
+  $('saveServerBtn').style.display = ST.serverAvailable ? '' : 'none';
+  // default active = first line
+  if (ST.lines.length && ST.activeLineIdx === null){
+    ST.activeLineIdx = ST.lines[0].syncedIdx;
+  }
+  renderQueue();
+  renderEvidence();
+  renderTimeline();
+  updateProgressPill();
+}
+
+/* ====================================================================== *
+ *  TIMELINE ENTRY MODEL
+ * ====================================================================== */
+let _entryId = 1;
+function nextEntryId(){ return 'e' + (_entryId++); }
+function isUntimed(e){ return e && (e.start == null || e.end == null); }
+
+// entries covering this lyric line (whole-line and sub-range entries)
+function entriesForLine(syncedIdx){ return ST.entries.filter(e => e.syncedIdx === syncedIdx); }
+// is this exact word index covered by any entry?
+function wordCovered(syncedIdx, wordIdx){ return ST.entries.some(e => e.syncedIdx===syncedIdx && wordIdx >= e.wordStartIdx && wordIdx <= e.wordEndIdx); }
+// is the whole line covered (all words belong to some entry)?
+function lineFullyCovered(syncedIdx){
+  const ln = ST.lines.find(l => l.syncedIdx === syncedIdx);
+  if (!ln) return false;
+  return ln.words.every(w => wordCovered(syncedIdx, w.wordIdx));
+}
+
+/* Add a line (or a selection of words) to the timeline as ONE entry needing ONE
+   time range. Whole line unless individual words are selected; a multi-word
+   selection becomes one contiguous entry covering exactly those words (gaps in a
+   non-contiguous selection are skipped and can be added separately later). */
+function addToTimeline(syncedIdx, optWordRange){
+  const ln = ST.lines.find(l => l.syncedIdx === syncedIdx);
+  if (!ln) return;
+  let words = [];
+  if (optWordRange && optWordRange.length){
+    // exactly the selected words, in order, minus any already covered
+    const selIdxs = optWordRange.map(c => c.wordIdx).sort((a,b)=>a-b);
+    for (const wi of selIdxs){
+      if (wordCovered(syncedIdx, wi)) continue;
+      words.push({text: ln.words[wi].text, wordIdx: wi});
+    }
+  } else {
+    for (let i = 0; i < ln.words.length; i++){
+      if (wordCovered(syncedIdx, i)) continue;
+      words.push({text: ln.words[i].text, wordIdx: i});
+    }
+  }
+  if (!words.length){ toast('Those words are already on the timeline.'); return; }
+  const entry = {
+    id: nextEntryId(),
+    syncedIdx,
+    wordStartIdx: words[0].wordIdx,
+    wordEndIdx: words[words.length-1].wordIdx,
+    words,
+    text: words.map(w=>w.text).join(' '),
+    start: null, end: null,
+    source: 'placeholder', provenance: null,
+  };
+  ST.entries.push(entry);
+  ST.activeLineIdx = syncedIdx;
+  ST.activeEntryId = entry.id;
+  if (optWordRange && optWordRange.length) ST.selectedCanonical = ST.selectedCanonical.filter(c => c.syncedIdx !== syncedIdx);
+  recomputeAll();
+  persistSession();
+  toast(`Added "${entry.text}" to timeline (needs a time range)`, 'ok');
+}
+
+/* ====================================================================== *
+ *  RENDER — LEFT: lyric queue
+ * ====================================================================== */
+function renderQueue(){
+  const body = $('queueBody');
+  body.innerHTML = '';
+  $('queueSub').textContent = `${ST.lines.length} lines`;
+
+  // group by section transitions
+  let lastSection = null;
+  for (const ln of ST.lines){
+    if (ln.section !== lastSection){
+      const st = document.createElement('div');
+      st.className = 'section-title';
+      st.textContent = ln.section || '(no section)';
+      body.appendChild(st);
+      lastSection = ln.section;
+    }
+    const row = document.createElement('div');
+    row.className = 'line-row' + (ln.syncedIdx === ST.activeLineIdx ? ' active' : '');
+    row.dataset.syncedIdx = ln.syncedIdx;
+
+    const status = computeLineStatus(ln.syncedIdx);
+    const entries = entriesForLine(ln.syncedIdx);
+    const covered = ln.words.filter(w => wordCovered(ln.syncedIdx, w.wordIdx)).length;
+    const someSel = ln.words.some(w => ST.selectedCanonical.some(c => c.syncedIdx===ln.syncedIdx && c.wordIdx===w.wordIdx));
+    const meta = document.createElement('div');
+    meta.className = 'line-meta';
+    const addLabel = someSel ? `+ ${ST.selectedCanonical.filter(c=>c.syncedIdx===ln.syncedIdx).length} sel` : '+ line';
+    const addTitle = someSel ? 'Add the selected words to the timeline as one entry (sharing one time range)' : 'Add the whole line to the timeline as one entry needing a time range';
+    meta.innerHTML = `
+      <span class="line-idx">L${ln.syncedIdx}</span>
+      <span class="line-text">${escapeHtml(ln.text)}</span>
+      <span class="status-dot status-${status}" title="${status}"></span>
+      <button class="add-tl-btn${someSel?' add-tl-active':''}" data-synced-idx="${ln.syncedIdx}" title="${escapeHtml(addTitle)}">${addLabel}</button>`;
+    row.appendChild(meta);
+
+    // compact coverage strip: shows how much of the line is on the timeline / timed
+    const strip = document.createElement('div');
+    strip.className = 'cov-strip';
+    const timedCount = entries.filter(e=>!isUntimed(e))
+      .reduce((n,e)=> n + e.words.length, 0);
+    let stripHtml = '';
+    if (entries.length){
+      stripHtml = `<span class="cov-pill ${timedCount===ln.words.length?'cov-done':'cov-partial'}">${covered}/${ln.words.length} on timeline · ${timedCount} timed</span>`;
+    }
+    strip.innerHTML = stripHtml;
+    row.appendChild(strip);
+
+    // word chips: click to toggle-select; shift-click to extend a range
+    const chips = document.createElement('div');
+    chips.className = 'word-chips';
+    ln.words.forEach(w => {
+      const chip = document.createElement('span');
+      const onTL = wordCovered(ln.syncedIdx, w.wordIdx);
+      const coverEntry = onTL ? entries.find(e => w.wordIdx >= e.wordStartIdx && w.wordIdx <= e.wordEndIdx) : null;
+      const hasTime = coverEntry && !isUntimed(coverEntry);
+      const selected = ST.selectedCanonical.some(c => c.syncedIdx === ln.syncedIdx && c.wordIdx === w.wordIdx);
+      chip.className = 'word-chip' + (hasTime ? ' has-time' : (onTL ? ' on-tl' : '')) + (selected ? ' selected' : '');
+      chip.textContent = w.text;
+      chip.dataset.syncedIdx = ln.syncedIdx;
+      chip.dataset.wordIdx = w.wordIdx;
+      chip.title = hasTime ? `"${coverEntry.text}" ${fmtTimeShort(coverEntry.start)}–${fmtTimeShort(coverEntry.end)}`
+        : onTL ? 'on timeline, not yet timed'
+        : 'click to select; shift-click for a range';
+      chips.appendChild(chip);
+    });
+    row.appendChild(chips);
+    body.appendChild(row);
+  }
+
+  // wire events (delegation)
+  body.onclick = (e) => {
+    const addBtn = e.target.closest('.add-tl-btn');
+    if (addBtn){
+      e.stopPropagation();
+      const idx = parseInt(addBtn.dataset.syncedIdx);
+      const sel = ST.selectedCanonical.filter(c => c.syncedIdx === idx);
+      addToTimeline(idx, sel.length ? sel : null);
+      return;
+    }
+    const chip = e.target.closest('.word-chip');
+    if (chip){
+      e.stopPropagation();
+      toggleWordSelect(parseInt(chip.dataset.syncedIdx), parseInt(chip.dataset.wordIdx), e.shiftKey);
+      return;
+    }
+    const row = e.target.closest('.line-row');
+    if (row){
+      const idx = parseInt(row.dataset.syncedIdx);
+      setActiveLine(idx);
+    }
+  };
+}
+
+/* Word selection for sub-line entries. Click toggles a single word; shift-click
+   extends a contiguous run within the same line from the last selected word. */
+function toggleWordSelect(syncedIdx, wordIdx, extend){
+  if (extend){
+    // find an anchor in this line; if none, treat as a plain toggle
+    const inLine = ST.selectedCanonical.filter(c => c.syncedIdx === syncedIdx).map(c => c.wordIdx);
+    if (inLine.length){
+      const anchor = inLine[inLine.length - 1];
+      const lo = Math.min(anchor, wordIdx), hi = Math.max(anchor, wordIdx);
+      const have = new Set(inLine);
+      for (let i = lo; i <= hi; i++){
+        if (!have.has(i)) ST.selectedCanonical.push({syncedIdx, wordIdx: i});
+      }
+    } else {
+      ST.selectedCanonical = [{syncedIdx, wordIdx}];
+    }
+  } else {
+    const exists = ST.selectedCanonical.findIndex(c => c.syncedIdx === syncedIdx && c.wordIdx === wordIdx);
+    if (exists >= 0) ST.selectedCanonical.splice(exists, 1);
+    else ST.selectedCanonical.push({syncedIdx, wordIdx});
+  }
+  if (ST.activeLineIdx !== syncedIdx){ ST.activeLineIdx = syncedIdx; renderEvidence(); }
+  renderQueue();
+}
+
+function setActiveLine(idx){
+  ST.activeLineIdx = idx;
+  // if this line has exactly one entry, target it; else target the first untimed one
+  const es = entriesForLine(idx);
+  if (es.length === 1) ST.activeEntryId = es[0].id;
+  else if (es.length){
+    const untimed = es.find(e => isUntimed(e));
+    ST.activeEntryId = (untimed || es[0]).id;
+  }
+  const focus = lineFocusTime(idx);
+  if (focus != null) seekAudio(focus);
+  renderQueue();
+  renderEvidence();
+  updateSelbar();
+}
+
+function lineFocusTime(idx){
+  // Time anchor for the evidence focus window. Prefer the earliest timed entry on
+  // the line; if none yet, fall back to the (failed) synced line's start as a hint.
+  const ln = ST.lines.find(l => l.syncedIdx === idx);
+  if (!ln) return null;
+  const times = entriesForLine(idx).filter(e=>!isUntimed(e)).map(e=>e.start);
+  if (times.length) return Math.min(...times);
+  const syn = ST.synced[idx];
+  if (syn && typeof syn.start === 'number') return syn.start;
+  return null;
+}
+
+/* ====================================================================== *
+ *  RENDER — MIDDLE: evidence
+ * ====================================================================== */
+function renderEvidence(){
+  const list = $('evidenceList');
+  list.innerHTML = '';
+  const ln = ST.lines.find(l => l.syncedIdx === ST.activeLineIdx);
+  // sync the focus-toggle UI to state
+  const ft = $('focusToggle');
+  ft.checked = !!ST.evidenceFocus;
+  setWinGroupVisible(ST.evidenceFocus);
+
+  if (!ln && ST.evidenceFocus){
+    $('evidenceSub').textContent = 'select a line to focus';
+    list.innerHTML = '<div class="evidence-empty">Select a lyric line in the left queue to focus the evidence around it.</div>';
+    $('selbar').classList.add('hidden');
+    return;
+  }
+
+  // center of the focus window: prefer the active line's first assignment,
+  // else the synced line's start, else null (no filtering).
+  const focus = ln ? lineFocusTime(ST.activeLineIdx) : null;
+  const win = ST.windowSec;
+  const subTxt = ln ? `L${ln.syncedIdx} · ${ln.text.slice(0,40)}${ln.text.length>40?'…':''}` : 'no line selected';
+  $('evidenceSub').textContent = ST.evidenceFocus
+    ? `${subTxt} · ${focus!=null?'center '+fmtTime(focus)+' ±'+win+'s':'(no time anchor)'}`
+    : `${subTxt} · showing ALL segments`;
+
+  const lo = focus != null ? focus - win : -Infinity;
+  const hi = focus != null ? focus + win : Infinity;
+
+  // Build one column per stem, each with its own independent scrollbar.
+  for (const stem of STEM_KEYS){
+    const segs = ST.stems[stem];
+    const col = document.createElement('div');
+    col.className = 'ev-col';
+    col.dataset.stem = stem;
+
+    // sticky column header
+    const head = document.createElement('div');
+    head.className = 'ev-col-head';
+    const shown = segs ? (ST.evidenceFocus ? segs.filter(s => segOverlaps(s, lo, hi)) : segs) : [];
+    head.innerHTML = `
+      <span class="stem-badge ${stem}">${STEM_LABEL[stem]}</span>
+      <span class="stem-meta">${segs ? shown.length+'/'+segs.length+(ST.evidenceFocus?' near':'') : 'no file'}</span>`;
+    col.appendChild(head);
+
+    // independently-scrollable body
+    const scroll = document.createElement('div');
+    scroll.className = 'ev-col-scroll';
+    if (!segs){
+      col.classList.add('empty');
+      scroll.innerHTML = '<div class="evidence-empty">No transcription file loaded.</div>';
+    } else if (!shown.length){
+      col.classList.add('empty');
+      scroll.innerHTML = ST.evidenceFocus
+        ? `<div class="evidence-empty">No segments within ±${win}s of ${focus!=null?fmtTime(focus):'the line'}.<br><span style="color:var(--fg4);font-size:10px">Turn off “focus” to browse the whole transcript.</span></div>`
+        : '<div class="evidence-empty">This transcript has no segments.</div>';
+    } else {
+      shown.forEach(seg => {
+        const origIdx = segs.indexOf(seg);
+        scroll.appendChild(renderSegment(stem, seg, origIdx));
+      });
+      if (ST.evidenceFocus && shown.length < segs.length){
+        const note = document.createElement('div');
+        note.className = 'evidence-empty';
+        note.innerHTML = `<span style="color:var(--fg4);font-size:10px">… ${segs.length - shown.length} more outside this window (turn off “focus” to see all)</span>`;
+        scroll.appendChild(note);
+      }
+    }
+    col.appendChild(scroll);
+    list.appendChild(col);
+  }
+
+  // selection bar
+  updateSelbar();
+}
+
+function setWinGroupVisible(v){
+  // window size controls are only meaningful when focus is on
+  for (const id of ['winGroup','windowInput','winUnit','winMinus','winPlus']){
+    const el = $(id); if (el) el.classList.toggle('hidden', !v);
+  }
+}
+
+function segOverlaps(seg, lo, hi){
+  const s = seg.start, e = seg.end != null ? seg.end : seg.start;
+  return s <= hi && e >= lo;
+}
+
+function renderSegment(stem, seg, segIdx){
+  const wrap = document.createElement('div');
+  wrap.className = 'segment';
+  // collapse state per segment
+  const segKey = stem+':'+segIdx;
+  const collapsed = ST._segCollapsed && ST._segCollapsed[segKey];
+  if (collapsed) wrap.classList.add('collapsed');
+
+  const head = document.createElement('div');
+  head.className = 'segment-head';
+  const text = (seg.text || '').trim();
+  head.innerHTML = `
+    <span class="seg-time">${fmtTimeShort(seg.start)}–${fmtTimeShort(seg.end)}</span>
+    <span class="seg-text">${escapeHtml(truncate(text,80))}</span>
+    <span style="color:var(--fg4);font-size:10px">${collapsed?'▸':'▾'}</span>`;
+  head.onclick = () => { ST._segCollapsed = ST._segCollapsed||{}; ST._segCollapsed[segKey] = !collapsed; renderEvidence(); };
+  wrap.appendChild(head);
+
+  const wl = document.createElement('div');
+  wl.className = 'word-list';
+  const words = seg.words || [];
+  words.forEach((w, wi) => {
+    const row = document.createElement('div');
+    row.className = 'word-row';
+    row.dataset.stem = stem;
+    row.dataset.segIdx = segIdx;
+    row.dataset.wordIdx = wi;
+    const wStart = w.start, wEnd = w.end != null ? w.end : w.start;
+    const isSelected = ST.sel && ST.sel.stem === stem && ST.sel.segmentIdx === segIdx && wi >= ST.sel.wordIdxStart && wi <= ST.sel.wordIdxEnd;
+    if (isSelected) row.classList.add('selected');
+    const isLong = (w.word || '').length > 40;
+    row.innerHTML = `
+      <span class="w-time">${fmtTimeShort(wStart)}–${fmtTimeShort(wEnd)}</span>
+      <span class="w-text${isLong?' long':''}" title="${escapeHtml(w.word||'')}">${escapeHtml(truncate(w.word||'', 60))}</span>
+      ${w.probability!=null?`<span class="w-prob">${(w.probability*100).toFixed(0)}%</span>`:''}`;
+    if (isSelected){
+      const s = document.createElement('span');
+      s.className = 'w-sel';
+      s.textContent = '◉';
+      row.appendChild(s);
+    }
+    wl.appendChild(row);
+  });
+  if (!words.length){
+    wl.innerHTML = '<div class="evidence-empty" style="padding:4px 0">(no word-level timing)</div>';
+  }
+  wrap.appendChild(wl);
+
+  // click handler on word rows (delegated below in evidenceList)
+  return wrap;
+}
+
+// evidence word-row interaction
+$('evidenceList').addEventListener('click', e => {
+  const row = e.target.closest('.word-row');
+  if (!row) return;
+  const stem = row.dataset.stem;
+  const segIdx = parseInt(row.dataset.segIdx);
+  const wi = parseInt(row.dataset.wordIdx);
+  const seg = ST.stems[stem][segIdx];
+  const word = seg.words[wi];
+  selectEvidence(stem, segIdx, wi, e.shiftKey);
+  // play only the clicked word — no A/B auto-fill, no cross-column highlight
+  playRange(word.start, word.end != null ? word.end : word.start + 0.3);
+});
+
+function selectEvidence(stem, segIdx, wordIdx, range){
+  const seg = ST.stems[stem][segIdx];
+  if (!range){
+    ST.sel = makeSel(stem, segIdx, wordIdx, wordIdx);
+  } else {
+    // shift-click: extend range if same stem+segment, else start new single
+    if (ST.sel && ST.sel.stem === stem && ST.sel.segmentIdx === segIdx){
+      const lo = Math.min(ST.sel.wordIdxStart, wordIdx);
+      const hi = Math.max(ST.sel.wordIdxEnd, wordIdx);
+      ST.sel = makeSel(stem, segIdx, lo, hi);
+    } else {
+      ST.sel = makeSel(stem, segIdx, wordIdx, wordIdx);
+    }
+  }
+  renderEvidence();
+}
+
+function makeSel(stem, segIdx, wiStart, wiEnd){
+  const seg = ST.stems[stem][segIdx];
+  const ws = seg.words[wiStart], we = seg.words[wiEnd];
+  const start = ws.start;
+  const end = (we.end != null ? we.end : we.start);
+  return {
+    stem, segmentIdx: segIdx,
+    wordIdxStart: wiStart, wordIdxEnd: wiEnd,
+    origStart: start, origEnd: end,
+    start, end,
+    edited: false,
+  };
+}
+
+function activeEntry(){ return ST.entries.find(e => e.id === ST.activeEntryId) || null; }
+
+function updateSelbar(){
+  const bar = $('selbar');
+  const s = ST.sel;
+  const e = activeEntry();
+  // Show the bar whenever there is evidence OR an active timeline entry to time.
+  if (!s && !e){
+    bar.classList.add('hidden');
+    return;
+  }
+  bar.classList.remove('hidden');
+  // evidence half
+  if (s){
+    const wcount = Math.max(0, s.wordIdxEnd - s.wordIdxStart + 1);
+    const stemLabel = s.stem === 'manual' ? 'MANUAL' : STEM_LABEL[s.stem];
+    if (s.stem === 'manual') {
+      $('selInfo').innerHTML = `<span class="src">MANUAL</span>
+        range ${fmtTimeShort(s.start)}–${fmtTimeShort(s.end)} · no source reference`;
+    } else {
+      $('selInfo').innerHTML = `<span class="src">${stemLabel}</span>
+        seg ${s.segmentIdx} · word${wcount>1?'s':''} ${s.wordIdxStart}${wcount>1?'–'+s.wordIdxEnd:''}
+        · orig ${fmtTimeShort(s.origStart)}–${fmtTimeShort(s.origEnd)}${s.edited?' · ✎trimmed':''}`;
+    }
+    $('selStart').value = s.start.toFixed(2);
+    $('selEnd').value = s.end.toFixed(2);
+  } else {
+    $('selInfo').innerHTML = `<span class="src">No evidence selected</span> — click a word/segment in a column to choose the time range.`;
+  }
+  // target half
+  const tc = $('targetChips');
+  if (e){
+    tc.innerHTML = `<span class="target-chip" title="timeline entry">${escapeHtml(e.text)}${isUntimed(e)?' · untimed':''}</span>`;
+    $('assignBtn').disabled = false;
+  } else {
+    tc.innerHTML = '<span style="color:var(--fg4)">no timeline entry targeted</span>';
+  }
+}
+
+// trim inputs
+$('selStart').addEventListener('input', () => { if(ST.sel){ ST.sel.start = clampNum($('selStart').value, 0); ST.sel.edited = true; updateSelbar(); } });
+$('selEnd').addEventListener('input', () => { if(ST.sel){ ST.sel.end = clampNum($('selEnd').value, 0); ST.sel.edited = true; updateSelbar(); } });
+$('snapStartBtn').onclick = () => { if(ST.sel){ ST.sel.start = $('audio').currentTime; ST.sel.edited = true; $('selStart').value = ST.sel.start.toFixed(2); toast('A snapped to '+fmtTime(ST.sel.start)); } };
+$('snapEndBtn').onclick = () => { if(ST.sel){ ST.sel.end = $('audio').currentTime; ST.sel.edited = true; $('selEnd').value = ST.sel.end.toFixed(2); toast('B snapped to '+fmtTime(ST.sel.end)); } };
+
+$('manualBtn').onclick = () => {
+  // convert current selection (or arbitrary times) to a manual slice
+  if (!ST.sel){
+    // create a manual sel from playhead ± 0.3 if nothing selected
+    const t = $('audio').currentTime || 0;
+    ST.sel = { stem:'manual', segmentIdx:-1, wordIdxStart:-1, wordIdxEnd:-1, origStart:t, origEnd:t+0.3, start:t, end:t+0.3, edited:true };
+  } else {
+    ST.sel.stem = 'manual';
+    ST.sel.edited = true;
+  }
+  renderEvidence();
+};
+
+$('assignBtn').onclick = doAssign;
+
+function doAssign(){
+  // Target = the active timeline entry (the line/group being timed).
+  const entry = activeEntry();
+  if (!entry){ toast('Add a line to the timeline first (click “+ line”).', 'err'); return; }
+
+  // Resolve timing source: the current evidence selection, or manual A/B inputs.
+  let sel = ST.sel;
+  if (!sel){
+    const s = clampNum($('selStart').value, 0), e = clampNum($('selEnd').value, 0);
+    if (!(e > s)){ toast('Select timing evidence first (click a word in a column).', 'err'); return; }
+    sel = { stem:'manual', segmentIdx:-1, wordIdxStart:-1, wordIdxEnd:-1, origStart:s, origEnd:e, start:s, end:e, edited:true };
+  }
+  const start = sel.start, end = sel.end;
+  if (!(end > start)){ toast('Time range invalid (B must be greater than A).', 'err'); return; }
+
+  // conflict check against OTHER timed entries (different entry, overlapping)
+  const conflicts = findConflicts(start, end, entry.id);
+  if (conflicts.length){
+    const ok = confirm(`Overlap warning:\n${conflicts.map(c=>`  ${c.text} (${fmtTime(c.start)}–${fmtTime(c.end)}) [${c.source}]`).join('\n')}\n\nAssign anyway?`);
+    if (!ok) return;
+  }
+
+  // Bind the single time range to the entry. The entry's words share one span.
+  entry.start = round3(start);
+  entry.end = round3(end);
+  entry.source = sel.stem;
+  entry.provenance = sel.stem === 'manual' ? null : {
+    segmentIdx: sel.segmentIdx,
+    wordIdxStart: sel.wordIdxStart,
+    wordIdxEnd: sel.wordIdxEnd,
+    origStart: sel.origStart,
+    origEnd: sel.origEnd,
+    edited: sel.edited,
+  };
+
+  toast(`Timed “${entry.text}” [${sel.stem==='manual'?'MANUAL':(STEM_LABEL[sel.stem]||sel.stem)}] ${fmtTime(start)}–${fmtTime(end)}`, 'ok');
+  ST.sel = null;
+  recomputeAll();
+  persistSession();
+}
+
+function findConflicts(start, end, activeId){
+  // other TIMED entries overlapping [start,end]
+  return ST.entries.filter(e => e.id !== activeId && !isUntimed(e) && e.start < end && e.end > start);
+}
+
+/* ====================================================================== *
+ *  RENDER — RIGHT: timeline
+ * ====================================================================== */
+function renderTimeline(){
+  const body = $('timelineBody');
+  body.innerHTML = '';
+  // sort entries by time (untimed sink to the bottom), or by line if not byTime
+  const entries = ST.entries.slice().sort((a,b) => {
+    if (ST.sortByTime){
+      const ta = isUntimed(a) ? Infinity : a.start;
+      const tb = isUntimed(b) ? Infinity : b.start;
+      return ta - tb;
+    }
+    return a.syncedIdx - b.syncedIdx || a.wordStartIdx - b.wordStartIdx;
+  });
+  const nTimed = entries.filter(e=>!isUntimed(e)).length;
+  $('tlSub').textContent = `${entries.length} entries · ${nTimed} timed`;
+
+  if (!entries.length){
+    body.innerHTML = '<div class="tl-empty">Timeline is empty.<br>Click “+ line” on a lyric row (left) to add an entry, then pick evidence and Assign.</div>';
+    return;
+  }
+  const playT = $('audio').currentTime;
+
+  // group entries by line for display
+  let lastLi = null;
+  for (const e of entries){
+    if (e.syncedIdx !== lastLi){
+      const ln = ST.lines.find(l => l.syncedIdx === e.syncedIdx);
+      const gh = document.createElement('div');
+      gh.className = 'tl-line-head';
+      gh.innerHTML = `<span class="li">L${e.syncedIdx}</span>
+        <span class="lt">${ln?escapeHtml(ln.text):'(line '+e.syncedIdx+')'}</span>`;
+      gh.onclick = () => setActiveLine(e.syncedIdx);
+      body.appendChild(gh);
+      lastLi = e.syncedIdx;
+    }
+    const row = document.createElement('div');
+    row.className = 'tl-assign';
+    row.dataset.eid = e.id;
+    const ph = isUntimed(e);
+    if (!ph && playT >= e.start && playT <= e.end) row.classList.add('playing');
+    if (ph) row.classList.add('placeholder');
+    if (e.id === ST.activeEntryId) row.classList.add('active-entry');
+
+    let flagHtml = '';
+    if (!ph){
+      if (e.end < e.start) flagHtml += ' <span class="flag-backwards" title="end before start">◀</span>';
+      else if (e.end - e.start < 0.02) flagHtml += ' <span class="flag-zero" title="near-zero duration">0</span>';
+    }
+    const prov = e.provenance;
+    const srcClass = e.source;
+    const timeStr = ph ? '<span class="ta-untimed">needs time range</span>' : `${fmtTimeShort(e.start)}–${fmtTimeShort(e.end)}`;
+    const srcLabel = e.source==='placeholder' ? '—' : e.source.slice(0,4).toUpperCase();
+    const wordCount = e.words.length;
+    row.innerHTML = `
+      <span class="ta-text">${escapeHtml(e.text)}${wordCount>1?` <span class="ta-wcount">${wordCount}w</span>`:''}</span>
+      <span class="ta-time">${timeStr}</span>
+      <span class="ta-src ${srcClass}">${srcLabel}</span>
+      ${prov && prov.edited ? '<span class="ta-trim" title="trimmed from source">✎</span>':''}
+      ${flagHtml}
+      <button class="ta-del" title="delete entry">×</button>`;
+    row.onclick = (ev) => {
+      if (ev.target.classList.contains('ta-del')){
+        ev.stopPropagation();
+        ST.entries = ST.entries.filter(x => x.id !== e.id);
+        if (ST.activeEntryId === e.id) ST.activeEntryId = null;
+        recomputeAll(); persistSession();
+        return;
+      }
+      // target this entry for assignment
+      ST.activeEntryId = e.id;
+      ST.activeLineIdx = e.syncedIdx;
+      if (!ph) seekAudio(e.start);
+      recomputeAll();
+    };
+    body.appendChild(row);
+  }
+}
+
+/* ====================================================================== *
+ *  STATUS + VALIDATION
+ * ====================================================================== */
+function computeLineStatus(li){
+  if (ST.lineStatus[li] === 'approved') return 'approved';
+  const ln = ST.lines.find(l => l.syncedIdx === li);
+  if (!ln) return 'unstarted';
+  const total = ln.words.length;
+  const es = entriesForLine(li);
+  if (!es.length) return 'unstarted';
+  const covered = ln.words.filter(w => wordCovered(li, w.wordIdx)).length;
+  const allCovered = covered === total;
+  const allTimed = es.length > 0 && es.every(e => !isUntimed(e));
+  if (!allCovered || !allTimed) return 'partial';
+  const flags = ST.flags[li] || [];
+  if (flags.length) return 'review';
+  return 'timed';
+}
+
+function recomputeAll(){
+  validateAll();
+  renderQueue();
+  renderTimeline();
+  updateProgressPill();
+  updateSelbar();
+}
+
+function validateAll(){
+  ST.flags = {};
+  // per-line: backwards / zero on each timed entry; overlap between timed entries
+  for (const ln of ST.lines){
+    const li = ln.syncedIdx;
+    const es = entriesForLine(li).filter(e => !isUntimed(e));
+    if (!es.length) continue;
+    const flags = [];
+    if (es.some(e => e.end < e.start)) flags.push('backwards');
+    if (es.some(e => e.end - e.start < 0.02)) flags.push('zero-duration');
+    // overlap between any two timed entries on this line
+    const sorted = es.slice().sort((a,b)=>a.start-b.start);
+    for (let i=1;i<sorted.length;i++){
+      if (sorted[i].start < sorted[i-1].end - 0.001){ flags.push('overlap'); break; }
+    }
+    if (flags.length) ST.flags[li] = flags;
+  }
+}
+
+function updateProgressPill(){
+  const total = ST.lines.length;
+  let approved = 0, timed = 0;
+  for (const ln of ST.lines){
+    const st = computeLineStatus(ln.syncedIdx);
+    if (st === 'approved') approved++;
+    if (st === 'timed' || st === 'approved') timed++;
+  }
+  const pill = $('progressPill');
+  pill.innerHTML = `<span class="${approved===total?'ok':''}">${approved}/${total} approved</span> · ${timed} timed`;
+}
+
+/* ====================================================================== *
+ *  AUDIO
+ * ====================================================================== */
+const audio = $('audio');
+const scrubber = $('scrubber');
+
+$('playBtn').onclick = () => { if (audio.paused) audio.play(); else audio.pause(); };
+audio.addEventListener('play', () => $('playBtn').textContent = '⏸');
+audio.addEventListener('pause', () => $('playBtn').textContent = '▶');
+audio.addEventListener('loadedmetadata', updateTimeReadout);
+audio.addEventListener('timeupdate', () => {
+  updateTimeReadout();
+  const dur = audio.duration || 0;
+  const pct = dur ? (audio.currentTime/dur)*100 : 0;
+  $('playhead').style.left = pct + '%';
+  $('progress').style.width = pct + '%';
+  // A/B loop
+  if (ST.loopAB && ST.ab.a != null && ST.ab.b != null){
+    if (audio.currentTime >= ST.ab.b){ audio.currentTime = ST.ab.a; }
+  }
+  // light re-render of playing highlights (throttled)
+  if (!ST._rafPending){
+    ST._rafPending = true;
+    requestAnimationFrame(() => { ST._rafPending = false; refreshPlaying(); });
+  }
+});
+
+function updateTimeReadout(){
+  const dur = audio.duration || 0;
+  $('timeReadout').textContent = `${fmtTime(audio.currentTime||0)} / ${fmtTime(dur)}`;
+}
+
+function refreshPlaying(){
+  // update word-row & tl-assign playing classes without full re-render
+  const t = audio.currentTime || -1;
+  QA('.word-row.playing').forEach(el => el.classList.remove('playing'));
+  QA('.tl-assign.playing').forEach(el => el.classList.remove('playing'));
+  if (t < 0) return;
+  // word rows
+  for (const row of QA('.word-row')){
+    const stem = row.dataset.stem, segIdx = parseInt(row.dataset.segIdx), wi = parseInt(row.dataset.wordIdx);
+    if (!stem || isNaN(segIdx)) continue;
+    const seg = ST.stems[stem] && ST.stems[stem][segIdx];
+    if (!seg) continue;
+    const w = seg.words[wi]; if (!w) continue;
+    if (t >= w.start && t <= (w.end != null ? w.end : w.start)) row.classList.add('playing');
+  }
+  // timeline entries (untimed entries have no time, so skip them)
+  for (const el of QA('.tl-assign')){
+    const e = ST.entries.find(x => x.id === el.dataset.eid);
+    if (e && !isUntimed(e) && t >= e.start && t <= e.end) el.classList.add('playing');
+  }
+}
+
+function seekAudio(t){ if (audio.duration){ audio.currentTime = Math.max(0, Math.min(audio.duration, t)); } }
+
+function playRange(start, end){
+  if (!audio.duration){ toast('No audio loaded','err'); return; }
+  audio.currentTime = start;
+  audio.play();
+  // schedule stop slightly after end
+  const dur = (end - start) + 0.15;
+  clearTimeout(ST._playRangeT);
+  ST._playRangeT = setTimeout(() => { if (ST.loopAB) return; audio.pause(); }, dur*1000);
+}
+
+// scrubber interaction (click + drag)
+let scrubbing = false;
+function scrubFromEvent(e){
+  const rect = scrubber.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left)/rect.width));
+  if (audio.duration) audio.currentTime = pct * audio.duration;
+}
+scrubber.addEventListener('mousedown', e => { scrubbing = true; scrubFromEvent(e); });
+window.addEventListener('mousemove', e => { if (scrubbing) scrubFromEvent(e); });
+window.addEventListener('mouseup', () => { scrubbing = false; });
+
+// A/B controls
+$('setABtn').onclick = () => { ST.ab.a = audio.currentTime||0; renderAB(); toast('A = '+fmtTime(ST.ab.a)); };
+$('setBBtn').onclick = () => { ST.ab.b = audio.currentTime||0; renderAB(); toast('B = '+fmtTime(ST.ab.b)); };
+$('loopBtn').onclick = () => {
+  ST.loopAB = !ST.loopAB;
+  $('loopBtn').classList.toggle('loop-active', ST.loopAB);
+  if (ST.loopAB && ST.ab.a!=null){ audio.currentTime = ST.ab.a; audio.play(); }
+  toast(ST.loopAB ? 'Loop ON' : 'Loop OFF');
+};
+$('clearABtn').onclick = () => { ST.ab={a:null,b:null}; ST.loopAB=false; $('loopBtn').classList.remove('loop-active'); renderAB(); };
+function renderAB(){
+  const dur = audio.duration || 0;
+  const pct = t => dur ? (t/dur)*100 : 0;
+  if (ST.ab.a != null){ $('abA').style.display=''; $('abA').style.left=pct(ST.ab.a)+'%'; } else $('abA').style.display='none';
+  if (ST.ab.b != null){ $('abB').style.display=''; $('abB').style.left=pct(ST.ab.b)+'%'; } else $('abB').style.display='none';
+  if (ST.ab.a != null && ST.ab.b != null){
+    $('abRegion').style.display='';
+    $('abRegion').style.left = pct(Math.min(ST.ab.a,ST.ab.b))+'%';
+    $('abRegion').style.width = (pct(Math.max(ST.ab.a,ST.ab.b)) - pct(Math.min(ST.ab.a,ST.ab.b)))+'%';
+  } else $('abRegion').style.display='none';
+}
+
+// window + focus controls
+$('focusToggle').addEventListener('change', () => { ST.evidenceFocus = $('focusToggle').checked; renderEvidence(); });
+$('windowInput').addEventListener('change', () => { ST.windowSec = clampNum($('windowInput').value, 0, 120); if (ST.evidenceFocus) renderEvidence(); });
+$('winMinus').onclick = () => { ST.windowSec = Math.max(0, +(ST.windowSec - 1).toFixed(1)); $('windowInput').value = ST.windowSec; if (ST.evidenceFocus) renderEvidence(); };
+$('winPlus').onclick = () => { ST.windowSec = Math.min(120, +(ST.windowSec + 1).toFixed(1)); $('windowInput').value = ST.windowSec; if (ST.evidenceFocus) renderEvidence(); };
+
+$('sortBtn').onclick = () => { ST.sortByTime = !ST.sortByTime; $('sortBtn').textContent = ST.sortByTime?'by time':'by line'; renderTimeline(); };
+
+/* ====================================================================== *
+ *  VALIDATE / APPROVE / EXPORT
+ * ====================================================================== */
+$('validateBtn').onclick = () => {
+  validateAll();
+  renderQueue(); renderTimeline(); updateProgressPill();
+  // summary
+  let issues = 0, partial = 0, unstarted = 0, timed = 0, approved = 0;
+  for (const ln of ST.lines){
+    const st = computeLineStatus(ln.syncedIdx);
+    if (st==='approved') approved++;
+    else if (st==='timed') timed++;
+    else if (st==='partial') partial++;
+    else if (st==='unstarted') unstarted++;
+    else issues++;
+    if ((ST.flags[ln.syncedIdx]||[]).length) issues++;
+  }
+  toast(`Validation: ${approved} approved · ${timed} timed · ${partial} partial · ${unstarted} unstarted · ${issues} issue(s)`, issues?'':'ok');
+};
+
+// approve a line by double-clicking its timeline header
+$('timelineBody').addEventListener('dblclick', e => {
+  const gh = e.target.closest('.tl-line-head');
+  if (!gh) return;
+  const li = parseInt(gh.querySelector('.li').textContent.replace('L',''), 10);
+  if (!isNaN(li)) toggleApprove(li);
+});
+
+function toggleApprove(li){
+  const ln = ST.lines.find(l => l.syncedIdx === li);
+  if (!ln) return;
+  const total = ln.words.length;
+  const covered = ln.words.filter(w => wordCovered(li, w.wordIdx)).length;
+  const es = entriesForLine(li);
+  const allTimed = covered === total && es.length > 0 && es.every(e => !isUntimed(e));
+  if (!allTimed){ toast('Cannot approve: some words are missing or still untimed.', 'err'); return; }
+  const flags = ST.flags[li] || [];
+  if (flags.length && ST.lineStatus[li] !== 'approved'){
+    if (!confirm(`Line L${li} has issues: ${flags.join(', ')}.\nApprove anyway?`)) return;
+  }
+  ST.lineStatus[li] = ST.lineStatus[li] === 'approved' ? 'timed' : 'approved';
+  recomputeAll();
+  persistSession();
+  toast(`L${li} ${ST.lineStatus[li]==='approved'?'✓ approved':'un-approved'}`, ST.lineStatus[li]==='approved'?'ok':'');
+}
+
+// export menu
+$('exportBtn').onclick = (e) => { e.stopPropagation(); $('exportMenu').classList.toggle('open'); };
+document.addEventListener('click', () => $('exportMenu').classList.remove('open'));
+$('exportMenu').onclick = (e) => {
+  const btn = e.target.closest('button[data-export]');
+  if (!btn) return;
+  e.stopPropagation();
+  $('exportMenu').classList.remove('open');
+  const kind = btn.dataset.export;
+  if (kind === 'overrides') downloadJson(buildOverrides(), `timing_overrides_${ST.projectName}.json`);
+  else if (kind === 'script') downloadJson(buildMergedScript(), `script_${ST.projectName}.json`);
+  else if (kind === 'session') downloadJson(buildSession(), `timing_session_${ST.projectName}.json`);
+};
+
+function buildOverrides(){
+  // Build renderer-ready { "<li>": {start,end,words:[{word,start,end}]}, "_provenance":{...} }
+  // from timed timeline entries. An entry's words all share its [start,end].
+  const byLine = {};
+  for (const e of ST.entries){
+    if (isUntimed(e)) continue;            // never export untimed entries
+    (byLine[e.syncedIdx] = byLine[e.syncedIdx] || []).push(e);
+  }
+  const out = {};
+  const prov = { generated_by:'lyrics-timing-editor', generated_at:new Date().toISOString(), lines:{} };
+  for (const li of Object.keys(byLine).map(Number).sort((a,b)=>a-b)){
+    const es = byLine[li].slice().sort((a,b)=>a.wordStartIdx-b.wordStartIdx);
+    const words = [];
+    es.forEach(e => e.words.forEach(w => words.push({ word: w.text, start: round3(e.start), end: round3(e.end), _entry: e })));
+    if (!words.length) continue;
+    const start = round3(Math.min(...es.map(e=>e.start)));
+    const end = round3(Math.max(...es.map(e=>e.end)));
+    out[String(li)] = { start, end, words: words.map(w => ({ word: w.word, start: w.start, end: w.end })) };
+    prov.lines[String(li)] = {
+      status: ST.lineStatus[li] || computeLineStatus(li),
+      entries: es.map(e => ({
+        text: e.text,
+        word_range: [e.wordStartIdx, e.wordEndIdx],
+        start: round3(e.start), end: round3(e.end),
+        source: e.source,
+        provenance: e.provenance ? {
+          source: e.source,
+          source_segment_index: e.provenance.segmentIdx,
+          source_word_index_start: e.provenance.wordIdxStart,
+          source_word_index_end: e.provenance.wordIdxEnd,
+          source_original_start: round3(e.provenance.origStart),
+          source_original_end: round3(e.provenance.origEnd),
+          edited: !!e.provenance.edited,
+        } : null,
+      })),
+    };
+  }
+  out._provenance = prov;
+  return out;
+}
+
+function buildMergedScript(){
+  const base = ST.scriptJson && typeof ST.scriptJson === 'object' ? JSON.parse(JSON.stringify(ST.scriptJson)) : { name: ST.projectName, defaults: {}, sections: [] };
+  base.timing_overrides = buildOverrides();
+  return base;
+}
+
+function buildSession(){
+  return {
+    projectName: ST.projectName,
+    activeLineIdx: ST.activeLineIdx,
+    activeEntryId: ST.activeEntryId,
+    selectedCanonical: ST.selectedCanonical,
+    windowSec: ST.windowSec,
+    evidenceFocus: ST.evidenceFocus,
+    sortByTime: ST.sortByTime,
+    ab: ST.ab,
+    loopAB: ST.loopAB,
+    lineStatus: ST.lineStatus,
+    entries: ST.entries,
+    saved_at: new Date().toISOString(),
+  };
+}
+
+function downloadJson(obj, filename){
+  const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  toast('Exported '+filename, 'ok');
+}
+
+/* ====================================================================== *
+ *  PERSISTENCE (localStorage) + optional server save
+ * ====================================================================== */
+function sessionKey(){ return 'lyrics-timing-editor:' + ST.projectName; }
+function persistSession(){
+  try { localStorage.setItem(sessionKey(), JSON.stringify(buildSession())); } catch(e){}
+}
+function tryRestoreSession(){
+  let s = null;
+  try { s = JSON.parse(localStorage.getItem(sessionKey())); } catch(e){}
+  if (!s || s.projectName !== ST.projectName) return;
+  // restore the timeline entries (list) plus editor state
+  if (Array.isArray(s.entries)) ST.entries = s.entries;
+  if (s.lineStatus) ST.lineStatus = s.lineStatus;
+  if (typeof s.activeLineIdx === 'number') ST.activeLineIdx = s.activeLineIdx;
+  if (s.activeEntryId != null) ST.activeEntryId = s.activeEntryId;
+  if (typeof s.windowSec === 'number'){ ST.windowSec = s.windowSec; $('windowInput').value = s.windowSec; }
+  if (typeof s.evidenceFocus === 'boolean'){ ST.evidenceFocus = s.evidenceFocus; }
+  if (typeof s.sortByTime === 'boolean'){ ST.sortByTime = s.sortByTime; $('sortBtn').textContent = s.sortByTime?'by time':'by line'; }
+  if (s.ab) ST.ab = s.ab;
+  if (typeof s.loopAB === 'boolean'){ ST.loopAB = s.loopAB; if(s.loopAB) $('loopBtn').classList.add('loop-active'); }
+  toast('Restored previous session for '+ST.projectName, 'ok');
+}
+
+// optional server save if mvp serve is the origin
+$('saveServerBtn').onclick = async () => {
+  try {
+    const merged = buildMergedScript();
+    const r = await fetch('/api/load-script', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(merged),
+    });
+    if (r.ok) toast('Saved script.json to server', 'ok');
+    else toast('Server save failed: '+r.status, 'err');
+  } catch(e){ toast('Server save failed: '+e.message, 'err'); }
+};
+
+/* ====================================================================== *
+ *  UTIL
+ * ====================================================================== */
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function truncate(s, n){ return s.length > n ? s.slice(0,n)+'…' : s; }
+function round3(x){ return Math.round(x*1000)/1000; }
+function fmtAssignment(a){ return a ? `${a.text}: ${fmtTimeShort(a.start)}–${fmtTimeShort(a.end)} [${a.source}]` : ''; }
+
+// detect if served from mvp serve (origin same as page) -> show save button
+(async function detectServer(){
+  try {
+    const r = await fetch('/api/project', {cache:'no-store'});
+    if (r.ok){ ST.serverAvailable = true; $('saveServerBtn').style.display = ''; }
+  } catch(e){ /* file:// or other — fine */ }
+})();
+
+// keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.code === 'Space'){ e.preventDefault(); $('playBtn').click(); }
+  else if (e.key === 'a' && ST.sel){ $('setABtn').click(); }
+  else if (e.key === 'b' && ST.sel){ $('setBBtn').click(); }
+  else if (e.key === 'l'){ $('loopBtn').click(); }
+  else if (e.key === 'Enter' && ST.sel && ST.activeEntryId){ e.preventDefault(); doAssign(); }
+  else if (e.key === 'Escape'){ ST.selectedCanonical = []; ST.sel = null; renderQueue(); renderEvidence(); updateSelbar(); }
+});
+</script>
+</body>
+</html>
