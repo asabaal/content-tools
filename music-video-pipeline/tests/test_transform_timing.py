@@ -281,3 +281,129 @@ class TestTimingGroupoid:
         recipe.apply(ctx, REGISTRY)  # inverts prior journal, re-applies
         twice = ctx.script.get("timing_overrides")
         assert once == twice
+
+
+# --------------------------------------------------------------------------- #
+# DistributeTimingGroups
+# --------------------------------------------------------------------------- #
+def _groups_project(tmp_path: Path, onsets=None) -> Path:
+    """A project with a 3-word line and a timing_groups.json for it."""
+    data = tmp_path / "data"
+    data.mkdir(parents=True, exist_ok=True)
+    (data / "lyrics_synced.json").write_text(json.dumps({
+        "lines": [{
+            "text": "Holy is the LORD",
+            "start": 4.78, "end": 7.34,
+            "words": [
+                {"text": "Holy", "start": 4.78, "end": 5.0},
+                {"text": "is", "start": 5.0, "end": 5.5},
+                {"text": "the", "start": 5.5, "end": 6.0},
+                {"text": "LORD", "start": 6.0, "end": 7.34},
+            ],
+        }]
+    }), encoding="utf-8")
+    groups = {
+        "kind": "human_assigned_timing_groups", "schema_version": 1,
+        "groups": [
+            {"synced_line_idx": 0, "word_indices": [0], "text": "Holy",
+             "start": 4.78, "end": 5.0, "source": "lead_vocals", "provenance": None},
+            {"synced_line_idx": 0, "word_indices": [1, 2, 3], "text": "is the LORD",
+             "start": 5.0, "end": 7.34, "source": "combined_vocals", "provenance": None},
+        ],
+    }
+    (data / "timing_groups.json").write_text(json.dumps(groups), encoding="utf-8")
+    (data / "analysis.json").write_text(json.dumps({"beat_times": []}), encoding="utf-8")
+    if onsets is not None:
+        (data / "vocal_onsets.json").write_text(
+            json.dumps({"onset_times": onsets}), encoding="utf-8")
+    return tmp_path
+
+
+class TestDistributeTimingGroups:
+    def _ctx(self, project: Path) -> ScriptContext:
+        return ScriptContext(
+            script={"defaults": {}, "sections": []},
+            lyrics_synced=json.loads(
+                (project / "data" / "lyrics_synced.json").read_text(encoding="utf-8")),
+            project_dir=project,
+        )
+
+    def test_distributes_groups_into_per_word_overrides(self, tmp_path):
+        project = _groups_project(tmp_path)
+        ctx = self._ctx(project)
+        REGISTRY.get("distribute_timing_groups").run(ctx, None, {})
+
+        ov = ctx.script["timing_overrides"]
+        assert "0" in ov
+        words = ov["0"]["words"]
+        # 1 word from the single-word group + 3 from the multi-word group
+        assert [w["word"] for w in words] == ["Holy", "is", "the", "LORD"]
+
+    def test_single_word_group_keeps_its_exact_range(self, tmp_path):
+        project = _groups_project(tmp_path)
+        ctx = self._ctx(project)
+        REGISTRY.get("distribute_timing_groups").run(ctx, None, {})
+
+        holy = ctx.script["timing_overrides"]["0"]["words"][0]
+        assert holy["start"] == 4.78 and holy["end"] == 5.0
+
+    def test_multi_word_group_gets_distinct_per_word_ranges(self, tmp_path):
+        # no onsets -> even split
+        project = _groups_project(tmp_path)
+        ctx = self._ctx(project)
+        REGISTRY.get("distribute_timing_groups").run(ctx, None, {"snap_onsets": False})
+
+        multi = ctx.script["timing_overrides"]["0"]["words"][1:]
+        # each word has its own start; the group's end is preserved on the last word
+        assert multi[-1]["end"] == 7.34
+        assert len({(w["start"], w["end"]) for w in multi}) == 3
+        # last word's end == group end (not an even-split boundary)
+        assert multi[-1]["end"] == 7.34
+
+    def test_onset_snapping_engages(self, tmp_path):
+        # even-split points for the 3-word group 5.0-7.34 are 5.0, 5.78, 6.56.
+        # place onsets just off those points but within the 0.08 tolerance.
+        project = _groups_project(tmp_path, onsets=[5.05, 5.82, 6.60])
+        ctx = self._ctx(project)
+        REGISTRY.get("distribute_timing_groups").run(ctx, None, {"snap_onsets": True})
+
+        multi = ctx.script["timing_overrides"]["0"]["words"][1:]
+        # starts should have snapped to the onsets, away from even 5.0/5.78/6.56
+        starts = [w["start"] for w in multi]
+        assert starts[0] == 5.05
+        assert starts[1] == 5.82
+        assert starts[2] == 6.60
+
+    def test_chronological_and_positive_duration(self, tmp_path):
+        project = _groups_project(tmp_path, onsets=[5.4, 5.3, 6.9])  # 5.3 < 5.4 inversion
+        ctx = self._ctx(project)
+        REGISTRY.get("distribute_timing_groups").run(ctx, None, {})
+
+        words = ctx.script["timing_overrides"]["0"]["words"]
+        for i in range(1, len(words)):
+            assert words[i]["start"] >= words[i - 1]["end"]
+        for w in words:
+            assert w["end"] > w["start"]
+
+    def test_provenance_records_source_groups(self, tmp_path):
+        project = _groups_project(tmp_path)
+        ctx = self._ctx(project)
+        REGISTRY.get("distribute_timing_groups").run(ctx, None, {})
+
+        prov = ctx.script["timing_overrides"]["_provenance"]
+        assert prov["source"] == "timing_groups"
+        assert "0" in prov["lines"]
+        assert len(prov["lines"]["0"]["groups"]) == 2
+
+    def test_missing_groups_file_raises(self, tmp_path):
+        project = tmp_path / "data"
+        project.mkdir(parents=True)
+        (project / "lyrics_synced.json").write_text(
+            json.dumps({"lines": [{"text": "a", "start": 0, "end": 1, "words": []}]}),
+            encoding="utf-8")
+        ctx = ScriptContext(
+            script={"defaults": {}}, lyrics_synced={"lines": [
+                {"text": "a", "start": 0, "end": 1, "words": []}]},
+            project_dir=tmp_path)
+        with pytest.raises(FileNotFoundError):
+            REGISTRY.get("distribute_timing_groups").run(ctx, None, {})

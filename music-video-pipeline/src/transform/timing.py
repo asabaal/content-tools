@@ -19,6 +19,7 @@ import numpy as np
 
 from .core import REGISTRY, ScriptContext, Transformation
 from .selectors import resolve_line_indices
+from lyrics.synchronizer import snap_to_nearest_beat
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +30,9 @@ _LINE_LEAD = 0.05
 _LINE_TRAIL = 0.05
 # Below this lyric-vs-stem word match ratio we refuse to override a line.
 _MIN_MATCH_RATIO = 0.5
+# When distributing a timing group across its words, snap a word's even-split
+# start to the nearest vocal onset within this tolerance (seconds).
+_ONSET_SNAP_TOLERANCE = 0.08
 
 
 def _load_json(path: Path) -> Optional[dict]:
@@ -313,4 +317,197 @@ class RealignFromStem(Transformation):
 REGISTRY.register(RealignFromStem())
 
 
-__all__ = ["RealignFromStem"]
+class DistributeTimingGroups(Transformation):
+    """Distribute human-assigned timing groups into per-word ``timing_overrides``.
+
+    Consumes ``data/timing_groups.json`` produced by the lyrics timing editor:
+    a list of groups, each binding a contiguous run of canonical lyric words to
+    ONE time range. The editor intentionally does NOT split a group across its
+    words -- that is this transform's job. For each group we carve its
+    ``[start, end]`` into per-word slices, snapping word starts to the nearest
+    vocal onset (within tolerance) and optionally to beats, so the result reveals
+    word-by-word in the renderer instead of lighting up the whole group at once.
+
+    ``params``:
+    - ``groups_file`` (default ``timing_groups.json``): filename in ``data/``.
+    - ``snap_onsets`` (default ``True``): snap word starts to vocal onsets from
+      ``vocal_onsets.json`` when within ``_ONSET_SNAP_TOLERANCE``.
+    - ``snap_beats`` (default ``False``): additionally snap to beats from
+      ``analysis.json`` when within ``BEAT_SNAP_TOLERANCE``.
+
+    Writes ``script["timing_overrides"]["<line_idx>"] = {"start","end","words":[...]}``
+    plus a ``_provenance`` block recording the source group for each line.
+    """
+
+    name = "distribute_timing_groups"
+    description = "Distribute human-assigned timing groups into per-word timing_overrides"
+
+    def run(self, ctx: ScriptContext, selector: dict, params: dict) -> None:
+        groups_file = params.get("groups_file", "timing_groups.json")
+        snap_onsets = bool(params.get("snap_onsets", True))
+        snap_beats = bool(params.get("snap_beats", False))
+
+        if ctx.project_dir is None:
+            raise ValueError("distribute_timing_groups requires project_dir in the context")
+        groups_path = Path(ctx.project_dir) / "data" / groups_file
+        data = _load_json(groups_path)
+        if not data:
+            raise FileNotFoundError(
+                f"distribute_timing_groups: groups file not found: {groups_path}"
+            )
+        groups: List[dict] = data.get("groups", []) or []
+        if not groups:
+            raise ValueError(f"distribute_timing_groups: no groups in {groups_path.name}")
+
+        synced_lines: List[dict] = list((ctx.lyrics_synced or {}).get("lines", []) or [])
+        if not synced_lines:
+            raise ValueError("distribute_timing_groups requires lyrics_synced lines in the context")
+
+        beat_times = RealignFromStem._load_beat_times(Path(ctx.project_dir)) if snap_beats else np.asarray([], dtype=float)
+        onset_times = RealignFromStem._load_onset_times(Path(ctx.project_dir)) if snap_onsets else None
+
+        # group entries by line, preserving order
+        by_line: Dict[int, List[dict]] = {}
+        for g in groups:
+            li = int(g.get("synced_line_idx", -1))
+            by_line.setdefault(li, []).append(g)
+
+        overrides = dict(ctx.script.get("timing_overrides", {}) or {})
+        overrides.pop("_provenance", None)
+        provenance: Dict[str, Any] = {"source": "timing_groups", "lines": {}}
+
+        for li in sorted(by_line.keys()):
+            if li < 0 or li >= len(synced_lines):
+                continue
+            line_groups = sorted(by_line[li], key=lambda g: g.get("start", 0.0))
+            words_out: List[dict] = []
+            for g in line_groups:
+                start = float(g.get("start"))
+                end = float(g.get("end"))
+                if end <= start:
+                    end = round(start + 0.2, 3)
+                word_idxs = list(g.get("word_indices", []) or [])
+                word_texts = self._word_texts(synced_lines[li], word_idxs)
+                if not word_texts:
+                    continue
+                distributed = self._distribute_group(
+                    word_texts, start, end,
+                    onset_times=onset_times, beat_times=beat_times if snap_beats else None,
+                )
+                words_out.extend(distributed)
+            if not words_out:
+                continue
+            # ensure chronological within the line (touch up any onset-snap inversions)
+            words_out = self._enforce_chronological(words_out)
+            line_start = round(words_out[0]["start"] - _LINE_LEAD, 3)
+            line_end = round(words_out[-1]["end"] + _LINE_TRAIL, 3)
+            if line_end <= line_start:
+                line_end = round(line_start + 0.2, 3)
+            overrides[str(li)] = {
+                "start": line_start,
+                "end": line_end,
+                "words": [
+                    {"word": w["word"], "start": w["start"], "end": w["end"]}
+                    for w in words_out
+                ],
+            }
+            provenance["lines"][str(li)] = {
+                "distributed_from": "timing_groups",
+                "groups": [
+                    {
+                        "text": g.get("text", ""),
+                        "word_indices": list(g.get("word_indices", []) or []),
+                        "start": float(g.get("start")),
+                        "end": float(g.get("end")),
+                        "source": g.get("source"),
+                    }
+                    for g in line_groups
+                ],
+            }
+
+        overrides["_provenance"] = provenance
+        ctx.script["timing_overrides"] = overrides
+
+    # ------------------------------------------------------------------ #
+    # Helpers
+    # ------------------------------------------------------------------ #
+    @staticmethod
+    def _word_texts(synced_line: dict, word_idxs: List[int]) -> List[str]:
+        """Canonical word texts for the indices, from the synced line's words."""
+        synced_words = synced_line.get("words", []) or []
+        out = []
+        for wi in word_idxs:
+            if 0 <= wi < len(synced_words):
+                w = synced_words[wi]
+                out.append(w.get("text", w.get("word", "")))
+            else:
+                out.append("")
+        return [t for t in out if t]
+
+    @staticmethod
+    def _distribute_group(
+        word_texts: List[str],
+        start: float,
+        end: float,
+        onset_times: Optional[np.ndarray] = None,
+        beat_times: Optional[np.ndarray] = None,
+    ) -> List[dict]:
+        """Carve ``[start, end]`` into per-word slices for the given words.
+
+        Even split as the baseline; each word start is then snapped to the
+        nearest onset (and optionally beat) within tolerance. The final word's
+        end is always the group's ``end`` so the group fully covers its span.
+        """
+        n = len(word_texts)
+        if n == 0:
+            return []
+        if n == 1:
+            return [{"word": word_texts[0], "start": round(start, 3), "end": round(end, 3)}]
+        span = end - start
+        per = span / n
+        raw = [(start + i * per, start + (i + 1) * per) for i in range(n)]
+
+        snapped_starts = []
+        for i, (s, _e) in enumerate(raw):
+            snapped = s
+            if onset_times is not None and onset_times.size:
+                snapped = DistributeTimingGroups._snap_to_nearest(snapped, onset_times, _ONSET_SNAP_TOLERANCE)
+            if beat_times is not None and beat_times.size:
+                snapped = snap_to_nearest_beat(snapped, beat_times)
+            snapped_starts.append(snapped)
+
+        words: List[dict] = []
+        for i, text in enumerate(word_texts):
+            ws = snapped_starts[i]
+            # end = next word's snapped start, or the group end for the last word
+            we = snapped_starts[i + 1] if i + 1 < n else end
+            if we <= ws:
+                we = round(ws + min(per, 0.1), 3)
+            words.append({"word": text, "start": round(ws, 3), "end": round(we, 3)})
+        return words
+
+    @staticmethod
+    def _snap_to_nearest(time: float, onset_times: np.ndarray, tolerance: float) -> float:
+        idx = int(np.argmin(np.abs(onset_times - time)))
+        nearest = float(onset_times[idx])
+        if abs(nearest - time) <= tolerance:
+            return nearest
+        return time
+
+    @staticmethod
+    def _enforce_chronological(words: List[dict]) -> List[dict]:
+        """Fix any inversion introduced by snapping so starts stay non-decreasing
+        and every word has positive duration. Mutates in place and returns."""
+        for i in range(1, len(words)):
+            prev_end = words[i - 1]["end"]
+            if words[i]["start"] < prev_end:
+                words[i]["start"] = prev_end
+            if words[i]["end"] <= words[i]["start"]:
+                words[i]["end"] = round(words[i]["start"] + 0.04, 3)
+        return words
+
+
+REGISTRY.register(DistributeTimingGroups())
+
+
+__all__ = ["RealignFromStem", "DistributeTimingGroups"]

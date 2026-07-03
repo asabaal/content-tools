@@ -211,8 +211,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
     <div class="menu">
       <button class="btn btn-sm" id="exportBtn">Export ▾</button>
       <div class="menu-dropdown" id="exportMenu">
-        <button data-export="overrides"><b>timing_overrides</b><span class="desc">Renderer-ready block (keyed by synced line idx)</span></button>
-        <button data-export="script"><b>script.json</b> (merged)<span class="desc">Existing script + timing_overrides dropped in</span></button>
+        <button data-export="groups"><b>timing_groups.json</b> <span style="color:var(--ok);font-size:9px">PRIMARY</span><span class="desc">Human-assigned timing groupings — feed to the syncer to distribute per-word</span></button>
+        <button data-export="overrides"><b>timing_overrides</b><span class="desc">Group ranges as-is (NOT distributed — every word in a group shares one range)</span></button>
+        <button data-export="script"><b>script.json</b> (merged)<span class="desc">Existing script + the raw (undistributed) timing_overrides dropped in</span></button>
         <button data-export="session"><b>Session JSON</b><span class="desc">Full editor state to resume later</span></button>
       </div>
     </div>
@@ -1343,10 +1344,52 @@ $('exportMenu').onclick = (e) => {
   e.stopPropagation();
   $('exportMenu').classList.remove('open');
   const kind = btn.dataset.export;
-  if (kind === 'overrides') downloadJson(buildOverrides(), `timing_overrides_${ST.projectName}.json`);
+  if (kind === 'groups') downloadJson(buildTimingGroups(), `timing_groups_${ST.projectName}.json`);
+  else if (kind === 'overrides') downloadJson(buildOverrides(), `timing_overrides_${ST.projectName}.json`);
   else if (kind === 'script') downloadJson(buildMergedScript(), `script_${ST.projectName}.json`);
   else if (kind === 'session') downloadJson(buildSession(), `timing_session_${ST.projectName}.json`);
 };
+
+function buildTimingGroups(){
+  // PRIMARY export: the human-assigned timing groupings. Each group is ONE range
+  // bound to a contiguous set of canonical words. The syncer consumes this and
+  // distributes each group's range across its words (onset/beat-aware) to produce
+  // the final renderer-ready timing_overrides. This file does NOT contain
+  // per-word timing — only group ranges. Untimed entries are excluded.
+  const groups = [];
+  let skippedUntimed = 0;
+  for (const e of ST.entries){
+    if (isUntimed(e)){ skippedUntimed++; continue; }
+    groups.push({
+      synced_line_idx: e.syncedIdx,
+      word_indices: e.words.map(w => w.wordIdx),
+      text: e.text,
+      start: round3(e.start),
+      end: round3(e.end),
+      source: e.source,
+      provenance: e.provenance ? {
+        source: e.source,
+        source_segment_index: e.provenance.segmentIdx,
+        source_word_index_start: e.provenance.wordIdxStart,
+        source_word_index_end: e.provenance.wordIdxEnd,
+        source_original_start: round3(e.provenance.origStart),
+        source_original_end: round3(e.provenance.origEnd),
+        edited: !!e.provenance.edited,
+      } : null,
+    });
+  }
+  if (skippedUntimed){
+    toast(`${skippedUntimed} untimed entr${skippedUntimed===1?'y':'ies'} skipped — time them before the syncer can use this file.`, 'err');
+  }
+  return {
+    kind: 'human_assigned_timing_groups',
+    schema_version: 1,
+    project: ST.projectName,
+    generated_at: new Date().toISOString(),
+    description: 'Human-assigned timing groups. Each group binds a contiguous run of canonical lyric words to ONE time range. Feed to the timing syncer (distribute_timing_groups) to produce per-word timing_overrides for the renderer.',
+    groups,
+  };
+}
 
 function buildOverrides(){
   // Build renderer-ready { "<li>": {start,end,words:[{word,start,end}]}, "_provenance":{...} }
