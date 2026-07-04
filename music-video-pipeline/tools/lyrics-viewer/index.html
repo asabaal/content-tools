@@ -95,6 +95,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .add-tl-btn{font-size:10px;padding:2px 8px;border-radius:9px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;white-space:nowrap;flex-shrink:0}
 .add-tl-btn:hover{background:var(--accent);color:#0f0f1a}
 .add-tl-btn.add-tl-active{background:var(--accent);color:#0f0f1a;font-weight:600}
+.add-tl-btn.sync-btn{border-color:var(--fg3);color:var(--fg2)}
+.add-tl-btn.sync-btn:hover{background:var(--fg3);color:#0f0f1a;border-color:var(--fg3)}
+.add-tl-btn:disabled{opacity:.4;cursor:not-allowed}
+.add-tl-btn:disabled:hover{background:transparent;color:var(--fg3)}
 .status-unstarted{background:var(--fg4)}
 .status-partial{background:var(--warn)}
 .status-timed{background:var(--accent)}
@@ -172,6 +176,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .ta-src.backing{background:rgba(192,76,240,.18);color:var(--back)}
 .ta-src.manual,.ta-src.existing{background:rgba(240,76,106,.18);color:var(--man)}
 .ta-src.existing{background:rgba(102,102,102,.2);color:var(--fg2)}
+.ta-src.synced{background:rgba(102,102,102,.22);color:var(--fg2)}
 .ta-src.placeholder{background:rgba(102,102,102,.15);color:var(--fg3)}
 .tl-assign.placeholder{opacity:.65}
 .tl-assign.placeholder .ta-text{color:var(--warn)}
@@ -603,6 +608,52 @@ function addToTimeline(syncedIdx, optWordRange){
   toast(`Added "${entry.text}" to timeline (needs a time range)`, 'ok');
 }
 
+/* Pull a line's existing synced timing (from lyrics_synced.json) in as ONE timed
+   entry. Use when the automatic sync got the line right and you just want to
+   keep it. The entry is fully editable / deletable afterwards, so you can pull a
+   synced line, then delete it and re-do it manually if it needs work. */
+function addFromSynced(syncedIdx){
+  const ln = ST.lines.find(l => l.syncedIdx === syncedIdx);
+  if (!ln) return;
+  const syn = ST.synced[syncedIdx];
+  const usable = syncedLineUsable(syn);
+  if (!usable.ok){ toast(`Can't use synced timing for L${syncedIdx}: ${usable.reason}`, 'err'); return; }
+  // skip words already covered by another entry
+  const words = ln.words.filter(w => !wordCovered(syncedIdx, w.wordIdx));
+  if (!words.length){ toast(`L${syncedIdx} is already on the timeline.`, 'err'); return; }
+  const entry = {
+    id: nextEntryId(),
+    syncedIdx,
+    wordStartIdx: words[0].wordIdx,
+    wordEndIdx: words[words.length-1].wordIdx,
+    words,
+    text: words.map(w=>w.text).join(' '),
+    start: round3(usable.start),
+    end: round3(usable.end),
+    source: 'synced',
+    provenance: { from_synced: true, original_start: round3(usable.start), original_end: round3(usable.end) },
+  };
+  ST.entries.push(entry);
+  ST.activeLineIdx = syncedIdx;
+  ST.activeEntryId = entry.id;
+  recomputeAll();
+  persistSession();
+  toast(`Pulled L${syncedIdx} from synced (${fmtTime(usable.start)}–${fmtTime(usable.end)})`, 'ok');
+}
+
+/* Does a synced line have usable word timing? Returns {ok, start, end, reason}. */
+function syncedLineUsable(syn){
+  if (!syn || !Array.isArray(syn.words) || !syn.words.length){
+    return { ok:false, reason:'no word timing in synced file' };
+  }
+  const timed = syn.words.filter(w => typeof w.start === 'number' && typeof w.end === 'number');
+  if (!timed.length) return { ok:false, reason:'synced words have no numeric timing' };
+  const start = Math.min(...timed.map(w=>w.start));
+  const end = Math.max(...timed.map(w=>w.end));
+  if (!(end > start)) return { ok:false, reason:'synced timing is zero-length' };
+  return { ok:true, start, end };
+}
+
 /* ====================================================================== *
  *  RENDER — LEFT: lyric queue
  * ====================================================================== */
@@ -633,11 +684,23 @@ function renderQueue(){
     meta.className = 'line-meta';
     const addLabel = someSel ? `+ ${ST.selectedCanonical.filter(c=>c.syncedIdx===ln.syncedIdx).length} sel` : '+ line';
     const addTitle = someSel ? 'Add the selected words to the timeline as one entry (sharing one time range)' : 'Add the whole line to the timeline as one entry needing a time range';
+    // "use synced" button: pull the line's existing synced timing in as one timed entry
+    const fullyCovered = covered === ln.words.length;
+    const synUsable = syncedLineUsable(ST.synced[ln.syncedIdx]);
+    let syncBtn = '';
+    if (!fullyCovered){
+      if (synUsable.ok){
+        syncBtn = `<button class="add-tl-btn sync-btn" data-synced-idx="${ln.syncedIdx}" data-action="synced" title="Pull this line's existing synced timing in as one timed entry (${fmtTime(synUsable.start)}–${fmtTime(synUsable.end)})">use synced</button>`;
+      } else {
+        syncBtn = `<button class="add-tl-btn sync-btn" disabled title="Synced line has no usable timing: ${escapeHtml(synUsable.reason)}">synced ✕</button>`;
+      }
+    }
     meta.innerHTML = `
       <span class="line-idx">L${ln.syncedIdx}</span>
       <span class="line-text">${escapeHtml(ln.text)}</span>
       <span class="status-dot status-${status}" title="${status}"></span>
-      <button class="add-tl-btn${someSel?' add-tl-active':''}" data-synced-idx="${ln.syncedIdx}" title="${escapeHtml(addTitle)}">${addLabel}</button>`;
+      ${syncBtn}
+      <button class="add-tl-btn${someSel?' add-tl-active':''}" data-synced-idx="${ln.syncedIdx}" data-action="manual" title="${escapeHtml(addTitle)}">${addLabel}</button>`;
     row.appendChild(meta);
 
     // compact coverage strip: shows how much of the line is on the timeline / timed
@@ -677,11 +740,15 @@ function renderQueue(){
   // wire events (delegation)
   body.onclick = (e) => {
     const addBtn = e.target.closest('.add-tl-btn');
-    if (addBtn){
+    if (addBtn && !addBtn.disabled){
       e.stopPropagation();
       const idx = parseInt(addBtn.dataset.syncedIdx);
-      const sel = ST.selectedCanonical.filter(c => c.syncedIdx === idx);
-      addToTimeline(idx, sel.length ? sel : null);
+      if (addBtn.dataset.action === 'synced'){
+        addFromSynced(idx);
+      } else {
+        const sel = ST.selectedCanonical.filter(c => c.syncedIdx === idx);
+        addToTimeline(idx, sel.length ? sel : null);
+      }
       return;
     }
     const chip = e.target.closest('.word-chip');
@@ -756,6 +823,15 @@ function lineFocusTime(idx){
  * ====================================================================== */
 function renderEvidence(){
   const list = $('evidenceList');
+  // Capture each column's scroll position before rebuilding, so selecting a word
+  // (which triggers a re-render) doesn't snap the columns back to the top.
+  const prevScroll = {};
+  for (const col of QA('.ev-col', list)){
+    if (col.dataset.stem){
+      const sc = Q('.ev-col-scroll', col);
+      if (sc) prevScroll[col.dataset.stem] = sc.scrollTop;
+    }
+  }
   list.innerHTML = '';
   const ln = ST.lines.find(l => l.syncedIdx === ST.activeLineIdx);
   // sync the focus-toggle UI to state
@@ -823,6 +899,8 @@ function renderEvidence(){
     }
     col.appendChild(scroll);
     list.appendChild(col);
+    // restore this column's scroll position captured before the rebuild
+    if (prevScroll[stem] != null) scroll.scrollTop = prevScroll[stem];
   }
 
   // selection bar

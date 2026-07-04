@@ -13651,5 +13651,6069 @@
     "image": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/ChatGPT Image May 22, 2026, 02_28_42 PM.png",
     "logo": "/mnt/storage/repos/content-tools/projects/prophetic-preprint/projects/ai-psalm-9/data/assets/outro_logo.png",
     "text": "Presented by"
+  },
+  "timing_overrides": {
+    "0": {
+      "start": -0.05,
+      "end": 3.47,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 0.0,
+          "end": 1.14
+        },
+        {
+          "word": "holy",
+          "start": 1.14,
+          "end": 2.28
+        },
+        {
+          "word": "holy",
+          "start": 2.28,
+          "end": 3.42
+        }
+      ]
+    },
+    "1": {
+      "start": 3.37,
+      "end": 7.39,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 3.42,
+          "end": 4.78
+        },
+        {
+          "word": "is",
+          "start": 4.78,
+          "end": 5.292
+        },
+        {
+          "word": "the",
+          "start": 5.292,
+          "end": 5.835
+        },
+        {
+          "word": "LORD",
+          "start": 5.835,
+          "end": 6.316
+        },
+        {
+          "word": "God",
+          "start": 6.316,
+          "end": 6.828
+        },
+        {
+          "word": "Almighty",
+          "start": 6.828,
+          "end": 7.34
+        }
+      ]
+    },
+    "2": {
+      "start": 10.94,
+      "end": 14.54,
+      "words": [
+        {
+          "text": "Holy",
+          "start": 10.94,
+          "end": 12.14
+        },
+        {
+          "text": "holy",
+          "start": 12.14,
+          "end": 13.34
+        },
+        {
+          "text": "holy",
+          "start": 13.34,
+          "end": 14.54
+        }
+      ]
+    },
+    "3": {
+      "start": 10.89,
+      "end": 13.77,
+      "words": [
+        {
+          "word": "is",
+          "start": 10.94,
+          "end": 11.496
+        },
+        {
+          "word": "the",
+          "start": 11.496,
+          "end": 12.052
+        },
+        {
+          "word": "LORD",
+          "start": 12.052,
+          "end": 12.608
+        },
+        {
+          "word": "God",
+          "start": 12.608,
+          "end": 13.164
+        },
+        {
+          "word": "Almighty",
+          "start": 13.164,
+          "end": 13.72
+        }
+      ]
+    },
+    "4": {
+      "start": 13.67,
+      "end": 17.23,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 13.72,
+          "end": 14.585
+        },
+        {
+          "word": "holy",
+          "start": 14.585,
+          "end": 15.45
+        },
+        {
+          "word": "holy",
+          "start": 15.45,
+          "end": 16.315
+        },
+        {
+          "word": "holy",
+          "start": 16.315,
+          "end": 17.18
+        }
+      ]
+    },
+    "5": {
+      "start": 17.69,
+      "end": 20.01,
+      "words": [
+        {
+          "word": "Bring",
+          "start": 17.74,
+          "end": 18.295
+        },
+        {
+          "word": "your",
+          "start": 18.295,
+          "end": 18.85
+        },
+        {
+          "word": "glory",
+          "start": 18.85,
+          "end": 19.405
+        },
+        {
+          "word": "down",
+          "start": 19.405,
+          "end": 19.96
+        }
+      ]
+    },
+    "6": {
+      "start": 19.87,
+      "end": 22.43,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 19.92,
+          "end": 20.74
+        },
+        {
+          "word": "holy",
+          "start": 20.74,
+          "end": 21.56
+        },
+        {
+          "word": "holy",
+          "start": 21.56,
+          "end": 22.38
+        }
+      ]
+    },
+    "7": {
+      "start": 22.53,
+      "end": 26.53,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 22.58,
+          "end": 23.23
+        },
+        {
+          "word": "Is",
+          "start": 23.23,
+          "end": 23.88
+        },
+        {
+          "word": "the",
+          "start": 23.88,
+          "end": 24.53
+        },
+        {
+          "word": "LORD",
+          "start": 24.53,
+          "end": 25.18
+        },
+        {
+          "word": "God",
+          "start": 25.18,
+          "end": 25.83
+        },
+        {
+          "word": "Almighty",
+          "start": 25.83,
+          "end": 26.48
+        }
+      ]
+    },
+    "8": {
+      "start": 26.93,
+      "end": 29.75,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 26.98,
+          "end": 27.887
+        },
+        {
+          "word": "holy",
+          "start": 27.887,
+          "end": 28.793
+        },
+        {
+          "word": "holy",
+          "start": 28.793,
+          "end": 29.7
+        }
+      ]
+    },
+    "9": {
+      "start": 29.91,
+      "end": 33.13,
+      "words": [
+        {
+          "word": "Is",
+          "start": 29.96,
+          "end": 30.584
+        },
+        {
+          "word": "the",
+          "start": 30.584,
+          "end": 31.189
+        },
+        {
+          "word": "LORD",
+          "start": 31.189,
+          "end": 31.832
+        },
+        {
+          "word": "God",
+          "start": 31.832,
+          "end": 32.456
+        },
+        {
+          "word": "Almighty",
+          "start": 32.456,
+          "end": 33.08
+        }
+      ]
+    },
+    "10": {
+      "start": 33.03,
+      "end": 36.11,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 33.08,
+          "end": 33.825
+        },
+        {
+          "word": "holy",
+          "start": 33.825,
+          "end": 34.57
+        },
+        {
+          "word": "holy",
+          "start": 34.57,
+          "end": 35.315
+        },
+        {
+          "word": "holy",
+          "start": 35.315,
+          "end": 36.06
+        }
+      ]
+    },
+    "11": {
+      "start": 36.206,
+      "end": 39.69,
+      "words": [
+        {
+          "word": "The",
+          "start": 36.256,
+          "end": 36.682
+        },
+        {
+          "word": "whole",
+          "start": 36.682,
+          "end": 37.105
+        },
+        {
+          "word": "earth",
+          "start": 37.105,
+          "end": 37.527
+        },
+        {
+          "word": "is",
+          "start": 37.527,
+          "end": 37.95
+        },
+        {
+          "word": "full",
+          "start": 37.95,
+          "end": 38.373
+        },
+        {
+          "word": "of",
+          "start": 38.373,
+          "end": 38.795
+        },
+        {
+          "word": "his",
+          "start": 38.795,
+          "end": 39.218
+        },
+        {
+          "word": "glory",
+          "start": 39.218,
+          "end": 39.64
+        }
+      ]
+    },
+    "12": {
+      "start": 39.63,
+      "end": 41.39,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 39.68,
+          "end": 40.233
+        },
+        {
+          "word": "holy",
+          "start": 40.233,
+          "end": 40.787
+        },
+        {
+          "word": "holy",
+          "start": 40.787,
+          "end": 41.34
+        }
+      ]
+    },
+    "13": {
+      "start": 39.81,
+      "end": 41.63,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 39.86,
+          "end": 40.433
+        },
+        {
+          "word": "holy",
+          "start": 40.433,
+          "end": 41.007
+        },
+        {
+          "word": "holy",
+          "start": 41.007,
+          "end": 41.58
+        }
+      ]
+    },
+    "14": {
+      "start": 43.65,
+      "end": 44.83,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 43.7,
+          "end": 44.06
+        },
+        {
+          "word": "holy",
+          "start": 44.06,
+          "end": 44.42
+        },
+        {
+          "word": "holy",
+          "start": 44.42,
+          "end": 44.78
+        }
+      ]
+    },
+    "15": {
+      "start": 43.79,
+      "end": 43.93,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 43.84,
+          "end": 43.88
+        }
+      ]
+    },
+    "16": {
+      "start": 43.83,
+      "end": 45.43,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 43.88,
+          "end": 45.38
+        }
+      ]
+    },
+    "17": {
+      "start": 51.96,
+      "end": 52.11,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 52.01,
+          "end": 52.06
+        }
+      ]
+    },
+    "18": {
+      "start": 52.01,
+      "end": 52.15,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 52.06,
+          "end": 52.1
+        }
+      ]
+    },
+    "19": {
+      "start": 52.01,
+      "end": 52.15,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 52.06,
+          "end": 52.1
+        }
+      ]
+    },
+    "20": {
+      "start": 52.01,
+      "end": 52.15,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 52.06,
+          "end": 52.1
+        }
+      ]
+    },
+    "21": {
+      "start": 52.01,
+      "end": 53.31,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 52.06,
+          "end": 53.26
+        }
+      ]
+    },
+    "22": {
+      "start": 58.55,
+      "end": 58.69,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 58.6,
+          "end": 58.64
+        }
+      ]
+    },
+    "23": {
+      "start": 58.55,
+      "end": 59.85,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 58.6,
+          "end": 59.8
+        }
+      ]
+    },
+    "24": {
+      "start": 65.166,
+      "end": 66.85,
+      "words": [
+        {
+          "word": "In",
+          "start": 65.216,
+          "end": 65.492
+        },
+        {
+          "word": "the",
+          "start": 65.492,
+          "end": 65.753
+        },
+        {
+          "word": "name",
+          "start": 65.753,
+          "end": 66.027
+        },
+        {
+          "word": "of",
+          "start": 66.027,
+          "end": 66.277
+        },
+        {
+          "word": "the",
+          "start": 66.277,
+          "end": 66.538
+        },
+        {
+          "word": "LORD",
+          "start": 66.538,
+          "end": 66.8
+        }
+      ]
+    },
+    "25": {
+      "start": 66.75,
+      "end": 67.52,
+      "words": [
+        {
+          "word": "Yeah",
+          "start": 66.8,
+          "end": 67.47
+        }
+      ]
+    },
+    "26": {
+      "start": 68.38,
+      "end": 70.28,
+      "words": [
+        {
+          "word": "In",
+          "start": 68.43,
+          "end": 70.23
+        }
+      ]
+    },
+    "27": {
+      "start": 70.19,
+      "end": 71.45,
+      "words": [
+        {
+          "word": "Ho-",
+          "start": 70.24,
+          "end": 71.4
+        }
+      ]
+    },
+    "28": {
+      "start": 71.95,
+      "end": 74.41,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 72.0,
+          "end": 74.36
+        }
+      ]
+    },
+    "29": {
+      "start": 74.777,
+      "end": 77.63,
+      "words": [
+        {
+          "word": "In",
+          "start": 74.827,
+          "end": 75.221
+        },
+        {
+          "word": "the",
+          "start": 75.221,
+          "end": 75.747
+        },
+        {
+          "word": "name",
+          "start": 75.747,
+          "end": 76.205
+        },
+        {
+          "word": "of",
+          "start": 76.205,
+          "end": 76.663
+        },
+        {
+          "word": "the",
+          "start": 76.663,
+          "end": 77.122
+        },
+        {
+          "word": "LORD",
+          "start": 77.122,
+          "end": 77.58
+        }
+      ]
+    },
+    "30": {
+      "start": 77.53,
+      "end": 79.35,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 77.58,
+          "end": 78.153
+        },
+        {
+          "word": "holy,",
+          "start": 78.153,
+          "end": 78.727
+        },
+        {
+          "word": "holy",
+          "start": 78.727,
+          "end": 79.3
+        }
+      ]
+    },
+    "31": {
+      "start": 77.73,
+      "end": 79.9,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 77.78,
+          "end": 78.47
+        },
+        {
+          "word": "holy,",
+          "start": 78.47,
+          "end": 79.168
+        },
+        {
+          "word": "holy",
+          "start": 79.168,
+          "end": 79.85
+        }
+      ]
+    },
+    "32": {
+      "start": 81.33,
+      "end": 84.14,
+      "words": [
+        {
+          "word": "In",
+          "start": 81.38,
+          "end": 82.283
+        },
+        {
+          "word": "the",
+          "start": 82.283,
+          "end": 83.187
+        },
+        {
+          "word": "name",
+          "start": 83.187,
+          "end": 84.09
+        }
+      ]
+    },
+    "33": {
+      "start": 84.05,
+      "end": 87.03,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 84.1,
+          "end": 85.06
+        },
+        {
+          "word": "holy,",
+          "start": 85.06,
+          "end": 86.02
+        },
+        {
+          "word": "holy",
+          "start": 86.02,
+          "end": 86.98
+        }
+      ]
+    },
+    "34": {
+      "start": 84.55,
+      "end": 84.69,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 84.6,
+          "end": 84.64
+        }
+      ]
+    },
+    "35": {
+      "start": 84.59,
+      "end": 85.89,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 84.64,
+          "end": 85.84
+        }
+      ]
+    },
+    "36": {
+      "start": 88.83,
+      "end": 89.63,
+      "words": [
+        {
+          "word": "He",
+          "start": 88.88,
+          "end": 89.58
+        }
+      ]
+    },
+    "37": {
+      "start": 89.71,
+      "end": 95.85,
+      "words": [
+        {
+          "word": "So",
+          "start": 89.76,
+          "end": 90.125
+        },
+        {
+          "word": "as",
+          "start": 90.125,
+          "end": 90.49
+        },
+        {
+          "word": "for",
+          "start": 90.49,
+          "end": 90.816
+        },
+        {
+          "word": "me",
+          "start": 90.816,
+          "end": 91.22
+        },
+        {
+          "word": "and",
+          "start": 91.22,
+          "end": 91.627
+        },
+        {
+          "word": "my",
+          "start": 91.627,
+          "end": 91.95
+        },
+        {
+          "word": "house,",
+          "start": 91.95,
+          "end": 92.315
+        },
+        {
+          "word": "we’ll",
+          "start": 92.315,
+          "end": 92.68
+        },
+        {
+          "word": "serve",
+          "start": 92.68,
+          "end": 92.9
+        },
+        {
+          "word": "the",
+          "start": 92.9,
+          "end": 93.12
+        },
+        {
+          "word": "God",
+          "start": 93.12,
+          "end": 93.34
+        },
+        {
+          "word": "of",
+          "start": 93.34,
+          "end": 93.56
+        },
+        {
+          "word": "gods",
+          "start": 93.72,
+          "end": 94.816
+        },
+        {
+          "word": "always",
+          "start": 94.816,
+          "end": 95.8
+        }
+      ]
+    },
+    "38": {
+      "start": 95.75,
+      "end": 102.17,
+      "words": [
+        {
+          "word": "Bringing",
+          "start": 95.8,
+          "end": 96.48
+        },
+        {
+          "word": "forth",
+          "start": 96.88,
+          "end": 97.247
+        },
+        {
+          "word": "fruit",
+          "start": 97.247,
+          "end": 97.611
+        },
+        {
+          "word": "not",
+          "start": 97.611,
+          "end": 97.98
+        },
+        {
+          "word": "the",
+          "start": 97.98,
+          "end": 98.347
+        },
+        {
+          "word": "sweat",
+          "start": 98.347,
+          "end": 98.713
+        },
+        {
+          "word": "of",
+          "start": 98.713,
+          "end": 99.08
+        },
+        {
+          "word": "my",
+          "start": 99.08,
+          "end": 99.44
+        },
+        {
+          "word": "brow,",
+          "start": 99.44,
+          "end": 99.887
+        },
+        {
+          "word": "My",
+          "start": 99.887,
+          "end": 100.333
+        },
+        {
+          "word": "life",
+          "start": 100.333,
+          "end": 100.811
+        },
+        {
+          "word": "I",
+          "start": 100.811,
+          "end": 101.227
+        },
+        {
+          "word": "did",
+          "start": 101.227,
+          "end": 101.611
+        },
+        {
+          "word": "lose",
+          "start": 101.611,
+          "end": 102.12
+        }
+      ]
+    },
+    "39": {
+      "start": 102.07,
+      "end": 105.73,
+      "words": [
+        {
+          "word": "Miracle",
+          "start": 102.12,
+          "end": 102.53
+        },
+        {
+          "word": "worker",
+          "start": 102.53,
+          "end": 102.94
+        },
+        {
+          "word": "he",
+          "start": 103.36,
+          "end": 103.456
+        },
+        {
+          "word": "made",
+          "start": 103.456,
+          "end": 103.589
+        },
+        {
+          "word": "a",
+          "start": 103.589,
+          "end": 103.703
+        },
+        {
+          "word": "way",
+          "start": 103.703,
+          "end": 103.861
+        },
+        {
+          "word": "somehow,",
+          "start": 103.861,
+          "end": 103.961
+        },
+        {
+          "word": "instead",
+          "start": 103.961,
+          "end": 104.046
+        },
+        {
+          "word": "of",
+          "start": 104.046,
+          "end": 104.16
+        },
+        {
+          "word": "usurper",
+          "start": 104.16,
+          "end": 104.276
+        },
+        {
+          "word": "I’m",
+          "start": 104.276,
+          "end": 104.392
+        },
+        {
+          "word": "rich",
+          "start": 104.392,
+          "end": 104.508
+        },
+        {
+          "word": "with",
+          "start": 104.508,
+          "end": 104.624
+        },
+        {
+          "word": "his",
+          "start": 104.624,
+          "end": 104.74
+        },
+        {
+          "word": "pay",
+          "start": 104.88,
+          "end": 105.68
+        }
+      ]
+    },
+    "40": {
+      "start": 105.571,
+      "end": 108.91,
+      "words": [
+        {
+          "word": "Made",
+          "start": 105.621,
+          "end": 106.016
+        },
+        {
+          "word": "one",
+          "start": 106.016,
+          "end": 106.32
+        },
+        {
+          "word": "before",
+          "start": 106.52,
+          "end": 106.667
+        },
+        {
+          "word": "and",
+          "start": 106.667,
+          "end": 106.8
+        },
+        {
+          "word": "he’s",
+          "start": 106.8,
+          "end": 106.955
+        },
+        {
+          "word": "makin'",
+          "start": 106.955,
+          "end": 107.08
+        },
+        {
+          "word": "one",
+          "start": 107.08,
+          "end": 107.22
+        },
+        {
+          "word": "now,",
+          "start": 107.44,
+          "end": 107.55
+        },
+        {
+          "word": "he",
+          "start": 107.55,
+          "end": 107.66
+        },
+        {
+          "word": "gave",
+          "start": 107.84,
+          "end": 108.021
+        },
+        {
+          "word": "me",
+          "start": 108.021,
+          "end": 108.149
+        },
+        {
+          "word": "purpose",
+          "start": 108.149,
+          "end": 108.416
+        },
+        {
+          "word": "the",
+          "start": 108.416,
+          "end": 108.533
+        },
+        {
+          "word": "game",
+          "start": 108.533,
+          "end": 108.69
+        },
+        {
+          "word": "that",
+          "start": 108.69,
+          "end": 108.86
+        }
+      ]
+    },
+    "41": {
+      "start": 108.857,
+      "end": 112.13,
+      "words": [
+        {
+          "word": "Asked",
+          "start": 108.907,
+          "end": 109.088
+        },
+        {
+          "word": "him",
+          "start": 109.088,
+          "end": 109.32
+        },
+        {
+          "word": "for",
+          "start": 109.32,
+          "end": 109.5
+        },
+        {
+          "word": "wisdom",
+          "start": 109.58,
+          "end": 109.768
+        },
+        {
+          "word": "both",
+          "start": 109.768,
+          "end": 109.956
+        },
+        {
+          "word": "quiet",
+          "start": 109.956,
+          "end": 110.144
+        },
+        {
+          "word": "and",
+          "start": 110.144,
+          "end": 110.332
+        },
+        {
+          "word": "aloud,",
+          "start": 110.332,
+          "end": 110.52
+        },
+        {
+          "word": "following",
+          "start": 110.539,
+          "end": 110.68
+        },
+        {
+          "word": "him",
+          "start": 110.68,
+          "end": 110.84
+        },
+        {
+          "word": "I",
+          "start": 110.84,
+          "end": 111.0
+        },
+        {
+          "word": "am",
+          "start": 111.0,
+          "end": 111.16
+        },
+        {
+          "word": "not",
+          "start": 111.22,
+          "end": 111.507
+        },
+        {
+          "word": "led",
+          "start": 111.507,
+          "end": 111.744
+        },
+        {
+          "word": "astray",
+          "start": 111.744,
+          "end": 112.08
+        }
+      ]
+    },
+    "42": {
+      "start": 112.15,
+      "end": 112.83,
+      "words": [
+        {
+          "word": "Jesus",
+          "start": 112.2,
+          "end": 112.345
+        },
+        {
+          "word": "won't",
+          "start": 112.345,
+          "end": 112.49
+        },
+        {
+          "word": "come",
+          "start": 112.49,
+          "end": 112.635
+        },
+        {
+          "word": "until",
+          "start": 112.635,
+          "end": 112.78
+        }
+      ]
+    },
+    "43": {
+      "start": 116.07,
+      "end": 117.83,
+      "words": [
+        {
+          "word": "we've",
+          "start": 116.12,
+          "end": 116.535
+        },
+        {
+          "word": "all",
+          "start": 116.535,
+          "end": 116.95
+        },
+        {
+          "word": "learned",
+          "start": 116.95,
+          "end": 117.365
+        },
+        {
+          "word": "how",
+          "start": 117.365,
+          "end": 117.78
+        }
+      ]
+    },
+    "44": {
+      "start": 117.73,
+      "end": 119.69,
+      "words": [
+        {
+          "word": "to",
+          "start": 117.78,
+          "end": 118.71
+        },
+        {
+          "word": "say",
+          "start": 118.71,
+          "end": 119.64
+        }
+      ]
+    },
+    "45": {
+      "start": 121.57,
+      "end": 122.55,
+      "words": [
+        {
+          "word": "what",
+          "start": 121.62,
+          "end": 122.06
+        },
+        {
+          "word": "we",
+          "start": 122.06,
+          "end": 122.5
+        }
+      ]
+    },
+    "46": {
+      "start": 122.45,
+      "end": 125.87,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 122.5,
+          "end": 122.997
+        },
+        {
+          "word": "is",
+          "start": 122.997,
+          "end": 123.607
+        },
+        {
+          "word": "the",
+          "start": 123.607,
+          "end": 124.16
+        },
+        {
+          "word": "one",
+          "start": 124.16,
+          "end": 124.713
+        },
+        {
+          "word": "who",
+          "start": 124.713,
+          "end": 125.267
+        },
+        {
+          "word": "comes",
+          "start": 125.267,
+          "end": 125.82
+        }
+      ]
+    },
+    "47": {
+      "start": 125.75,
+      "end": 128.15,
+      "words": [
+        {
+          "word": "In",
+          "start": 125.8,
+          "end": 126.007
+        },
+        {
+          "word": "the",
+          "start": 126.007,
+          "end": 126.213
+        },
+        {
+          "word": "name",
+          "start": 126.213,
+          "end": 126.42
+        },
+        {
+          "word": "of",
+          "start": 126.5,
+          "end": 127.033
+        },
+        {
+          "word": "the",
+          "start": 127.033,
+          "end": 127.567
+        },
+        {
+          "word": "LORD",
+          "start": 127.567,
+          "end": 128.1
+        }
+      ]
+    },
+    "48": {
+      "start": 128.05,
+      "end": 130.87,
+      "words": [
+        {
+          "word": "Yeah",
+          "start": 128.1,
+          "end": 130.82
+        }
+      ]
+    },
+    "49": {
+      "start": 130.77,
+      "end": 131.87,
+      "words": [
+        {
+          "word": "In",
+          "start": 130.82,
+          "end": 131.82
+        }
+      ]
+    },
+    "50": {
+      "start": 131.83,
+      "end": 134.21,
+      "words": [
+        {
+          "word": "Ho-",
+          "start": 131.88,
+          "end": 134.16
+        }
+      ]
+    },
+    "51": {
+      "start": 134.11,
+      "end": 135.05,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 134.16,
+          "end": 135.0
+        }
+      ]
+    },
+    "52": {
+      "start": 135.04,
+      "end": 137.39,
+      "words": [
+        {
+          "word": "In",
+          "start": 135.09,
+          "end": 135.465
+        },
+        {
+          "word": "the",
+          "start": 135.465,
+          "end": 135.84
+        },
+        {
+          "word": "name",
+          "start": 135.84,
+          "end": 136.215
+        },
+        {
+          "word": "of",
+          "start": 136.215,
+          "end": 136.629
+        },
+        {
+          "word": "the",
+          "start": 136.629,
+          "end": 136.965
+        },
+        {
+          "word": "LORD",
+          "start": 136.965,
+          "end": 137.34
+        }
+      ]
+    },
+    "53": {
+      "start": 137.29,
+      "end": 140.29,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 137.34,
+          "end": 137.85
+        },
+        {
+          "word": "holy,",
+          "start": 137.85,
+          "end": 138.36
+        },
+        {
+          "word": "holy",
+          "start": 139.16,
+          "end": 140.24
+        }
+      ]
+    },
+    "54": {
+      "start": 141.21,
+      "end": 143.73,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 141.26,
+          "end": 142.067
+        },
+        {
+          "word": "holy,",
+          "start": 142.067,
+          "end": 142.873
+        },
+        {
+          "word": "holy",
+          "start": 142.873,
+          "end": 143.68
+        }
+      ]
+    },
+    "55": {
+      "start": 143.63,
+      "end": 144.67,
+      "words": [
+        {
+          "word": "In",
+          "start": 143.68,
+          "end": 143.993
+        },
+        {
+          "word": "the",
+          "start": 143.993,
+          "end": 144.307
+        },
+        {
+          "word": "name",
+          "start": 144.307,
+          "end": 144.62
+        }
+      ]
+    },
+    "56": {
+      "start": 145.35,
+      "end": 147.65,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 145.4,
+          "end": 146.133
+        },
+        {
+          "word": "Holy,",
+          "start": 146.133,
+          "end": 146.867
+        },
+        {
+          "word": "Holy",
+          "start": 146.867,
+          "end": 147.6
+        }
+      ]
+    },
+    "57": {
+      "start": 148.05,
+      "end": 150.83,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 148.1,
+          "end": 148.993
+        },
+        {
+          "word": "holy,",
+          "start": 148.993,
+          "end": 149.887
+        },
+        {
+          "word": "holy",
+          "start": 149.887,
+          "end": 150.78
+        }
+      ]
+    },
+    "58": {
+      "start": 150.73,
+      "end": 151.93,
+      "words": [
+        {
+          "word": "All",
+          "start": 150.78,
+          "end": 151.179
+        },
+        {
+          "word": "of",
+          "start": 151.179,
+          "end": 151.513
+        },
+        {
+          "word": "us",
+          "start": 151.513,
+          "end": 151.88
+        }
+      ]
+    },
+    "59": {
+      "start": 153.05,
+      "end": 156.01,
+      "words": [
+        {
+          "word": "God",
+          "start": 153.1,
+          "end": 153.345
+        },
+        {
+          "word": "giving",
+          "start": 153.345,
+          "end": 153.611
+        },
+        {
+          "word": "us",
+          "start": 153.611,
+          "end": 153.835
+        },
+        {
+          "word": "visions,",
+          "start": 153.835,
+          "end": 154.08
+        },
+        {
+          "word": "the",
+          "start": 154.08,
+          "end": 154.193
+        },
+        {
+          "word": "Holy",
+          "start": 154.193,
+          "end": 154.283
+        },
+        {
+          "word": "Spirit’s",
+          "start": 154.283,
+          "end": 154.42
+        },
+        {
+          "word": "in",
+          "start": 154.805,
+          "end": 155.243
+        },
+        {
+          "word": "the",
+          "start": 155.243,
+          "end": 155.605
+        },
+        {
+          "word": "air",
+          "start": 155.605,
+          "end": 155.96
+        }
+      ]
+    },
+    "60": {
+      "start": 155.91,
+      "end": 159.09,
+      "words": [
+        {
+          "word": "Draw",
+          "start": 155.96,
+          "end": 156.3
+        },
+        {
+          "word": "near",
+          "start": 156.789,
+          "end": 156.927
+        },
+        {
+          "word": "to",
+          "start": 156.927,
+          "end": 157.073
+        },
+        {
+          "word": "him",
+          "start": 157.073,
+          "end": 157.22
+        },
+        {
+          "word": "so",
+          "start": 157.22,
+          "end": 157.461
+        },
+        {
+          "word": "he’ll",
+          "start": 157.461,
+          "end": 157.74
+        },
+        {
+          "word": "draw",
+          "start": 157.74,
+          "end": 158.0
+        },
+        {
+          "word": "near",
+          "start": 158.027,
+          "end": 158.443
+        },
+        {
+          "word": "to",
+          "start": 158.443,
+          "end": 158.752
+        },
+        {
+          "word": "us",
+          "start": 158.752,
+          "end": 159.04
+        }
+      ]
+    },
+    "61": {
+      "start": 159.15,
+      "end": 162.39,
+      "words": [
+        {
+          "word": "His",
+          "start": 159.2,
+          "end": 159.34
+        },
+        {
+          "word": "marvelous",
+          "start": 159.34,
+          "end": 159.48
+        },
+        {
+          "word": "glory,",
+          "start": 159.48,
+          "end": 159.62
+        },
+        {
+          "word": "his",
+          "start": 159.62,
+          "end": 159.936
+        },
+        {
+          "word": "light’s",
+          "start": 159.936,
+          "end": 160.16
+        },
+        {
+          "word": "what",
+          "start": 160.16,
+          "end": 160.43
+        },
+        {
+          "word": "draws",
+          "start": 160.43,
+          "end": 160.7
+        },
+        {
+          "word": "our",
+          "start": 160.7,
+          "end": 161.52
+        },
+        {
+          "word": "stare",
+          "start": 161.52,
+          "end": 162.34
+        }
+      ]
+    },
+    "62": {
+      "start": 162.29,
+      "end": 165.13,
+      "words": [
+        {
+          "word": "When",
+          "start": 162.34,
+          "end": 162.63
+        },
+        {
+          "word": "he",
+          "start": 162.63,
+          "end": 162.92
+        },
+        {
+          "word": "delivers",
+          "start": 163.16,
+          "end": 163.495
+        },
+        {
+          "word": "his",
+          "start": 163.495,
+          "end": 163.83
+        },
+        {
+          "word": "promise",
+          "start": 163.83,
+          "end": 164.165
+        },
+        {
+          "word": "after",
+          "start": 164.165,
+          "end": 164.5
+        },
+        {
+          "word": "you",
+          "start": 164.64,
+          "end": 164.787
+        },
+        {
+          "word": "cast",
+          "start": 164.787,
+          "end": 164.933
+        },
+        {
+          "word": "off",
+          "start": 164.933,
+          "end": 165.08
+        }
+      ]
+    },
+    "63": {
+      "start": 165.03,
+      "end": 168.23,
+      "words": [
+        {
+          "word": "You",
+          "start": 165.08,
+          "end": 165.373
+        },
+        {
+          "word": "know",
+          "start": 165.373,
+          "end": 165.621
+        },
+        {
+          "word": "he",
+          "start": 165.621,
+          "end": 165.96
+        },
+        {
+          "word": "always",
+          "start": 165.96,
+          "end": 166.347
+        },
+        {
+          "word": "gon'",
+          "start": 166.347,
+          "end": 166.733
+        },
+        {
+          "word": "do",
+          "start": 166.733,
+          "end": 167.12
+        },
+        {
+          "word": "it",
+          "start": 167.48,
+          "end": 167.62
+        },
+        {
+          "word": "with",
+          "start": 167.62,
+          "end": 167.755
+        },
+        {
+          "word": "a",
+          "start": 167.755,
+          "end": 167.9
+        },
+        {
+          "word": "bit",
+          "start": 167.9,
+          "end": 168.0
+        },
+        {
+          "word": "of",
+          "start": 168.0,
+          "end": 168.18
+        }
+      ]
+    },
+    "64": {
+      "start": 168.11,
+      "end": 170.69,
+      "words": [
+        {
+          "word": "These",
+          "start": 168.16,
+          "end": 168.395
+        },
+        {
+          "word": "bodies",
+          "start": 168.395,
+          "end": 168.57
+        },
+        {
+          "word": "and",
+          "start": 168.57,
+          "end": 168.765
+        },
+        {
+          "word": "giftings",
+          "start": 168.765,
+          "end": 168.96
+        },
+        {
+          "word": "and",
+          "start": 169.38,
+          "end": 169.59
+        },
+        {
+          "word": "callings,",
+          "start": 169.59,
+          "end": 169.8
+        },
+        {
+          "word": "all",
+          "start": 169.8,
+          "end": 170.027
+        },
+        {
+          "word": "discussed",
+          "start": 170.027,
+          "end": 170.22
+        },
+        {
+          "word": "in",
+          "start": 170.22,
+          "end": 170.43
+        },
+        {
+          "word": "prayer",
+          "start": 170.43,
+          "end": 170.64
+        }
+      ]
+    },
+    "65": {
+      "start": 171.171,
+      "end": 173.13,
+      "words": [
+        {
+          "word": "Joining",
+          "start": 171.221,
+          "end": 171.58
+        },
+        {
+          "word": "the",
+          "start": 171.58,
+          "end": 171.92
+        },
+        {
+          "word": "angels",
+          "start": 171.92,
+          "end": 172.21
+        },
+        {
+          "word": "in",
+          "start": 172.21,
+          "end": 172.5
+        },
+        {
+          "word": "transcendent",
+          "start": 172.5,
+          "end": 172.79
+        },
+        {
+          "word": "moments",
+          "start": 172.79,
+          "end": 173.08
+        }
+      ]
+    },
+    "66": {
+      "start": 174.211,
+      "end": 176.43,
+      "words": [
+        {
+          "word": "A",
+          "start": 174.261,
+          "end": 174.545
+        },
+        {
+          "word": "place",
+          "start": 174.545,
+          "end": 174.805
+        },
+        {
+          "word": "where",
+          "start": 174.805,
+          "end": 174.995
+        },
+        {
+          "word": "we",
+          "start": 174.995,
+          "end": 175.22
+        },
+        {
+          "word": "finally,",
+          "start": 175.22,
+          "end": 175.8
+        },
+        {
+          "word": "finally,",
+          "start": 175.8,
+          "end": 176.38
+        }
+      ]
+    },
+    "67": {
+      "start": 176.33,
+      "end": 177.45,
+      "words": [
+        {
+          "word": "finally",
+          "start": 176.38,
+          "end": 176.5
+        },
+        {
+          "word": "all",
+          "start": 176.5,
+          "end": 176.62
+        },
+        {
+          "word": "of",
+          "start": 176.62,
+          "end": 176.74
+        },
+        {
+          "word": "us",
+          "start": 176.74,
+          "end": 176.86
+        },
+        {
+          "word": "finally,",
+          "start": 176.86,
+          "end": 176.98
+        },
+        {
+          "word": "finally,",
+          "start": 176.98,
+          "end": 177.163
+        },
+        {
+          "word": "finally",
+          "start": 177.163,
+          "end": 177.4
+        }
+      ]
+    },
+    "68": {
+      "start": 177.35,
+      "end": 179.99,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 177.4,
+          "end": 177.676
+        },
+        {
+          "word": "is",
+          "start": 177.676,
+          "end": 177.952
+        },
+        {
+          "word": "the",
+          "start": 177.952,
+          "end": 178.228
+        },
+        {
+          "word": "one",
+          "start": 178.228,
+          "end": 178.504
+        },
+        {
+          "word": "who",
+          "start": 178.504,
+          "end": 178.78
+        },
+        {
+          "word": "comes",
+          "start": 178.78,
+          "end": 179.94
+        }
+      ]
+    },
+    "69": {
+      "start": 179.91,
+      "end": 180.79,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 179.96,
+          "end": 180.74
+        }
+      ]
+    },
+    "70": {
+      "start": 182.27,
+      "end": 183.57,
+      "words": [
+        {
+          "word": "In",
+          "start": 182.32,
+          "end": 183.52
+        }
+      ]
+    },
+    "71": {
+      "start": 183.37,
+      "end": 184.51,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 183.42,
+          "end": 183.94
+        },
+        {
+          "word": "holy",
+          "start": 183.94,
+          "end": 184.46
+        }
+      ]
+    },
+    "72": {
+      "start": 184.41,
+      "end": 185.57,
+      "words": [
+        {
+          "word": "In",
+          "start": 184.46,
+          "end": 184.99
+        },
+        {
+          "word": "the",
+          "start": 184.99,
+          "end": 185.52
+        }
+      ]
+    },
+    "73": {
+      "start": 186.41,
+      "end": 187.79,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 186.46,
+          "end": 187.74
+        }
+      ]
+    },
+    "74": {
+      "start": 188.21,
+      "end": 189.25,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 188.26,
+          "end": 189.2
+        }
+      ]
+    },
+    "75": {
+      "start": 189.15,
+      "end": 192.43,
+      "words": [
+        {
+          "word": "In",
+          "start": 189.2,
+          "end": 189.593
+        },
+        {
+          "word": "the",
+          "start": 189.593,
+          "end": 189.987
+        },
+        {
+          "word": "name",
+          "start": 189.987,
+          "end": 190.38
+        },
+        {
+          "word": "of",
+          "start": 190.38,
+          "end": 191.047
+        },
+        {
+          "word": "the",
+          "start": 191.047,
+          "end": 191.713
+        },
+        {
+          "word": "LORD",
+          "start": 191.713,
+          "end": 192.38
+        }
+      ]
+    },
+    "76": {
+      "start": 192.33,
+      "end": 195.95,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 192.38,
+          "end": 193.553
+        },
+        {
+          "word": "holy,",
+          "start": 193.553,
+          "end": 194.727
+        },
+        {
+          "word": "holy",
+          "start": 194.727,
+          "end": 195.9
+        }
+      ]
+    },
+    "77": {
+      "start": 195.99,
+      "end": 197.57,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 196.04,
+          "end": 196.533
+        },
+        {
+          "word": "holy,",
+          "start": 196.533,
+          "end": 197.027
+        },
+        {
+          "word": "holy",
+          "start": 197.027,
+          "end": 197.52
+        }
+      ]
+    },
+    "78": {
+      "start": 198.25,
+      "end": 200.65,
+      "words": [
+        {
+          "word": "In",
+          "start": 198.3,
+          "end": 199.067
+        },
+        {
+          "word": "the",
+          "start": 199.067,
+          "end": 199.833
+        },
+        {
+          "word": "name",
+          "start": 199.833,
+          "end": 200.6
+        }
+      ]
+    },
+    "79": {
+      "start": 200.55,
+      "end": 201.95,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 200.6,
+          "end": 201.033
+        },
+        {
+          "word": "Holy,",
+          "start": 201.033,
+          "end": 201.467
+        },
+        {
+          "word": "Holy",
+          "start": 201.467,
+          "end": 201.9
+        }
+      ]
+    },
+    "80": {
+      "start": 201.69,
+      "end": 203.43,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 201.74,
+          "end": 203.38
+        }
+      ]
+    },
+    "81": {
+      "start": 203.35,
+      "end": 203.83,
+      "words": [
+        {
+          "word": "Holy",
+          "start": 203.4,
+          "end": 203.78
+        }
+      ]
+    },
+    "82": {
+      "start": 203.73,
+      "end": 206.99,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 203.78,
+          "end": 206.94
+        }
+      ]
+    },
+    "83": {
+      "start": 207.03,
+      "end": 210.51,
+      "words": [
+        {
+          "word": "The",
+          "start": 207.08,
+          "end": 208.8
+        },
+        {
+          "word": "The",
+          "start": 208.8,
+          "end": 209.63
+        },
+        {
+          "word": "LORD",
+          "start": 209.63,
+          "end": 210.46
+        }
+      ]
+    },
+    "84": {
+      "start": 210.41,
+      "end": 213.81,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 210.46,
+          "end": 210.83
+        },
+        {
+          "word": "holy,",
+          "start": 210.83,
+          "end": 211.2
+        },
+        {
+          "word": "holy",
+          "start": 211.2,
+          "end": 213.76
+        }
+      ]
+    },
+    "85": {
+      "start": 213.67,
+      "end": 216.73,
+      "words": [
+        {
+          "word": "The",
+          "start": 213.72,
+          "end": 215.28
+        },
+        {
+          "word": "The",
+          "start": 215.86,
+          "end": 216.213
+        },
+        {
+          "word": "whole",
+          "start": 216.213,
+          "end": 216.68
+        }
+      ]
+    },
+    "86": {
+      "start": 216.83,
+      "end": 220.47,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 216.88,
+          "end": 217.28
+        },
+        {
+          "word": "holy,",
+          "start": 217.28,
+          "end": 217.68
+        },
+        {
+          "word": "holy",
+          "start": 218.22,
+          "end": 220.42
+        }
+      ]
+    },
+    "87": {
+      "start": 220.37,
+      "end": 223.75,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 220.42,
+          "end": 221.52
+        },
+        {
+          "word": "Holy,",
+          "start": 222.58,
+          "end": 223.14
+        },
+        {
+          "word": "holy,",
+          "start": 223.14,
+          "end": 223.7
+        }
+      ]
+    },
+    "88": {
+      "start": 224.01,
+      "end": 227.03,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 224.06,
+          "end": 225.033
+        },
+        {
+          "word": "holy,",
+          "start": 225.033,
+          "end": 226.007
+        },
+        {
+          "word": "holy",
+          "start": 226.007,
+          "end": 226.98
+        }
+      ]
+    },
+    "89": {
+      "start": 228.29,
+      "end": 229.89,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 228.34,
+          "end": 228.84
+        },
+        {
+          "word": "is",
+          "start": 228.84,
+          "end": 229.34
+        },
+        {
+          "word": "the",
+          "start": 229.34,
+          "end": 229.84
+        }
+      ]
+    },
+    "90": {
+      "start": 229.79,
+      "end": 232.95,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 229.84,
+          "end": 230.86
+        },
+        {
+          "word": "holy,",
+          "start": 230.86,
+          "end": 231.88
+        },
+        {
+          "word": "holy",
+          "start": 231.88,
+          "end": 232.9
+        }
+      ]
+    },
+    "91": {
+      "start": 233.35,
+      "end": 234.05,
+      "words": [
+        {
+          "word": "In",
+          "start": 233.4,
+          "end": 233.6
+        },
+        {
+          "word": "the",
+          "start": 233.6,
+          "end": 233.8
+        },
+        {
+          "word": "name",
+          "start": 233.8,
+          "end": 234.0
+        }
+      ]
+    },
+    "92": {
+      "start": 233.59,
+      "end": 235.71,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 233.64,
+          "end": 234.313
+        },
+        {
+          "word": "holy,",
+          "start": 234.313,
+          "end": 234.987
+        },
+        {
+          "word": "holy",
+          "start": 234.987,
+          "end": 235.66
+        }
+      ]
+    },
+    "93": {
+      "start": 235.59,
+      "end": 237.27,
+      "words": [
+        {
+          "word": "In",
+          "start": 235.64,
+          "end": 236.167
+        },
+        {
+          "word": "the",
+          "start": 236.167,
+          "end": 236.693
+        },
+        {
+          "word": "name",
+          "start": 236.693,
+          "end": 237.22
+        }
+      ]
+    },
+    "94": {
+      "start": 237.05,
+      "end": 238.87,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 237.1,
+          "end": 237.673
+        },
+        {
+          "word": "holy,",
+          "start": 237.673,
+          "end": 238.247
+        },
+        {
+          "word": "holy",
+          "start": 238.247,
+          "end": 238.82
+        }
+      ]
+    },
+    "95": {
+      "start": 238.95,
+      "end": 241.05,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 239.0,
+          "end": 239.667
+        },
+        {
+          "word": "is",
+          "start": 239.667,
+          "end": 240.405
+        },
+        {
+          "word": "the",
+          "start": 240.405,
+          "end": 241.0
+        }
+      ]
+    },
+    "96": {
+      "start": 240.95,
+      "end": 242.91,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 241.0,
+          "end": 241.6
+        },
+        {
+          "word": "holy,",
+          "start": 241.6,
+          "end": 242.219
+        },
+        {
+          "word": "holy",
+          "start": 242.219,
+          "end": 242.86
+        }
+      ]
+    },
+    "97": {
+      "start": 242.87,
+      "end": 243.69,
+      "words": [
+        {
+          "word": "In",
+          "start": 242.92,
+          "end": 243.16
+        },
+        {
+          "word": "the",
+          "start": 243.16,
+          "end": 243.4
+        },
+        {
+          "word": "name",
+          "start": 243.4,
+          "end": 243.64
+        }
+      ]
+    },
+    "98": {
+      "start": 243.59,
+      "end": 246.07,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 243.64,
+          "end": 244.433
+        },
+        {
+          "word": "holy,",
+          "start": 244.433,
+          "end": 245.227
+        },
+        {
+          "word": "holy",
+          "start": 245.227,
+          "end": 246.02
+        }
+      ]
+    },
+    "99": {
+      "start": 245.97,
+      "end": 248.61,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 246.02,
+          "end": 246.867
+        },
+        {
+          "word": "holy,",
+          "start": 246.867,
+          "end": 247.713
+        },
+        {
+          "word": "holy",
+          "start": 247.713,
+          "end": 248.56
+        }
+      ]
+    },
+    "100": {
+      "start": 248.51,
+      "end": 250.21,
+      "words": [
+        {
+          "word": "In",
+          "start": 248.56,
+          "end": 249.093
+        },
+        {
+          "word": "the",
+          "start": 249.093,
+          "end": 249.627
+        },
+        {
+          "word": "name",
+          "start": 249.627,
+          "end": 250.16
+        }
+      ]
+    },
+    "101": {
+      "start": 250.37,
+      "end": 252.75,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 250.42,
+          "end": 251.18
+        },
+        {
+          "word": "holy,",
+          "start": 251.18,
+          "end": 251.94
+        },
+        {
+          "word": "holy",
+          "start": 251.94,
+          "end": 252.7
+        }
+      ]
+    },
+    "102": {
+      "start": 252.71,
+      "end": 253.59,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 252.76,
+          "end": 253.02
+        },
+        {
+          "word": "is",
+          "start": 253.02,
+          "end": 253.28
+        },
+        {
+          "word": "the",
+          "start": 253.28,
+          "end": 253.54
+        }
+      ]
+    },
+    "103": {
+      "start": 253.49,
+      "end": 256.29,
+      "words": [
+        {
+          "word": "in",
+          "start": 253.54,
+          "end": 253.99
+        },
+        {
+          "word": "the",
+          "start": 253.99,
+          "end": 254.44
+        },
+        {
+          "word": "name",
+          "start": 254.44,
+          "end": 254.89
+        },
+        {
+          "word": "of",
+          "start": 254.89,
+          "end": 255.34
+        },
+        {
+          "word": "the",
+          "start": 255.34,
+          "end": 255.79
+        },
+        {
+          "word": "LORD",
+          "start": 255.79,
+          "end": 256.24
+        }
+      ]
+    },
+    "104": {
+      "start": 256.19,
+      "end": 258.87,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 256.24,
+          "end": 257.1
+        },
+        {
+          "word": "holy,",
+          "start": 257.1,
+          "end": 257.96
+        },
+        {
+          "word": "holy",
+          "start": 257.96,
+          "end": 258.82
+        }
+      ]
+    },
+    "105": {
+      "start": 258.69,
+      "end": 262.67,
+      "words": [
+        {
+          "word": "For",
+          "start": 258.74,
+          "end": 259.54
+        },
+        {
+          "word": "For",
+          "start": 260.44,
+          "end": 261.53
+        },
+        {
+          "word": "I",
+          "start": 261.53,
+          "end": 262.62
+        }
+      ]
+    },
+    "106": {
+      "start": 262.97,
+      "end": 263.87,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 263.02,
+          "end": 263.287
+        },
+        {
+          "word": "holy,",
+          "start": 263.287,
+          "end": 263.553
+        },
+        {
+          "word": "holy",
+          "start": 263.553,
+          "end": 263.82
+        }
+      ]
+    },
+    "107": {
+      "start": 266.59,
+      "end": 268.55,
+      "words": [
+        {
+          "word": "until",
+          "start": 266.64,
+          "end": 267.26
+        },
+        {
+          "word": "you",
+          "start": 267.26,
+          "end": 267.88
+        },
+        {
+          "word": "say",
+          "start": 267.88,
+          "end": 268.5
+        }
+      ]
+    },
+    "108": {
+      "start": 266.71,
+      "end": 268.21,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 266.76,
+          "end": 267.227
+        },
+        {
+          "word": "is",
+          "start": 267.227,
+          "end": 267.693
+        },
+        {
+          "word": "the",
+          "start": 267.693,
+          "end": 268.16
+        }
+      ]
+    },
+    "109": {
+      "start": 269.59,
+      "end": 271.93,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 269.64,
+          "end": 270.387
+        },
+        {
+          "word": "holy,",
+          "start": 270.387,
+          "end": 271.133
+        },
+        {
+          "word": "holy",
+          "start": 271.133,
+          "end": 271.88
+        }
+      ]
+    },
+    "110": {
+      "start": 272.07,
+      "end": 274.85,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 272.12,
+          "end": 273.013
+        },
+        {
+          "word": "holy,",
+          "start": 273.013,
+          "end": 273.907
+        },
+        {
+          "word": "holy",
+          "start": 273.907,
+          "end": 274.8
+        }
+      ]
+    },
+    "111": {
+      "start": 274.85,
+      "end": 277.23,
+      "words": [
+        {
+          "word": "in",
+          "start": 274.9,
+          "end": 275.66
+        },
+        {
+          "word": "the",
+          "start": 275.66,
+          "end": 276.42
+        },
+        {
+          "word": "name",
+          "start": 276.42,
+          "end": 277.18
+        }
+      ]
+    },
+    "112": {
+      "start": 285.55,
+      "end": 287.13,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 285.6,
+          "end": 286.053
+        },
+        {
+          "word": "holy,",
+          "start": 286.053,
+          "end": 286.567
+        },
+        {
+          "word": "holy",
+          "start": 286.567,
+          "end": 287.08
+        }
+      ]
+    },
+    "113": {
+      "start": 287.03,
+      "end": 288.45,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 287.08,
+          "end": 287.52
+        },
+        {
+          "word": "holy,",
+          "start": 287.52,
+          "end": 287.96
+        },
+        {
+          "word": "holy",
+          "start": 287.96,
+          "end": 288.4
+        }
+      ]
+    },
+    "114": {
+      "start": 288.355,
+      "end": 289.45,
+      "words": [
+        {
+          "word": "In",
+          "start": 288.405,
+          "end": 288.733
+        },
+        {
+          "word": "the",
+          "start": 288.733,
+          "end": 289.067
+        },
+        {
+          "word": "name",
+          "start": 289.067,
+          "end": 289.4
+        }
+      ]
+    },
+    "115": {
+      "start": 289.35,
+      "end": 290.83,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 289.4,
+          "end": 289.86
+        },
+        {
+          "word": "holy,",
+          "start": 289.86,
+          "end": 290.32
+        },
+        {
+          "word": "holy",
+          "start": 290.32,
+          "end": 290.78
+        }
+      ]
+    },
+    "116": {
+      "start": 290.745,
+      "end": 291.49,
+      "words": [
+        {
+          "word": "In",
+          "start": 290.795,
+          "end": 291.0
+        },
+        {
+          "word": "the",
+          "start": 291.0,
+          "end": 291.22
+        },
+        {
+          "word": "name",
+          "start": 291.22,
+          "end": 291.44
+        }
+      ]
+    },
+    "117": {
+      "start": 288.355,
+      "end": 291.49,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 288.405,
+          "end": 288.907
+        },
+        {
+          "word": "is",
+          "start": 288.907,
+          "end": 289.413
+        },
+        {
+          "word": "the",
+          "start": 289.413,
+          "end": 289.92
+        },
+        {
+          "word": "one",
+          "start": 289.92,
+          "end": 290.427
+        },
+        {
+          "word": "who",
+          "start": 290.427,
+          "end": 290.933
+        },
+        {
+          "word": "comes",
+          "start": 290.933,
+          "end": 291.44
+        }
+      ]
+    },
+    "118": {
+      "start": 294.95,
+      "end": 297.23,
+      "words": [
+        {
+          "word": "In",
+          "start": 295.0,
+          "end": 295.363
+        },
+        {
+          "word": "the",
+          "start": 295.363,
+          "end": 295.727
+        },
+        {
+          "word": "name",
+          "start": 295.727,
+          "end": 296.09
+        },
+        {
+          "word": "of",
+          "start": 296.09,
+          "end": 296.453
+        },
+        {
+          "word": "the",
+          "start": 296.453,
+          "end": 296.817
+        },
+        {
+          "word": "LORD",
+          "start": 296.817,
+          "end": 297.18
+        }
+      ]
+    },
+    "119": {
+      "start": 296.85,
+      "end": 303.08,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 296.9,
+          "end": 298.943
+        },
+        {
+          "word": "holy,",
+          "start": 298.943,
+          "end": 300.987
+        },
+        {
+          "word": "holy",
+          "start": 300.987,
+          "end": 303.03
+        }
+      ]
+    },
+    "120": {
+      "start": 303.23,
+      "end": 308.29,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 303.28,
+          "end": 304.933
+        },
+        {
+          "word": "holy,",
+          "start": 304.933,
+          "end": 306.587
+        },
+        {
+          "word": "holy",
+          "start": 306.587,
+          "end": 308.24
+        }
+      ]
+    },
+    "121": {
+      "start": 308.19,
+      "end": 308.79,
+      "words": [
+        {
+          "word": "In",
+          "start": 308.24,
+          "end": 308.323
+        },
+        {
+          "word": "the",
+          "start": 308.323,
+          "end": 308.407
+        },
+        {
+          "word": "name",
+          "start": 308.407,
+          "end": 308.49
+        },
+        {
+          "word": "of",
+          "start": 308.49,
+          "end": 308.573
+        },
+        {
+          "word": "the",
+          "start": 308.573,
+          "end": 308.657
+        },
+        {
+          "word": "Almighty",
+          "start": 308.657,
+          "end": 308.74
+        }
+      ]
+    },
+    "122": {
+      "start": 309.07,
+      "end": 309.67,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 309.12,
+          "end": 309.237
+        },
+        {
+          "word": "holy,",
+          "start": 309.237,
+          "end": 309.504
+        },
+        {
+          "word": "holy",
+          "start": 309.504,
+          "end": 309.62
+        }
+      ]
+    },
+    "123": {
+      "start": 308.79,
+      "end": 310.25,
+      "words": [
+        {
+          "word": "Blessed",
+          "start": 308.84,
+          "end": 309.067
+        },
+        {
+          "word": "is",
+          "start": 309.067,
+          "end": 309.237
+        },
+        {
+          "word": "the",
+          "start": 309.237,
+          "end": 309.504
+        },
+        {
+          "word": "one",
+          "start": 309.504,
+          "end": 309.781
+        },
+        {
+          "word": "who",
+          "start": 309.781,
+          "end": 310.005
+        },
+        {
+          "word": "comes",
+          "start": 310.005,
+          "end": 310.2
+        }
+      ]
+    },
+    "124": {
+      "start": 308.83,
+      "end": 309.99,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 308.88,
+          "end": 309.237
+        },
+        {
+          "word": "holy,",
+          "start": 309.237,
+          "end": 309.587
+        },
+        {
+          "word": "holy",
+          "start": 309.587,
+          "end": 309.94
+        }
+      ]
+    },
+    "125": {
+      "start": 312.462,
+      "end": 316.42,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 312.512,
+          "end": 313.798
+        },
+        {
+          "word": "holy,",
+          "start": 313.798,
+          "end": 315.084
+        },
+        {
+          "word": "holy",
+          "start": 315.084,
+          "end": 316.37
+        }
+      ]
+    },
+    "126": {
+      "start": 316.366,
+      "end": 316.649,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 316.416,
+          "end": 316.492
+        },
+        {
+          "word": "holy,",
+          "start": 316.492,
+          "end": 316.523
+        },
+        {
+          "word": "holy",
+          "start": 316.523,
+          "end": 316.599
+        }
+      ]
+    },
+    "127": {
+      "start": 316.966,
+      "end": 317.439,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 317.016,
+          "end": 317.14
+        },
+        {
+          "word": "holy,",
+          "start": 317.14,
+          "end": 317.265
+        },
+        {
+          "word": "holy",
+          "start": 317.265,
+          "end": 317.389
+        }
+      ]
+    },
+    "128": {
+      "start": 317.339,
+      "end": 324.71,
+      "words": [
+        {
+          "word": "In",
+          "start": 317.389,
+          "end": 318.601
+        },
+        {
+          "word": "the",
+          "start": 318.601,
+          "end": 319.813
+        },
+        {
+          "word": "name",
+          "start": 319.813,
+          "end": 321.024
+        },
+        {
+          "word": "of",
+          "start": 321.024,
+          "end": 322.236
+        },
+        {
+          "word": "the",
+          "start": 322.236,
+          "end": 323.448
+        },
+        {
+          "word": "LORD",
+          "start": 323.448,
+          "end": 324.66
+        }
+      ]
+    },
+    "129": {
+      "start": 325.571,
+      "end": 332.31,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 325.621,
+          "end": 327.834
+        },
+        {
+          "word": "holy,",
+          "start": 327.834,
+          "end": 330.047
+        },
+        {
+          "word": "holy",
+          "start": 330.047,
+          "end": 332.26
+        }
+      ]
+    },
+    "130": {
+      "start": 332.313,
+      "end": 333.01,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 332.363,
+          "end": 332.661
+        },
+        {
+          "word": "holy",
+          "start": 332.661,
+          "end": 332.96
+        }
+      ]
+    },
+    "131": {
+      "start": 332.913,
+      "end": 333.513,
+      "words": [
+        {
+          "word": "Holy,",
+          "start": 332.963,
+          "end": 333.213
+        },
+        {
+          "word": "holy",
+          "start": 333.213,
+          "end": 333.463
+        }
+      ]
+    },
+    "_provenance": {
+      "source": "manual_timing_groups + synced_fallback",
+      "generated_at": "2026-07-03",
+      "lines": {
+        "0": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 0.0,
+              "end": 3.42,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "1": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 3.42,
+              "end": 4.78,
+              "source": "manual"
+            },
+            {
+              "text": "is the LORD God Almighty",
+              "word_indices": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 4.78,
+              "end": 7.34,
+              "source": "manual"
+            }
+          ]
+        },
+        "2": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 7.34,
+              "end": 10.68,
+              "source": "manual"
+            }
+          ]
+        },
+        "3": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "is the LORD God Almighty",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "start": 10.94,
+              "end": 13.72,
+              "source": "synced"
+            }
+          ]
+        },
+        "4": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 13.72,
+              "end": 17.18,
+              "source": "synced"
+            }
+          ]
+        },
+        "5": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Bring your glory down",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 17.74,
+              "end": 19.96,
+              "source": "synced"
+            }
+          ]
+        },
+        "6": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 19.92,
+              "end": 22.38,
+              "source": "synced"
+            }
+          ]
+        },
+        "7": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy Is the LORD God Almighty",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 22.58,
+              "end": 26.48,
+              "source": "synced"
+            }
+          ]
+        },
+        "8": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 26.98,
+              "end": 29.7,
+              "source": "synced"
+            }
+          ]
+        },
+        "9": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Is the LORD God Almighty",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "start": 29.96,
+              "end": 33.08,
+              "source": "synced"
+            }
+          ]
+        },
+        "10": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 33.08,
+              "end": 36.06,
+              "source": "synced"
+            }
+          ]
+        },
+        "11": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "The whole earth is full of his glory",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "start": 36.26,
+              "end": 39.64,
+              "source": "synced"
+            }
+          ]
+        },
+        "12": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 39.68,
+              "end": 41.34,
+              "source": "synced"
+            }
+          ]
+        },
+        "13": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 39.86,
+              "end": 41.58,
+              "source": "synced"
+            }
+          ]
+        },
+        "14": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy holy holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 43.7,
+              "end": 44.78,
+              "source": "synced"
+            }
+          ]
+        },
+        "15": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 43.84,
+              "end": 43.88,
+              "source": "synced"
+            }
+          ]
+        },
+        "16": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 43.88,
+              "end": 45.38,
+              "source": "synced"
+            }
+          ]
+        },
+        "17": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 52.01,
+              "end": 52.06,
+              "source": "synced"
+            }
+          ]
+        },
+        "18": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 52.06,
+              "end": 52.1,
+              "source": "synced"
+            }
+          ]
+        },
+        "19": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 52.06,
+              "end": 52.1,
+              "source": "synced"
+            }
+          ]
+        },
+        "20": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 52.06,
+              "end": 52.1,
+              "source": "synced"
+            }
+          ]
+        },
+        "21": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 52.06,
+              "end": 53.26,
+              "source": "synced"
+            }
+          ]
+        },
+        "22": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 58.6,
+              "end": 58.64,
+              "source": "synced"
+            }
+          ]
+        },
+        "23": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 58.6,
+              "end": 59.8,
+              "source": "synced"
+            }
+          ]
+        },
+        "24": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the one who comes",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 65.23,
+              "end": 66.8,
+              "source": "synced"
+            }
+          ]
+        },
+        "25": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 66.8,
+              "end": 67.47,
+              "source": "synced"
+            }
+          ]
+        },
+        "26": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Yeah",
+              "word_indices": [
+                0
+              ],
+              "start": 68.43,
+              "end": 70.23,
+              "source": "synced"
+            }
+          ]
+        },
+        "27": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 70.24,
+              "end": 71.4,
+              "source": "synced"
+            }
+          ]
+        },
+        "28": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Ho-",
+              "word_indices": [
+                0
+              ],
+              "start": 72.0,
+              "end": 74.36,
+              "source": "synced"
+            }
+          ]
+        },
+        "29": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the one who comes",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 74.83,
+              "end": 77.58,
+              "source": "synced"
+            }
+          ]
+        },
+        "30": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 77.58,
+              "end": 79.3,
+              "source": "synced"
+            }
+          ]
+        },
+        "31": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 77.78,
+              "end": 79.85,
+              "source": "synced"
+            }
+          ]
+        },
+        "32": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 81.38,
+              "end": 84.09,
+              "source": "synced"
+            }
+          ]
+        },
+        "33": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 84.1,
+              "end": 86.98,
+              "source": "synced"
+            }
+          ]
+        },
+        "34": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 84.6,
+              "end": 84.64,
+              "source": "synced"
+            }
+          ]
+        },
+        "35": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 84.64,
+              "end": 85.84,
+              "source": "synced"
+            }
+          ]
+        },
+        "36": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 88.88,
+              "end": 89.58,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "37": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "He put a new song in my mouth,",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "start": 89.76,
+              "end": 92.68,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "Sung to God a",
+              "word_indices": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "start": 92.68,
+              "end": 93.56,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "hymn of praise",
+              "word_indices": [
+                12,
+                13,
+                14
+              ],
+              "start": 93.72,
+              "end": 95.8,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "38": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "So",
+              "word_indices": [
+                0
+              ],
+              "start": 95.8,
+              "end": 96.48,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "as for me and my house,",
+              "word_indices": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "start": 96.88,
+              "end": 99.08,
+              "source": "manual"
+            },
+            {
+              "text": "we’ll",
+              "word_indices": [
+                7
+              ],
+              "start": 99.08,
+              "end": 99.44,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "serve the God of gods always",
+              "word_indices": [
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+              ],
+              "start": 99.44,
+              "end": 102.12,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "39": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Bringing forth",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 102.12,
+              "end": 102.94,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "fruit not the sweat of my brow,",
+              "word_indices": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "start": 103.36,
+              "end": 104.16,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "My life I did lose",
+              "word_indices": [
+                9,
+                10,
+                11,
+                12,
+                13
+              ],
+              "start": 104.16,
+              "end": 104.74,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "to follow his ways",
+              "word_indices": [
+                14,
+                15,
+                16,
+                17
+              ],
+              "start": 104.88,
+              "end": 105.68,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "40": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Miracle worker",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 105.68,
+              "end": 106.32,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "he made a way somehow,",
+              "word_indices": [
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "start": 106.52,
+              "end": 107.22,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "instead of",
+              "word_indices": [
+                7,
+                8
+              ],
+              "start": 107.44,
+              "end": 107.66,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "usurper I’m rich with his pay",
+              "word_indices": [
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+              ],
+              "start": 107.84,
+              "end": 108.86,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "41": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Made one before",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 108.96,
+              "end": 109.5,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "and he’s makin' one now,",
+              "word_indices": [
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "start": 109.58,
+              "end": 110.52,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "he gave me purpose",
+              "word_indices": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "start": 110.52,
+              "end": 111.16,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "the game that I play",
+              "word_indices": [
+                12,
+                13,
+                14,
+                15,
+                16
+              ],
+              "start": 111.22,
+              "end": 112.08,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "42": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Asked him for wisdom",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 112.2,
+              "end": 112.78,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "both quiet and aloud,",
+              "word_indices": [
+                4,
+                5,
+                6,
+                7
+              ],
+              "start": 112.98,
+              "end": 113.64,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "following him I am",
+              "word_indices": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "start": 113.64,
+              "end": 114.34,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "not led astray",
+              "word_indices": [
+                12,
+                13,
+                14
+              ],
+              "start": 114.5,
+              "end": 115.78,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "43": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Jesus won't come until",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 116.12,
+              "end": 117.78,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "44": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "we've all learned how",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 117.78,
+              "end": 119.64,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "45": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "to say",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 121.62,
+              "end": 122.5,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "46": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "what we are about to say",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 122.5,
+              "end": 125.82,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "47": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 125.8,
+              "end": 126.42,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "one who comes",
+              "word_indices": [
+                3,
+                4,
+                5
+              ],
+              "start": 126.5,
+              "end": 128.1,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "48": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 128.1,
+              "end": 130.82,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "49": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Yeah",
+              "word_indices": [
+                0
+              ],
+              "start": 130.82,
+              "end": 131.82,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "50": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 131.88,
+              "end": 134.16,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "51": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Ho-",
+              "word_indices": [
+                0
+              ],
+              "start": 134.16,
+              "end": 135.0,
+              "source": "manual"
+            }
+          ]
+        },
+        "52": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the one who comes",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 135.09,
+              "end": 137.34,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "53": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 137.34,
+              "end": 138.36,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "name of the LORD",
+              "word_indices": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 139.16,
+              "end": 140.24,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "54": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 141.26,
+              "end": 143.68,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "55": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 143.68,
+              "end": 144.62,
+              "source": "manual"
+            }
+          ]
+        },
+        "56": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 145.4,
+              "end": 147.6,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "57": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, Holy, Holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 148.1,
+              "end": 150.78,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "58": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 150.78,
+              "end": 151.88,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "59": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "All of us prophesying",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 153.1,
+              "end": 154.08,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "in the last",
+              "word_indices": [
+                4,
+                5,
+                6
+              ],
+              "start": 154.08,
+              "end": 154.42,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "days God declares",
+              "word_indices": [
+                7,
+                8,
+                9
+              ],
+              "start": 154.8,
+              "end": 155.96,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "60": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "God",
+              "word_indices": [
+                0
+              ],
+              "start": 155.96,
+              "end": 156.3,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "giving us visions,",
+              "word_indices": [
+                1,
+                2,
+                3
+              ],
+              "start": 156.78,
+              "end": 157.22,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "the Holy Spirit’s",
+              "word_indices": [
+                4,
+                5,
+                6
+              ],
+              "start": 157.22,
+              "end": 158.0,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "in the air",
+              "word_indices": [
+                7,
+                8,
+                9
+              ],
+              "start": 158.04,
+              "end": 159.04,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "61": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Draw near to",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 159.2,
+              "end": 159.62,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "him so he’ll draw",
+              "word_indices": [
+                3,
+                4,
+                5,
+                6
+              ],
+              "start": 159.62,
+              "end": 160.7,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "near to us and share",
+              "word_indices": [
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "start": 160.7,
+              "end": 162.34,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "62": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "His marvelous",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 162.34,
+              "end": 162.92,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "glory, his light’s what",
+              "word_indices": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 163.16,
+              "end": 164.5,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "draws our stare",
+              "word_indices": [
+                6,
+                7,
+                8
+              ],
+              "start": 164.64,
+              "end": 165.08,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "63": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "When he delivers",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 165.08,
+              "end": 165.96,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "his promise after",
+              "word_indices": [
+                3,
+                4,
+                5
+              ],
+              "start": 165.96,
+              "end": 167.12,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "you cast off your cares",
+              "word_indices": [
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "start": 167.48,
+              "end": 168.18,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "64": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "You know he always",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 168.18,
+              "end": 168.96,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "gon' do it with a bit of spiritual",
+              "word_indices": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "start": 169.38,
+              "end": 170.64,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "flair",
+              "word_indices": [
+                12
+              ],
+              "start": 170.64,
+              "end": 171.24,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "65": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "These bodies",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 171.24,
+              "end": 171.92,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "and giftings and callings,",
+              "word_indices": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 171.92,
+              "end": 173.08,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "all discussed in",
+              "word_indices": [
+                6,
+                7,
+                8
+              ],
+              "start": 173.08,
+              "end": 173.98,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "prayer",
+              "word_indices": [
+                9
+              ],
+              "start": 173.98,
+              "end": 174.32,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "66": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Joining the angels in",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 174.32,
+              "end": 175.22,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "transcendent moments",
+              "word_indices": [
+                4,
+                5
+              ],
+              "start": 175.22,
+              "end": 176.38,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "67": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "A place where we finally,",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "start": 176.38,
+              "end": 176.98,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "finally, finally,",
+              "word_indices": [
+                4,
+                5
+              ],
+              "start": 176.98,
+              "end": 177.4,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "68": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "finally all of us finally,",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "start": 177.4,
+              "end": 178.78,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "finally say",
+              "word_indices": [
+                5,
+                6
+              ],
+              "start": 178.78,
+              "end": 179.94,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "69": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 179.96,
+              "end": 180.74,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "one who comes",
+              "word_indices": [
+                3,
+                4,
+                5
+              ],
+              "start": 180.98,
+              "end": 182.44,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "70": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 182.32,
+              "end": 183.52,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "71": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 183.42,
+              "end": 184.46,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "72": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 184.46,
+              "end": 185.52,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "73": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 186.46,
+              "end": 187.74,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "74": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 188.26,
+              "end": 189.2,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "75": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 189.2,
+              "end": 190.38,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "one who comes",
+              "word_indices": [
+                3,
+                4,
+                5
+              ],
+              "start": 190.38,
+              "end": 192.38,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "76": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 192.38,
+              "end": 195.9,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "77": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 196.04,
+              "end": 197.52,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "78": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 198.3,
+              "end": 200.6,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "79": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 200.6,
+              "end": 201.9,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "80": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, Holy, Holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 201.74,
+              "end": 203.38,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "81": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 203.4,
+              "end": 203.78,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "82": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy",
+              "word_indices": [
+                0
+              ],
+              "start": 203.78,
+              "end": 206.94,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "83": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy,",
+              "word_indices": [
+                0
+              ],
+              "start": 207.08,
+              "end": 208.8,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "holy, holy",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 208.8,
+              "end": 210.46,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "84": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "The LORD",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 210.46,
+              "end": 211.2,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "of hosts, our God, is",
+              "word_indices": [
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "start": 211.2,
+              "end": 213.76,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "85": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy,",
+              "word_indices": [
+                0
+              ],
+              "start": 213.72,
+              "end": 215.28,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "holy, holy",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 215.86,
+              "end": 216.68,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "86": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "The whole",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 216.88,
+              "end": 217.68,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "earth is full of his glory",
+              "word_indices": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "start": 218.22,
+              "end": 220.42,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "87": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy,",
+              "word_indices": [
+                0
+              ],
+              "start": 220.42,
+              "end": 221.52,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "holy, holy",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 222.58,
+              "end": 223.7,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "88": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 224.06,
+              "end": 226.98,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "89": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 228.34,
+              "end": 229.84,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "90": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the one who comes",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 229.84,
+              "end": 232.9,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "91": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 233.4,
+              "end": 234.0,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "92": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 233.64,
+              "end": 235.66,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "93": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 235.64,
+              "end": 237.22,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "94": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 237.1,
+              "end": 238.82,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "95": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 239.0,
+              "end": 241.0,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "96": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the one who comes",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 241.0,
+              "end": 242.86,
+              "source": "combined_vocals"
+            }
+          ]
+        },
+        "97": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 242.92,
+              "end": 243.64,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "98": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 243.64,
+              "end": 246.02,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "99": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 246.02,
+              "end": 248.56,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "100": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 248.56,
+              "end": 250.16,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "101": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 250.42,
+              "end": 252.7,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "102": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 252.76,
+              "end": 253.54,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "103": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the one who comes",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 253.54,
+              "end": 256.24,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "104": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "in the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 256.24,
+              "end": 258.82,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "105": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy,",
+              "word_indices": [
+                0
+              ],
+              "start": 258.74,
+              "end": 259.54,
+              "source": "combined_vocals"
+            },
+            {
+              "text": "holy, holy",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 260.44,
+              "end": 262.62,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "106": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "For I tell you,",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "start": 263.02,
+              "end": 263.82,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "you will not see",
+              "word_indices": [
+                4,
+                5,
+                6,
+                7
+              ],
+              "start": 263.82,
+              "end": 264.78,
+              "source": "lead_vocals"
+            },
+            {
+              "text": "me again",
+              "word_indices": [
+                8,
+                9
+              ],
+              "start": 264.94,
+              "end": 266.64,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "107": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 266.64,
+              "end": 268.5,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "108": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "until you say",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 266.76,
+              "end": 268.16,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "109": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the one who comes",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 269.64,
+              "end": 271.88,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "110": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 272.12,
+              "end": 274.8,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "111": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 274.9,
+              "end": 277.18,
+              "source": "backing_vocals"
+            }
+          ]
+        },
+        "112": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "in the name of the Alimighty",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 285.54,
+              "end": 287.08,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "113": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 287.08,
+              "end": 288.4,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "114": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 288.4,
+              "end": 289.4,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "115": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 289.4,
+              "end": 290.78,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "116": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 290.78,
+              "end": 291.44,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "117": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the Almighty",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 288.4,
+              "end": 291.44,
+              "source": "lead_vocals"
+            }
+          ]
+        },
+        "118": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 295.0,
+              "end": 297.18,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "119": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 296.9,
+              "end": 303.03,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "120": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 303.28,
+              "end": 308.24,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "121": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the Almighty",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 308.24,
+              "end": 308.74,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "122": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 309.12,
+              "end": 309.62,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "123": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Blessed is the one who comes",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 308.84,
+              "end": 310.2,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "124": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 308.88,
+              "end": 309.94,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "125": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 312.512,
+              "end": 316.37,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "126": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 316.37,
+              "end": 316.599,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "127": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 317.016,
+              "end": 317.389,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "128": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "In the name of the LORD",
+              "word_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "start": 317.389,
+              "end": 324.66,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "129": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy, holy",
+              "word_indices": [
+                0,
+                1,
+                2
+              ],
+              "start": 325.621,
+              "end": 332.26,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "130": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 332.363,
+              "end": 332.96,
+              "source": "synced_fallback"
+            }
+          ]
+        },
+        "131": {
+          "distributed_from": "timing_groups",
+          "groups": [
+            {
+              "text": "Holy, holy",
+              "word_indices": [
+                0,
+                1
+              ],
+              "start": 332.963,
+              "end": 333.463,
+              "source": "synced_fallback"
+            }
+          ]
+        }
+      }
+    }
   }
 }

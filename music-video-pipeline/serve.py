@@ -160,6 +160,7 @@ class PipelineHandler(SimpleHTTPRequestHandler):
                     self.send_header("Content-Range", f"bytes {start}-{end}/{file_size}")
                     self.send_header("Accept-Ranges", "bytes")
                     self._cors_headers()
+                    self.send_header("Cache-Control", "no-cache")
                     self.end_headers()
 
                     f.seek(start)
@@ -171,6 +172,9 @@ class PipelineHandler(SimpleHTTPRequestHandler):
             self.send_header("Accept-Ranges", "bytes")
             self._cors_headers()
             self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
+            # Always revalidate: without this, browsers heuristically cache the
+            # tools' index.html on a local server and serve stale copies after edits.
+            self.send_header("Cache-Control", "no-cache")
             self.end_headers()
             return f
 
