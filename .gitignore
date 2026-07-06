@@ -70,3 +70,6 @@ projects/prophetic-preprint/projects/*/exports/
 # Keep hand authored scripts for AI Psalm 9
 !projects/prophetic-preprint/projects/ai-psalm-9/data/script.json
 !projects/prophetic-preprint/projects/ai-psalm-9/data/script_bare.json
+
+#notebooks
+*ipynb
