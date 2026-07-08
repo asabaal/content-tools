@@ -1,7 +1,7 @@
 {
   "benchmark": "GLM-4.7-Flash Music Video Scripting Benchmark v0",
   "evidence_bundle_version": "1.0",
-  "generated_at": "2026-07-01T19:24:35.569607+00:00",
+  "generated_at": "2026-07-08T17:46:16.628993+00:00",
   "repo_root": "/mnt/storage/repos/content-tools/music-video-pipeline",
   "includes": {
     "source_code": [
