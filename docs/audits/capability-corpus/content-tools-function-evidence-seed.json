@@ -1,0 +1,3954 @@
+{
+  "schema_version": "av_capability_corpus.function_evidence.v0.1",
+  "generated_at": "2026-07-08T15:31:06",
+  "repository": {
+    "name": "content-tools",
+    "path": "/mnt/storage/repos/content-tools",
+    "base_ref": "main",
+    "compare_ref": "develop",
+    "head_commit": "2af9705c3d53342609f80a167fdcbab25a3219c1"
+  },
+  "scope": {
+    "strategy": "develop_vs_main_changed_functions",
+    "included_paths": [
+      "music-video-pipeline/src/pipeline/models.py"
+    ],
+    "excluded_paths": [],
+    "limitations": [
+      "Round 1 only - pipeline/models.py is the first of 69 changed Python files",
+      "Git attribution at file level, not per-function (all functions in same line ranges per commit)",
+      "Branch coverage not measured - only line coverage available from .coverage",
+      "External call graph limited to file-local analysis; cross-file calls not traced"
+    ]
+  },
+  "commands_run": [
+    "git diff --name-status main...develop -- '*.py'",
+    "python3 -m coverage report --include='src/pipeline/models.py' 2>/dev/null",
+    "git log --oneline --follow music-video-pipeline/src/pipeline/models.py",
+    "git blame --line-porcelain music-video-pipeline/src/pipeline/models.py",
+    "git log -L 1,380:music-video-pipeline/src/pipeline/models.py --oneline"
+  ],
+  "functions": [
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::InputTier",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "InputTier",
+        "qualified_name": "InputTier",
+        "symbol_type": "class",
+        "class_context": null,
+        "signature": "class InputTier(Enum): BASIC='basic', STANDARD='standard', ENHANCED='enhanced', FULL='full'",
+        "start_line": 16,
+        "end_line": 20
+      },
+      "behavior": {
+        "summary": "Enum classifying project input quality tier. Used throughout pipeline to determine processing fidelity.",
+        "inputs": [],
+        "outputs": [
+          "Enum members BASIC, STANDARD, ENHANCED, FULL with string values"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "IngestResult.tier field",
+          "MusicVideoProject.input_tier field",
+          "CLI commands"
+        ],
+        "imports_used": [
+          "enum.Enum"
+        ]
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestInputTier.test_values",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestInputTier.test_values",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Checks all 4 InputTier enum values match expected strings"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": "Created in initial commit; unchanged in 61d382f"
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "class InputTier(Enum):\n    BASIC = \"basic\"\n    STANDARD = \"standard\"\n    ENHANCED = \"enhanced\"\n    FULL = \"full\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StemInfo.to_dict",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "to_dict",
+        "qualified_name": "StemInfo.to_dict",
+        "symbol_type": "method",
+        "class_context": "StemInfo",
+        "signature": "def to_dict(self) -> dict",
+        "start_line": 30,
+        "end_line": 31
+      },
+      "behavior": {
+        "summary": "Serializes StemInfo dataclass to a plain dict with 4 keys: name, stem_type, path, format.",
+        "inputs": [
+          "self.name: str",
+          "self.stem_type: str",
+          "self.path: str",
+          "self.format: str (default 'wav')"
+        ],
+        "outputs": [
+          "dict with keys 'name', 'stem_type', 'path', 'format'"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "IngestResult.to_dict()"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStemInfo.test_to_dict",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStemInfo.test_to_dict",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Creates StemInfo with known values, asserts dict keys match"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          30,
+          31
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def to_dict(self) -> dict:\n        return {\"name\": self.name, \"stem_type\": self.stem_type, \"path\": self.path, \"format\": self.format}",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MidiFileInfo.to_dict",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "to_dict",
+        "qualified_name": "MidiFileInfo.to_dict",
+        "symbol_type": "method",
+        "class_context": "MidiFileInfo",
+        "signature": "def to_dict(self) -> dict",
+        "start_line": 42,
+        "end_line": 49
+      },
+      "behavior": {
+        "summary": "Serializes MidiFileInfo dataclass to a plain dict with 5 keys: name, path, instrument, note_count, duration.",
+        "inputs": [
+          "self.name: str",
+          "self.path: str",
+          "self.instrument: str (default '')",
+          "self.note_count: int (default 0)",
+          "self.duration: float (default 0.0)"
+        ],
+        "outputs": [
+          "dict with keys 'name', 'path', 'instrument', 'note_count', 'duration'"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "IngestResult.to_dict()"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMidiFileInfo.test_to_dict",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMidiFileInfo.test_to_dict",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Creates MidiFileInfo with known values, asserts dict keys instrument and note_count"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def to_dict(self) -> dict:\n        return {\n            \"name\": self.name,\n            \"path\": self.path,\n            \"instrument\": self.instrument,\n            \"note_count\": self.note_count,\n            \"duration\": self.duration,\n        }",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::IngestResult.to_dict",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "to_dict",
+        "qualified_name": "IngestResult.to_dict",
+        "symbol_type": "method",
+        "class_context": "IngestResult",
+        "signature": "def to_dict(self) -> dict",
+        "start_line": 61,
+        "end_line": 69
+      },
+      "behavior": {
+        "summary": "Serializes IngestResult to dict; delegates to nested StemInfo/MidiFileInfo.to_dict if those objects have the method, otherwise passes through plain dicts.",
+        "inputs": [
+          "self.tier: str",
+          "self.audio_path: Optional[str]",
+          "self.lyrics_path: Optional[str]",
+          "self.stems: list",
+          "self.midi_files: list",
+          "self.has_tempo_locked_stems: bool"
+        ],
+        "outputs": [
+          "dict with 6 keys: tier, audio_path, lyrics_path, stems, midi_files, has_tempo_locked_stems"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "StemInfo.to_dict (conditional via hasattr)",
+          "MidiFileInfo.to_dict (conditional via hasattr)"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "CLI _run_ingest() in commands.py",
+          "serve.py API handlers"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestIngestResult.test_to_dict_minimal",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestIngestResult.test_to_dict_minimal",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Empty stems/midi_files; checks tier and empty lists"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestIngestResult.test_to_dict_with_stems",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestIngestResult.test_to_dict_with_stems",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Populated stems list; checks delegation to StemInfo.to_dict"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def to_dict(self) -> dict:\n        return {\n            \"tier\": self.tier,\n            \"audio_path\": self.audio_path,\n            \"lyrics_path\": self.lyrics_path,\n            \"stems\": [s.to_dict() if hasattr(s, \"to_dict\") else s for s in self.stems],\n            \"midi_files\": [m.to_dict() if hasattr(m, \"to_dict\") else m for m in self.midi_files],\n            \"has_tempo_locked_stems\": self.has_tempo_locked_stems,\n        }",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::ProjectPaths.resolve_audio",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "resolve_audio",
+        "qualified_name": "ProjectPaths.resolve_audio",
+        "symbol_type": "method",
+        "class_context": "ProjectPaths",
+        "signature": "def resolve_audio(self, base_dir: Path) -> Optional[Path]",
+        "start_line": 78,
+        "end_line": 82
+      },
+      "behavior": {
+        "summary": "Resolves audio path relative to base_dir. Returns None if self.audio is None or resolved path doesn't exist.",
+        "inputs": [
+          "self.audio: Optional[str]",
+          "base_dir: Path"
+        ],
+        "outputs": [
+          "Optional[Path] - resolved absolute path, or None"
+        ],
+        "side_effects": [],
+        "file_reads": [
+          "Checks existence via Path.exists()"
+        ],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [],
+        "imports_used": [
+          "pathlib.Path"
+        ]
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_audio_exists",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestProjectPaths.test_resolve_audio_exists",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "File exists; expects resolved path"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_audio_missing",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestProjectPaths.test_resolve_audio_missing",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "File missing; expects None"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_audio_none",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestProjectPaths.test_resolve_audio_none",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Audio path is None; expects None"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          78,
+          79,
+          80,
+          81,
+          82
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def resolve_audio(self, base_dir: Path) -> Optional[Path]:\n        if self.audio is None:\n            return None\n        p = base_dir / self.audio\n        return p if p.exists() else None",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::ProjectPaths.resolve_lyrics",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "resolve_lyrics",
+        "qualified_name": "ProjectPaths.resolve_lyrics",
+        "symbol_type": "method",
+        "class_context": "ProjectPaths",
+        "signature": "def resolve_lyrics(self, base_dir: Path) -> Optional[Path]",
+        "start_line": 84,
+        "end_line": 88
+      },
+      "behavior": {
+        "summary": "Resolves lyrics path relative to base_dir. Returns None if self.lyrics is None or resolved path doesn't exist.",
+        "inputs": [
+          "self.lyrics: Optional[str]",
+          "base_dir: Path"
+        ],
+        "outputs": [
+          "Optional[Path] - resolved absolute path, or None"
+        ],
+        "side_effects": [],
+        "file_reads": [
+          "Checks existence via Path.exists()"
+        ],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [],
+        "imports_used": [
+          "pathlib.Path"
+        ]
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_lyrics_exists",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestProjectPaths.test_resolve_lyrics_exists",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "File exists; expects resolved path"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_lyrics_missing",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestProjectPaths.test_resolve_lyrics_missing",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "File missing; expects None"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_lyrics_none",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestProjectPaths.test_resolve_lyrics_none",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Lyrics path is None; expects None"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          84,
+          85,
+          86,
+          87,
+          88
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def resolve_lyrics(self, base_dir: Path) -> Optional[Path]:\n        if self.lyrics is None:\n            return None\n        p = base_dir / self.lyrics\n        return p if p.exists() else None",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StageStatus.mark_complete",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "mark_complete",
+        "qualified_name": "StageStatus.mark_complete",
+        "symbol_type": "method",
+        "class_context": "StageStatus",
+        "signature": "def mark_complete(self, stage: str) -> None",
+        "start_line": 124,
+        "end_line": 126
+      },
+      "behavior": {
+        "summary": "Sets named stage attribute to 'complete'. Uses hasattr check; silently ignores unknown stage names.",
+        "inputs": [
+          "stage: str - name of stage to mark complete"
+        ],
+        "outputs": [],
+        "side_effects": [
+          "Mutates self.<stage> to 'complete' if stage is a valid attribute"
+        ],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.create() calls mark_complete('ingest')",
+          "Pipeline orchestration code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_mark_complete",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStageStatus.test_mark_complete",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Marks 'ingest' complete; checks attribute and is_complete()"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_mark_complete_unknown_stage",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStageStatus.test_mark_complete_unknown_stage",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "weak_assertion",
+          "notes": "Calls mark_complete('nonexistent'); assertion is trivially True"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          124,
+          125,
+          126
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [
+          "No error raised or logged when an unknown stage name is passed"
+        ],
+        "risks": [
+          "Typo in stage name silently ignored (e.g., mark_complete('analyz') vs 'analyze')"
+        ]
+      },
+      "source_code": "    def mark_complete(self, stage: str) -> None:\n        if hasattr(self, stage):\n            setattr(self, stage, \"complete\")",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StageStatus.is_complete",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "is_complete",
+        "qualified_name": "StageStatus.is_complete",
+        "symbol_type": "method",
+        "class_context": "StageStatus",
+        "signature": "def is_complete(self, stage: str) -> bool",
+        "start_line": 128,
+        "end_line": 129
+      },
+      "behavior": {
+        "summary": "Returns True if named stage attribute equals 'complete'. Falls back to 'pending' if attribute does not exist.",
+        "inputs": [
+          "stage: str - name of stage to check"
+        ],
+        "outputs": [
+          "bool - True if stage == 'complete', False otherwise"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "Pipeline orchestration code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_mark_complete",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStageStatus.test_mark_complete",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Indirectly tested via mark_complete test: assert s.is_complete('ingest')"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_is_complete_false",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStageStatus.test_is_complete_false",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Explicitly tests False return for pending stage"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          128,
+          129
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def is_complete(self, stage: str) -> bool:\n        return getattr(self, stage, \"pending\") == \"complete\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StageStatus.next_pending",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "next_pending",
+        "qualified_name": "StageStatus.next_pending",
+        "symbol_type": "method",
+        "class_context": "StageStatus",
+        "signature": "def next_pending(self) -> Optional[str]",
+        "start_line": 131,
+        "end_line": 135
+      },
+      "behavior": {
+        "summary": "Walks STAGE_ORDER list and returns first stage whose status is not 'complete'. Returns None if all complete.",
+        "inputs": [],
+        "outputs": [
+          "Optional[str] - first incomplete stage name, or None"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "Pipeline orchestration code (likely)"
+        ],
+        "imports_used": [
+          "pipeline.models.STAGE_ORDER"
+        ]
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_next_pending_first",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStageStatus.test_next_pending_first",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Default state; expects 'ingest'"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_next_pending_middle",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStageStatus.test_next_pending_middle",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Ingest and analyze complete; expects 'sync'"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_next_pending_all_complete",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStageStatus.test_next_pending_all_complete",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "All 6 stages complete; expects None"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          131,
+          132,
+          133,
+          134,
+          135
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def next_pending(self) -> Optional[str]:\n        for s in STAGE_ORDER:\n            if getattr(self, s, \"pending\") != \"complete\":\n                return s\n        return None",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_dir.getter",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "project_dir",
+        "qualified_name": "MusicVideoProject.project_dir",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef project_dir(self) -> Path",
+        "start_line": 152,
+        "end_line": 156
+      },
+      "behavior": {
+        "summary": "Returns _project_dir Path. Raises ValueError if not set.",
+        "inputs": [],
+        "outputs": [
+          "Path - resolved project directory"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "All 9 derived path properties",
+          "External code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_project_dir_not_set_raises",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_project_dir_not_set_raises",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "ValueError when _project_dir is None"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          152,
+          153,
+          154,
+          155,
+          156
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": [
+          "All 9 derived path properties depend on this - ValueError crashes any path access if _project_dir is None"
+        ]
+      },
+      "source_code": "    @property\n    def project_dir(self) -> Path:\n        if self._project_dir is None:\n            raise ValueError(\"Project directory not set\")\n        return self._project_dir",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_dir.setter",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "project_dir",
+        "qualified_name": "MusicVideoProject.project_dir (setter)",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@project_dir.setter\\ndef project_dir(self, value: Path) -> None",
+        "start_line": 158,
+        "end_line": 160
+      },
+      "behavior": {
+        "summary": "Sets _project_dir to the given Path value.",
+        "inputs": [],
+        "outputs": [],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.create()",
+          "MusicVideoProject.load()",
+          "External code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_project_dir_setter",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_project_dir_setter",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Setter/getter round-trip"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          158,
+          159,
+          160
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    @project_dir.setter\n    def project_dir(self, value: Path) -> None:\n        self._project_dir = value",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "data_dir",
+        "qualified_name": "MusicVideoProject.data_dir",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef data_dir(self) -> Path",
+        "start_line": 163,
+        "end_line": 164
+      },
+      "behavior": {
+        "summary": "Returns project_dir / 'data'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.project_dir.getter"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "All other derived path properties",
+          "save()",
+          "create()",
+          "External code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          163,
+          164
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def data_dir(self) -> Path:\n        return self.project_dir / \"data\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.raw_dir",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "raw_dir",
+        "qualified_name": "MusicVideoProject.raw_dir",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef raw_dir(self) -> Path",
+        "start_line": 167,
+        "end_line": 168
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'raw'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.create()",
+          "External code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          167,
+          168
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def raw_dir(self) -> Path:\n        return self.data_dir / \"raw\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.assets_dir",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "assets_dir",
+        "qualified_name": "MusicVideoProject.assets_dir",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef assets_dir(self) -> Path",
+        "start_line": 171,
+        "end_line": 172
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'assets'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.create()",
+          "External code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          171,
+          172
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def assets_dir(self) -> Path:\n        return self.data_dir / \"assets\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.output_dir",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "output_dir",
+        "qualified_name": "MusicVideoProject.output_dir",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef output_dir(self) -> Path",
+        "start_line": 175,
+        "end_line": 176
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'output'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.create()",
+          "External code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          175,
+          176
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def output_dir(self) -> Path:\n        return self.data_dir / \"output\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.cache_dir",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "cache_dir",
+        "qualified_name": "MusicVideoProject.cache_dir",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef cache_dir(self) -> Path",
+        "start_line": 179,
+        "end_line": 180
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'cache'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.create()",
+          "External code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          179,
+          180
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def cache_dir(self) -> Path:\n        return self.data_dir / \"cache\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_file",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "project_file",
+        "qualified_name": "MusicVideoProject.project_file",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef project_file(self) -> Path",
+        "start_line": 183,
+        "end_line": 184
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'mvp_project.json'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.save()",
+          "MusicVideoProject.load()",
+          "External code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          183,
+          184
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def project_file(self) -> Path:\n        return self.data_dir / \"mvp_project.json\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.ingest_file",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "ingest_file",
+        "qualified_name": "MusicVideoProject.ingest_file",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef ingest_file(self) -> Path",
+        "start_line": 187,
+        "end_line": 188
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'ingest.json'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "External ingest pipeline code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          187,
+          188
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def ingest_file(self) -> Path:\n        return self.data_dir / \"ingest.json\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.analysis_file",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "analysis_file",
+        "qualified_name": "MusicVideoProject.analysis_file",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef analysis_file(self) -> Path",
+        "start_line": 191,
+        "end_line": 192
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'analysis.json'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "External analysis pipeline code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          191,
+          192
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def analysis_file(self) -> Path:\n        return self.data_dir / \"analysis.json\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.waveforms_file",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "waveforms_file",
+        "qualified_name": "MusicVideoProject.waveforms_file",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef waveforms_file(self) -> Path",
+        "start_line": 195,
+        "end_line": 196
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'waveforms.json'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "External waveform analysis code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          195,
+          196
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def waveforms_file(self) -> Path:\n        return self.data_dir / \"waveforms.json\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.lyrics_raw_file",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "lyrics_raw_file",
+        "qualified_name": "MusicVideoProject.lyrics_raw_file",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "@property\\ndef lyrics_raw_file(self) -> Path",
+        "start_line": 199,
+        "end_line": 200
+      },
+      "behavior": {
+        "summary": "Returns data_dir / 'lyrics_raw.json'.",
+        "inputs": [],
+        "outputs": [
+          "Path"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.data_dir"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "External lyrics import code"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_path_properties",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Part of path properties test"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          199,
+          200
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def lyrics_raw_file(self) -> Path:\n        return self.data_dir / \"lyrics_raw.json\"",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject._now",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "_now",
+        "qualified_name": "MusicVideoProject._now",
+        "symbol_type": "staticmethod",
+        "class_context": "MusicVideoProject",
+        "signature": "@staticmethod\\ndef _now() -> str",
+        "start_line": 203,
+        "end_line": 204
+      },
+      "behavior": {
+        "summary": "Returns current UTC timestamp as ISO-8601 string with seconds precision.",
+        "inputs": [],
+        "outputs": [
+          "str - ISO-8601 timestamp (e.g. '2026-07-08T21:00:00')"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [
+          "datetime.datetime.now()"
+        ],
+        "known_callers": [
+          "MusicVideoProject.save()",
+          "MusicVideoProject.create()"
+        ],
+        "imports_used": [
+          "datetime.datetime"
+        ]
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_created_and_modified_set",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_created_and_modified_set",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "execution_only",
+          "notes": "Checks created/modified are not None; does not validate format"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          203,
+          204
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def _now() -> str:\n        return datetime.now().isoformat(timespec=\"seconds\")",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.save",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "save",
+        "qualified_name": "MusicVideoProject.save",
+        "symbol_type": "method",
+        "class_context": "MusicVideoProject",
+        "signature": "def save(self) -> None",
+        "start_line": 206,
+        "end_line": 221
+      },
+      "behavior": {
+        "summary": "Serializes project to mvp_project.json. Updates modified timestamp, creates data directory if needed, writes JSON with indent=2.",
+        "inputs": [],
+        "outputs": [],
+        "side_effects": [
+          "Updates self.modified timestamp",
+          "Creates self.data_dir (and parents) if not exists",
+          "Writes data/mvp_project.json with JSON serialization"
+        ],
+        "file_reads": [],
+        "file_writes": [
+          "self.project_file (data/mvp_project.json) - overwritten"
+        ],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject._now()",
+          "MusicVideoProject.data_dir",
+          "MusicVideoProject.project_file"
+        ],
+        "external_calls": [
+          "Path.mkdir()",
+          "Path.write_text()",
+          "json.dumps()",
+          "dataclasses.asdict()"
+        ],
+        "known_callers": [
+          "MusicVideoProject.create()",
+          "External code modifying project state"
+        ],
+        "imports_used": [
+          "pathlib.Path",
+          "json",
+          "dataclasses.asdict"
+        ]
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_save_and_load_roundtrip",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_save_and_load_roundtrip",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Full fields round-trip: audio_info, lyrics_info, stages"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_save_and_load_with_tier",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_save_and_load_with_tier",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "input_tier='full' round-trips"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_audio_info_midi_bpm",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_audio_info_midi_bpm",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "AudioInfo.midi_bpm round-trips"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_lyrics_info_sections",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_lyrics_info_sections",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "LyricsInfo.has_sections/section_count round-trip"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          206,
+          207,
+          208,
+          209,
+          210,
+          211,
+          212,
+          213,
+          214,
+          215,
+          216,
+          217,
+          218,
+          219,
+          220,
+          221
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": [
+          "No atomic write - partial write on failure could corrupt project file"
+        ]
+      },
+      "source_code": "    def save(self) -> None:\n        self.modified = self._now()\n        self.data_dir.mkdir(parents=True, exist_ok=True)\n        data = {\n            \"schema_version\": self.schema_version,\n            \"name\": self.name,\n            \"artist\": self.artist,\n            \"created\": self.created,\n            \"modified\": self.modified,\n            \"paths\": asdict(self.paths),\n            \"input_tier\": self.input_tier,\n            \"audio_info\": asdict(self.audio_info),\n            \"lyrics_info\": asdict(self.lyrics_info),\n            \"stages\": asdict(self.stages),\n        }\n        self.project_file.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding=\"utf-8\")",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.load",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "load",
+        "qualified_name": "MusicVideoProject.load",
+        "symbol_type": "classmethod",
+        "class_context": "MusicVideoProject",
+        "signature": "@classmethod\\ndef load(cls, project_dir: Path) -> 'MusicVideoProject'",
+        "start_line": 224,
+        "end_line": 242
+      },
+      "behavior": {
+        "summary": "Loads MusicVideoProject from data/mvp_project.json. Raises FileNotFoundError if missing. Uses .get() defaults.",
+        "inputs": [
+          "project_dir: Path - directory containing data/ subdirectory"
+        ],
+        "outputs": [
+          "MusicVideoProject - fully constructed instance with _project_dir set"
+        ],
+        "side_effects": [],
+        "file_reads": [
+          "project_dir/data/mvp_project.json"
+        ],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject.__init__()",
+          "MusicVideoProject.project_file",
+          "ProjectPaths.__init__()",
+          "AudioInfo.__init__()",
+          "LyricsInfo.__init__()",
+          "StageStatus.__init__()"
+        ],
+        "external_calls": [
+          "Path.read_text()",
+          "json.loads()",
+          "Path.resolve()"
+        ],
+        "known_callers": [
+          "CLI commands (analyze, sync, render, etc.)",
+          "serve.py handlers"
+        ],
+        "imports_used": [
+          "pathlib.Path",
+          "json"
+        ]
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_save_and_load_roundtrip",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_save_and_load_roundtrip",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Full round-trip with audio_info, lyrics_info, stages"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_load_missing_raises",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_load_missing_raises",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "FileNotFoundError raised when project file missing"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_load_preserves_extra_fields",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_load_preserves_extra_fields",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Extra JSON keys are ignored"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          224,
+          225,
+          226,
+          227,
+          228,
+          229,
+          230,
+          231,
+          232,
+          233,
+          234,
+          235,
+          236,
+          237,
+          238,
+          239,
+          240,
+          241,
+          242
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": [
+          "No schema version migration - old format files may silently lose fields"
+        ]
+      },
+      "source_code": "    def load(cls, project_dir: Path) -> \"MusicVideoProject\":\n        project_file = project_dir / \"data\" / \"mvp_project.json\"\n        if not project_file.exists():\n            raise FileNotFoundError(f\"No project found at {project_dir}\")\n        data = json.loads(project_file.read_text(encoding=\"utf-8\"))\n        proj = cls(\n            schema_version=data.get(\"schema_version\", \"1.0\"),\n            name=data.get(\"name\", \"\"),\n            artist=data.get(\"artist\", \"\"),\n            created=data.get(\"created\"),\n            modified=data.get(\"modified\"),\n            paths=ProjectPaths(**data.get(\"paths\", {})),\n            input_tier=data.get(\"input_tier\", \"basic\"),\n            audio_info=AudioInfo(**data.get(\"audio_info\", {})),\n            lyrics_info=LyricsInfo(**data.get(\"lyrics_info\", {})),\n            stages=StageStatus(**data.get(\"stages\", {})),\n        )\n        proj._project_dir = project_dir.resolve()\n        return proj",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "create",
+        "qualified_name": "MusicVideoProject.create",
+        "symbol_type": "classmethod",
+        "class_context": "MusicVideoProject",
+        "signature": "@classmethod\\ndef create(cls, project_dir: Path, name: str, artist: str = '', audio_path: Optional[Path] = None, lyrics_path: Optional[Path] = None, data_dir: Optional[Path] = None) -> 'MusicVideoProject'",
+        "start_line": 245,
+        "end_line": 282
+      },
+      "behavior": {
+        "summary": "Creates a new MusicVideoProject. Sets timestamps, creates directory structure, optionally copies audio/lyrics files, saves, marks ingest complete.",
+        "inputs": [
+          "project_dir: Path",
+          "name: str",
+          "artist: str (default '')",
+          "audio_path: Optional[Path]",
+          "lyrics_path: Optional[Path]",
+          "data_dir: Optional[Path]"
+        ],
+        "outputs": [
+          "MusicVideoProject - newly created and saved instance"
+        ],
+        "side_effects": [
+          "Creates 5 directories under project_dir/data/",
+          "Copies audio file to raw/ if audio_path provided",
+          "Copies lyrics file to raw/ if lyrics_path provided",
+          "Sets paths.audio/lyrics to 'raw/<filename>'",
+          "Sets paths.data_dir if data_dir argument used",
+          "Marks 'ingest' stage complete",
+          "Writes mvp_project.json via save()"
+        ],
+        "file_reads": [
+          "audio_path.read_bytes() if audio_path provided and dest doesn't exist",
+          "lyrics_path.read_bytes() if lyrics_path provided and dest doesn't exist"
+        ],
+        "file_writes": [
+          "Creates data/, data/raw/, data/assets/, data/output/, data/cache/",
+          "Copies audio file to data/raw/<name>",
+          "Copies lyrics file to data/raw/<name>",
+          "Writes mvp_project.json"
+        ],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "MusicVideoProject._now()",
+          "MusicVideoProject.__init__()",
+          "MusicVideoProject.data_dir",
+          "MusicVideoProject.raw_dir",
+          "MusicVideoProject.assets_dir",
+          "MusicVideoProject.output_dir",
+          "MusicVideoProject.cache_dir",
+          "MusicVideoProject.save()",
+          "StageStatus.mark_complete('ingest')"
+        ],
+        "external_calls": [
+          "Path.mkdir(parents=True, exist_ok=True)",
+          "Path.write_bytes()",
+          "Path.read_bytes()",
+          "Path.resolve()"
+        ],
+        "known_callers": [
+          "CLI init command",
+          "Tests (test_models.py, test_serve.py, test_cli.py, test_coverage_gaps.py)",
+          "serve.py API handlers"
+        ],
+        "imports_used": [
+          "pathlib.Path"
+        ]
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_minimal",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_create_minimal",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Minimal create; checks dirs, stages, project file"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_with_audio",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_create_with_audio",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Create with audio file copy"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_with_lyrics",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_create_with_lyrics",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Create with lyrics file copy"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_with_data_dir",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_create_with_data_dir",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Create with custom data_dir"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_does_not_overwrite_existing_files",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_create_does_not_overwrite_existing_files",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Existing files preserved"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_created_and_modified_set",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestMusicVideoProject.test_created_and_modified_set",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "execution_only",
+          "notes": "Checks created/modified are not None"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          245,
+          246,
+          247,
+          248,
+          249,
+          250,
+          251,
+          252,
+          253,
+          254,
+          255,
+          256,
+          257,
+          258,
+          259,
+          260,
+          261,
+          262,
+          263,
+          264,
+          265,
+          266,
+          267,
+          268,
+          269,
+          270,
+          271,
+          272,
+          273,
+          274,
+          275,
+          276,
+          277,
+          278,
+          279,
+          280,
+          281,
+          282
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": [
+          "No validation of audio/lyrics file format against SUPPORTED_AUDIO/SUPPORTED_LYRICS",
+          "File copy uses read_bytes/write_bytes - large files kept entirely in memory"
+        ]
+      },
+      "source_code": "    def create(\n        cls,\n        project_dir: Path,\n        name: str,\n        artist: str = \"\",\n        audio_path: Optional[Path] = None,\n        lyrics_path: Optional[Path] = None,\n        data_dir: Optional[Path] = None,\n    ) -> \"MusicVideoProject\":\n        now = cls._now()\n        proj = cls(\n            name=name,\n            artist=artist,\n            created=now,\n            modified=now,\n        )\n        proj._project_dir = project_dir.resolve()\n\n        for d in [proj.data_dir, proj.raw_dir, proj.assets_dir, proj.output_dir, proj.cache_dir]:\n            d.mkdir(parents=True, exist_ok=True)\n\n        if data_dir is not None:\n            proj.paths.data_dir = str(data_dir.resolve())\n        elif audio_path is not None:\n            dest = proj.raw_dir / audio_path.name\n            if not dest.exists():\n                dest.write_bytes(audio_path.read_bytes())\n            proj.paths.audio = f\"raw/{audio_path.name}\"\n\n        if lyrics_path is not None:\n            dest = proj.raw_dir / lyrics_path.name\n            if not dest.exists():\n                dest.write_bytes(lyrics_path.read_bytes())\n            proj.paths.lyrics = f\"raw/{lyrics_path.name}\"\n\n        proj.stages.mark_complete(\"ingest\")\n        proj.save()\n        return proj",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::SectionVisual.to_dict",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "to_dict",
+        "qualified_name": "SectionVisual.to_dict",
+        "symbol_type": "method",
+        "class_context": "SectionVisual",
+        "signature": "def to_dict(self) -> dict",
+        "start_line": 306,
+        "end_line": 323
+      },
+      "behavior": {
+        "summary": "Serializes SectionVisual to dict. Conditionally includes gradient_colors and text_color only if not None.",
+        "inputs": [],
+        "outputs": [
+          "dict with up to 12 keys"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "StructureSection.to_dict()"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_to_dict_defaults",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestSectionVisual.test_to_dict_defaults",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Defaults; gradient_colors/text_color omitted"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_to_dict_with_overrides",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestSectionVisual.test_to_dict_with_overrides",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Non-None fields included"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_roundtrip",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestSectionVisual.test_roundtrip",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "to_dict -> from_dict round-trip"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          306,
+          307,
+          308,
+          309,
+          310,
+          311,
+          312,
+          313,
+          314,
+          315,
+          316,
+          317,
+          318,
+          319,
+          320,
+          321,
+          322,
+          323
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "61d382fbce8ceea437fadd1b0d328b172afaa185",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": "Created in 61d382f (tool reimagined)"
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def to_dict(self) -> dict:\n        d = {\n            \"background_type\": self.background_type,\n            \"background_color\": self.background_color,\n            \"gradient_direction\": self.gradient_direction,\n            \"texture_type\": self.texture_type,\n            \"texture_opacity\": self.texture_opacity,\n            \"text_auto_contrast\": self.text_auto_contrast,\n            \"font_size\": self.font_size,\n            \"animation_type\": self.animation_type,\n            \"animation_speed\": self.animation_speed,\n            \"reactivity\": self.reactivity,\n        }\n        if self.gradient_colors is not None:\n            d[\"gradient_colors\"] = self.gradient_colors\n        if self.text_color is not None:\n            d[\"text_color\"] = self.text_color\n        return d",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::SectionVisual.from_dict",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "from_dict",
+        "qualified_name": "SectionVisual.from_dict",
+        "symbol_type": "classmethod",
+        "class_context": "SectionVisual",
+        "signature": "@classmethod\\ndef from_dict(cls, d: dict) -> SectionVisual",
+        "start_line": 326,
+        "end_line": 340
+      },
+      "behavior": {
+        "summary": "Deserializes a dict into SectionVisual. Uses .get() with defaults for all fields; accepts partial dicts.",
+        "inputs": [
+          "d: dict - partial or full section visual configuration"
+        ],
+        "outputs": [
+          "SectionVisual instance"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "StructureSection.from_dict()"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_from_dict",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestSectionVisual.test_from_dict",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Partial dict with background_type and gradient_colors"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_from_dict_defaults",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestSectionVisual.test_from_dict_defaults",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Empty dict; checks all defaults applied"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_roundtrip",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestSectionVisual.test_roundtrip",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "to_dict -> from_dict round-trip"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          326,
+          327,
+          328,
+          329,
+          330,
+          331,
+          332,
+          333,
+          334,
+          335,
+          336,
+          337,
+          338,
+          339,
+          340
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "61d382fbce8ceea437fadd1b0d328b172afaa185",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": "Created in 61d382f (tool reimagined)"
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def from_dict(cls, d: dict) -> SectionVisual:\n        return cls(\n            background_type=d.get(\"background_type\", \"solid\"),\n            background_color=d.get(\"background_color\", \"#1a1a2e\"),\n            gradient_colors=d.get(\"gradient_colors\"),\n            gradient_direction=d.get(\"gradient_direction\", \"vertical_top_bottom\"),\n            texture_type=d.get(\"texture_type\", \"none\"),\n            texture_opacity=d.get(\"texture_opacity\", 0.15),\n            text_color=d.get(\"text_color\"),\n            text_auto_contrast=d.get(\"text_auto_contrast\", True),\n            font_size=d.get(\"font_size\", 48),\n            animation_type=d.get(\"animation_type\", \"fade\"),\n            animation_speed=d.get(\"animation_speed\", 1.0),\n            reactivity=d.get(\"reactivity\", [\"vocals\"]),\n        )",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StructureSection.to_dict",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "to_dict",
+        "qualified_name": "StructureSection.to_dict",
+        "symbol_type": "method",
+        "class_context": "StructureSection",
+        "signature": "def to_dict(self) -> dict",
+        "start_line": 354,
+        "end_line": 366
+      },
+      "behavior": {
+        "summary": "Serializes StructureSection to dict, delegating visual to SectionVisual.to_dict. Conditionally includes custom_type.",
+        "inputs": [],
+        "outputs": [
+          "dict with keys: id, type, name, start_line, end_line, tags, visual; plus custom_type if present"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "SectionVisual.to_dict()"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "Script generation pipeline",
+          "serve.py API handlers"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_to_dict",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStructureSection.test_to_dict",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Minimal section; custom_type not present"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_to_dict_custom",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStructureSection.test_to_dict_custom",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "custom_type included when set"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_roundtrip",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStructureSection.test_roundtrip",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "to_dict -> from_dict with nested visual"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          354,
+          355,
+          356,
+          357,
+          358,
+          359,
+          360,
+          361,
+          362,
+          363,
+          364,
+          365,
+          366
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "61d382fbce8ceea437fadd1b0d328b172afaa185",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": "Created in 61d382f (tool reimagined)"
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "    def to_dict(self) -> dict:\n        d = {\n            \"id\": self.id,\n            \"type\": self.type,\n            \"name\": self.name,\n            \"start_line\": self.start_line,\n            \"end_line\": self.end_line,\n            \"tags\": self.tags,\n            \"visual\": self.visual.to_dict(),\n        }\n        if self.custom_type is not None:\n            d[\"custom_type\"] = self.custom_type\n        return d",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StructureSection.from_dict",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "from_dict",
+        "qualified_name": "StructureSection.from_dict",
+        "symbol_type": "classmethod",
+        "class_context": "StructureSection",
+        "signature": "@classmethod\\ndef from_dict(cls, d: dict) -> StructureSection",
+        "start_line": 369,
+        "end_line": 380
+      },
+      "behavior": {
+        "summary": "Deserializes a dict into StructureSection. Delegates visual deserialization to SectionVisual.from_dict. Requires id, type, name, start_line, end_line.",
+        "inputs": [
+          "d: dict - must contain 'id', 'type', 'name', 'start_line', 'end_line'"
+        ],
+        "outputs": [
+          "StructureSection instance"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [
+          "SectionVisual.from_dict()"
+        ],
+        "external_calls": [],
+        "known_callers": [
+          "Script generation pipeline",
+          "serve.py API handlers"
+        ],
+        "imports_used": []
+      },
+      "tests": [
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_from_dict",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStructureSection.test_from_dict",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "Full dict with nested visual"
+        },
+        {
+          "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_roundtrip",
+          "file_path": "music-video-pipeline/tests/test_models.py",
+          "test_name": "TestStructureSection.test_roundtrip",
+          "test_type": "unit",
+          "status": "passing",
+          "assertion_quality": "meaningful_behavior_assertion",
+          "notes": "to_dict -> from_dict round-trip"
+        }
+      ],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          369,
+          370,
+          371,
+          372,
+          373,
+          374,
+          375,
+          376,
+          377,
+          378,
+          379,
+          380
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "61d382fbce8ceea437fadd1b0d328b172afaa185",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": "Created in 61d382f (tool reimagined)"
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": [
+          "KeyError on missing required keys - no user-friendly error message"
+        ]
+      },
+      "source_code": "    def from_dict(cls, d: dict) -> StructureSection:\n        visual = SectionVisual.from_dict(d.get(\"visual\", {}))\n        return cls(\n            id=d[\"id\"],\n            type=d[\"type\"],\n            name=d[\"name\"],\n            start_line=d[\"start_line\"],\n            end_line=d[\"end_line\"],\n            custom_type=d.get(\"custom_type\"),\n            tags=d.get(\"tags\", []),\n            visual=visual,\n        )",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::AudioInfo",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "AudioInfo",
+        "qualified_name": "AudioInfo",
+        "symbol_type": "class",
+        "class_context": null,
+        "signature": "@dataclass\\nclass AudioInfo",
+        "start_line": 92,
+        "end_line": 98
+      },
+      "behavior": {
+        "summary": "Pure data container with 6 fields. No methods.",
+        "inputs": [
+          "duration: float (default 0.0)",
+          "bpm: float (default 0.0)",
+          "sample_rate: int (default 0)",
+          "beat_count: int (default 0)",
+          "onset_count: int (default 0)",
+          "midi_bpm: Optional[float] (default None)"
+        ],
+        "outputs": [
+          "Dataclass instance"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.<field>"
+        ],
+        "imports_used": []
+      },
+      "tests": [],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "class AudioInfo:\n    duration: float = 0.0\n    bpm: float = 0.0\n    sample_rate: int = 0\n    beat_count: int = 0\n    onset_count: int = 0\n    midi_bpm: Optional[float] = None",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::LyricsInfo",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "symbol": {
+        "name": "LyricsInfo",
+        "qualified_name": "LyricsInfo",
+        "symbol_type": "class",
+        "class_context": null,
+        "signature": "@dataclass\\nclass LyricsInfo",
+        "start_line": 102,
+        "end_line": 109
+      },
+      "behavior": {
+        "summary": "Pure data container with 7 fields. No methods.",
+        "inputs": [
+          "total_lines: int (default 0)",
+          "total_words: int (default 0)",
+          "format: str (default '')",
+          "first_line_time: Optional[float] (default None)",
+          "last_line_time: Optional[float] (default None)",
+          "has_sections: bool (default False)",
+          "section_count: int (default 0)"
+        ],
+        "outputs": [
+          "Dataclass instance"
+        ],
+        "side_effects": [],
+        "file_reads": [],
+        "file_writes": [],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "relationships": {
+        "internal_calls": [],
+        "external_calls": [],
+        "known_callers": [
+          "MusicVideoProject.<field>"
+        ],
+        "imports_used": []
+      },
+      "tests": [],
+      "coverage": {
+        "status": "measured",
+        "statement_percent": 100,
+        "branch_percent": null,
+        "covered_lines": [
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109
+        ],
+        "uncovered_lines": [],
+        "uncovered_branches": [],
+        "coverage_notes": "100% line coverage"
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [],
+        "attribution_level": "function",
+        "history_notes": ""
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [],
+        "risks": []
+      },
+      "source_code": "class LyricsInfo:\n    total_lines: int = 0\n    total_words: int = 0\n    format: str = \"\"\n    first_line_time: Optional[float] = None\n    last_line_time: Optional[float] = None\n    has_sections: bool = False\n    section_count: int = 0",
+      "documentation": {
+        "quality": "missing",
+        "has_docstring": false,
+        "docstring_lines": 0,
+        "has_type_annotations": true,
+        "comment_density": "low",
+        "notes": "No docstring found"
+      }
+    }
+  ],
+  "tests": [
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestInputTier.test_values",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestInputTier.test_values",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Checks all 4 InputTier enum values match expected strings"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStemInfo.test_to_dict",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStemInfo.test_to_dict",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Creates StemInfo with known values, asserts dict keys match"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMidiFileInfo.test_to_dict",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMidiFileInfo.test_to_dict",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Creates MidiFileInfo with known values, asserts dict keys instrument and note_count"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestIngestResult.test_to_dict_minimal",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestIngestResult.test_to_dict_minimal",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Empty stems/midi_files; checks tier and empty lists"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestIngestResult.test_to_dict_with_stems",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestIngestResult.test_to_dict_with_stems",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Populated stems list; checks delegation to StemInfo.to_dict"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_audio_exists",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestProjectPaths.test_resolve_audio_exists",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "File exists; expects resolved path"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_audio_missing",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestProjectPaths.test_resolve_audio_missing",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "File missing; expects None"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_audio_none",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestProjectPaths.test_resolve_audio_none",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Audio path is None; expects None"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_lyrics_exists",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestProjectPaths.test_resolve_lyrics_exists",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "File exists; expects resolved path"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_lyrics_missing",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestProjectPaths.test_resolve_lyrics_missing",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "File missing; expects None"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestProjectPaths.test_resolve_lyrics_none",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestProjectPaths.test_resolve_lyrics_none",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Lyrics path is None; expects None"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_mark_complete",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStageStatus.test_mark_complete",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Marks 'ingest' complete; checks attribute and is_complete()"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_mark_complete_unknown_stage",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStageStatus.test_mark_complete_unknown_stage",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "weak_assertion",
+      "notes": "Calls mark_complete('nonexistent'); assertion is trivially True"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_is_complete_false",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStageStatus.test_is_complete_false",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Explicitly tests False return for pending stage"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_next_pending_first",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStageStatus.test_next_pending_first",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Default state; expects 'ingest'"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_next_pending_middle",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStageStatus.test_next_pending_middle",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Ingest and analyze complete; expects 'sync'"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStageStatus.test_next_pending_all_complete",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStageStatus.test_next_pending_all_complete",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "All 6 stages complete; expects None"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_project_dir_not_set_raises",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_project_dir_not_set_raises",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "ValueError when _project_dir is None"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_project_dir_setter",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_project_dir_setter",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Setter/getter round-trip"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_path_properties",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_path_properties",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Part of path properties test"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_created_and_modified_set",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_created_and_modified_set",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "execution_only",
+      "notes": "Checks created/modified are not None; does not validate format"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_save_and_load_roundtrip",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_save_and_load_roundtrip",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Full fields round-trip: audio_info, lyrics_info, stages"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_save_and_load_with_tier",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_save_and_load_with_tier",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "input_tier='full' round-trips"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_audio_info_midi_bpm",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_audio_info_midi_bpm",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "AudioInfo.midi_bpm round-trips"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_lyrics_info_sections",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_lyrics_info_sections",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "LyricsInfo.has_sections/section_count round-trip"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_load_missing_raises",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_load_missing_raises",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "FileNotFoundError raised when project file missing"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_load_preserves_extra_fields",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_load_preserves_extra_fields",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Extra JSON keys are ignored"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_minimal",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_create_minimal",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Minimal create; checks dirs, stages, project file"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_with_audio",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_create_with_audio",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Create with audio file copy"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_with_lyrics",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_create_with_lyrics",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Create with lyrics file copy"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_with_data_dir",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_create_with_data_dir",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Create with custom data_dir"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestMusicVideoProject.test_create_does_not_overwrite_existing_files",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestMusicVideoProject.test_create_does_not_overwrite_existing_files",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Existing files preserved"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_to_dict_defaults",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestSectionVisual.test_to_dict_defaults",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Defaults; gradient_colors/text_color omitted"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_to_dict_with_overrides",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestSectionVisual.test_to_dict_with_overrides",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Non-None fields included"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_roundtrip",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestSectionVisual.test_roundtrip",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "to_dict -> from_dict round-trip"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_from_dict",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestSectionVisual.test_from_dict",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Partial dict with background_type and gradient_colors"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestSectionVisual.test_from_dict_defaults",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestSectionVisual.test_from_dict_defaults",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Empty dict; checks all defaults applied"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_to_dict",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStructureSection.test_to_dict",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Minimal section; custom_type not present"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_to_dict_custom",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStructureSection.test_to_dict_custom",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "custom_type included when set"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_roundtrip",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStructureSection.test_roundtrip",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "to_dict -> from_dict with nested visual"
+    },
+    {
+      "test_id": "content-tools::music-video-pipeline/tests/test_models.py::TestStructureSection.test_from_dict",
+      "file_path": "music-video-pipeline/tests/test_models.py",
+      "test_name": "TestStructureSection.test_from_dict",
+      "test_type": "unit",
+      "status": "passing",
+      "assertion_quality": "meaningful_behavior_assertion",
+      "notes": "Full dict with nested visual"
+    }
+  ],
+  "call_graph_edges": [
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::IngestResult.to_dict",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StemInfo.to_dict",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::IngestResult.to_dict",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MidiFileInfo.to_dict",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_dir.getter",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.raw_dir",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.assets_dir",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.output_dir",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.cache_dir",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_file",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.ingest_file",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.analysis_file",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.waveforms_file",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.lyrics_raw_file",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.save",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject._now",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.save",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.save",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_file",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject._now",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.raw_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.assets_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.output_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.cache_dir",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.save",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StageStatus.mark_complete",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StructureSection.to_dict",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::SectionVisual.to_dict",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    },
+    {
+      "caller_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StructureSection.from_dict",
+      "callee_id": "content-tools::music-video-pipeline/src/pipeline/models.py::SectionVisual.from_dict",
+      "edge_type": "internal",
+      "confidence": "confirmed",
+      "evidence": [
+        "source_code"
+      ]
+    }
+  ],
+  "missing_tests": [
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::AudioInfo",
+      "reason": "indirect_only",
+      "recommended_test_type": "unit",
+      "notes": "AudioInfo has no dedicated test class; only tested via MusicVideoProject round-trip tests"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::LyricsInfo",
+      "reason": "indirect_only",
+      "recommended_test_type": "unit",
+      "notes": "LyricsInfo has no dedicated test class; only tested via MusicVideoProject round-trip tests"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::StageStatus.mark_complete",
+      "reason": "weak_assertions",
+      "recommended_test_type": "unit",
+      "notes": "test_mark_complete_unknown_stage uses trivially-true assertion; should verify no attribute was created"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject._now",
+      "reason": "weak_assertions",
+      "recommended_test_type": "unit",
+      "notes": "Test only checks not-None; should validate ISO-8601 format and UTC timezone"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.save",
+      "reason": "no_direct_tests",
+      "recommended_test_type": "unit",
+      "notes": "No test that validates JSON file content independently (only via load round-trip)"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_dir.getter",
+      "reason": "missing_branch_coverage",
+      "recommended_test_type": "unit",
+      "notes": "No test for success path of project_dir getter (implicitly tested but not directly)"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::ProjectPaths.resolve_audio",
+      "reason": "missing_branch_coverage",
+      "recommended_test_type": "unit",
+      "notes": "Does not test non-None audio path with missing base_dir (relative path edge case)"
+    }
+  ],
+  "high_risk_items": [
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.save",
+      "risk": "Non-atomic write - partial file write on crash or disk-full corrupts project file",
+      "why_it_matters": "All project data (audio info, lyrics info, stages) is lost if save is interrupted; no backup or temp-file pattern used",
+      "recommended_next_action": "Implement atomic write: write to temp file, then rename"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_dir.getter",
+      "risk": "ValueError crashes any code accessing derived properties on a project before _project_dir is set",
+      "why_it_matters": "All 9 path properties (data_dir, raw_dir, etc.) and save() transitively depend on project_dir; an unset value causes hard crash",
+      "recommended_next_action": "Add defensive checks in derived properties that raise more informative errors, or use a sentinel default"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "risk": "No validation of audio/lyrics file format against SUPPORTED_AUDIO/SUPPORTED_LYRICS constants",
+      "why_it_matters": "Unsupported file formats silently accepted at project creation time, only failing later at processing",
+      "recommended_next_action": "Add file extension validation in create() before copying files"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.load",
+      "risk": "No schema migration for mvp_project.json format changes",
+      "why_it_matters": "Field additions or renames between schema versions silently lose data or produce incorrect defaults",
+      "recommended_next_action": "Add schema_version check and migration logic in load()"
+    },
+    {
+      "function_id": "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+      "risk": "File copy uses read_bytes/write_bytes - large files kept entirely in memory",
+      "why_it_matters": "Large audio files (100MB+) cause high memory usage during project creation; no streaming copy",
+      "recommended_next_action": "Use shutil.copy2 for file copies instead of manual read_bytes/write_bytes"
+    }
+  ],
+  "unknowns_and_limitations": [
+    "caller_details: ProjectPaths.resolve_audio/lyrics - specific callers outside the file not traced",
+    "branch_coverage: Branch coverage data not available from .coverage; only line-level data",
+    "git_attribution: Most functions attributed at file level due to all lines being in the same commit block; per-function granularity not possible with git log -L for short functions",
+    "cross_file_calls: Call graph limited to file-local analysis; external calls from CLI and serve.py not traced as edges",
+    "test_assertion_quality: Assertion quality ratings are agent-inferred based on reading test code; no automated instrumentation was run"
+  ],
+  "recommended_next_tasks": [
+    "Process Round 2: music-video-pipeline/src/audio/features.py",
+    "Process Round 3: music-video-pipeline/src/audio/analyzer.py",
+    "Process Round 4: music-video-pipeline/src/lyrics/parser.py"
+  ]
+}
