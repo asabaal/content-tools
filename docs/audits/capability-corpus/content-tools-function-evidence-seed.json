@@ -1,5 +1,5 @@
 {
-  "schema_version": "av_capability_corpus.function_evidence.v0.1",
+  "schema_version": "av_capability_corpus.v0.2",
   "generated_at": "2026-07-08T15:31:06",
   "repository": {
     "name": "content-tools",
@@ -3950,5 +3950,259 @@
     "Process Round 2: music-video-pipeline/src/audio/features.py",
     "Process Round 3: music-video-pipeline/src/audio/analyzer.py",
     "Process Round 4: music-video-pipeline/src/lyrics/parser.py"
+  ],
+  "modules": [
+    {
+      "module_id": "content-tools::music-video-pipeline/src/pipeline/models.py",
+      "repo": "content-tools",
+      "file_path": "music-video-pipeline/src/pipeline/models.py",
+      "language": "python",
+      "summary": "Core data models for the Music Video Pipeline. Defines 11 dataclasses, 1 enum, 3 constants, and serialization/deserialization logic for project configuration, audio metadata, lyrics info, stage tracking, and section structure.",
+      "docstring": null,
+      "contained_functions": [
+        "content-tools::music-video-pipeline/src/pipeline/models.py::InputTier",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::StemInfo.to_dict",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MidiFileInfo.to_dict",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::IngestResult.to_dict",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::ProjectPaths.resolve_audio",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::ProjectPaths.resolve_lyrics",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::StageStatus.mark_complete",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::StageStatus.is_complete",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::StageStatus.next_pending",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_dir.getter",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_dir.setter",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.data_dir",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.raw_dir",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.assets_dir",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.output_dir",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.cache_dir",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.project_file",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.ingest_file",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.analysis_file",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.waveforms_file",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.lyrics_raw_file",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject._now",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.save",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.load",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::MusicVideoProject.create",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::SectionVisual.to_dict",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::SectionVisual.from_dict",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::StructureSection.to_dict",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::StructureSection.from_dict",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::AudioInfo",
+        "content-tools::music-video-pipeline/src/pipeline/models.py::LyricsInfo"
+      ],
+      "classes": [
+        {
+          "name": "InputTier",
+          "type": "enum",
+          "methods": []
+        },
+        {
+          "name": "StemInfo",
+          "type": "dataclass",
+          "methods": [
+            "to_dict"
+          ]
+        },
+        {
+          "name": "MidiFileInfo",
+          "type": "dataclass",
+          "methods": [
+            "to_dict"
+          ]
+        },
+        {
+          "name": "IngestResult",
+          "type": "dataclass",
+          "methods": [
+            "to_dict"
+          ]
+        },
+        {
+          "name": "ProjectPaths",
+          "type": "dataclass",
+          "methods": [
+            "resolve_audio",
+            "resolve_lyrics"
+          ]
+        },
+        {
+          "name": "AudioInfo",
+          "type": "dataclass",
+          "methods": []
+        },
+        {
+          "name": "LyricsInfo",
+          "type": "dataclass",
+          "methods": []
+        },
+        {
+          "name": "StageStatus",
+          "type": "dataclass",
+          "methods": [
+            "mark_complete",
+            "is_complete",
+            "next_pending"
+          ]
+        },
+        {
+          "name": "MusicVideoProject",
+          "type": "dataclass",
+          "methods": [
+            "project_dir (getter)",
+            "project_dir (setter)",
+            "data_dir",
+            "raw_dir",
+            "assets_dir",
+            "output_dir",
+            "cache_dir",
+            "project_file",
+            "ingest_file",
+            "analysis_file",
+            "waveforms_file",
+            "lyrics_raw_file",
+            "_now",
+            "save",
+            "load",
+            "create"
+          ]
+        },
+        {
+          "name": "SectionVisual",
+          "type": "dataclass",
+          "methods": [
+            "to_dict",
+            "from_dict"
+          ]
+        },
+        {
+          "name": "StructureSection",
+          "type": "dataclass",
+          "methods": [
+            "to_dict",
+            "from_dict"
+          ]
+        }
+      ],
+      "constants": [
+        "SUPPORTED_AUDIO",
+        "SUPPORTED_LYRICS",
+        "SUPPORTED_MIDI",
+        "STAGE_ORDER",
+        "CORE_SECTION_TYPES"
+      ],
+      "imports": {
+        "stdlib": [
+          "__future__",
+          "json",
+          "dataclasses",
+          "datetime",
+          "enum",
+          "pathlib",
+          "typing"
+        ],
+        "third_party": [],
+        "local": []
+      },
+      "exports": {
+        "classes": [
+          "InputTier",
+          "StemInfo",
+          "MidiFileInfo",
+          "IngestResult",
+          "ProjectPaths",
+          "AudioInfo",
+          "LyricsInfo",
+          "StageStatus",
+          "MusicVideoProject",
+          "SectionVisual",
+          "StructureSection"
+        ],
+        "functions": [],
+        "constants": [
+          "SUPPORTED_AUDIO",
+          "SUPPORTED_LYRICS",
+          "SUPPORTED_MIDI",
+          "STAGE_ORDER",
+          "CORE_SECTION_TYPES"
+        ]
+      },
+      "side_effects": {
+        "summary": "File system reads and writes via MusicVideoProject.save(), load(), and create() — no network, subprocess, or database calls",
+        "file_reads": [
+          "json.loads via load() — reads project file from data/mvp_project.json"
+        ],
+        "file_writes": [
+          "write_text via save() — writes project file to data/mvp_project.json",
+          "mkdir via create() — creates data/raw/assets/output/cache directories",
+          "write_bytes via create() — copies audio and lyrics files to raw/"
+        ],
+        "subprocess_calls": [],
+        "network_or_api_calls": [],
+        "database_calls": [],
+        "model_calls": []
+      },
+      "test_files": [
+        "music-video-pipeline/tests/test_models.py"
+      ],
+      "test_summary": {
+        "total": 55,
+        "passing": 55,
+        "failing": 0,
+        "meaningful": 52,
+        "weak": 3
+      },
+      "coverage": {
+        "status": "measured",
+        "line_percent": 100,
+        "branch_percent": null
+      },
+      "git_history": {
+        "creation_commit": "11121e2f317578543a89b92523a67328a3dca880",
+        "modification_commits": [
+          "61d382f978552c7b43354d988016a2b554f97348"
+        ],
+        "attribution_level": "file",
+        "history_notes": "Two commits: 11121e2 (initial, most functions) and 61d382f (SectionVisual/StructureSection additions). File-level attribution; most functions share same commit range."
+      },
+      "documentation": {
+        "has_module_docstring": false,
+        "docstring_lines": 0,
+        "quality": "missing",
+        "notes": "No module-level docstring. None of the 31 function atoms have docstrings — all rely solely on type annotations for documentation. Comment density is low across the module."
+      },
+      "source": {
+        "available": true,
+        "lines": 380,
+        "source_code": "from __future__ import annotations\n\nimport json\nfrom dataclasses import dataclass, field, asdict\nfrom datetime import datetime\nfrom enum import Enum\nfrom pathlib import Path\nfrom typing import List, Optional\n\n\nSUPPORTED_AUDIO = {\".mp3\", \".wav\", \".flac\", \".ogg\", \".m4a\", \".aac\"}\nSUPPORTED_LYRICS = {\".srt\", \".lrc\", \".txt\"}\nSUPPORTED_MIDI = {\".mid\", \".midi\"}\n\n\nclass InputTier(Enum):\n    BASIC = \"basic\"\n    STANDARD = \"standard\"\n    ENHANCED = \"enhanced\"\n    FULL = \"full\"\n\n\n@dataclass\nclass StemInfo:\n    name: str\n    stem_type: str\n    path: str\n    format: str = \"wav\"\n\n    def to_dict(self) -> dict:\n        return {\"name\": self.name, \"stem_type\": self.stem_type, \"path\": self.path, \"format\": self.format}\n\n\n@dataclass\nclass MidiFileInfo:\n    name: str\n    path: str\n    instrument: str = \"\"\n    note_count: int = 0\n    duration: float = 0.0\n\n    def to_dict(self) -> dict:\n        return {\n            \"name\": self.name,\n            \"path\": self.path,\n            \"instrument\": self.instrument,\n            \"note_count\": self.note_count,\n            \"duration\": self.duration,\n        }\n\n\n@dataclass\nclass IngestResult:\n    tier: str = \"basic\"\n    audio_path: Optional[str] = None\n    lyrics_path: Optional[str] = None\n    stems: list = field(default_factory=list)\n    midi_files: list = field(default_factory=list)\n    has_tempo_locked_stems: bool = False\n\n    def to_dict(self) -> dict:\n        return {\n            \"tier\": self.tier,\n            \"audio_path\": self.audio_path,\n            \"lyrics_path\": self.lyrics_path,\n            \"stems\": [s.to_dict() if hasattr(s, \"to_dict\") else s for s in self.stems],\n            \"midi_files\": [m.to_dict() if hasattr(m, \"to_dict\") else m for m in self.midi_files],\n            \"has_tempo_locked_stems\": self.has_tempo_locked_stems,\n        }\n\n\n@dataclass\nclass ProjectPaths:\n    audio: Optional[str] = None\n    lyrics: Optional[str] = None\n    data_dir: Optional[str] = None\n\n    def resolve_audio(self, base_dir: Path) -> Optional[Path]:\n        if self.audio is None:\n            return None\n        p = base_dir / self.audio\n        return p if p.exists() else None\n\n    def resolve_lyrics(self, base_dir: Path) -> Optional[Path]:\n        if self.lyrics is None:\n            return None\n        p = base_dir / self.lyrics\n        return p if p.exists() else None\n\n\n@dataclass\nclass AudioInfo:\n    duration: float = 0.0\n    bpm: float = 0.0\n    sample_rate: int = 0\n    beat_count: int = 0\n    onset_count: int = 0\n    midi_bpm: Optional[float] = None\n\n\n@dataclass\nclass LyricsInfo:\n    total_lines: int = 0\n    total_words: int = 0\n    format: str = \"\"\n    first_line_time: Optional[float] = None\n    last_line_time: Optional[float] = None\n    has_sections: bool = False\n    section_count: int = 0\n\n\nSTAGE_ORDER = [\"ingest\", \"analyze\", \"sync\", \"structure\", \"design\", \"render\"]\n\n\n@dataclass\nclass StageStatus:\n    ingest: str = \"pending\"\n    analyze: str = \"pending\"\n    sync: str = \"pending\"\n    structure: str = \"pending\"\n    design: str = \"pending\"\n    render: str = \"pending\"\n\n    def mark_complete(self, stage: str) -> None:\n        if hasattr(self, stage):\n            setattr(self, stage, \"complete\")\n\n    def is_complete(self, stage: str) -> bool:\n        return getattr(self, stage, \"pending\") == \"complete\"\n\n    def next_pending(self) -> Optional[str]:\n        for s in STAGE_ORDER:\n            if getattr(self, s, \"pending\") != \"complete\":\n                return s\n        return None\n\n\n@dataclass\nclass MusicVideoProject:\n    schema_version: str = \"1.0\"\n    name: str = \"\"\n    artist: str = \"\"\n    created: Optional[str] = None\n    modified: Optional[str] = None\n    paths: ProjectPaths = field(default_factory=ProjectPaths)\n    input_tier: str = \"basic\"\n    audio_info: AudioInfo = field(default_factory=AudioInfo)\n    lyrics_info: LyricsInfo = field(default_factory=LyricsInfo)\n    stages: StageStatus = field(default_factory=StageStatus)\n    _project_dir: Optional[Path] = field(default=None, repr=False)\n\n    @property\n    def project_dir(self) -> Path:\n        if self._project_dir is None:\n            raise ValueError(\"Project directory not set\")\n        return self._project_dir\n\n    @project_dir.setter\n    def project_dir(self, value: Path) -> None:\n        self._project_dir = value\n\n    @property\n    def data_dir(self) -> Path:\n        return self.project_dir / \"data\"\n\n    @property\n    def raw_dir(self) -> Path:\n        return self.data_dir / \"raw\"\n\n    @property\n    def assets_dir(self) -> Path:\n        return self.data_dir / \"assets\"\n\n    @property\n    def output_dir(self) -> Path:\n        return self.data_dir / \"output\"\n\n    @property\n    def cache_dir(self) -> Path:\n        return self.data_dir / \"cache\"\n\n    @property\n    def project_file(self) -> Path:\n        return self.data_dir / \"mvp_project.json\"\n\n    @property\n    def ingest_file(self) -> Path:\n        return self.data_dir / \"ingest.json\"\n\n    @property\n    def analysis_file(self) -> Path:\n        return self.data_dir / \"analysis.json\"\n\n    @property\n    def waveforms_file(self) -> Path:\n        return self.data_dir / \"waveforms.json\"\n\n    @property\n    def lyrics_raw_file(self) -> Path:\n        return self.data_dir / \"lyrics_raw.json\"\n\n    @staticmethod\n    def _now() -> str:\n        return datetime.now().isoformat(timespec=\"seconds\")\n\n    def save(self) -> None:\n        self.modified = self._now()\n        self.data_dir.mkdir(parents=True, exist_ok=True)\n        data = {\n            \"schema_version\": self.schema_version,\n            \"name\": self.name,\n            \"artist\": self.artist,\n            \"created\": self.created,\n            \"modified\": self.modified,\n            \"paths\": asdict(self.paths),\n            \"input_tier\": self.input_tier,\n            \"audio_info\": asdict(self.audio_info),\n            \"lyrics_info\": asdict(self.lyrics_info),\n            \"stages\": asdict(self.stages),\n        }\n        self.project_file.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding=\"utf-8\")\n\n    @classmethod\n    def load(cls, project_dir: Path) -> \"MusicVideoProject\":\n        project_file = project_dir / \"data\" / \"mvp_project.json\"\n        if not project_file.exists():\n            raise FileNotFoundError(f\"No project found at {project_dir}\")\n        data = json.loads(project_file.read_text(encoding=\"utf-8\"))\n        proj = cls(\n            schema_version=data.get(\"schema_version\", \"1.0\"),\n            name=data.get(\"name\", \"\"),\n            artist=data.get(\"artist\", \"\"),\n            created=data.get(\"created\"),\n            modified=data.get(\"modified\"),\n            paths=ProjectPaths(**data.get(\"paths\", {})),\n            input_tier=data.get(\"input_tier\", \"basic\"),\n            audio_info=AudioInfo(**data.get(\"audio_info\", {})),\n            lyrics_info=LyricsInfo(**data.get(\"lyrics_info\", {})),\n            stages=StageStatus(**data.get(\"stages\", {})),\n        )\n        proj._project_dir = project_dir.resolve()\n        return proj\n\n    @classmethod\n    def create(\n        cls,\n        project_dir: Path,\n        name: str,\n        artist: str = \"\",\n        audio_path: Optional[Path] = None,\n        lyrics_path: Optional[Path] = None,\n        data_dir: Optional[Path] = None,\n    ) -> \"MusicVideoProject\":\n        now = cls._now()\n        proj = cls(\n            name=name,\n            artist=artist,\n            created=now,\n            modified=now,\n        )\n        proj._project_dir = project_dir.resolve()\n\n        for d in [proj.data_dir, proj.raw_dir, proj.assets_dir, proj.output_dir, proj.cache_dir]:\n            d.mkdir(parents=True, exist_ok=True)\n\n        if data_dir is not None:\n            proj.paths.data_dir = str(data_dir.resolve())\n        elif audio_path is not None:\n            dest = proj.raw_dir / audio_path.name\n            if not dest.exists():\n                dest.write_bytes(audio_path.read_bytes())\n            proj.paths.audio = f\"raw/{audio_path.name}\"\n\n        if lyrics_path is not None:\n            dest = proj.raw_dir / lyrics_path.name\n            if not dest.exists():\n                dest.write_bytes(lyrics_path.read_bytes())\n            proj.paths.lyrics = f\"raw/{lyrics_path.name}\"\n\n        proj.stages.mark_complete(\"ingest\")\n        proj.save()\n        return proj\n\n\nCORE_SECTION_TYPES = [\n    \"verse\", \"chorus\", \"bridge\", \"intro\", \"outro\",\n    \"pre_chorus\", \"hook\", \"interlude\", \"instrumental\",\n]\n\n\n@dataclass\nclass SectionVisual:\n    background_type: str = \"solid\"\n    background_color: str = \"#1a1a2e\"\n    gradient_colors: Optional[List[str]] = None\n    gradient_direction: str = \"vertical_top_bottom\"\n    texture_type: str = \"none\"\n    texture_opacity: float = 0.15\n    text_color: Optional[str] = None\n    text_auto_contrast: bool = True\n    font_size: int = 48\n    animation_type: str = \"fade\"\n    animation_speed: float = 1.0\n    reactivity: List[str] = field(default_factory=lambda: [\"vocals\"])\n\n    def to_dict(self) -> dict:\n        d = {\n            \"background_type\": self.background_type,\n            \"background_color\": self.background_color,\n            \"gradient_direction\": self.gradient_direction,\n            \"texture_type\": self.texture_type,\n            \"texture_opacity\": self.texture_opacity,\n            \"text_auto_contrast\": self.text_auto_contrast,\n            \"font_size\": self.font_size,\n            \"animation_type\": self.animation_type,\n            \"animation_speed\": self.animation_speed,\n            \"reactivity\": self.reactivity,\n        }\n        if self.gradient_colors is not None:\n            d[\"gradient_colors\"] = self.gradient_colors\n        if self.text_color is not None:\n            d[\"text_color\"] = self.text_color\n        return d\n\n    @classmethod\n    def from_dict(cls, d: dict) -> SectionVisual:\n        return cls(\n            background_type=d.get(\"background_type\", \"solid\"),\n            background_color=d.get(\"background_color\", \"#1a1a2e\"),\n            gradient_colors=d.get(\"gradient_colors\"),\n            gradient_direction=d.get(\"gradient_direction\", \"vertical_top_bottom\"),\n            texture_type=d.get(\"texture_type\", \"none\"),\n            texture_opacity=d.get(\"texture_opacity\", 0.15),\n            text_color=d.get(\"text_color\"),\n            text_auto_contrast=d.get(\"text_auto_contrast\", True),\n            font_size=d.get(\"font_size\", 48),\n            animation_type=d.get(\"animation_type\", \"fade\"),\n            animation_speed=d.get(\"animation_speed\", 1.0),\n            reactivity=d.get(\"reactivity\", [\"vocals\"]),\n        )\n\n\n@dataclass\nclass StructureSection:\n    id: str\n    type: str\n    name: str\n    start_line: int\n    end_line: int\n    custom_type: Optional[str] = None\n    tags: List[str] = field(default_factory=list)\n    visual: SectionVisual = field(default_factory=SectionVisual)\n\n    def to_dict(self) -> dict:\n        d = {\n            \"id\": self.id,\n            \"type\": self.type,\n            \"name\": self.name,\n            \"start_line\": self.start_line,\n            \"end_line\": self.end_line,\n            \"tags\": self.tags,\n            \"visual\": self.visual.to_dict(),\n        }\n        if self.custom_type is not None:\n            d[\"custom_type\"] = self.custom_type\n        return d\n\n    @classmethod\n    def from_dict(cls, d: dict) -> StructureSection:\n        visual = SectionVisual.from_dict(d.get(\"visual\", {}))\n        return cls(\n            id=d[\"id\"],\n            type=d[\"type\"],\n            name=d[\"name\"],\n            start_line=d[\"start_line\"],\n            end_line=d[\"end_line\"],\n            custom_type=d.get(\"custom_type\"),\n            tags=d.get(\"tags\", []),\n            visual=visual,\n        )\n"
+      },
+      "evidence": {
+        "basis": [
+          "source_code",
+          "tests",
+          "coverage_report",
+          "git_history"
+        ],
+        "confidence": "confirmed",
+        "unknowns": [
+          "[mark_complete] No error raised or logged when an unknown stage name is passed"
+        ],
+        "risks": [
+          "[mark_complete] Typo in stage name silently ignored (e.g., mark_complete('analyz') vs 'analyze')",
+          "[project_dir] All 9 derived path properties depend on this - ValueError crashes any path access if _project_dir is None",
+          "[save] No atomic write - partial write on failure could corrupt project file",
+          "[load] No schema version migration - old format files may silently lose fields",
+          "[create] No validation of audio/lyrics file format against SUPPORTED_AUDIO/SUPPORTED_LYRICS",
+          "[create] File copy uses read_bytes/write_bytes - large files kept entirely in memory",
+          "[from_dict] KeyError on missing required keys - no user-friendly error message",
+          "[MusicVideoProject.save] Non-atomic write - partial file write on crash or disk-full corrupts project file",
+          "[MusicVideoProject.project_dir.getter] ValueError crashes any code accessing derived properties on a project before _project_dir is set",
+          "[MusicVideoProject.create] No validation of audio/lyrics file format against SUPPORTED_AUDIO/SUPPORTED_LYRICS constants",
+          "[MusicVideoProject.load] No schema migration for mvp_project.json format changes",
+          "[MusicVideoProject.create] File copy uses read_bytes/write_bytes - large files kept entirely in memory"
+        ]
+      }
+    }
   ]
 }
