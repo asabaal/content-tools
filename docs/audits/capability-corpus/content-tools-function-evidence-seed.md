@@ -171,6 +171,42 @@ All 69 changed `.py` files with function-level status.
 
 ---
 
+## Capability Layer (schema v0.4)
+
+This seed now includes the human-verified capability layer alongside the
+code-object data. Capabilities describe what the business/system can do (as
+distinct from the function/class/module records which describe the code).
+
+### Seeded capabilities (4)
+
+| Capability | Status | Test support | Coverage support | Operational proof |
+|---|---|---|---|---|
+| CLI task management | mapping_proposed | strong | strong | confirmed |
+| Codebase ingestion | mapping_proposed | strong | strong | confirmed |
+| Visualization | mapping_proposed | none | unknown | missing |
+| Timestamped backup | mapping_proposed | strong | strong | confirmed |
+
+All capabilities are `mapping_proposed` / `pending` — **none are human-verified**.
+The assessment metrics (test_support, coverage_support) are computed from the
+linked function/test/coverage data in the corpus DB, not hardcoded.
+
+### Mapping summary
+
+- 108 code-object links (functions, modules, database tables, scripts)
+- 7 evidence links (tests, Vikunja tasks, query proofs, import runs, backup manifests)
+- 1 risk (visualizer has no automated tests)
+- 1 recommended action (add visualizer tests)
+
+### Cross-repo links
+
+The capability links point to `av_pm` functions/modules (e.g. the ingestion
+pipeline, the backup system, the CLI). Those objects exist in the corpus DB
+and in the av_pm corpus, but are not in this content-tools seed file. The
+visualizer shows "⚠ missing" warnings for these — which is correct: the
+capability is supported by code that lives in a different repository.
+
+---
+
 ## Commands Run
 
 ### Schema additions (Round 1.1)
