@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "calvary-spokane-archive"
+version = "0.1.0"
+description = "Auditable, resumable downloader for the public Calvary Spokane sermon archive"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "httpx>=0.27,<1",
+  "yt-dlp>=2025.1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+calvary-sermons = "calvary_archive.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/calvary_archive"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

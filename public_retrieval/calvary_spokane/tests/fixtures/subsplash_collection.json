@@ -1,0 +1,93 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://core.subsplash.com/media/v1/media-series?filter[app_key]=APP123&page[size]=2"
+    },
+    "first": {
+      "href": "https://core.subsplash.com/media/v1/media-series?filter[app_key]=APP123&page[number]=1&page[size]=2"
+    },
+    "next": {
+      "href": "https://core.subsplash.com/media/v1/media-series?filter[app_key]=APP123&page[number]=2&page[size]=2"
+    },
+    "last": {
+      "href": "https://core.subsplash.com/media/v1/media-series?filter[app_key]=APP123&page[number]=43&page[size]=2"
+    }
+  },
+  "count": 2,
+  "total": 86,
+  "_embedded": {
+    "media-series": [
+      {
+        "_links": {
+          "self": {
+            "href": "https://core.subsplash.com/media/v1/media-series/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"
+          },
+          "media-items": {
+            "href": "https://core.subsplash.com/media/v1/media-items?filter[media_series]=aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"
+          }
+        },
+        "id": "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+        "app_key": "APP123",
+        "title": "Genesis | Verse by Verse",
+        "slug": "genesis-verse-by-verse",
+        "subtitle": "Sundays | 1997",
+        "summary": "<p>A historical study through Genesis.</p>",
+        "summary_text": "A historical study through Genesis.",
+        "media_items_count": 31,
+        "published_media_items_count": 31,
+        "display_type": "thumbnails",
+        "published_at": "2019-09-13T18:05:43Z",
+        "status": "published",
+        "short_code": "series1",
+        "is_default": false,
+        "position": 41,
+        "created_at": "2019-09-12T22:23:02Z",
+        "updated_at": "2019-09-13T18:15:50Z",
+        "_embedded": {
+          "images": [
+            {
+              "app_key": "APP123",
+              "height": 1080,
+              "title": "Wide.png",
+              "type": "wide",
+              "width": 1920,
+              "id": "series-image-1",
+              "_links": {
+                "related": {
+                  "href": "https://cdn.subsplash.com/images/APP123/_source/series-image-1/image.png"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://core.subsplash.com/media/v1/media-series/ffffffff-1111-4222-8333-444444444444"
+          },
+          "media-items": {
+            "href": "https://core.subsplash.com/media/v1/media-items?filter[media_series]=ffffffff-1111-4222-8333-444444444444"
+          }
+        },
+        "id": "ffffffff-1111-4222-8333-444444444444",
+        "app_key": "APP123",
+        "title": "Out of Series 2024",
+        "slug": "out-of-series-2024",
+        "media_items_count": 4,
+        "published_media_items_count": 4,
+        "display_type": "thumbnails",
+        "published_at": "2024-01-01T12:00:00Z",
+        "status": "published",
+        "short_code": "series2",
+        "is_default": false,
+        "position": 99,
+        "created_at": "2024-01-01T11:00:00Z",
+        "updated_at": "2024-01-02T12:00:00Z",
+        "_embedded": {
+          "images": []
+        }
+      }
+    ]
+  }
+}

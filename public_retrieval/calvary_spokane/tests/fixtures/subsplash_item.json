@@ -1,0 +1,158 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://core.subsplash.com/media/v1/media-items/11111111-2222-4333-8444-555555555555"
+    },
+    "embed": {
+      "href": "https://subsplash.com/embed/abc1234"
+    },
+    "share": {
+      "href": "https://subspla.sh/abc1234"
+    }
+  },
+  "id": "11111111-2222-4333-8444-555555555555",
+  "app_key": "APP123",
+  "title": "A Promise Preserved",
+  "subtitle": "Genesis 12:1-9",
+  "date": "1997-04-06T00:00:00Z",
+  "speaker": "Ken Ortize",
+  "summary": "<p>An archived verse-by-verse study.</p>",
+  "summary_text": "An archived verse-by-verse study.",
+  "topic": "Faith",
+  "service_type": "Sunday Morning",
+  "tags": [
+    "speaker:Ken Ortize",
+    "archive"
+  ],
+  "scriptures": [
+    "Gen.12.1-Gen.12.9"
+  ],
+  "slug": "a-promise-preserved",
+  "external_audio_url": "https://media.example.test/external/audio.mp3",
+  "external_video_url": "https://player.example.test/videos/12345",
+  "external_m3u8_url": "https://player.example.test/videos/12345/master.m3u8",
+  "position": 7,
+  "published_at": "2019-09-13T18:05:43Z",
+  "status": "published",
+  "short_code": "abc1234",
+  "created_at": "2019-09-12T22:23:02Z",
+  "updated_at": "2024-01-02T03:04:05Z",
+  "_embedded": {
+    "media-series": {
+      "_links": {
+        "self": {
+          "href": "https://core.subsplash.com/media/v1/media-series/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"
+        },
+        "media-items": {
+          "href": "https://core.subsplash.com/media/v1/media-items?filter[media_series]=aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"
+        }
+      },
+      "id": "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+      "app_key": "APP123",
+      "title": "Genesis | Verse by Verse",
+      "subtitle": "Sundays | 1997",
+      "status": "published",
+      "short_code": "series1"
+    },
+    "images": [
+      {
+        "app_key": "APP123",
+        "height": 1080,
+        "title": "Wide.png",
+        "type": "wide",
+        "width": 1920,
+        "id": "image-wide-1",
+        "_links": {
+          "download": {
+            "href": "https://core.subsplash.com/files/download?type=images&id=image-wide-1&filename={filename}.png"
+          },
+          "dynamic": {
+            "href": "https://images.subsplash.com/{name}.{ext}?id=image-wide-1&w={width}&h={height}"
+          },
+          "related": {
+            "href": "https://cdn.subsplash.com/images/APP123/_source/image-wide-1/image.png"
+          }
+        }
+      }
+    ],
+    "audio": {
+      "app_key": "APP123",
+      "content_type": "audio/mpeg",
+      "file_size": 89362944,
+      "title": "04.06.97_KO.mp3",
+      "id": "audio-source-1",
+      "_links": {
+        "download": {
+          "href": "https://core.subsplash.com/files/download?type=audios&id=audio-source-1&filename={filename}.mp3"
+        },
+        "related": {
+          "href": "https://cdn.subsplash.com/audios/APP123/_source/audio-source-1/audio.mp3"
+        }
+      },
+      "_embedded": {
+        "audio-outputs": [
+          {
+            "app_key": "APP123",
+            "bit_rate": 128000,
+            "content_type": "audio/mp3",
+            "duration": 3723456,
+            "file_size": 59575300,
+            "id": "audio-output-1",
+            "_links": {
+              "related": {
+                "href": "https://cdn.subsplash.com/audios/APP123/audio-output-1/audio.mp3"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "video": {
+      "app_key": "APP123",
+      "content_type": "video/mp4",
+      "file_size": 2023456789,
+      "title": "04.06.97_KO.mp4",
+      "id": "video-source-1",
+      "_links": {
+        "related": {
+          "href": "https://cdn.subsplash.com/videos/APP123/_source/video-source-1/video.mp4"
+        }
+      },
+      "_embedded": {
+        "video-outputs": [
+          {
+            "app_key": "APP123",
+            "content_type": "video/mp4",
+            "duration": 3723000,
+            "height": 720,
+            "width": 1280,
+            "id": "video-output-1",
+            "_links": {
+              "related": {
+                "href": "https://cdn.subsplash.com/videos/APP123/video-output-1/video.mp4"
+              }
+            }
+          }
+        ],
+        "playlists": [
+          {
+            "app_key": "APP123",
+            "content_type": "application/x-mpegURL",
+            "type": "hls",
+            "id": "video-playlist-1",
+            "_links": {
+              "related": {
+                "href": "https://cdn.subsplash.com/videos/APP123/video-playlist-1/master.m3u8"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "document": {
+      "id": "document-1",
+      "title": "Study Notes.pdf",
+      "content_type": "application/pdf"
+    }
+  }
+}
