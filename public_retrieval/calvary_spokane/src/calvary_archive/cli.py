@@ -18,6 +18,12 @@ from .downloader import ArchiveDownloader, DownloadConfig
 from .legacy import discover_legacy
 from .media_index import audit_media_indexes, reconcile_media_index_candidates
 from .reports import generate_reports
+from .transcribe import (
+    TranscriptionConfig,
+    TranscriptionEngine,
+    run_transcription,
+    summarize,
+)
 
 DEFAULT_ARCHIVE_ROOT = Path(
     os.environ.get("CALVARY_ARCHIVE_ROOT", "/mnt/storage/data/calvary-spokane")
@@ -33,6 +39,7 @@ COMMANDS = {
     "download",
     "retry-failed",
     "verify",
+    "transcribe",
 }
 
 
@@ -231,6 +238,21 @@ def build_parser() -> argparse.ArgumentParser:
     _add_selection_options(verify_parser)
     verify_parser.add_argument("--no-ffprobe", action="store_true", help="Skip ffprobe media validation")
 
+    transcribe_parser = subparsers.add_parser(
+        "transcribe", help="Transcribe locally archived audio with faster-whisper"
+    )
+    _add_root(transcribe_parser)
+    _add_selection_options(transcribe_parser)
+    transcribe_parser.add_argument("--model", default="large-v3", help="faster-whisper model size")
+    transcribe_parser.add_argument("--device", default="cuda", help="cuda or cpu")
+    transcribe_parser.add_argument("--compute-type", default="float16", dest="compute_type")
+    transcribe_parser.add_argument("--batch-size", type=int, default=16, dest="batch_size")
+    transcribe_parser.add_argument("--beam-size", type=int, default=5, dest="beam_size")
+    transcribe_parser.add_argument("--force", action="store_true", help="Re-transcribe even if complete")
+    transcribe_parser.add_argument(
+        "--retry-failed", action="store_true", dest="retry_failed", help="Re-queue failed transcripts"
+    )
+
     return parser
 
 
@@ -407,6 +429,38 @@ def run_command(args: argparse.Namespace) -> int:
         log_event(root, command, "completed", result=summary, files=results)
         _print_json(summary)
         return 3 if valid != len(results) else 0
+
+    if command == "transcribe":
+        config = TranscriptionConfig(
+            model=args.model,
+            device=args.device,
+            compute_type=args.compute_type,
+            batch_size=args.batch_size,
+            beam_size=args.beam_size,
+        )
+        with _open_database(root, must_exist=True) as db:
+            records = db.list_transcribe_candidates(
+                speaker=args.speaker,
+                series=args.series,
+                year=args.year,
+                limit=args.limit,
+            )
+            engine = TranscriptionEngine(config)
+            results = run_transcription(
+                root,
+                db,
+                engine,
+                records=records,
+                dry_run=args.dry_run,
+                force=args.force,
+                retry_failed=args.retry_failed,
+            )
+        summary = summarize(results)
+        summary["configuration"] = config.settings_summary()
+        summary["engine_version"] = engine.version
+        log_event(root, command, "completed", result=summary, items=results)
+        _print_json(summary)
+        return 3 if summary["status_counts"].get("failed") else 0
 
     raise RuntimeError(f"unsupported command: {command}")
 

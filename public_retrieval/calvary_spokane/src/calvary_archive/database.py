@@ -8,7 +8,7 @@ import sqlite3
 import threading
 from collections.abc import Iterable, Iterator, Mapping
 from contextlib import contextmanager
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
@@ -371,6 +371,30 @@ CREATE TABLE IF NOT EXISTS status_events (
 );
 CREATE INDEX IF NOT EXISTS idx_status_events_sermon
     ON status_events(sermon_id, event_id);
+
+CREATE TABLE IF NOT EXISTS transcripts (
+    sermon_id TEXT PRIMARY KEY REFERENCES sermons(sermon_id) ON DELETE CASCADE,
+    status TEXT NOT NULL DEFAULT 'pending'
+        CHECK (status IN ('pending','transcribing','transcribed','failed','skipped')),
+    source_path TEXT,
+    source_sha256 TEXT,
+    json_path TEXT,
+    txt_path TEXT,
+    model TEXT,
+    device TEXT,
+    compute_type TEXT,
+    settings_json TEXT NOT NULL DEFAULT '{{}}',
+    engine_version TEXT,
+    duration_seconds REAL,
+    processing_seconds REAL,
+    segments_count INTEGER,
+    started_at TEXT,
+    completed_at TEXT,
+    error TEXT,
+    notes TEXT,
+    updated_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_transcripts_status ON transcripts(status);
 """
 
 _REQUIRED_COLUMNS: dict[str, dict[str, str]] = {
@@ -1844,6 +1868,86 @@ class ArchiveDB:
             event["details"] = self._json_object(event["details"])
             events.append(event)
         return events
+
+    # ------------------------------------------------------------------ #
+    # Transcripts
+    # ------------------------------------------------------------------ #
+    def upsert_transcript(self, values: Mapping[str, Any]) -> None:
+        """Insert or update the transcripts row for a sermon.
+
+        Only supplied keys are written; `updated_at` always refreshes.
+        """
+
+        allowed = {
+            "sermon_id", "status", "source_path", "source_sha256", "json_path",
+            "txt_path", "model", "device", "compute_type", "settings_json",
+            "engine_version", "duration_seconds", "processing_seconds",
+            "segments_count", "started_at", "completed_at", "error", "notes",
+        }
+        payload = {k: v for k, v in values.items() if k in allowed}
+        if "sermon_id" not in payload:
+            raise ValueError("upsert_transcript requires sermon_id")
+        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        payload["updated_at"] = now
+        columns = ", ".join(payload)
+        placeholders = ", ".join("?" for _ in payload)
+        updates = ", ".join(f"{c} = excluded.{c}" for c in payload if c != "sermon_id")
+        with self.transaction() as connection:
+            connection.execute(
+                f"INSERT INTO transcripts ({columns}) VALUES ({placeholders}) "
+                f"ON CONFLICT(sermon_id) DO UPDATE SET {updates}",
+                tuple(payload.values()),
+            )
+
+    def get_transcript(self, sermon_id: str) -> dict[str, Any] | None:
+        row = self.connect().execute(
+            "SELECT * FROM transcripts WHERE sermon_id = ?", (sermon_id,)
+        ).fetchone()
+        return dict(row) if row else None
+
+    def transcript_status_map(self) -> dict[str, dict[str, Any]]:
+        rows = self.connect().execute("SELECT * FROM transcripts").fetchall()
+        return {row["sermon_id"]: dict(row) for row in rows}
+
+    def transcript_status_counts(self) -> dict[str, int]:
+        rows = self.connect().execute(
+            "SELECT status, COUNT(*) AS n FROM transcripts GROUP BY status"
+        ).fetchall()
+        return {row["status"]: row["n"] for row in rows}
+
+    def list_transcribe_candidates(
+        self,
+        *,
+        speaker: str | None = None,
+        series: str | None = None,
+        year: int | None = None,
+        limit: int | None = None,
+    ) -> list[SermonRecord]:
+        """Sermons with local media present, in chronological order."""
+
+        clauses = ["(local_media_path IS NOT NULL AND local_media_path != '')"]
+        params: list[Any] = []
+        if speaker:
+            clauses.append("speaker = ?")
+            params.append(speaker)
+        if series:
+            clauses.append("series = ?")
+            params.append(series)
+        if year is not None:
+            clauses.append("year = ?")
+            params.append(year)
+        sql = (
+            "SELECT * FROM sermons WHERE " + " AND ".join(clauses) +
+            " ORDER BY sermon_date IS NULL, sermon_date, sermon_id"
+        )
+        if limit is not None:
+            sql += f" LIMIT {int(limit)}"
+        records = []
+        for row in self.connect().execute(sql, tuple(params)).fetchall():
+            record = self._row_to_record(row)
+            if record is not None:
+                records.append(record)
+        return records
 
     def upsert_series(
         self,

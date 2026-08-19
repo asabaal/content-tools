@@ -381,6 +381,28 @@ As of the August 2026 metadata audit before the final guest-media reconciliation
 
 The third 2009 NYE file has no artist tag. Its speaker remains blank in normalized metadata, while the first two raw files identify `Ken Orize`; that known legacy typo is normalized to `Ken Ortize` and retained verbatim in raw metadata.
 
+## Transcription
+
+Transcribe the locally archived audio into derivative transcript artifacts with `faster-whisper`:
+
+```bash
+# from the project venv (python3 -m venv .venv && .venv/bin/pip install faster-whisper onnxruntime)
+.venv/bin/python -m calvary_archive transcribe --dry-run
+.venv/bin/python -m calvary_archive transcribe                     # resumable full run
+.venv/bin/python -m calvary_archive transcribe --retry-failed      # re-queue failures
+.venv/bin/python -m calvary_archive transcribe --year 2006 --limit 2
+```
+
+- Writes `transcripts/<year>/<audio-stem>.json` (machine-readable: full provenance, segments, word timestamps, quality metrics) and `.txt` (readable, `[m:ss]` markers).
+- Canonical run configuration: `large-v3`, CUDA `float16`, batched pipeline (batch 16), beam 5, VAD on, word timestamps on, `language=en`. Configuration and engine version are recorded per transcript and in `logs/archive.jsonl`.
+- Status lives in the `transcripts` table (`pending` / `transcribing` / `transcribed` / `failed` / `skipped`); completed transcripts are skipped on re-run, failures retried explicitly. Source audio is never modified.
+
+### Corpus populations — methodological note
+
+> The currently recovered and validated Calvary Spokane corpus represents material associated with the user's known exposure during the relevant period and is incomplete. A separate future research phase may attempt to reconstruct the church's broader 2004–2010 media ecosystem—including Heart Radio, Matters of the Heart, syndicated programming, legacy streaming infrastructure, third-party archives, and physical media. That broader population must remain analytically distinct from the validated exposure corpus unless independent evidence establishes exposure. Missing material in the current corpus should not, by itself, be treated as meaningful or intentional absence.
+
+The deferred broader-ecosystem research phase is documented (not executed) in the archive workspace at `reports/corpus-populations.md`.
+
 ## Tests
 
 The test suite is offline by default:
