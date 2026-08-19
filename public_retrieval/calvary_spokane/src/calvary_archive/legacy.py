@@ -30,7 +30,16 @@ from .models import SermonRecord
 from .utils import parse_sermon_date
 
 WAYBACK_CDX_URL = "https://web.archive.org/cdx/search/cdx"
+# Primary catalog pattern plus the alternate domains checked in the 2026-08-19
+# domain sweep (see reports/public-source-audit-domain-sweep-2026-08-19.md).
+# The alternates hold no sermon content, but keeping them here means future
+# re-crawls verify that remains true instead of assuming it.
 LEGACY_ARCHIVE_PATTERN = "calvaryspokane.com/sermon/archive/*"
+LEGACY_ARCHIVE_PATTERNS = [
+    LEGACY_ARCHIVE_PATTERN,
+    "calvarychapelspokane.com/*",
+    "ccspokane.com/*",
+]
 LEGACY_PROPHECY_INDEX = "https://media.calvaryspokane.com/C.Mp3/prophecy/"
 LEGACY_PLATFORM = "calvary_legacy"
 USER_AGENT = (
@@ -418,33 +427,34 @@ class LegacyArchiveDiscovery:
         }
 
     def _crawl_wayback(self, start_date: date, end_date: date) -> list[dict[str, Any]]:
-        response = self._request(
-            WAYBACK_CDX_URL,
-            params={
-                "url": LEGACY_ARCHIVE_PATTERN,
-                "from": "2011",
-                "to": "2012",
-                "output": "json",
-                "fl": "timestamp,original,statuscode,mimetype",
-                "filter": "statuscode:200",
-                "collapse": "urlkey",
-                "limit": "50000",
-            },
-            label="wayback_cdx_legacy_archive",
-        )
-        payload = response.json()
         captures: dict[int, tuple[str, str]] = {}
-        for row in payload[1:] if isinstance(payload, list) else []:
-            if not isinstance(row, list) or len(row) < 2:
-                continue
-            timestamp, original_url = str(row[0]), str(row[1])
-            values = parse_qs(urlparse(original_url).query).get("start", ["0"])
-            offset_text = values[0] if values else "0"
-            if not offset_text.isdigit():
-                continue
-            offset = int(offset_text)
-            if offset not in captures or timestamp > captures[offset][0]:
-                captures[offset] = (timestamp, original_url)
+        for pattern in LEGACY_ARCHIVE_PATTERNS:
+            response = self._request(
+                WAYBACK_CDX_URL,
+                params={
+                    "url": pattern,
+                    "from": "2011",
+                    "to": "2012",
+                    "output": "json",
+                    "fl": "timestamp,original,statuscode,mimetype",
+                    "filter": "statuscode:200",
+                    "collapse": "urlkey",
+                    "limit": "50000",
+                },
+                label="wayback_cdx_legacy_archive",
+            )
+            payload = response.json()
+            for row in payload[1:] if isinstance(payload, list) else []:
+                if not isinstance(row, list) or len(row) < 2:
+                    continue
+                timestamp, original_url = str(row[0]), str(row[1])
+                values = parse_qs(urlparse(original_url).query).get("start", ["0"])
+                offset_text = values[0] if values else "0"
+                if not offset_text.isdigit():
+                    continue
+                offset = int(offset_text)
+                if offset not in captures or timestamp > captures[offset][0]:
+                    captures[offset] = (timestamp, original_url)
 
         records: list[dict[str, Any]] = []
         for offset, (timestamp, original_url) in sorted(captures.items()):
