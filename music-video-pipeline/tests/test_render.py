@@ -431,6 +431,48 @@ class TestEncoder:
                 with VideoEncoder(out, 320, 180, 30) as enc:
                     enc.write_frame(b"\x00" * 320 * 180 * 3)
 
+    def test_encoder_excerpts_trim_audio(self, tmp_path):
+        """Interval renders must trim the audio input, not mux the full track."""
+        from render.encoder import VideoEncoder
+        out = tmp_path / "test.mp4"
+        audio = tmp_path / "audio.wav"
+        audio.write_bytes(b"\x00")
+        with patch("subprocess.Popen") as mock_popen:
+            proc = MagicMock()
+            proc.stdin = MagicMock()
+            proc.returncode = 0
+            proc.stderr = MagicMock()
+            proc.stderr.read.return_value = b""
+            mock_popen.return_value = proc
+            with VideoEncoder(out, 320, 180, 30, audio_path=audio,
+                              audio_start=13.5, audio_duration=4.0) as enc:
+                enc.write_frame(b"\x00" * 320 * 180 * 3)
+            cmd = mock_popen.call_args[0][0]
+            # seek options precede the audio input they apply to
+            assert cmd.index("-ss") < cmd.index("-i", cmd.index("-ss"))
+            assert cmd[cmd.index("-ss") + 1] == "13.500"
+            assert cmd[cmd.index("-t") + 1] == "4.000"
+            assert "-shortest" in cmd
+
+    def test_encoder_full_render_leaves_audio_untrimmed(self, tmp_path):
+        from render.encoder import VideoEncoder
+        out = tmp_path / "test.mp4"
+        audio = tmp_path / "audio.wav"
+        audio.write_bytes(b"\x00")
+        with patch("subprocess.Popen") as mock_popen:
+            proc = MagicMock()
+            proc.stdin = MagicMock()
+            proc.returncode = 0
+            proc.stderr = MagicMock()
+            proc.stderr.read.return_value = b""
+            mock_popen.return_value = proc
+            with VideoEncoder(out, 320, 180, 30, audio_path=audio) as enc:
+                enc.write_frame(b"\x00" * 320 * 180 * 3)
+            cmd = mock_popen.call_args[0][0]
+            assert "-ss" not in cmd
+            assert "-t" not in cmd
+            assert "-shortest" not in cmd
+
 
 class TestVideoRendererGetAudioAt:
     @pytest.fixture

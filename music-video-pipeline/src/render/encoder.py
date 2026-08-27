@@ -15,16 +15,28 @@ class VideoEncoder:
         fps: int = 30,
         audio_path: Optional[str | Path] = None,
         bitrate: str = "5M",
+        audio_start: Optional[float] = None,
+        audio_duration: Optional[float] = None,
     ):
+        """Raw-RGB frame encoder with optional audio muxing.
+
+        ``audio_start`` / ``audio_duration`` trim the audio input to the rendered
+        interval. Without them the *entire* audio file is muxed, producing an
+        output far longer than the video stream whenever ``time_start``/
+        ``time_end`` excerpt rendering is used (the video stops but the audio
+        keeps playing over a frozen frame).
+        """
         self.output_path = Path(output_path)
         self.width = width
         self.height = height
         self.fps = fps
         self.audio_path = Path(audio_path) if audio_path else None
         self.bitrate = bitrate
+        self.audio_start = audio_start
+        self.audio_duration = audio_duration
         self._process: Optional[subprocess.Popen] = None
 
-    def open(self) -> "VideoEncoder":
+    def build_cmd(self) -> list[str]:
         cmd = [
             "ffmpeg", "-y",
             "-f", "rawvideo",
@@ -33,7 +45,15 @@ class VideoEncoder:
             "-framerate", str(self.fps),
             "-i", "-",
         ]
-        if self.audio_path and self.audio_path.exists():
+        has_audio = self.audio_path and self.audio_path.exists()
+        trimming = self.audio_start is not None or self.audio_duration is not None
+        if has_audio:
+            # Input-seeking options must precede the audio input they apply to,
+            # so the trim affects only the audio stream, not the piped video.
+            if self.audio_start is not None:
+                cmd.extend(["-ss", f"{self.audio_start:.3f}"])
+            if self.audio_duration is not None:
+                cmd.extend(["-t", f"{self.audio_duration:.3f}"])
             cmd.extend(["-i", str(self.audio_path)])
         cmd.extend([
             "-c:v", "libx264",
@@ -41,14 +61,21 @@ class VideoEncoder:
             "-b:v", self.bitrate,
             "-pix_fmt", "yuv420p",
         ])
-        if self.audio_path and self.audio_path.exists():
+        if has_audio and trimming:
+            # Trimmed (excerpt) renders: the trimmed audio defines the output
+            # length, so a frozen-frame tail can never outlive it.
+            cmd.append("-shortest")
+        if has_audio:
             cmd.extend(["-c:a", "aac", "-b:a", "192k"])
         cmd.extend([
             "-movflags", "+faststart",
             str(self.output_path),
         ])
+        return cmd
+
+    def open(self) -> "VideoEncoder":
         self._process = subprocess.Popen(
-            cmd,
+            self.build_cmd(),
             stdin=subprocess.PIPE,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,

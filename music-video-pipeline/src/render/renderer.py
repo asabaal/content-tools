@@ -1283,7 +1283,11 @@ class VideoRenderer:
         rendered = 0
         reused = 0
 
-        with VideoEncoder(output_path, self.width, self.height, self.fps, audio) as enc:
+        with VideoEncoder(
+            output_path, self.width, self.height, self.fps, audio,
+            audio_start=t_start if time_start is not None else None,
+            audio_duration=(t_end - t_start) if time_start is not None or time_end is not None else None,
+        ) as enc:
             pbar = tqdm(
                 range(total_frames),
                 unit="frame",
