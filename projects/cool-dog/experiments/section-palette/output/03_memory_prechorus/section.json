@@ -1,0 +1,107 @@
+{
+  "slug": "03_memory_prechorus",
+  "title": "Memory / Pre-Chorus",
+  "bpm": 92,
+  "bars": 8,
+  "mode": "E Aeolian / C Lydian color",
+  "chords": [
+    [
+      52,
+      55,
+      59,
+      64
+    ],
+    [
+      48,
+      52,
+      55,
+      59
+    ],
+    [
+      55,
+      59,
+      62,
+      66
+    ],
+    [
+      50,
+      54,
+      57,
+      64
+    ]
+  ],
+  "treatment": "a_stretched",
+  "groove": "halftime",
+  "lead_voice": "glass",
+  "bass_voice": "moving",
+  "description": "A is augmented into long, wistful arcs over melodic inversions.",
+  "duration_seconds": 20.8695625,
+  "chord_progression": [
+    "Em(add11)",
+    "Cmaj7",
+    "Gmaj7",
+    "D(add9)"
+  ],
+  "chord_midi": [
+    [
+      52,
+      55,
+      59,
+      64
+    ],
+    [
+      48,
+      52,
+      55,
+      59
+    ],
+    [
+      55,
+      59,
+      62,
+      66
+    ],
+    [
+      50,
+      54,
+      57,
+      64
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 8,
+    "counter": 0,
+    "bass": 32,
+    "harmony": 32
+  },
+  "endpoint_jump": 1e-323,
+  "wav_sha256": "2027d791522f079dfd635fe744743a2d43821370646f940a8cf50d42e9f8fab9"
+}

@@ -1,0 +1,99 @@
+{
+  "slug": "02_movement_i_rap",
+  "title": "Movement I Rap",
+  "bpm": 96,
+  "bars": 8,
+  "mode": "E Aeolian",
+  "chords": [
+    [
+      40,
+      47,
+      52
+    ],
+    [
+      43,
+      47,
+      50
+    ],
+    [
+      36,
+      43,
+      48
+    ],
+    [
+      38,
+      45,
+      50
+    ]
+  ],
+  "treatment": "a_fragments",
+  "groove": "hiphop",
+  "lead_voice": "pluck",
+  "bass_voice": "sub",
+  "description": "Two- and three-note A fragments answer dense rap phrases over a syncopated pocket.",
+  "duration_seconds": 20.0,
+  "chord_progression": [
+    "Em5",
+    "G/D",
+    "C5",
+    "D5"
+  ],
+  "chord_midi": [
+    [
+      40,
+      47,
+      52
+    ],
+    [
+      43,
+      47,
+      50
+    ],
+    [
+      36,
+      43,
+      48
+    ],
+    [
+      38,
+      45,
+      50
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 40,
+    "counter": 0,
+    "bass": 32,
+    "harmony": 24
+  },
+  "endpoint_jump": 0.0,
+  "wav_sha256": "9f200312fcc324e5b2f04e61b32e0453413bddf6e5b2df3f3c9361b059b86373"
+}

@@ -1,0 +1,107 @@
+{
+  "slug": "09_reading_open",
+  "title": "Spoken Reading Opening",
+  "bpm": 84,
+  "bars": 8,
+  "mode": "E Aeolian suspended",
+  "chords": [
+    [
+      40,
+      47,
+      52,
+      59
+    ],
+    [
+      43,
+      50,
+      55,
+      62
+    ],
+    [
+      36,
+      43,
+      48,
+      55
+    ],
+    [
+      38,
+      45,
+      50,
+      57
+    ]
+  ],
+  "treatment": "shards_sparse",
+  "groove": "cinematic_sparse",
+  "lead_voice": "bell",
+  "bass_voice": "drone",
+  "description": "Widely spaced A and B shard tones leave maximum narration space.",
+  "duration_seconds": 22.857145833333334,
+  "chord_progression": [
+    "Em(add9)",
+    "G(add9)",
+    "C(add9)",
+    "D(add9)"
+  ],
+  "chord_midi": [
+    [
+      40,
+      47,
+      52,
+      59
+    ],
+    [
+      43,
+      50,
+      55,
+      62
+    ],
+    [
+      36,
+      43,
+      48,
+      55
+    ],
+    [
+      38,
+      45,
+      50,
+      57
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 16,
+    "counter": 0,
+    "bass": 8,
+    "harmony": 32
+  },
+  "endpoint_jump": 1.5e-323,
+  "wav_sha256": "366b9155575229f0348207d4a4a0fbba6318678c54d7da525c4fc0ff95870fc4"
+}

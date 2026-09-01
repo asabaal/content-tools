@@ -1,0 +1,45 @@
+{
+  "selected": "d_aeolian_bounce",
+  "variants": [
+    {
+      "name": "a_aeolian_skip",
+      "bpm": 122,
+      "mode": "E Aeolian",
+      "duration_seconds": 23.6065625,
+      "peak": 0.88,
+      "endpoint_jump": 4.005794589947703e-259,
+      "seam_max_delta": 0.07648890575578421,
+      "wav_sha256": "3fe7374d59a095bce5107bee28825df21e069e437b6610357c0bf99471b9564f"
+    },
+    {
+      "name": "b_dorian_arcade",
+      "bpm": 126,
+      "mode": "E Dorian",
+      "duration_seconds": 22.857145833333334,
+      "peak": 0.88,
+      "endpoint_jump": 7.647791327803159e-60,
+      "seam_max_delta": 0.07386800905212555,
+      "wav_sha256": "8a2bfec6897816665ba641768274907849fbf8b0be5b4289a277b7308ed07cd5"
+    },
+    {
+      "name": "c_phrygian_wink",
+      "bpm": 120,
+      "mode": "E Phrygian/Aeolian",
+      "duration_seconds": 24.0,
+      "peak": 0.88,
+      "endpoint_jump": 1.1910148375886027e-149,
+      "seam_max_delta": 0.07544266329567378,
+      "wav_sha256": "be7804ca653859d7ba87a475d053b387e8d6d2ead3f8514f309ad4a46d763483"
+    },
+    {
+      "name": "d_aeolian_bounce",
+      "bpm": 124,
+      "mode": "E Aeolian with chromatic approach tones",
+      "duration_seconds": 23.2258125,
+      "peak": 0.88,
+      "endpoint_jump": 3.9984498960698907e-116,
+      "seam_max_delta": 0.07697067394785286,
+      "wav_sha256": "14f466ab5e7bdc92be842dbd49881042e506c23ee66f9fd8af11950d46fb17cc"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "slug": "08_animate_payoff",
+  "title": "Now I Too Can Animate",
+  "bpm": 118,
+  "bars": 8,
+  "mode": "E Dorian \u2192 E major lift",
+  "chords": [
+    [
+      40,
+      47,
+      52,
+      54
+    ],
+    [
+      45,
+      52,
+      57,
+      61
+    ],
+    [
+      47,
+      54,
+      59,
+      63
+    ],
+    [
+      52,
+      56,
+      59,
+      64
+    ]
+  ],
+  "treatment": "ab_unlock",
+  "groove": "driving",
+  "lead_voice": "wide",
+  "bass_voice": "active",
+  "description": "B unlocks an ascending A contour; final harmony changes mode to E major.",
+  "duration_seconds": 16.2711875,
+  "chord_progression": [
+    "Em(add6)",
+    "A/C-sharp",
+    "B/D-sharp",
+    "E"
+  ],
+  "chord_midi": [
+    [
+      40,
+      47,
+      52,
+      54
+    ],
+    [
+      45,
+      52,
+      57,
+      61
+    ],
+    [
+      47,
+      54,
+      59,
+      63
+    ],
+    [
+      52,
+      56,
+      59,
+      64
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 60,
+    "counter": 32,
+    "bass": 32,
+    "harmony": 32
+  },
+  "endpoint_jump": 0.0,
+  "wav_sha256": "c3b2086a3426d47ab4ef1800f28399208d6f386a395d25579ce8fabeb15887b1"
+}

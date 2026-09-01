@@ -1,0 +1,133 @@
+{
+  "slug": "12_final_reprise",
+  "title": "Final Combined Reprise",
+  "bpm": 126,
+  "bars": 12,
+  "mode": "E Dorian \u2192 Aeolian \u2192 E major",
+  "chords": [
+    [
+      40,
+      47,
+      52,
+      54
+    ],
+    [
+      43,
+      50,
+      55,
+      59
+    ],
+    [
+      38,
+      45,
+      50,
+      57
+    ],
+    [
+      47,
+      54,
+      59,
+      63
+    ],
+    [
+      40,
+      47,
+      52,
+      55
+    ],
+    [
+      52,
+      56,
+      59,
+      64
+    ]
+  ],
+  "treatment": "ab_final",
+  "groove": "final",
+  "lead_voice": "chip",
+  "bass_voice": "active",
+  "description": "Chant A, transformed A, Steward B, and cinematic harmony converge contrapuntally.",
+  "duration_seconds": 22.857145833333334,
+  "chord_progression": [
+    "Em6",
+    "Gmaj7",
+    "D5",
+    "B(add11)",
+    "Em7",
+    "E"
+  ],
+  "chord_midi": [
+    [
+      40,
+      47,
+      52,
+      54
+    ],
+    [
+      43,
+      50,
+      55,
+      59
+    ],
+    [
+      38,
+      45,
+      50,
+      57
+    ],
+    [
+      47,
+      54,
+      59,
+      63
+    ],
+    [
+      40,
+      47,
+      52,
+      55
+    ],
+    [
+      52,
+      56,
+      59,
+      64
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 88,
+    "counter": 96,
+    "bass": 48,
+    "harmony": 48
+  },
+  "endpoint_jump": 1.6289791842175064e-05,
+  "wav_sha256": "fbbcd536c886a1f8693cd94bdf6b44c3f2c0c8d12787856f6c89b86b67b67964"
+}

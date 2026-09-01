@@ -67,7 +67,57 @@ window instead of the word span.
 ## Human feedback
 
 - User (v1 render): length wrong and not the actual preview excerpt → led
-  directly to Bug #1. Feedback on v2 content pending.
+  directly to Bug #1. Fix committed (1286928).
+- User (v2 render): **"we're in alignment regarding the preview"** — the
+  13.5–17.5 s excerpt (L1 words after the 13.3 s instrumental, exit fade,
+  0.83 s gap, L2 entrance) renders correctly at the expected moments. H3
+  (data corruption) disproven for this window; H4/H5 behaviors present but
+  not objectionable here. Next: stress window with the most extreme
+  line-span/word-span mismatches (L36/L37 + the 8.2 s hole).
+
+## Render 2 — stress window 105.5–123.0 s (verified, awaiting review)
+
+Frame-checked at five points, all consistent with the sync data:
+- 107.5 s → "Heh-heh-…" full line visible (word span 107.349–108.23) ✓
+- 109.0 s → **interstitial**: lyrics cut ABRUPTLY the instant the last word
+  ended (108.23) even though the line nominally runs to 110.71 (2.48 s tail)
+- 110.0 s → same interstitial, continuing through the 8.2 s hole (to 116.41)
+- 117.0 s → "Here" alone — correct progressive reveal ("goes" starts 117.707)
+- (118.5 s frame also extracted: L37 tail)
+
+**Refinement to H4/H5 understanding:** the line does not fade through its
+tail — `_find_active_word` returns −1 the moment the last word ends, so the
+text is cut hard to interstitial. The only "fade" ever visible is during the
+FINAL word itself (exit window overlapping the word span). So the perceptual
+model is: text visible [first-word-start → last-word-end], hard cut, then
+interstitial until the next line's first word — with the exit fade eating
+into that final word.
+
+## Human feedback
+
+- User (v2 render): **"we're in alignment regarding the preview"** — timing in
+  that window is correct. Pivots the investigation to **data-vs-audio audit**:
+  "the issue is the audio and the lyrics are not synced" — diagnostics must now
+  show the AUDIO evidence per lyric (waveform region around each word's
+  claimed timestamp).
+- Built `scripts/word_timing_diagnostic.py`: renders per-line waveform images
+  (claimed word boundaries + vocal onsets + line span + time axis + Δonset
+  annotations) → `<project>/output/timing-diag/line-NNN.png` + index.html.
+
+## Data-vs-audio audit (pass 1)
+
+- **L1 "Here goes" (14.43–16.02)**: transcription confirms vocals exactly
+  there (14.20–15.52 "Here goes") plus 0.0–0.8 for L0. Onsets at 6.87–12.34
+  are instrumental (drums) — no vocals 1–14 s. L1 sync CORRECT; the 13.3 s
+  blank screen is a genuine instrumental intro.
+- **L2 "What'll happen I don't know" (16.85–18.76)**: every word boundary
+  lands on an energy transient with Δonset 0.00 s. Sync CORRECT.
+- Remaining: lines 3–38 unaudited — user to scan `timing-diag/index.html`
+  and flag lines where cyan boundaries miss the audible vocal.
+
+## Human feedback
+
+- (pending on waveform audit)
 
 ## Unresolved
 

@@ -1,0 +1,99 @@
+{
+  "slug": "05_poppy_hook",
+  "title": "Poppy Hook",
+  "bpm": 132,
+  "bars": 8,
+  "mode": "E Aeolian",
+  "chords": [
+    [
+      52,
+      55,
+      59
+    ],
+    [
+      50,
+      54,
+      57
+    ],
+    [
+      48,
+      52,
+      55
+    ],
+    [
+      47,
+      50,
+      54
+    ]
+  ],
+  "treatment": "a_percussive",
+  "groove": "pop",
+  "lead_voice": "chip",
+  "bass_voice": "answer",
+  "description": "A becomes rapid alternating lead/bass packets with octave displacement.",
+  "duration_seconds": 14.545458333333332,
+  "chord_progression": [
+    "Em",
+    "D",
+    "C",
+    "Bm"
+  ],
+  "chord_midi": [
+    [
+      52,
+      55,
+      59
+    ],
+    [
+      50,
+      54,
+      57
+    ],
+    [
+      48,
+      52,
+      55
+    ],
+    [
+      47,
+      50,
+      54
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 120,
+    "counter": 64,
+    "bass": 32,
+    "harmony": 24
+  },
+  "endpoint_jump": 1e-323,
+  "wav_sha256": "1a5b3f48bae53747727e11f755cca1c1ae69652d856de4adedbebd30e3ecca4d"
+}

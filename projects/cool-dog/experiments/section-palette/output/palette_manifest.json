@@ -1,0 +1,1310 @@
+{
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "sections": [
+    {
+      "slug": "01_opening_chant",
+      "title": "Opening Cool Dog Chant",
+      "bpm": 124,
+      "bars": 8,
+      "mode": "E Aeolian",
+      "chords": [
+        [
+          52,
+          55,
+          59
+        ],
+        [
+          48,
+          52,
+          55
+        ],
+        [
+          50,
+          54,
+          57
+        ],
+        [
+          47,
+          50,
+          54
+        ]
+      ],
+      "treatment": "a_chant",
+      "groove": "bounce",
+      "lead_voice": "pulse",
+      "bass_voice": "round",
+      "description": "Motif A in a square chant-sized register with four-bar vocal windows.",
+      "duration_seconds": 15.483875,
+      "chord_progression": [
+        "Em",
+        "C",
+        "D",
+        "Bm"
+      ],
+      "chord_midi": [
+        [
+          52,
+          55,
+          59
+        ],
+        [
+          48,
+          52,
+          55
+        ],
+        [
+          50,
+          54,
+          57
+        ],
+        [
+          47,
+          50,
+          54
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 56,
+        "counter": 0,
+        "bass": 32,
+        "harmony": 24
+      },
+      "endpoint_jump": 0.0,
+      "wav_sha256": "238ef8128e6d44ef8de20f482c032b4e8fec100c5594fb7c2f0fbebe25342f60"
+    },
+    {
+      "slug": "02_movement_i_rap",
+      "title": "Movement I Rap",
+      "bpm": 96,
+      "bars": 8,
+      "mode": "E Aeolian",
+      "chords": [
+        [
+          40,
+          47,
+          52
+        ],
+        [
+          43,
+          47,
+          50
+        ],
+        [
+          36,
+          43,
+          48
+        ],
+        [
+          38,
+          45,
+          50
+        ]
+      ],
+      "treatment": "a_fragments",
+      "groove": "hiphop",
+      "lead_voice": "pluck",
+      "bass_voice": "sub",
+      "description": "Two- and three-note A fragments answer dense rap phrases over a syncopated pocket.",
+      "duration_seconds": 20.0,
+      "chord_progression": [
+        "Em5",
+        "G/D",
+        "C5",
+        "D5"
+      ],
+      "chord_midi": [
+        [
+          40,
+          47,
+          52
+        ],
+        [
+          43,
+          47,
+          50
+        ],
+        [
+          36,
+          43,
+          48
+        ],
+        [
+          38,
+          45,
+          50
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 40,
+        "counter": 0,
+        "bass": 32,
+        "harmony": 24
+      },
+      "endpoint_jump": 0.0,
+      "wav_sha256": "9f200312fcc324e5b2f04e61b32e0453413bddf6e5b2df3f3c9361b059b86373"
+    },
+    {
+      "slug": "03_memory_prechorus",
+      "title": "Memory / Pre-Chorus",
+      "bpm": 92,
+      "bars": 8,
+      "mode": "E Aeolian / C Lydian color",
+      "chords": [
+        [
+          52,
+          55,
+          59,
+          64
+        ],
+        [
+          48,
+          52,
+          55,
+          59
+        ],
+        [
+          55,
+          59,
+          62,
+          66
+        ],
+        [
+          50,
+          54,
+          57,
+          64
+        ]
+      ],
+      "treatment": "a_stretched",
+      "groove": "halftime",
+      "lead_voice": "glass",
+      "bass_voice": "moving",
+      "description": "A is augmented into long, wistful arcs over melodic inversions.",
+      "duration_seconds": 20.8695625,
+      "chord_progression": [
+        "Em(add11)",
+        "Cmaj7",
+        "Gmaj7",
+        "D(add9)"
+      ],
+      "chord_midi": [
+        [
+          52,
+          55,
+          59,
+          64
+        ],
+        [
+          48,
+          52,
+          55,
+          59
+        ],
+        [
+          55,
+          59,
+          62,
+          66
+        ],
+        [
+          50,
+          54,
+          57,
+          64
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 8,
+        "counter": 0,
+        "bass": 32,
+        "harmony": 32
+      },
+      "endpoint_jump": 1e-323,
+      "wav_sha256": "2027d791522f079dfd635fe744743a2d43821370646f940a8cf50d42e9f8fab9"
+    },
+    {
+      "slug": "04_dead_raiser_response",
+      "title": "Dead-Raiser Call-and-Response",
+      "bpm": 112,
+      "bars": 8,
+      "mode": "E minor pentatonic",
+      "chords": [
+        [
+          40,
+          47,
+          52
+        ],
+        [
+          43,
+          50,
+          55
+        ],
+        [
+          38,
+          45,
+          50
+        ],
+        [
+          47,
+          54,
+          59
+        ]
+      ],
+      "treatment": "a_hits",
+      "groove": "stopstart",
+      "lead_voice": "brass",
+      "bass_voice": "stabs",
+      "description": "A collapses into hard punctuation figures after deliberate response gaps.",
+      "duration_seconds": 17.142854166666666,
+      "chord_progression": [
+        "Em5",
+        "G5",
+        "D5",
+        "B5"
+      ],
+      "chord_midi": [
+        [
+          40,
+          47,
+          52
+        ],
+        [
+          43,
+          50,
+          55
+        ],
+        [
+          38,
+          45,
+          50
+        ],
+        [
+          47,
+          54,
+          59
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 32,
+        "counter": 0,
+        "bass": 32,
+        "harmony": 24
+      },
+      "endpoint_jump": 4.807152158200022e-05,
+      "wav_sha256": "a312d4b34f2d29bfcf90f891474e68b7c8ef32d3d8e951c21cfc061e74e4a711"
+    },
+    {
+      "slug": "05_poppy_hook",
+      "title": "Poppy Hook",
+      "bpm": 132,
+      "bars": 8,
+      "mode": "E Aeolian",
+      "chords": [
+        [
+          52,
+          55,
+          59
+        ],
+        [
+          50,
+          54,
+          57
+        ],
+        [
+          48,
+          52,
+          55
+        ],
+        [
+          47,
+          50,
+          54
+        ]
+      ],
+      "treatment": "a_percussive",
+      "groove": "pop",
+      "lead_voice": "chip",
+      "bass_voice": "answer",
+      "description": "A becomes rapid alternating lead/bass packets with octave displacement.",
+      "duration_seconds": 14.545458333333332,
+      "chord_progression": [
+        "Em",
+        "D",
+        "C",
+        "Bm"
+      ],
+      "chord_midi": [
+        [
+          52,
+          55,
+          59
+        ],
+        [
+          50,
+          54,
+          57
+        ],
+        [
+          48,
+          52,
+          55
+        ],
+        [
+          47,
+          50,
+          54
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 120,
+        "counter": 64,
+        "bass": 32,
+        "harmony": 24
+      },
+      "endpoint_jump": 1e-323,
+      "wav_sha256": "1a5b3f48bae53747727e11f755cca1c1ae69652d856de4adedbebd30e3ecca4d"
+    },
+    {
+      "slug": "06_movement_ii_creation",
+      "title": "Movement II Creation",
+      "bpm": 110,
+      "bars": 8,
+      "mode": "E Dorian / G major",
+      "chords": [
+        [
+          40,
+          47,
+          52,
+          54
+        ],
+        [
+          43,
+          50,
+          55,
+          57
+        ],
+        [
+          45,
+          52,
+          57,
+          59
+        ],
+        [
+          47,
+          54,
+          59,
+          62
+        ]
+      ],
+      "treatment": "a_reharm",
+      "groove": "brokenbeat",
+      "lead_voice": "wide",
+      "bass_voice": "active",
+      "description": "A is reharmonized in Dorian while bass and drums become independently melodic.",
+      "duration_seconds": 17.454541666666668,
+      "chord_progression": [
+        "Em(add6)",
+        "G6",
+        "Am6",
+        "Bm(add11)"
+      ],
+      "chord_midi": [
+        [
+          40,
+          47,
+          52,
+          54
+        ],
+        [
+          43,
+          50,
+          55,
+          57
+        ],
+        [
+          45,
+          52,
+          57,
+          59
+        ],
+        [
+          47,
+          54,
+          59,
+          62
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 56,
+        "counter": 0,
+        "bass": 32,
+        "harmony": 32
+      },
+      "endpoint_jump": 0.0,
+      "wav_sha256": "c892f091fe6e8e45b01822409fbb159368afcc6642686916dab8d0ac30936aea"
+    },
+    {
+      "slug": "07_steward_shards",
+      "title": "Steward of the Shards",
+      "bpm": 108,
+      "bars": 8,
+      "mode": "B Phrygian dominant over E minor",
+      "chords": [
+        [
+          47,
+          51,
+          54,
+          59
+        ],
+        [
+          48,
+          52,
+          55,
+          60
+        ],
+        [
+          45,
+          52,
+          57,
+          60
+        ],
+        [
+          46,
+          50,
+          53,
+          58
+        ]
+      ],
+      "treatment": "b_debut",
+      "groove": "shards",
+      "lead_voice": "crystal",
+      "bass_voice": "pedal",
+      "description": "Motif B enters alone as crystalline shards, then answers a small A fragment.",
+      "duration_seconds": 17.777770833333335,
+      "chord_progression": [
+        "B",
+        "C",
+        "Am",
+        "B-flat augmented color"
+      ],
+      "chord_midi": [
+        [
+          47,
+          51,
+          54,
+          59
+        ],
+        [
+          48,
+          52,
+          55,
+          60
+        ],
+        [
+          45,
+          52,
+          57,
+          60
+        ],
+        [
+          46,
+          50,
+          53,
+          58
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 64,
+        "counter": 16,
+        "bass": 16,
+        "harmony": 32
+      },
+      "endpoint_jump": 0.0,
+      "wav_sha256": "1461e15692d7ea94fcecd6dc855d5bc98f72f0cb6db0ed22556d199e016c09c4"
+    },
+    {
+      "slug": "08_animate_payoff",
+      "title": "Now I Too Can Animate",
+      "bpm": 118,
+      "bars": 8,
+      "mode": "E Dorian \u2192 E major lift",
+      "chords": [
+        [
+          40,
+          47,
+          52,
+          54
+        ],
+        [
+          45,
+          52,
+          57,
+          61
+        ],
+        [
+          47,
+          54,
+          59,
+          63
+        ],
+        [
+          52,
+          56,
+          59,
+          64
+        ]
+      ],
+      "treatment": "ab_unlock",
+      "groove": "driving",
+      "lead_voice": "wide",
+      "bass_voice": "active",
+      "description": "B unlocks an ascending A contour; final harmony changes mode to E major.",
+      "duration_seconds": 16.2711875,
+      "chord_progression": [
+        "Em(add6)",
+        "A/C-sharp",
+        "B/D-sharp",
+        "E"
+      ],
+      "chord_midi": [
+        [
+          40,
+          47,
+          52,
+          54
+        ],
+        [
+          45,
+          52,
+          57,
+          61
+        ],
+        [
+          47,
+          54,
+          59,
+          63
+        ],
+        [
+          52,
+          56,
+          59,
+          64
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 60,
+        "counter": 32,
+        "bass": 32,
+        "harmony": 32
+      },
+      "endpoint_jump": 0.0,
+      "wav_sha256": "c3b2086a3426d47ab4ef1800f28399208d6f386a395d25579ce8fabeb15887b1"
+    },
+    {
+      "slug": "09_reading_open",
+      "title": "Spoken Reading Opening",
+      "bpm": 84,
+      "bars": 8,
+      "mode": "E Aeolian suspended",
+      "chords": [
+        [
+          40,
+          47,
+          52,
+          59
+        ],
+        [
+          43,
+          50,
+          55,
+          62
+        ],
+        [
+          36,
+          43,
+          48,
+          55
+        ],
+        [
+          38,
+          45,
+          50,
+          57
+        ]
+      ],
+      "treatment": "shards_sparse",
+      "groove": "cinematic_sparse",
+      "lead_voice": "bell",
+      "bass_voice": "drone",
+      "description": "Widely spaced A and B shard tones leave maximum narration space.",
+      "duration_seconds": 22.857145833333334,
+      "chord_progression": [
+        "Em(add9)",
+        "G(add9)",
+        "C(add9)",
+        "D(add9)"
+      ],
+      "chord_midi": [
+        [
+          40,
+          47,
+          52,
+          59
+        ],
+        [
+          43,
+          50,
+          55,
+          62
+        ],
+        [
+          36,
+          43,
+          48,
+          55
+        ],
+        [
+          38,
+          45,
+          50,
+          57
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 16,
+        "counter": 0,
+        "bass": 8,
+        "harmony": 32
+      },
+      "endpoint_jump": 1.5e-323,
+      "wav_sha256": "366b9155575229f0348207d4a4a0fbba6318678c54d7da525c4fc0ff95870fc4"
+    },
+    {
+      "slug": "10_gathering_fragments",
+      "title": "Gathering Fragments Build",
+      "bpm": 88,
+      "bars": 8,
+      "mode": "E Aeolian \u2192 Dorian",
+      "chords": [
+        [
+          40,
+          47,
+          52,
+          55
+        ],
+        [
+          43,
+          50,
+          55,
+          59
+        ],
+        [
+          45,
+          52,
+          57,
+          61
+        ],
+        [
+          47,
+          54,
+          59,
+          62
+        ]
+      ],
+      "treatment": "ab_assemble",
+      "groove": "cinematic_build",
+      "lead_voice": "glass",
+      "bass_voice": "moving",
+      "description": "A and B fragments enter in increasing lengths as harmonic motion accelerates.",
+      "duration_seconds": 21.8181875,
+      "chord_progression": [
+        "Em7",
+        "Gmaj7",
+        "A6",
+        "Bm(add11)"
+      ],
+      "chord_midi": [
+        [
+          40,
+          47,
+          52,
+          55
+        ],
+        [
+          43,
+          50,
+          55,
+          59
+        ],
+        [
+          45,
+          52,
+          57,
+          61
+        ],
+        [
+          47,
+          54,
+          59,
+          62
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 43,
+        "counter": 31,
+        "bass": 32,
+        "harmony": 32
+      },
+      "endpoint_jump": 0.0,
+      "wav_sha256": "61e8336e5eaaed4992444f5dd9da295387671446cc829d2bf869b815a6e70ac6"
+    },
+    {
+      "slug": "11_reading_climax",
+      "title": "Movement III Climax",
+      "bpm": 100,
+      "bars": 8,
+      "mode": "E Dorian / B altered",
+      "chords": [
+        [
+          40,
+          47,
+          52,
+          54
+        ],
+        [
+          46,
+          53,
+          58,
+          62
+        ],
+        [
+          43,
+          50,
+          55,
+          59
+        ],
+        [
+          47,
+          54,
+          59,
+          63
+        ]
+      ],
+      "treatment": "ab_counterpoint",
+      "groove": "cinematic_peak",
+      "lead_voice": "wide",
+      "bass_voice": "pedal",
+      "description": "Complete A and B overlap in contrary registers before a dominant launch.",
+      "duration_seconds": 19.2,
+      "chord_progression": [
+        "Em(add6)",
+        "B-flat altered",
+        "Gmaj7",
+        "B(add11)"
+      ],
+      "chord_midi": [
+        [
+          40,
+          47,
+          52,
+          54
+        ],
+        [
+          46,
+          53,
+          58,
+          62
+        ],
+        [
+          43,
+          50,
+          55,
+          59
+        ],
+        [
+          47,
+          54,
+          59,
+          63
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 56,
+        "counter": 64,
+        "bass": 16,
+        "harmony": 32
+      },
+      "endpoint_jump": 2.453372114959414e-07,
+      "wav_sha256": "9b59acb35f7bc91e96018e8aed6ef5b9f3e77f254b94714d33fb56ea78a80136"
+    },
+    {
+      "slug": "12_final_reprise",
+      "title": "Final Combined Reprise",
+      "bpm": 126,
+      "bars": 12,
+      "mode": "E Dorian \u2192 Aeolian \u2192 E major",
+      "chords": [
+        [
+          40,
+          47,
+          52,
+          54
+        ],
+        [
+          43,
+          50,
+          55,
+          59
+        ],
+        [
+          38,
+          45,
+          50,
+          57
+        ],
+        [
+          47,
+          54,
+          59,
+          63
+        ],
+        [
+          40,
+          47,
+          52,
+          55
+        ],
+        [
+          52,
+          56,
+          59,
+          64
+        ]
+      ],
+      "treatment": "ab_final",
+      "groove": "final",
+      "lead_voice": "chip",
+      "bass_voice": "active",
+      "description": "Chant A, transformed A, Steward B, and cinematic harmony converge contrapuntally.",
+      "duration_seconds": 22.857145833333334,
+      "chord_progression": [
+        "Em6",
+        "Gmaj7",
+        "D5",
+        "B(add11)",
+        "Em7",
+        "E"
+      ],
+      "chord_midi": [
+        [
+          40,
+          47,
+          52,
+          54
+        ],
+        [
+          43,
+          50,
+          55,
+          59
+        ],
+        [
+          38,
+          45,
+          50,
+          57
+        ],
+        [
+          47,
+          54,
+          59,
+          63
+        ],
+        [
+          40,
+          47,
+          52,
+          55
+        ],
+        [
+          52,
+          56,
+          59,
+          64
+        ]
+      ],
+      "motif_a": [
+        76,
+        -1,
+        79,
+        78,
+        76,
+        74,
+        71,
+        74,
+        76,
+        79,
+        78,
+        83,
+        81,
+        79,
+        78,
+        75
+      ],
+      "motif_b": [
+        64,
+        67,
+        71,
+        70,
+        66,
+        69,
+        72,
+        71
+      ],
+      "event_counts": {
+        "lead": 88,
+        "counter": 96,
+        "bass": 48,
+        "harmony": 48
+      },
+      "endpoint_jump": 1.6289791842175064e-05,
+      "wav_sha256": "fbbcd536c886a1f8693cd94bdf6b44c3f2c0c8d12787856f6c89b86b67b67964"
+    }
+  ]
+}

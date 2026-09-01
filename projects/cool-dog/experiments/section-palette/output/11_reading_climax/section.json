@@ -1,0 +1,107 @@
+{
+  "slug": "11_reading_climax",
+  "title": "Movement III Climax",
+  "bpm": 100,
+  "bars": 8,
+  "mode": "E Dorian / B altered",
+  "chords": [
+    [
+      40,
+      47,
+      52,
+      54
+    ],
+    [
+      46,
+      53,
+      58,
+      62
+    ],
+    [
+      43,
+      50,
+      55,
+      59
+    ],
+    [
+      47,
+      54,
+      59,
+      63
+    ]
+  ],
+  "treatment": "ab_counterpoint",
+  "groove": "cinematic_peak",
+  "lead_voice": "wide",
+  "bass_voice": "pedal",
+  "description": "Complete A and B overlap in contrary registers before a dominant launch.",
+  "duration_seconds": 19.2,
+  "chord_progression": [
+    "Em(add6)",
+    "B-flat altered",
+    "Gmaj7",
+    "B(add11)"
+  ],
+  "chord_midi": [
+    [
+      40,
+      47,
+      52,
+      54
+    ],
+    [
+      46,
+      53,
+      58,
+      62
+    ],
+    [
+      43,
+      50,
+      55,
+      59
+    ],
+    [
+      47,
+      54,
+      59,
+      63
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 56,
+    "counter": 64,
+    "bass": 16,
+    "harmony": 32
+  },
+  "endpoint_jump": 2.453372114959414e-07,
+  "wav_sha256": "9b59acb35f7bc91e96018e8aed6ef5b9f3e77f254b94714d33fb56ea78a80136"
+}

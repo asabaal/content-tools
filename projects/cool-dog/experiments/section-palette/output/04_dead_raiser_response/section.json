@@ -1,0 +1,99 @@
+{
+  "slug": "04_dead_raiser_response",
+  "title": "Dead-Raiser Call-and-Response",
+  "bpm": 112,
+  "bars": 8,
+  "mode": "E minor pentatonic",
+  "chords": [
+    [
+      40,
+      47,
+      52
+    ],
+    [
+      43,
+      50,
+      55
+    ],
+    [
+      38,
+      45,
+      50
+    ],
+    [
+      47,
+      54,
+      59
+    ]
+  ],
+  "treatment": "a_hits",
+  "groove": "stopstart",
+  "lead_voice": "brass",
+  "bass_voice": "stabs",
+  "description": "A collapses into hard punctuation figures after deliberate response gaps.",
+  "duration_seconds": 17.142854166666666,
+  "chord_progression": [
+    "Em5",
+    "G5",
+    "D5",
+    "B5"
+  ],
+  "chord_midi": [
+    [
+      40,
+      47,
+      52
+    ],
+    [
+      43,
+      50,
+      55
+    ],
+    [
+      38,
+      45,
+      50
+    ],
+    [
+      47,
+      54,
+      59
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 32,
+    "counter": 0,
+    "bass": 32,
+    "harmony": 24
+  },
+  "endpoint_jump": 4.807152158200022e-05,
+  "wav_sha256": "a312d4b34f2d29bfcf90f891474e68b7c8ef32d3d8e951c21cfc061e74e4a711"
+}

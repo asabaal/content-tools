@@ -1,0 +1,99 @@
+{
+  "slug": "01_opening_chant",
+  "title": "Opening Cool Dog Chant",
+  "bpm": 124,
+  "bars": 8,
+  "mode": "E Aeolian",
+  "chords": [
+    [
+      52,
+      55,
+      59
+    ],
+    [
+      48,
+      52,
+      55
+    ],
+    [
+      50,
+      54,
+      57
+    ],
+    [
+      47,
+      50,
+      54
+    ]
+  ],
+  "treatment": "a_chant",
+  "groove": "bounce",
+  "lead_voice": "pulse",
+  "bass_voice": "round",
+  "description": "Motif A in a square chant-sized register with four-bar vocal windows.",
+  "duration_seconds": 15.483875,
+  "chord_progression": [
+    "Em",
+    "C",
+    "D",
+    "Bm"
+  ],
+  "chord_midi": [
+    [
+      52,
+      55,
+      59
+    ],
+    [
+      48,
+      52,
+      55
+    ],
+    [
+      50,
+      54,
+      57
+    ],
+    [
+      47,
+      50,
+      54
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 56,
+    "counter": 0,
+    "bass": 32,
+    "harmony": 24
+  },
+  "endpoint_jump": 0.0,
+  "wav_sha256": "238ef8128e6d44ef8de20f482c032b4e8fec100c5594fb7c2f0fbebe25342f60"
+}

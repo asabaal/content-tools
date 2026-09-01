@@ -1,0 +1,107 @@
+{
+  "slug": "07_steward_shards",
+  "title": "Steward of the Shards",
+  "bpm": 108,
+  "bars": 8,
+  "mode": "B Phrygian dominant over E minor",
+  "chords": [
+    [
+      47,
+      51,
+      54,
+      59
+    ],
+    [
+      48,
+      52,
+      55,
+      60
+    ],
+    [
+      45,
+      52,
+      57,
+      60
+    ],
+    [
+      46,
+      50,
+      53,
+      58
+    ]
+  ],
+  "treatment": "b_debut",
+  "groove": "shards",
+  "lead_voice": "crystal",
+  "bass_voice": "pedal",
+  "description": "Motif B enters alone as crystalline shards, then answers a small A fragment.",
+  "duration_seconds": 17.777770833333335,
+  "chord_progression": [
+    "B",
+    "C",
+    "Am",
+    "B-flat augmented color"
+  ],
+  "chord_midi": [
+    [
+      47,
+      51,
+      54,
+      59
+    ],
+    [
+      48,
+      52,
+      55,
+      60
+    ],
+    [
+      45,
+      52,
+      57,
+      60
+    ],
+    [
+      46,
+      50,
+      53,
+      58
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 64,
+    "counter": 16,
+    "bass": 16,
+    "harmony": 32
+  },
+  "endpoint_jump": 0.0,
+  "wav_sha256": "1461e15692d7ea94fcecd6dc855d5bc98f72f0cb6db0ed22556d199e016c09c4"
+}

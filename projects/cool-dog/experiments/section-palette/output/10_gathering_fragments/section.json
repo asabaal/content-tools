@@ -1,0 +1,107 @@
+{
+  "slug": "10_gathering_fragments",
+  "title": "Gathering Fragments Build",
+  "bpm": 88,
+  "bars": 8,
+  "mode": "E Aeolian \u2192 Dorian",
+  "chords": [
+    [
+      40,
+      47,
+      52,
+      55
+    ],
+    [
+      43,
+      50,
+      55,
+      59
+    ],
+    [
+      45,
+      52,
+      57,
+      61
+    ],
+    [
+      47,
+      54,
+      59,
+      62
+    ]
+  ],
+  "treatment": "ab_assemble",
+  "groove": "cinematic_build",
+  "lead_voice": "glass",
+  "bass_voice": "moving",
+  "description": "A and B fragments enter in increasing lengths as harmonic motion accelerates.",
+  "duration_seconds": 21.8181875,
+  "chord_progression": [
+    "Em7",
+    "Gmaj7",
+    "A6",
+    "Bm(add11)"
+  ],
+  "chord_midi": [
+    [
+      40,
+      47,
+      52,
+      55
+    ],
+    [
+      43,
+      50,
+      55,
+      59
+    ],
+    [
+      45,
+      52,
+      57,
+      61
+    ],
+    [
+      47,
+      54,
+      59,
+      62
+    ]
+  ],
+  "motif_a": [
+    76,
+    -1,
+    79,
+    78,
+    76,
+    74,
+    71,
+    74,
+    76,
+    79,
+    78,
+    83,
+    81,
+    79,
+    78,
+    75
+  ],
+  "motif_b": [
+    64,
+    67,
+    71,
+    70,
+    66,
+    69,
+    72,
+    71
+  ],
+  "event_counts": {
+    "lead": 43,
+    "counter": 31,
+    "bass": 32,
+    "harmony": 32
+  },
+  "endpoint_jump": 0.0,
+  "wav_sha256": "61e8336e5eaaed4992444f5dd9da295387671446cc829d2bf869b815a6e70ac6"
+}
