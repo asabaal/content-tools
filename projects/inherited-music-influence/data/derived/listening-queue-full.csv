@@ -1126,20 +1126,656 @@ queue_rank,song_id,canonical_artist,canonical_title,first_release_year,dad_favor
 1125,Sf8871b5038,AC/DC,Shot Down in Flames,,0,1,0,,not_enriched,unreviewed
 1126,Sfa06f0a674,Randy Travis,Jingle Bell Rock,,0,1,0,,not_enriched,unreviewed
 1127,Sfedd2ea0d1,AC/DC,Girls Got Rhythm,,0,1,0,,not_enriched,unreviewed
-1128,S0ae3b5e119,The Moody Blues,Dawning Is the Day,,0,0,0,,not_enriched,unreviewed
-1129,S164006fe06,The Moody Blues,Question,,0,0,0,,not_enriched,unreviewed
-1130,S17ce5ed938,The Moody Blues,Evening: The Sun Set / Twilight Time,,0,0,0,,not_enriched,unreviewed
-1131,S2f235ff045,The Moody Blues,Minstrel’s Song,,0,0,0,,not_enriched,unreviewed
-1132,S4cf6b56029,The Moody Blues,Melancholy Man,,0,0,0,,not_enriched,unreviewed
-1133,S6541326272,The Moody Blues,Tortoise and the Hare,,0,0,0,,not_enriched,unreviewed
-1134,S6b93c33943,The Moody Blues,The Balance,,0,0,0,,not_enriched,unreviewed
-1135,S7430410e60,The Moody Blues,And the Tide Rushes In,,0,0,0,,not_enriched,unreviewed
-1136,S788944a30b,The Moody Blues,Dawn: Dawn Is a Feeling,,0,0,0,,not_enriched,unreviewed
-1137,S7bfab38e73,The Moody Blues,Lunch Break: Peak Hour,,0,0,0,,not_enriched,unreviewed
-1138,S85847d5f8c,The Moody Blues,Don’t You Feel Small,,0,0,0,,not_enriched,unreviewed
-1139,S9716f185aa,The Moody Blues,How Is It (We Are Here),,0,0,0,,not_enriched,unreviewed
-1140,Sc9ff033c00,The Moody Blues,The Night: Nights in White Satin,,0,0,0,,not_enriched,unreviewed
-1141,Sca40f4f970,The Moody Blues,The Morning: Another Morning,,0,0,0,,not_enriched,unreviewed
-1142,Sd4d0132b39,The Moody Blues,The Afternoon: Forever Afternoon (Tuesday?) / (Evening) Time to Get Away,,0,0,0,,not_enriched,unreviewed
-1143,Sd66471c85a,The Moody Blues,The Day Begins,,0,0,0,,not_enriched,unreviewed
-1144,Sdb80b5cd10,The Moody Blues,It’s Up to You,,0,0,0,,not_enriched,unreviewed
+1128,S00f5fc44bf,REO Speedwagon,In Your Letter,,0,0,0,,not_enriched,unreviewed
+1129,S00fd19e255,Pink Floyd,Pigs (Three Different Ones),,0,0,0,,not_enriched,unreviewed
+1130,S011d611910,Tom Petty and the Heartbreakers,A Woman in Love (It’s Not Me),,0,0,0,,not_enriched,unreviewed
+1131,S013902678f,Sheryl Crow,Oh Marie,,0,0,0,,not_enriched,unreviewed
+1132,S01cc1890df,Al Stewart,Sand in Your Shoes,,0,0,0,,not_enriched,unreviewed
+1133,S01f7519b8d,Three Dog Night,Joy to the World,,0,0,0,,not_enriched,unreviewed
+1134,S0207aa536b,Rod Stewart,The First Cut Is the Deepest,,0,0,0,,not_enriched,unreviewed
+1135,S025d1384ba,Joan Osborne,Help Me,,0,0,0,,not_enriched,unreviewed
+1136,S0286f91611,Bruce Springsteen,Darlington County,,0,0,0,,not_enriched,unreviewed
+1137,S0329953fff,Carly Simon,Give Me All Night,,0,0,0,,not_enriched,unreviewed
+1138,S038c730548,Simon and Garfunkel,The Only Living Boy in New York,,0,0,0,,not_enriched,unreviewed
+1139,S046248ca62,Bruce Springsteen,I’m on Fire,,0,0,0,,not_enriched,unreviewed
+1140,S0471a7cfc0,Al Stewart,Flying Sorcery,,0,0,0,,not_enriched,unreviewed
+1141,S0530f14a5e,Robert Palmer,Remember to Remember,,0,0,0,,not_enriched,unreviewed
+1142,S0590278353,Steppenwolf,"Sookie, Sookie",,0,0,0,,not_enriched,unreviewed
+1143,S05eec9d416,Traveling Wilburys,Rattled,,0,0,0,,not_enriched,unreviewed
+1144,S0658235f26,REO Speedwagon,Tough Guys,,0,0,0,,not_enriched,unreviewed
+1145,S06cd0ace2a,The Police,Roxanne,,0,0,0,,not_enriched,unreviewed
+1146,S07c1ebae4a,Queen,It's Late,,0,0,0,,not_enriched,unreviewed
+1147,S080538cf66,James Taylor,Mexico,,0,0,0,,not_enriched,unreviewed
+1148,S0872f5d111,Pink Floyd,Don’t Leave Me Now,,0,0,0,,not_enriched,unreviewed
+1149,S0978673dc2,The Pointer Sisters,I’m So Excited,,0,0,0,,not_enriched,unreviewed
+1150,S09f4f21d28,Pink Floyd,Dogs,,0,0,0,,not_enriched,unreviewed
+1151,S0ae3b5e119,The Moody Blues,Dawning Is the Day,,0,0,0,,not_enriched,unreviewed
+1152,S0b08ac7ab6,Queen,"Get Down, Make Love",,0,0,0,,not_enriched,unreviewed
+1153,S0b5e6779ae,The Police,So Lonely,,0,0,0,,not_enriched,unreviewed
+1154,S0dab50dcd5,Carly Simon,Haven't Got Time for the Pain,,0,0,0,,not_enriched,unreviewed
+1155,S0de09a7f9d,Pink Floyd,Nobody Home,,0,0,0,,not_enriched,unreviewed
+1156,S0f120a7b72,Queen,Spread Your Wings,,0,0,0,,not_enriched,unreviewed
+1157,S0f33053f09,Bob Seger & the Silver Bullet Band,Ship of Fools,,0,0,0,,not_enriched,unreviewed
+1158,S0f3477c609,Joe Walsh,Dreams,,0,0,0,,not_enriched,unreviewed
+1159,S0f5c7ef084,Joan Osborne,Let’s Just Get Naked,,0,0,0,,not_enriched,unreviewed
+1160,S0f933d78e9,Bruce Springsteen,Working on the Highway,,0,0,0,,not_enriched,unreviewed
+1161,S0f9800bebb,Tom Petty and the Heartbreakers,Here Comes My Girl,,0,0,0,,not_enriched,unreviewed
+1162,S0fb6f13d6c,The Pointer Sisters,Jump (for My Love),,0,0,0,,not_enriched,unreviewed
+1163,S0fcd436d62,Traveling Wilburys,Congratulations,,0,0,0,,not_enriched,unreviewed
+1164,S10331ed159,The Alan Parsons Project,Breakdown,,0,0,0,,not_enriched,unreviewed
+1165,S10e13af3f5,Steppenwolf,Monster,,0,0,0,,not_enriched,unreviewed
+1166,S116ce26265,Robert Palmer,Some Guys Have All the Luck,,0,0,0,,not_enriched,unreviewed
+1167,S1170b73184,Simon & Garfunkel,The Boxer,,0,0,0,,not_enriched,unreviewed
+1168,S12e0e34371,REO Speedwagon,Keep On Loving You,,0,0,0,,not_enriched,unreviewed
+1169,S13582cc9f4,Joan Osborne,Spider Web,,0,0,0,,not_enriched,unreviewed
+1170,S137d1a8b87,Traveling Wilburys,Tweeter and the Monkey Man,,0,0,0,,not_enriched,unreviewed
+1171,S13a55cca05,Scorpions,Big City Nights,,0,0,0,,not_enriched,unreviewed
+1172,S13c6d8f9cc,Queen,Sleeping on the Sidewalk,,0,0,0,,not_enriched,unreviewed
+1173,S13f60f6977,Simon & Garfunkel,Kathy’s Song,,0,0,0,,not_enriched,unreviewed
+1174,S1401da7efe,The Alan Parsons Project,Day After Day (The Show Must Go On),,0,0,0,,not_enriched,unreviewed
+1175,S1431883602,Santana,Evil Ways,,0,0,0,,not_enriched,unreviewed
+1176,S14cb927a12,Steppenwolf,Screaming Night Hog,,0,0,0,,not_enriched,unreviewed
+1177,S151ecc728a,The Alan Parsons Project,I Robot,,0,0,0,,not_enriched,unreviewed
+1178,S1537bc1900,The Rolling Stones,Honky Tonk Women,,0,0,0,,not_enriched,unreviewed
+1179,S1564a90bbd,Tom Petty and the Heartbreakers,What Are You Doin’ in My Life?,,0,0,0,,not_enriched,unreviewed
+1180,S158cfbeff6,Supertramp,School,,0,0,0,,not_enriched,unreviewed
+1181,S164006fe06,The Moody Blues,Question,,0,0,0,,not_enriched,unreviewed
+1182,S173e7010cb,Queen,Fight From the Inside,,0,0,0,,not_enriched,unreviewed
+1183,S17ce5ed938,The Moody Blues,Evening: The Sun Set / Twilight Time,,0,0,0,,not_enriched,unreviewed
+1184,S17ea8f99bc,The Pointer Sisters,Goldmine,,0,0,0,,not_enriched,unreviewed
+1185,S1851bba566,Supertramp,Fool’s Overture,,0,0,0,,not_enriched,unreviewed
+1186,S18a2de5fc1,Tom Petty and the Heartbreakers,Insider,,0,0,0,,not_enriched,unreviewed
+1187,S19617150c0,Supertramp,Bloody Well Right,,0,0,0,,not_enriched,unreviewed
+1188,S196750f91d,Robert Palmer,Pride,,0,0,0,,not_enriched,unreviewed
+1189,S19de353f14,Soundgarden,Fell on Black Days,,0,0,0,,not_enriched,unreviewed
+1190,S1a1d9bc037,Bob Seger & the Silver Bullet Band,You’ll Accomp’ny Me,,0,0,0,,not_enriched,unreviewed
+1191,S1a5eeac506,Carly Simon,Legend in Your Own Time,,0,0,0,,not_enriched,unreviewed
+1192,S1aaaed9c6f,Three Dog Night,I'd Be So Happy,,0,0,0,,not_enriched,unreviewed
+1193,S1b158718b3,Tom Petty and the Heartbreakers,American Girl,,0,0,0,,not_enriched,unreviewed
+1194,S1b2f4d91b7,Sheryl Crow,Superstar,,0,0,0,,not_enriched,unreviewed
+1195,S1b37a3468f,The Alan Parsons Project,Total Eclipse,,0,0,0,,not_enriched,unreviewed
+1196,S1baeb3586e,U2,I Still Haven’t Found What I’m Looking For,,0,0,0,,not_enriched,unreviewed
+1197,S1c7b346e86,The Rolling Stones,(I Can’t Get No) Satisfaction,,0,0,0,,not_enriched,unreviewed
+1198,S1c9aa0c464,U2,Pride (In the Name of Love),,0,0,0,,not_enriched,unreviewed
+1199,S1ca594b684,Sheryl Crow,Sad Sad World,,0,0,0,,not_enriched,unreviewed
+1200,S1cbcd02c6f,Supertramp,From Now On,,0,0,0,,not_enriched,unreviewed
+1201,S1d1b97d077,Tom Petty and the Heartbreakers,Luna,,0,0,0,,not_enriched,unreviewed
+1202,S1d71ef1b86,REO Speedwagon,Out of Season,,0,0,0,,not_enriched,unreviewed
+1203,S1d8efbe3bf,Simon & Garfunkel,April Come She Will,,0,0,0,,not_enriched,unreviewed
+1204,S1daeb2e913,U2,Red Hill Mining Town,,0,0,0,,not_enriched,unreviewed
+1205,S1e93e12bcb,Tom Petty and the Heartbreakers,Rockin’ Around (With You),,0,0,0,,not_enriched,unreviewed
+1206,S1f2116cd46,Supertramp,Give a Little Bit,,0,0,0,,not_enriched,unreviewed
+1207,S203c737048,Bruce Springsteen,I’m Goin’ Down,,0,0,0,,not_enriched,unreviewed
+1208,S206e1f3fcb,Joan Osborne,One of Us,,0,0,0,,not_enriched,unreviewed
+1209,S20846e935a,Robert Palmer,Best of Both Worlds,,0,0,0,,not_enriched,unreviewed
+1210,S2086b2c548,Supertramp,The Logical Song,,0,0,0,,not_enriched,unreviewed
+1211,S21aa7081c1,The Rolling Stones,Under My Thumb,,0,0,0,,not_enriched,unreviewed
+1212,S21e42d0b0f,Carly Simon,Nobody Does It Better,,0,0,0,,not_enriched,unreviewed
+1213,S222ac7bd0f,Sheryl Crow,Redemption Day,,0,0,0,,not_enriched,unreviewed
+1214,S23071e1384,Temple of the Dog,Say Hello 2 Heaven,,0,0,0,,not_enriched,unreviewed
+1215,S23cb742b1b,Robert Palmer,Give Me an Inch,,0,0,0,,not_enriched,unreviewed
+1216,S23d759ed8d,Soundgarden,Kickstand,,0,0,0,,not_enriched,unreviewed
+1217,S23e2da5300,Bob Seger & the Silver Bullet Band,The Fire Down Below,,0,0,0,,not_enriched,unreviewed
+1218,S2415ebc8c5,Simon & Garfunkel,I Am a Rock,,0,0,0,,not_enriched,unreviewed
+1219,S2467623ee3,Pink Floyd,Sheep,,0,0,0,,not_enriched,unreviewed
+1220,S2504df0012,Pearl Jam,Garden,,0,0,0,,not_enriched,unreviewed
+1221,S252e2a7550,Pink Floyd,"Shine On You Crazy Diamond, Parts I–V",,0,0,0,,not_enriched,unreviewed
+1222,S2576ee1c59,Linda Ronstadt,Silver Threads and Golden Needles,,0,0,0,,not_enriched,unreviewed
+1223,S258b7f9c87,Supertramp,C’est le bon,,0,0,0,,not_enriched,unreviewed
+1224,S2592f77cdf,Tom Petty and the Heartbreakers,You Got Lucky,,0,0,0,,not_enriched,unreviewed
+1225,S25bc81fe8c,Tom Petty and the Heartbreakers,Mary Jane’s Last Dance,,0,0,0,,not_enriched,unreviewed
+1226,S25ed745f7a,Pearl Jam,Master / Slave,,0,0,0,,not_enriched,unreviewed
+1227,S25ef88a5f8,Linda Ronstadt,I Can’t Let Go,,0,0,0,,not_enriched,unreviewed
+1228,S26f9e6f463,Sheryl Crow,Home,,0,0,0,,not_enriched,unreviewed
+1229,S273a065cb7,The Rolling Stones,Ruby Tuesday,,0,0,0,,not_enriched,unreviewed
+1230,S274550132a,Simon & Garfunkel,The 59th Street Bridge Song (Feelin’ Groovy),,0,0,0,,not_enriched,unreviewed
+1231,S27d0cef5b9,Tom Petty,A Face in the Crowd,,0,0,0,,not_enriched,unreviewed
+1232,S2829b0413f,The Pointer Sisters,Slow Hand,,0,0,0,,not_enriched,unreviewed
+1233,S282ca4bef5,Pink Floyd,Money,,0,0,0,,not_enriched,unreviewed
+1234,S28d43a4ea8,Supertramp,Dreamer,,0,0,0,,not_enriched,unreviewed
+1235,S29579702ec,Linda Ronstadt,Just One Look,,0,0,0,,not_enriched,unreviewed
+1236,S29fc34376f,Simon & Garfunkel,Punky’s Dilemma,,0,0,0,,not_enriched,unreviewed
+1237,S2a16008f62,Bob Seger & the Silver Bullet Band,Come to Poppa,,0,0,0,,not_enriched,unreviewed
+1238,S2a6cd62c2e,James Taylor,Walking Man,,0,0,0,,not_enriched,unreviewed
+1239,S2b5035360c,Supertramp,Put On Your Old Brown Shoes,,0,0,0,,not_enriched,unreviewed
+1240,S2ca89ac976,Scorpions,I Can’t Explain,,0,0,0,,not_enriched,unreviewed
+1241,S2d35f2512d,Pearl Jam,Porch,,0,0,0,,not_enriched,unreviewed
+1242,S2d5bf7083f,R.E.M.,Shiny Happy People,,0,0,0,,not_enriched,unreviewed
+1243,S2d6a292fc5,Rod Stewart,Tomorrow Is Such a Long Time,,0,0,0,,not_enriched,unreviewed
+1244,S2e6a747972,Simon & Garfunkel,A Poem on the Underground Wall,,0,0,0,,not_enriched,unreviewed
+1245,S2e85549bbc,The Police,Wrapped Around Your Finger,,0,0,0,,not_enriched,unreviewed
+1246,S2f235ff045,The Moody Blues,Minstrel’s Song,,0,0,0,,not_enriched,unreviewed
+1247,S30d03a7b79,Scorpions,Holiday,,0,0,0,,not_enriched,unreviewed
+1248,S3169f8bb88,Supertramp,Goodbye Stranger,,0,0,0,,not_enriched,unreviewed
+1249,S320c062676,Steely Dan,Do It Again,,0,0,0,,not_enriched,unreviewed
+1250,S32741258ad,Robert Palmer,Addicted to Love,,0,0,0,,not_enriched,unreviewed
+1251,S3281829eb4,Pearl Jam,Oceans,,0,0,0,,not_enriched,unreviewed
+1252,S32de638b11,U2,When Love Comes to Town,,0,0,0,,not_enriched,unreviewed
+1253,S3300555a93,Simon and Garfunkel,Keep the Customer Satisfied,,0,0,0,,not_enriched,unreviewed
+1254,S3380308a52,Temple of the Dog,Reach Down,,0,0,0,,not_enriched,unreviewed
+1255,S342667b6c5,U2,Love Comes Tumbling,,0,0,0,,not_enriched,unreviewed
+1256,S3503176475,Bob Seger & the Silver Bullet Band,Rock and Roll Never Forgets,,0,0,0,,not_enriched,unreviewed
+1257,S35585af5d5,Linda Ronstadt,It’s So Easy,,0,0,0,,not_enriched,unreviewed
+1258,S355f800ad4,Robert Palmer,Looking for Clues,,0,0,0,,not_enriched,unreviewed
+1259,S35dae29ffa,Simon & Garfunkel,Cloudy,,0,0,0,,not_enriched,unreviewed
+1260,S363ba2002e,Tom Petty and the Heartbreakers,Kings Road,,0,0,0,,not_enriched,unreviewed
+1261,S368e3c3988,Tom Petty,Runnin' Down a Dream,,0,0,0,,not_enriched,unreviewed
+1262,S36a243fc25,The Alan Parsons Project,Genesis Ch. 1 V. 32,,0,0,0,,not_enriched,unreviewed
+1263,S36f5eb2335,Supertramp,Take the Long Way Home,,0,0,0,,not_enriched,unreviewed
+1264,S3732e00a59,Carly Simon,All I Want Is You,,0,0,0,,not_enriched,unreviewed
+1265,S37553725b9,Tom Petty and the Heartbreakers,You Tell Me,,0,0,0,,not_enriched,unreviewed
+1266,S37692d5bad,Pink Floyd,Goodbye Blue Sky,,0,0,0,,not_enriched,unreviewed
+1267,S378dffa389,Robert Palmer,"Man Smart, Woman Smarter",,0,0,0,,not_enriched,unreviewed
+1268,S379bce9a4f,Tom Petty and the Heartbreakers,Free Fallin’,,0,0,0,,not_enriched,unreviewed
+1269,S37a8ad2263,Supertramp,Gone Hollywood,,0,0,0,,not_enriched,unreviewed
+1270,S37c48d391a,Styx,Castle Walls,,0,0,0,,not_enriched,unreviewed
+1271,S37d78ef91b,Steppenwolf,Jupiter’s Child,,0,0,0,,not_enriched,unreviewed
+1272,S385fc3169c,Todd Snider,Trouble,,0,0,0,,not_enriched,unreviewed
+1273,S386ac870be,Rod Stewart,You’re in My Heart (The Final Acclaim),,0,0,0,,not_enriched,unreviewed
+1274,S386de194a8,Supertramp,Casual Conversations,,0,0,0,,not_enriched,unreviewed
+1275,S388e3ac330,Rod Stewart,(I Know) I’m Losing You,,0,0,0,,not_enriched,unreviewed
+1276,S38befe7658,Tom Petty,Depending on You,,0,0,0,,not_enriched,unreviewed
+1277,S392df825ed,Scorpions,Hey You,,0,0,0,,not_enriched,unreviewed
+1278,S39c2636cee,Steppenwolf,Magic Carpet Ride,,0,0,0,,not_enriched,unreviewed
+1279,S39ca26fc47,Three Dog Night,Play Something Sweet (Brickyard Blues),,0,0,0,,not_enriched,unreviewed
+1280,S3a9633e4ed,Linda Ronstadt,Desperado,,0,0,0,,not_enriched,unreviewed
+1281,S3b04ab3f18,Pearl Jam,Why Go,,0,0,0,,not_enriched,unreviewed
+1282,S3ba90dd2a8,Robert Palmer,Sneakin’ Sally Through the Alley,,0,0,0,,not_enriched,unreviewed
+1283,S3c9b3abba5,Pink Floyd,Hey You,,0,0,0,,not_enriched,unreviewed
+1284,S3cc2752740,Queen,Sheer Heart Attack,,0,0,0,,not_enriched,unreviewed
+1285,S3d07e72124,U2,All I Want Is You,,0,0,0,,not_enriched,unreviewed
+1286,S3d0d9c5708,Steely Dan,Reelin’ In the Years,,0,0,0,,not_enriched,unreviewed
+1287,S3d1dde1e91,U2,Silver and Gold,,0,0,0,,not_enriched,unreviewed
+1288,S3d39c26b59,The Rolling Stones,Street Fighting Man,,0,0,0,,not_enriched,unreviewed
+1289,S3d56a5c15b,Bob Seger & the Silver Bullet Band,Long Twin Silver Line,,0,0,0,,not_enriched,unreviewed
+1290,S3d57f526c8,Tom Petty,Zombie Zoo,,0,0,0,,not_enriched,unreviewed
+1291,S3d911874af,Tom Petty,The Apartment Song,,0,0,0,,not_enriched,unreviewed
+1292,S3de00f3b37,The Rolling Stones,Midnight Rambler,,0,0,0,,not_enriched,unreviewed
+1293,S3e36c7fa48,Pearl Jam,Once,,0,0,0,,not_enriched,unreviewed
+1294,S3edafd36ad,Carly Simon,James,,0,0,0,,not_enriched,unreviewed
+1295,S3f5840168e,Tom Petty and the Heartbreakers,Breakdown,,0,0,0,,not_enriched,unreviewed
+1296,S3fb9aa217d,The Alan Parsons Project,The Voice,,0,0,0,,not_enriched,unreviewed
+1297,S408b8bb6e9,Tom Petty,Alright for Now,,0,0,0,,not_enriched,unreviewed
+1298,S410081d329,Santana,Samba pa ti,,0,0,0,,not_enriched,unreviewed
+1299,S4151bc9e87,Pink Floyd,Any Colour You Like,,0,0,0,,not_enriched,unreviewed
+1300,S4184af25f6,Simon and Garfunkel,Song for the Asking,,0,0,0,,not_enriched,unreviewed
+1301,S419c162cbd,Roxy Music,Do the Strand,,0,0,0,,not_enriched,unreviewed
+1302,S4227af9092,Roxy Music,Editions of You,,0,0,0,,not_enriched,unreviewed
+1303,S42d3646c7a,Soundgarden,The Day I Tried to Live,,0,0,0,,not_enriched,unreviewed
+1304,S42f2fab607,Pink Floyd,Time,,0,0,0,,not_enriched,unreviewed
+1305,S430026535d,Rod Stewart,Maggie May,,0,0,0,,not_enriched,unreviewed
+1306,S436bc7cd74,Simon & Garfunkel,Patterns,,0,0,0,,not_enriched,unreviewed
+1307,S43bbd63554,Todd Snider,My Generation (part 2),,0,0,0,,not_enriched,unreviewed
+1308,S44844acaea,Scorpions,Blackout,,0,0,0,,not_enriched,unreviewed
+1309,S44a2090e21,Tom Petty and the Heartbreakers,"The Wild One, Forever",,0,0,0,,not_enriched,unreviewed
+1310,S454408c02c,Steppenwolf,The Pusher,,0,0,0,,not_enriched,unreviewed
+1311,S45b426573e,R.E.M.,Losing My Religion,,0,0,0,,not_enriched,unreviewed
+1312,S45be99c9cc,Steely Dan,Change of the Guard,,0,0,0,,not_enriched,unreviewed
+1313,S45d5f4056e,The Pointer Sisters,He’s So Shy,,0,0,0,,not_enriched,unreviewed
+1314,S46ce5b1279,Joan Osborne,Dracula Moon,,0,0,0,,not_enriched,unreviewed
+1315,S47a5566f8e,The Alan Parsons Project,Gemini,,0,0,0,,not_enriched,unreviewed
+1316,S487159e0ea,Pink Floyd,Waiting for the Worms,,0,0,0,,not_enriched,unreviewed
+1317,S49119813be,Bob Seger & the Silver Bullet Band,Shinin’ Brightly,,0,0,0,,not_enriched,unreviewed
+1318,S4925d641fc,Styx,Superstars,,0,0,0,,not_enriched,unreviewed
+1319,S494b08c875,U2,Hawkmoon 269,,0,0,0,,not_enriched,unreviewed
+1320,S49c9e061f8,REO Speedwagon,Don’t Let Him Go,,0,0,0,,not_enriched,unreviewed
+1321,S4a61764f1a,Tom Petty and the Heartbreakers,The Waiting,,0,0,0,,not_enriched,unreviewed
+1322,S4a994f1e72,Tom Petty and the Heartbreakers,Something in the Air,,0,0,0,,not_enriched,unreviewed
+1323,S4aff18908b,Simon & Garfunkel,Leaves That Are Green,,0,0,0,,not_enriched,unreviewed
+1324,S4b79557121,Steely Dan,Kings,,0,0,0,,not_enriched,unreviewed
+1325,S4be00b4642,Bob Seger & the Silver Bullet Band,Fire Lake,,0,0,0,,not_enriched,unreviewed
+1326,S4c1d50ae3f,Styx,Sing for the Day,,0,0,0,,not_enriched,unreviewed
+1327,S4c5881e258,Tom Petty and the Heartbreakers,Century City,,0,0,0,,not_enriched,unreviewed
+1328,S4ca99ea38c,Steppenwolf,It’s Never Too Late,,0,0,0,,not_enriched,unreviewed
+1329,S4cf6b56029,The Moody Blues,Melancholy Man,,0,0,0,,not_enriched,unreviewed
+1330,S4d1cca0f1a,Pink Floyd,Wish You Were Here,,0,0,0,,not_enriched,unreviewed
+1331,S4d541cb249,The Police,Invisible Sun,,0,0,0,,not_enriched,unreviewed
+1332,S4db9eee6ca,U2,The Three Sunrises,,0,0,0,,not_enriched,unreviewed
+1333,S4e20e9d500,Pearl Jam,Jeremy,,0,0,0,,not_enriched,unreviewed
+1334,S4e726e573e,Pink Floyd,"Another Brick in the Wall, Part 1",,0,0,0,,not_enriched,unreviewed
+1335,S4e8408d6ba,The Stone Poneys,Different Drum,,0,0,0,,not_enriched,unreviewed
+1336,S4f63b05f33,Todd Snider,Easy Money,,0,0,0,,not_enriched,unreviewed
+1337,S4f771d2b85,Joe Walsh,Book Ends,,0,0,0,,not_enriched,unreviewed
+1338,S4f7f76c852,Three Dog Night,The Show Must Go On,,0,0,0,,not_enriched,unreviewed
+1339,S4fa4584164,Temple of the Dog,Pushin Forward Back,,0,0,0,,not_enriched,unreviewed
+1340,S4fa66561e1,James Taylor,Don't Let Me Be Lonely Tonight,,0,0,0,,not_enriched,unreviewed
+1341,S4fd2a4eaaf,Pearl Jam,Deep,,0,0,0,,not_enriched,unreviewed
+1342,S509574db2d,Joan Osborne,Right Hand Man,,0,0,0,,not_enriched,unreviewed
+1343,S50a53de7cb,Santana,Se acabó,,0,0,0,,not_enriched,unreviewed
+1344,S513495c3ca,Santana,Persuasion,,0,0,0,,not_enriched,unreviewed
+1345,S517a33ff05,Steppenwolf,Born to Be Wild,,0,0,0,,not_enriched,unreviewed
+1346,S5180d44061,Supertramp,Lover Boy,,0,0,0,,not_enriched,unreviewed
+1347,S51e99600a9,Scorpions,Still Loving You,,0,0,0,,not_enriched,unreviewed
+1348,S521681f672,The Police,Spirits in the Material World,,0,0,0,,not_enriched,unreviewed
+1349,S5233f8d05a,Simon & Garfunkel,Bookends,,0,0,0,,not_enriched,unreviewed
+1350,S5270642dd1,Carly Simon,Mockingbird,,0,0,0,,not_enriched,unreviewed
+1351,S5270a90348,Al Stewart,Lord Grenville,,0,0,0,,not_enriched,unreviewed
+1352,S541ae10b8e,Steppenwolf,Tenderness,,0,0,0,,not_enriched,unreviewed
+1353,S550e9ca3c4,Al Stewart,Year of the Cat,,0,0,0,,not_enriched,unreviewed
+1354,S5578e60463,The Rolling Stones,Mother’s Little Helper,,0,0,0,,not_enriched,unreviewed
+1355,S55f6c333d7,Roxy Music,Street Life,,0,0,0,,not_enriched,unreviewed
+1356,S5611933b3f,Tom Petty,A Mind With a Heart of Its Own,,0,0,0,,not_enriched,unreviewed
+1357,S563acb5cfd,Simon & Garfunkel,Save the Life of My Child,,0,0,0,,not_enriched,unreviewed
+1358,S56d48cc1e7,Supertramp,Hide in Your Shell,,0,0,0,,not_enriched,unreviewed
+1359,S56d6580538,Simon and Garfunkel,"So Long, Frank Lloyd Wright",,0,0,0,,not_enriched,unreviewed
+1360,S56ff2288be,Tom Petty and the Heartbreakers,Listen to Her Heart,,0,0,0,,not_enriched,unreviewed
+1361,S58610b9817,James Taylor,Something in the Way She Moves,,0,0,0,,not_enriched,unreviewed
+1362,S58acf662b8,REO Speedwagon,I Wish You Were There,,0,0,0,,not_enriched,unreviewed
+1363,S58e1b21a78,Queen,"All Dead, All Dead",,0,0,0,,not_enriched,unreviewed
+1364,S59ac51c43f,Roxy Music,A Song for Europe,,0,0,0,,not_enriched,unreviewed
+1365,S5a14fc652a,Tom Petty and the Heartbreakers,I Won’t Back Down,,0,0,0,,not_enriched,unreviewed
+1366,S5a49608ce4,Styx,The Grand Illusion,,0,0,0,,not_enriched,unreviewed
+1367,S5ac86d6186,Tom Petty and the Heartbreakers,Anything That’s Rock ’n’ Roll,,0,0,0,,not_enriched,unreviewed
+1368,S5c8c10b955,The Pointer Sisters,Dare Me,,0,0,0,,not_enriched,unreviewed
+1369,S5cf9ea53d5,Roxy Music,Virginia Plain,,0,0,0,,not_enriched,unreviewed
+1370,S5d02fb2c10,Simon & Garfunkel,The Big Bright Green Pleasure Machine,,0,0,0,,not_enriched,unreviewed
+1371,S5ee1773ec4,Pink Floyd,"Another Brick in the Wall, Part 2",,0,0,0,,not_enriched,unreviewed
+1372,S5ef12cee86,Temple of the Dog,Times of Trouble,,0,0,0,,not_enriched,unreviewed
+1373,S5f359a8c81,Pink Floyd,The Show Must Go On,,0,0,0,,not_enriched,unreviewed
+1374,S5f57f9e577,Tom Petty and the Heartbreakers,The Criminal Kind,,0,0,0,,not_enriched,unreviewed
+1375,S600ae25ba5,Tom Petty,Love Is a Long Road,,0,0,0,,not_enriched,unreviewed
+1376,S60eccbde78,Robert Palmer,Every Kinda People,,0,0,0,,not_enriched,unreviewed
+1377,S61707c5b1c,Soundgarden,Like Suicide,,0,0,0,,not_enriched,unreviewed
+1378,S61935260b6,Bob Seger & the Silver Bullet Band,No Man’s Land,,0,0,0,,not_enriched,unreviewed
+1379,S6204f3e2ea,Steppenwolf,Hey Lawdy Mama,,0,0,0,,not_enriched,unreviewed
+1380,S62508ee721,Temple of the Dog,All Night Thing,,0,0,0,,not_enriched,unreviewed
+1381,S62a98e5cc0,U2,Trip Through Your Wires,,0,0,0,,not_enriched,unreviewed
+1382,S639b7769da,Linda Ronstadt,Blue Bayou,,0,0,0,,not_enriched,unreviewed
+1383,S63adb6a60f,Jimi Hendrix,The Star Spangled Banner,,0,0,0,,not_enriched,unreviewed
+1384,S63b911d122,Simon & Garfunkel,Bookends Theme (instrumental),,0,0,0,,not_enriched,unreviewed
+1385,S6541326272,The Moody Blues,Tortoise and the Hare,,0,0,0,,not_enriched,unreviewed
+1386,S6543cf2b65,Soundgarden,Limo Wreck,,0,0,0,,not_enriched,unreviewed
+1387,S6546d381d6,Todd Snider,Turn It Up,,0,0,0,,not_enriched,unreviewed
+1388,S65e764d4a9,Sheryl Crow,Ordinary Morning,,0,0,0,,not_enriched,unreviewed
+1389,S66a4ca1c2b,Satan and Adam,Freedom for My People,,0,0,0,,not_enriched,unreviewed
+1390,S66ee6a37fa,Soundgarden,Superunknown,,0,0,0,,not_enriched,unreviewed
+1391,S67207b4230,Tom Petty and the Heartbreakers,Something Big,,0,0,0,,not_enriched,unreviewed
+1392,S67617e5d9c,Tom Petty,Feel a Whole Lot Better,,0,0,0,,not_enriched,unreviewed
+1393,S67dd20b6eb,Temple of the Dog,Call Me a Dog,,0,0,0,,not_enriched,unreviewed
+1394,S691432463a,The Rolling Stones,Sympathy for the Devil,,0,0,0,,not_enriched,unreviewed
+1395,S693946561e,Tom Petty and the Heartbreakers,I Need to Know,,0,0,0,,not_enriched,unreviewed
+1396,S697200caf9,Carly Simon,Them,,0,0,0,,not_enriched,unreviewed
+1397,S69d87ad447,Linda Ronstadt,Heat Wave,,0,0,0,,not_enriched,unreviewed
+1398,S6aa5603209,Supertramp,My Kind of Lady,,0,0,0,,not_enriched,unreviewed
+1399,S6b93c33943,The Moody Blues,The Balance,,0,0,0,,not_enriched,unreviewed
+1400,S6d5e19b3b0,Bob Seger & the Silver Bullet Band,Sunburst,,0,0,0,,not_enriched,unreviewed
+1401,S6e26c35bf4,Steely Dan,Turn That Heartbeat Over Again,,0,0,0,,not_enriched,unreviewed
+1402,S6e5171f61d,Supertramp,Crime of the Century,,0,0,0,,not_enriched,unreviewed
+1403,S6fb5f8cb6f,Tom Petty,Free Fallin',,0,0,0,,not_enriched,unreviewed
+1404,S7021e30d53,Rod Stewart,"The Killing of Georgie, Part I & II",,0,0,0,,not_enriched,unreviewed
+1405,S70581b21d3,Simon & Garfunkel,Mrs. Robinson,,0,0,0,,not_enriched,unreviewed
+1406,S70aa96a161,Pink Floyd,Breathe,,0,0,0,,not_enriched,unreviewed
+1407,S70b49d6a0a,Bruce Springsteen,Born in the U.S.A.,,0,0,0,,not_enriched,unreviewed
+1408,S716bc01545,U2,One Tree Hill,,0,0,0,,not_enriched,unreviewed
+1409,S72f92d2272,Scorpions,Rock You Like a Hurricane,,0,0,0,,not_enriched,unreviewed
+1410,S7315392b30,Carly Simon,Let the River Run,,0,0,0,,not_enriched,unreviewed
+1411,S7328643e32,Joan Osborne,Lumina,,0,0,0,,not_enriched,unreviewed
+1412,S73322322e8,The Pointer Sisters,Could I Be Dreamin’,,0,0,0,,not_enriched,unreviewed
+1413,S739b6db7fe,U2,"God, Part II",,0,0,0,,not_enriched,unreviewed
+1414,S73e85cde58,Simon & Garfunkel,We’ve Got a Groovey Thing Goin’,,0,0,0,,not_enriched,unreviewed
+1415,S74068f44af,Todd Snider,I Spoke as a Child,,0,0,0,,not_enriched,unreviewed
+1416,S7430410e60,The Moody Blues,And the Tide Rushes In,,0,0,0,,not_enriched,unreviewed
+1417,S7493f1c795,Pearl Jam,Alive,,0,0,0,,not_enriched,unreviewed
+1418,S74e4196518,Simon & Garfunkel,El Cóndor Pasa (If I Could),,0,0,0,,not_enriched,unreviewed
+1419,S74f6e6a647,Traveling Wilburys,Not Alone Any More,,0,0,0,,not_enriched,unreviewed
+1420,S75038c788c,The Rolling Stones,"Paint It, Black",,0,0,0,,not_enriched,unreviewed
+1421,S7650616396,Simon & Garfunkel,"For Emily, Whenever I May Find Her",,0,0,0,,not_enriched,unreviewed
+1422,S768c26de2e,Joan Osborne,Man in the Long Black Coat,,0,0,0,,not_enriched,unreviewed
+1423,S76a64f6d30,Pink Floyd,"Pigs on the Wing, Part 1",,0,0,0,,not_enriched,unreviewed
+1424,S76b3db97aa,Robert Palmer,You Are in My System,,0,0,0,,not_enriched,unreviewed
+1425,S76b5844f5a,Supertramp,Don’t Leave Me Now,,0,0,0,,not_enriched,unreviewed
+1426,S772ffca692,Rod Stewart,That’s All Right,,0,0,0,,not_enriched,unreviewed
+1427,S77fa89ef7f,James Taylor,Carolina in My Mind,,0,0,0,,not_enriched,unreviewed
+1428,S7821170232,Styx,Miss America,,0,0,0,,not_enriched,unreviewed
+1429,S783ddc9b8f,Pink Floyd,Mother,,0,0,0,,not_enriched,unreviewed
+1430,S78559b8bdd,Steely Dan,Dirty Work,,0,0,0,,not_enriched,unreviewed
+1431,S788944a30b,The Moody Blues,Dawn: Dawn Is a Feeling,,0,0,0,,not_enriched,unreviewed
+1432,S78b4d37d47,Scorpions,Lovedrive,,0,0,0,,not_enriched,unreviewed
+1433,S78bf76b3cf,Bob Seger & the Silver Bullet Band,Mary Lou,,0,0,0,,not_enriched,unreviewed
+1434,S78e367e24d,Tom Petty and the Heartbreakers,Nightwatchman,,0,0,0,,not_enriched,unreviewed
+1435,S79f7cfdef6,Traveling Wilburys,Margarita,,0,0,0,,not_enriched,unreviewed
+1436,S7a065c962a,Queen,We Are the Champions,,0,0,0,,not_enriched,unreviewed
+1437,S7a4bc82278,Bob Seger & the Silver Bullet Band,Against the Wind,,0,0,0,,not_enriched,unreviewed
+1438,S7a5e54095f,U2,Heartland,,0,0,0,,not_enriched,unreviewed
+1439,S7a791201e9,U2,Angel of Harlem,,0,0,0,,not_enriched,unreviewed
+1440,S7a88beebb9,Pink Floyd,Is There Anybody Out There?,,0,0,0,,not_enriched,unreviewed
+1441,S7bfab38e73,The Moody Blues,Lunch Break: Peak Hour,,0,0,0,,not_enriched,unreviewed
+1442,S7c28bf39c8,Linda Ronstadt,Tracks of My Tears,,0,0,0,,not_enriched,unreviewed
+1443,S7c6f31f6e0,Temple of the Dog,Wooden Jesus,,0,0,0,,not_enriched,unreviewed
+1444,S7d19039bac,The Alan Parsons Project,Eye in the Sky,,0,0,0,,not_enriched,unreviewed
+1445,S7e7a012fa1,Roxy Music,Out of the Blue,,0,0,0,,not_enriched,unreviewed
+1446,S7e8ee7a669,Simon & Garfunkel,Overs,,0,0,0,,not_enriched,unreviewed
+1447,S7eed7c12f3,Traveling Wilburys,[silence],,0,0,0,,not_enriched,unreviewed
+1448,S7efcf419bd,The Police,Message in a Bottle,,0,0,0,,not_enriched,unreviewed
+1449,S7f6f084a73,Rod Stewart,Every Picture Tells a Story,,0,0,0,,not_enriched,unreviewed
+1450,S802cffe9aa,Simon & Garfunkel,Old Friends,,0,0,0,,not_enriched,unreviewed
+1451,S806880795d,The Pointer Sisters,The Love Too Good to Last,,0,0,0,,not_enriched,unreviewed
+1452,S80bfab9cc0,U2,Mothers of the Disappeared,,0,0,0,,not_enriched,unreviewed
+1453,S80e5cc5464,James Taylor,Fire and Rain,,0,0,0,,not_enriched,unreviewed
+1454,S814269ec1f,Simon and Garfunkel,Bridge Over Troubled Water,,0,0,0,,not_enriched,unreviewed
+1455,S81719e443e,Carly Simon,Touched by the Sun,,0,0,0,,not_enriched,unreviewed
+1456,S81b63a5149,Pink Floyd,One of My Turns,,0,0,0,,not_enriched,unreviewed
+1457,S830fece01e,Simon & Garfunkel,A Hazy Shade of Winter,,0,0,0,,not_enriched,unreviewed
+1458,S834ff30a7c,Supertramp,Child of Vision,,0,0,0,,not_enriched,unreviewed
+1459,S83702302b0,Styx,The Grand Finale,,0,0,0,,not_enriched,unreviewed
+1460,S839488daa1,Steely Dan,Only a Fool Would Say That,,0,0,0,,not_enriched,unreviewed
+1461,S83d36a7730,Pink Floyd,Welcome to the Machine,,0,0,0,,not_enriched,unreviewed
+1462,S83ed4a3dbd,REO Speedwagon,Follow My Heart,,0,0,0,,not_enriched,unreviewed
+1463,S83f5a78f4e,Santana,Everything’s Coming Our Way,,0,0,0,,not_enriched,unreviewed
+1464,S841c1f3697,Bruce Springsteen,Dancing in the Dark,,0,0,0,,not_enriched,unreviewed
+1465,S8468da5c14,Robert Palmer,I Dream of Wires,,0,0,0,,not_enriched,unreviewed
+1466,S84a442344c,Tom Petty and the Heartbreakers,Refugee,,0,0,0,,not_enriched,unreviewed
+1467,S85847d5f8c,The Moody Blues,Don’t You Feel Small,,0,0,0,,not_enriched,unreviewed
+1468,S8592882f6a,Three Dog Night,Never Been to Spain,,0,0,0,,not_enriched,unreviewed
+1469,S859e849c92,Tom Petty and the Heartbreakers,Into the Great Wide Open,,0,0,0,,not_enriched,unreviewed
+1470,S85a456b943,Bruce Springsteen,No Surrender,,0,0,0,,not_enriched,unreviewed
+1471,S85ebc4afd0,Bob Seger & the Silver Bullet Band,The Horizontal Bop,,0,0,0,,not_enriched,unreviewed
+1472,S8631792452,Styx,Man in the Wilderness,,0,0,0,,not_enriched,unreviewed
+1473,S8632058e46,Roxy Music,Mother of Pearl,,0,0,0,,not_enriched,unreviewed
+1474,S864d07c61e,Linda Ronstadt,Love Has No Pride,,0,0,0,,not_enriched,unreviewed
+1475,S86767de793,Supertramp,Downstream,,0,0,0,,not_enriched,unreviewed
+1476,S87453446a4,Simon and Garfunkel,Baby Driver,,0,0,0,,not_enriched,unreviewed
+1477,S89345f3ad0,James Taylor,You've Got a Friend,,0,0,0,,not_enriched,unreviewed
+1478,S897abbcb87,Styx,Blue Collar Man (Long Nights),,0,0,0,,not_enriched,unreviewed
+1479,S8a7cbcd9a7,Steppenwolf,Ride With Me,,0,0,0,,not_enriched,unreviewed
+1480,S8a7cedfdb4,Steppenwolf,Who Needs Ya,,0,0,0,,not_enriched,unreviewed
+1481,S8b9dcba78e,Three Dog Night,Shambala,,0,0,0,,not_enriched,unreviewed
+1482,S8bd6aec04f,The Police,Every Little Thing She Does Is Magic,,0,0,0,,not_enriched,unreviewed
+1483,S8c04ebc50f,Roxy Music,Love Is the Drug,,0,0,0,,not_enriched,unreviewed
+1484,S8c38ef7856,R.E.M.,Endgame,,0,0,0,,not_enriched,unreviewed
+1485,S8c76db3644,Simon & Garfunkel,Fakin’ It,,0,0,0,,not_enriched,unreviewed
+1486,S8cd2b4cdb9,Supertramp,Waiting So Long,,0,0,0,,not_enriched,unreviewed
+1487,S8ce7b3b69d,Simon & Garfunkel,Cecilia,,0,0,0,,not_enriched,unreviewed
+1488,S8d38441fbe,Supertramp,Rudy,,0,0,0,,not_enriched,unreviewed
+1489,S8d42a2c32e,Supertramp,Bonnie,,0,0,0,,not_enriched,unreviewed
+1490,S8d53a22b5a,Simon & Garfunkel,Bridge Over Troubled Water,,0,0,0,,not_enriched,unreviewed
+1491,S8d64b1776e,Three Dog Night,Let Me Serenade You,,0,0,0,,not_enriched,unreviewed
+1492,S8d905c3a0c,Sheryl Crow,The Book,,0,0,0,,not_enriched,unreviewed
+1493,S8f6a9533c3,Tom Petty and the Heartbreakers,Louisiana Rain,,0,0,0,,not_enriched,unreviewed
+1494,S8fbd64fcfd,Tom Petty and the Heartbreakers,Even the Losers,,0,0,0,,not_enriched,unreviewed
+1495,S9047ce797d,The Rolling Stones,You Can’t Always Get What You Want,,0,0,0,,not_enriched,unreviewed
+1496,S907146cda4,Sheryl Crow,Sweet Rosalyn,,0,0,0,,not_enriched,unreviewed
+1497,S9075409e6d,Pink Floyd,Outside the Wall,,0,0,0,,not_enriched,unreviewed
+1498,S91684bdeab,Carly Simon,The Right Thing to Do,,0,0,0,,not_enriched,unreviewed
+1499,S91b4406828,Carly Simon,That's the Way I've Always Heard It Should Be,,0,0,0,,not_enriched,unreviewed
+1500,S92686b6a96,Simon & Garfunkel,The Dangling Conversation,,0,0,0,,not_enriched,unreviewed
+1501,S92c78a9f58,Robert Palmer,Woke Up Laughing,,0,0,0,,not_enriched,unreviewed
+1502,S92f6aa50db,Supertramp,Just Another Nervous Wreck,,0,0,0,,not_enriched,unreviewed
+1503,S93355de687,Joan Osborne,Ladder,,0,0,0,,not_enriched,unreviewed
+1504,S94112820bc,Joe Walsh,Happy Ways,,0,0,0,,not_enriched,unreviewed
+1505,S94cbd09047,Tom Petty and the Heartbreakers,Runnin’ Down a Dream,,0,0,0,,not_enriched,unreviewed
+1506,S94deb38603,The Police,King of Pain,,0,0,0,,not_enriched,unreviewed
+1507,S94e2da3947,Pearl Jam,Black,,0,0,0,,not_enriched,unreviewed
+1508,S9656ab0ea6,Pink Floyd,Us and Them,,0,0,0,,not_enriched,unreviewed
+1509,S96bd51f774,Bruce Springsteen,Bobby Jean,,0,0,0,,not_enriched,unreviewed
+1510,S96c0b96e00,Rod Stewart,Reason to Believe,,0,0,0,,not_enriched,unreviewed
+1511,S9716f185aa,The Moody Blues,How Is It (We Are Here),,0,0,0,,not_enriched,unreviewed
+1512,S97254a2d67,R.E.M.,Near Wild Heaven,,0,0,0,,not_enriched,unreviewed
+1513,S975cc80768,Supertramp,Crazy,,0,0,0,,not_enriched,unreviewed
+1514,S984d733727,Steppenwolf,Rock Me,,0,0,0,,not_enriched,unreviewed
+1515,S986ce147b5,Soundgarden,4th of July,,0,0,0,,not_enriched,unreviewed
+1516,S988588576b,Linda Ronstadt,"Long, Long Time",,0,0,0,,not_enriched,unreviewed
+1517,S98d230facc,Steely Dan,Fire in the Hole,,0,0,0,,not_enriched,unreviewed
+1518,S98f03c2f42,Santana,Oye como va,,0,0,0,,not_enriched,unreviewed
+1519,S99e87ff963,The Rolling Stones,As Tears Go By,,0,0,0,,not_enriched,unreviewed
+1520,S9b0597c2f3,Soundgarden,Mailman,,0,0,0,,not_enriched,unreviewed
+1521,S9b471c7c3d,The Pointer Sisters,Should I Do It?,,0,0,0,,not_enriched,unreviewed
+1522,S9b5b40835d,Traveling Wilburys,Last Night,,0,0,0,,not_enriched,unreviewed
+1523,S9b6212d1eb,Pink Floyd,The Happiest Days of Our Lives,,0,0,0,,not_enriched,unreviewed
+1524,S9bcafddcbd,U2,All Along the Watchtower,,0,0,0,,not_enriched,unreviewed
+1525,S9c26ab6846,The Rolling Stones,Wild Horses,,0,0,0,,not_enriched,unreviewed
+1526,S9c2cb5490a,Carly Simon,Coming Around Again,,0,0,0,,not_enriched,unreviewed
+1527,S9c8526ef58,The Alan Parsons Project,Don’t Let It Show,,0,0,0,,not_enriched,unreviewed
+1528,S9c99e2f20e,Three Dog Night,Liar,,0,0,0,,not_enriched,unreviewed
+1529,S9d24b628cd,Supertramp,Lord Is It Mine,,0,0,0,,not_enriched,unreviewed
+1530,S9d84328478,The Police,Every Breath You Take,,0,0,0,,not_enriched,unreviewed
+1531,S9d861a8bc3,Pink Floyd,Stop,,0,0,0,,not_enriched,unreviewed
+1532,S9da8f3928b,R.E.M.,Me in Honey,,0,0,0,,not_enriched,unreviewed
+1533,S9daf7b3982,The Rolling Stones,Play With Fire,,0,0,0,,not_enriched,unreviewed
+1534,S9dbd3c8ef0,U2,Love Rescue Me,,0,0,0,,not_enriched,unreviewed
+1535,S9dc86b32ba,Roxy Music,Pyjamarama,,0,0,0,,not_enriched,unreviewed
+1536,S9ed8cd0b42,Steely Dan,Midnite Cruiser,,0,0,0,,not_enriched,unreviewed
+1537,S9f1a2d2ae8,The Rolling Stones,Get Off of My Cloud,,0,0,0,,not_enriched,unreviewed
+1538,S9f30f619d4,Sheryl Crow,A Change Would Do You Good,,0,0,0,,not_enriched,unreviewed
+1539,S9f3ee92720,Linda Ronstadt,It Doesn't Matter Anymore,,0,0,0,,not_enriched,unreviewed
+1540,S9f49be0b2d,Queen,We Will Rock You,,0,0,0,,not_enriched,unreviewed
+1541,Sa022e165f2,Supertramp,Know Who You Are,,0,0,0,,not_enriched,unreviewed
+1542,Sa0ca334975,Temple of the Dog,Your Saviour,,0,0,0,,not_enriched,unreviewed
+1543,Sa0f383167c,U2,Running to Stand Still,,0,0,0,,not_enriched,unreviewed
+1544,Sa0f8a6a1ce,REO Speedwagon,Shakin’ It Loose,,0,0,0,,not_enriched,unreviewed
+1545,Sa156226141,Linda Ronstadt,Someone to Lay Down Beside Me,,0,0,0,,not_enriched,unreviewed
+1546,Sa1b2b36387,Steppenwolf,For Ladies Only,,0,0,0,,not_enriched,unreviewed
+1547,Sa2ea7fc4c9,Supertramp,Oh Darling,,0,0,0,,not_enriched,unreviewed
+1548,Sa355290d1d,Carly Simon,Like a River,,0,0,0,,not_enriched,unreviewed
+1549,Sa3e91fa7ff,Rod Stewart,Tonight’s the Night (Gonna Be Alright),,0,0,0,,not_enriched,unreviewed
+1550,Sa4d3c85b14,Linda Ronstadt,"Poor, Poor Pitiful Me",,0,0,0,,not_enriched,unreviewed
+1551,Sa51053dd16,The Police,Walking on the Moon,,0,0,0,,not_enriched,unreviewed
+1552,Sa597198c40,Tom Petty and the Heartbreakers,Strangered in the Night,,0,0,0,,not_enriched,unreviewed
+1553,Sa5bb9e272a,Bob Seger & the Silver Bullet Band,Mainstreet,,0,0,0,,not_enriched,unreviewed
+1554,Sa5cde79b5f,Styx,Aku‐Aku,,0,0,0,,not_enriched,unreviewed
+1555,Sa5ddec76ae,Pearl Jam,Even Flow,,0,0,0,,not_enriched,unreviewed
+1556,Sa62bb2cce1,Simon & Garfunkel,At the Zoo,,0,0,0,,not_enriched,unreviewed
+1557,Sa65db70d7c,Pink Floyd,Bring the Boys Back Home,,0,0,0,,not_enriched,unreviewed
+1558,Sa67124ca33,Santana,Jingo,,0,0,0,,not_enriched,unreviewed
+1559,Sa6caf08fce,The Alan Parsons Project,Nucleus,,0,0,0,,not_enriched,unreviewed
+1560,Sa6f534012c,Pink Floyd,In the Flesh?,,0,0,0,,not_enriched,unreviewed
+1561,Sa700572ac5,Robert Palmer,"Bad Case of Loving You (Doctor, Doctor)",,0,0,0,,not_enriched,unreviewed
+1562,Sa730fbc441,Pink Floyd,Young Lust,,0,0,0,,not_enriched,unreviewed
+1563,Sa7bf57bd80,Tom Petty and the Heartbreakers,Learning to Fly,,0,0,0,,not_enriched,unreviewed
+1564,Sa7f98779e0,Tom Petty,I Won't Back Down,,0,0,0,,not_enriched,unreviewed
+1565,Sa93d09211b,Scorpions,Rhythm of Love,,0,0,0,,not_enriched,unreviewed
+1566,Sab1bf7cf61,Todd Snider,Alright Guy,,0,0,0,,not_enriched,unreviewed
+1567,Sacac6681c9,U2,In God’s Country,,0,0,0,,not_enriched,unreviewed
+1568,Sad5d00f678,Joan Osborne,Crazy Baby,,0,0,0,,not_enriched,unreviewed
+1569,Sadd2341ec5,Queen,My Melancholy Blues,,0,0,0,,not_enriched,unreviewed
+1570,Sae71369d96,Pink Floyd,"Pigs on the Wing, Part 2",,0,0,0,,not_enriched,unreviewed
+1571,Sae880922d7,Supertramp,Even in the Quietest Moments,,0,0,0,,not_enriched,unreviewed
+1572,Safe755ab6a,Todd Snider,That Was Me,,0,0,0,,not_enriched,unreviewed
+1573,Sb02f271df2,The Pointer Sisters,If You Wanna Get Back Your Lady,,0,0,0,,not_enriched,unreviewed
+1574,Sb0559ca870,Pink Floyd,"Shine On You Crazy Diamond, Parts VI–IX",,0,0,0,,not_enriched,unreviewed
+1575,Sb0ebeb1d70,Carly Simon,Anticipation,,0,0,0,,not_enriched,unreviewed
+1576,Sb1174c6d07,James Taylor,Sweet Baby James,,0,0,0,,not_enriched,unreviewed
+1577,Sb17c866718,Robert Palmer,You’re Gonna Get What’s Coming,,0,0,0,,not_enriched,unreviewed
+1578,Sb1938168d4,Styx,I’m OK,,0,0,0,,not_enriched,unreviewed
+1579,Sb203ffe117,U2,Where the Streets Have No Name,,0,0,0,,not_enriched,unreviewed
+1580,Sb27e13e862,Steely Dan,Brooklyn (Owes the Charmer Under Me),,0,0,0,,not_enriched,unreviewed
+1581,Sb28db94a00,Robert Palmer,Sweet Lies,,0,0,0,,not_enriched,unreviewed
+1582,Sb3a4f80794,Carly Simon,Better Not Tell Her,,0,0,0,,not_enriched,unreviewed
+1583,Sb3b7949d64,Sheryl Crow,Hard to Make a Stand,,0,0,0,,not_enriched,unreviewed
+1584,Sb450ec0a32,Styx,Queen of Spades,,0,0,0,,not_enriched,unreviewed
+1585,Sb49e261d73,Rod Stewart,Hot Legs,,0,0,0,,not_enriched,unreviewed
+1586,Sb52b12fb70,Todd Snider,Joe’s Blues / Talkin’ Seattle Grunge Rock Blues,,0,0,0,,not_enriched,unreviewed
+1587,Sb564bed688,The Pointer Sisters,I Need You,,0,0,0,,not_enriched,unreviewed
+1588,Sb5956f700e,Rod Stewart,Sailing,,0,0,0,,not_enriched,unreviewed
+1589,Sb5d97cd0f6,Scorpions,You Give Me All I Need,,0,0,0,,not_enriched,unreviewed
+1590,Sb64e03a6fe,Santana,Hope You’re Feeling Better,,0,0,0,,not_enriched,unreviewed
+1591,Sb6e648606c,Sheryl Crow,Maybe Angels,,0,0,0,,not_enriched,unreviewed
+1592,Sb7342ba758,Traveling Wilburys,Handle With Care,,0,0,0,,not_enriched,unreviewed
+1593,Sb76cfa6414,Steppenwolf,Move Over,,0,0,0,,not_enriched,unreviewed
+1594,Sb7e781fac7,Bob Seger & the Silver Bullet Band,Her Strut,,0,0,0,,not_enriched,unreviewed
+1595,Sb7fbd0290a,Scorpions,The Zoo,,0,0,0,,not_enriched,unreviewed
+1596,Sb89bc25839,Pink Floyd,Comfortably Numb,,0,0,0,,not_enriched,unreviewed
+1597,Sb8f9da5d1c,Linda Ronstadt,Back in the U.S.A.,,0,0,0,,not_enriched,unreviewed
+1598,Sb997747f4a,Joe Walsh,Midnight Moodies,,0,0,0,,not_enriched,unreviewed
+1599,Sba277592a6,James Taylor,How Sweet It Is (to Be Loved by You),,0,0,0,,not_enriched,unreviewed
+1600,Sba61dd12ce,Simon and Garfunkel,Cecilia,,0,0,0,,not_enriched,unreviewed
+1601,Sbbec9dda0d,U2,Exit,,0,0,0,,not_enriched,unreviewed
+1602,Sbc5dd5808d,Three Dog Night,Black and White,,0,0,0,,not_enriched,unreviewed
+1603,Sbc686ac763,Simon & Garfunkel,Blessed,,0,0,0,,not_enriched,unreviewed
+1604,Sbc91672e66,The Pointer Sisters,Baby Come and Get It,,0,0,0,,not_enriched,unreviewed
+1605,Sbccb421f36,Todd Snider,You Think You Know Somebody,,0,0,0,,not_enriched,unreviewed
+1606,Sbd4bd448d8,James Taylor,Country Road,,0,0,0,,not_enriched,unreviewed
+1607,Sbd65b157c2,Soundgarden,Spoonman,,0,0,0,,not_enriched,unreviewed
+1608,Sbe169b3cc9,Pink Floyd,Speak to Me,,0,0,0,,not_enriched,unreviewed
+1609,Sbe2acc7a40,Al Stewart,Broadway Hotel,,0,0,0,,not_enriched,unreviewed
+1610,Sbe3de85d71,The Alan Parsons Project,I Wouldn’t Want to Be Like You,,0,0,0,,not_enriched,unreviewed
+1611,Sbf1cd1f8aa,Simon & Garfunkel,Homeward Bound,,0,0,0,,not_enriched,unreviewed
+1612,Sbf58e9d8c2,Linda Ronstadt,Tumbling Dice,,0,0,0,,not_enriched,unreviewed
+1613,Sbff9893560,Santana,Everybody’s Everything,,0,0,0,,not_enriched,unreviewed
+1614,Sc031e43e9b,U2,Van Diemen’s Land,,0,0,0,,not_enriched,unreviewed
+1615,Sc0878e0f9f,R.E.M.,Low,,0,0,0,,not_enriched,unreviewed
+1616,Sc1213ec708,R.E.M.,Texarkana,,0,0,0,,not_enriched,unreviewed
+1617,Sc16f2155c6,Simon & Garfunkel,7 O’Clock News / Silent Night,,0,0,0,,not_enriched,unreviewed
+1618,Sc1ce913128,Linda Ronstadt,You're No Good,,0,0,0,,not_enriched,unreviewed
+1619,Sc20b1fff1e,Tom Petty and the Heartbreakers,Don’t Do Me Like That,,0,0,0,,not_enriched,unreviewed
+1620,Sc2891b28e2,Supertramp,If Everyone Was Listening,,0,0,0,,not_enriched,unreviewed
+1621,Sc2d9113290,Joe Walsh,Meadows,,0,0,0,,not_enriched,unreviewed
+1622,Sc2e62c3fed,U2,Bullet the Blue Sky,,0,0,0,,not_enriched,unreviewed
+1623,Sc350408d1b,Linda Ronstadt,Love Is a Rose,,0,0,0,,not_enriched,unreviewed
+1624,Sc37c672e37,Robert Palmer,She Makes My Day,,0,0,0,,not_enriched,unreviewed
+1625,Sc3eed27421,The Rolling Stones,Brown Sugar,,0,0,0,,not_enriched,unreviewed
+1626,Sc4115e1532,Santana,Black Magic Woman,,0,0,0,,not_enriched,unreviewed
+1627,Sc4bb5b0703,Three Dog Night,Old Fashioned Love Song,,0,0,0,,not_enriched,unreviewed
+1628,Sc4df33bfda,R.E.M.,Belong,,0,0,0,,not_enriched,unreviewed
+1629,Sc4e7649d4a,R.E.M.,Radio Song,,0,0,0,,not_enriched,unreviewed
+1630,Sc51724185f,Rod Stewart,Seems Like a Long Time,,0,0,0,,not_enriched,unreviewed
+1631,Sc59ab4537d,The Police,Don’t Stand So Close to Me ’86,,0,0,0,,not_enriched,unreviewed
+1632,Sc5afd8c968,Pink Floyd,The Great Gig in the Sky,,0,0,0,,not_enriched,unreviewed
+1633,Sc63d118da4,The Rolling Stones,19th Nervous Breakdown,,0,0,0,,not_enriched,unreviewed
+1634,Sc6c7bf36b6,Bruce Springsteen,My Hometown,,0,0,0,,not_enriched,unreviewed
+1635,Sc738ce8b9e,Tom Petty and the Heartbreakers,A Thing About You,,0,0,0,,not_enriched,unreviewed
+1636,Sc74faa8970,Tom Petty and the Heartbreakers,You Can Still Change Your Mind,,0,0,0,,not_enriched,unreviewed
+1637,Sc7bb608516,Simon & Garfunkel,Scarborough Fair / Canticle,,0,0,0,,not_enriched,unreviewed
+1638,Sc96ebc49fb,U2,A Sort of Homecoming,,0,0,0,,not_enriched,unreviewed
+1639,Sc9ce0ba26a,Linda Ronstadt,Ooh Baby Baby,,0,0,0,,not_enriched,unreviewed
+1640,Sc9ff033c00,The Moody Blues,The Night: Nights in White Satin,,0,0,0,,not_enriched,unreviewed
+1641,Sca14b74757,Pink Floyd,Have a Cigar,,0,0,0,,not_enriched,unreviewed
+1642,Sca2165c337,Simon & Garfunkel,Voices of Old People,,0,0,0,,not_enriched,unreviewed
+1643,Sca2e5a1617,Traveling Wilburys,End of the Line,,0,0,0,,not_enriched,unreviewed
+1644,Sca40f4f970,The Moody Blues,The Morning: Another Morning,,0,0,0,,not_enriched,unreviewed
+1645,Scbf8baa41a,Tom Petty and the Heartbreakers,Don't Come Around Here No More,,0,0,0,,not_enriched,unreviewed
+1646,Scc75a3f14a,Robert Palmer,What's It Take?,,0,0,0,,not_enriched,unreviewed
+1647,Scc8ffd4754,Robert Palmer,Can We Still Be Friends,,0,0,0,,not_enriched,unreviewed
+1648,Scd1cfcafa9,Carly Simon,Jesse,,0,0,0,,not_enriched,unreviewed
+1649,Scddb326bec,Pink Floyd,The Trial,,0,0,0,,not_enriched,unreviewed
+1650,Scdedc38f2d,Soundgarden,Fresh Tendrils,,0,0,0,,not_enriched,unreviewed
+1651,Sce35b99aef,Supertramp,It’s Raining Again,,0,0,0,,not_enriched,unreviewed
+1652,Scefed8bfa7,Carly Simon,Love of My Life,,0,0,0,,not_enriched,unreviewed
+1653,Scf6d26c311,Pearl Jam,Release,,0,0,0,,not_enriched,unreviewed
+1654,Scfc449aeff,Tom Petty and the Heartbreakers,Fooled Again (I Don’t Like It),,0,0,0,,not_enriched,unreviewed
+1655,Sd04c4fbca5,Pink Floyd,"Another Brick in the Wall, Part 3",,0,0,0,,not_enriched,unreviewed
+1656,Sd086ade869,Styx,Pieces of Eight,,0,0,0,,not_enriched,unreviewed
+1657,Sd0a31b7da3,Al Stewart,Midas Shadow,,0,0,0,,not_enriched,unreviewed
+1658,Sd0dcdfb513,The Pointer Sisters,American Music,,0,0,0,,not_enriched,unreviewed
+1659,Sd124953272,Bob Seger & the Silver Bullet Band,Betty Lou’s Gettin’ Out Tonight,,0,0,0,,not_enriched,unreviewed
+1660,Sd12d0f195b,Joan Osborne,St. Teresa,,0,0,0,,not_enriched,unreviewed
+1661,Sd1a275aa4a,Pink Floyd,Goodbye Cruel World,,0,0,0,,not_enriched,unreviewed
+1662,Sd23d020167,Roxy Music,All I Want Is You,,0,0,0,,not_enriched,unreviewed
+1663,Sd29b855af9,U2,With or Without You,,0,0,0,,not_enriched,unreviewed
+1664,Sd2a1f74452,The Police,Can’t Stand Losing You,,0,0,0,,not_enriched,unreviewed
+1665,Sd2c489b3f9,Three Dog Night,One,,0,0,0,,not_enriched,unreviewed
+1666,Sd34a168a16,Tom Petty,Yer So Bad,,0,0,0,,not_enriched,unreviewed
+1667,Sd3598c1a7c,Joe Walsh,(Daydream) Prayer,,0,0,0,,not_enriched,unreviewed
+1668,Sd3e5710d47,Simon and Garfunkel,Bye Bye Love,,0,0,0,,not_enriched,unreviewed
+1669,Sd42f3da1ae,Steppenwolf,Snowblind Friend,,0,0,0,,not_enriched,unreviewed
+1670,Sd482f042ad,Three Dog Night,Sure as I'm Sitting Here,,0,0,0,,not_enriched,unreviewed
+1671,Sd4908652a6,Traveling Wilburys,Heading for the Light,,0,0,0,,not_enriched,unreviewed
+1672,Sd4d0132b39,The Moody Blues,The Afternoon: Forever Afternoon (Tuesday?) / (Evening) Time to Get Away,,0,0,0,,not_enriched,unreviewed
+1673,Sd51bc69f95,Pink Floyd,On the Run,,0,0,0,,not_enriched,unreviewed
+1674,Sd58c101e8f,Soundgarden,Half,,0,0,0,,not_enriched,unreviewed
+1675,Sd5cd736c8f,Pink Floyd,The Thin Ice,,0,0,0,,not_enriched,unreviewed
+1676,Sd62caa5648,Carly Simon,You're So Vain,,0,0,0,,not_enriched,unreviewed
+1677,Sd634a40244,Robert Palmer,Simply Irresistible,,0,0,0,,not_enriched,unreviewed
+1678,Sd66471c85a,The Moody Blues,The Day Begins,,0,0,0,,not_enriched,unreviewed
+1679,Sd6f0393bd0,Sheryl Crow,If It Makes You Happy,,0,0,0,,not_enriched,unreviewed
+1680,Sd6f456aab3,Soundgarden,Black Hole Sun,,0,0,0,,not_enriched,unreviewed
+1681,Sd732ea453e,Bruce Springsteen,Downbound Train,,0,0,0,,not_enriched,unreviewed
+1682,Sd769ee65b5,Pink Floyd,Empty Spaces,,0,0,0,,not_enriched,unreviewed
+1683,Sd7eb3bdd33,Soundgarden,Head Down,,0,0,0,,not_enriched,unreviewed
+1684,Sd82ace197b,The Pointer Sisters,Happiness,,0,0,0,,not_enriched,unreviewed
+1685,Sd84ce7cd61,James Taylor,Steamroller,,0,0,0,,not_enriched,unreviewed
+1686,Sd8cf6ef372,Robert Palmer,I Didn’t Mean to Turn You On,,0,0,0,,not_enriched,unreviewed
+1687,Sd8f0a26b53,The Rolling Stones,Let’s Spend the Night Together,,0,0,0,,not_enriched,unreviewed
+1688,Sd914477c54,Al Stewart,On the Border,,0,0,0,,not_enriched,unreviewed
+1689,Sd981253787,Supertramp,Asylum,,0,0,0,,not_enriched,unreviewed
+1690,Sd9c0989816,Sheryl Crow,Everyday Is a Winding Road,,0,0,0,,not_enriched,unreviewed
+1691,Sda53aec42a,The Pointer Sisters,Twist My Arm,,0,0,0,,not_enriched,unreviewed
+1692,Sdaab5fcd28,Roxy Music,The Thrill of It All,,0,0,0,,not_enriched,unreviewed
+1693,Sdb80b5cd10,The Moody Blues,It’s Up to You,,0,0,0,,not_enriched,unreviewed
+1694,Sdb84acdef3,Traveling Wilburys,Dirty World,,0,0,0,,not_enriched,unreviewed
+1695,Sdbdf82e5f9,Simon & Garfunkel,Anji,,0,0,0,,not_enriched,unreviewed
+1696,Sdcc64434e7,Robert Palmer,Maybe It’s You,,0,0,0,,not_enriched,unreviewed
+1697,Sdcf4d4bb72,Rod Stewart,Da Ya Think I’m Sexy?,,0,0,0,,not_enriched,unreviewed
+1698,Sde8d0a0a3a,Tom Petty and the Heartbreakers,Mystery Man,,0,0,0,,not_enriched,unreviewed
+1699,Sdefc023053,Rod Stewart,Mandolin Wind,,0,0,0,,not_enriched,unreviewed
+1700,Sdf92fae41f,The Rolling Stones,Time Is on My Side,,0,0,0,,not_enriched,unreviewed
+1701,Sdfef7a25c5,Simon & Garfunkel,Flowers Never Bend With the Rainfall,,0,0,0,,not_enriched,unreviewed
+1702,Se01aa8dd3d,Simon and Garfunkel,The Boxer,,0,0,0,,not_enriched,unreviewed
+1703,Se02440c4ef,Bruce Springsteen,Glory Days,,0,0,0,,not_enriched,unreviewed
+1704,Se052fb3d2a,Simon & Garfunkel,America,,0,0,0,,not_enriched,unreviewed
+1705,Se08841f84c,Bob Seger & the Silver Bullet Band,Night Moves,,0,0,0,,not_enriched,unreviewed
+1706,Se09ad5542f,Tom Petty and the Heartbreakers,Letting You Go,,0,0,0,,not_enriched,unreviewed
+1707,Se0ab4a7576,Styx,Great White Hope,,0,0,0,,not_enriched,unreviewed
+1708,Se155fd1f57,Soundgarden,Let Me Drown,,0,0,0,,not_enriched,unreviewed
+1709,Se24a6c0f53,U2,The Unforgettable Fire,,0,0,0,,not_enriched,unreviewed
+1710,Se313246f8c,Todd Snider,Alot More,,0,0,0,,not_enriched,unreviewed
+1711,Se37ecb88bb,The Rolling Stones,Heart of Stone,,0,0,0,,not_enriched,unreviewed
+1712,Se4474b903d,Simon & Garfunkel,Somewhere They Can’t Find Me,,0,0,0,,not_enriched,unreviewed
+1713,Se4cafdc1f8,U2,Desire,,0,0,0,,not_enriched,unreviewed
+1714,Se55d12747f,Bob Seger & the Silver Bullet Band,Good for Me,,0,0,0,,not_enriched,unreviewed
+1715,Se7084534fa,Robert Palmer,Johnny & Mary,,0,0,0,,not_enriched,unreviewed
+1716,Se7bb1e130b,Styx,Renegade,,0,0,0,,not_enriched,unreviewed
+1717,Se7f4e8ad1b,The Pointer Sisters,Automatic,,0,0,0,,not_enriched,unreviewed
+1718,Se8234aee3c,Pink Floyd,Vera,,0,0,0,,not_enriched,unreviewed
+1719,Se856317c11,Supertramp,Babaji,,0,0,0,,not_enriched,unreviewed
+1720,Se8b862e3b4,The Pointer Sisters,Fire,,0,0,0,,not_enriched,unreviewed
+1721,Se8cac084c0,Pink Floyd,Eclipse,,0,0,0,,not_enriched,unreviewed
+1722,Se905cb4aea,REO Speedwagon,Take It on the Run,,0,0,0,,not_enriched,unreviewed
+1723,Se98d03841a,Todd Snider,This Land Is Our Land,,0,0,0,,not_enriched,unreviewed
+1724,Se9c999729a,Robert Palmer,Some Like It Hot,,0,0,0,,not_enriched,unreviewed
+1725,Se9d07f4a57,Carly Simon,Amity,,0,0,0,,not_enriched,unreviewed
+1726,Seb81584bee,Robert Palmer,Style Kills,,0,0,0,,not_enriched,unreviewed
+1727,Sebbc44fd0a,Tom Petty and the Heartbreakers,Hometown Blues,,0,0,0,,not_enriched,unreviewed
+1728,Sec57498727,The Police,"De Do Do Do, De Da Da Da",,0,0,0,,not_enriched,unreviewed
+1729,Sed0ef763c2,Simon and Garfunkel,Why Don’t You Write Me,,0,0,0,,not_enriched,unreviewed
+1730,Sed16ed5d05,Carly Simon,You Belong to Me,,0,0,0,,not_enriched,unreviewed
+1731,Sed1af6d976,Carly Simon,The Stuff That Dreams Are Made Of,,0,0,0,,not_enriched,unreviewed
+1732,Sed2b13e9df,Styx,Fooling Yourself (The Angry Young Man),,0,0,0,,not_enriched,unreviewed
+1733,Sed8d33c7ae,Simon & Garfunkel,The Sound of Silence,,0,0,0,,not_enriched,unreviewed
+1734,Sed91b413b0,Bruce Springsteen,Cover Me,,0,0,0,,not_enriched,unreviewed
+1735,Sed963a3e8b,Styx,The Message,,0,0,0,,not_enriched,unreviewed
+1736,Sede2b48d50,Scorpions,No One Like You,,0,0,0,,not_enriched,unreviewed
+1737,See51ab3160,Al Stewart,One Stage Before,,0,0,0,,not_enriched,unreviewed
+1738,Seec7502f75,Joe Walsh,Days Gone By,,0,0,0,,not_enriched,unreviewed
+1739,Seecee10a9f,Three Dog Night,Family of Man,,0,0,0,,not_enriched,unreviewed
+1740,Sef45e96608,Rod Stewart,I Don’t Want to Talk About It,,0,0,0,,not_enriched,unreviewed
+1741,Sefd4117479,Tom Petty and the Heartbreakers,Anything That’s Rock & Roll,,0,0,0,,not_enriched,unreviewed
+1742,Sf0026bc27d,Rod Stewart,I Was Only Joking,,0,0,0,,not_enriched,unreviewed
+1743,Sf02cecb93a,Supertramp,Breakfast in America,,0,0,0,,not_enriched,unreviewed
+1744,Sf115c5aff7,The Pointer Sisters,Neutron Dance,,0,0,0,,not_enriched,unreviewed
+1745,Sf22acdf4f5,Joe Walsh,Wolf,,0,0,0,,not_enriched,unreviewed
+1746,Sf243f501c8,Linda Ronstadt,When Will I Be Loved,,0,0,0,,not_enriched,unreviewed
+1747,Sf289f57216,Bob Seger & the Silver Bullet Band,Sunspot Baby,,0,0,0,,not_enriched,unreviewed
+1748,Sf32ad84e8b,Soundgarden,My Wave,,0,0,0,,not_enriched,unreviewed
+1749,Sf3312a53d2,Linda Ronstadt,That'll Be the Day,,0,0,0,,not_enriched,unreviewed
+1750,Sf3637912d4,Sheryl Crow,Love Is a Good Thing,,0,0,0,,not_enriched,unreviewed
+1751,Sf3f15efece,Styx,Lords of the Ring,,0,0,0,,not_enriched,unreviewed
+1752,Sf42a832ecf,Three Dog Night,One Man Band,,0,0,0,,not_enriched,unreviewed
+1753,Sf4e3be7213,Styx,Come Sail Away,,0,0,0,,not_enriched,unreviewed
+1754,Sf52e7cb5ca,Joe Walsh,Rocky Mountain Way,,0,0,0,,not_enriched,unreviewed
+1755,Sf5315a9233,Pink Floyd,Run Like Hell,,0,0,0,,not_enriched,unreviewed
+1756,Sf605d3593b,The Rolling Stones,Gimme Shelter,,0,0,0,,not_enriched,unreviewed
+1757,Sf65083a43e,R.E.M.,Country Feedback,,0,0,0,,not_enriched,unreviewed
+1758,Sf764d39757,Temple of the Dog,Four Walled World,,0,0,0,,not_enriched,unreviewed
+1759,Sf79ffd70ae,Robert Palmer,Too Good to Be True,,0,0,0,,not_enriched,unreviewed
+1760,Sf8427cb013,James Taylor,Shower the People,,0,0,0,,not_enriched,unreviewed
+1761,Sf88392a886,The Alan Parsons Project,Some Other Time,,0,0,0,,not_enriched,unreviewed
+1762,Sf8c648b9a2,Joan Osborne,Pensacola,,0,0,0,,not_enriched,unreviewed
+1763,Sf8f6d1cb11,Todd Snider,Somebody’s Coming,,0,0,0,,not_enriched,unreviewed
+1764,Sf8fe0ca880,Robert Palmer,The Silver Gun,,0,0,0,,not_enriched,unreviewed
+1765,Sf91f09fbd2,Simon & Garfunkel,Richard Cory,,0,0,0,,not_enriched,unreviewed
+1766,Sf9427defa2,The Rolling Stones,Jumpin’ Jack Flash,,0,0,0,,not_enriched,unreviewed
+1767,Sfaa5e200a6,Simon & Garfunkel,A Simple Desultory Philippic (or How I Was Robert McNamara’d Into Submission),,0,0,0,,not_enriched,unreviewed
+1768,Sfae500073d,U2,Helter Skelter,,0,0,0,,not_enriched,unreviewed
+1769,Sfb73afd574,Al Stewart,"If It Doesn’t Come Naturally, Leave It",,0,0,0,,not_enriched,unreviewed
+1770,Sfc05330183,Linda Ronstadt,How Do I Make You,,0,0,0,,not_enriched,unreviewed
+1771,Sfc6137ab89,Temple of the Dog,Hunger Strike,,0,0,0,,not_enriched,unreviewed
+1772,Sfca0fe57e1,Simon & Garfunkel,A Most Peculiar Man,,0,0,0,,not_enriched,unreviewed
+1773,Sfcf42f701f,Simon & Garfunkel,Bookends Theme,,0,0,0,,not_enriched,unreviewed
+1774,Sfde13809c2,R.E.M.,Half a World Away,,0,0,0,,not_enriched,unreviewed
+1775,Sfeab3fbca7,Simon and Garfunkel,El cóndor pasa,,0,0,0,,not_enriched,unreviewed
+1776,Sff34b62af0,Pink Floyd,Brain Damage,,0,0,0,,not_enriched,unreviewed
+1777,Sff365f6fb6,Queen,Who Needs You,,0,0,0,,not_enriched,unreviewed
+1778,Sff774b1ed4,REO Speedwagon,Someone Tonight,,0,0,0,,not_enriched,unreviewed
+1779,Sff96672bee,Linda Ronstadt,Hurt So Bad,,0,0,0,,not_enriched,unreviewed
+1780,Sffabde3658,Tom Petty and the Heartbreakers,Shadow of a Doubt (A Complex Kid),,0,0,0,,not_enriched,unreviewed

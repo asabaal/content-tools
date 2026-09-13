@@ -258,17 +258,14 @@ def run_enrichment(project_root: Path, *, limit: int | None = None,
                 sid = song_id_for(norm_text(canon_artist), norm_text(title))
                 conn.execute(
                     """INSERT OR IGNORE INTO songs (song_id, canonical_artist,
-                       canonical_title, norm_artist, norm_title, recording_variant)
-                       VALUES (?,?,?,?,?,?)""",
+                       canonical_title, norm_artist, norm_title)
+                       VALUES (?,?,?,?,?)""",
                     (sid, canon_artist, title,
-                     norm_text(canon_artist), norm_text(title), variant),
+                     norm_text(canon_artist), norm_text(title)),
                 )
-                sid_row = conn.execute(
-                    """SELECT song_id FROM songs WHERE norm_artist = ?
-                       AND norm_title = ? AND recording_variant IS ?""",
-                    (norm_text(canon_artist), norm_text(title), variant),
-                ).fetchone()
-                sid = sid_row["song_id"]
+                # sid is a pure function of (norm_artist, norm_title); after the
+                # ignore-or-insert it is guaranteed present. Variant info stays on
+                # release_tracks.track_title_printed (provenance), not the song key.
                 conn.execute(
                     """INSERT INTO release_tracks (release_id, disc, track_no,
                        track_title_printed, song_id) VALUES (?,?,?,?,?)

@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS songs (
     popularity_method TEXT,
     popularity_score REAL,
     popularity_status TEXT NOT NULL DEFAULT 'not_enriched',
-    UNIQUE (norm_artist, norm_title, recording_variant)
+    UNIQUE (norm_artist, norm_title)
 );
 CREATE INDEX IF NOT EXISTS idx_songs_norm ON songs(norm_artist, norm_title);
 

@@ -1129,20 +1129,656 @@
 | 1125 | AC/DC | Shot Down in Flames | ? | 1 | 0 | unreviewed |
 | 1126 | Randy Travis | Jingle Bell Rock | ? | 1 | 0 | unreviewed |
 | 1127 | AC/DC | Girls Got Rhythm | ? | 1 | 0 | unreviewed |
-| 1128 | The Moody Blues | Dawning Is the Day | ? | 0 | 0 | unreviewed |
-| 1129 | The Moody Blues | Question | ? | 0 | 0 | unreviewed |
-| 1130 | The Moody Blues | Evening: The Sun Set / Twilight Time | ? | 0 | 0 | unreviewed |
-| 1131 | The Moody Blues | Minstrel’s Song | ? | 0 | 0 | unreviewed |
-| 1132 | The Moody Blues | Melancholy Man | ? | 0 | 0 | unreviewed |
-| 1133 | The Moody Blues | Tortoise and the Hare | ? | 0 | 0 | unreviewed |
-| 1134 | The Moody Blues | The Balance | ? | 0 | 0 | unreviewed |
-| 1135 | The Moody Blues | And the Tide Rushes In | ? | 0 | 0 | unreviewed |
-| 1136 | The Moody Blues | Dawn: Dawn Is a Feeling | ? | 0 | 0 | unreviewed |
-| 1137 | The Moody Blues | Lunch Break: Peak Hour | ? | 0 | 0 | unreviewed |
-| 1138 | The Moody Blues | Don’t You Feel Small | ? | 0 | 0 | unreviewed |
-| 1139 | The Moody Blues | How Is It (We Are Here) | ? | 0 | 0 | unreviewed |
-| 1140 | The Moody Blues | The Night: Nights in White Satin | ? | 0 | 0 | unreviewed |
-| 1141 | The Moody Blues | The Morning: Another Morning | ? | 0 | 0 | unreviewed |
-| 1142 | The Moody Blues | The Afternoon: Forever Afternoon (Tuesday?) / (Evening) Time to Get Away | ? | 0 | 0 | unreviewed |
-| 1143 | The Moody Blues | The Day Begins | ? | 0 | 0 | unreviewed |
-| 1144 | The Moody Blues | It’s Up to You | ? | 0 | 0 | unreviewed |
+| 1128 | REO Speedwagon | In Your Letter | ? | 0 | 0 | unreviewed |
+| 1129 | Pink Floyd | Pigs (Three Different Ones) | ? | 0 | 0 | unreviewed |
+| 1130 | Tom Petty and the Heartbreakers | A Woman in Love (It’s Not Me) | ? | 0 | 0 | unreviewed |
+| 1131 | Sheryl Crow | Oh Marie | ? | 0 | 0 | unreviewed |
+| 1132 | Al Stewart | Sand in Your Shoes | ? | 0 | 0 | unreviewed |
+| 1133 | Three Dog Night | Joy to the World | ? | 0 | 0 | unreviewed |
+| 1134 | Rod Stewart | The First Cut Is the Deepest | ? | 0 | 0 | unreviewed |
+| 1135 | Joan Osborne | Help Me | ? | 0 | 0 | unreviewed |
+| 1136 | Bruce Springsteen | Darlington County | ? | 0 | 0 | unreviewed |
+| 1137 | Carly Simon | Give Me All Night | ? | 0 | 0 | unreviewed |
+| 1138 | Simon and Garfunkel | The Only Living Boy in New York | ? | 0 | 0 | unreviewed |
+| 1139 | Bruce Springsteen | I’m on Fire | ? | 0 | 0 | unreviewed |
+| 1140 | Al Stewart | Flying Sorcery | ? | 0 | 0 | unreviewed |
+| 1141 | Robert Palmer | Remember to Remember | ? | 0 | 0 | unreviewed |
+| 1142 | Steppenwolf | Sookie, Sookie | ? | 0 | 0 | unreviewed |
+| 1143 | Traveling Wilburys | Rattled | ? | 0 | 0 | unreviewed |
+| 1144 | REO Speedwagon | Tough Guys | ? | 0 | 0 | unreviewed |
+| 1145 | The Police | Roxanne | ? | 0 | 0 | unreviewed |
+| 1146 | Queen | It's Late | ? | 0 | 0 | unreviewed |
+| 1147 | James Taylor | Mexico | ? | 0 | 0 | unreviewed |
+| 1148 | Pink Floyd | Don’t Leave Me Now | ? | 0 | 0 | unreviewed |
+| 1149 | The Pointer Sisters | I’m So Excited | ? | 0 | 0 | unreviewed |
+| 1150 | Pink Floyd | Dogs | ? | 0 | 0 | unreviewed |
+| 1151 | The Moody Blues | Dawning Is the Day | ? | 0 | 0 | unreviewed |
+| 1152 | Queen | Get Down, Make Love | ? | 0 | 0 | unreviewed |
+| 1153 | The Police | So Lonely | ? | 0 | 0 | unreviewed |
+| 1154 | Carly Simon | Haven't Got Time for the Pain | ? | 0 | 0 | unreviewed |
+| 1155 | Pink Floyd | Nobody Home | ? | 0 | 0 | unreviewed |
+| 1156 | Queen | Spread Your Wings | ? | 0 | 0 | unreviewed |
+| 1157 | Bob Seger & the Silver Bullet Band | Ship of Fools | ? | 0 | 0 | unreviewed |
+| 1158 | Joe Walsh | Dreams | ? | 0 | 0 | unreviewed |
+| 1159 | Joan Osborne | Let’s Just Get Naked | ? | 0 | 0 | unreviewed |
+| 1160 | Bruce Springsteen | Working on the Highway | ? | 0 | 0 | unreviewed |
+| 1161 | Tom Petty and the Heartbreakers | Here Comes My Girl | ? | 0 | 0 | unreviewed |
+| 1162 | The Pointer Sisters | Jump (for My Love) | ? | 0 | 0 | unreviewed |
+| 1163 | Traveling Wilburys | Congratulations | ? | 0 | 0 | unreviewed |
+| 1164 | The Alan Parsons Project | Breakdown | ? | 0 | 0 | unreviewed |
+| 1165 | Steppenwolf | Monster | ? | 0 | 0 | unreviewed |
+| 1166 | Robert Palmer | Some Guys Have All the Luck | ? | 0 | 0 | unreviewed |
+| 1167 | Simon & Garfunkel | The Boxer | ? | 0 | 0 | unreviewed |
+| 1168 | REO Speedwagon | Keep On Loving You | ? | 0 | 0 | unreviewed |
+| 1169 | Joan Osborne | Spider Web | ? | 0 | 0 | unreviewed |
+| 1170 | Traveling Wilburys | Tweeter and the Monkey Man | ? | 0 | 0 | unreviewed |
+| 1171 | Scorpions | Big City Nights | ? | 0 | 0 | unreviewed |
+| 1172 | Queen | Sleeping on the Sidewalk | ? | 0 | 0 | unreviewed |
+| 1173 | Simon & Garfunkel | Kathy’s Song | ? | 0 | 0 | unreviewed |
+| 1174 | The Alan Parsons Project | Day After Day (The Show Must Go On) | ? | 0 | 0 | unreviewed |
+| 1175 | Santana | Evil Ways | ? | 0 | 0 | unreviewed |
+| 1176 | Steppenwolf | Screaming Night Hog | ? | 0 | 0 | unreviewed |
+| 1177 | The Alan Parsons Project | I Robot | ? | 0 | 0 | unreviewed |
+| 1178 | The Rolling Stones | Honky Tonk Women | ? | 0 | 0 | unreviewed |
+| 1179 | Tom Petty and the Heartbreakers | What Are You Doin’ in My Life? | ? | 0 | 0 | unreviewed |
+| 1180 | Supertramp | School | ? | 0 | 0 | unreviewed |
+| 1181 | The Moody Blues | Question | ? | 0 | 0 | unreviewed |
+| 1182 | Queen | Fight From the Inside | ? | 0 | 0 | unreviewed |
+| 1183 | The Moody Blues | Evening: The Sun Set / Twilight Time | ? | 0 | 0 | unreviewed |
+| 1184 | The Pointer Sisters | Goldmine | ? | 0 | 0 | unreviewed |
+| 1185 | Supertramp | Fool’s Overture | ? | 0 | 0 | unreviewed |
+| 1186 | Tom Petty and the Heartbreakers | Insider | ? | 0 | 0 | unreviewed |
+| 1187 | Supertramp | Bloody Well Right | ? | 0 | 0 | unreviewed |
+| 1188 | Robert Palmer | Pride | ? | 0 | 0 | unreviewed |
+| 1189 | Soundgarden | Fell on Black Days | ? | 0 | 0 | unreviewed |
+| 1190 | Bob Seger & the Silver Bullet Band | You’ll Accomp’ny Me | ? | 0 | 0 | unreviewed |
+| 1191 | Carly Simon | Legend in Your Own Time | ? | 0 | 0 | unreviewed |
+| 1192 | Three Dog Night | I'd Be So Happy | ? | 0 | 0 | unreviewed |
+| 1193 | Tom Petty and the Heartbreakers | American Girl | ? | 0 | 0 | unreviewed |
+| 1194 | Sheryl Crow | Superstar | ? | 0 | 0 | unreviewed |
+| 1195 | The Alan Parsons Project | Total Eclipse | ? | 0 | 0 | unreviewed |
+| 1196 | U2 | I Still Haven’t Found What I’m Looking For | ? | 0 | 0 | unreviewed |
+| 1197 | The Rolling Stones | (I Can’t Get No) Satisfaction | ? | 0 | 0 | unreviewed |
+| 1198 | U2 | Pride (In the Name of Love) | ? | 0 | 0 | unreviewed |
+| 1199 | Sheryl Crow | Sad Sad World | ? | 0 | 0 | unreviewed |
+| 1200 | Supertramp | From Now On | ? | 0 | 0 | unreviewed |
+| 1201 | Tom Petty and the Heartbreakers | Luna | ? | 0 | 0 | unreviewed |
+| 1202 | REO Speedwagon | Out of Season | ? | 0 | 0 | unreviewed |
+| 1203 | Simon & Garfunkel | April Come She Will | ? | 0 | 0 | unreviewed |
+| 1204 | U2 | Red Hill Mining Town | ? | 0 | 0 | unreviewed |
+| 1205 | Tom Petty and the Heartbreakers | Rockin’ Around (With You) | ? | 0 | 0 | unreviewed |
+| 1206 | Supertramp | Give a Little Bit | ? | 0 | 0 | unreviewed |
+| 1207 | Bruce Springsteen | I’m Goin’ Down | ? | 0 | 0 | unreviewed |
+| 1208 | Joan Osborne | One of Us | ? | 0 | 0 | unreviewed |
+| 1209 | Robert Palmer | Best of Both Worlds | ? | 0 | 0 | unreviewed |
+| 1210 | Supertramp | The Logical Song | ? | 0 | 0 | unreviewed |
+| 1211 | The Rolling Stones | Under My Thumb | ? | 0 | 0 | unreviewed |
+| 1212 | Carly Simon | Nobody Does It Better | ? | 0 | 0 | unreviewed |
+| 1213 | Sheryl Crow | Redemption Day | ? | 0 | 0 | unreviewed |
+| 1214 | Temple of the Dog | Say Hello 2 Heaven | ? | 0 | 0 | unreviewed |
+| 1215 | Robert Palmer | Give Me an Inch | ? | 0 | 0 | unreviewed |
+| 1216 | Soundgarden | Kickstand | ? | 0 | 0 | unreviewed |
+| 1217 | Bob Seger & the Silver Bullet Band | The Fire Down Below | ? | 0 | 0 | unreviewed |
+| 1218 | Simon & Garfunkel | I Am a Rock | ? | 0 | 0 | unreviewed |
+| 1219 | Pink Floyd | Sheep | ? | 0 | 0 | unreviewed |
+| 1220 | Pearl Jam | Garden | ? | 0 | 0 | unreviewed |
+| 1221 | Pink Floyd | Shine On You Crazy Diamond, Parts I–V | ? | 0 | 0 | unreviewed |
+| 1222 | Linda Ronstadt | Silver Threads and Golden Needles | ? | 0 | 0 | unreviewed |
+| 1223 | Supertramp | C’est le bon | ? | 0 | 0 | unreviewed |
+| 1224 | Tom Petty and the Heartbreakers | You Got Lucky | ? | 0 | 0 | unreviewed |
+| 1225 | Tom Petty and the Heartbreakers | Mary Jane’s Last Dance | ? | 0 | 0 | unreviewed |
+| 1226 | Pearl Jam | Master / Slave | ? | 0 | 0 | unreviewed |
+| 1227 | Linda Ronstadt | I Can’t Let Go | ? | 0 | 0 | unreviewed |
+| 1228 | Sheryl Crow | Home | ? | 0 | 0 | unreviewed |
+| 1229 | The Rolling Stones | Ruby Tuesday | ? | 0 | 0 | unreviewed |
+| 1230 | Simon & Garfunkel | The 59th Street Bridge Song (Feelin’ Groovy) | ? | 0 | 0 | unreviewed |
+| 1231 | Tom Petty | A Face in the Crowd | ? | 0 | 0 | unreviewed |
+| 1232 | The Pointer Sisters | Slow Hand | ? | 0 | 0 | unreviewed |
+| 1233 | Pink Floyd | Money | ? | 0 | 0 | unreviewed |
+| 1234 | Supertramp | Dreamer | ? | 0 | 0 | unreviewed |
+| 1235 | Linda Ronstadt | Just One Look | ? | 0 | 0 | unreviewed |
+| 1236 | Simon & Garfunkel | Punky’s Dilemma | ? | 0 | 0 | unreviewed |
+| 1237 | Bob Seger & the Silver Bullet Band | Come to Poppa | ? | 0 | 0 | unreviewed |
+| 1238 | James Taylor | Walking Man | ? | 0 | 0 | unreviewed |
+| 1239 | Supertramp | Put On Your Old Brown Shoes | ? | 0 | 0 | unreviewed |
+| 1240 | Scorpions | I Can’t Explain | ? | 0 | 0 | unreviewed |
+| 1241 | Pearl Jam | Porch | ? | 0 | 0 | unreviewed |
+| 1242 | R.E.M. | Shiny Happy People | ? | 0 | 0 | unreviewed |
+| 1243 | Rod Stewart | Tomorrow Is Such a Long Time | ? | 0 | 0 | unreviewed |
+| 1244 | Simon & Garfunkel | A Poem on the Underground Wall | ? | 0 | 0 | unreviewed |
+| 1245 | The Police | Wrapped Around Your Finger | ? | 0 | 0 | unreviewed |
+| 1246 | The Moody Blues | Minstrel’s Song | ? | 0 | 0 | unreviewed |
+| 1247 | Scorpions | Holiday | ? | 0 | 0 | unreviewed |
+| 1248 | Supertramp | Goodbye Stranger | ? | 0 | 0 | unreviewed |
+| 1249 | Steely Dan | Do It Again | ? | 0 | 0 | unreviewed |
+| 1250 | Robert Palmer | Addicted to Love | ? | 0 | 0 | unreviewed |
+| 1251 | Pearl Jam | Oceans | ? | 0 | 0 | unreviewed |
+| 1252 | U2 | When Love Comes to Town | ? | 0 | 0 | unreviewed |
+| 1253 | Simon and Garfunkel | Keep the Customer Satisfied | ? | 0 | 0 | unreviewed |
+| 1254 | Temple of the Dog | Reach Down | ? | 0 | 0 | unreviewed |
+| 1255 | U2 | Love Comes Tumbling | ? | 0 | 0 | unreviewed |
+| 1256 | Bob Seger & the Silver Bullet Band | Rock and Roll Never Forgets | ? | 0 | 0 | unreviewed |
+| 1257 | Linda Ronstadt | It’s So Easy | ? | 0 | 0 | unreviewed |
+| 1258 | Robert Palmer | Looking for Clues | ? | 0 | 0 | unreviewed |
+| 1259 | Simon & Garfunkel | Cloudy | ? | 0 | 0 | unreviewed |
+| 1260 | Tom Petty and the Heartbreakers | Kings Road | ? | 0 | 0 | unreviewed |
+| 1261 | Tom Petty | Runnin' Down a Dream | ? | 0 | 0 | unreviewed |
+| 1262 | The Alan Parsons Project | Genesis Ch. 1 V. 32 | ? | 0 | 0 | unreviewed |
+| 1263 | Supertramp | Take the Long Way Home | ? | 0 | 0 | unreviewed |
+| 1264 | Carly Simon | All I Want Is You | ? | 0 | 0 | unreviewed |
+| 1265 | Tom Petty and the Heartbreakers | You Tell Me | ? | 0 | 0 | unreviewed |
+| 1266 | Pink Floyd | Goodbye Blue Sky | ? | 0 | 0 | unreviewed |
+| 1267 | Robert Palmer | Man Smart, Woman Smarter | ? | 0 | 0 | unreviewed |
+| 1268 | Tom Petty and the Heartbreakers | Free Fallin’ | ? | 0 | 0 | unreviewed |
+| 1269 | Supertramp | Gone Hollywood | ? | 0 | 0 | unreviewed |
+| 1270 | Styx | Castle Walls | ? | 0 | 0 | unreviewed |
+| 1271 | Steppenwolf | Jupiter’s Child | ? | 0 | 0 | unreviewed |
+| 1272 | Todd Snider | Trouble | ? | 0 | 0 | unreviewed |
+| 1273 | Rod Stewart | You’re in My Heart (The Final Acclaim) | ? | 0 | 0 | unreviewed |
+| 1274 | Supertramp | Casual Conversations | ? | 0 | 0 | unreviewed |
+| 1275 | Rod Stewart | (I Know) I’m Losing You | ? | 0 | 0 | unreviewed |
+| 1276 | Tom Petty | Depending on You | ? | 0 | 0 | unreviewed |
+| 1277 | Scorpions | Hey You | ? | 0 | 0 | unreviewed |
+| 1278 | Steppenwolf | Magic Carpet Ride | ? | 0 | 0 | unreviewed |
+| 1279 | Three Dog Night | Play Something Sweet (Brickyard Blues) | ? | 0 | 0 | unreviewed |
+| 1280 | Linda Ronstadt | Desperado | ? | 0 | 0 | unreviewed |
+| 1281 | Pearl Jam | Why Go | ? | 0 | 0 | unreviewed |
+| 1282 | Robert Palmer | Sneakin’ Sally Through the Alley | ? | 0 | 0 | unreviewed |
+| 1283 | Pink Floyd | Hey You | ? | 0 | 0 | unreviewed |
+| 1284 | Queen | Sheer Heart Attack | ? | 0 | 0 | unreviewed |
+| 1285 | U2 | All I Want Is You | ? | 0 | 0 | unreviewed |
+| 1286 | Steely Dan | Reelin’ In the Years | ? | 0 | 0 | unreviewed |
+| 1287 | U2 | Silver and Gold | ? | 0 | 0 | unreviewed |
+| 1288 | The Rolling Stones | Street Fighting Man | ? | 0 | 0 | unreviewed |
+| 1289 | Bob Seger & the Silver Bullet Band | Long Twin Silver Line | ? | 0 | 0 | unreviewed |
+| 1290 | Tom Petty | Zombie Zoo | ? | 0 | 0 | unreviewed |
+| 1291 | Tom Petty | The Apartment Song | ? | 0 | 0 | unreviewed |
+| 1292 | The Rolling Stones | Midnight Rambler | ? | 0 | 0 | unreviewed |
+| 1293 | Pearl Jam | Once | ? | 0 | 0 | unreviewed |
+| 1294 | Carly Simon | James | ? | 0 | 0 | unreviewed |
+| 1295 | Tom Petty and the Heartbreakers | Breakdown | ? | 0 | 0 | unreviewed |
+| 1296 | The Alan Parsons Project | The Voice | ? | 0 | 0 | unreviewed |
+| 1297 | Tom Petty | Alright for Now | ? | 0 | 0 | unreviewed |
+| 1298 | Santana | Samba pa ti | ? | 0 | 0 | unreviewed |
+| 1299 | Pink Floyd | Any Colour You Like | ? | 0 | 0 | unreviewed |
+| 1300 | Simon and Garfunkel | Song for the Asking | ? | 0 | 0 | unreviewed |
+| 1301 | Roxy Music | Do the Strand | ? | 0 | 0 | unreviewed |
+| 1302 | Roxy Music | Editions of You | ? | 0 | 0 | unreviewed |
+| 1303 | Soundgarden | The Day I Tried to Live | ? | 0 | 0 | unreviewed |
+| 1304 | Pink Floyd | Time | ? | 0 | 0 | unreviewed |
+| 1305 | Rod Stewart | Maggie May | ? | 0 | 0 | unreviewed |
+| 1306 | Simon & Garfunkel | Patterns | ? | 0 | 0 | unreviewed |
+| 1307 | Todd Snider | My Generation (part 2) | ? | 0 | 0 | unreviewed |
+| 1308 | Scorpions | Blackout | ? | 0 | 0 | unreviewed |
+| 1309 | Tom Petty and the Heartbreakers | The Wild One, Forever | ? | 0 | 0 | unreviewed |
+| 1310 | Steppenwolf | The Pusher | ? | 0 | 0 | unreviewed |
+| 1311 | R.E.M. | Losing My Religion | ? | 0 | 0 | unreviewed |
+| 1312 | Steely Dan | Change of the Guard | ? | 0 | 0 | unreviewed |
+| 1313 | The Pointer Sisters | He’s So Shy | ? | 0 | 0 | unreviewed |
+| 1314 | Joan Osborne | Dracula Moon | ? | 0 | 0 | unreviewed |
+| 1315 | The Alan Parsons Project | Gemini | ? | 0 | 0 | unreviewed |
+| 1316 | Pink Floyd | Waiting for the Worms | ? | 0 | 0 | unreviewed |
+| 1317 | Bob Seger & the Silver Bullet Band | Shinin’ Brightly | ? | 0 | 0 | unreviewed |
+| 1318 | Styx | Superstars | ? | 0 | 0 | unreviewed |
+| 1319 | U2 | Hawkmoon 269 | ? | 0 | 0 | unreviewed |
+| 1320 | REO Speedwagon | Don’t Let Him Go | ? | 0 | 0 | unreviewed |
+| 1321 | Tom Petty and the Heartbreakers | The Waiting | ? | 0 | 0 | unreviewed |
+| 1322 | Tom Petty and the Heartbreakers | Something in the Air | ? | 0 | 0 | unreviewed |
+| 1323 | Simon & Garfunkel | Leaves That Are Green | ? | 0 | 0 | unreviewed |
+| 1324 | Steely Dan | Kings | ? | 0 | 0 | unreviewed |
+| 1325 | Bob Seger & the Silver Bullet Band | Fire Lake | ? | 0 | 0 | unreviewed |
+| 1326 | Styx | Sing for the Day | ? | 0 | 0 | unreviewed |
+| 1327 | Tom Petty and the Heartbreakers | Century City | ? | 0 | 0 | unreviewed |
+| 1328 | Steppenwolf | It’s Never Too Late | ? | 0 | 0 | unreviewed |
+| 1329 | The Moody Blues | Melancholy Man | ? | 0 | 0 | unreviewed |
+| 1330 | Pink Floyd | Wish You Were Here | ? | 0 | 0 | unreviewed |
+| 1331 | The Police | Invisible Sun | ? | 0 | 0 | unreviewed |
+| 1332 | U2 | The Three Sunrises | ? | 0 | 0 | unreviewed |
+| 1333 | Pearl Jam | Jeremy | ? | 0 | 0 | unreviewed |
+| 1334 | Pink Floyd | Another Brick in the Wall, Part 1 | ? | 0 | 0 | unreviewed |
+| 1335 | The Stone Poneys | Different Drum | ? | 0 | 0 | unreviewed |
+| 1336 | Todd Snider | Easy Money | ? | 0 | 0 | unreviewed |
+| 1337 | Joe Walsh | Book Ends | ? | 0 | 0 | unreviewed |
+| 1338 | Three Dog Night | The Show Must Go On | ? | 0 | 0 | unreviewed |
+| 1339 | Temple of the Dog | Pushin Forward Back | ? | 0 | 0 | unreviewed |
+| 1340 | James Taylor | Don't Let Me Be Lonely Tonight | ? | 0 | 0 | unreviewed |
+| 1341 | Pearl Jam | Deep | ? | 0 | 0 | unreviewed |
+| 1342 | Joan Osborne | Right Hand Man | ? | 0 | 0 | unreviewed |
+| 1343 | Santana | Se acabó | ? | 0 | 0 | unreviewed |
+| 1344 | Santana | Persuasion | ? | 0 | 0 | unreviewed |
+| 1345 | Steppenwolf | Born to Be Wild | ? | 0 | 0 | unreviewed |
+| 1346 | Supertramp | Lover Boy | ? | 0 | 0 | unreviewed |
+| 1347 | Scorpions | Still Loving You | ? | 0 | 0 | unreviewed |
+| 1348 | The Police | Spirits in the Material World | ? | 0 | 0 | unreviewed |
+| 1349 | Simon & Garfunkel | Bookends | ? | 0 | 0 | unreviewed |
+| 1350 | Carly Simon | Mockingbird | ? | 0 | 0 | unreviewed |
+| 1351 | Al Stewart | Lord Grenville | ? | 0 | 0 | unreviewed |
+| 1352 | Steppenwolf | Tenderness | ? | 0 | 0 | unreviewed |
+| 1353 | Al Stewart | Year of the Cat | ? | 0 | 0 | unreviewed |
+| 1354 | The Rolling Stones | Mother’s Little Helper | ? | 0 | 0 | unreviewed |
+| 1355 | Roxy Music | Street Life | ? | 0 | 0 | unreviewed |
+| 1356 | Tom Petty | A Mind With a Heart of Its Own | ? | 0 | 0 | unreviewed |
+| 1357 | Simon & Garfunkel | Save the Life of My Child | ? | 0 | 0 | unreviewed |
+| 1358 | Supertramp | Hide in Your Shell | ? | 0 | 0 | unreviewed |
+| 1359 | Simon and Garfunkel | So Long, Frank Lloyd Wright | ? | 0 | 0 | unreviewed |
+| 1360 | Tom Petty and the Heartbreakers | Listen to Her Heart | ? | 0 | 0 | unreviewed |
+| 1361 | James Taylor | Something in the Way She Moves | ? | 0 | 0 | unreviewed |
+| 1362 | REO Speedwagon | I Wish You Were There | ? | 0 | 0 | unreviewed |
+| 1363 | Queen | All Dead, All Dead | ? | 0 | 0 | unreviewed |
+| 1364 | Roxy Music | A Song for Europe | ? | 0 | 0 | unreviewed |
+| 1365 | Tom Petty and the Heartbreakers | I Won’t Back Down | ? | 0 | 0 | unreviewed |
+| 1366 | Styx | The Grand Illusion | ? | 0 | 0 | unreviewed |
+| 1367 | Tom Petty and the Heartbreakers | Anything That’s Rock ’n’ Roll | ? | 0 | 0 | unreviewed |
+| 1368 | The Pointer Sisters | Dare Me | ? | 0 | 0 | unreviewed |
+| 1369 | Roxy Music | Virginia Plain | ? | 0 | 0 | unreviewed |
+| 1370 | Simon & Garfunkel | The Big Bright Green Pleasure Machine | ? | 0 | 0 | unreviewed |
+| 1371 | Pink Floyd | Another Brick in the Wall, Part 2 | ? | 0 | 0 | unreviewed |
+| 1372 | Temple of the Dog | Times of Trouble | ? | 0 | 0 | unreviewed |
+| 1373 | Pink Floyd | The Show Must Go On | ? | 0 | 0 | unreviewed |
+| 1374 | Tom Petty and the Heartbreakers | The Criminal Kind | ? | 0 | 0 | unreviewed |
+| 1375 | Tom Petty | Love Is a Long Road | ? | 0 | 0 | unreviewed |
+| 1376 | Robert Palmer | Every Kinda People | ? | 0 | 0 | unreviewed |
+| 1377 | Soundgarden | Like Suicide | ? | 0 | 0 | unreviewed |
+| 1378 | Bob Seger & the Silver Bullet Band | No Man’s Land | ? | 0 | 0 | unreviewed |
+| 1379 | Steppenwolf | Hey Lawdy Mama | ? | 0 | 0 | unreviewed |
+| 1380 | Temple of the Dog | All Night Thing | ? | 0 | 0 | unreviewed |
+| 1381 | U2 | Trip Through Your Wires | ? | 0 | 0 | unreviewed |
+| 1382 | Linda Ronstadt | Blue Bayou | ? | 0 | 0 | unreviewed |
+| 1383 | Jimi Hendrix | The Star Spangled Banner | ? | 0 | 0 | unreviewed |
+| 1384 | Simon & Garfunkel | Bookends Theme (instrumental) | ? | 0 | 0 | unreviewed |
+| 1385 | The Moody Blues | Tortoise and the Hare | ? | 0 | 0 | unreviewed |
+| 1386 | Soundgarden | Limo Wreck | ? | 0 | 0 | unreviewed |
+| 1387 | Todd Snider | Turn It Up | ? | 0 | 0 | unreviewed |
+| 1388 | Sheryl Crow | Ordinary Morning | ? | 0 | 0 | unreviewed |
+| 1389 | Satan and Adam | Freedom for My People | ? | 0 | 0 | unreviewed |
+| 1390 | Soundgarden | Superunknown | ? | 0 | 0 | unreviewed |
+| 1391 | Tom Petty and the Heartbreakers | Something Big | ? | 0 | 0 | unreviewed |
+| 1392 | Tom Petty | Feel a Whole Lot Better | ? | 0 | 0 | unreviewed |
+| 1393 | Temple of the Dog | Call Me a Dog | ? | 0 | 0 | unreviewed |
+| 1394 | The Rolling Stones | Sympathy for the Devil | ? | 0 | 0 | unreviewed |
+| 1395 | Tom Petty and the Heartbreakers | I Need to Know | ? | 0 | 0 | unreviewed |
+| 1396 | Carly Simon | Them | ? | 0 | 0 | unreviewed |
+| 1397 | Linda Ronstadt | Heat Wave | ? | 0 | 0 | unreviewed |
+| 1398 | Supertramp | My Kind of Lady | ? | 0 | 0 | unreviewed |
+| 1399 | The Moody Blues | The Balance | ? | 0 | 0 | unreviewed |
+| 1400 | Bob Seger & the Silver Bullet Band | Sunburst | ? | 0 | 0 | unreviewed |
+| 1401 | Steely Dan | Turn That Heartbeat Over Again | ? | 0 | 0 | unreviewed |
+| 1402 | Supertramp | Crime of the Century | ? | 0 | 0 | unreviewed |
+| 1403 | Tom Petty | Free Fallin' | ? | 0 | 0 | unreviewed |
+| 1404 | Rod Stewart | The Killing of Georgie, Part I & II | ? | 0 | 0 | unreviewed |
+| 1405 | Simon & Garfunkel | Mrs. Robinson | ? | 0 | 0 | unreviewed |
+| 1406 | Pink Floyd | Breathe | ? | 0 | 0 | unreviewed |
+| 1407 | Bruce Springsteen | Born in the U.S.A. | ? | 0 | 0 | unreviewed |
+| 1408 | U2 | One Tree Hill | ? | 0 | 0 | unreviewed |
+| 1409 | Scorpions | Rock You Like a Hurricane | ? | 0 | 0 | unreviewed |
+| 1410 | Carly Simon | Let the River Run | ? | 0 | 0 | unreviewed |
+| 1411 | Joan Osborne | Lumina | ? | 0 | 0 | unreviewed |
+| 1412 | The Pointer Sisters | Could I Be Dreamin’ | ? | 0 | 0 | unreviewed |
+| 1413 | U2 | God, Part II | ? | 0 | 0 | unreviewed |
+| 1414 | Simon & Garfunkel | We’ve Got a Groovey Thing Goin’ | ? | 0 | 0 | unreviewed |
+| 1415 | Todd Snider | I Spoke as a Child | ? | 0 | 0 | unreviewed |
+| 1416 | The Moody Blues | And the Tide Rushes In | ? | 0 | 0 | unreviewed |
+| 1417 | Pearl Jam | Alive | ? | 0 | 0 | unreviewed |
+| 1418 | Simon & Garfunkel | El Cóndor Pasa (If I Could) | ? | 0 | 0 | unreviewed |
+| 1419 | Traveling Wilburys | Not Alone Any More | ? | 0 | 0 | unreviewed |
+| 1420 | The Rolling Stones | Paint It, Black | ? | 0 | 0 | unreviewed |
+| 1421 | Simon & Garfunkel | For Emily, Whenever I May Find Her | ? | 0 | 0 | unreviewed |
+| 1422 | Joan Osborne | Man in the Long Black Coat | ? | 0 | 0 | unreviewed |
+| 1423 | Pink Floyd | Pigs on the Wing, Part 1 | ? | 0 | 0 | unreviewed |
+| 1424 | Robert Palmer | You Are in My System | ? | 0 | 0 | unreviewed |
+| 1425 | Supertramp | Don’t Leave Me Now | ? | 0 | 0 | unreviewed |
+| 1426 | Rod Stewart | That’s All Right | ? | 0 | 0 | unreviewed |
+| 1427 | James Taylor | Carolina in My Mind | ? | 0 | 0 | unreviewed |
+| 1428 | Styx | Miss America | ? | 0 | 0 | unreviewed |
+| 1429 | Pink Floyd | Mother | ? | 0 | 0 | unreviewed |
+| 1430 | Steely Dan | Dirty Work | ? | 0 | 0 | unreviewed |
+| 1431 | The Moody Blues | Dawn: Dawn Is a Feeling | ? | 0 | 0 | unreviewed |
+| 1432 | Scorpions | Lovedrive | ? | 0 | 0 | unreviewed |
+| 1433 | Bob Seger & the Silver Bullet Band | Mary Lou | ? | 0 | 0 | unreviewed |
+| 1434 | Tom Petty and the Heartbreakers | Nightwatchman | ? | 0 | 0 | unreviewed |
+| 1435 | Traveling Wilburys | Margarita | ? | 0 | 0 | unreviewed |
+| 1436 | Queen | We Are the Champions | ? | 0 | 0 | unreviewed |
+| 1437 | Bob Seger & the Silver Bullet Band | Against the Wind | ? | 0 | 0 | unreviewed |
+| 1438 | U2 | Heartland | ? | 0 | 0 | unreviewed |
+| 1439 | U2 | Angel of Harlem | ? | 0 | 0 | unreviewed |
+| 1440 | Pink Floyd | Is There Anybody Out There? | ? | 0 | 0 | unreviewed |
+| 1441 | The Moody Blues | Lunch Break: Peak Hour | ? | 0 | 0 | unreviewed |
+| 1442 | Linda Ronstadt | Tracks of My Tears | ? | 0 | 0 | unreviewed |
+| 1443 | Temple of the Dog | Wooden Jesus | ? | 0 | 0 | unreviewed |
+| 1444 | The Alan Parsons Project | Eye in the Sky | ? | 0 | 0 | unreviewed |
+| 1445 | Roxy Music | Out of the Blue | ? | 0 | 0 | unreviewed |
+| 1446 | Simon & Garfunkel | Overs | ? | 0 | 0 | unreviewed |
+| 1447 | Traveling Wilburys | [silence] | ? | 0 | 0 | unreviewed |
+| 1448 | The Police | Message in a Bottle | ? | 0 | 0 | unreviewed |
+| 1449 | Rod Stewart | Every Picture Tells a Story | ? | 0 | 0 | unreviewed |
+| 1450 | Simon & Garfunkel | Old Friends | ? | 0 | 0 | unreviewed |
+| 1451 | The Pointer Sisters | The Love Too Good to Last | ? | 0 | 0 | unreviewed |
+| 1452 | U2 | Mothers of the Disappeared | ? | 0 | 0 | unreviewed |
+| 1453 | James Taylor | Fire and Rain | ? | 0 | 0 | unreviewed |
+| 1454 | Simon and Garfunkel | Bridge Over Troubled Water | ? | 0 | 0 | unreviewed |
+| 1455 | Carly Simon | Touched by the Sun | ? | 0 | 0 | unreviewed |
+| 1456 | Pink Floyd | One of My Turns | ? | 0 | 0 | unreviewed |
+| 1457 | Simon & Garfunkel | A Hazy Shade of Winter | ? | 0 | 0 | unreviewed |
+| 1458 | Supertramp | Child of Vision | ? | 0 | 0 | unreviewed |
+| 1459 | Styx | The Grand Finale | ? | 0 | 0 | unreviewed |
+| 1460 | Steely Dan | Only a Fool Would Say That | ? | 0 | 0 | unreviewed |
+| 1461 | Pink Floyd | Welcome to the Machine | ? | 0 | 0 | unreviewed |
+| 1462 | REO Speedwagon | Follow My Heart | ? | 0 | 0 | unreviewed |
+| 1463 | Santana | Everything’s Coming Our Way | ? | 0 | 0 | unreviewed |
+| 1464 | Bruce Springsteen | Dancing in the Dark | ? | 0 | 0 | unreviewed |
+| 1465 | Robert Palmer | I Dream of Wires | ? | 0 | 0 | unreviewed |
+| 1466 | Tom Petty and the Heartbreakers | Refugee | ? | 0 | 0 | unreviewed |
+| 1467 | The Moody Blues | Don’t You Feel Small | ? | 0 | 0 | unreviewed |
+| 1468 | Three Dog Night | Never Been to Spain | ? | 0 | 0 | unreviewed |
+| 1469 | Tom Petty and the Heartbreakers | Into the Great Wide Open | ? | 0 | 0 | unreviewed |
+| 1470 | Bruce Springsteen | No Surrender | ? | 0 | 0 | unreviewed |
+| 1471 | Bob Seger & the Silver Bullet Band | The Horizontal Bop | ? | 0 | 0 | unreviewed |
+| 1472 | Styx | Man in the Wilderness | ? | 0 | 0 | unreviewed |
+| 1473 | Roxy Music | Mother of Pearl | ? | 0 | 0 | unreviewed |
+| 1474 | Linda Ronstadt | Love Has No Pride | ? | 0 | 0 | unreviewed |
+| 1475 | Supertramp | Downstream | ? | 0 | 0 | unreviewed |
+| 1476 | Simon and Garfunkel | Baby Driver | ? | 0 | 0 | unreviewed |
+| 1477 | James Taylor | You've Got a Friend | ? | 0 | 0 | unreviewed |
+| 1478 | Styx | Blue Collar Man (Long Nights) | ? | 0 | 0 | unreviewed |
+| 1479 | Steppenwolf | Ride With Me | ? | 0 | 0 | unreviewed |
+| 1480 | Steppenwolf | Who Needs Ya | ? | 0 | 0 | unreviewed |
+| 1481 | Three Dog Night | Shambala | ? | 0 | 0 | unreviewed |
+| 1482 | The Police | Every Little Thing She Does Is Magic | ? | 0 | 0 | unreviewed |
+| 1483 | Roxy Music | Love Is the Drug | ? | 0 | 0 | unreviewed |
+| 1484 | R.E.M. | Endgame | ? | 0 | 0 | unreviewed |
+| 1485 | Simon & Garfunkel | Fakin’ It | ? | 0 | 0 | unreviewed |
+| 1486 | Supertramp | Waiting So Long | ? | 0 | 0 | unreviewed |
+| 1487 | Simon & Garfunkel | Cecilia | ? | 0 | 0 | unreviewed |
+| 1488 | Supertramp | Rudy | ? | 0 | 0 | unreviewed |
+| 1489 | Supertramp | Bonnie | ? | 0 | 0 | unreviewed |
+| 1490 | Simon & Garfunkel | Bridge Over Troubled Water | ? | 0 | 0 | unreviewed |
+| 1491 | Three Dog Night | Let Me Serenade You | ? | 0 | 0 | unreviewed |
+| 1492 | Sheryl Crow | The Book | ? | 0 | 0 | unreviewed |
+| 1493 | Tom Petty and the Heartbreakers | Louisiana Rain | ? | 0 | 0 | unreviewed |
+| 1494 | Tom Petty and the Heartbreakers | Even the Losers | ? | 0 | 0 | unreviewed |
+| 1495 | The Rolling Stones | You Can’t Always Get What You Want | ? | 0 | 0 | unreviewed |
+| 1496 | Sheryl Crow | Sweet Rosalyn | ? | 0 | 0 | unreviewed |
+| 1497 | Pink Floyd | Outside the Wall | ? | 0 | 0 | unreviewed |
+| 1498 | Carly Simon | The Right Thing to Do | ? | 0 | 0 | unreviewed |
+| 1499 | Carly Simon | That's the Way I've Always Heard It Should Be | ? | 0 | 0 | unreviewed |
+| 1500 | Simon & Garfunkel | The Dangling Conversation | ? | 0 | 0 | unreviewed |
+| 1501 | Robert Palmer | Woke Up Laughing | ? | 0 | 0 | unreviewed |
+| 1502 | Supertramp | Just Another Nervous Wreck | ? | 0 | 0 | unreviewed |
+| 1503 | Joan Osborne | Ladder | ? | 0 | 0 | unreviewed |
+| 1504 | Joe Walsh | Happy Ways | ? | 0 | 0 | unreviewed |
+| 1505 | Tom Petty and the Heartbreakers | Runnin’ Down a Dream | ? | 0 | 0 | unreviewed |
+| 1506 | The Police | King of Pain | ? | 0 | 0 | unreviewed |
+| 1507 | Pearl Jam | Black | ? | 0 | 0 | unreviewed |
+| 1508 | Pink Floyd | Us and Them | ? | 0 | 0 | unreviewed |
+| 1509 | Bruce Springsteen | Bobby Jean | ? | 0 | 0 | unreviewed |
+| 1510 | Rod Stewart | Reason to Believe | ? | 0 | 0 | unreviewed |
+| 1511 | The Moody Blues | How Is It (We Are Here) | ? | 0 | 0 | unreviewed |
+| 1512 | R.E.M. | Near Wild Heaven | ? | 0 | 0 | unreviewed |
+| 1513 | Supertramp | Crazy | ? | 0 | 0 | unreviewed |
+| 1514 | Steppenwolf | Rock Me | ? | 0 | 0 | unreviewed |
+| 1515 | Soundgarden | 4th of July | ? | 0 | 0 | unreviewed |
+| 1516 | Linda Ronstadt | Long, Long Time | ? | 0 | 0 | unreviewed |
+| 1517 | Steely Dan | Fire in the Hole | ? | 0 | 0 | unreviewed |
+| 1518 | Santana | Oye como va | ? | 0 | 0 | unreviewed |
+| 1519 | The Rolling Stones | As Tears Go By | ? | 0 | 0 | unreviewed |
+| 1520 | Soundgarden | Mailman | ? | 0 | 0 | unreviewed |
+| 1521 | The Pointer Sisters | Should I Do It? | ? | 0 | 0 | unreviewed |
+| 1522 | Traveling Wilburys | Last Night | ? | 0 | 0 | unreviewed |
+| 1523 | Pink Floyd | The Happiest Days of Our Lives | ? | 0 | 0 | unreviewed |
+| 1524 | U2 | All Along the Watchtower | ? | 0 | 0 | unreviewed |
+| 1525 | The Rolling Stones | Wild Horses | ? | 0 | 0 | unreviewed |
+| 1526 | Carly Simon | Coming Around Again | ? | 0 | 0 | unreviewed |
+| 1527 | The Alan Parsons Project | Don’t Let It Show | ? | 0 | 0 | unreviewed |
+| 1528 | Three Dog Night | Liar | ? | 0 | 0 | unreviewed |
+| 1529 | Supertramp | Lord Is It Mine | ? | 0 | 0 | unreviewed |
+| 1530 | The Police | Every Breath You Take | ? | 0 | 0 | unreviewed |
+| 1531 | Pink Floyd | Stop | ? | 0 | 0 | unreviewed |
+| 1532 | R.E.M. | Me in Honey | ? | 0 | 0 | unreviewed |
+| 1533 | The Rolling Stones | Play With Fire | ? | 0 | 0 | unreviewed |
+| 1534 | U2 | Love Rescue Me | ? | 0 | 0 | unreviewed |
+| 1535 | Roxy Music | Pyjamarama | ? | 0 | 0 | unreviewed |
+| 1536 | Steely Dan | Midnite Cruiser | ? | 0 | 0 | unreviewed |
+| 1537 | The Rolling Stones | Get Off of My Cloud | ? | 0 | 0 | unreviewed |
+| 1538 | Sheryl Crow | A Change Would Do You Good | ? | 0 | 0 | unreviewed |
+| 1539 | Linda Ronstadt | It Doesn't Matter Anymore | ? | 0 | 0 | unreviewed |
+| 1540 | Queen | We Will Rock You | ? | 0 | 0 | unreviewed |
+| 1541 | Supertramp | Know Who You Are | ? | 0 | 0 | unreviewed |
+| 1542 | Temple of the Dog | Your Saviour | ? | 0 | 0 | unreviewed |
+| 1543 | U2 | Running to Stand Still | ? | 0 | 0 | unreviewed |
+| 1544 | REO Speedwagon | Shakin’ It Loose | ? | 0 | 0 | unreviewed |
+| 1545 | Linda Ronstadt | Someone to Lay Down Beside Me | ? | 0 | 0 | unreviewed |
+| 1546 | Steppenwolf | For Ladies Only | ? | 0 | 0 | unreviewed |
+| 1547 | Supertramp | Oh Darling | ? | 0 | 0 | unreviewed |
+| 1548 | Carly Simon | Like a River | ? | 0 | 0 | unreviewed |
+| 1549 | Rod Stewart | Tonight’s the Night (Gonna Be Alright) | ? | 0 | 0 | unreviewed |
+| 1550 | Linda Ronstadt | Poor, Poor Pitiful Me | ? | 0 | 0 | unreviewed |
+| 1551 | The Police | Walking on the Moon | ? | 0 | 0 | unreviewed |
+| 1552 | Tom Petty and the Heartbreakers | Strangered in the Night | ? | 0 | 0 | unreviewed |
+| 1553 | Bob Seger & the Silver Bullet Band | Mainstreet | ? | 0 | 0 | unreviewed |
+| 1554 | Styx | Aku‐Aku | ? | 0 | 0 | unreviewed |
+| 1555 | Pearl Jam | Even Flow | ? | 0 | 0 | unreviewed |
+| 1556 | Simon & Garfunkel | At the Zoo | ? | 0 | 0 | unreviewed |
+| 1557 | Pink Floyd | Bring the Boys Back Home | ? | 0 | 0 | unreviewed |
+| 1558 | Santana | Jingo | ? | 0 | 0 | unreviewed |
+| 1559 | The Alan Parsons Project | Nucleus | ? | 0 | 0 | unreviewed |
+| 1560 | Pink Floyd | In the Flesh? | ? | 0 | 0 | unreviewed |
+| 1561 | Robert Palmer | Bad Case of Loving You (Doctor, Doctor) | ? | 0 | 0 | unreviewed |
+| 1562 | Pink Floyd | Young Lust | ? | 0 | 0 | unreviewed |
+| 1563 | Tom Petty and the Heartbreakers | Learning to Fly | ? | 0 | 0 | unreviewed |
+| 1564 | Tom Petty | I Won't Back Down | ? | 0 | 0 | unreviewed |
+| 1565 | Scorpions | Rhythm of Love | ? | 0 | 0 | unreviewed |
+| 1566 | Todd Snider | Alright Guy | ? | 0 | 0 | unreviewed |
+| 1567 | U2 | In God’s Country | ? | 0 | 0 | unreviewed |
+| 1568 | Joan Osborne | Crazy Baby | ? | 0 | 0 | unreviewed |
+| 1569 | Queen | My Melancholy Blues | ? | 0 | 0 | unreviewed |
+| 1570 | Pink Floyd | Pigs on the Wing, Part 2 | ? | 0 | 0 | unreviewed |
+| 1571 | Supertramp | Even in the Quietest Moments | ? | 0 | 0 | unreviewed |
+| 1572 | Todd Snider | That Was Me | ? | 0 | 0 | unreviewed |
+| 1573 | The Pointer Sisters | If You Wanna Get Back Your Lady | ? | 0 | 0 | unreviewed |
+| 1574 | Pink Floyd | Shine On You Crazy Diamond, Parts VI–IX | ? | 0 | 0 | unreviewed |
+| 1575 | Carly Simon | Anticipation | ? | 0 | 0 | unreviewed |
+| 1576 | James Taylor | Sweet Baby James | ? | 0 | 0 | unreviewed |
+| 1577 | Robert Palmer | You’re Gonna Get What’s Coming | ? | 0 | 0 | unreviewed |
+| 1578 | Styx | I’m OK | ? | 0 | 0 | unreviewed |
+| 1579 | U2 | Where the Streets Have No Name | ? | 0 | 0 | unreviewed |
+| 1580 | Steely Dan | Brooklyn (Owes the Charmer Under Me) | ? | 0 | 0 | unreviewed |
+| 1581 | Robert Palmer | Sweet Lies | ? | 0 | 0 | unreviewed |
+| 1582 | Carly Simon | Better Not Tell Her | ? | 0 | 0 | unreviewed |
+| 1583 | Sheryl Crow | Hard to Make a Stand | ? | 0 | 0 | unreviewed |
+| 1584 | Styx | Queen of Spades | ? | 0 | 0 | unreviewed |
+| 1585 | Rod Stewart | Hot Legs | ? | 0 | 0 | unreviewed |
+| 1586 | Todd Snider | Joe’s Blues / Talkin’ Seattle Grunge Rock Blues | ? | 0 | 0 | unreviewed |
+| 1587 | The Pointer Sisters | I Need You | ? | 0 | 0 | unreviewed |
+| 1588 | Rod Stewart | Sailing | ? | 0 | 0 | unreviewed |
+| 1589 | Scorpions | You Give Me All I Need | ? | 0 | 0 | unreviewed |
+| 1590 | Santana | Hope You’re Feeling Better | ? | 0 | 0 | unreviewed |
+| 1591 | Sheryl Crow | Maybe Angels | ? | 0 | 0 | unreviewed |
+| 1592 | Traveling Wilburys | Handle With Care | ? | 0 | 0 | unreviewed |
+| 1593 | Steppenwolf | Move Over | ? | 0 | 0 | unreviewed |
+| 1594 | Bob Seger & the Silver Bullet Band | Her Strut | ? | 0 | 0 | unreviewed |
+| 1595 | Scorpions | The Zoo | ? | 0 | 0 | unreviewed |
+| 1596 | Pink Floyd | Comfortably Numb | ? | 0 | 0 | unreviewed |
+| 1597 | Linda Ronstadt | Back in the U.S.A. | ? | 0 | 0 | unreviewed |
+| 1598 | Joe Walsh | Midnight Moodies | ? | 0 | 0 | unreviewed |
+| 1599 | James Taylor | How Sweet It Is (to Be Loved by You) | ? | 0 | 0 | unreviewed |
+| 1600 | Simon and Garfunkel | Cecilia | ? | 0 | 0 | unreviewed |
+| 1601 | U2 | Exit | ? | 0 | 0 | unreviewed |
+| 1602 | Three Dog Night | Black and White | ? | 0 | 0 | unreviewed |
+| 1603 | Simon & Garfunkel | Blessed | ? | 0 | 0 | unreviewed |
+| 1604 | The Pointer Sisters | Baby Come and Get It | ? | 0 | 0 | unreviewed |
+| 1605 | Todd Snider | You Think You Know Somebody | ? | 0 | 0 | unreviewed |
+| 1606 | James Taylor | Country Road | ? | 0 | 0 | unreviewed |
+| 1607 | Soundgarden | Spoonman | ? | 0 | 0 | unreviewed |
+| 1608 | Pink Floyd | Speak to Me | ? | 0 | 0 | unreviewed |
+| 1609 | Al Stewart | Broadway Hotel | ? | 0 | 0 | unreviewed |
+| 1610 | The Alan Parsons Project | I Wouldn’t Want to Be Like You | ? | 0 | 0 | unreviewed |
+| 1611 | Simon & Garfunkel | Homeward Bound | ? | 0 | 0 | unreviewed |
+| 1612 | Linda Ronstadt | Tumbling Dice | ? | 0 | 0 | unreviewed |
+| 1613 | Santana | Everybody’s Everything | ? | 0 | 0 | unreviewed |
+| 1614 | U2 | Van Diemen’s Land | ? | 0 | 0 | unreviewed |
+| 1615 | R.E.M. | Low | ? | 0 | 0 | unreviewed |
+| 1616 | R.E.M. | Texarkana | ? | 0 | 0 | unreviewed |
+| 1617 | Simon & Garfunkel | 7 O’Clock News / Silent Night | ? | 0 | 0 | unreviewed |
+| 1618 | Linda Ronstadt | You're No Good | ? | 0 | 0 | unreviewed |
+| 1619 | Tom Petty and the Heartbreakers | Don’t Do Me Like That | ? | 0 | 0 | unreviewed |
+| 1620 | Supertramp | If Everyone Was Listening | ? | 0 | 0 | unreviewed |
+| 1621 | Joe Walsh | Meadows | ? | 0 | 0 | unreviewed |
+| 1622 | U2 | Bullet the Blue Sky | ? | 0 | 0 | unreviewed |
+| 1623 | Linda Ronstadt | Love Is a Rose | ? | 0 | 0 | unreviewed |
+| 1624 | Robert Palmer | She Makes My Day | ? | 0 | 0 | unreviewed |
+| 1625 | The Rolling Stones | Brown Sugar | ? | 0 | 0 | unreviewed |
+| 1626 | Santana | Black Magic Woman | ? | 0 | 0 | unreviewed |
+| 1627 | Three Dog Night | Old Fashioned Love Song | ? | 0 | 0 | unreviewed |
+| 1628 | R.E.M. | Belong | ? | 0 | 0 | unreviewed |
+| 1629 | R.E.M. | Radio Song | ? | 0 | 0 | unreviewed |
+| 1630 | Rod Stewart | Seems Like a Long Time | ? | 0 | 0 | unreviewed |
+| 1631 | The Police | Don’t Stand So Close to Me ’86 | ? | 0 | 0 | unreviewed |
+| 1632 | Pink Floyd | The Great Gig in the Sky | ? | 0 | 0 | unreviewed |
+| 1633 | The Rolling Stones | 19th Nervous Breakdown | ? | 0 | 0 | unreviewed |
+| 1634 | Bruce Springsteen | My Hometown | ? | 0 | 0 | unreviewed |
+| 1635 | Tom Petty and the Heartbreakers | A Thing About You | ? | 0 | 0 | unreviewed |
+| 1636 | Tom Petty and the Heartbreakers | You Can Still Change Your Mind | ? | 0 | 0 | unreviewed |
+| 1637 | Simon & Garfunkel | Scarborough Fair / Canticle | ? | 0 | 0 | unreviewed |
+| 1638 | U2 | A Sort of Homecoming | ? | 0 | 0 | unreviewed |
+| 1639 | Linda Ronstadt | Ooh Baby Baby | ? | 0 | 0 | unreviewed |
+| 1640 | The Moody Blues | The Night: Nights in White Satin | ? | 0 | 0 | unreviewed |
+| 1641 | Pink Floyd | Have a Cigar | ? | 0 | 0 | unreviewed |
+| 1642 | Simon & Garfunkel | Voices of Old People | ? | 0 | 0 | unreviewed |
+| 1643 | Traveling Wilburys | End of the Line | ? | 0 | 0 | unreviewed |
+| 1644 | The Moody Blues | The Morning: Another Morning | ? | 0 | 0 | unreviewed |
+| 1645 | Tom Petty and the Heartbreakers | Don't Come Around Here No More | ? | 0 | 0 | unreviewed |
+| 1646 | Robert Palmer | What's It Take? | ? | 0 | 0 | unreviewed |
+| 1647 | Robert Palmer | Can We Still Be Friends | ? | 0 | 0 | unreviewed |
+| 1648 | Carly Simon | Jesse | ? | 0 | 0 | unreviewed |
+| 1649 | Pink Floyd | The Trial | ? | 0 | 0 | unreviewed |
+| 1650 | Soundgarden | Fresh Tendrils | ? | 0 | 0 | unreviewed |
+| 1651 | Supertramp | It’s Raining Again | ? | 0 | 0 | unreviewed |
+| 1652 | Carly Simon | Love of My Life | ? | 0 | 0 | unreviewed |
+| 1653 | Pearl Jam | Release | ? | 0 | 0 | unreviewed |
+| 1654 | Tom Petty and the Heartbreakers | Fooled Again (I Don’t Like It) | ? | 0 | 0 | unreviewed |
+| 1655 | Pink Floyd | Another Brick in the Wall, Part 3 | ? | 0 | 0 | unreviewed |
+| 1656 | Styx | Pieces of Eight | ? | 0 | 0 | unreviewed |
+| 1657 | Al Stewart | Midas Shadow | ? | 0 | 0 | unreviewed |
+| 1658 | The Pointer Sisters | American Music | ? | 0 | 0 | unreviewed |
+| 1659 | Bob Seger & the Silver Bullet Band | Betty Lou’s Gettin’ Out Tonight | ? | 0 | 0 | unreviewed |
+| 1660 | Joan Osborne | St. Teresa | ? | 0 | 0 | unreviewed |
+| 1661 | Pink Floyd | Goodbye Cruel World | ? | 0 | 0 | unreviewed |
+| 1662 | Roxy Music | All I Want Is You | ? | 0 | 0 | unreviewed |
+| 1663 | U2 | With or Without You | ? | 0 | 0 | unreviewed |
+| 1664 | The Police | Can’t Stand Losing You | ? | 0 | 0 | unreviewed |
+| 1665 | Three Dog Night | One | ? | 0 | 0 | unreviewed |
+| 1666 | Tom Petty | Yer So Bad | ? | 0 | 0 | unreviewed |
+| 1667 | Joe Walsh | (Daydream) Prayer | ? | 0 | 0 | unreviewed |
+| 1668 | Simon and Garfunkel | Bye Bye Love | ? | 0 | 0 | unreviewed |
+| 1669 | Steppenwolf | Snowblind Friend | ? | 0 | 0 | unreviewed |
+| 1670 | Three Dog Night | Sure as I'm Sitting Here | ? | 0 | 0 | unreviewed |
+| 1671 | Traveling Wilburys | Heading for the Light | ? | 0 | 0 | unreviewed |
+| 1672 | The Moody Blues | The Afternoon: Forever Afternoon (Tuesday?) / (Evening) Time to Get Away | ? | 0 | 0 | unreviewed |
+| 1673 | Pink Floyd | On the Run | ? | 0 | 0 | unreviewed |
+| 1674 | Soundgarden | Half | ? | 0 | 0 | unreviewed |
+| 1675 | Pink Floyd | The Thin Ice | ? | 0 | 0 | unreviewed |
+| 1676 | Carly Simon | You're So Vain | ? | 0 | 0 | unreviewed |
+| 1677 | Robert Palmer | Simply Irresistible | ? | 0 | 0 | unreviewed |
+| 1678 | The Moody Blues | The Day Begins | ? | 0 | 0 | unreviewed |
+| 1679 | Sheryl Crow | If It Makes You Happy | ? | 0 | 0 | unreviewed |
+| 1680 | Soundgarden | Black Hole Sun | ? | 0 | 0 | unreviewed |
+| 1681 | Bruce Springsteen | Downbound Train | ? | 0 | 0 | unreviewed |
+| 1682 | Pink Floyd | Empty Spaces | ? | 0 | 0 | unreviewed |
+| 1683 | Soundgarden | Head Down | ? | 0 | 0 | unreviewed |
+| 1684 | The Pointer Sisters | Happiness | ? | 0 | 0 | unreviewed |
+| 1685 | James Taylor | Steamroller | ? | 0 | 0 | unreviewed |
+| 1686 | Robert Palmer | I Didn’t Mean to Turn You On | ? | 0 | 0 | unreviewed |
+| 1687 | The Rolling Stones | Let’s Spend the Night Together | ? | 0 | 0 | unreviewed |
+| 1688 | Al Stewart | On the Border | ? | 0 | 0 | unreviewed |
+| 1689 | Supertramp | Asylum | ? | 0 | 0 | unreviewed |
+| 1690 | Sheryl Crow | Everyday Is a Winding Road | ? | 0 | 0 | unreviewed |
+| 1691 | The Pointer Sisters | Twist My Arm | ? | 0 | 0 | unreviewed |
+| 1692 | Roxy Music | The Thrill of It All | ? | 0 | 0 | unreviewed |
+| 1693 | The Moody Blues | It’s Up to You | ? | 0 | 0 | unreviewed |
+| 1694 | Traveling Wilburys | Dirty World | ? | 0 | 0 | unreviewed |
+| 1695 | Simon & Garfunkel | Anji | ? | 0 | 0 | unreviewed |
+| 1696 | Robert Palmer | Maybe It’s You | ? | 0 | 0 | unreviewed |
+| 1697 | Rod Stewart | Da Ya Think I’m Sexy? | ? | 0 | 0 | unreviewed |
+| 1698 | Tom Petty and the Heartbreakers | Mystery Man | ? | 0 | 0 | unreviewed |
+| 1699 | Rod Stewart | Mandolin Wind | ? | 0 | 0 | unreviewed |
+| 1700 | The Rolling Stones | Time Is on My Side | ? | 0 | 0 | unreviewed |
+| 1701 | Simon & Garfunkel | Flowers Never Bend With the Rainfall | ? | 0 | 0 | unreviewed |
+| 1702 | Simon and Garfunkel | The Boxer | ? | 0 | 0 | unreviewed |
+| 1703 | Bruce Springsteen | Glory Days | ? | 0 | 0 | unreviewed |
+| 1704 | Simon & Garfunkel | America | ? | 0 | 0 | unreviewed |
+| 1705 | Bob Seger & the Silver Bullet Band | Night Moves | ? | 0 | 0 | unreviewed |
+| 1706 | Tom Petty and the Heartbreakers | Letting You Go | ? | 0 | 0 | unreviewed |
+| 1707 | Styx | Great White Hope | ? | 0 | 0 | unreviewed |
+| 1708 | Soundgarden | Let Me Drown | ? | 0 | 0 | unreviewed |
+| 1709 | U2 | The Unforgettable Fire | ? | 0 | 0 | unreviewed |
+| 1710 | Todd Snider | Alot More | ? | 0 | 0 | unreviewed |
+| 1711 | The Rolling Stones | Heart of Stone | ? | 0 | 0 | unreviewed |
+| 1712 | Simon & Garfunkel | Somewhere They Can’t Find Me | ? | 0 | 0 | unreviewed |
+| 1713 | U2 | Desire | ? | 0 | 0 | unreviewed |
+| 1714 | Bob Seger & the Silver Bullet Band | Good for Me | ? | 0 | 0 | unreviewed |
+| 1715 | Robert Palmer | Johnny & Mary | ? | 0 | 0 | unreviewed |
+| 1716 | Styx | Renegade | ? | 0 | 0 | unreviewed |
+| 1717 | The Pointer Sisters | Automatic | ? | 0 | 0 | unreviewed |
+| 1718 | Pink Floyd | Vera | ? | 0 | 0 | unreviewed |
+| 1719 | Supertramp | Babaji | ? | 0 | 0 | unreviewed |
+| 1720 | The Pointer Sisters | Fire | ? | 0 | 0 | unreviewed |
+| 1721 | Pink Floyd | Eclipse | ? | 0 | 0 | unreviewed |
+| 1722 | REO Speedwagon | Take It on the Run | ? | 0 | 0 | unreviewed |
+| 1723 | Todd Snider | This Land Is Our Land | ? | 0 | 0 | unreviewed |
+| 1724 | Robert Palmer | Some Like It Hot | ? | 0 | 0 | unreviewed |
+| 1725 | Carly Simon | Amity | ? | 0 | 0 | unreviewed |
+| 1726 | Robert Palmer | Style Kills | ? | 0 | 0 | unreviewed |
+| 1727 | Tom Petty and the Heartbreakers | Hometown Blues | ? | 0 | 0 | unreviewed |
+| 1728 | The Police | De Do Do Do, De Da Da Da | ? | 0 | 0 | unreviewed |
+| 1729 | Simon and Garfunkel | Why Don’t You Write Me | ? | 0 | 0 | unreviewed |
+| 1730 | Carly Simon | You Belong to Me | ? | 0 | 0 | unreviewed |
+| 1731 | Carly Simon | The Stuff That Dreams Are Made Of | ? | 0 | 0 | unreviewed |
+| 1732 | Styx | Fooling Yourself (The Angry Young Man) | ? | 0 | 0 | unreviewed |
+| 1733 | Simon & Garfunkel | The Sound of Silence | ? | 0 | 0 | unreviewed |
+| 1734 | Bruce Springsteen | Cover Me | ? | 0 | 0 | unreviewed |
+| 1735 | Styx | The Message | ? | 0 | 0 | unreviewed |
+| 1736 | Scorpions | No One Like You | ? | 0 | 0 | unreviewed |
+| 1737 | Al Stewart | One Stage Before | ? | 0 | 0 | unreviewed |
+| 1738 | Joe Walsh | Days Gone By | ? | 0 | 0 | unreviewed |
+| 1739 | Three Dog Night | Family of Man | ? | 0 | 0 | unreviewed |
+| 1740 | Rod Stewart | I Don’t Want to Talk About It | ? | 0 | 0 | unreviewed |
+| 1741 | Tom Petty and the Heartbreakers | Anything That’s Rock & Roll | ? | 0 | 0 | unreviewed |
+| 1742 | Rod Stewart | I Was Only Joking | ? | 0 | 0 | unreviewed |
+| 1743 | Supertramp | Breakfast in America | ? | 0 | 0 | unreviewed |
+| 1744 | The Pointer Sisters | Neutron Dance | ? | 0 | 0 | unreviewed |
+| 1745 | Joe Walsh | Wolf | ? | 0 | 0 | unreviewed |
+| 1746 | Linda Ronstadt | When Will I Be Loved | ? | 0 | 0 | unreviewed |
+| 1747 | Bob Seger & the Silver Bullet Band | Sunspot Baby | ? | 0 | 0 | unreviewed |
+| 1748 | Soundgarden | My Wave | ? | 0 | 0 | unreviewed |
+| 1749 | Linda Ronstadt | That'll Be the Day | ? | 0 | 0 | unreviewed |
+| 1750 | Sheryl Crow | Love Is a Good Thing | ? | 0 | 0 | unreviewed |
+| 1751 | Styx | Lords of the Ring | ? | 0 | 0 | unreviewed |
+| 1752 | Three Dog Night | One Man Band | ? | 0 | 0 | unreviewed |
+| 1753 | Styx | Come Sail Away | ? | 0 | 0 | unreviewed |
+| 1754 | Joe Walsh | Rocky Mountain Way | ? | 0 | 0 | unreviewed |
+| 1755 | Pink Floyd | Run Like Hell | ? | 0 | 0 | unreviewed |
+| 1756 | The Rolling Stones | Gimme Shelter | ? | 0 | 0 | unreviewed |
+| 1757 | R.E.M. | Country Feedback | ? | 0 | 0 | unreviewed |
+| 1758 | Temple of the Dog | Four Walled World | ? | 0 | 0 | unreviewed |
+| 1759 | Robert Palmer | Too Good to Be True | ? | 0 | 0 | unreviewed |
+| 1760 | James Taylor | Shower the People | ? | 0 | 0 | unreviewed |
+| 1761 | The Alan Parsons Project | Some Other Time | ? | 0 | 0 | unreviewed |
+| 1762 | Joan Osborne | Pensacola | ? | 0 | 0 | unreviewed |
+| 1763 | Todd Snider | Somebody’s Coming | ? | 0 | 0 | unreviewed |
+| 1764 | Robert Palmer | The Silver Gun | ? | 0 | 0 | unreviewed |
+| 1765 | Simon & Garfunkel | Richard Cory | ? | 0 | 0 | unreviewed |
+| 1766 | The Rolling Stones | Jumpin’ Jack Flash | ? | 0 | 0 | unreviewed |
+| 1767 | Simon & Garfunkel | A Simple Desultory Philippic (or How I Was Robert McNamara’d Into Submission) | ? | 0 | 0 | unreviewed |
+| 1768 | U2 | Helter Skelter | ? | 0 | 0 | unreviewed |
+| 1769 | Al Stewart | If It Doesn’t Come Naturally, Leave It | ? | 0 | 0 | unreviewed |
+| 1770 | Linda Ronstadt | How Do I Make You | ? | 0 | 0 | unreviewed |
+| 1771 | Temple of the Dog | Hunger Strike | ? | 0 | 0 | unreviewed |
+| 1772 | Simon & Garfunkel | A Most Peculiar Man | ? | 0 | 0 | unreviewed |
+| 1773 | Simon & Garfunkel | Bookends Theme | ? | 0 | 0 | unreviewed |
+| 1774 | R.E.M. | Half a World Away | ? | 0 | 0 | unreviewed |
+| 1775 | Simon and Garfunkel | El cóndor pasa | ? | 0 | 0 | unreviewed |
+| 1776 | Pink Floyd | Brain Damage | ? | 0 | 0 | unreviewed |
+| 1777 | Queen | Who Needs You | ? | 0 | 0 | unreviewed |
+| 1778 | REO Speedwagon | Someone Tonight | ? | 0 | 0 | unreviewed |
+| 1779 | Linda Ronstadt | Hurt So Bad | ? | 0 | 0 | unreviewed |
+| 1780 | Tom Petty and the Heartbreakers | Shadow of a Doubt (A Complex Kid) | ? | 0 | 0 | unreviewed |
