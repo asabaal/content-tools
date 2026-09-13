@@ -1,0 +1,5 @@
+# Additional deps for tools/06-song-ingest beyond the shared
+# /mnt/storage/python_env/basic_audio_env environment (which already has
+# basic-pitch 0.4.0, faster-whisper, crepe, librosa, pretty_midi, mido).
+panns-inference>=0.1.1
+soundfile>=0.12

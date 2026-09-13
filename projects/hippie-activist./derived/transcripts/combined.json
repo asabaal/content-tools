@@ -1,0 +1,2317 @@
+{
+  "source_stem": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/vocals/vocals_combined.wav",
+  "model": {
+    "type": "faster-whisper",
+    "size": "small"
+  },
+  "raw_segments": [
+    {
+      "start": 5.68,
+      "end": 13.48,
+      "text": "She called me a hippie, a hippie activist, sex,",
+      "words": [
+        {
+          "word": "She",
+          "start": 5.68,
+          "end": 6.6,
+          "probability": 0.41
+        },
+        {
+          "word": "called",
+          "start": 6.6,
+          "end": 6.94,
+          "probability": 0.899
+        },
+        {
+          "word": "me",
+          "start": 6.94,
+          "end": 7.18,
+          "probability": 0.995
+        },
+        {
+          "word": "a",
+          "start": 7.18,
+          "end": 7.34,
+          "probability": 0.958
+        },
+        {
+          "word": "hippie,",
+          "start": 7.34,
+          "end": 8.04,
+          "probability": 0.937
+        },
+        {
+          "word": "a",
+          "start": 8.04,
+          "end": 9.98,
+          "probability": 0.964
+        },
+        {
+          "word": "hippie",
+          "start": 9.98,
+          "end": 10.4,
+          "probability": 0.983
+        },
+        {
+          "word": "activist,",
+          "start": 10.4,
+          "end": 11.28,
+          "probability": 0.98
+        },
+        {
+          "word": "sex,",
+          "start": 11.96,
+          "end": 13.48,
+          "probability": 0.971
+        }
+      ]
+    },
+    {
+      "start": 14.08,
+      "end": 19.02,
+      "text": "check, drugs, check, rock and roll, hit it!",
+      "words": [
+        {
+          "word": "check,",
+          "start": 14.08,
+          "end": 14.42,
+          "probability": 0.036
+        },
+        {
+          "word": "drugs,",
+          "start": 14.9,
+          "end": 15.34,
+          "probability": 0.982
+        },
+        {
+          "word": "check,",
+          "start": 15.82,
+          "end": 16.2,
+          "probability": 0.443
+        },
+        {
+          "word": "rock",
+          "start": 16.66,
+          "end": 16.92,
+          "probability": 0.986
+        },
+        {
+          "word": "and",
+          "start": 16.92,
+          "end": 17.14,
+          "probability": 0.756
+        },
+        {
+          "word": "roll,",
+          "start": 17.14,
+          "end": 17.72,
+          "probability": 0.991
+        },
+        {
+          "word": "hit",
+          "start": 18.52,
+          "end": 18.76,
+          "probability": 0.744
+        },
+        {
+          "word": "it!",
+          "start": 18.76,
+          "end": 19.02,
+          "probability": 0.779
+        }
+      ]
+    },
+    {
+      "start": 20.1,
+      "end": 27.62,
+      "text": "She called me a hippie activist, that's life and I'll be maxing it.",
+      "words": [
+        {
+          "word": "She",
+          "start": 20.1,
+          "end": 20.98,
+          "probability": 0.967
+        },
+        {
+          "word": "called",
+          "start": 20.98,
+          "end": 21.4,
+          "probability": 0.958
+        },
+        {
+          "word": "me",
+          "start": 21.4,
+          "end": 21.74,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 21.74,
+          "end": 21.96,
+          "probability": 0.995
+        },
+        {
+          "word": "hippie",
+          "start": 21.96,
+          "end": 22.76,
+          "probability": 0.998
+        },
+        {
+          "word": "activist,",
+          "start": 22.76,
+          "end": 23.8,
+          "probability": 0.997
+        },
+        {
+          "word": "that's",
+          "start": 24.32,
+          "end": 24.78,
+          "probability": 0.92
+        },
+        {
+          "word": "life",
+          "start": 24.78,
+          "end": 25.26,
+          "probability": 0.986
+        },
+        {
+          "word": "and",
+          "start": 25.26,
+          "end": 25.58,
+          "probability": 0.745
+        },
+        {
+          "word": "I'll",
+          "start": 25.58,
+          "end": 25.94,
+          "probability": 0.62
+        },
+        {
+          "word": "be",
+          "start": 25.94,
+          "end": 26.26,
+          "probability": 0.774
+        },
+        {
+          "word": "maxing",
+          "start": 26.26,
+          "end": 27.18,
+          "probability": 0.562
+        },
+        {
+          "word": "it.",
+          "start": 27.18,
+          "end": 27.62,
+          "probability": 0.984
+        }
+      ]
+    },
+    {
+      "start": 27.62,
+      "end": 32.52,
+      "text": "The key to beating a fascist is instantiated",
+      "words": [
+        {
+          "word": "The",
+          "start": 27.62,
+          "end": 28.18,
+          "probability": 0.316
+        },
+        {
+          "word": "key",
+          "start": 28.18,
+          "end": 28.68,
+          "probability": 0.935
+        },
+        {
+          "word": "to",
+          "start": 28.68,
+          "end": 29.1,
+          "probability": 0.957
+        },
+        {
+          "word": "beating",
+          "start": 29.1,
+          "end": 29.66,
+          "probability": 0.526
+        },
+        {
+          "word": "a",
+          "start": 29.66,
+          "end": 30.06,
+          "probability": 0.59
+        },
+        {
+          "word": "fascist",
+          "start": 30.06,
+          "end": 30.76,
+          "probability": 0.985
+        },
+        {
+          "word": "is",
+          "start": 30.76,
+          "end": 31.02,
+          "probability": 0.951
+        },
+        {
+          "word": "instantiated",
+          "start": 31.02,
+          "end": 32.52,
+          "probability": 0.544
+        }
+      ]
+    },
+    {
+      "start": 32.52,
+      "end": 34.9,
+      "text": "Pre-collapsing state.",
+      "words": [
+        {
+          "word": "Pre",
+          "start": 32.52,
+          "end": 32.98,
+          "probability": 0.084
+        },
+        {
+          "word": "-collapsing",
+          "start": 32.98,
+          "end": 34.36,
+          "probability": 0.833
+        },
+        {
+          "word": "state.",
+          "start": 34.36,
+          "end": 34.9,
+          "probability": 0.719
+        }
+      ]
+    },
+    {
+      "start": 32.9,
+      "end": 34.84,
+      "text": "Recollapse and stay",
+      "words": [
+        {
+          "word": "Recollapse",
+          "start": 32.9,
+          "end": 34.1,
+          "probability": 0.295
+        },
+        {
+          "word": "and",
+          "start": 34.1,
+          "end": 34.38,
+          "probability": 0.946
+        },
+        {
+          "word": "stay",
+          "start": 34.38,
+          "end": 34.84,
+          "probability": 0.908
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "34.9-41.0"
+    },
+    {
+      "start": 40.98,
+      "end": 46.32,
+      "text": "Went from losing a lover to living a life",
+      "words": [
+        {
+          "word": "Went",
+          "start": 40.98,
+          "end": 41.9,
+          "probability": 0.069
+        },
+        {
+          "word": "from",
+          "start": 41.9,
+          "end": 42.82,
+          "probability": 0.998
+        },
+        {
+          "word": "losing",
+          "start": 42.82,
+          "end": 43.26,
+          "probability": 0.912
+        },
+        {
+          "word": "a",
+          "start": 43.26,
+          "end": 43.62,
+          "probability": 0.854
+        },
+        {
+          "word": "lover",
+          "start": 43.62,
+          "end": 44.1,
+          "probability": 0.996
+        },
+        {
+          "word": "to",
+          "start": 44.1,
+          "end": 44.62,
+          "probability": 0.894
+        },
+        {
+          "word": "living",
+          "start": 44.62,
+          "end": 45.06,
+          "probability": 0.918
+        },
+        {
+          "word": "a",
+          "start": 45.06,
+          "end": 45.44,
+          "probability": 0.842
+        },
+        {
+          "word": "life",
+          "start": 45.44,
+          "end": 46.32,
+          "probability": 0.981
+        }
+      ]
+    },
+    {
+      "start": 48.18,
+      "end": 53.16,
+      "text": "And still I am seeing God show up and provide",
+      "words": [
+        {
+          "word": "And",
+          "start": 48.18,
+          "end": 49.1,
+          "probability": 0.286
+        },
+        {
+          "word": "still",
+          "start": 49.1,
+          "end": 49.4,
+          "probability": 0.974
+        },
+        {
+          "word": "I",
+          "start": 49.4,
+          "end": 49.84,
+          "probability": 0.915
+        },
+        {
+          "word": "am",
+          "start": 49.84,
+          "end": 50.22,
+          "probability": 0.455
+        },
+        {
+          "word": "seeing",
+          "start": 50.22,
+          "end": 50.58,
+          "probability": 0.817
+        },
+        {
+          "word": "God",
+          "start": 50.58,
+          "end": 51.24,
+          "probability": 0.957
+        },
+        {
+          "word": "show",
+          "start": 51.24,
+          "end": 51.7,
+          "probability": 0.992
+        },
+        {
+          "word": "up",
+          "start": 51.7,
+          "end": 52.1,
+          "probability": 0.996
+        },
+        {
+          "word": "and",
+          "start": 52.1,
+          "end": 52.32,
+          "probability": 0.594
+        },
+        {
+          "word": "provide",
+          "start": 52.32,
+          "end": 53.16,
+          "probability": 0.939
+        }
+      ]
+    },
+    {
+      "start": 55.18,
+      "end": 64.7,
+      "text": "taking a pause, found some tools for the cause, and I'm feeling integrated,",
+      "words": [
+        {
+          "word": "taking",
+          "start": 55.18,
+          "end": 55.84,
+          "probability": 0.001
+        },
+        {
+          "word": "a",
+          "start": 55.84,
+          "end": 56.22,
+          "probability": 0.658
+        },
+        {
+          "word": "pause,",
+          "start": 56.22,
+          "end": 56.92,
+          "probability": 0.562
+        },
+        {
+          "word": "found",
+          "start": 57.28,
+          "end": 59.5,
+          "probability": 0.387
+        },
+        {
+          "word": "some",
+          "start": 59.5,
+          "end": 59.76,
+          "probability": 0.993
+        },
+        {
+          "word": "tools",
+          "start": 59.76,
+          "end": 60.68,
+          "probability": 0.925
+        },
+        {
+          "word": "for",
+          "start": 60.68,
+          "end": 61.42,
+          "probability": 0.937
+        },
+        {
+          "word": "the",
+          "start": 61.42,
+          "end": 61.6,
+          "probability": 0.957
+        },
+        {
+          "word": "cause,",
+          "start": 61.6,
+          "end": 62.42,
+          "probability": 0.72
+        },
+        {
+          "word": "and",
+          "start": 62.96,
+          "end": 62.96,
+          "probability": 0.855
+        },
+        {
+          "word": "I'm",
+          "start": 62.96,
+          "end": 63.58,
+          "probability": 0.95
+        },
+        {
+          "word": "feeling",
+          "start": 63.58,
+          "end": 64.0,
+          "probability": 0.928
+        },
+        {
+          "word": "integrated,",
+          "start": 64.0,
+          "end": 64.7,
+          "probability": 0.937
+        }
+      ]
+    },
+    {
+      "start": 65.02,
+      "end": 67.16,
+      "text": "keeping myself safe, keeping both ends of care in mind.",
+      "words": [
+        {
+          "word": "keeping",
+          "start": 65.02,
+          "end": 65.16,
+          "probability": 0.459
+        },
+        {
+          "word": "myself",
+          "start": 65.16,
+          "end": 65.36,
+          "probability": 0.133
+        },
+        {
+          "word": "safe,",
+          "start": 65.36,
+          "end": 65.52,
+          "probability": 0.488
+        },
+        {
+          "word": "keeping",
+          "start": 65.52,
+          "end": 65.66,
+          "probability": 0.945
+        },
+        {
+          "word": "both",
+          "start": 65.66,
+          "end": 65.86,
+          "probability": 0.978
+        },
+        {
+          "word": "ends",
+          "start": 65.86,
+          "end": 66.14,
+          "probability": 0.904
+        },
+        {
+          "word": "of",
+          "start": 66.14,
+          "end": 66.3,
+          "probability": 0.99
+        },
+        {
+          "word": "care",
+          "start": 66.3,
+          "end": 66.6,
+          "probability": 0.918
+        },
+        {
+          "word": "in",
+          "start": 66.6,
+          "end": 66.86,
+          "probability": 0.337
+        },
+        {
+          "word": "mind.",
+          "start": 66.86,
+          "end": 67.16,
+          "probability": 0.828
+        }
+      ]
+    },
+    {
+      "start": 67.26,
+      "end": 70.6,
+      "text": "Joy from my breathing, it's just God's line.",
+      "words": [
+        {
+          "word": "Joy",
+          "start": 67.26,
+          "end": 67.54,
+          "probability": 0.972
+        },
+        {
+          "word": "from",
+          "start": 67.54,
+          "end": 67.86,
+          "probability": 0.911
+        },
+        {
+          "word": "my",
+          "start": 67.86,
+          "end": 68.06,
+          "probability": 0.94
+        },
+        {
+          "word": "breathing,",
+          "start": 68.06,
+          "end": 68.32,
+          "probability": 0.527
+        },
+        {
+          "word": "it's",
+          "start": 68.52,
+          "end": 68.86,
+          "probability": 0.965
+        },
+        {
+          "word": "just",
+          "start": 68.86,
+          "end": 69.12,
+          "probability": 0.99
+        },
+        {
+          "word": "God's",
+          "start": 69.12,
+          "end": 69.84,
+          "probability": 0.99
+        },
+        {
+          "word": "line.",
+          "start": 69.84,
+          "end": 70.6,
+          "probability": 0.88
+        }
+      ]
+    },
+    {
+      "start": 70.92,
+      "end": 73.82,
+      "text": "Operate on and change agentic states.",
+      "words": [
+        {
+          "word": "Operate",
+          "start": 70.92,
+          "end": 71.58,
+          "probability": 0.766
+        },
+        {
+          "word": "on",
+          "start": 71.58,
+          "end": 72.12,
+          "probability": 0.982
+        },
+        {
+          "word": "and",
+          "start": 72.12,
+          "end": 72.44,
+          "probability": 0.902
+        },
+        {
+          "word": "change",
+          "start": 72.44,
+          "end": 72.84,
+          "probability": 0.998
+        },
+        {
+          "word": "agentic",
+          "start": 72.84,
+          "end": 73.62,
+          "probability": 0.408
+        },
+        {
+          "word": "states.",
+          "start": 73.62,
+          "end": 73.82,
+          "probability": 0.966
+        }
+      ]
+    },
+    {
+      "start": 73.82,
+      "end": 76.54,
+      "text": "It beats commiserating.",
+      "words": [
+        {
+          "word": "It",
+          "start": 73.82,
+          "end": 74.24,
+          "probability": 0.991
+        },
+        {
+          "word": "beats",
+          "start": 74.24,
+          "end": 74.72,
+          "probability": 0.993
+        },
+        {
+          "word": "commiserating.",
+          "start": 74.72,
+          "end": 76.54,
+          "probability": 0.907
+        }
+      ]
+    },
+    {
+      "start": 78.44,
+      "end": 81.08,
+      "text": "Ain't nobody dying from TAC, baby.",
+      "words": [
+        {
+          "word": "Ain't",
+          "start": 78.44,
+          "end": 78.68,
+          "probability": 0.996
+        },
+        {
+          "word": "nobody",
+          "start": 78.68,
+          "end": 79.0,
+          "probability": 0.99
+        },
+        {
+          "word": "dying",
+          "start": 79.0,
+          "end": 79.52,
+          "probability": 0.92
+        },
+        {
+          "word": "from",
+          "start": 79.52,
+          "end": 79.82,
+          "probability": 0.997
+        },
+        {
+          "word": "TAC,",
+          "start": 79.82,
+          "end": 80.48,
+          "probability": 0.627
+        },
+        {
+          "word": "baby.",
+          "start": 80.74,
+          "end": 81.08,
+          "probability": 0.992
+        }
+      ]
+    },
+    {
+      "start": 81.08,
+      "end": 85.0,
+      "text": "She called me a hippie activist.",
+      "words": [
+        {
+          "word": "She",
+          "start": 81.08,
+          "end": 82.22,
+          "probability": 0.027
+        },
+        {
+          "word": "called",
+          "start": 82.22,
+          "end": 82.74,
+          "probability": 0.622
+        },
+        {
+          "word": "me",
+          "start": 82.74,
+          "end": 83.06,
+          "probability": 0.986
+        },
+        {
+          "word": "a",
+          "start": 83.06,
+          "end": 83.3,
+          "probability": 0.854
+        },
+        {
+          "word": "hippie",
+          "start": 83.3,
+          "end": 84.16,
+          "probability": 0.969
+        },
+        {
+          "word": "activist.",
+          "start": 84.16,
+          "end": 85.0,
+          "probability": 0.971
+        }
+      ]
+    },
+    {
+      "start": 85.6,
+      "end": 88.26,
+      "text": "That's life and I'd be maximum.",
+      "words": [
+        {
+          "word": "That's",
+          "start": 85.6,
+          "end": 86.14,
+          "probability": 0.961
+        },
+        {
+          "word": "life",
+          "start": 86.14,
+          "end": 86.58,
+          "probability": 0.979
+        },
+        {
+          "word": "and",
+          "start": 86.58,
+          "end": 86.92,
+          "probability": 0.619
+        },
+        {
+          "word": "I'd",
+          "start": 86.92,
+          "end": 87.42,
+          "probability": 0.716
+        },
+        {
+          "word": "be",
+          "start": 87.42,
+          "end": 87.64,
+          "probability": 0.995
+        },
+        {
+          "word": "maximum.",
+          "start": 87.64,
+          "end": 88.26,
+          "probability": 0.055
+        }
+      ]
+    },
+    {
+      "start": 89.22,
+      "end": 96.2,
+      "text": "The key to beating a fascist is instanti-a, to pre-collapse and stay.",
+      "words": [
+        {
+          "word": "The",
+          "start": 89.22,
+          "end": 89.58,
+          "probability": 0.828
+        },
+        {
+          "word": "key",
+          "start": 89.58,
+          "end": 90.08,
+          "probability": 0.961
+        },
+        {
+          "word": "to",
+          "start": 90.08,
+          "end": 90.48,
+          "probability": 0.972
+        },
+        {
+          "word": "beating",
+          "start": 90.48,
+          "end": 91.02,
+          "probability": 0.417
+        },
+        {
+          "word": "a",
+          "start": 91.02,
+          "end": 91.46,
+          "probability": 0.86
+        },
+        {
+          "word": "fascist",
+          "start": 91.46,
+          "end": 92.12,
+          "probability": 0.989
+        },
+        {
+          "word": "is",
+          "start": 92.12,
+          "end": 92.36,
+          "probability": 0.969
+        },
+        {
+          "word": "instanti",
+          "start": 92.36,
+          "end": 93.42,
+          "probability": 0.516
+        },
+        {
+          "word": "-a,",
+          "start": 93.42,
+          "end": 93.76,
+          "probability": 0.165
+        },
+        {
+          "word": "to",
+          "start": 93.94,
+          "end": 94.1,
+          "probability": 0.867
+        },
+        {
+          "word": "pre",
+          "start": 94.1,
+          "end": 94.32,
+          "probability": 0.767
+        },
+        {
+          "word": "-collapse",
+          "start": 94.32,
+          "end": 95.22,
+          "probability": 0.667
+        },
+        {
+          "word": "and",
+          "start": 95.22,
+          "end": 95.7,
+          "probability": 0.886
+        },
+        {
+          "word": "stay.",
+          "start": 95.7,
+          "end": 96.2,
+          "probability": 0.94
+        }
+      ]
+    },
+    {
+      "start": 96.42,
+      "end": 102.48,
+      "text": "Day, day, day, day, day, day, day, day, day, day, day, day, day, day.",
+      "words": [
+        {
+          "word": "Day,",
+          "start": 96.42,
+          "end": 96.64,
+          "probability": 0.153
+        },
+        {
+          "word": "day,",
+          "start": 96.94,
+          "end": 97.06,
+          "probability": 0.973
+        },
+        {
+          "word": "day,",
+          "start": 97.28,
+          "end": 97.62,
+          "probability": 0.995
+        },
+        {
+          "word": "day,",
+          "start": 97.78,
+          "end": 98.06,
+          "probability": 0.988
+        },
+        {
+          "word": "day,",
+          "start": 98.24,
+          "end": 98.54,
+          "probability": 0.99
+        },
+        {
+          "word": "day,",
+          "start": 98.7,
+          "end": 99.36,
+          "probability": 0.984
+        },
+        {
+          "word": "day,",
+          "start": 99.58,
+          "end": 99.82,
+          "probability": 0.986
+        },
+        {
+          "word": "day,",
+          "start": 100.0,
+          "end": 100.3,
+          "probability": 0.986
+        },
+        {
+          "word": "day,",
+          "start": 100.44,
+          "end": 100.74,
+          "probability": 0.985
+        },
+        {
+          "word": "day,",
+          "start": 100.84,
+          "end": 101.04,
+          "probability": 0.983
+        },
+        {
+          "word": "day,",
+          "start": 101.04,
+          "end": 101.24,
+          "probability": 0.979
+        },
+        {
+          "word": "day,",
+          "start": 101.24,
+          "end": 101.5,
+          "probability": 0.973
+        },
+        {
+          "word": "day,",
+          "start": 101.5,
+          "end": 101.7,
+          "probability": 0.965
+        },
+        {
+          "word": "day.",
+          "start": 101.7,
+          "end": 102.48,
+          "probability": 0.957
+        }
+      ]
+    },
+    {
+      "start": 102.88,
+      "end": 106.14,
+      "text": "Made out with one chick, I'm glad I held back.",
+      "words": [
+        {
+          "word": "Made",
+          "start": 102.88,
+          "end": 103.48,
+          "probability": 0.754
+        },
+        {
+          "word": "out",
+          "start": 103.48,
+          "end": 103.9,
+          "probability": 0.958
+        },
+        {
+          "word": "with",
+          "start": 103.9,
+          "end": 104.2,
+          "probability": 0.997
+        },
+        {
+          "word": "one",
+          "start": 104.2,
+          "end": 104.46,
+          "probability": 0.994
+        },
+        {
+          "word": "chick,",
+          "start": 104.46,
+          "end": 104.82,
+          "probability": 0.99
+        },
+        {
+          "word": "I'm",
+          "start": 105.0,
+          "end": 105.14,
+          "probability": 0.995
+        },
+        {
+          "word": "glad",
+          "start": 105.14,
+          "end": 105.38,
+          "probability": 0.999
+        },
+        {
+          "word": "I",
+          "start": 105.38,
+          "end": 105.6,
+          "probability": 0.996
+        },
+        {
+          "word": "held",
+          "start": 105.6,
+          "end": 105.82,
+          "probability": 0.987
+        },
+        {
+          "word": "back.",
+          "start": 105.82,
+          "end": 106.14,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 106.14,
+      "end": 109.9,
+      "text": "If there'll be, she got Kink laying an agent rail track",
+      "words": [
+        {
+          "word": "If",
+          "start": 106.14,
+          "end": 106.56,
+          "probability": 0.199
+        },
+        {
+          "word": "there'll",
+          "start": 106.56,
+          "end": 106.94,
+          "probability": 0.368
+        },
+        {
+          "word": "be,",
+          "start": 106.94,
+          "end": 107.14,
+          "probability": 0.997
+        },
+        {
+          "word": "she",
+          "start": 107.28,
+          "end": 107.36,
+          "probability": 0.984
+        },
+        {
+          "word": "got",
+          "start": 107.36,
+          "end": 107.62,
+          "probability": 0.951
+        },
+        {
+          "word": "Kink",
+          "start": 107.62,
+          "end": 108.02,
+          "probability": 0.593
+        },
+        {
+          "word": "laying",
+          "start": 108.02,
+          "end": 108.36,
+          "probability": 0.821
+        },
+        {
+          "word": "an",
+          "start": 108.36,
+          "end": 108.7,
+          "probability": 0.938
+        },
+        {
+          "word": "agent",
+          "start": 108.7,
+          "end": 109.06,
+          "probability": 0.858
+        },
+        {
+          "word": "rail",
+          "start": 109.06,
+          "end": 109.48,
+          "probability": 0.705
+        },
+        {
+          "word": "track",
+          "start": 109.48,
+          "end": 109.9,
+          "probability": 0.833
+        }
+      ]
+    },
+    {
+      "start": 109.9,
+      "end": 113.42,
+      "text": "Made a friend at my low and be four back up too high",
+      "words": [
+        {
+          "word": "Made",
+          "start": 109.9,
+          "end": 110.26,
+          "probability": 0.536
+        },
+        {
+          "word": "a",
+          "start": 110.26,
+          "end": 110.5,
+          "probability": 0.882
+        },
+        {
+          "word": "friend",
+          "start": 110.5,
+          "end": 110.8,
+          "probability": 0.999
+        },
+        {
+          "word": "at",
+          "start": 110.8,
+          "end": 110.98,
+          "probability": 0.948
+        },
+        {
+          "word": "my",
+          "start": 110.98,
+          "end": 111.16,
+          "probability": 0.945
+        },
+        {
+          "word": "low",
+          "start": 111.16,
+          "end": 111.48,
+          "probability": 0.745
+        },
+        {
+          "word": "and",
+          "start": 111.48,
+          "end": 111.72,
+          "probability": 0.517
+        },
+        {
+          "word": "be",
+          "start": 111.72,
+          "end": 111.86,
+          "probability": 0.404
+        },
+        {
+          "word": "four",
+          "start": 111.86,
+          "end": 112.1,
+          "probability": 0.429
+        },
+        {
+          "word": "back",
+          "start": 112.1,
+          "end": 112.36,
+          "probability": 0.863
+        },
+        {
+          "word": "up",
+          "start": 112.36,
+          "end": 112.8,
+          "probability": 0.75
+        },
+        {
+          "word": "too",
+          "start": 112.8,
+          "end": 113.02,
+          "probability": 0.8
+        },
+        {
+          "word": "high",
+          "start": 113.02,
+          "end": 113.42,
+          "probability": 0.996
+        }
+      ]
+    },
+    {
+      "start": 113.42,
+      "end": 115.68,
+      "text": "For a trio outside, such a bonus footage",
+      "words": [
+        {
+          "word": "For",
+          "start": 113.42,
+          "end": 113.88,
+          "probability": 0.836
+        },
+        {
+          "word": "a",
+          "start": 113.88,
+          "end": 114.16,
+          "probability": 0.994
+        },
+        {
+          "word": "trio",
+          "start": 114.16,
+          "end": 114.32,
+          "probability": 0.87
+        },
+        {
+          "word": "outside,",
+          "start": 114.32,
+          "end": 114.7,
+          "probability": 0.96
+        },
+        {
+          "word": "such",
+          "start": 114.7,
+          "end": 114.94,
+          "probability": 0.597
+        },
+        {
+          "word": "a",
+          "start": 114.94,
+          "end": 115.06,
+          "probability": 0.934
+        },
+        {
+          "word": "bonus",
+          "start": 115.06,
+          "end": 115.32,
+          "probability": 0.993
+        },
+        {
+          "word": "footage",
+          "start": 115.32,
+          "end": 115.68,
+          "probability": 0.993
+        }
+      ]
+    },
+    {
+      "start": 115.68,
+      "end": 117.62,
+      "text": "And a mind full of fresh tea, time a profage",
+      "words": [
+        {
+          "word": "And",
+          "start": 115.68,
+          "end": 115.92,
+          "probability": 0.128
+        },
+        {
+          "word": "a",
+          "start": 115.92,
+          "end": 116.0,
+          "probability": 0.8
+        },
+        {
+          "word": "mind",
+          "start": 116.0,
+          "end": 116.18,
+          "probability": 0.501
+        },
+        {
+          "word": "full",
+          "start": 116.18,
+          "end": 116.32,
+          "probability": 0.448
+        },
+        {
+          "word": "of",
+          "start": 116.32,
+          "end": 116.4,
+          "probability": 0.945
+        },
+        {
+          "word": "fresh",
+          "start": 116.4,
+          "end": 116.64,
+          "probability": 0.982
+        },
+        {
+          "word": "tea,",
+          "start": 116.64,
+          "end": 116.84,
+          "probability": 0.812
+        },
+        {
+          "word": "time",
+          "start": 116.92,
+          "end": 117.04,
+          "probability": 0.696
+        },
+        {
+          "word": "a",
+          "start": 117.04,
+          "end": 117.14,
+          "probability": 0.502
+        },
+        {
+          "word": "profage",
+          "start": 117.14,
+          "end": 117.62,
+          "probability": 0.641
+        }
+      ]
+    },
+    {
+      "start": 117.62,
+      "end": 119.46,
+      "text": "The work is still with me, I'm doing it now",
+      "words": [
+        {
+          "word": "The",
+          "start": 117.62,
+          "end": 117.8,
+          "probability": 0.833
+        },
+        {
+          "word": "work",
+          "start": 117.8,
+          "end": 117.92,
+          "probability": 0.87
+        },
+        {
+          "word": "is",
+          "start": 117.92,
+          "end": 118.02,
+          "probability": 0.941
+        },
+        {
+          "word": "still",
+          "start": 118.02,
+          "end": 118.2,
+          "probability": 0.984
+        },
+        {
+          "word": "with",
+          "start": 118.2,
+          "end": 118.38,
+          "probability": 0.993
+        },
+        {
+          "word": "me,",
+          "start": 118.38,
+          "end": 118.48,
+          "probability": 0.999
+        },
+        {
+          "word": "I'm",
+          "start": 118.54,
+          "end": 118.66,
+          "probability": 0.994
+        },
+        {
+          "word": "doing",
+          "start": 118.66,
+          "end": 118.86,
+          "probability": 0.766
+        },
+        {
+          "word": "it",
+          "start": 118.86,
+          "end": 119.1,
+          "probability": 0.999
+        },
+        {
+          "word": "now",
+          "start": 119.1,
+          "end": 119.46,
+          "probability": 0.991
+        }
+      ]
+    },
+    {
+      "start": 119.46,
+      "end": 121.1,
+      "text": "I'm finding people insuring somehow",
+      "words": [
+        {
+          "word": "I'm",
+          "start": 119.46,
+          "end": 119.84,
+          "probability": 0.977
+        },
+        {
+          "word": "finding",
+          "start": 119.84,
+          "end": 119.96,
+          "probability": 0.976
+        },
+        {
+          "word": "people",
+          "start": 119.96,
+          "end": 120.22,
+          "probability": 0.998
+        },
+        {
+          "word": "insuring",
+          "start": 120.22,
+          "end": 120.62,
+          "probability": 0.604
+        },
+        {
+          "word": "somehow",
+          "start": 120.62,
+          "end": 121.1,
+          "probability": 0.961
+        }
+      ]
+    },
+    {
+      "start": 121.1,
+      "end": 124.6,
+      "text": "Two upcoming shows and now classic rock",
+      "words": [
+        {
+          "word": "Two",
+          "start": 121.1,
+          "end": 121.56,
+          "probability": 0.683
+        },
+        {
+          "word": "upcoming",
+          "start": 121.56,
+          "end": 122.12,
+          "probability": 0.982
+        },
+        {
+          "word": "shows",
+          "start": 122.12,
+          "end": 122.68,
+          "probability": 0.996
+        },
+        {
+          "word": "and",
+          "start": 122.68,
+          "end": 123.0,
+          "probability": 0.618
+        },
+        {
+          "word": "now",
+          "start": 123.0,
+          "end": 123.26,
+          "probability": 0.991
+        },
+        {
+          "word": "classic",
+          "start": 123.26,
+          "end": 123.88,
+          "probability": 0.453
+        },
+        {
+          "word": "rock",
+          "start": 123.88,
+          "end": 124.6,
+          "probability": 0.655
+        }
+      ]
+    },
+    {
+      "start": 122.6,
+      "end": 124.6,
+      "text": "And now classic rock!",
+      "words": [
+        {
+          "word": "And",
+          "start": 122.6,
+          "end": 123.02,
+          "probability": 0.364
+        },
+        {
+          "word": "now",
+          "start": 123.02,
+          "end": 123.26,
+          "probability": 0.985
+        },
+        {
+          "word": "classic",
+          "start": 123.26,
+          "end": 123.86,
+          "probability": 0.407
+        },
+        {
+          "word": "rock!",
+          "start": 123.86,
+          "end": 124.6,
+          "probability": 0.822
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "124.6-173.2"
+    },
+    {
+      "start": 125.38,
+      "end": 132.32,
+      "text": "Rapa Rapa Rapa Rapa Rapa",
+      "words": [
+        {
+          "word": "Rapa",
+          "start": 125.38,
+          "end": 125.86,
+          "probability": 0.165
+        },
+        {
+          "word": "Rapa",
+          "start": 125.86,
+          "end": 127.86,
+          "probability": 0.543
+        },
+        {
+          "word": "Rapa",
+          "start": 127.86,
+          "end": 129.54,
+          "probability": 0.926
+        },
+        {
+          "word": "Rapa",
+          "start": 129.54,
+          "end": 129.66,
+          "probability": 0.937
+        },
+        {
+          "word": "Rapa",
+          "start": 129.66,
+          "end": 132.32,
+          "probability": 0.95
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "124.6-173.2"
+    },
+    {
+      "start": 140.42,
+      "end": 141.1,
+      "text": "Rock you!",
+      "words": [
+        {
+          "word": "Rock",
+          "start": 140.1,
+          "end": 140.7,
+          "probability": 0.011
+        },
+        {
+          "word": "you!",
+          "start": 140.7,
+          "end": 141.1,
+          "probability": 0.04
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "124.6-173.2"
+    },
+    {
+      "start": 155.58,
+      "end": 156.98,
+      "text": "You",
+      "words": [
+        {
+          "word": "You",
+          "start": 155.58,
+          "end": 156.98,
+          "probability": 0.004
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "124.6-173.2"
+    },
+    {
+      "start": 172.0,
+      "end": 175.06,
+      "text": "She told me",
+      "words": [
+        {
+          "word": "She",
+          "start": 172.0,
+          "end": 173.4,
+          "probability": 0.283
+        },
+        {
+          "word": "told",
+          "start": 173.4,
+          "end": 174.8,
+          "probability": 0.481
+        },
+        {
+          "word": "me",
+          "start": 174.8,
+          "end": 175.06,
+          "probability": 0.998
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "124.6-173.2"
+    },
+    {
+      "start": 173.2,
+      "end": 174.28,
+      "text": "Oh",
+      "words": [
+        {
+          "word": "Oh",
+          "start": 173.2,
+          "end": 174.28,
+          "probability": 0.014
+        }
+      ]
+    },
+    {
+      "start": 174.28,
+      "end": 177.16,
+      "text": "She called me a hippie activist",
+      "words": [
+        {
+          "word": "She",
+          "start": 174.28,
+          "end": 174.28,
+          "probability": 0.199
+        },
+        {
+          "word": "called",
+          "start": 174.28,
+          "end": 174.82,
+          "probability": 0.608
+        },
+        {
+          "word": "me",
+          "start": 174.82,
+          "end": 175.14,
+          "probability": 0.979
+        },
+        {
+          "word": "a",
+          "start": 175.14,
+          "end": 175.36,
+          "probability": 0.43
+        },
+        {
+          "word": "hippie",
+          "start": 175.36,
+          "end": 176.2,
+          "probability": 0.955
+        },
+        {
+          "word": "activist",
+          "start": 176.2,
+          "end": 177.16,
+          "probability": 0.914
+        }
+      ]
+    },
+    {
+      "start": 177.16,
+      "end": 181.0,
+      "text": "That's life and I've been mentioning it",
+      "words": [
+        {
+          "word": "That's",
+          "start": 177.16,
+          "end": 178.26,
+          "probability": 0.547
+        },
+        {
+          "word": "life",
+          "start": 178.26,
+          "end": 178.68,
+          "probability": 0.987
+        },
+        {
+          "word": "and",
+          "start": 178.68,
+          "end": 178.98,
+          "probability": 0.814
+        },
+        {
+          "word": "I've",
+          "start": 178.98,
+          "end": 179.48,
+          "probability": 0.608
+        },
+        {
+          "word": "been",
+          "start": 179.48,
+          "end": 179.7,
+          "probability": 0.995
+        },
+        {
+          "word": "mentioning",
+          "start": 179.7,
+          "end": 180.46,
+          "probability": 0.05
+        },
+        {
+          "word": "it",
+          "start": 180.46,
+          "end": 181.0,
+          "probability": 0.92
+        }
+      ]
+    },
+    {
+      "start": 181.0,
+      "end": 185.6,
+      "text": "The key to beating a fascist is instantiate",
+      "words": [
+        {
+          "word": "The",
+          "start": 181.0,
+          "end": 181.62,
+          "probability": 0.11
+        },
+        {
+          "word": "key",
+          "start": 181.62,
+          "end": 182.02,
+          "probability": 0.91
+        },
+        {
+          "word": "to",
+          "start": 182.02,
+          "end": 182.5,
+          "probability": 0.868
+        },
+        {
+          "word": "beating",
+          "start": 182.5,
+          "end": 183.06,
+          "probability": 0.394
+        },
+        {
+          "word": "a",
+          "start": 183.06,
+          "end": 183.52,
+          "probability": 0.76
+        },
+        {
+          "word": "fascist",
+          "start": 183.52,
+          "end": 184.16,
+          "probability": 0.974
+        },
+        {
+          "word": "is",
+          "start": 184.16,
+          "end": 184.42,
+          "probability": 0.849
+        },
+        {
+          "word": "instantiate",
+          "start": 184.42,
+          "end": 185.6,
+          "probability": 0.716
+        }
+      ]
+    },
+    {
+      "start": 185.6,
+      "end": 187.98,
+      "text": "A pre-collapsing state",
+      "words": [
+        {
+          "word": "A",
+          "start": 185.6,
+          "end": 186.18,
+          "probability": 0.088
+        },
+        {
+          "word": "pre",
+          "start": 186.18,
+          "end": 186.36,
+          "probability": 0.454
+        },
+        {
+          "word": "-collapsing",
+          "start": 186.36,
+          "end": 187.6,
+          "probability": 0.631
+        },
+        {
+          "word": "state",
+          "start": 187.6,
+          "end": 187.98,
+          "probability": 0.995
+        }
+      ]
+    },
+    {
+      "start": 187.98,
+      "end": 191.48,
+      "text": "She called me a hippie activist",
+      "words": [
+        {
+          "word": "She",
+          "start": 187.98,
+          "end": 188.78,
+          "probability": 0.448
+        },
+        {
+          "word": "called",
+          "start": 188.78,
+          "end": 189.2,
+          "probability": 0.703
+        },
+        {
+          "word": "me",
+          "start": 189.2,
+          "end": 189.54,
+          "probability": 0.998
+        },
+        {
+          "word": "a",
+          "start": 189.54,
+          "end": 189.8,
+          "probability": 0.926
+        },
+        {
+          "word": "hippie",
+          "start": 189.8,
+          "end": 190.58,
+          "probability": 0.951
+        },
+        {
+          "word": "activist",
+          "start": 190.58,
+          "end": 191.48,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 192.12,
+      "end": 195.58,
+      "text": "That's life and I've been mentioning it",
+      "words": [
+        {
+          "word": "That's",
+          "start": 192.12,
+          "end": 192.72,
+          "probability": 0.858
+        },
+        {
+          "word": "life",
+          "start": 192.72,
+          "end": 193.06,
+          "probability": 0.818
+        },
+        {
+          "word": "and",
+          "start": 193.06,
+          "end": 193.38,
+          "probability": 0.728
+        },
+        {
+          "word": "I've",
+          "start": 193.38,
+          "end": 193.9,
+          "probability": 0.495
+        },
+        {
+          "word": "been",
+          "start": 193.9,
+          "end": 194.14,
+          "probability": 0.952
+        },
+        {
+          "word": "mentioning",
+          "start": 194.14,
+          "end": 194.8,
+          "probability": 0.0
+        },
+        {
+          "word": "it",
+          "start": 194.8,
+          "end": 195.58,
+          "probability": 0.915
+        }
+      ]
+    },
+    {
+      "start": 195.58,
+      "end": 200.0,
+      "text": "The key to beating a fascist is instantiate",
+      "words": [
+        {
+          "word": "The",
+          "start": 195.58,
+          "end": 195.92,
+          "probability": 0.748
+        },
+        {
+          "word": "key",
+          "start": 195.92,
+          "end": 196.42,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 196.42,
+          "end": 196.74,
+          "probability": 0.994
+        },
+        {
+          "word": "beating",
+          "start": 196.74,
+          "end": 197.48,
+          "probability": 0.985
+        },
+        {
+          "word": "a",
+          "start": 197.48,
+          "end": 197.98,
+          "probability": 0.993
+        },
+        {
+          "word": "fascist",
+          "start": 197.98,
+          "end": 198.56,
+          "probability": 0.998
+        },
+        {
+          "word": "is",
+          "start": 198.56,
+          "end": 198.84,
+          "probability": 0.971
+        },
+        {
+          "word": "instantiate",
+          "start": 198.84,
+          "end": 200.0,
+          "probability": 0.997
+        }
+      ]
+    },
+    {
+      "start": 200.0,
+      "end": 202.82,
+      "text": "A pre-collapsing state",
+      "words": [
+        {
+          "word": "A",
+          "start": 200.0,
+          "end": 200.52,
+          "probability": 0.917
+        },
+        {
+          "word": "pre",
+          "start": 200.52,
+          "end": 200.8,
+          "probability": 0.99
+        },
+        {
+          "word": "-collapsing",
+          "start": 200.8,
+          "end": 202.24,
+          "probability": 0.952
+        },
+        {
+          "word": "state",
+          "start": 202.24,
+          "end": 202.82,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 202.82,
+      "end": 206.08,
+      "text": "She called me a hippie activist",
+      "words": [
+        {
+          "word": "She",
+          "start": 202.82,
+          "end": 203.28,
+          "probability": 0.816
+        },
+        {
+          "word": "called",
+          "start": 203.28,
+          "end": 203.64,
+          "probability": 0.97
+        },
+        {
+          "word": "me",
+          "start": 203.64,
+          "end": 204.02,
+          "probability": 0.937
+        },
+        {
+          "word": "a",
+          "start": 204.02,
+          "end": 204.24,
+          "probability": 0.934
+        },
+        {
+          "word": "hippie",
+          "start": 204.24,
+          "end": 204.98,
+          "probability": 0.552
+        },
+        {
+          "word": "activist",
+          "start": 204.98,
+          "end": 206.08,
+          "probability": 0.901
+        }
+      ]
+    },
+    {
+      "start": 206.6,
+      "end": 210.16,
+      "text": "That's life and I've been mentioning it",
+      "words": [
+        {
+          "word": "That's",
+          "start": 206.6,
+          "end": 207.2,
+          "probability": 0.98
+        },
+        {
+          "word": "life",
+          "start": 207.2,
+          "end": 207.56,
+          "probability": 0.975
+        },
+        {
+          "word": "and",
+          "start": 207.56,
+          "end": 207.86,
+          "probability": 0.921
+        },
+        {
+          "word": "I've",
+          "start": 207.86,
+          "end": 208.3,
+          "probability": 0.967
+        },
+        {
+          "word": "been",
+          "start": 208.3,
+          "end": 208.52,
+          "probability": 0.992
+        },
+        {
+          "word": "mentioning",
+          "start": 208.52,
+          "end": 209.24,
+          "probability": 0.803
+        },
+        {
+          "word": "it",
+          "start": 209.24,
+          "end": 210.16,
+          "probability": 0.99
+        }
+      ]
+    },
+    {
+      "start": 210.16,
+      "end": 214.62,
+      "text": "The key to beating a fascist is instantiate",
+      "words": [
+        {
+          "word": "The",
+          "start": 210.16,
+          "end": 210.52,
+          "probability": 0.445
+        },
+        {
+          "word": "key",
+          "start": 210.52,
+          "end": 210.92,
+          "probability": 0.912
+        },
+        {
+          "word": "to",
+          "start": 210.92,
+          "end": 211.34,
+          "probability": 0.995
+        },
+        {
+          "word": "beating",
+          "start": 211.34,
+          "end": 211.94,
+          "probability": 0.966
+        },
+        {
+          "word": "a",
+          "start": 211.94,
+          "end": 212.34,
+          "probability": 0.874
+        },
+        {
+          "word": "fascist",
+          "start": 212.34,
+          "end": 213.0,
+          "probability": 0.988
+        },
+        {
+          "word": "is",
+          "start": 213.0,
+          "end": 213.26,
+          "probability": 0.96
+        },
+        {
+          "word": "instantiate",
+          "start": 213.26,
+          "end": 214.62,
+          "probability": 0.87
+        }
+      ]
+    },
+    {
+      "start": 214.62,
+      "end": 218.26,
+      "text": "A pre-collapsing state",
+      "words": [
+        {
+          "word": "A",
+          "start": 214.62,
+          "end": 215.04,
+          "probability": 0.437
+        },
+        {
+          "word": "pre",
+          "start": 215.04,
+          "end": 215.22,
+          "probability": 0.571
+        },
+        {
+          "word": "-collapsing",
+          "start": 215.22,
+          "end": 216.88,
+          "probability": 0.574
+        },
+        {
+          "word": "state",
+          "start": 216.88,
+          "end": 218.26,
+          "probability": 0.878
+        }
+      ]
+    },
+    {
+      "start": 225.16,
+      "end": 229.14,
+      "text": "Instantiate, instantiate, instantiate",
+      "words": [
+        {
+          "word": "Instantiate,",
+          "start": 225.16,
+          "end": 226.16,
+          "probability": 0.722
+        },
+        {
+          "word": "instantiate,",
+          "start": 226.16,
+          "end": 227.16,
+          "probability": 0.917
+        },
+        {
+          "word": "instantiate",
+          "start": 227.16,
+          "end": 229.14,
+          "probability": 0.975
+        }
+      ]
+    },
+    {
+      "start": 231.58,
+      "end": 233.54,
+      "text": "The new state!",
+      "words": [
+        {
+          "word": "The",
+          "start": 231.58,
+          "end": 232.72,
+          "probability": 0.295
+        },
+        {
+          "word": "new",
+          "start": 232.72,
+          "end": 233.06,
+          "probability": 0.689
+        },
+        {
+          "word": "state!",
+          "start": 233.06,
+          "end": 233.54,
+          "probability": 0.923
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "233.6-240.4"
+    },
+    {
+      "start": 232.48,
+      "end": 233.58,
+      "text": "The new state",
+      "words": [
+        {
+          "word": "The",
+          "start": 232.22,
+          "end": 232.72,
+          "probability": 0.695
+        },
+        {
+          "word": "new",
+          "start": 232.72,
+          "end": 233.08,
+          "probability": 0.822
+        },
+        {
+          "word": "state",
+          "start": 233.08,
+          "end": 233.58,
+          "probability": 0.985
+        }
+      ]
+    },
+    {
+      "start": 240.4,
+      "end": 241.8,
+      "text": "The new state",
+      "words": [
+        {
+          "word": "The",
+          "start": 240.4,
+          "end": 241.8,
+          "probability": 0.004
+        },
+        {
+          "word": "new",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.001
+        },
+        {
+          "word": "state",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.001
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "note": "raw model output, preserved verbatim; lyric reconciliation (if known lyrics exist) is a separate downstream artifact"
+}

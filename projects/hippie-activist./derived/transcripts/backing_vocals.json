@@ -1,0 +1,2347 @@
+{
+  "source_stem": "/mnt/storage/repos/content-tools/projects/hippie-activist./11 Backing_Vocals.wav",
+  "model": {
+    "type": "faster-whisper",
+    "size": "small"
+  },
+  "raw_segments": [
+    {
+      "start": 18.6,
+      "end": 27.6,
+      "text": "She called me a hippie activist, Max and Liv.",
+      "words": [
+        {
+          "word": "She",
+          "start": 18.6,
+          "end": 20.0,
+          "probability": 0.151
+        },
+        {
+          "word": "called",
+          "start": 20.0,
+          "end": 21.4,
+          "probability": 0.435
+        },
+        {
+          "word": "me",
+          "start": 21.4,
+          "end": 21.78,
+          "probability": 0.863
+        },
+        {
+          "word": "a",
+          "start": 21.78,
+          "end": 21.98,
+          "probability": 0.589
+        },
+        {
+          "word": "hippie",
+          "start": 21.98,
+          "end": 22.8,
+          "probability": 0.962
+        },
+        {
+          "word": "activist,",
+          "start": 22.8,
+          "end": 23.6,
+          "probability": 0.654
+        },
+        {
+          "word": "Max",
+          "start": 25.18,
+          "end": 26.9,
+          "probability": 0.587
+        },
+        {
+          "word": "and",
+          "start": 26.9,
+          "end": 27.14,
+          "probability": 0.581
+        },
+        {
+          "word": "Liv.",
+          "start": 27.14,
+          "end": 27.6,
+          "probability": 0.578
+        }
+      ]
+    },
+    {
+      "start": 30.5,
+      "end": 34.9,
+      "text": "Since then she ate a pre-collapsed steak.",
+      "words": [
+        {
+          "word": "Since",
+          "start": 30.5,
+          "end": 31.3,
+          "probability": 0.131
+        },
+        {
+          "word": "then",
+          "start": 31.3,
+          "end": 31.7,
+          "probability": 0.69
+        },
+        {
+          "word": "she",
+          "start": 31.7,
+          "end": 32.04,
+          "probability": 0.533
+        },
+        {
+          "word": "ate",
+          "start": 32.04,
+          "end": 32.48,
+          "probability": 0.859
+        },
+        {
+          "word": "a",
+          "start": 32.48,
+          "end": 32.8,
+          "probability": 0.963
+        },
+        {
+          "word": "pre",
+          "start": 32.8,
+          "end": 33.02,
+          "probability": 0.453
+        },
+        {
+          "word": "-collapsed",
+          "start": 33.02,
+          "end": 34.22,
+          "probability": 0.71
+        },
+        {
+          "word": "steak.",
+          "start": 34.22,
+          "end": 34.9,
+          "probability": 0.713
+        }
+      ]
+    },
+    {
+      "start": 32.9,
+      "end": 34.86,
+      "text": "Re-collapse and stay",
+      "words": [
+        {
+          "word": "Re",
+          "start": 32.9,
+          "end": 33.08,
+          "probability": 0.212
+        },
+        {
+          "word": "-collapse",
+          "start": 33.08,
+          "end": 34.02,
+          "probability": 0.507
+        },
+        {
+          "word": "and",
+          "start": 34.02,
+          "end": 34.44,
+          "probability": 0.849
+        },
+        {
+          "word": "stay",
+          "start": 34.44,
+          "end": 34.86,
+          "probability": 0.952
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "34.9-61.8"
+    },
+    {
+      "start": 61.82,
+      "end": 70.72,
+      "text": "Ooh, feelings are great dead, joy from my breathing is just God's line.",
+      "words": [
+        {
+          "word": "Ooh,",
+          "start": 61.82,
+          "end": 63.0,
+          "probability": 0.055
+        },
+        {
+          "word": "feelings",
+          "start": 63.0,
+          "end": 64.18,
+          "probability": 0.307
+        },
+        {
+          "word": "are",
+          "start": 64.18,
+          "end": 64.48,
+          "probability": 0.823
+        },
+        {
+          "word": "great",
+          "start": 64.48,
+          "end": 64.64,
+          "probability": 0.789
+        },
+        {
+          "word": "dead,",
+          "start": 64.64,
+          "end": 65.04,
+          "probability": 0.272
+        },
+        {
+          "word": "joy",
+          "start": 65.76,
+          "end": 67.58,
+          "probability": 0.759
+        },
+        {
+          "word": "from",
+          "start": 67.58,
+          "end": 67.88,
+          "probability": 0.929
+        },
+        {
+          "word": "my",
+          "start": 67.88,
+          "end": 68.08,
+          "probability": 0.547
+        },
+        {
+          "word": "breathing",
+          "start": 68.08,
+          "end": 68.34,
+          "probability": 0.314
+        },
+        {
+          "word": "is",
+          "start": 68.34,
+          "end": 68.82,
+          "probability": 0.617
+        },
+        {
+          "word": "just",
+          "start": 68.82,
+          "end": 69.14,
+          "probability": 0.995
+        },
+        {
+          "word": "God's",
+          "start": 69.14,
+          "end": 69.84,
+          "probability": 0.968
+        },
+        {
+          "word": "line.",
+          "start": 69.84,
+          "end": 70.72,
+          "probability": 0.561
+        }
+      ]
+    },
+    {
+      "start": 68.72,
+      "end": 70.7,
+      "text": "It's just God's line",
+      "words": [
+        {
+          "word": "It's",
+          "start": 68.72,
+          "end": 68.88,
+          "probability": 0.763
+        },
+        {
+          "word": "just",
+          "start": 68.88,
+          "end": 69.1,
+          "probability": 0.986
+        },
+        {
+          "word": "God's",
+          "start": 69.1,
+          "end": 69.84,
+          "probability": 0.908
+        },
+        {
+          "word": "line",
+          "start": 69.84,
+          "end": 70.7,
+          "probability": 0.642
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "70.7-80.9"
+    },
+    {
+      "start": 74.26,
+      "end": 75.66,
+      "text": "Sheikah",
+      "words": [
+        {
+          "word": "Sheikah",
+          "start": 74.26,
+          "end": 75.66,
+          "probability": 0.368
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "70.7-80.9"
+    },
+    {
+      "start": 80.9,
+      "end": 87.2,
+      "text": "She called me a hippie activist, Max and Liv.",
+      "words": [
+        {
+          "word": "She",
+          "start": 80.9,
+          "end": 82.26,
+          "probability": 0.085
+        },
+        {
+          "word": "called",
+          "start": 82.26,
+          "end": 82.74,
+          "probability": 0.75
+        },
+        {
+          "word": "me",
+          "start": 82.74,
+          "end": 83.1,
+          "probability": 0.973
+        },
+        {
+          "word": "a",
+          "start": 83.1,
+          "end": 83.34,
+          "probability": 0.727
+        },
+        {
+          "word": "hippie",
+          "start": 83.34,
+          "end": 84.2,
+          "probability": 0.801
+        },
+        {
+          "word": "activist,",
+          "start": 84.2,
+          "end": 85.04,
+          "probability": 0.799
+        },
+        {
+          "word": "Max",
+          "start": 85.42,
+          "end": 86.1,
+          "probability": 0.0
+        },
+        {
+          "word": "and",
+          "start": 86.1,
+          "end": 86.48,
+          "probability": 0.087
+        },
+        {
+          "word": "Liv.",
+          "start": 86.48,
+          "end": 87.2,
+          "probability": 0.002
+        }
+      ]
+    },
+    {
+      "start": 90.72,
+      "end": 96.22,
+      "text": "Since then she ate a pre-collapsed steak.",
+      "words": [
+        {
+          "word": "Since",
+          "start": 90.72,
+          "end": 92.12,
+          "probability": 0.002
+        },
+        {
+          "word": "then",
+          "start": 92.12,
+          "end": 93.02,
+          "probability": 0.209
+        },
+        {
+          "word": "she",
+          "start": 93.02,
+          "end": 93.38,
+          "probability": 0.57
+        },
+        {
+          "word": "ate",
+          "start": 93.38,
+          "end": 93.8,
+          "probability": 0.488
+        },
+        {
+          "word": "a",
+          "start": 93.8,
+          "end": 94.16,
+          "probability": 0.915
+        },
+        {
+          "word": "pre",
+          "start": 94.16,
+          "end": 94.32,
+          "probability": 0.505
+        },
+        {
+          "word": "-collapsed",
+          "start": 94.32,
+          "end": 95.5,
+          "probability": 0.503
+        },
+        {
+          "word": "steak.",
+          "start": 95.5,
+          "end": 96.22,
+          "probability": 0.002
+        }
+      ]
+    },
+    {
+      "start": 94.22,
+      "end": 96.16,
+      "text": "free collapse, and stay!",
+      "words": [
+        {
+          "word": "free",
+          "start": 94.22,
+          "end": 94.44,
+          "probability": 0.014
+        },
+        {
+          "word": "collapse,",
+          "start": 94.44,
+          "end": 95.24,
+          "probability": 0.091
+        },
+        {
+          "word": "and",
+          "start": 95.5,
+          "end": 95.74,
+          "probability": 0.941
+        },
+        {
+          "word": "stay!",
+          "start": 95.74,
+          "end": 96.16,
+          "probability": 0.979
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "96.2-111.9"
+    },
+    {
+      "start": 96.46,
+      "end": 102.5,
+      "text": "day, day, day, day, day, day, day, day, day, day, day, day, day, day!",
+      "words": [
+        {
+          "word": "day,",
+          "start": 96.46,
+          "end": 96.62,
+          "probability": 0.135
+        },
+        {
+          "word": "day,",
+          "start": 96.86,
+          "end": 97.06,
+          "probability": 0.976
+        },
+        {
+          "word": "day,",
+          "start": 97.26,
+          "end": 97.58,
+          "probability": 0.992
+        },
+        {
+          "word": "day,",
+          "start": 97.72,
+          "end": 98.04,
+          "probability": 0.99
+        },
+        {
+          "word": "day,",
+          "start": 98.2,
+          "end": 98.48,
+          "probability": 0.989
+        },
+        {
+          "word": "day,",
+          "start": 98.66,
+          "end": 98.94,
+          "probability": 0.989
+        },
+        {
+          "word": "day,",
+          "start": 99.12,
+          "end": 99.42,
+          "probability": 0.991
+        },
+        {
+          "word": "day,",
+          "start": 99.54,
+          "end": 99.88,
+          "probability": 0.99
+        },
+        {
+          "word": "day,",
+          "start": 99.98,
+          "end": 100.3,
+          "probability": 0.989
+        },
+        {
+          "word": "day,",
+          "start": 100.44,
+          "end": 100.76,
+          "probability": 0.989
+        },
+        {
+          "word": "day,",
+          "start": 100.86,
+          "end": 101.18,
+          "probability": 0.988
+        },
+        {
+          "word": "day,",
+          "start": 101.3,
+          "end": 101.44,
+          "probability": 0.988
+        },
+        {
+          "word": "day,",
+          "start": 101.44,
+          "end": 101.62,
+          "probability": 0.987
+        },
+        {
+          "word": "day!",
+          "start": 101.7,
+          "end": 102.5,
+          "probability": 0.986
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "96.2-111.9"
+    },
+    {
+      "start": 111.94,
+      "end": 126.2,
+      "text": "She called me a hippie activist, Max and Liv.",
+      "words": [
+        {
+          "word": "She",
+          "start": 111.94,
+          "end": 113.34,
+          "probability": 0.004
+        },
+        {
+          "word": "called",
+          "start": 113.34,
+          "end": 114.56,
+          "probability": 0.001
+        },
+        {
+          "word": "me",
+          "start": 114.56,
+          "end": 115.0,
+          "probability": 0.024
+        },
+        {
+          "word": "a",
+          "start": 115.0,
+          "end": 125.96,
+          "probability": 0.055
+        },
+        {
+          "word": "hippie",
+          "start": 125.96,
+          "end": 126.2,
+          "probability": 0.087
+        },
+        {
+          "word": "activist,",
+          "start": 126.2,
+          "end": 126.2,
+          "probability": 0.0
+        },
+        {
+          "word": "Max",
+          "start": 126.2,
+          "end": 126.2,
+          "probability": 0.0
+        },
+        {
+          "word": "and",
+          "start": 126.2,
+          "end": 126.2,
+          "probability": 0.04
+        },
+        {
+          "word": "Liv.",
+          "start": 126.2,
+          "end": 126.2,
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "start": 125.1,
+      "end": 151.84,
+      "text": "Rainbow \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb \u30e9\u30f3\u30af\u30eb",
+      "words": [
+        {
+          "word": "R",
+          "start": 125.1,
+          "end": 125.62,
+          "probability": 0.173
+        },
+        {
+          "word": "ain",
+          "start": 125.62,
+          "end": 125.72,
+          "probability": 0.044
+        },
+        {
+          "word": "bow",
+          "start": 125.72,
+          "end": 125.9,
+          "probability": 0.939
+        },
+        {
+          "word": "\u30e9",
+          "start": 126.38,
+          "end": 127.42,
+          "probability": 0.015
+        },
+        {
+          "word": "\u30f3",
+          "start": 127.42,
+          "end": 127.52,
+          "probability": 0.104
+        },
+        {
+          "word": "\u30af",
+          "start": 127.52,
+          "end": 127.6,
+          "probability": 0.076
+        },
+        {
+          "word": "\u30eb",
+          "start": 127.6,
+          "end": 128.02,
+          "probability": 0.103
+        },
+        {
+          "word": "\u30e9",
+          "start": 128.16,
+          "end": 129.16,
+          "probability": 0.562
+        },
+        {
+          "word": "\u30f3",
+          "start": 129.16,
+          "end": 129.3,
+          "probability": 0.896
+        },
+        {
+          "word": "\u30af",
+          "start": 129.3,
+          "end": 129.44,
+          "probability": 0.993
+        },
+        {
+          "word": "\u30eb",
+          "start": 129.44,
+          "end": 130.48,
+          "probability": 0.98
+        },
+        {
+          "word": "\u30e9",
+          "start": 130.74,
+          "end": 131.04,
+          "probability": 0.911
+        },
+        {
+          "word": "\u30f3",
+          "start": 131.04,
+          "end": 131.12,
+          "probability": 0.957
+        },
+        {
+          "word": "\u30af",
+          "start": 131.12,
+          "end": 131.18,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30eb",
+          "start": 131.18,
+          "end": 131.62,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30e9",
+          "start": 131.62,
+          "end": 132.06,
+          "probability": 0.968
+        },
+        {
+          "word": "\u30f3",
+          "start": 132.06,
+          "end": 132.18,
+          "probability": 0.981
+        },
+        {
+          "word": "\u30af",
+          "start": 132.18,
+          "end": 132.36,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 132.36,
+          "end": 133.46,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30e9",
+          "start": 133.7,
+          "end": 133.8,
+          "probability": 0.982
+        },
+        {
+          "word": "\u30f3",
+          "start": 133.8,
+          "end": 133.96,
+          "probability": 0.987
+        },
+        {
+          "word": "\u30af",
+          "start": 133.96,
+          "end": 134.2,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 134.2,
+          "end": 134.44,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30e9",
+          "start": 134.78,
+          "end": 134.78,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30f3",
+          "start": 134.78,
+          "end": 134.78,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30af",
+          "start": 134.78,
+          "end": 134.82,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 134.82,
+          "end": 135.22,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30e9",
+          "start": 135.22,
+          "end": 135.58,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30f3",
+          "start": 135.58,
+          "end": 135.76,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30af",
+          "start": 135.76,
+          "end": 136.04,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 136.04,
+          "end": 136.3,
+          "probability": 0.986
+        },
+        {
+          "word": "\u30e9",
+          "start": 136.6,
+          "end": 136.6,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30f3",
+          "start": 136.6,
+          "end": 136.66,
+          "probability": 0.985
+        },
+        {
+          "word": "\u30af",
+          "start": 136.66,
+          "end": 136.88,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 136.88,
+          "end": 137.14,
+          "probability": 0.982
+        },
+        {
+          "word": "\u30e9",
+          "start": 137.64,
+          "end": 137.64,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30f3",
+          "start": 137.64,
+          "end": 137.64,
+          "probability": 0.983
+        },
+        {
+          "word": "\u30af",
+          "start": 137.64,
+          "end": 137.86,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 137.86,
+          "end": 138.56,
+          "probability": 0.98
+        },
+        {
+          "word": "\u30e9",
+          "start": 140.92,
+          "end": 140.92,
+          "probability": 0.985
+        },
+        {
+          "word": "\u30f3",
+          "start": 140.92,
+          "end": 140.92,
+          "probability": 0.983
+        },
+        {
+          "word": "\u30af",
+          "start": 140.92,
+          "end": 140.92,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30eb",
+          "start": 140.92,
+          "end": 141.46,
+          "probability": 0.981
+        },
+        {
+          "word": "\u30e9",
+          "start": 141.58,
+          "end": 141.58,
+          "probability": 0.984
+        },
+        {
+          "word": "\u30f3",
+          "start": 141.58,
+          "end": 141.58,
+          "probability": 0.984
+        },
+        {
+          "word": "\u30af",
+          "start": 141.58,
+          "end": 141.58,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30eb",
+          "start": 141.58,
+          "end": 141.58,
+          "probability": 0.982
+        },
+        {
+          "word": "\u30e9",
+          "start": 142.44,
+          "end": 142.44,
+          "probability": 0.982
+        },
+        {
+          "word": "\u30f3",
+          "start": 142.44,
+          "end": 142.44,
+          "probability": 0.984
+        },
+        {
+          "word": "\u30af",
+          "start": 142.44,
+          "end": 142.44,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30eb",
+          "start": 142.44,
+          "end": 142.44,
+          "probability": 0.98
+        },
+        {
+          "word": "\u30e9",
+          "start": 143.4,
+          "end": 143.4,
+          "probability": 0.982
+        },
+        {
+          "word": "\u30f3",
+          "start": 143.4,
+          "end": 143.4,
+          "probability": 0.986
+        },
+        {
+          "word": "\u30af",
+          "start": 143.4,
+          "end": 143.4,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 143.4,
+          "end": 143.4,
+          "probability": 0.983
+        },
+        {
+          "word": "\u30e9",
+          "start": 143.4,
+          "end": 143.4,
+          "probability": 0.984
+        },
+        {
+          "word": "\u30f3",
+          "start": 143.4,
+          "end": 143.4,
+          "probability": 0.986
+        },
+        {
+          "word": "\u30af",
+          "start": 143.4,
+          "end": 143.4,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 143.4,
+          "end": 143.4,
+          "probability": 0.985
+        },
+        {
+          "word": "\u30e9",
+          "start": 143.86,
+          "end": 143.86,
+          "probability": 0.985
+        },
+        {
+          "word": "\u30f3",
+          "start": 143.86,
+          "end": 143.86,
+          "probability": 0.987
+        },
+        {
+          "word": "\u30af",
+          "start": 143.86,
+          "end": 143.86,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 143.86,
+          "end": 143.86,
+          "probability": 0.985
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.3,
+          "end": 151.3,
+          "probability": 0.986
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.3,
+          "end": 151.3,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30af",
+          "start": 151.3,
+          "end": 151.3,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.3,
+          "end": 151.3,
+          "probability": 0.987
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.992
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.993
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.993
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.994
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.995
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.994
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.995
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.995
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.995
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.996
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.987
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.987
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.99
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.987
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.987
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.986
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.988
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.991
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.987
+        },
+        {
+          "word": "\u30e9",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.997
+        },
+        {
+          "word": "\u30f3",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.992
+        },
+        {
+          "word": "\u30af",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.998
+        },
+        {
+          "word": "\u30eb",
+          "start": 151.84,
+          "end": 151.84,
+          "probability": 0.989
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "126.2-149.9"
+    },
+    {
+      "start": 149.86,
+      "end": 156.18,
+      "text": "She called me a hippie activist, Max and Liv.",
+      "words": [
+        {
+          "word": "She",
+          "start": 149.86,
+          "end": 151.26,
+          "probability": 0.0
+        },
+        {
+          "word": "called",
+          "start": 151.26,
+          "end": 152.66,
+          "probability": 0.002
+        },
+        {
+          "word": "me",
+          "start": 152.66,
+          "end": 152.66,
+          "probability": 0.265
+        },
+        {
+          "word": "a",
+          "start": 152.66,
+          "end": 155.78,
+          "probability": 0.048
+        },
+        {
+          "word": "hippie",
+          "start": 155.78,
+          "end": 156.18,
+          "probability": 0.196
+        },
+        {
+          "word": "activist,",
+          "start": 156.18,
+          "end": 156.18,
+          "probability": 0.0
+        },
+        {
+          "word": "Max",
+          "start": 156.18,
+          "end": 156.18,
+          "probability": 0.0
+        },
+        {
+          "word": "and",
+          "start": 156.18,
+          "end": 156.18,
+          "probability": 0.041
+        },
+        {
+          "word": "Liv.",
+          "start": 156.18,
+          "end": 156.18,
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "start": 156.0,
+      "end": 156.18,
+      "text": "You",
+      "words": [
+        {
+          "word": "You",
+          "start": 156.0,
+          "end": 156.7,
+          "probability": 0.078
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "156.2-184.8"
+    },
+    {
+      "start": 184.78,
+      "end": 186.18,
+      "text": "Thanks for watching!",
+      "words": [
+        {
+          "word": "Thanks",
+          "start": 184.78,
+          "end": 186.18,
+          "probability": 0.006
+        },
+        {
+          "word": "for",
+          "start": 186.18,
+          "end": 186.18,
+          "probability": 0.68
+        },
+        {
+          "word": "watching!",
+          "start": 186.18,
+          "end": 186.18,
+          "probability": 0.899
+        }
+      ]
+    },
+    {
+      "start": 185.36,
+      "end": 186.18,
+      "text": "You",
+      "words": [
+        {
+          "word": "You",
+          "start": 185.36,
+          "end": 186.18,
+          "probability": 0.054
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "156.2-184.8"
+    },
+    {
+      "start": 187.56,
+      "end": 195.34,
+      "text": "She called me a hippie activist, Max and Liv.",
+      "words": [
+        {
+          "word": "She",
+          "start": 187.56,
+          "end": 188.76,
+          "probability": 0.086
+        },
+        {
+          "word": "called",
+          "start": 188.76,
+          "end": 189.22,
+          "probability": 0.571
+        },
+        {
+          "word": "me",
+          "start": 189.22,
+          "end": 189.56,
+          "probability": 0.985
+        },
+        {
+          "word": "a",
+          "start": 189.56,
+          "end": 189.8,
+          "probability": 0.838
+        },
+        {
+          "word": "hippie",
+          "start": 189.8,
+          "end": 190.54,
+          "probability": 0.955
+        },
+        {
+          "word": "activist,",
+          "start": 190.54,
+          "end": 191.54,
+          "probability": 0.871
+        },
+        {
+          "word": "Max",
+          "start": 192.14,
+          "end": 192.62,
+          "probability": 0.0
+        },
+        {
+          "word": "and",
+          "start": 192.62,
+          "end": 194.9,
+          "probability": 0.135
+        },
+        {
+          "word": "Liv.",
+          "start": 194.9,
+          "end": 195.34,
+          "probability": 0.075
+        }
+      ]
+    },
+    {
+      "start": 193.34,
+      "end": 195.4,
+      "text": "And I'd be maxin' it",
+      "words": [
+        {
+          "word": "And",
+          "start": 193.34,
+          "end": 193.48,
+          "probability": 0.029
+        },
+        {
+          "word": "I'd",
+          "start": 193.48,
+          "end": 193.9,
+          "probability": 0.874
+        },
+        {
+          "word": "be",
+          "start": 193.9,
+          "end": 194.1,
+          "probability": 0.994
+        },
+        {
+          "word": "maxin'",
+          "start": 194.1,
+          "end": 194.98,
+          "probability": 0.484
+        },
+        {
+          "word": "it",
+          "start": 195.04,
+          "end": 195.4,
+          "probability": 0.968
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "195.3-223.8"
+    },
+    {
+      "start": 198.34,
+      "end": 202.56,
+      "text": "This is instant, she ain't a freak, collapse in it",
+      "words": [
+        {
+          "word": "This",
+          "start": 198.04,
+          "end": 198.42,
+          "probability": 0.01
+        },
+        {
+          "word": "is",
+          "start": 198.42,
+          "end": 198.8,
+          "probability": 0.64
+        },
+        {
+          "word": "instant,",
+          "start": 198.8,
+          "end": 199.44,
+          "probability": 0.922
+        },
+        {
+          "word": "she",
+          "start": 199.68,
+          "end": 199.94,
+          "probability": 0.854
+        },
+        {
+          "word": "ain't",
+          "start": 199.94,
+          "end": 200.38,
+          "probability": 0.742
+        },
+        {
+          "word": "a",
+          "start": 200.38,
+          "end": 200.6,
+          "probability": 0.884
+        },
+        {
+          "word": "freak,",
+          "start": 200.6,
+          "end": 200.78,
+          "probability": 0.549
+        },
+        {
+          "word": "collapse",
+          "start": 201.06,
+          "end": 201.66,
+          "probability": 0.304
+        },
+        {
+          "word": "in",
+          "start": 201.66,
+          "end": 202.24,
+          "probability": 0.163
+        },
+        {
+          "word": "it",
+          "start": 202.24,
+          "end": 202.56,
+          "probability": 0.862
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "195.3-223.8"
+    },
+    {
+      "start": 202.56,
+      "end": 206.58,
+      "text": "She called me a idiot, did it",
+      "words": [
+        {
+          "word": "She",
+          "start": 202.56,
+          "end": 203.2,
+          "probability": 0.685
+        },
+        {
+          "word": "called",
+          "start": 203.2,
+          "end": 203.64,
+          "probability": 0.534
+        },
+        {
+          "word": "me",
+          "start": 203.64,
+          "end": 204.02,
+          "probability": 0.683
+        },
+        {
+          "word": "a",
+          "start": 204.02,
+          "end": 204.26,
+          "probability": 0.881
+        },
+        {
+          "word": "idiot,",
+          "start": 204.26,
+          "end": 204.88,
+          "probability": 0.1
+        },
+        {
+          "word": "did",
+          "start": 205.06,
+          "end": 205.82,
+          "probability": 0.153
+        },
+        {
+          "word": "it",
+          "start": 205.82,
+          "end": 206.58,
+          "probability": 0.471
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "195.3-223.8"
+    },
+    {
+      "start": 206.58,
+      "end": 210.14,
+      "text": "That's life, and I'd be maxin' it",
+      "words": [
+        {
+          "word": "That's",
+          "start": 206.58,
+          "end": 207.1,
+          "probability": 0.582
+        },
+        {
+          "word": "life,",
+          "start": 207.1,
+          "end": 207.6,
+          "probability": 0.688
+        },
+        {
+          "word": "and",
+          "start": 207.68,
+          "end": 207.8,
+          "probability": 0.708
+        },
+        {
+          "word": "I'd",
+          "start": 207.8,
+          "end": 208.28,
+          "probability": 0.99
+        },
+        {
+          "word": "be",
+          "start": 208.28,
+          "end": 208.5,
+          "probability": 0.984
+        },
+        {
+          "word": "maxin'",
+          "start": 208.5,
+          "end": 209.42,
+          "probability": 0.988
+        },
+        {
+          "word": "it",
+          "start": 209.46,
+          "end": 210.14,
+          "probability": 0.996
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "195.3-223.8"
+    },
+    {
+      "start": 210.14,
+      "end": 213.0,
+      "text": "A key to bleeding with five sisters",
+      "words": [
+        {
+          "word": "A",
+          "start": 210.14,
+          "end": 210.52,
+          "probability": 0.49
+        },
+        {
+          "word": "key",
+          "start": 210.52,
+          "end": 210.88,
+          "probability": 0.984
+        },
+        {
+          "word": "to",
+          "start": 210.88,
+          "end": 211.34,
+          "probability": 0.989
+        },
+        {
+          "word": "bleeding",
+          "start": 211.34,
+          "end": 211.92,
+          "probability": 0.691
+        },
+        {
+          "word": "with",
+          "start": 211.92,
+          "end": 212.3,
+          "probability": 0.148
+        },
+        {
+          "word": "five",
+          "start": 212.3,
+          "end": 212.62,
+          "probability": 0.244
+        },
+        {
+          "word": "sisters",
+          "start": 212.62,
+          "end": 213.0,
+          "probability": 0.935
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "195.3-223.8"
+    },
+    {
+      "start": 213.0,
+      "end": 217.42,
+      "text": "This is instant, she ain't a freak, collapse in it",
+      "words": [
+        {
+          "word": "This",
+          "start": 213.0,
+          "end": 213.64,
+          "probability": 0.158
+        },
+        {
+          "word": "is",
+          "start": 213.64,
+          "end": 213.9,
+          "probability": 0.955
+        },
+        {
+          "word": "instant,",
+          "start": 213.9,
+          "end": 213.9,
+          "probability": 0.979
+        },
+        {
+          "word": "she",
+          "start": 214.12,
+          "end": 214.34,
+          "probability": 0.992
+        },
+        {
+          "word": "ain't",
+          "start": 214.34,
+          "end": 214.68,
+          "probability": 0.992
+        },
+        {
+          "word": "a",
+          "start": 214.68,
+          "end": 215.02,
+          "probability": 0.996
+        },
+        {
+          "word": "freak,",
+          "start": 215.02,
+          "end": 215.28,
+          "probability": 0.996
+        },
+        {
+          "word": "collapse",
+          "start": 215.84,
+          "end": 216.28,
+          "probability": 0.992
+        },
+        {
+          "word": "in",
+          "start": 216.28,
+          "end": 216.9,
+          "probability": 0.992
+        },
+        {
+          "word": "it",
+          "start": 216.9,
+          "end": 217.42,
+          "probability": 0.935
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "195.3-223.8"
+    },
+    {
+      "start": 223.78,
+      "end": 225.32,
+      "text": "Since then she ate a pre-collapsed steak.",
+      "words": [
+        {
+          "word": "Since",
+          "start": 223.78,
+          "end": 224.44,
+          "probability": 0.001
+        },
+        {
+          "word": "then",
+          "start": 224.44,
+          "end": 224.8,
+          "probability": 0.25
+        },
+        {
+          "word": "she",
+          "start": 224.8,
+          "end": 225.1,
+          "probability": 0.537
+        },
+        {
+          "word": "ate",
+          "start": 225.1,
+          "end": 225.32,
+          "probability": 0.214
+        },
+        {
+          "word": "a",
+          "start": 225.32,
+          "end": 225.32,
+          "probability": 0.797
+        },
+        {
+          "word": "pre",
+          "start": 225.32,
+          "end": 225.32,
+          "probability": 0.077
+        },
+        {
+          "word": "-collapsed",
+          "start": 225.32,
+          "end": 225.32,
+          "probability": 0.617
+        },
+        {
+          "word": "steak.",
+          "start": 225.32,
+          "end": 225.32,
+          "probability": 0.002
+        }
+      ]
+    },
+    {
+      "start": 224.04,
+      "end": 225.76,
+      "text": "It's instant, she ain't a freak",
+      "words": [
+        {
+          "word": "It's",
+          "start": 224.04,
+          "end": 224.52,
+          "probability": 0.537
+        },
+        {
+          "word": "instant,",
+          "start": 224.52,
+          "end": 224.76,
+          "probability": 0.0
+        },
+        {
+          "word": "she",
+          "start": 224.98,
+          "end": 225.16,
+          "probability": 0.006
+        },
+        {
+          "word": "ain't",
+          "start": 225.16,
+          "end": 225.76,
+          "probability": 0.545
+        },
+        {
+          "word": "a",
+          "start": 225.76,
+          "end": 225.76,
+          "probability": 0.007
+        },
+        {
+          "word": "freak",
+          "start": 225.76,
+          "end": 225.76,
+          "probability": 0.0
+        }
+      ],
+      "gap_fill": true,
+      "gap_region": "195.3-223.8"
+    },
+    {
+      "start": 225.34,
+      "end": 241.8,
+      "text": "She called me a hippie activist, Max and Liv.",
+      "words": [
+        {
+          "word": "She",
+          "start": 225.34,
+          "end": 226.92,
+          "probability": 0.0
+        },
+        {
+          "word": "called",
+          "start": 226.92,
+          "end": 241.8,
+          "probability": 0.001
+        },
+        {
+          "word": "me",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.302
+        },
+        {
+          "word": "a",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.033
+        },
+        {
+          "word": "hippie",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.307
+        },
+        {
+          "word": "activist,",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.0
+        },
+        {
+          "word": "Max",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.0
+        },
+        {
+          "word": "and",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.04
+        },
+        {
+          "word": "Liv.",
+          "start": 241.8,
+          "end": 241.8,
+          "probability": 0.0
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "note": "raw model output, preserved verbatim; lyric reconciliation (if known lyrics exist) is a separate downstream artifact"
+}

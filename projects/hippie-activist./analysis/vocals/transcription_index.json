@@ -1,0 +1,20 @@
+{
+  "model": "faster-whisper/small",
+  "passes": {
+    "backing_vocals": {
+      "segments": 26,
+      "words": 354,
+      "output": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/transcripts/backing_vocals.json"
+    },
+    "vocals": {
+      "segments": 33,
+      "words": 409,
+      "output": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/transcripts/vocals.json"
+    },
+    "combined": {
+      "segments": 48,
+      "words": 326,
+      "output": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/transcripts/combined.json"
+    }
+  }
+}

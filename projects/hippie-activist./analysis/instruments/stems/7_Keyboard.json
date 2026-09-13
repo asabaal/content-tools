@@ -1,0 +1,131 @@
+{
+  "file": "/mnt/storage/repos/content-tools/projects/hippie-activist./7 Keyboard.wav",
+  "duration_seconds": 241.83,
+  "clipwise": [
+    {
+      "label": "Music",
+      "confidence": 0.6444
+    },
+    {
+      "label": "Musical instrument",
+      "confidence": 0.1609
+    },
+    {
+      "label": "Synthesizer",
+      "confidence": 0.1096
+    },
+    {
+      "label": "Electronic music",
+      "confidence": 0.0764
+    },
+    {
+      "label": "Effects unit",
+      "confidence": 0.0733
+    },
+    {
+      "label": "Keyboard (musical)",
+      "confidence": 0.0685
+    },
+    {
+      "label": "Piano",
+      "confidence": 0.0501
+    },
+    {
+      "label": "Speech",
+      "confidence": 0.0463
+    },
+    {
+      "label": "Echo",
+      "confidence": 0.0412
+    },
+    {
+      "label": "Electric piano",
+      "confidence": 0.0398
+    },
+    {
+      "label": "Distortion",
+      "confidence": 0.028
+    },
+    {
+      "label": "Trance music",
+      "confidence": 0.0264
+    },
+    {
+      "label": "Chorus effect",
+      "confidence": 0.0238
+    },
+    {
+      "label": "Sampler",
+      "confidence": 0.0217
+    },
+    {
+      "label": "Inside, small room",
+      "confidence": 0.0194
+    }
+  ],
+  "canonical": {
+    "synth": 0.1096,
+    "fx": 0.0733,
+    "keys": 0.0685,
+    "piano": 0.0501
+  },
+  "temporal": [
+    {
+      "label": "Music",
+      "start": 125.0,
+      "end": 240.0,
+      "confidence": 0.8264,
+      "peak": 0.8751
+    },
+    {
+      "label": "Music",
+      "start": 0.0,
+      "end": 120.0,
+      "confidence": 0.7595,
+      "peak": 0.8635
+    },
+    {
+      "label": "Musical instrument",
+      "start": 0.0,
+      "end": 20.0,
+      "confidence": 0.4675,
+      "peak": 0.5159
+    },
+    {
+      "label": "Musical instrument",
+      "start": 80.0,
+      "end": 95.0,
+      "confidence": 0.3195,
+      "peak": 0.3345
+    },
+    {
+      "label": "Effects unit",
+      "start": 10.0,
+      "end": 20.0,
+      "confidence": 0.3122,
+      "peak": 0.3122
+    },
+    {
+      "label": "Keyboard (musical)",
+      "start": 5.0,
+      "end": 15.0,
+      "confidence": 0.311,
+      "peak": 0.311
+    }
+  ],
+  "provenance": {
+    "detector": "panns_cnn14",
+    "model": "PANNs Cnn14 (AudioSet-527), panns-inference",
+    "device": "cuda",
+    "params": {
+      "top_k": 15,
+      "temporal_threshold": 0.3,
+      "min_segment_seconds": 2.0,
+      "window_seconds": 10,
+      "hop_seconds": 5,
+      "target_sr": 32000,
+      "mono": true
+    },
+    "audio_sha256": "01a380bb0556b737e3979d654505e031c5b2117e78c591da91b850a38c1646a3"
+  }
+}

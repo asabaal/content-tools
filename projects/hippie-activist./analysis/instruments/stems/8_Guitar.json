@@ -1,0 +1,220 @@
+{
+  "file": "/mnt/storage/repos/content-tools/projects/hippie-activist./8 Guitar.wav",
+  "duration_seconds": 241.83,
+  "clipwise": [
+    {
+      "label": "Music",
+      "confidence": 0.8833
+    },
+    {
+      "label": "Musical instrument",
+      "confidence": 0.5598
+    },
+    {
+      "label": "Guitar",
+      "confidence": 0.5585
+    },
+    {
+      "label": "Effects unit",
+      "confidence": 0.5179
+    },
+    {
+      "label": "Distortion",
+      "confidence": 0.4005
+    },
+    {
+      "label": "Plucked string instrument",
+      "confidence": 0.3868
+    },
+    {
+      "label": "Electric guitar",
+      "confidence": 0.1312
+    },
+    {
+      "label": "Chorus effect",
+      "confidence": 0.1134
+    },
+    {
+      "label": "Rock music",
+      "confidence": 0.1057
+    },
+    {
+      "label": "Heavy metal",
+      "confidence": 0.0751
+    },
+    {
+      "label": "Inside, small room",
+      "confidence": 0.0518
+    },
+    {
+      "label": "Bass guitar",
+      "confidence": 0.0389
+    },
+    {
+      "label": "Echo",
+      "confidence": 0.0386
+    },
+    {
+      "label": "Speech",
+      "confidence": 0.037
+    },
+    {
+      "label": "Tapping (guitar technique)",
+      "confidence": 0.0233
+    }
+  ],
+  "canonical": {
+    "guitar": 0.5585,
+    "fx": 0.5179
+  },
+  "temporal": [
+    {
+      "label": "Music",
+      "start": 0.0,
+      "end": 240.0,
+      "confidence": 0.8922,
+      "peak": 0.9541
+    },
+    {
+      "label": "Guitar",
+      "start": 70.0,
+      "end": 240.0,
+      "confidence": 0.577,
+      "peak": 0.8434
+    },
+    {
+      "label": "Musical instrument",
+      "start": 70.0,
+      "end": 240.0,
+      "confidence": 0.5765,
+      "peak": 0.8642
+    },
+    {
+      "label": "Guitar",
+      "start": 0.0,
+      "end": 65.0,
+      "confidence": 0.5418,
+      "peak": 0.7027
+    },
+    {
+      "label": "Musical instrument",
+      "start": 0.0,
+      "end": 65.0,
+      "confidence": 0.533,
+      "peak": 0.6573
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 105.0,
+      "end": 240.0,
+      "confidence": 0.503,
+      "peak": 0.7994
+    },
+    {
+      "label": "Electric guitar",
+      "start": 135.0,
+      "end": 175.0,
+      "confidence": 0.4876,
+      "peak": 0.5542
+    },
+    {
+      "label": "Effects unit",
+      "start": 40.0,
+      "end": 65.0,
+      "confidence": 0.4681,
+      "peak": 0.5639
+    },
+    {
+      "label": "Effects unit",
+      "start": 0.0,
+      "end": 25.0,
+      "confidence": 0.4668,
+      "peak": 0.5178
+    },
+    {
+      "label": "Effects unit",
+      "start": 170.0,
+      "end": 185.0,
+      "confidence": 0.4546,
+      "peak": 0.4638
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 75.0,
+      "end": 105.0,
+      "confidence": 0.4436,
+      "peak": 0.5344
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 5.0,
+      "end": 65.0,
+      "confidence": 0.4216,
+      "peak": 0.5607
+    },
+    {
+      "label": "Effects unit",
+      "start": 105.0,
+      "end": 130.0,
+      "confidence": 0.4209,
+      "peak": 0.4417
+    },
+    {
+      "label": "Distortion",
+      "start": 40.0,
+      "end": 65.0,
+      "confidence": 0.4186,
+      "peak": 0.4928
+    },
+    {
+      "label": "Distortion",
+      "start": 0.0,
+      "end": 25.0,
+      "confidence": 0.3835,
+      "peak": 0.4153
+    },
+    {
+      "label": "Distortion",
+      "start": 105.0,
+      "end": 135.0,
+      "confidence": 0.364,
+      "peak": 0.4479
+    },
+    {
+      "label": "Effects unit",
+      "start": 135.0,
+      "end": 150.0,
+      "confidence": 0.3575,
+      "peak": 0.4114
+    },
+    {
+      "label": "Distortion",
+      "start": 170.0,
+      "end": 185.0,
+      "confidence": 0.3499,
+      "peak": 0.3612
+    },
+    {
+      "label": "Distortion",
+      "start": 140.0,
+      "end": 150.0,
+      "confidence": 0.3408,
+      "peak": 0.3408
+    }
+  ],
+  "provenance": {
+    "detector": "panns_cnn14",
+    "model": "PANNs Cnn14 (AudioSet-527), panns-inference",
+    "device": "cuda",
+    "params": {
+      "top_k": 15,
+      "temporal_threshold": 0.3,
+      "min_segment_seconds": 2.0,
+      "window_seconds": 10,
+      "hop_seconds": 5,
+      "target_sr": 32000,
+      "mono": true
+    },
+    "audio_sha256": "cfca038513cbcbd6a46dc73e8873b0bfa4e44217f546148af70b49041bb2706c"
+  }
+}

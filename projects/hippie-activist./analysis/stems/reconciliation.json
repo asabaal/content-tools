@@ -1,0 +1,497 @@
+{
+  "mix_canonical": {
+    "vocals": 0.1113,
+    "guitar": 0.0353
+  },
+  "stem_union": {
+    "guitar": 0.5585,
+    "fx": 0.5179,
+    "drums": 0.4764,
+    "percussion": 0.3302,
+    "vocals": 0.1274,
+    "synth": 0.1096,
+    "keys": 0.0685,
+    "piano": 0.0501
+  },
+  "per_stem": {
+    "Backing Vocals": {
+      "claimed_label": "Backing Vocals",
+      "expected_canonical": [
+        "vocals"
+      ],
+      "detected_canonical": {
+        "vocals": 0.0801
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.4885
+        },
+        {
+          "label": "Speech",
+          "confidence": 0.4336
+        },
+        {
+          "label": "Sigh",
+          "confidence": 0.2374
+        },
+        {
+          "label": "Synthetic singing",
+          "confidence": 0.0801
+        },
+        {
+          "label": "Singing",
+          "confidence": 0.0664
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [],
+      "unexpected_strong": [],
+      "assessment": "unclear (no strong evidence either way)"
+    },
+    "Bass": {
+      "claimed_label": "Bass",
+      "expected_canonical": [
+        "bass"
+      ],
+      "detected_canonical": {
+        "fx": 0.3938,
+        "guitar": 0.2877
+      },
+      "detected_strong": [
+        "fx"
+      ],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.8082
+        },
+        {
+          "label": "Effects unit",
+          "confidence": 0.3938
+        },
+        {
+          "label": "Guitar",
+          "confidence": 0.2877
+        },
+        {
+          "label": "Distortion",
+          "confidence": 0.2683
+        },
+        {
+          "label": "Musical instrument",
+          "confidence": 0.2224
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [],
+      "unexpected_strong": [
+        "fx"
+      ],
+      "assessment": "MISLABELED? (claim absent, other content strong)"
+    },
+    "Brass": {
+      "claimed_label": "Brass",
+      "expected_canonical": [
+        "brass"
+      ],
+      "detected_canonical": {
+        "fx": 0.0682,
+        "guitar": 0.0351
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.6856
+        },
+        {
+          "label": "Television",
+          "confidence": 0.2314
+        },
+        {
+          "label": "Musical instrument",
+          "confidence": 0.0804
+        },
+        {
+          "label": "Echo",
+          "confidence": 0.0794
+        },
+        {
+          "label": "Effects unit",
+          "confidence": 0.0682
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [],
+      "unexpected_strong": [],
+      "assessment": "unclear (no strong evidence either way)"
+    },
+    "Drums": {
+      "claimed_label": "Drums",
+      "expected_canonical": [
+        "drums"
+      ],
+      "detected_canonical": {
+        "drums": 0.4764,
+        "percussion": 0.3302
+      },
+      "detected_strong": [
+        "drums",
+        "percussion"
+      ],
+      "top_raw": [
+        {
+          "label": "Drum kit",
+          "confidence": 0.4764
+        },
+        {
+          "label": "Snare drum",
+          "confidence": 0.4622
+        },
+        {
+          "label": "Music",
+          "confidence": 0.4435
+        },
+        {
+          "label": "Drum",
+          "confidence": 0.4194
+        },
+        {
+          "label": "Bass drum",
+          "confidence": 0.4004
+        }
+      ],
+      "claim_supported": true,
+      "claim_weak": [],
+      "unexpected_strong": [
+        "percussion"
+      ],
+      "assessment": "consistent + multi-instrument evidence"
+    },
+    "FX": {
+      "claimed_label": "FX",
+      "expected_canonical": [
+        "fx"
+      ],
+      "detected_canonical": {
+        "fx": 0.0359
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.0789
+        },
+        {
+          "label": "Waves, surf",
+          "confidence": 0.0674
+        },
+        {
+          "label": "Ocean",
+          "confidence": 0.0636
+        },
+        {
+          "label": "Outside, rural or natural",
+          "confidence": 0.0589
+        },
+        {
+          "label": "Vehicle",
+          "confidence": 0.0499
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [],
+      "unexpected_strong": [],
+      "assessment": "unclear (no strong evidence either way)"
+    },
+    "Guitar": {
+      "claimed_label": "Guitar",
+      "expected_canonical": [
+        "guitar"
+      ],
+      "detected_canonical": {
+        "guitar": 0.5585,
+        "fx": 0.5179
+      },
+      "detected_strong": [
+        "guitar",
+        "fx"
+      ],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.8833
+        },
+        {
+          "label": "Musical instrument",
+          "confidence": 0.5598
+        },
+        {
+          "label": "Guitar",
+          "confidence": 0.5585
+        },
+        {
+          "label": "Effects unit",
+          "confidence": 0.5179
+        },
+        {
+          "label": "Distortion",
+          "confidence": 0.4005
+        }
+      ],
+      "claim_supported": true,
+      "claim_weak": [],
+      "unexpected_strong": [
+        "fx"
+      ],
+      "assessment": "consistent + multi-instrument evidence"
+    },
+    "Keyboard": {
+      "claimed_label": "Keyboard",
+      "expected_canonical": [
+        "keys",
+        "piano",
+        "organ"
+      ],
+      "detected_canonical": {
+        "synth": 0.1096,
+        "fx": 0.0733,
+        "keys": 0.0685,
+        "piano": 0.0501
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.6444
+        },
+        {
+          "label": "Musical instrument",
+          "confidence": 0.1609
+        },
+        {
+          "label": "Synthesizer",
+          "confidence": 0.1096
+        },
+        {
+          "label": "Electronic music",
+          "confidence": 0.0764
+        },
+        {
+          "label": "Effects unit",
+          "confidence": 0.0733
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [],
+      "unexpected_strong": [],
+      "assessment": "unclear (no strong evidence either way)"
+    },
+    "Percussion": {
+      "claimed_label": "Percussion",
+      "expected_canonical": [
+        "percussion",
+        "drums"
+      ],
+      "detected_canonical": {
+        "percussion": 0.2869,
+        "drums": 0.188
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.329
+        },
+        {
+          "label": "Percussion",
+          "confidence": 0.2869
+        },
+        {
+          "label": "Drum",
+          "confidence": 0.188
+        },
+        {
+          "label": "Musical instrument",
+          "confidence": 0.1477
+        },
+        {
+          "label": "Wood block",
+          "confidence": 0.1239
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [
+        "percussion",
+        "drums"
+      ],
+      "unexpected_strong": [],
+      "assessment": "weakly consistent (label barely detected)"
+    },
+    "Strings": {
+      "claimed_label": "Strings",
+      "expected_canonical": [
+        "strings"
+      ],
+      "detected_canonical": {
+        "fx": 0.015
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.6399
+        },
+        {
+          "label": "Television",
+          "confidence": 0.142
+        },
+        {
+          "label": "Musical instrument",
+          "confidence": 0.0444
+        },
+        {
+          "label": "Whoosh, swoosh, swish",
+          "confidence": 0.0392
+        },
+        {
+          "label": "Silence",
+          "confidence": 0.0379
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [],
+      "unexpected_strong": [],
+      "assessment": "unclear (no strong evidence either way)"
+    },
+    "Synth": {
+      "claimed_label": "Synth",
+      "expected_canonical": [
+        "synth"
+      ],
+      "detected_canonical": {
+        "fx": 0.0328,
+        "synth": 0.0171,
+        "keys": 0.0123
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.6364
+        },
+        {
+          "label": "Television",
+          "confidence": 0.1346
+        },
+        {
+          "label": "Musical instrument",
+          "confidence": 0.0808
+        },
+        {
+          "label": "Effects unit",
+          "confidence": 0.0328
+        },
+        {
+          "label": "Echo",
+          "confidence": 0.0291
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [],
+      "unexpected_strong": [],
+      "assessment": "unclear (no strong evidence either way)"
+    },
+    "Vocals": {
+      "claimed_label": "Vocals",
+      "expected_canonical": [
+        "vocals"
+      ],
+      "detected_canonical": {
+        "vocals": 0.1274
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Speech",
+          "confidence": 0.6686
+        },
+        {
+          "label": "Music",
+          "confidence": 0.573
+        },
+        {
+          "label": "Singing",
+          "confidence": 0.1274
+        },
+        {
+          "label": "Screaming",
+          "confidence": 0.0557
+        },
+        {
+          "label": "Female singing",
+          "confidence": 0.0487
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [
+        "vocals"
+      ],
+      "unexpected_strong": [],
+      "assessment": "weakly consistent (label barely detected)"
+    },
+    "Woodwinds": {
+      "claimed_label": "Woodwinds",
+      "expected_canonical": [
+        "woodwinds"
+      ],
+      "detected_canonical": {
+        "fx": 0.0157
+      },
+      "detected_strong": [],
+      "top_raw": [
+        {
+          "label": "Music",
+          "confidence": 0.7051
+        },
+        {
+          "label": "Television",
+          "confidence": 0.1111
+        },
+        {
+          "label": "Vehicle",
+          "confidence": 0.0424
+        },
+        {
+          "label": "Whoosh, swoosh, swish",
+          "confidence": 0.0407
+        },
+        {
+          "label": "Outside, rural or natural",
+          "confidence": 0.039
+        }
+      ],
+      "claim_supported": false,
+      "claim_weak": [],
+      "unexpected_strong": [],
+      "assessment": "unclear (no strong evidence either way)"
+    }
+  },
+  "full_mix_vs_stems": {
+    "in_mix_but_missing_from_stems": {},
+    "much_weaker_in_stems_than_mix": {},
+    "in_stems_but_not_mix": {
+      "fx": 0.5179,
+      "guitar": 0.5585,
+      "drums": 0.4764,
+      "percussion": 0.3302
+    }
+  },
+  "thresholds": {
+    "strong": 0.3,
+    "weak": 0.1
+  },
+  "notes": "Confidence values are detector-specific (PANNs sigmoid probabilities); thresholds are V0 heuristics. Contradictory evidence is preserved, not resolved."
+}

@@ -1,0 +1,169 @@
+{
+  "schema": "content-tools/song-analysis-package",
+  "schema_version": "0.1",
+  "generated_at": "2026-09-13T17:38:01.336437+00:00",
+  "project_dir": "/mnt/storage/repos/content-tools/projects/hippie-activist.",
+  "generator": {
+    "tool": "tools/06-song-ingest",
+    "package_version": "0.1.0",
+    "components": {
+      "song_ingest": "0.1.0",
+      "detector": "panns_cnn14",
+      "midi_backend": "basic_pitch 0.4.0",
+      "vocal_asr": "faster-whisper (via music-video-pipeline AudioAnalyzer)"
+    }
+  },
+  "source": {
+    "full_mix": "/mnt/storage/repos/content-tools/projects/hippie-activist./0 hippie activist..wav",
+    "stems": {
+      "Woodwinds": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./1 Woodwinds.wav",
+        "sha256": "4e27319219f7b9cb3bc83b309162ce01be868e83c3c32acd702807294d46dedf"
+      },
+      "Drums": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./10 Drums.wav",
+        "sha256": "14430871b3de32244be88403356a983588eb9679a07c7e3093a217416017b7a9"
+      },
+      "Backing Vocals": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./11 Backing_Vocals.wav",
+        "sha256": "26acd7b998142f1d1567d80994e3637525d98993f171d59fdaa365efd1ef5819"
+      },
+      "Vocals": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./12 Vocals.wav",
+        "sha256": "b5d89cac72c05e9f78bd39e8b8133881d560edf3eaa6f06448cabe1dbca38488"
+      },
+      "Brass": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./2 Brass.wav",
+        "sha256": "2fb3aac771f40b932f7b818c9ccbfce9dfb938080dd92e77016d3fe92e705a6e"
+      },
+      "FX": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./3 FX.wav",
+        "sha256": "3ee106a24c7a26e80b64bea8d7a08c53d34e6a10317a8157b529d244f044518b"
+      },
+      "Synth": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./4 Synth.wav",
+        "sha256": "2b75436b15bdfdc83247ac6f55eca6b2275972b1f32ec28c30ef00ec27cca10f"
+      },
+      "Strings": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./5 Strings.wav",
+        "sha256": "ddcb0bfe2e315fde8e76e2a0d9af51300f2a10530c8bada77db3b387118bf40a"
+      },
+      "Percussion": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./6 Percussion.wav",
+        "sha256": "e248fc70e71eb17efbd1f8709be7df736d6d3b16c9c025fc0b4e0a749e7f0bd6"
+      },
+      "Keyboard": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./7 Keyboard.wav",
+        "sha256": "01a380bb0556b737e3979d654505e031c5b2117e78c591da91b850a38c1646a3"
+      },
+      "Guitar": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./8 Guitar.wav",
+        "sha256": "cfca038513cbcbd6a46dc73e8873b0bfa4e44217f546148af70b49041bb2706c"
+      },
+      "Bass": {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./9 Bass.wav",
+        "sha256": "f455d3bd5014fd6ed77b16a21d606e3cab0e9c15f566367291fbacd4d1dbdd27"
+      }
+    },
+    "reference_midi": [
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(1).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 5241,
+        "sha256": "e74a78001f81f2577fb5c870252b06ee638b30809e215c895e2309b8be6f4195"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(10).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 2458,
+        "sha256": "a145a633b4ce54e5ec670f6546385347116719872e2da93d4b2402ebee9b1e5c"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(11).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 6996,
+        "sha256": "0acfc6e53bd83fef642001b6f5d83f7ad496a8880412312726d6832fb34a8aa4"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(2).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 240,
+        "sha256": "67cc1c85bf7f231dbd49b2edb1656327ed56a7d74bcfc87c14b2df88fb783d9d"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(3).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 12436,
+        "sha256": "1f14f3acdacfae801e21bfe159c7eda55915d792e7b4c82c33d3f87d19b361d3"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(4).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 1704,
+        "sha256": "caea8deb206e4d7c09c1bb4990046b09938703e61835e3d465d729fb9c7b9345"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(5).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 819,
+        "sha256": "40c3d0c2d08c5f6b574411877827abbc9db4302fad896d585c96d02102e4f483"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(6).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 11441,
+        "sha256": "5af4a4b4a264382c4ff05582dae04e22ff2cf62fe2b089f650e35fe4cd88a76a"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(7).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 10519,
+        "sha256": "bf3f4befcc9a7c8b14cfc747ac861e07cdd49537fdc9c2bc540bc6413b04ab62"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(8).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 11490,
+        "sha256": "796ef7754bc67c9a25b226620515bc307b7f2c971c402f424e2d5f1dd11752ab"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(9).mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 29717,
+        "sha256": "4344645810e971732973939c1a277cfb5f982c41a15062acace756d35f399760"
+      },
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist..mid",
+        "role": "external reference (manually extracted; NOT ground truth)",
+        "bytes": 481,
+        "sha256": "8d5d2140825bd3d95aa04b035e45beb0e8b3db8c206709f6893d00af83b36a71"
+      }
+    ],
+    "lyrics_known": null,
+    "archive": [
+      {
+        "path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist..zip",
+        "role": "original archive",
+        "bytes": 912660810,
+        "sha256": "63179d9117ee45640aa3566b106bf53368904ea42231a9edc7b1be0107acc755"
+      }
+    ]
+  },
+  "analysis": {
+    "instruments": "analysis/instruments/",
+    "reconciliation": "analysis/stems/reconciliation.json",
+    "midi": "analysis/midi/transcriptions.json",
+    "vocals": "analysis/vocals/transcription_index.json",
+    "comparisons": "analysis/comparisons/"
+  },
+  "derived": {
+    "midi": "derived/midi/",
+    "transcripts": "derived/transcripts/",
+    "combined_vocals_wav": "derived/vocals/vocals_combined.wav"
+  },
+  "provenance_rules": [
+    "reference MIDI files are external reference artifacts, not ground truth",
+    "raw model outputs are preserved; reconciliation is stored separately",
+    "derived artifacts can be regenerated when models improve"
+  ]
+}

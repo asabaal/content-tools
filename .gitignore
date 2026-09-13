@@ -74,3 +74,6 @@ projects/prophetic-preprint/projects/*/exports/
 #notebooks
 *ipynb
 *.ipynb_checkpoints*
+
+# reference/derived MIDI artifacts in song projects are small and valuable
+!projects/**/*.mid

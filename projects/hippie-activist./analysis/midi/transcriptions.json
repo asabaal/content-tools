@@ -1,0 +1,208 @@
+{
+  "backend": "basic_pitch",
+  "stems": {
+    "Bass": {
+      "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./9 Bass.wav",
+      "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/9_Bass.mid",
+      "note_count": 990,
+      "pitch_min": "29",
+      "pitch_max": "71",
+      "provenance": {
+        "backend": "basic_pitch",
+        "model": "basic-pitch ICASSP 2022 (nmp)",
+        "basic_pitch_version": "0.4.0",
+        "params": {
+          "onset_threshold": 0.5,
+          "frame_threshold": 0.3,
+          "minimum_note_length_ms": 100.0,
+          "midi_tempo": 120.0
+        },
+        "audio_sha256": "f455d3bd5014fd6ed77b16a21d606e3cab0e9c15f566367291fbacd4d1dbdd27",
+        "outputs": {
+          "onset_matrix": [
+            20797,
+            88
+          ],
+          "frame_matrix": [
+            20797,
+            264
+          ]
+        }
+      }
+    },
+    "Brass": {
+      "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./2 Brass.wav",
+      "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/2_Brass.mid",
+      "note_count": 226,
+      "pitch_min": "31",
+      "pitch_max": "91",
+      "provenance": {
+        "backend": "basic_pitch",
+        "model": "basic-pitch ICASSP 2022 (nmp)",
+        "basic_pitch_version": "0.4.0",
+        "params": {
+          "onset_threshold": 0.5,
+          "frame_threshold": 0.3,
+          "minimum_note_length_ms": 100.0,
+          "midi_tempo": 120.0
+        },
+        "audio_sha256": "2fb3aac771f40b932f7b818c9ccbfce9dfb938080dd92e77016d3fe92e705a6e",
+        "outputs": {
+          "onset_matrix": [
+            20797,
+            88
+          ],
+          "frame_matrix": [
+            20797,
+            264
+          ]
+        }
+      }
+    },
+    "Guitar": {
+      "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./8 Guitar.wav",
+      "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/8_Guitar.mid",
+      "note_count": 1791,
+      "pitch_min": "31",
+      "pitch_max": "96",
+      "provenance": {
+        "backend": "basic_pitch",
+        "model": "basic-pitch ICASSP 2022 (nmp)",
+        "basic_pitch_version": "0.4.0",
+        "params": {
+          "onset_threshold": 0.5,
+          "frame_threshold": 0.3,
+          "minimum_note_length_ms": 100.0,
+          "midi_tempo": 120.0
+        },
+        "audio_sha256": "cfca038513cbcbd6a46dc73e8873b0bfa4e44217f546148af70b49041bb2706c",
+        "outputs": {
+          "onset_matrix": [
+            20797,
+            88
+          ],
+          "frame_matrix": [
+            20797,
+            264
+          ]
+        }
+      }
+    },
+    "Keyboard": {
+      "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./7 Keyboard.wav",
+      "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/7_Keyboard.mid",
+      "note_count": 1709,
+      "pitch_min": "31",
+      "pitch_max": "101",
+      "provenance": {
+        "backend": "basic_pitch",
+        "model": "basic-pitch ICASSP 2022 (nmp)",
+        "basic_pitch_version": "0.4.0",
+        "params": {
+          "onset_threshold": 0.5,
+          "frame_threshold": 0.3,
+          "minimum_note_length_ms": 100.0,
+          "midi_tempo": 120.0
+        },
+        "audio_sha256": "01a380bb0556b737e3979d654505e031c5b2117e78c591da91b850a38c1646a3",
+        "outputs": {
+          "onset_matrix": [
+            20797,
+            88
+          ],
+          "frame_matrix": [
+            20797,
+            264
+          ]
+        }
+      }
+    },
+    "Strings": {
+      "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./5 Strings.wav",
+      "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/5_Strings.mid",
+      "note_count": 128,
+      "pitch_min": "31",
+      "pitch_max": "94",
+      "provenance": {
+        "backend": "basic_pitch",
+        "model": "basic-pitch ICASSP 2022 (nmp)",
+        "basic_pitch_version": "0.4.0",
+        "params": {
+          "onset_threshold": 0.5,
+          "frame_threshold": 0.3,
+          "minimum_note_length_ms": 100.0,
+          "midi_tempo": 120.0
+        },
+        "audio_sha256": "ddcb0bfe2e315fde8e76e2a0d9af51300f2a10530c8bada77db3b387118bf40a",
+        "outputs": {
+          "onset_matrix": [
+            20797,
+            88
+          ],
+          "frame_matrix": [
+            20797,
+            264
+          ]
+        }
+      }
+    },
+    "Synth": {
+      "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./4 Synth.wav",
+      "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/4_Synth.mid",
+      "note_count": 980,
+      "pitch_min": "31",
+      "pitch_max": "101",
+      "provenance": {
+        "backend": "basic_pitch",
+        "model": "basic-pitch ICASSP 2022 (nmp)",
+        "basic_pitch_version": "0.4.0",
+        "params": {
+          "onset_threshold": 0.5,
+          "frame_threshold": 0.3,
+          "minimum_note_length_ms": 100.0,
+          "midi_tempo": 120.0
+        },
+        "audio_sha256": "2b75436b15bdfdc83247ac6f55eca6b2275972b1f32ec28c30ef00ec27cca10f",
+        "outputs": {
+          "onset_matrix": [
+            20797,
+            88
+          ],
+          "frame_matrix": [
+            20797,
+            264
+          ]
+        }
+      }
+    },
+    "Woodwinds": {
+      "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./1 Woodwinds.wav",
+      "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/1_Woodwinds.mid",
+      "note_count": 73,
+      "pitch_min": "31",
+      "pitch_max": "94",
+      "provenance": {
+        "backend": "basic_pitch",
+        "model": "basic-pitch ICASSP 2022 (nmp)",
+        "basic_pitch_version": "0.4.0",
+        "params": {
+          "onset_threshold": 0.5,
+          "frame_threshold": 0.3,
+          "minimum_note_length_ms": 100.0,
+          "midi_tempo": 120.0
+        },
+        "audio_sha256": "4e27319219f7b9cb3bc83b309162ce01be868e83c3c32acd702807294d46dedf",
+        "outputs": {
+          "onset_matrix": [
+            20797,
+            88
+          ],
+          "frame_matrix": [
+            20797,
+            264
+          ]
+        }
+      }
+    }
+  }
+}

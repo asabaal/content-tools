@@ -1,0 +1,339 @@
+{
+  "file": "/mnt/storage/repos/content-tools/projects/hippie-activist./9 Bass.wav",
+  "duration_seconds": 241.83,
+  "clipwise": [
+    {
+      "label": "Music",
+      "confidence": 0.8082
+    },
+    {
+      "label": "Effects unit",
+      "confidence": 0.3938
+    },
+    {
+      "label": "Guitar",
+      "confidence": 0.2877
+    },
+    {
+      "label": "Distortion",
+      "confidence": 0.2683
+    },
+    {
+      "label": "Musical instrument",
+      "confidence": 0.2224
+    },
+    {
+      "label": "Chorus effect",
+      "confidence": 0.1717
+    },
+    {
+      "label": "Plucked string instrument",
+      "confidence": 0.1633
+    },
+    {
+      "label": "Rock music",
+      "confidence": 0.0812
+    },
+    {
+      "label": "Silence",
+      "confidence": 0.0661
+    },
+    {
+      "label": "Electric guitar",
+      "confidence": 0.0587
+    },
+    {
+      "label": "Echo",
+      "confidence": 0.0557
+    },
+    {
+      "label": "Bass guitar",
+      "confidence": 0.049
+    },
+    {
+      "label": "Heavy metal",
+      "confidence": 0.0378
+    },
+    {
+      "label": "Sound effect",
+      "confidence": 0.0258
+    },
+    {
+      "label": "Inside, small room",
+      "confidence": 0.0239
+    }
+  ],
+  "canonical": {
+    "fx": 0.3938,
+    "guitar": 0.2877
+  },
+  "temporal": [
+    {
+      "label": "Music",
+      "start": 0.0,
+      "end": 240.0,
+      "confidence": 0.847,
+      "peak": 0.887
+    },
+    {
+      "label": "Guitar",
+      "start": 225.0,
+      "end": 235.0,
+      "confidence": 0.438,
+      "peak": 0.438
+    },
+    {
+      "label": "Effects unit",
+      "start": 115.0,
+      "end": 130.0,
+      "confidence": 0.4376,
+      "peak": 0.4685
+    },
+    {
+      "label": "Guitar",
+      "start": 115.0,
+      "end": 180.0,
+      "confidence": 0.4324,
+      "peak": 0.525
+    },
+    {
+      "label": "Effects unit",
+      "start": 40.0,
+      "end": 60.0,
+      "confidence": 0.4096,
+      "peak": 0.4289
+    },
+    {
+      "label": "Musical instrument",
+      "start": 225.0,
+      "end": 240.0,
+      "confidence": 0.4064,
+      "peak": 0.4952
+    },
+    {
+      "label": "Guitar",
+      "start": 0.0,
+      "end": 105.0,
+      "confidence": 0.4049,
+      "peak": 0.503
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 90.0,
+      "end": 100.0,
+      "confidence": 0.4027,
+      "peak": 0.4027
+    },
+    {
+      "label": "Musical instrument",
+      "start": 0.0,
+      "end": 20.0,
+      "confidence": 0.4013,
+      "peak": 0.4595
+    },
+    {
+      "label": "Guitar",
+      "start": 185.0,
+      "end": 225.0,
+      "confidence": 0.394,
+      "peak": 0.5141
+    },
+    {
+      "label": "Distortion",
+      "start": 115.0,
+      "end": 130.0,
+      "confidence": 0.3934,
+      "peak": 0.4496
+    },
+    {
+      "label": "Musical instrument",
+      "start": 40.0,
+      "end": 60.0,
+      "confidence": 0.3878,
+      "peak": 0.4062
+    },
+    {
+      "label": "Musical instrument",
+      "start": 115.0,
+      "end": 180.0,
+      "confidence": 0.375,
+      "peak": 0.5042
+    },
+    {
+      "label": "Musical instrument",
+      "start": 65.0,
+      "end": 105.0,
+      "confidence": 0.3695,
+      "peak": 0.4334
+    },
+    {
+      "label": "Effects unit",
+      "start": 0.0,
+      "end": 30.0,
+      "confidence": 0.3631,
+      "peak": 0.4079
+    },
+    {
+      "label": "Effects unit",
+      "start": 170.0,
+      "end": 185.0,
+      "confidence": 0.3592,
+      "peak": 0.3814
+    },
+    {
+      "label": "Musical instrument",
+      "start": 185.0,
+      "end": 225.0,
+      "confidence": 0.3555,
+      "peak": 0.4187
+    },
+    {
+      "label": "Effects unit",
+      "start": 185.0,
+      "end": 210.0,
+      "confidence": 0.3553,
+      "peak": 0.401
+    },
+    {
+      "label": "Effects unit",
+      "start": 60.0,
+      "end": 95.0,
+      "confidence": 0.3487,
+      "peak": 0.4059
+    },
+    {
+      "label": "Musical instrument",
+      "start": 20.0,
+      "end": 35.0,
+      "confidence": 0.346,
+      "peak": 0.3542
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 0.0,
+      "end": 10.0,
+      "confidence": 0.3428,
+      "peak": 0.3428
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 185.0,
+      "end": 195.0,
+      "confidence": 0.3418,
+      "peak": 0.3418
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 150.0,
+      "end": 180.0,
+      "confidence": 0.3396,
+      "peak": 0.4083
+    },
+    {
+      "label": "Distortion",
+      "start": 70.0,
+      "end": 80.0,
+      "confidence": 0.3387,
+      "peak": 0.3387
+    },
+    {
+      "label": "Effects unit",
+      "start": 100.0,
+      "end": 110.0,
+      "confidence": 0.3363,
+      "peak": 0.3363
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 125.0,
+      "end": 140.0,
+      "confidence": 0.3362,
+      "peak": 0.3537
+    },
+    {
+      "label": "Distortion",
+      "start": 170.0,
+      "end": 180.0,
+      "confidence": 0.3295,
+      "peak": 0.3295
+    },
+    {
+      "label": "Chorus effect",
+      "start": 15.0,
+      "end": 25.0,
+      "confidence": 0.3261,
+      "peak": 0.3261
+    },
+    {
+      "label": "Distortion",
+      "start": 40.0,
+      "end": 60.0,
+      "confidence": 0.3194,
+      "peak": 0.3291
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 70.0,
+      "end": 80.0,
+      "confidence": 0.3166,
+      "peak": 0.3166
+    },
+    {
+      "label": "Distortion",
+      "start": 15.0,
+      "end": 30.0,
+      "confidence": 0.3149,
+      "peak": 0.3269
+    },
+    {
+      "label": "Effects unit",
+      "start": 140.0,
+      "end": 150.0,
+      "confidence": 0.3145,
+      "peak": 0.3145
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 40.0,
+      "end": 55.0,
+      "confidence": 0.3125,
+      "peak": 0.3187
+    },
+    {
+      "label": "Distortion",
+      "start": 185.0,
+      "end": 200.0,
+      "confidence": 0.3124,
+      "peak": 0.3213
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 25.0,
+      "end": 35.0,
+      "confidence": 0.3055,
+      "peak": 0.3055
+    },
+    {
+      "label": "Plucked string instrument",
+      "start": 225.0,
+      "end": 235.0,
+      "confidence": 0.3009,
+      "peak": 0.3009
+    }
+  ],
+  "provenance": {
+    "detector": "panns_cnn14",
+    "model": "PANNs Cnn14 (AudioSet-527), panns-inference",
+    "device": "cuda",
+    "params": {
+      "top_k": 15,
+      "temporal_threshold": 0.3,
+      "min_segment_seconds": 2.0,
+      "window_seconds": 10,
+      "hop_seconds": 5,
+      "target_sr": 32000,
+      "mono": true
+    },
+    "audio_sha256": "f455d3bd5014fd6ed77b16a21d606e3cab0e9c15f566367291fbacd4d1dbdd27"
+  }
+}

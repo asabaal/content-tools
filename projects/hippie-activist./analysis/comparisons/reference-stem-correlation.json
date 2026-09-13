@@ -1,0 +1,117 @@
+{
+  "proposed_mapping": {
+    "Guitar": {
+      "reference": "hippie activist.(7).mid",
+      "similarity": 0.862,
+      "detail": {
+        "pitch_histogram_cosine": 0.9834,
+        "density_ratio": 0.6887,
+        "register_overlap": 0.8182,
+        "ioi_median_ratio": null,
+        "note_count": {
+          "a": 1791,
+          "b": 1237
+        },
+        "similarity_score": 0.862
+      }
+    },
+    "Keyboard": {
+      "reference": "hippie activist.(6).mid",
+      "similarity": 0.8068,
+      "detail": {
+        "pitch_histogram_cosine": 0.8534,
+        "density_ratio": 0.7881,
+        "register_overlap": 0.7183,
+        "ioi_median_ratio": null,
+        "note_count": {
+          "a": 1709,
+          "b": 1348
+        },
+        "similarity_score": 0.8068
+      }
+    },
+    "Synth": {
+      "reference": "hippie activist.(3).mid",
+      "similarity": 0.8018,
+      "detail": {
+        "pitch_histogram_cosine": 0.9067,
+        "density_ratio": 0.6591,
+        "register_overlap": 0.7534,
+        "ioi_median_ratio": null,
+        "note_count": {
+          "a": 980,
+          "b": 1491
+        },
+        "similarity_score": 0.8018
+      }
+    },
+    "Brass": {
+      "reference": "hippie activist.(4).mid",
+      "similarity": 0.7605,
+      "detail": {
+        "pitch_histogram_cosine": 0.7664,
+        "density_ratio": 0.8204,
+        "register_overlap": 0.6557,
+        "ioi_median_ratio": null,
+        "note_count": {
+          "a": 226,
+          "b": 182
+        },
+        "similarity_score": 0.7605
+      }
+    },
+    "Woodwinds": {
+      "reference": "hippie activist..mid",
+      "similarity": 0.5755,
+      "detail": {
+        "pitch_histogram_cosine": 0.5988,
+        "density_ratio": 0.5724,
+        "register_overlap": 0.5217,
+        "ioi_median_ratio": null,
+        "note_count": {
+          "a": 73,
+          "b": 42
+        },
+        "similarity_score": 0.5755
+      }
+    },
+    "Bass": {
+      "reference": "hippie activist.(8).mid",
+      "similarity": 0.5586,
+      "detail": {
+        "pitch_histogram_cosine": 0.4442,
+        "density_ratio": 0.734,
+        "register_overlap": 0.5814,
+        "ioi_median_ratio": null,
+        "note_count": {
+          "a": 990,
+          "b": 1353
+        },
+        "similarity_score": 0.5586
+      }
+    },
+    "Strings": {
+      "reference": "hippie activist.(10).mid",
+      "similarity": 0.2996,
+      "detail": {
+        "pitch_histogram_cosine": 0.1557,
+        "density_ratio": 0.5203,
+        "register_overlap": 0.3281,
+        "ioi_median_ratio": 0.574,
+        "note_count": {
+          "a": 128,
+          "b": 240
+        },
+        "similarity_score": 0.2996
+      }
+    }
+  },
+  "unmatched_references": [
+    "hippie activist.(1).mid",
+    "hippie activist.(11).mid",
+    "hippie activist.(2).mid",
+    "hippie activist.(5).mid",
+    "hippie activist.(9).mid"
+  ],
+  "caveat": "Greedy assignment from structural similarity (pitch histogram, density, register). A proposal to inspect, not a proven fact."
+}

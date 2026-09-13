@@ -1,0 +1,367 @@
+{
+  "file": "/mnt/storage/repos/content-tools/projects/hippie-activist./10 Drums.wav",
+  "duration_seconds": 241.83,
+  "clipwise": [
+    {
+      "label": "Drum kit",
+      "confidence": 0.4764
+    },
+    {
+      "label": "Snare drum",
+      "confidence": 0.4622
+    },
+    {
+      "label": "Music",
+      "confidence": 0.4435
+    },
+    {
+      "label": "Drum",
+      "confidence": 0.4194
+    },
+    {
+      "label": "Bass drum",
+      "confidence": 0.4004
+    },
+    {
+      "label": "Hi-hat",
+      "confidence": 0.3419
+    },
+    {
+      "label": "Cymbal",
+      "confidence": 0.3302
+    },
+    {
+      "label": "Rimshot",
+      "confidence": 0.2975
+    },
+    {
+      "label": "Drum roll",
+      "confidence": 0.2667
+    },
+    {
+      "label": "Percussion",
+      "confidence": 0.2641
+    },
+    {
+      "label": "Musical instrument",
+      "confidence": 0.1458
+    },
+    {
+      "label": "Drum machine",
+      "confidence": 0.0247
+    },
+    {
+      "label": "Hair dryer",
+      "confidence": 0.0229
+    },
+    {
+      "label": "Speech",
+      "confidence": 0.0181
+    },
+    {
+      "label": "Electronic music",
+      "confidence": 0.0176
+    }
+  ],
+  "canonical": {
+    "drums": 0.4764,
+    "percussion": 0.3302
+  },
+  "temporal": [
+    {
+      "label": "Music",
+      "start": 0.0,
+      "end": 10.0,
+      "confidence": 0.6539,
+      "peak": 0.6539
+    },
+    {
+      "label": "Music",
+      "start": 10.0,
+      "end": 240.0,
+      "confidence": 0.6328,
+      "peak": 0.7946
+    },
+    {
+      "label": "Drum kit",
+      "start": 130.0,
+      "end": 180.0,
+      "confidence": 0.6082,
+      "peak": 0.745
+    },
+    {
+      "label": "Drum",
+      "start": 130.0,
+      "end": 180.0,
+      "confidence": 0.5859,
+      "peak": 0.7126
+    },
+    {
+      "label": "Snare drum",
+      "start": 135.0,
+      "end": 175.0,
+      "confidence": 0.523,
+      "peak": 0.5738
+    },
+    {
+      "label": "Drum kit",
+      "start": 10.0,
+      "end": 115.0,
+      "confidence": 0.5027,
+      "peak": 0.6232
+    },
+    {
+      "label": "Drum",
+      "start": 10.0,
+      "end": 130.0,
+      "confidence": 0.4918,
+      "peak": 0.6136
+    },
+    {
+      "label": "Cymbal",
+      "start": 135.0,
+      "end": 175.0,
+      "confidence": 0.4848,
+      "peak": 0.5529
+    },
+    {
+      "label": "Bass drum",
+      "start": 130.0,
+      "end": 175.0,
+      "confidence": 0.4828,
+      "peak": 0.5583
+    },
+    {
+      "label": "Snare drum",
+      "start": 15.0,
+      "end": 40.0,
+      "confidence": 0.4701,
+      "peak": 0.5301
+    },
+    {
+      "label": "Hi-hat",
+      "start": 135.0,
+      "end": 175.0,
+      "confidence": 0.4632,
+      "peak": 0.5207
+    },
+    {
+      "label": "Cymbal",
+      "start": 15.0,
+      "end": 40.0,
+      "confidence": 0.4593,
+      "peak": 0.4946
+    },
+    {
+      "label": "Hi-hat",
+      "start": 15.0,
+      "end": 40.0,
+      "confidence": 0.4543,
+      "peak": 0.4896
+    },
+    {
+      "label": "Bass drum",
+      "start": 15.0,
+      "end": 40.0,
+      "confidence": 0.4467,
+      "peak": 0.4856
+    },
+    {
+      "label": "Bass drum",
+      "start": 195.0,
+      "end": 205.0,
+      "confidence": 0.4109,
+      "peak": 0.4109
+    },
+    {
+      "label": "Snare drum",
+      "start": 195.0,
+      "end": 205.0,
+      "confidence": 0.4105,
+      "peak": 0.4105
+    },
+    {
+      "label": "Drum kit",
+      "start": 195.0,
+      "end": 220.0,
+      "confidence": 0.4104,
+      "peak": 0.5094
+    },
+    {
+      "label": "Drum kit",
+      "start": 115.0,
+      "end": 130.0,
+      "confidence": 0.3994,
+      "peak": 0.4443
+    },
+    {
+      "label": "Drum kit",
+      "start": 230.0,
+      "end": 240.0,
+      "confidence": 0.3977,
+      "peak": 0.3977
+    },
+    {
+      "label": "Musical instrument",
+      "start": 140.0,
+      "end": 170.0,
+      "confidence": 0.3951,
+      "peak": 0.4154
+    },
+    {
+      "label": "Drum",
+      "start": 195.0,
+      "end": 220.0,
+      "confidence": 0.3918,
+      "peak": 0.4866
+    },
+    {
+      "label": "Musical instrument",
+      "start": 0.0,
+      "end": 10.0,
+      "confidence": 0.3824,
+      "peak": 0.3824
+    },
+    {
+      "label": "Drum",
+      "start": 230.0,
+      "end": 240.0,
+      "confidence": 0.3807,
+      "peak": 0.3807
+    },
+    {
+      "label": "Hi-hat",
+      "start": 195.0,
+      "end": 205.0,
+      "confidence": 0.3786,
+      "peak": 0.3786
+    },
+    {
+      "label": "Hi-hat",
+      "start": 40.0,
+      "end": 105.0,
+      "confidence": 0.3767,
+      "peak": 0.443
+    },
+    {
+      "label": "Cymbal",
+      "start": 50.0,
+      "end": 105.0,
+      "confidence": 0.3727,
+      "peak": 0.4395
+    },
+    {
+      "label": "Bass drum",
+      "start": 40.0,
+      "end": 115.0,
+      "confidence": 0.3719,
+      "peak": 0.4176
+    },
+    {
+      "label": "Percussion",
+      "start": 135.0,
+      "end": 175.0,
+      "confidence": 0.3695,
+      "peak": 0.4167
+    },
+    {
+      "label": "Musical instrument",
+      "start": 100.0,
+      "end": 125.0,
+      "confidence": 0.3659,
+      "peak": 0.4355
+    },
+    {
+      "label": "Snare drum",
+      "start": 40.0,
+      "end": 110.0,
+      "confidence": 0.365,
+      "peak": 0.4612
+    },
+    {
+      "label": "Musical instrument",
+      "start": 35.0,
+      "end": 80.0,
+      "confidence": 0.3644,
+      "peak": 0.4129
+    },
+    {
+      "label": "Cymbal",
+      "start": 195.0,
+      "end": 205.0,
+      "confidence": 0.351,
+      "peak": 0.351
+    },
+    {
+      "label": "Cymbal",
+      "start": 40.0,
+      "end": 50.0,
+      "confidence": 0.3445,
+      "peak": 0.3445
+    },
+    {
+      "label": "Bass drum",
+      "start": 115.0,
+      "end": 125.0,
+      "confidence": 0.3392,
+      "peak": 0.3392
+    },
+    {
+      "label": "Musical instrument",
+      "start": 20.0,
+      "end": 35.0,
+      "confidence": 0.3368,
+      "peak": 0.3589
+    },
+    {
+      "label": "Percussion",
+      "start": 15.0,
+      "end": 30.0,
+      "confidence": 0.3299,
+      "peak": 0.344
+    },
+    {
+      "label": "Drum",
+      "start": 185.0,
+      "end": 195.0,
+      "confidence": 0.3243,
+      "peak": 0.3243
+    },
+    {
+      "label": "Rimshot",
+      "start": 140.0,
+      "end": 165.0,
+      "confidence": 0.3189,
+      "peak": 0.3268
+    },
+    {
+      "label": "Hi-hat",
+      "start": 105.0,
+      "end": 115.0,
+      "confidence": 0.3087,
+      "peak": 0.3087
+    },
+    {
+      "label": "Drum",
+      "start": 0.0,
+      "end": 10.0,
+      "confidence": 0.3038,
+      "peak": 0.3038
+    }
+  ],
+  "provenance": {
+    "detector": "panns_cnn14",
+    "model": "PANNs Cnn14 (AudioSet-527), panns-inference",
+    "device": "cuda",
+    "params": {
+      "top_k": 15,
+      "temporal_threshold": 0.3,
+      "min_segment_seconds": 2.0,
+      "window_seconds": 10,
+      "hop_seconds": 5,
+      "target_sr": 32000,
+      "mono": true
+    },
+    "audio_sha256": "14430871b3de32244be88403356a983588eb9679a07c7e3093a217416017b7a9"
+  }
+}
