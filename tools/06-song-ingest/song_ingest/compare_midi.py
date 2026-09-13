@@ -47,7 +47,10 @@ def midi_metrics(path: Path) -> dict[str, Any]:
             if notes else 0.0
         peak = peak  # noqa: keep simple
 
-    ioi = np.diff(onsets) if len(onsets) > 1 else np.array([])
+    # IOI over DISTINCT onset times: chord-simultaneous notes would
+    # otherwise flood the median with zeros.
+    distinct = np.unique(onsets) if len(onsets) else np.array([])
+    ioi = np.diff(distinct) if len(distinct) > 1 else np.array([])
     return {
         "file": str(path),
         "duration": round(float(pm.get_end_time()), 2),
@@ -60,7 +63,7 @@ def midi_metrics(path: Path) -> dict[str, Any]:
         "pitch_mean": round(float(pitches.mean()), 2) if pitches.size else None,
         "notes_per_second": round(len(notes) / max(pm.get_end_time(), 1e-6), 3),
         "mean_polyphony": round(poly, 3),
-        "ioi_median": round(float(np.median(ioi)), 4) if ioi.size else None,
+        "ioi_median": round(float(np.median(ioi)), 5) if ioi.size else None,
         "tempo_estimate": round(float(pm.estimate_tempo()), 1),
     }
 

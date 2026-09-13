@@ -162,41 +162,83 @@ def stage_vocals(project: Path, ctx: dict, model_size: str) -> dict:
 
 
 def stage_compare(project: Path, ctx: dict) -> dict:
-    from song_ingest.compare_midi import (
-        compare_metrics, correlate_references_to_stems, midi_metrics)
+    """Known WAV<->reference-MIDI pairing (ordinal export order) -> local
+    MIDI for that WAV -> compare -> preserve metrics/differences.
 
-    references = {}
-    for f in sorted(project.glob("*.mid")):
-        references[f.name] = midi_metrics(f)
+    Structural similarity is computed PER PAIR (same stem, two
+    transcriptions). It is never used to establish the pairing. The earlier
+    greedy-correlation experiment, if present, is preserved under
+    analysis/comparisons/experimental/ and marked non-canonical.
+    """
+    from song_ingest.compare_midi import compare_metrics, midi_metrics
+    from song_ingest.pairing import build_pairing
+
+    mix = ctx["ingest"].get("audio")
+    pairing = build_pairing(project, stems=ctx["stems"], mix_filename=Path(mix).name if mix else None)
+    pairing_path = write_json(project / "analysis" / "comparisons"
+                              / "canonical-pairing.json", pairing)
+
     local = {name: midi_metrics(Path(rec["midi"]))
              for name, rec in ctx.get("midi", {}).items()}
+    ref_metrics = {pair["reference_midi"]: midi_metrics(
+                       Path(pair["reference_path"]))
+                   for pair in pairing["pairs"]}
 
-    comparisons = {}
-    for name, lm in local.items():
-        best = None
-        for ref_name, rm in references.items():
-            cmp = compare_metrics(lm, rm)
-            if best is None or cmp["similarity_score"] > best[1]:
-                best = (ref_name, cmp["similarity_score"], cmp)
-        comparisons[name] = {
-            "local": lm,
-            "best_matching_reference": {"file": best[0],
-                                        "similarity": best[1],
-                                        "detail": best[2]} if best else None,
-            "note": "structural similarity only; not a correctness verdict "
-                    "in either direction",
-        }
+    per_pair = []
+    for pair in pairing["pairs"]:
+        stem_name = pair["stem_name"]
+        ref_name = pair["reference_midi"]
+        if stem_name in local:
+            cmp = compare_metrics(local[stem_name], ref_metrics[ref_name])
+            per_pair.append({
+                "stem": stem_name,
+                "reference_midi": ref_name,
+                "local_midi": ctx["midi"][stem_name]["midi"],
+                "local_metrics": local[stem_name],
+                "reference_metrics": ref_metrics[ref_name],
+                "comparison": cmp,
+                "interpretation": "two independent transcriptions of the "
+                                  "same stem; neither is ground truth",
+            })
+        else:
+            per_pair.append({
+                "stem": stem_name,
+                "reference_midi": ref_name,
+                "local_midi": None,
+                "note": "no local transcription in this run (non-pitched "
+                        "or vocal stem; different backend required)",
+            })
 
-    correlation = correlate_references_to_stems(local, references)
-    out_dir = project / "analysis" / "comparisons"
-    write_json(out_dir / "local-vs-reference.json",
-               {"comparisons": comparisons,
-                "reference_metrics": references})
-    corr_path = write_json(out_dir / "reference-stem-correlation.json",
-                           correlation)
-    ctx["compare"] = {"comparisons": comparisons, "correlation": correlation}
-    return {"references": len(references), "local": len(local),
-            "correlation": str(corr_path)}
+    out = write_json(project / "analysis" / "comparisons"
+                     / "local-vs-reference.json", {
+        "pairing": {"method": pairing["method"],
+                    "stem_order_source": pairing["stem_order_source"],
+                    "canonical": True},
+        "per_pair": per_pair,
+        "reference_metrics": ref_metrics,
+    })
+
+    # Preserve the superseded greedy-correlation artifact, marked
+    # non-canonical (kept because it documents why heuristics are not used
+    # for pairing).
+    greedy = project / "analysis" / "comparisons" / "reference-stem-correlation.json"
+    if greedy.is_file():
+        exp_dir = project / "analysis" / "comparisons" / "experimental"
+        exp_dir.mkdir(parents=True, exist_ok=True)
+        dest = exp_dir / "greedy-correlation-run1.json"
+        data = json.loads(greedy.read_text())
+        data["non_canonical"] = True
+        data["superseded_by"] = "canonical-pairing.json (deterministic ordinal pairing)"
+        data["note"] = ("experimental only: greedy structural similarity "
+                        "must not be used to determine correspondence")
+        write_json(dest, data)
+        greedy.unlink()
+
+    ctx["pairing"] = pairing
+    ctx["compare"] = {"per_pair": per_pair}
+    return {"pairs": len(per_pair),
+            "with_local_midi": sum(1 for x in per_pair if x.get("local_midi")),
+            "output": str(out)}
 
 
 def stage_manifest(project: Path, ctx: dict) -> dict:
@@ -212,6 +254,16 @@ def stage_manifest(project: Path, ctx: dict) -> dict:
         "reference_midi": [file_entry(f, "external reference "
                                          "(manually extracted; NOT ground truth)")
                            for f in sorted(project.glob("*.mid"))],
+        "suno_midi_stem_mapping": {
+            "method": ctx["pairing"]["method"],
+            "stem_order_source": ctx["pairing"]["stem_order_source"],
+            "canonical": True,
+            "pairs": [{"ordinal": p["ordinal"],
+                       "stem": p["stem_name"],
+                       "reference_midi": p["reference_midi"],
+                       "reference_sha256": p.get("reference_sha256")}
+                      for p in ctx["pairing"]["pairs"]],
+        },
         "lyrics_known": ctx["ingest"].get("lyrics"),
         "archive": [file_entry(f, "original archive")
                     for f in sorted(project.glob("*.zip"))],
@@ -261,13 +313,29 @@ def write_report(project: Path, ctx: dict) -> None:
                   f"{json.dumps(fmv['much_weaker_in_stems_than_mix'])}",
                   ""]
 
-    corr = ctx.get("compare", {}).get("correlation")
-    if corr:
-        lines += ["## Proposed reference-MIDI ↔ stem mapping "
-                  "(similarity-based, to inspect)", "",
-                  "| stem | reference | similarity |", "|---|---|---|"]
-        for stem, m in corr["proposed_mapping"].items():
-            lines.append(f"| {stem} | {m['reference']} | {m['similarity']:.3f} |")
+    pairs = ctx.get("compare", {}).get("per_pair")
+    if pairs:
+        lines += ["## Local vs Suno reference MIDI — canonical ordinal pairing",
+                  "",
+                  "Pairing is deterministic (export order: base MIDI = first "
+                  "stem). Similarity compares our transcription of a stem "
+                  "against Suno's transcription of the SAME stem; neither is "
+                  "ground truth.", "",
+                  "| stem | reference | local notes | Suno notes | density "
+                  "ratio | pitch-hist cosine | similarity |",
+                  "|---|---|---|---|---|---|---|"]
+        for entry in pairs:
+            if entry.get("local_midi"):
+                c = entry["comparison"]
+                lines.append(
+                    f"| {entry['stem']} | {entry['reference_midi']} "
+                    f"| {c['note_count']['a']} | {c['note_count']['b']} "
+                    f"| {c['density_ratio']} | {c['pitch_histogram_cosine']} "
+                    f"| {c['similarity_score']} |")
+            else:
+                lines.append(f"| {entry['stem']} | {entry['reference_midi']} "
+                             f"| — | — | — | — | no local transcription "
+                             f"(V0 scope) |")
         lines.append("")
 
     midi = ctx.get("midi", {})

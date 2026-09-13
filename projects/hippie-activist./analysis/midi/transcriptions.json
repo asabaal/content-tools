@@ -4,7 +4,7 @@
     "Bass": {
       "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./9 Bass.wav",
       "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/9_Bass.mid",
-      "note_count": 990,
+      "note_count": 989,
       "pitch_min": "29",
       "pitch_max": "71",
       "provenance": {
@@ -33,7 +33,7 @@
     "Brass": {
       "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./2 Brass.wav",
       "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/2_Brass.mid",
-      "note_count": 226,
+      "note_count": 227,
       "pitch_min": "31",
       "pitch_max": "91",
       "provenance": {
@@ -62,7 +62,7 @@
     "Guitar": {
       "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./8 Guitar.wav",
       "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/8_Guitar.mid",
-      "note_count": 1791,
+      "note_count": 1786,
       "pitch_min": "31",
       "pitch_max": "96",
       "provenance": {
@@ -149,7 +149,7 @@
     "Synth": {
       "audio": "/mnt/storage/repos/content-tools/projects/hippie-activist./4 Synth.wav",
       "midi": "/mnt/storage/repos/content-tools/projects/hippie-activist./derived/midi/4_Synth.mid",
-      "note_count": 980,
+      "note_count": 989,
       "pitch_min": "31",
       "pitch_max": "101",
       "provenance": {

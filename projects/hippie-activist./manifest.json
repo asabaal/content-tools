@@ -1,7 +1,7 @@
 {
   "schema": "content-tools/song-analysis-package",
   "schema_version": "0.1",
-  "generated_at": "2026-09-13T17:38:01.336437+00:00",
+  "generated_at": "2026-09-13T17:55:34.895420+00:00",
   "project_dir": "/mnt/storage/repos/content-tools/projects/hippie-activist.",
   "generator": {
     "tool": "tools/06-song-ingest",
@@ -139,6 +139,85 @@
         "sha256": "8d5d2140825bd3d95aa04b035e45beb0e8b3db8c206709f6893d00af83b36a71"
       }
     ],
+    "suno_midi_stem_mapping": {
+      "method": "ordinal export order (base MIDI = first stem, (1) = second, ...)",
+      "stem_order_source": "export package member order (hippie activist..zip)",
+      "canonical": true,
+      "pairs": [
+        {
+          "ordinal": 0,
+          "stem": "Woodwinds",
+          "reference_midi": "hippie activist..mid",
+          "reference_sha256": "8d5d2140825bd3d95aa04b035e45beb0e8b3db8c206709f6893d00af83b36a71"
+        },
+        {
+          "ordinal": 1,
+          "stem": "Brass",
+          "reference_midi": "hippie activist.(1).mid",
+          "reference_sha256": "e74a78001f81f2577fb5c870252b06ee638b30809e215c895e2309b8be6f4195"
+        },
+        {
+          "ordinal": 2,
+          "stem": "FX",
+          "reference_midi": "hippie activist.(2).mid",
+          "reference_sha256": "67cc1c85bf7f231dbd49b2edb1656327ed56a7d74bcfc87c14b2df88fb783d9d"
+        },
+        {
+          "ordinal": 3,
+          "stem": "Synth",
+          "reference_midi": "hippie activist.(3).mid",
+          "reference_sha256": "1f14f3acdacfae801e21bfe159c7eda55915d792e7b4c82c33d3f87d19b361d3"
+        },
+        {
+          "ordinal": 4,
+          "stem": "Strings",
+          "reference_midi": "hippie activist.(4).mid",
+          "reference_sha256": "caea8deb206e4d7c09c1bb4990046b09938703e61835e3d465d729fb9c7b9345"
+        },
+        {
+          "ordinal": 5,
+          "stem": "Percussion",
+          "reference_midi": "hippie activist.(5).mid",
+          "reference_sha256": "40c3d0c2d08c5f6b574411877827abbc9db4302fad896d585c96d02102e4f483"
+        },
+        {
+          "ordinal": 6,
+          "stem": "Keyboard",
+          "reference_midi": "hippie activist.(6).mid",
+          "reference_sha256": "5af4a4b4a264382c4ff05582dae04e22ff2cf62fe2b089f650e35fe4cd88a76a"
+        },
+        {
+          "ordinal": 7,
+          "stem": "Guitar",
+          "reference_midi": "hippie activist.(7).mid",
+          "reference_sha256": "bf3f4befcc9a7c8b14cfc747ac861e07cdd49537fdc9c2bc540bc6413b04ab62"
+        },
+        {
+          "ordinal": 8,
+          "stem": "Bass",
+          "reference_midi": "hippie activist.(8).mid",
+          "reference_sha256": "796ef7754bc67c9a25b226620515bc307b7f2c971c402f424e2d5f1dd11752ab"
+        },
+        {
+          "ordinal": 9,
+          "stem": "Drums",
+          "reference_midi": "hippie activist.(9).mid",
+          "reference_sha256": "4344645810e971732973939c1a277cfb5f982c41a15062acace756d35f399760"
+        },
+        {
+          "ordinal": 10,
+          "stem": "Backing Vocals",
+          "reference_midi": "hippie activist.(10).mid",
+          "reference_sha256": "a145a633b4ce54e5ec670f6546385347116719872e2da93d4b2402ebee9b1e5c"
+        },
+        {
+          "ordinal": 11,
+          "stem": "Vocals",
+          "reference_midi": "hippie activist.(11).mid",
+          "reference_sha256": "0acfc6e53bd83fef642001b6f5d83f7ad496a8880412312726d6832fb34a8aa4"
+        }
+      ]
+    },
     "lyrics_known": null,
     "archive": [
       {

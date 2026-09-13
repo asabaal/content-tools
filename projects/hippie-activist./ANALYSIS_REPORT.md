@@ -1,6 +1,6 @@
 # Song analysis — hippie-activist.
 
-Generated 2026-09-13T17:38:01.336766+00:00 by song_ingest 0.1.0 (local/open-source pipeline; reference MIDI treated as independent evidence, not ground truth).
+Generated 2026-09-13T17:55:34.897165+00:00 by song_ingest 0.1.0 (local/open-source pipeline; reference MIDI treated as independent evidence, not ground truth).
 
 ## Instrument reconciliation
 
@@ -22,35 +22,34 @@ Generated 2026-09-13T17:38:01.336766+00:00 by song_ingest 0.1.0 (local/open-sour
 - In mix but missing from stems: {}
 - Much weaker in stems than mix: {}
 
-## Proposed reference-MIDI ↔ stem mapping (similarity-based, to inspect)
+## Local vs Suno reference MIDI — canonical ordinal pairing
 
-| stem | reference | similarity |
-|---|---|---|
-| Guitar | hippie activist.(7).mid | 0.862 |
-| Keyboard | hippie activist.(6).mid | 0.807 |
-| Synth | hippie activist.(3).mid | 0.802 |
-| Brass | hippie activist.(4).mid | 0.760 |
-| Woodwinds | hippie activist..mid | 0.576 |
-| Bass | hippie activist.(8).mid | 0.559 |
-| Strings | hippie activist.(10).mid | 0.300 |
+Pairing is deterministic (export order: base MIDI = first stem). Similarity compares our transcription of a stem against Suno's transcription of the SAME stem; neither is ground truth.
+
+| stem | reference | local notes | Suno notes | density ratio | pitch-hist cosine | similarity |
+|---|---|---|---|---|---|---|
+| Woodwinds | hippie activist..mid | 73 | 42 | 0.5724 | 0.5988 | 0.5755 |
+| Brass | hippie activist.(1).mid | 227 | 543 | 0.4191 | 0.696 | 0.6261 |
+| FX | hippie activist.(2).mid | — | — | — | — | no local transcription (V0 scope) |
+| Synth | hippie activist.(3).mid | 989 | 1491 | 0.6651 | 0.9048 | 0.8026 |
+| Strings | hippie activist.(4).mid | 128 | 182 | 0.6956 | 0.1773 | 0.4223 |
+| Percussion | hippie activist.(5).mid | — | — | — | — | no local transcription (V0 scope) |
+| Keyboard | hippie activist.(6).mid | 1709 | 1348 | 0.7881 | 0.8537 | 0.8069 |
+| Guitar | hippie activist.(7).mid | 1786 | 1237 | 0.6907 | 0.9832 | 0.8624 |
+| Bass | hippie activist.(8).mid | 989 | 1353 | 0.7331 | 0.4449 | 0.5587 |
+| Drums | hippie activist.(9).mid | — | — | — | — | no local transcription (V0 scope) |
+| Backing Vocals | hippie activist.(10).mid | — | — | — | — | no local transcription (V0 scope) |
+| Vocals | hippie activist.(11).mid | — | — | — | — | no local transcription (V0 scope) |
 
 ## Local MIDI transcriptions (Basic Pitch)
 
 | stem | notes |
 |---|---|
-| Bass | 990 |
-| Brass | 226 |
-| Guitar | 1791 |
+| Bass | 989 |
+| Brass | 227 |
+| Guitar | 1786 |
 | Keyboard | 1709 |
 | Strings | 128 |
-| Synth | 980 |
+| Synth | 989 |
 | Woodwinds | 73 |
-
-## Vocal transcription (faster-whisper, raw preserved)
-
-| pass | segments | words |
-|---|---|---|
-| backing_vocals | 26 | 354 |
-| vocals | 33 | 409 |
-| combined | 48 | 326 |
 

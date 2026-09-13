@@ -113,5 +113,8 @@
     "hippie activist.(5).mid",
     "hippie activist.(9).mid"
   ],
-  "caveat": "Greedy assignment from structural similarity (pitch histogram, density, register). A proposal to inspect, not a proven fact."
+  "caveat": "Greedy assignment from structural similarity (pitch histogram, density, register). A proposal to inspect, not a proven fact.",
+  "non_canonical": true,
+  "superseded_by": "canonical-pairing.json (deterministic ordinal pairing)",
+  "note": "experimental only: greedy structural similarity must not be used to determine correspondence"
 }

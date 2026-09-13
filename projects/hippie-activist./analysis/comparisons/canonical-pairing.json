@@ -1,0 +1,107 @@
+{
+  "method": "ordinal export order (base MIDI = first stem, (1) = second, ...)",
+  "stem_order_source": "export package member order (hippie activist..zip)",
+  "canonical": true,
+  "pairs": [
+    {
+      "ordinal": 0,
+      "stem_name": "Woodwinds",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./1 Woodwinds.wav",
+      "reference_midi": "hippie activist..mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist..mid",
+      "reference_sha256": "8d5d2140825bd3d95aa04b035e45beb0e8b3db8c206709f6893d00af83b36a71"
+    },
+    {
+      "ordinal": 1,
+      "stem_name": "Brass",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./2 Brass.wav",
+      "reference_midi": "hippie activist.(1).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(1).mid",
+      "reference_sha256": "e74a78001f81f2577fb5c870252b06ee638b30809e215c895e2309b8be6f4195"
+    },
+    {
+      "ordinal": 2,
+      "stem_name": "FX",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./3 FX.wav",
+      "reference_midi": "hippie activist.(2).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(2).mid",
+      "reference_sha256": "67cc1c85bf7f231dbd49b2edb1656327ed56a7d74bcfc87c14b2df88fb783d9d"
+    },
+    {
+      "ordinal": 3,
+      "stem_name": "Synth",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./4 Synth.wav",
+      "reference_midi": "hippie activist.(3).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(3).mid",
+      "reference_sha256": "1f14f3acdacfae801e21bfe159c7eda55915d792e7b4c82c33d3f87d19b361d3"
+    },
+    {
+      "ordinal": 4,
+      "stem_name": "Strings",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./5 Strings.wav",
+      "reference_midi": "hippie activist.(4).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(4).mid",
+      "reference_sha256": "caea8deb206e4d7c09c1bb4990046b09938703e61835e3d465d729fb9c7b9345"
+    },
+    {
+      "ordinal": 5,
+      "stem_name": "Percussion",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./6 Percussion.wav",
+      "reference_midi": "hippie activist.(5).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(5).mid",
+      "reference_sha256": "40c3d0c2d08c5f6b574411877827abbc9db4302fad896d585c96d02102e4f483"
+    },
+    {
+      "ordinal": 6,
+      "stem_name": "Keyboard",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./7 Keyboard.wav",
+      "reference_midi": "hippie activist.(6).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(6).mid",
+      "reference_sha256": "5af4a4b4a264382c4ff05582dae04e22ff2cf62fe2b089f650e35fe4cd88a76a"
+    },
+    {
+      "ordinal": 7,
+      "stem_name": "Guitar",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./8 Guitar.wav",
+      "reference_midi": "hippie activist.(7).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(7).mid",
+      "reference_sha256": "bf3f4befcc9a7c8b14cfc747ac861e07cdd49537fdc9c2bc540bc6413b04ab62"
+    },
+    {
+      "ordinal": 8,
+      "stem_name": "Bass",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./9 Bass.wav",
+      "reference_midi": "hippie activist.(8).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(8).mid",
+      "reference_sha256": "796ef7754bc67c9a25b226620515bc307b7f2c971c402f424e2d5f1dd11752ab"
+    },
+    {
+      "ordinal": 9,
+      "stem_name": "Drums",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./10 Drums.wav",
+      "reference_midi": "hippie activist.(9).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(9).mid",
+      "reference_sha256": "4344645810e971732973939c1a277cfb5f982c41a15062acace756d35f399760"
+    },
+    {
+      "ordinal": 10,
+      "stem_name": "Backing Vocals",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./11 Backing_Vocals.wav",
+      "reference_midi": "hippie activist.(10).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(10).mid",
+      "reference_sha256": "a145a633b4ce54e5ec670f6546385347116719872e2da93d4b2402ebee9b1e5c"
+    },
+    {
+      "ordinal": 11,
+      "stem_name": "Vocals",
+      "stem_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./12 Vocals.wav",
+      "reference_midi": "hippie activist.(11).mid",
+      "reference_path": "/mnt/storage/repos/content-tools/projects/hippie-activist./hippie activist.(11).mid",
+      "reference_sha256": "0acfc6e53bd83fef642001b6f5d83f7ad496a8880412312726d6832fb34a8aa4"
+    }
+  ],
+  "unpaired": {
+    "stems": [],
+    "references": []
+  }
+}

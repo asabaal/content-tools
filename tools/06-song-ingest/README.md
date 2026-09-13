@@ -51,7 +51,9 @@ $PYTHON -m song_ingest.cli detect "file.wav"                             # singl
 3. `reconcile` — full-mix vs stem-union reconciliation; stem-label vs content checks
 4. `midi`      — Basic Pitch transcription of pitched instrumental stems
 5. `vocals`    — faster-whisper transcription of lead / backing / combined vocals
-6. `compare`   — local-vs-reference MIDI metrics + reference↔stem correlation
+6. `compare`   — canonical ordinal WAV↔reference-MIDI pairing, then
+                  per-pair local-vs-Suno metrics (same stem, two
+                  transcriptions; neither is ground truth)
 7. `manifest`  — final `manifest.json` + `ANALYSIS_REPORT.md`
 
 Output lands in `<project>/analysis/`, `<project>/derived/`,
@@ -69,3 +71,9 @@ Output lands in `<project>/analysis/`, `<project>/derived/`,
   Basic Pitch is the V0 default; the interface exists so backends can be
   benchmarked/swapped.
 * Stem filenames are treated as **claims**, never as truth.
+* Reference MIDI ↔ stem correspondence is **deterministic**: the MIDIs
+  were exported in the same order as the WAV stems of the source package
+  (base MIDI = first stem, `(1)` = second, ...). The mapping is recorded
+  in the manifest; structural similarity is never used to establish it
+  (an earlier greedy-correlation experiment is preserved under
+  `analysis/comparisons/experimental/`, marked non-canonical).
