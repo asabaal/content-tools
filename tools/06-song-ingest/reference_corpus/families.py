@@ -66,7 +66,14 @@ FAMILY_META: dict[str, dict] = {
         "label": "Pitched / Harmonic Reference",
         "duration_seconds": 240.0,
         "conditioning": [
-            {"candidate": "multimodal_v1", "leading": True,
+            {"candidate": "multimodal_v2", "leading": True,
+             "path": "canonical_reference_piece_multimodal_v2_input.wav",
+             "schedule": "multimodal_v2_conditioning_map.json",
+             "note": "4 genuinely distinct rendering pipelines: SF2 "
+                     "wavetable / additive / Karplus-Strong / formant vox"},
+            {"candidate": "multimodal_v1", "leading": False,
+             "status": "SUPERSEDED — MULTI-TIMBRAL GM TEST, NOT CANONICAL "
+                       "MULTIMODAL INPUT",
              "path": "canonical_reference_piece_multimodal_input.wav",
              "schedule": "multimodal_conditioning_map.json"},
             {"candidate": "neutral_piano",
