@@ -1,58 +1,102 @@
 # Suno Target Reference Corpus — Kickoff Specification
 
-**Status:** Ready for implementation  
+**Status:** Active — corrected after first local audition  
 **Repository:** `asabaal/content-tools`  
 **Branch:** `develop`  
-**Related systems:** `tools/06-song-ingest`, existing Suno Stem Target Recommender, `asabaal/music_creation` reference-composition tooling  
-**Primary calibration artifact:** one canonical reference composition rendered repeatedly across Suno Advanced Split target instruments
+**Related systems:** `tools/06-song-ingest`, existing Suno Stem Target Recommender, `asabaal/music_creation/reference_composition`  
+**Primary calibration artifact:** one canonical reference composition, exactly four minutes long, rendered repeatedly across Suno Advanced Split target instruments
+
+## 0. Current correction / authoritative constraints
+
+This section supersedes any earlier implementation assumption that conflicts with it.
+
+### 0.1 Exact duration
+
+The canonical reference piece must be **exactly 4:00 / 240.000 seconds** of composition time.
+
+Current 4:48 / 288-second artifacts are superseded and must be regenerated.
+
+At the current fixed tempo of **100 BPM in 4/4**, exactly four minutes corresponds naturally to **100 bars**:
+
+- 100 BPM = 0.6 seconds per beat
+- 4 beats/bar = 2.4 seconds per bar
+- 100 bars × 2.4 seconds = 240.0 seconds
+
+The generator, movement contract, movement map, event manifest, tests, hashes, corpus ingest, prompt book, and all duration references must be updated together. Do not merely trim the existing 4:48 file while leaving its symbolic contract unchanged.
+
+The **conditioning WAVs used as Suno inputs must also be exactly 240.000 seconds**. They must not carry an extra release tail beyond four minutes. A separate debug/audition file may contain a release tail if clearly labeled noncanonical and never used as Suno conditioning input.
+
+### 0.2 Neutral conditioning input, not a multi-instrument mockup
+
+The existing multi-GM audition render — piano + electric piano + acoustic bass + Choir Aahs + square lead + GM drums — is useful only for engineering/debugging. It is **not an acceptable Suno conditioning input**, because it injects instrumental/timbral claims into an experiment whose purpose is to ask Suno to supply the target instrumentation.
+
+Preserve that render only as a diagnostic artifact and label it accordingly.
+
+Before any target rendering in Suno, generate neutral conditioning versions of the exact same canonical score using the existing local tool ecosystem:
+
+1. **Neutral piano input** — all pitched musical content represented with one clean piano timbre, with no choir, acoustic-bass patch, FX lead patch, or instrument-specific role patching.
+2. **Neutral synth input** — the same symbolic material represented with one deliberately plain, low-character synth timbre (for example a basic sine/triangle/simple subtractive patch), again with no role-specific instrument identities.
+
+The objective is to encode **notes, rhythm, harmony, register, movement order, articulation, and dynamics** while minimizing timbral contamination.
+
+For special roles such as vocal, FX, bass, or percussion, do not switch to semantic GM instruments merely because of the role label. Use the same neutral timbral family wherever practical. If a role cannot be represented faithfully without a special treatment, document that treatment explicitly and keep it as timbrally neutral as possible.
+
+The human artist must listen to both neutral inputs before the Suno corpus run begins. One may then be selected as the canonical conditioning representation, or both may be used in a small pilot if needed to determine which preserves structure while allowing Suno to replace timbre most effectively.
+
+### 0.3 One-piece principle remains unchanged
+
+There is still **one canonical composition**. Piano and synth conditioning files are two encodings of the same score, not separate compositions or etudes.
+
+---
 
 ## 1. Purpose
 
-Build an empirical **Suno Target Reference Corpus** that lets Asabaal Ventures answer a concrete question:
+Build an empirical **Suno Target Reference Corpus** that helps answer:
 
-> Given an unknown song or stem, which of Suno's documented Advanced Split extraction targets are actually present or worth extracting?
+> Given an unknown song or stem, which documented Suno Advanced Split extraction targets are useful to extract as the initial editable instrumentation substrate for the canonical starter mix?
 
-The corpus must be grounded in controlled reference audio, not only generic classifier labels. We will create **one canonical symbolic composition** containing a deliberately broad set of musical test conditions, render that same piece repeatedly in Suno with different target instruments/timbres, and use those renders as reference exemplars for target assignment.
+This is not merely an instrument-labeling exercise. The Advanced Split stage supports production: broad Suno default stems are refined into more useful artist-directed instrumental objects, which are then listened to and may receive an **artist canonical label** that differs from Suno's requested target name.
 
-The system must preserve the distinction between:
+The corpus must be grounded in controlled reference audio, not only generic classifier labels.
 
-1. **Composition ground truth** — the notes, rhythms, chords, keys, structure, and intended role we generated ourselves.
-2. **Rendered reference audio** — Suno's realization of that known composition as a requested target instrument/timbre.
-3. **Suno extraction behavior** — where useful, Suno's own extracted target/stem from the reference render.
-4. **Local analysis output** — our instrument-target classification, embeddings/features, audio-to-MIDI, and other derived evidence.
-5. **Suno MIDI/reference outputs** — useful comparison evidence, never canonical truth.
+Preserve these distinct layers:
 
-The immediate validation target is `hippie activist.`.
+1. **Composition ground truth** — our known notes, rhythms, chords, keys, structure, movement boundaries, roles, and timing.
+2. **Neutral conditioning render** — timbrally minimal audio encoding of that score used to condition Suno.
+3. **Suno target render** — Suno's realization of the same composition under a requested Advanced Split target/timbre.
+4. **Suno extraction behavior** — any Advanced Split stem extracted from the render.
+5. **Local analysis output** — embeddings, timbral descriptors, transcription, classifier evidence, similarity scores, etc.
+6. **Suno labels** — provenance describing what was requested/extracted, not ontological truth.
+7. **Artist canonical label** — the human artist's post-listening identification of what the extracted production object actually is and how it belongs in the canonical starter mix.
+
+The immediate validation target remains `hippie activist.`.
 
 ---
 
 ## 2. Core Experimental Principle
 
-There is **one canonical reference piece**.
-
-Do not create a separate etude per instrument.
-
-The same underlying composition is rendered again and again across target instruments. This holds pitch, harmony, rhythm, form, and section timing as constant as possible while changing the intended instrument/timbre.
-
-This turns the reference corpus into a controlled comparison surface.
+The same underlying composition is rendered repeatedly across Suno target instruments. Pitch, harmony, rhythm, form, section timing, and diagnostic passages should stay constant as far as Suno permits while the requested instrument/timbre changes.
 
 Conceptually:
 
 ```text
-canonical_reference_piece.mid
+canonical_reference_piece.mid   (known symbolic truth, exactly 4:00)
         |
-        +--> render as Organ
-        +--> render as Piano
-        +--> render as Electric guitar
-        +--> render as Strings
-        +--> render as Brass
-        +--> render as Synth pad
-        +--> render as Synth keys
-        +--> render as Woodwinds
-        +--> ...
+        +--> neutral piano input.wav  --+
+        |                               |
+        +--> neutral synth input.wav  --+--> artist selects/validates conditioning source
+                                         |
+                                         +--> Suno: Organ
+                                         +--> Suno: Piano
+                                         +--> Suno: Electric guitar
+                                         +--> Suno: Strings
+                                         +--> Suno: Brass
+                                         +--> Suno: Synth pad
+                                         +--> Suno: Woodwinds
+                                         +--> ...
 ```
 
-For each target render, preserve the exact prompt, model/version, date, render identifier, source symbolic artifact version, and any extraction artifacts.
+For each target render preserve the exact prompt, exclude prompt, conditioning-source hash, model/version, date, render ID, target ontology version, and extraction artifacts.
 
 ---
 
@@ -60,53 +104,67 @@ For each target render, preserve the exact prompt, model/version, date, render i
 
 ### 3.1 `asabaal/music_creation`
 
-Use the **music creation repo** to construct the canonical composition and its symbolic ground truth.
+Own the canonical composition and symbolic truth:
 
-This repo should own the generator/source-of-truth artifacts for the piece, including at minimum:
-
-- specification for the composition
-- generator code or reproducible score-construction code
+- composition contract
+- deterministic generator
 - canonical MIDI
 - MusicXML if practical
-- section/movement map
+- exact 4:00 timing contract
+- movement map
 - exact note/chord/key metadata
-- test-event manifest
-- validation tools for the symbolic score
+- event manifest
+- validators
+- local diagnostic render tooling
+- neutral piano conditioning render
+- neutral synth conditioning render
+- render provenance / hashes
 
 Do not hand-author an opaque MIDI file without reproducible source.
 
 ### 3.2 `asabaal/content-tools`
 
-Content Tools owns the ingestion, analysis, corpus organization, comparison, target assignment, prompt-book generation, validation, and downstream benchmarking.
+Own:
 
-The implementation here should integrate with the existing `tools/06-song-ingest` pipeline and the existing Suno-target recommender rather than duplicate them.
+- corpus organization
+- conditioning/render provenance
+- Suno target ontology linkage
+- ingestion
+- feature extraction
+- comparison
+- Advanced Split target recommendation
+- prompt generation and validation
+- benchmark/reporting
+- artist-review metadata and canonical starter-mix labeling fields
+
+Reuse the existing `tools/06-song-ingest` pipeline and existing Suno Stem Target Recommender rather than duplicating them.
 
 ---
 
 ## 4. Canonical Reference Piece
 
-### 4.1 One complete composition
+### 4.1 Duration and form
 
-Create a single coherent musical piece, likely around **4–6 minutes**, long enough to exercise the required musical conditions without becoming random or purely mechanical.
+Create **one coherent piece exactly 4:00 / 240.000 seconds long**.
 
-It should still sound like a real composition. The goal is a musically valid reference work that doubles as a calibration suite.
+Keep the established nine-movement concept unless a clearly documented redistribution is required to fit the hard four-minute budget. Preserve all required calibration coverage while compressing the existing 120-bar / 4:48 design to the exact 100-bar / 4:00 contract at 100 BPM.
+
+The piece should remain musically coherent rather than becoming a list of disconnected tests.
 
 ### 4.2 Required musical coverage
 
-The piece must deliberately include all of the following within the same composition:
+Within the same piece preserve deliberate coverage of:
 
 #### Tonal/key coverage
-
 - all 12 major keys
 - all 12 minor keys
-- controlled modulation between keys
-- clear tonal centers long enough for analysis
-- chromatic material where useful
+- controlled modulation
+- clear tonal centers
+- chromatic material
 
 #### Scale and melodic coverage
-
 - major scales
-- natural/harmonic/melodic minor material where musically appropriate
+- natural/harmonic/melodic minor material
 - chromatic runs
 - arpeggios
 - isolated-note passages
@@ -116,418 +174,309 @@ The piece must deliberately include all of the following within the same composi
 - register sweeps
 
 #### Interval coverage
-
-Include representative intervals across the octave, both ascending and descending where practical:
-
-- seconds
-- thirds
-- fourths
-- fifths
-- sixths
-- sevenths
-- octaves
+Representative ascending and descending seconds through octaves.
 
 #### Harmonic coverage
-
 - major/minor triads
 - inversions
 - suspended chords
-- dominant sevenths
-- major/minor sevenths
-- selected extended chords
+- dominant, major, and minor sevenths
+- selected extensions
 - dyads
-- dense chord voicings
-- sparse voicings
+- dense and sparse voicings
 
 #### Common progression coverage
-
-Include musically coherent examples of common progressions, including at least:
-
+At minimum:
 - I–IV–V–I
 - ii–V–I
 - I–V–vi–IV
 - vi–IV–I–V
-- representative minor cadences/progressions
-- blues-derived movement where useful
+- representative minor cadence/progression
+- blues-derived movement
 
-#### Texture and performance-role coverage
-
+#### Texture/performance coverage
 - monophonic melody
 - dyads
 - polyphonic/counterpoint passage
 - full chordal playing
-- sparse accompaniment
-- dense accompaniment
-- sustained/legato playing
-- staccato/articulated playing
+- sparse/dense accompaniment
+- sustained/legato
+- staccato/articulated material
 - repeated-note attacks
-- rhythmic/syncopated passage
-- low-register material
-- mid-register material
-- high-register material
+- syncopation
+- low/mid/high register
 - at least two musically interesting solo passages
-- one dense musical finale or climax
+- dense musical finale/climax
+- bass-role behavior
+- percussion/rhythm behavior
+- vocal-role behavior
+- FX/transition behavior
 
-### 4.3 Ground-truth event manifest
+### 4.3 Ground-truth manifest
 
-Every important test event or section should be machine-readable.
-
-Example conceptual schema:
-
-```json
-{
-  "event_id": "minor_arpeggio_a_01",
-  "section": "minor_arpeggios",
-  "key": "A minor",
-  "role": "melody",
-  "pitch": "E4",
-  "midi_note": 64,
-  "onset_seconds": 92.5,
-  "duration_seconds": 0.75,
-  "velocity": 86,
-  "expected_texture": "monophonic"
-}
-```
-
-The exact schema may evolve, but the symbolic truth must be queryable and reproducible.
+Every important event remains machine-readable, including section, key, role, group, pitch, onset, duration, velocity, and expected texture. The manifest must be regenerated from the corrected 4:00 score, not hand-edited.
 
 ---
 
-## 5. Target Families and One-Piece Principle
+## 5. Rendering and Conditioning Artifacts
 
-The piece is singular, but different sections can emphasize different target families.
+Use explicit artifact classes so debug audio can never be confused with Suno input.
 
-Do **not** create unrelated songs for drums, vocals, FX, etc. Instead, the canonical piece should contain dedicated passages suitable for evaluating these roles while preserving one-piece identity.
+Recommended local naming:
 
-Useful internal movement families include:
+```text
+reference_composition/output/
+  canonical_reference_piece.mid
+  canonical_reference_piece_debug.wav
+  canonical_reference_piece_piano_input.wav
+  canonical_reference_piece_synth_input.wav
+  event_manifest.json
+  movement_map.json
+  composition_version.json
+  conditioning_render_notes.json
+```
 
-- pitched melodic/harmonic instruments
-- bass behavior
-- drums/percussion behavior
-- vocal/choral behavior
-- FX/transition behavior
-- role-specific guitar/keyboard/synth behavior
+### Debug render
 
-If some Suno targets cannot sensibly realize every passage, preserve that limitation as part of the experiment rather than silently changing the underlying reference composition.
+`canonical_reference_piece_debug.wav` may use contrasting role-specific GM patches for engineering purposes only. It must be marked **NOT FOR SUNO INPUT** in metadata/docs.
+
+### Neutral piano input
+
+`canonical_reference_piece_piano_input.wav`:
+
+- exactly 240.000 seconds
+- one clean piano timbral identity for pitched content
+- no Choir Aahs
+- no acoustic-bass-specific patch
+- no square-lead FX patch
+- no semantic instrument switching based on role labels
+- score timing and dynamics preserved
+
+### Neutral synth input
+
+`canonical_reference_piece_synth_input.wav`:
+
+- exactly 240.000 seconds
+- one low-character synth family
+- avoid pads, pronounced modulation, distortion, chorus, reverb, or expressive effects that create a strong instrument identity
+- preserve score timing and dynamics
+- role labels do not trigger semantic instrument substitutions
+
+### Conditioning approval gate
+
+Do not begin the 90-target Suno corpus run until the artist has listened to the corrected four-minute composition and neutral conditioning input(s).
 
 ---
 
 ## 6. Suno Target Taxonomy
 
-Use the **documented Suno Advanced Split target ontology already captured in the project**, including the standard and extended/beta target sets.
+Use the authoritative Advanced Split ontology recovered in `music_creation/analytics/suno_stem_target_recommender/`.
 
-Do not substitute generic AudioSet/PANNs class names for the canonical target vocabulary.
+Current recovered project baseline: **90 targets** (22 standard + 68 beta), unless newer direct Suno evidence changes it.
 
-The existing Suno Stem Target Recommender and its target ontology should remain authoritative for the target list unless updated evidence shows Suno changed the available options.
-
-Generic detectors such as PANNs may contribute supporting evidence, but the output surface for this work must answer in Suno target terms.
+Do not substitute AudioSet/PANNs labels for Suno target names. Generic detectors may provide supplemental evidence only.
 
 ---
 
-## 7. Reference Corpus Structure
+## 7. Default Stems, Advanced Split, and Artist Canonical Labels
 
-Design a durable corpus structure in Content Tools. A reasonable target shape is:
+Keep these stages distinct:
 
 ```text
-reference-corpus/
-  suno-targets/
-    canonical-piece/
-      composition-version.json
-      movement-map.json
-      prompt-book/
-      targets/
-        organ/
-          intended-render.wav
-          suno-extracted-target.wav        # when available
-          metadata.json
-          prompt.txt
-          exclude.txt
-          analysis/
-        piano/
-        electric-guitar/
-        ...
+Suno generation
+  -> Suno default broad stems
+  -> artist + analysis choose useful Advanced Split targets
+  -> Advanced Split extraction
+  -> artist listens and identifies/relabels extracted production object
+  -> canonical instrumentation map
+  -> canonical starter-mix substrate
 ```
 
-Do not commit large WAVs if repo policy says they remain local/gitignored; preserve hashes, paths, provenance, and metadata in Git.
+A Suno target label is an extraction request/provenance field, not necessarily the artist's final instrument identification.
+
+Per extracted object preserve fields such as:
+
+- `default_stem_label`
+- `advanced_split_target_requested`
+- `advanced_split_render_or_extraction_id`
+- `artist_canonical_label`
+- `artist_confidence`
+- `artist_notes`
+- `canonical_starter_mix_role`
+
+Never overwrite the Suno label with the artist label; preserve both.
 
 ---
 
-## 8. Feature and Similarity Strategy
+## 8. Reference Corpus Structure
 
-The corpus should support comparison features that are useful even when pitch differs or transcription is imperfect.
+A durable Content Tools shape should retain conditioning-source provenance:
 
-At minimum plan for:
+```text
+projects/reference-corpus/canonical-piece/
+  composition-version.json
+  movement-map.json
+  conditioning/
+    piano-input.json
+    synth-input.json
+  prompt-book/
+  targets/
+    organ/
+      intended-render.wav
+      suno-extracted-target.wav      # when available
+      metadata.json
+      prompt.txt
+      exclude.txt
+      analysis/
+    ...
+```
+
+Large WAVs may remain local/gitignored according to repo policy; hashes, paths, and provenance must remain durable.
+
+---
+
+## 9. Feature and Similarity Strategy
+
+The corpus should support:
 
 - learned audio embeddings
 - spectral/timbral descriptors
 - register-aware descriptors
-- pitch-normalized or pitch-reduced comparisons where useful
+- pitch-normalized/reduced comparisons where useful
 - attack/articulation features
 - sustain/decay behavior
 - harmonic/percussive ratios
 - temporal texture/density
 - optional CLAP-style semantic similarity
 
-The target-assignment stage should be able to compare an unknown audio segment/stem against target reference profiles rather than depend on only one generic classifier.
-
-Preserve per-model/per-feature provenance.
+Unknown songs/default stems can then be compared against known Suno target exemplars rather than depending on one generic classifier.
 
 ---
 
-## 9. MIDI Benchmarking
+## 10. MIDI Benchmarking
 
-Because the canonical composition originates as known symbolic data, it becomes real ground truth for transcription evaluation.
-
-For each rendered target:
+Because the composition starts from known symbolic truth:
 
 ```text
-known ground-truth MIDI
-        |
-        v
-Suno-rendered audio
-   |              |
-   v              v
-local MIDI     Suno MIDI (if extracted)
+known MIDI
+   -> neutral conditioning audio
+   -> Suno target render
+       -> local audio-to-MIDI
+       -> Suno MIDI if available
 ```
 
-Compare local and Suno transcription independently against the known source composition.
+Compare both transcriptions to the known score using note precision/recall/F1, onset/offset agreement, pitch/octave error, polyphony, register, timing drift, and density/chord behavior.
 
-Metrics should eventually include:
-
-- note precision/recall/F1
-- onset tolerance matches
-- offset/duration agreement
-- pitch-class and exact-pitch agreement
-- octave-error rate
-- polyphony agreement
-- register agreement
-- timing drift
-- chord/note-density behavior
-
-Do not call agreement with Suno “accuracy” unless ground truth supports that claim.
+Suno MIDI is comparison evidence, never ground truth.
 
 ---
 
-## 10. Suno Rendering Prompt Book — Required Deliverable
+## 11. Suno Rendering Prompt Book
 
-After the canonical piece itself is complete and validated, generate a **copy-paste-ready Suno Rendering Prompt Book**.
+After the corrected 4:00 composition and movement map are regenerated, rebuild the prompt book from those artifacts.
 
-This is a mandatory project deliverable.
+The prompt book must accurately state:
 
-### 10.1 Document contents
-
-The prompt book must begin with a concise but complete explanation of:
-
-- what the reference piece is
-- why it exists
-- total duration
-- movement/section structure
+- **exact duration: 4:00 / 240 seconds**
+- corrected movement boundaries
 - key/modulation journey
-- harmonic tests
-- melodic/interval tests
+- harmonic/melodic/interval tests
 - polyphonic/chordal tests
 - articulation/register tests
-- solo passages
-- percussion/vocal/FX passages where applicable
-- what must remain invariant across target renders
+- solos
+- special-role sections
+- conditioning-source instructions
+- invariants across renders
 
-### 10.2 Prompt pair for every target
+For every target provide:
 
-For each target to be rendered, produce:
+1. **🟣 MAIN / DEFAULT**
+2. **🛑 EXCLUDE / AVOID**
 
-1. **🟣 MAIN / DEFAULT** prompt
-2. **🛑 EXCLUDE / AVOID** prompt
+Each individual prompt must be **900–1000 characters inclusive**, counted exactly. `<900` or `>1000` fails. No meaningless padding.
 
-These are separate Suno fields and each receives its own full character budget.
+Prompt generation/tests must fail if stale 4:48 / 288-second wording survives anywhere in the generated prompt book or target metadata.
 
-### 10.3 Hard prompt-length rules
+Each target render log should include:
 
-For **every MAIN prompt** and **every EXCLUDE prompt**:
-
-- hard maximum: **1000 characters**
-- required working minimum: **900 characters**
-- target range: **900–1000 characters inclusive**
-- count actual characters, not tokens or words
-- no prompt may be delivered without passing the checker
-- character counts must be printed beside the final prompt
-
-Anything below 900 or above 1000 **fails validation**.
-
-Do not satisfy the minimum with meaningless padding. Use the available characters for specific, useful control instructions.
-
-### 10.4 Prompt invariants
-
-Every target prompt must preserve the canonical composition's identity and structure as strongly as Suno permits.
-
-Prompts should communicate, as appropriate:
-
-- same reference composition
-- same movement order
-- same harmonic/key journey
-- same melodic contour/roles
-- same solos and climactic logic
-- same tempo/form unless a target physically requires adaptation
-- requested target timbre/instrument clearly dominant
-- appropriate articulation and register
-- avoidance of substitutions by neighboring target classes
-- avoidance of arrangement drift that undermines controlled comparison
-
-### 10.5 Target-specific exclusions
-
-EXCLUDE prompts must be genuinely target-specific where useful. They should suppress:
-
-- nearby/confusable instruments
-- unwanted ensemble substitutions
-- inappropriate genre transformations
-- excessive added instrumentation
-- form changes
-- tempo drift
-- simplification of the calibration passages
-- unwanted vocals for instrumental targets
-- unwanted percussion or pads where they would contaminate the target
-- synthetic/processed versions when an acoustic target is intended, and vice versa
-
-### 10.6 Programmatic prompt validation
-
-Implement a validator/checker in Content Tools that:
-
-1. loads every MAIN and EXCLUDE prompt
-2. counts exact characters
-3. fails if `<900`
-4. fails if `>1000`
-5. reports character counts
-6. can be run automatically in tests/CI/local validation
-
-The prompt-generation workflow should iterate until every final prompt passes.
-
-The final prompt book should show, for example:
-
-```text
-TARGET: Organ
-
-🟣 MAIN / DEFAULT — 963 characters ✓
-[copy-paste prompt]
-
-🛑 EXCLUDE / AVOID — 947 characters ✓
-[copy-paste prompt]
-```
-
-### 10.7 Render log fields
-
-Each target entry should also provide a place to record:
-
+- conditioning input used (`piano` or `synth` + SHA256)
 - Suno model/version
 - render ID
 - generation date
-- keeper/reject status
-- deviations from canonical structure
+- keeper/reject
+- structural deviations
 - extraction performed?
-- extracted target/stem path/hash
+- extracted path/hash
 - MIDI extracted?
-- notes
+- artist canonical label
+- artist confidence/notes
+- canonical starter-mix role
 
 ---
 
-## 11. Integration with `hippie activist.`
+## 12. Corrective Implementation Sequence
 
-Once the first reference-target renders exist, use them to improve target assignment for `projects/hippie-activist./`.
+This is now a correction pass against the implemented kickoff.
 
-The system should eventually combine:
-
-- existing Suno Stem Target Recommender evidence
-- reference-corpus similarity
-- generic detector evidence
-- stem evidence
-- known source/extraction labels
-- local MIDI/transcription evidence where relevant
-
-Do not treat any single model as unquestionable ground truth.
-
-The specific output we want is a ranked answer to:
-
-> Which documented Suno Advanced Split targets should we extract for `hippie activist.`?
-
----
-
-## 12. Immediate Implementation Sequence
-
-Begin now. Do not only return a plan.
-
-### Phase A — recover and align existing systems
-
-1. Inspect current `content-tools` `develop` state.
-2. Locate/recover the existing Suno Stem Target Recommender implementation and ontology.
-3. Inspect `tools/06-song-ingest` and determine the cleanest integration boundary.
-4. Inspect `asabaal/music_creation` for the best place to own the canonical composition generator.
-5. Document actual paths and dependencies before implementing new duplicate code.
-
-### Phase B — define the canonical composition contract
-
-6. Create the machine-readable composition/movement specification.
-7. Define the required coverage checklist from Section 4.
-8. Define the ground-truth event schema.
-9. Define reproducibility requirements and validation tests.
-
-### Phase C — start the symbolic reference composition
-
-10. Implement the reproducible generator in `music_creation`.
-11. Generate first MIDI/MusicXML outputs.
-12. Validate keys, notes, chord events, movement boundaries, total duration, and required coverage.
-13. Iterate until the composition contract passes automatically.
-
-### Phase D — build corpus plumbing in Content Tools
-
-14. Create the reference-corpus ingestion/metadata structure.
-15. Add target ontology linkage and provenance.
-16. Add hooks for reference audio, Suno extracted audio, embeddings/features, MIDI comparison, and render metadata.
-
-### Phase E — build prompt-book tooling
-
-17. Create prompt templates/generation logic only after the canonical piece structure is stable enough to describe accurately.
-18. Implement exact character-count validation for MAIN and EXCLUDE fields.
-19. Generate prompts for the target set.
-20. Automatically iterate/fail validation until every final prompt is 900–1000 characters.
-21. Produce a human-readable, copy-paste-ready prompt book with movement explanation and render log fields.
+1. Pull latest `music_creation` and `content-tools` branches.
+2. Preserve the existing multi-GM preview as a clearly labeled **debug-only** artifact; do not use it as Suno input.
+3. Change the composition contract from 120 bars / 4:48 to **100 bars / exactly 4:00 at 100 BPM, 4/4**.
+4. Reallocate the nine movements within 100 bars while preserving all required coverage and musical coherence.
+5. Regenerate canonical MIDI, event manifest, movement map, composition version, and hashes.
+6. Update/add automated tests that assert the symbolic piece is exactly 240.000 seconds and 100 bars.
+7. Ensure the MIDI serialization fix remains intact and no timing drift reappears.
+8. Generate `canonical_reference_piece_piano_input.wav` using one neutral piano timbre.
+9. Generate `canonical_reference_piece_synth_input.wav` using one deliberately plain synth timbre from the existing local ecosystem.
+10. Ensure each canonical conditioning WAV is exactly 240.000 seconds with no post-four-minute release tail.
+11. Validate non-silence, clipping, movement coverage, source hash, tempo/meter, and timing against the corrected movement map.
+12. Re-ingest the corrected artifacts into Content Tools.
+13. Rebuild all corpus metadata and prompt-book outputs from the corrected movement map.
+14. Re-run the prompt checker: all 180 prompts must remain 900–1000 characters and `all_ok: true`.
+15. Add stale-duration tests so `4:48`, `288 seconds`, and the superseded 120-bar contract cannot leak into current prompt/corpus outputs.
+16. Stop before the 90-target Suno rendering campaign and hand both neutral files to the artist for listening/selection.
 
 ---
 
-## 13. Non-Goals / Guardrails
+## 13. Guardrails
 
-- Do not create a new repository.
-- Do not create multiple unrelated reference compositions.
-- Do not replace Suno's documented target taxonomy with AudioSet labels.
-- Do not treat Suno MIDI as ground truth.
-- Do not treat Suno extraction labels as infallible.
-- Do not commit huge audio artifacts against existing repo policy.
-- Do not write final rendering prompts before the composition structure exists and can be described accurately.
+- One composition, not per-instrument etudes.
+- **Exactly four minutes.** Do not exceed 4:00.
+- Do not merely truncate a longer symbolic composition.
+- Do not use the multi-GM debug render as Suno conditioning audio.
+- Do not inject Choir Aahs, bass patches, guitar patches, drum kits, or other semantic instrumentation into the neutral conditioning input simply because a track has that role name.
+- Do not create a new repo.
+- Do not replace the Suno ontology with AudioSet labels.
+- Do not treat Suno MIDI or Suno target names as canonical artistic truth.
+- Do not write stale prompt-book timing descriptions.
 - Do not deliver prompts outside 900–1000 characters.
-- Do not pad prompts with meaningless filler to satisfy length.
-- Do not duplicate existing music-analysis/recommender functionality if it can be reused or integrated.
+- Do not duplicate existing analysis/recommender infrastructure.
 
 ---
 
-## 14. Acceptance Criteria for This Kickoff
+## 14. Acceptance Criteria for the Correction
 
-The kickoff is successful when the agent has made concrete progress and can report:
+The correction is complete only when the agent can report:
 
-1. exact location/status of the existing Suno Stem Target Recommender
-2. exact integration point in `tools/06-song-ingest`
-3. exact location chosen in `music_creation` for canonical score generation
-4. checked-in composition specification/movement contract
-5. first reproducible generated symbolic artifact or demonstrable generator progress
-6. automated validation coverage for the required musical conditions
-7. Content Tools reference-corpus schema/plumbing begun
-8. prompt-book generator/checker architecture begun or specified against the real movement contract
-9. tests run and results
-10. commits made in each touched repo
-11. blockers requiring human action, especially any Suno rendering steps that must be performed manually
-
-The agent should continue through executable work autonomously and stop only where a genuinely human/Suno UI interaction is required.
+1. corrected composition contract = **100 bars, 100 BPM, 4/4, exactly 240.000 seconds**
+2. all nine movements retained/rebalanced with required coverage still passing
+3. regenerated MIDI + manifest + movement map + hashes
+4. exact-duration automated validation passing
+5. `canonical_reference_piece_debug.wav` clearly marked nonconditioning/debug-only
+6. `canonical_reference_piece_piano_input.wav` created and exactly 240.000 seconds
+7. `canonical_reference_piece_synth_input.wav` created and exactly 240.000 seconds
+8. neutral renders contain no role-specific semantic GM instrumentation contamination
+9. Content Tools corpus re-ingested against corrected hashes
+10. prompt book rebuilt with correct 4:00 movement descriptions
+11. all 180 MAIN/EXCLUDE prompts still validate at 900–1000 characters
+12. tests passing in both repos
+13. commits pushed
+14. exact local commands/paths for the artist to listen to both conditioning candidates
+15. no Suno target campaign launched before artist approval
 
 ---
 
 ## 15. Handoff Principle
 
-The human should only need to pay the **Suno interaction tax** where unavoidable: rendering/extraction inside Suno.
+The human should only pay the unavoidable **Suno interaction tax** after the local score and neutral input have passed artist listening review.
 
-Everything before and after that interaction — symbolic score generation, validation, prompt construction, exact character checking, corpus bookkeeping, ingestion, feature extraction, comparison, and reporting — should be automated and reproducible locally wherever practical.
+Everything before and after that interaction — symbolic score generation, duration enforcement, neutral rendering, validation, prompt construction, exact character checking, corpus bookkeeping, ingestion, feature extraction, comparison, reporting, and provenance — should remain automated and reproducible locally wherever practical.
