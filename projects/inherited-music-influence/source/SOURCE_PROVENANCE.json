@@ -1,0 +1,12 @@
+{
+  "file": "Music.xls",
+  "sha256": "a8cdb6fc3851a5de9df14939684ef2dce52956b8896aef173b2b83f60c06d5da",
+  "preserved_copy": "source/Music.xls",
+  "original_location": "projects/Music.xls",
+  "format": "Legacy Excel Composite Document (Excel 97-2003)",
+  "author": "Greg & Trina Horan",
+  "created": "2000-11-01",
+  "last_saved_observed": "2026-09-13",
+  "preserved_at": "2026-09-13",
+  "rule": "The .xls is never opened for writing. All tooling reads the LibreOffice-converted xlsx in data/raw/."
+}

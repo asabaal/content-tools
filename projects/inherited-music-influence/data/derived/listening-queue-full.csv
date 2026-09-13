@@ -1,0 +1,1145 @@
+queue_rank,song_id,canonical_artist,canonical_title,first_release_year,dad_favorite_source_count,dad_source_count,appears_on_dad_favorite_source,popularity_score,popularity_status,recognition_status
+1,Sa4ee556ca7,The Beatles,Can't Buy Me Love,,3,3,1,,not_enriched,unreviewed
+2,Sc0bc556bcf,The Beatles,Something,,3,3,1,,not_enriched,unreviewed
+3,S03770f68d3,The Beatles,Lady Madonna,,2,2,1,,not_enriched,unreviewed
+4,S0ced412afc,The Doobie Brothers,Long Train Runnin’,,2,2,1,,not_enriched,unreviewed
+5,S12ff76a74a,The Beatles,Get Back,,2,2,1,,not_enriched,unreviewed
+6,S162d6ccd34,The Beatles,Yesterday,,2,2,1,,not_enriched,unreviewed
+7,S1f6bb74114,Eric Clapton,Layla,,2,2,1,,not_enriched,unreviewed
+8,S24475ce876,The Beatles,Love Me Do,,2,2,1,,not_enriched,unreviewed
+9,S27656eccfd,The Beatles,Here Comes the Sun,,2,2,1,,not_enriched,unreviewed
+10,S2ac7fbe92b,The Beatles,Think for Yourself,,2,2,1,,not_enriched,unreviewed
+11,S37289651d4,The Doobie Brothers,China Grove,,2,2,1,,not_enriched,unreviewed
+12,S3bc31fcfc3,The Beatles,She Loves You,,2,2,1,,not_enriched,unreviewed
+13,S53555858ad,The Beatles,It’s Only Love,,2,2,1,,not_enriched,unreviewed
+14,S54f7a89544,Heart,Dreamboat Annie,,2,2,1,,not_enriched,unreviewed
+15,S65c55a4e83,Paul McCartney & Wings,Band on the Run,,2,2,1,,not_enriched,unreviewed
+16,S6ab7030a0c,The Beatles,I Want To Hold Your Hand,,2,2,1,,not_enriched,unreviewed
+17,S6dcd4f029e,The Beatles,Eleanor Rigby,,2,2,1,,not_enriched,unreviewed
+18,S7563a2b79b,The Beatles,The Ballad of John and Yoko,,2,2,1,,not_enriched,unreviewed
+19,S794187db0f,The Beatles,A Hard Day's Night,,2,2,1,,not_enriched,unreviewed
+20,S7973400982,Elton John,Island Girl,,2,2,1,,not_enriched,unreviewed
+21,S7cd38a0c9c,Heart,Magic Man,,2,2,1,,not_enriched,unreviewed
+22,S7dd63e4e8d,The Beatles,For You Blue,,2,2,1,,not_enriched,unreviewed
+23,S7fdabdbabd,The Beatles,Come Together,,2,2,1,,not_enriched,unreviewed
+24,S81453fab27,The Beatles,From Me To You,,2,2,1,,not_enriched,unreviewed
+25,S82e0b4a11e,Kansas,The Wall,,2,2,1,,not_enriched,unreviewed
+26,S8514874b99,The Beatles,The Long And Winding Road,,2,2,1,,not_enriched,unreviewed
+27,S888689fd61,The Doobie Brothers,Black Water,,2,2,1,,not_enriched,unreviewed
+28,S891d92da5d,The Beatles,Help!,,2,2,1,,not_enriched,unreviewed
+29,S983d70350b,Heart,Crazy on You,,2,2,1,,not_enriched,unreviewed
+30,S9907133262,Elton John,Lucy in the Sky With Diamonds,,2,2,1,,not_enriched,unreviewed
+31,S9f4dbaef6f,Elton John,Don’t Go Breaking My Heart,,2,2,1,,not_enriched,unreviewed
+32,Saf0f1fcc07,The Doobie Brothers,Without You,,2,2,1,,not_enriched,unreviewed
+33,Saf741d8c93,The Beatles,Taxman,,2,2,1,,not_enriched,unreviewed
+34,Sb294cff8ae,The Beatles,Let It Be,,2,2,1,,not_enriched,unreviewed
+35,Sb44fcb93c1,Eric Clapton,After Midnight,,2,2,1,,not_enriched,unreviewed
+36,Sbda3a4d4a8,The Beatles,Hey Jude,,2,2,1,,not_enriched,unreviewed
+37,Sbe21c17759,Paul McCartney & Wings,Jet,,2,2,1,,not_enriched,unreviewed
+38,Sbe886b9647,The Beatles,I’ve Just Seen a Face,,2,2,1,,not_enriched,unreviewed
+39,Sc4313b50a8,Kansas,Carry On Wayward Son,,2,2,1,,not_enriched,unreviewed
+40,Scd46fad222,Elton John,Pinball Wizard,,2,2,1,,not_enriched,unreviewed
+41,Scf1826a1d2,Elton John,Someone Saved My Life Tonight,,2,2,1,,not_enriched,unreviewed
+42,Sd7cc1966f0,The Beatles,Yellow Submarine,,2,2,1,,not_enriched,unreviewed
+43,Sdce04f6ed2,Elton John,Grow Some Funk of Your Own,,2,2,1,,not_enriched,unreviewed
+44,Sde887eb25a,Elton John,The Bitch Is Back,,2,2,1,,not_enriched,unreviewed
+45,Se14309cc5c,The Beatles,Ticket to Ride,,2,2,1,,not_enriched,unreviewed
+46,Sf4f0115233,The Beatles,Paperback Writer,,2,2,1,,not_enriched,unreviewed
+47,Sf624f62cef,Elton John,Sorry Seems to Be the Hardest Word,,2,2,1,,not_enriched,unreviewed
+48,Sfc5d03b694,Elton John,Philadelphia Freedom,,2,2,1,,not_enriched,unreviewed
+49,S001efae739,Alice Cooper,No More Mr. Nice Guy,,1,1,1,,not_enriched,unreviewed
+50,S0056df7469,Billy Idol,(Do Not) Stand in the Shadows,,1,1,1,,not_enriched,unreviewed
+51,S0058cb60c5,The Beatles,Wait,,1,1,1,,not_enriched,unreviewed
+52,S00662f40ec,Jackson Browne,Linda Paloma,,1,1,1,,not_enriched,unreviewed
+53,S0069cf293b,Led Zeppelin,Over the Hills and Far Away,,1,1,1,,not_enriched,unreviewed
+54,S0075b9a690,Ace,The Real Feeling,,1,1,1,,not_enriched,unreviewed
+55,S00bae6d33b,The Byrds,Mr. Tambourine Man,,1,1,1,,not_enriched,unreviewed
+56,S014b43ccd5,The Beatles,Being for the Benefit of Mr. Kite!,,1,1,1,,not_enriched,unreviewed
+57,S0186ab8b65,Eric Clapton,San Francisco Bay Blues,,1,1,1,,not_enriched,unreviewed
+58,S018c37acc4,Creedence Clearwater Revival,Green River,,1,1,1,,not_enriched,unreviewed
+59,S019f11dcfc,Eagles,New Kid in Town,,1,1,1,,not_enriched,unreviewed
+60,S01b9e9c2f1,Billy Joel,Scenes From an Italian Restaurant,,1,1,1,,not_enriched,unreviewed
+61,S01cc694505,The Beatles,Tell Me Why,,1,1,1,,not_enriched,unreviewed
+62,S01efd0a4ea,Peter Frampton,Something’s Happening,,1,1,1,,not_enriched,unreviewed
+63,S02242e49f2,Electric Light Orchestra,Mr. Blue Sky,,1,1,1,,not_enriched,unreviewed
+64,S02382887ad,Fleetwood Mac,Monday Morning,,1,1,1,,not_enriched,unreviewed
+65,S02731409ec,The Association,Everything That Touches You,,1,1,1,,not_enriched,unreviewed
+66,S030a4b348a,The Cars,You Might Think,,1,1,1,,not_enriched,unreviewed
+67,S035e61b299,The Guess Who,Bus Rider,,1,1,1,,not_enriched,unreviewed
+68,S038ceb10ae,Icehouse,Cross the Border,,1,1,1,,not_enriched,unreviewed
+69,S03bbeb4d4b,Lynyrd Skynyrd,Whiskey Rock-a-Roller,,1,1,1,,not_enriched,unreviewed
+70,S03f0515bad,Peter Gabriel,That Voice Again,,1,1,1,,not_enriched,unreviewed
+71,S040c18bfe9,Gordon Lightfoot,Sundown,,1,1,1,,not_enriched,unreviewed
+72,S0445fa5df7,Lindsey Buckingham,All My Sorrows,,1,1,1,,not_enriched,unreviewed
+73,S04c4e9435c,The Cars,It's Not the Night,,1,1,1,,not_enriched,unreviewed
+74,S04c76a6f9a,Lindsey Buckingham,Say We'll Meet Again,,1,1,1,,not_enriched,unreviewed
+75,S052f097f72,Lindsey Buckingham,Turn It On,,1,1,1,,not_enriched,unreviewed
+76,S06c3850cb6,Enigma,The Eyes of Truth,,1,1,1,,not_enriched,unreviewed
+77,S07003d63ec,Huey Lewis & the News,Stuck With You,,1,1,1,,not_enriched,unreviewed
+78,S072a0949e9,The Beatles,I’m Looking Through You,,1,1,1,,not_enriched,unreviewed
+79,S072fab7a4e,Garth Brooks,What She's Doing Now,,1,1,1,,not_enriched,unreviewed
+80,S07853131fe,The 5th Dimension,Save the Country,,1,1,1,,not_enriched,unreviewed
+81,S0794684892,The Association,Cherish,,1,1,1,,not_enriched,unreviewed
+82,S07fdf17a19,Fleetwood Mac,Caroline,,1,1,1,,not_enriched,unreviewed
+83,S083c77d3bb,Led Zeppelin,Living Loving Maid (She’s Just a Woman),,1,1,1,,not_enriched,unreviewed
+84,S0887f13757,The Beatles,With a Little Help From My Friends,,1,1,1,,not_enriched,unreviewed
+85,S08de99b87e,Carole King,(You Make Me Feel Like) A Natural Woman,,1,1,1,,not_enriched,unreviewed
+86,S090a3475de,Carole King,It's Too Late,,1,1,1,,not_enriched,unreviewed
+87,S0925b40687,Ace,Know How It Feels,,1,1,1,,not_enriched,unreviewed
+88,S0953ee3d40,Huey Lewis & the News,Workin’ for a Livin’,,1,1,1,,not_enriched,unreviewed
+89,S09bb4d31b0,The Doobie Brothers,Eyes of Silver,,1,1,1,,not_enriched,unreviewed
+90,S09e9d7ec44,Led Zeppelin,The Song Remains the Same,,1,1,1,,not_enriched,unreviewed
+91,S0a5696e500,Alice in Chains,Rotten Apple,,1,1,1,,not_enriched,unreviewed
+92,S0a63c08f66,The Hollies,Soldier’s Song,,1,1,1,,not_enriched,unreviewed
+93,S0a712d553d,Loggins & Messina,Be Free,,1,1,1,,not_enriched,unreviewed
+94,S0a8fd19986,Huey Lewis & the News,100 Years From Now,,1,1,1,,not_enriched,unreviewed
+95,S0ab38449d9,New Moon Jelly Roll Freedom Rockers,Blues For Yesterday,,1,1,1,,not_enriched,unreviewed
+96,S0adc85ec49,Kenny Loggins,Meet Me Halfway,,1,1,1,,not_enriched,unreviewed
+97,S0b660e20a3,Bob Dylan,Watching the River Flow,,1,1,1,,not_enriched,unreviewed
+98,S0b9d229b09,Bad Company,Ballad of the Band,,1,1,1,,not_enriched,unreviewed
+99,S0bca161b29,Jimi Hendrix,Third Stone From the Sun,,1,1,1,,not_enriched,unreviewed
+100,S0bd6207e30,Eric Clapton,Tell the Truth,,1,1,1,,not_enriched,unreviewed
+101,S0d36ef6259,Wings,Mull of Kintyre,,1,1,1,,not_enriched,unreviewed
+102,S0d4c67664c,Sheryl Crow,Am I Getting Through (Part I & II),,1,1,1,,not_enriched,unreviewed
+103,S0d6a4f6d0d,Collective Soul,All,,1,1,1,,not_enriched,unreviewed
+104,S0db07f56c5,Bad Company,Painted Face,,1,1,1,,not_enriched,unreviewed
+105,S0dfcd9cf49,Creedence Clearwater Revival,Sweet Hitch‐Hiker,,1,1,1,,not_enriched,unreviewed
+106,S0e39ebd58f,Lindsey Buckingham,You Do or You Don't,,1,1,1,,not_enriched,unreviewed
+107,S0e45962b1b,Lynyrd Skynyrd,Gimme Three Steps,,1,1,1,,not_enriched,unreviewed
+108,S0e4844f6ca,Gordon Lightfoot,Wherefore and Why,,1,1,1,,not_enriched,unreviewed
+109,S0e92f7b0cd,The Guess Who,Share the Land,,1,1,1,,not_enriched,unreviewed
+110,S0e95df4923,Ace,Rock & Roll Runaway,,1,1,1,,not_enriched,unreviewed
+111,S0ec3442f7c,The Beatles,You Like Me Too Much,,1,1,1,,not_enriched,unreviewed
+112,S0ecadc6ed7,Ace,Why?,,1,1,1,,not_enriched,unreviewed
+113,S0f208c5603,Heart,What About Love,,1,1,1,,not_enriched,unreviewed
+114,S0f475c348f,The Beatles,Flying,,1,1,1,,not_enriched,unreviewed
+115,S10486a7ff6,Journey,Patiently,,1,1,1,,not_enriched,unreviewed
+116,S105993d8c9,Led Zeppelin,Thank You,,1,1,1,,not_enriched,unreviewed
+117,S105e8f2980,Heart,Straight On (acoustic),,1,1,1,,not_enriched,unreviewed
+118,S10a0f6b3e1,The Doobie Brothers,The Doctor,,1,1,1,,not_enriched,unreviewed
+119,S10cbbb8e98,Journey,Feeling That Way,,1,1,1,,not_enriched,unreviewed
+120,S10daebfa03,Alice in Chains,Swing on This,,1,1,1,,not_enriched,unreviewed
+121,S10e8ff737e,The Guess Who,American Woman,,1,1,1,,not_enriched,unreviewed
+122,S117ff98193,Bob Dylan,Lay Lady Lay,,1,1,1,,not_enriched,unreviewed
+123,S125e04dea1,Neil Diamond,Forever in Blue Jeans,,1,1,1,,not_enriched,unreviewed
+124,S1286f54223,The Cars,Don't Cha Stop,,1,1,1,,not_enriched,unreviewed
+125,S1383bd4cfb,The 5th Dimension,"Up, Up and Away",,1,1,1,,not_enriched,unreviewed
+126,S13ae898d0f,Bob Dylan,I Want You,,1,1,1,,not_enriched,unreviewed
+127,S13bb0a1fc9,Neil Diamond,Teach Me Tonight,,1,1,1,,not_enriched,unreviewed
+128,S13d2f786bd,Paul McCartney & Wings,Bluebird,,1,1,1,,not_enriched,unreviewed
+129,S13d6eaeb10,Alice Cooper,Under My Wheels,,1,1,1,,not_enriched,unreviewed
+130,S1447044143,Tom Kimmel,Tryin' to Dance,,1,1,1,,not_enriched,unreviewed
+131,S144f4b669c,Jimi Hendrix,Little Miss Lover,,1,1,1,,not_enriched,unreviewed
+132,S1460ca8a5a,Tracy Chapman,Material World,,1,1,1,,not_enriched,unreviewed
+133,S1487470f3d,The Beatles,You’ve Got to Hide Your Love Away,,1,1,1,,not_enriched,unreviewed
+134,S14e8e75ecd,Kenny Loggins,I'm Alright,,1,1,1,,not_enriched,unreviewed
+135,S152206c59c,Heart,Dreamboat Annie (Fantasy Child),,1,1,1,,not_enriched,unreviewed
+136,S154a6b6a8c,Garth Brooks,The Dance,,1,1,1,,not_enriched,unreviewed
+137,S158cfb1404,Heart,Dreamboat Annie (reprise),,1,1,1,,not_enriched,unreviewed
+138,S15a627c520,The Babys,Sweet 17,,1,1,1,,not_enriched,unreviewed
+139,S15db4ac360,Kansas,Fight Fire With Fire,,1,1,1,,not_enriched,unreviewed
+140,S15e6c74cfc,Neil Diamond,You Don’t Bring Me Flowers,,1,1,1,,not_enriched,unreviewed
+141,S160277a0e0,Peter Frampton,Doobie Wah,,1,1,1,,not_enriched,unreviewed
+142,S1671b85a8e,The Doobie Brothers,South City Midnight Lady,,1,1,1,,not_enriched,unreviewed
+143,S16e502d050,Led Zeppelin,Black Dog,,1,1,1,,not_enriched,unreviewed
+144,S1705cba067,Icehouse,"Hey, Little Girl",,1,1,1,,not_enriched,unreviewed
+145,S173a8967f0,New Moon Jelly Roll Freedom Rockers,Blues is a Mighty Bad Feeling,,1,1,1,,not_enriched,unreviewed
+146,S173b83d849,Dire Straits,Six Blade Knife,,1,1,1,,not_enriched,unreviewed
+147,S173c7381ae,Foreigner,"Long, Long Way From Home",,1,1,1,,not_enriched,unreviewed
+148,S1741350bbe,Greg Kihn Band,The Girl Most Likely,,1,1,1,,not_enriched,unreviewed
+149,S175514530b,Paul McCartney,Coming Up,,1,1,1,,not_enriched,unreviewed
+150,S1755ec62ab,The Hollies,Look Through Any Window,,1,1,1,,not_enriched,unreviewed
+151,S177cf36210,Heart,These Dreams,,1,1,1,,not_enriched,unreviewed
+152,S179b0f90ad,Collective Soul,Pretty Donna,,1,1,1,,not_enriched,unreviewed
+153,S1802a47679,Sheryl Crow,We Do What We Can,,1,1,1,,not_enriched,unreviewed
+154,S18594da00d,The Doobie Brothers,You Just Can't Stop It,,1,1,1,,not_enriched,unreviewed
+155,S18a79eccbf,Lynyrd Skynyrd,Free Bird,,1,1,1,,not_enriched,unreviewed
+156,S196816b480,Foreigner,Starrider,,1,1,1,,not_enriched,unreviewed
+157,S1a3cf7bdbd,The Beatles,"Here, There and Everywhere",,1,1,1,,not_enriched,unreviewed
+158,S1a78e01aa2,Bob Dylan,Knockin' on Heaven's Door,,1,1,1,,not_enriched,unreviewed
+159,S1a8bbe731d,Enigma,Return to Innocence,,1,1,1,,not_enriched,unreviewed
+160,S1aa87bedf0,The Doors,Soul Kitchen,,1,1,1,,not_enriched,unreviewed
+161,S1ad3a31030,"Crosby, Stills, Nash & Young",Our House,,1,1,1,,not_enriched,unreviewed
+162,S1b620ef9ac,Led Zeppelin,You Shook Me,,1,1,1,,not_enriched,unreviewed
+163,S1c01560da2,"Crosby, Stills & Nash",Suite: Judy Blue Eyes,,1,1,1,,not_enriched,unreviewed
+164,S1c02b623f8,The Hollies,Someone Else’s Eyes,,1,1,1,,not_enriched,unreviewed
+165,S1c41ed1119,Bon Jovi,Raise Your Hands,,1,1,1,,not_enriched,unreviewed
+166,S1c53912f2d,Paul McCartney,Love In Song,,1,1,1,,not_enriched,unreviewed
+167,S1ce7cfd629,Greg Kihn Band,Sheila,,1,1,1,,not_enriched,unreviewed
+168,S1cfdca5daf,The Babys,Head First,,1,1,1,,not_enriched,unreviewed
+169,S1d13e3f8e5,Kenny Loggins,Return to Pooh Corner,,1,1,1,,not_enriched,unreviewed
+170,S1d6f953732,Dire Straits,Your Latest Trick,,1,1,1,,not_enriched,unreviewed
+171,S1dd7cae098,Gordon Lightfoot,Summer Side of Life,,1,1,1,,not_enriched,unreviewed
+172,S1e13f1e741,Eric Clapton,Slunky,,1,1,1,,not_enriched,unreviewed
+173,S1e39d61ad2,Eric Clapton,Walkin’ Blues,,1,1,1,,not_enriched,unreviewed
+174,S1e4b01b471,Eagles,Take the Devil,,1,1,1,,not_enriched,unreviewed
+175,S1ea7bc7c1a,Jimi Hendrix,All Along the Watch Tower,,1,1,1,,not_enriched,unreviewed
+176,S1f4ac0b9e1,The Hollies,Just One Look,,1,1,1,,not_enriched,unreviewed
+177,S1f5acab7b6,Creedence Clearwater Revival,Run Through the Jungle,,1,1,1,,not_enriched,unreviewed
+178,S1fe17e4e07,Kenny Loggins,Footloose,,1,1,1,,not_enriched,unreviewed
+179,S1ffcc84f32,Tracy Chapman,Crossroads,,1,1,1,,not_enriched,unreviewed
+180,S200ceb8b79,George Harrison,My Sweet Lord,,1,1,1,,not_enriched,unreviewed
+181,S2029708da3,Kansas,Miracles Out of Nowhere,,1,1,1,,not_enriched,unreviewed
+182,S209e94c1b5,The Doobie Brothers,Spirit,,1,1,1,,not_enriched,unreviewed
+183,S20b2546204,Electric Light Orchestra,Showdown,,1,1,1,,not_enriched,unreviewed
+184,S20e4450de0,The 5th Dimension,(Last Night) I Didn't Get to Sleep at All,,1,1,1,,not_enriched,unreviewed
+185,S2126c2ba73,Billy Joel,Uptown Girl,,1,1,1,,not_enriched,unreviewed
+186,S2156a93637,Steve Miller Band,Rock'n Me,,1,1,1,,not_enriched,unreviewed
+187,S21f3ab8fea,The Beatles,Golden Slumbers,,1,1,1,,not_enriched,unreviewed
+188,S224385838b,Tracy Chapman,A Hundred Years,,1,1,1,,not_enriched,unreviewed
+189,S22588403a2,Alice in Chains,No Excuses,,1,1,1,,not_enriched,unreviewed
+190,S22ccacfafb,Tom Kimmel,Violet Eyes,,1,1,1,,not_enriched,unreviewed
+191,S232460654a,Eagles,Tryin’,,1,1,1,,not_enriched,unreviewed
+192,S2327e855d9,Peter Frampton,Wind of Change,,1,1,1,,not_enriched,unreviewed
+193,S2385ae1d84,Garth Brooks,Standing Outside the Fire,,1,1,1,,not_enriched,unreviewed
+194,S23b8b30cf5,Bread,Baby I’m‐A Want You,,1,1,1,,not_enriched,unreviewed
+195,S23ba19f11c,The Byrds,The Bells of Rhymney,,1,1,1,,not_enriched,unreviewed
+196,S23bb183575,Eric Clapton,Hey Hey,,1,1,1,,not_enriched,unreviewed
+197,S23ccc97b57,Wings,Listen to What the Man Said,,1,1,1,,not_enriched,unreviewed
+198,S2421670991,The Beatles,Polythene Pam,,1,1,1,,not_enriched,unreviewed
+199,S2443e899f8,Heart,If Looks Could Kill,,1,1,1,,not_enriched,unreviewed
+200,S24dacde549,Fleetwood Mac,Over My Head,,1,1,1,,not_enriched,unreviewed
+201,S254fc150e7,Paul McCartney,Once Upon a Long Ago,,1,1,1,,not_enriched,unreviewed
+202,S26653d0778,Paul McCartney,Ebony and Ivory,,1,1,1,,not_enriched,unreviewed
+203,S269554a206,Huey Lewis and the News,You Crack Me Up,,1,1,1,,not_enriched,unreviewed
+204,S26c19fb518,The J. Geils Band,Givin’ It All Up,,1,1,1,,not_enriched,unreviewed
+205,S2751df1e79,Creedence Clearwater Revival,I Put a Spell on You,,1,1,1,,not_enriched,unreviewed
+206,S27b40098c8,Garth Brooks,If Tomorrow Never Comes,,1,1,1,,not_enriched,unreviewed
+207,S28476b4733,Eagles,Nightingale,,1,1,1,,not_enriched,unreviewed
+208,S284fce8498,Huey Lewis and the News,Finally Found a Home,,1,1,1,,not_enriched,unreviewed
+209,S287f4fd1f7,Jackson Browne,The Pretender,,1,1,1,,not_enriched,unreviewed
+210,S28b55d7021,The Mamas & the Papas,California Dreamin',,1,1,1,,not_enriched,unreviewed
+211,S28cb8dd456,Dire Straits,Industrial Disease,,1,1,1,,not_enriched,unreviewed
+212,S291d025b29,Enigma,The Dream of the Dolphin,,1,1,1,,not_enriched,unreviewed
+213,S296a1dadb3,The Beatles,Within You Without You,,1,1,1,,not_enriched,unreviewed
+214,S2a10d47659,The Steve Miller Band,Electro Lux Imbroglio,,1,1,1,,not_enriched,unreviewed
+215,S2b3e75cb30,Gordon Lightfoot,Bitter Green,,1,1,1,,not_enriched,unreviewed
+216,S2b3f1d66ec,Icehouse,Can't Help Myself,,1,1,1,,not_enriched,unreviewed
+217,S2b3fc4925a,Bob Dylan,Gotta Serve Somebody,,1,1,1,,not_enriched,unreviewed
+218,S2b76f59054,Billy Joel,Just the Way You Are,,1,1,1,,not_enriched,unreviewed
+219,S2b9c058b7d,Eric Clapton,Malted Milk,,1,1,1,,not_enriched,unreviewed
+220,S2bbe6960e2,Derek and the Dominos,Layla,,1,1,1,,not_enriched,unreviewed
+221,S2bd6dba85f,Huey Lewis and the News,Bad Is Bad,,1,1,1,,not_enriched,unreviewed
+222,S2c2bce52f5,The Mamas & the Papas,"Trip, Stumble and Fall",,1,1,1,,not_enriched,unreviewed
+223,S2d332831eb,Garth Brooks,Ain't Going Down ('til the Sun Comes Up),,1,1,1,,not_enriched,unreviewed
+224,S2d698f011c,Billy Joel,This Night,,1,1,1,,not_enriched,unreviewed
+225,S2d77f57244,Icehouse,We Can Get Together,,1,1,1,,not_enriched,unreviewed
+226,S2d8408508e,Paul McCartney,Man We Was Lonely,,1,1,1,,not_enriched,unreviewed
+227,S2d8e8c502b,Eric Clapton,Willie and the Hand Jive,,1,1,1,,not_enriched,unreviewed
+228,S2ddd3fcded,Led Zeppelin,Celebration Day,,1,1,1,,not_enriched,unreviewed
+229,S2df38bb0f5,The Beatles,In My Life,,1,1,1,,not_enriched,unreviewed
+230,S2e0aa0ff82,The Beatles,I Need You,,1,1,1,,not_enriched,unreviewed
+231,S2e23313132,Collective Soul,Scream,,1,1,1,,not_enriched,unreviewed
+232,S2e5a1ade7b,Sheryl Crow,No One Said It Would Be Easy,,1,1,1,,not_enriched,unreviewed
+233,S2ed2d4e408,The Beatles,Blue Jay Way,,1,1,1,,not_enriched,unreviewed
+234,S2ee2631881,Bob Dylan,All Along the Watchtower,,1,1,1,,not_enriched,unreviewed
+235,S2f4f1efd55,Dire Straits,It Never Rains,,1,1,1,,not_enriched,unreviewed
+236,S2fa5b540f5,Icehouse,Jimmy Dean,,1,1,1,,not_enriched,unreviewed
+237,S2fe618628b,Lindsey Buckingham,Spoken Introduction To:,,1,1,1,,not_enriched,unreviewed
+238,S300128e4c3,Bob Dylan,Silvio,,1,1,1,,not_enriched,unreviewed
+239,S3009d6c606,Kansas,Play the Game Tonight,,1,1,1,,not_enriched,unreviewed
+240,S3018462c20,The Steve Miller Band,Sacrifice,,1,1,1,,not_enriched,unreviewed
+241,S301bf6ea4a,"Crosby, Stills, Nash & Young",4 + 20,,1,1,1,,not_enriched,unreviewed
+242,S3075f3a335,Billy Joel,The Longest Time,,1,1,1,,not_enriched,unreviewed
+243,S31072dfb5c,Fleetwood Mac,Crystal,,1,1,1,,not_enriched,unreviewed
+244,S3118c228b9,Gordon Lightfoot,Cotton Jenny,,1,1,1,,not_enriched,unreviewed
+245,S315bdfbd62,Led Zeppelin,Four Sticks,,1,1,1,,not_enriched,unreviewed
+246,S315f163ca2,The Byrds,Chimes of Freedom,,1,1,1,,not_enriched,unreviewed
+247,S316a6eaefc,Bon Jovi,Livin’ on a Prayer,,1,1,1,,not_enriched,unreviewed
+248,S3179b01dd3,Steve Miller Band,Take the Money and Run,,1,1,1,,not_enriched,unreviewed
+249,S31af6c4cf1,Heart,Cook With Fire,,1,1,1,,not_enriched,unreviewed
+250,S31cfc033ef,Paul McCartney & Wings,Let Me Roll It,,1,1,1,,not_enriched,unreviewed
+251,S31efbfc0d3,The Beatles,And I Love Her,,1,1,1,,not_enriched,unreviewed
+252,S320b031b71,The Cars,Moving in Stereo,,1,1,1,,not_enriched,unreviewed
+253,S323c3d3339,Neil Diamond,This Time,,1,1,1,,not_enriched,unreviewed
+254,S326f2d395f,Dire Straits,Down to the Waterline,,1,1,1,,not_enriched,unreviewed
+255,S337bbbdbce,The Hollies,I Can’t Let Go,,1,1,1,,not_enriched,unreviewed
+256,S3396657ab2,Roger Hodgson,Lovers in the Wind,,1,1,1,,not_enriched,unreviewed
+257,S33b6d3b3d6,Fleetwood Mac,The Chain,,1,1,1,,not_enriched,unreviewed
+258,S33d633a906,Bad Company,Electricland,,1,1,1,,not_enriched,unreviewed
+259,S33ff1b5929,The Doobie Brothers,Flying Cloud,,1,1,1,,not_enriched,unreviewed
+260,S341212c01c,Jimi Hendrix,Drifting,,1,1,1,,not_enriched,unreviewed
+261,S3456647cdb,Loggins & Messina,Danny's Song,,1,1,1,,not_enriched,unreviewed
+262,S349186fc9e,The Beatles,Sun King,,1,1,1,,not_enriched,unreviewed
+263,S34bac8a1f7,Garth Brooks,American Honky-Tonk Bar Association,,1,1,1,,not_enriched,unreviewed
+264,S34bb9e8e46,Bad Company,Untie the Knot,,1,1,1,,not_enriched,unreviewed
+265,S34e4f4e981,Collective Soul,In a Moment,,1,1,1,,not_enriched,unreviewed
+266,S3515a8bcf3,Neil Diamond,Headed for the Future,,1,1,1,,not_enriched,unreviewed
+267,S3555674a20,Jackson Browne,Sleep's Dark and Silent Gate,,1,1,1,,not_enriched,unreviewed
+268,S3560f1ec08,Bread,If,,1,1,1,,not_enriched,unreviewed
+269,S3570d36552,Fleetwood Mac,"You and I, Part II",,1,1,1,,not_enriched,unreviewed
+270,S3621f294b0,Paul McCartney,No More Lonely Nights,,1,1,1,,not_enriched,unreviewed
+271,S36373098d6,The Beatles,I Want You (She's So Heavy),,1,1,1,,not_enriched,unreviewed
+272,S3675f7ef8e,Peter Frampton,Shine On,,1,1,1,,not_enriched,unreviewed
+273,S36e001ab8f,Sheryl Crow,Anything but Down,,1,1,1,,not_enriched,unreviewed
+274,S37644b767b,Peter Gabriel,Sledgehammer,,1,1,1,,not_enriched,unreviewed
+275,S37948025c0,Peter Frampton,Jumping Jack Flash,,1,1,1,,not_enriched,unreviewed
+276,S37aaa290fe,Billy Joel,Leave a Tender Moment Alone,,1,1,1,,not_enriched,unreviewed
+277,S37e499da55,Creedence Clearwater Revival,Someday Never Comes,,1,1,1,,not_enriched,unreviewed
+278,S382195f18a,Paul McCartney & Wings,Picasso’s Last Words (Drink to Me),,1,1,1,,not_enriched,unreviewed
+279,S383702c014,"Crosby, Stills & Nash",Marrakesh Express,,1,1,1,,not_enriched,unreviewed
+280,S383deb32a2,The Beatles,Her Majesty,,1,1,1,,not_enriched,unreviewed
+281,S389d38b3de,The Guess Who,No Time,,1,1,1,,not_enriched,unreviewed
+282,S38dc2b230b,Alice in Chains,Nutshell,,1,1,1,,not_enriched,unreviewed
+283,S39090bb119,The Beatles,While My Guitar Gently Weeps,,1,1,1,,not_enriched,unreviewed
+284,S3929698ee0,Led Zeppelin,When the Levee Breaks,,1,1,1,,not_enriched,unreviewed
+285,S39552f5edf,Collective Soul,Wasting Time,,1,1,1,,not_enriched,unreviewed
+286,S3978607218,Paul McCartney,Rock Show,,1,1,1,,not_enriched,unreviewed
+287,S397e76c0c4,Huey Lewis & the News,The Power of Love,,1,1,1,,not_enriched,unreviewed
+288,S398e19b98b,Jackson Browne,Here Come Those Tears Again,,1,1,1,,not_enriched,unreviewed
+289,S39bf89195e,Carole King,Will You Love Me Tomorrow,,1,1,1,,not_enriched,unreviewed
+290,S39cc080651,Lindsey Buckingham,Don't Look Down,,1,1,1,,not_enriched,unreviewed
+291,S3a24fc12d9,New Moon Jelly Roll Freedom Rockers,Can’t Stand To See You Go,,1,1,1,,not_enriched,unreviewed
+292,S3a2ca28cc7,Led Zeppelin,The Battle of Evermore,,1,1,1,,not_enriched,unreviewed
+293,S3a3c6a6297,The Doors,Love Her Madly,,1,1,1,,not_enriched,unreviewed
+294,S3ab1e1a72a,Creedence Clearwater Revival,Hey Tonight,,1,1,1,,not_enriched,unreviewed
+295,S3ac8b99c31,Billy Joel,Movin’ Out (Anthony’s Song),,1,1,1,,not_enriched,unreviewed
+296,S3b472d5685,Lynyrd Skynyrd,Gimme Back My Bullets,,1,1,1,,not_enriched,unreviewed
+297,S3ba6449318,Bob Dylan,Positively 4th Street,,1,1,1,,not_enriched,unreviewed
+298,S3c077d3a5f,Peter Frampton,Show Me the Way,,1,1,1,,not_enriched,unreviewed
+299,S3c68807f3a,The Babys,Midnight Rendezvous,,1,1,1,,not_enriched,unreviewed
+300,S3d2cb77d76,The Cars,All Mixed Up,,1,1,1,,not_enriched,unreviewed
+301,S3e3b9d948f,Enigma,Silent Warrior,,1,1,1,,not_enriched,unreviewed
+302,S3e7af3b0c5,Carole King,I Feel the Earth Move,,1,1,1,,not_enriched,unreviewed
+303,S3ebe238eb5,Kansas,Questions of My Childhood,,1,1,1,,not_enriched,unreviewed
+304,S3eceae78ae,Eric Clapton,Lonely Stranger,,1,1,1,,not_enriched,unreviewed
+305,S3f41bdc001,Led Zeppelin,Friends,,1,1,1,,not_enriched,unreviewed
+306,S3f4ea33440,Carole King,Way Over Yonder,,1,1,1,,not_enriched,unreviewed
+307,S3f64c4de73,Roger Hodgson,Hooked on a Problem,,1,1,1,,not_enriched,unreviewed
+308,S3fa75876c8,Fleetwood Mac,Warm Ways,,1,1,1,,not_enriched,unreviewed
+309,S40191517ec,Paul McCartney,Valentine Day,,1,1,1,,not_enriched,unreviewed
+310,S40504dd027,Ace,Sniffin’ About,,1,1,1,,not_enriched,unreviewed
+311,S4115736796,Sheryl Crow,Crash and Burn / Subway Ride,,1,1,1,,not_enriched,unreviewed
+312,S41796bfb02,Billy Idol,Rebel Yell,,1,1,1,,not_enriched,unreviewed
+313,S41e3fa5786,Journey,Winds of March,,1,1,1,,not_enriched,unreviewed
+314,S42ab41c7f8,Dire Straits,Wild West End,,1,1,1,,not_enriched,unreviewed
+315,S43a9ae8749,The Mamas & the Papas,Dedicated to the One I Love,,1,1,1,,not_enriched,unreviewed
+316,S43b00c9daf,Lynyrd Skynyrd,You Got That Right,,1,1,1,,not_enriched,unreviewed
+317,S43b19b9a12,The Babys,Turn and Walk Away,,1,1,1,,not_enriched,unreviewed
+318,S443622ecfe,The Beatles,All You Need Is Love,,1,1,1,,not_enriched,unreviewed
+319,S44b9e81878,Loggins & Messina,Your Mama Don't Dance,,1,1,1,,not_enriched,unreviewed
+320,S4549c1836a,Neil Diamond,Golden Slumbers / Carry That Weight / The End,,1,1,1,,not_enriched,unreviewed
+321,S45eb8d56cb,The Animals,It’s My Life,,1,1,1,,not_enriched,unreviewed
+322,S45fb7c90aa,Chicago,Make Me Smile,,1,1,1,,not_enriched,unreviewed
+323,S4643293b28,"Crosby, Stills, Nash & Young",Déjà vu,,1,1,1,,not_enriched,unreviewed
+324,S465956447d,Kenny Loggins,This Is It,,1,1,1,,not_enriched,unreviewed
+325,S4683118fc6,The Beatles,A Day in the Life,,1,1,1,,not_enriched,unreviewed
+326,S468529799d,Neil Diamond,America,,1,1,1,,not_enriched,unreviewed
+327,S4691e4a5aa,The Animals,Bury My Body,,1,1,1,,not_enriched,unreviewed
+328,S469beb9aef,The Association,Windy,,1,1,1,,not_enriched,unreviewed
+329,S46cebf24f8,Gordon Lightfoot,For Lovin' Me/Did She Mention My Name,,1,1,1,,not_enriched,unreviewed
+330,S46ff125718,The Association,No Fair at All,,1,1,1,,not_enriched,unreviewed
+331,S47c426dd62,Jimi Hendrix,Bold as Love,,1,1,1,,not_enriched,unreviewed
+332,S47ee8fc6fe,Huey Lewis and the News,The Heart of Rock & Roll,,1,1,1,,not_enriched,unreviewed
+333,S480931eebd,The 5th Dimension,Stoned Soul Picnic,,1,1,1,,not_enriched,unreviewed
+334,S485e6150a5,The Association,Requiem for the Masses,,1,1,1,,not_enriched,unreviewed
+335,S4861b98d7e,The J. Geils Band,Love‐Itis,,1,1,1,,not_enriched,unreviewed
+336,S48812ac552,Dire Straits,In the Gallery,,1,1,1,,not_enriched,unreviewed
+337,S48904bf0f4,Eric Clapton,Tears in Heaven,,1,1,1,,not_enriched,unreviewed
+338,S4901e2b29e,Heart,Mistral Wind,,1,1,1,,not_enriched,unreviewed
+339,S49877c685d,The Beatles,Tomorrow Never Knows,,1,1,1,,not_enriched,unreviewed
+340,S49aee777f0,Fleetwood Mac,Don’t Stop,,1,1,1,,not_enriched,unreviewed
+341,S49f6631a5a,The Beatles,I Me Mine,,1,1,1,,not_enriched,unreviewed
+342,S4a22b9d954,Heart,Barracuda,,1,1,1,,not_enriched,unreviewed
+343,S4a3409ec12,Eagles,Earlybird,,1,1,1,,not_enriched,unreviewed
+344,S4a5bf3b35b,Kenny Loggins,Heart to Heart,,1,1,1,,not_enriched,unreviewed
+345,S4a68e7fa4e,Bread,Down on My Knees,,1,1,1,,not_enriched,unreviewed
+346,S4a86b55ee2,Bob Dylan,The Times They Are A-Changin',,1,1,1,,not_enriched,unreviewed
+347,S4aa49481a0,Foreigner,Cold as Ice,,1,1,1,,not_enriched,unreviewed
+348,S4ab1622bef,Peter Gabriel,Don’t Give Up,,1,1,1,,not_enriched,unreviewed
+349,S4abda174e0,The Beatles,Oh! Yeah...Alright...,,1,1,1,,not_enriched,unreviewed
+350,S4af05707ba,Kenny Loggins,For the First Time,,1,1,1,,not_enriched,unreviewed
+351,S4b07cbdef6,Huey Lewis & the News,When the Time Has Come,,1,1,1,,not_enriched,unreviewed
+352,S4b1f07ff6f,Bread,It Don’t Matter to Me,,1,1,1,,not_enriched,unreviewed
+353,S4bb3f7323f,Icehouse,Love in Motion,,1,1,1,,not_enriched,unreviewed
+354,S4bc0504889,The Beatles,The Word,,1,1,1,,not_enriched,unreviewed
+355,S4bc2b67d15,Billy Joel,Everybody Has a Dream,,1,1,1,,not_enriched,unreviewed
+356,S4bc7d26b01,New Moon Jelly Roll Freedom Rockers,Greens and Hams,,1,1,1,,not_enriched,unreviewed
+357,S4bf7a8eb7e,The Doors,The WASP (Texas Radio and the Big Beat),,1,1,1,,not_enriched,unreviewed
+358,S4c3a6e80b4,Sheryl Crow,Leaving Las Vegas,,1,1,1,,not_enriched,unreviewed
+359,S4c40485bca,Lynyrd Skynyrd,That Smell,,1,1,1,,not_enriched,unreviewed
+360,S4c6eee8016,Eric Clapton,Have You Ever Loved a Woman,,1,1,1,,not_enriched,unreviewed
+361,S4cae01304e,Jimi Hendrix,Izabella,,1,1,1,,not_enriched,unreviewed
+362,S4d109bf3b0,Fleetwood Mac,Mystified,,1,1,1,,not_enriched,unreviewed
+363,S4d289500de,The Beatles,Penny Lane,,1,1,1,,not_enriched,unreviewed
+364,S4d386dc293,Led Zeppelin,Your Time Is Gonna Come,,1,1,1,,not_enriched,unreviewed
+365,S4da16cdd4a,Peter Frampton,"Baby, I Love Your Way",,1,1,1,,not_enriched,unreviewed
+366,S4da85880f7,Kansas,Hold On,,1,1,1,,not_enriched,unreviewed
+367,S4dc5ae51ab,New Moon Jelly Roll Freedom Rockers,Searchlight,,1,1,1,,not_enriched,unreviewed
+368,S4dcc664fb1,Paul McCartney,Teddy Boy,,1,1,1,,not_enriched,unreviewed
+369,S4e89f46ab8,Jimi Hendrix,Dolly Dagger,,1,1,1,,not_enriched,unreviewed
+370,S4ee514c108,The Beatles,Eight Days a Week,,1,1,1,,not_enriched,unreviewed
+371,S4f44c1938f,Heart,All I Wanna Do Is Make Love to You,,1,1,1,,not_enriched,unreviewed
+372,S4fc8ba5fdf,Lynyrd Skynyrd,Comin’ Home,,1,1,1,,not_enriched,unreviewed
+373,S500aecd34c,Peter Gabriel,Mercy Street,,1,1,1,,not_enriched,unreviewed
+374,S501e1766dc,Paul McCartney & Wings,No Words,,1,1,1,,not_enriched,unreviewed
+375,S505565d325,Led Zeppelin,The Crunge,,1,1,1,,not_enriched,unreviewed
+376,S50f666fe34,"Crosby, Stills & Nash",Long Time Gone,,1,1,1,,not_enriched,unreviewed
+377,S51152b5f82,The Doors,Riders on the Storm,,1,1,1,,not_enriched,unreviewed
+378,S512c1a9b5c,Jimi Hendrix,If Six Was Nine,,1,1,1,,not_enriched,unreviewed
+379,S51654d2e23,Neil Diamond,"Cherry, Cherry",,1,1,1,,not_enriched,unreviewed
+380,S51b18b96e0,Sheryl Crow,What I Can Do for You,,1,1,1,,not_enriched,unreviewed
+381,S52a6aeeb64,Led Zeppelin,Stairway to Heaven,,1,1,1,,not_enriched,unreviewed
+382,S53562d28f2,Heart,How Deep It Goes,,1,1,1,,not_enriched,unreviewed
+383,S5360f57614,Huey Lewis & the News,’Til the Day After,,1,1,1,,not_enriched,unreviewed
+384,S536d8717c2,The Association,We Love,,1,1,1,,not_enriched,unreviewed
+385,S54122a749f,Led Zeppelin,I Can't Quit You Baby,,1,1,1,,not_enriched,unreviewed
+386,S54461ac81d,Jimi Hendrix,House Burning Down,,1,1,1,,not_enriched,unreviewed
+387,S546fe6aa63,The 5th Dimension,Never My Love,,1,1,1,,not_enriched,unreviewed
+388,S54817b9229,Paul McCartney,We All Stand Together,,1,1,1,,not_enriched,unreviewed
+389,S54f55e60f5,Led Zeppelin,The Lemon Song,,1,1,1,,not_enriched,unreviewed
+390,S55bafec012,The Hollies,"Stop, Stop, Stop",,1,1,1,,not_enriched,unreviewed
+391,S565adfceaa,Paul McCartney,You Gave Me The Answer,,1,1,1,,not_enriched,unreviewed
+392,S566e8aaf0d,Dire Straits,Setting Me Up,,1,1,1,,not_enriched,unreviewed
+393,S570ed67beb,The Animals,Bring It On Home to Me,,1,1,1,,not_enriched,unreviewed
+394,S573c3a22f2,Led Zeppelin,Dazed and Confused,,1,1,1,,not_enriched,unreviewed
+395,S5771dac9fd,Electric Light Orchestra,Telephone Line,,1,1,1,,not_enriched,unreviewed
+396,S57b7546dde,Billy Idol,Eyes Without a Face,,1,1,1,,not_enriched,unreviewed
+397,S57f7b06474,The Doors,L.A. Woman,,1,1,1,,not_enriched,unreviewed
+398,S5848a15ad7,Kenny Loggins,Playing With the Boys,,1,1,1,,not_enriched,unreviewed
+399,S58abe3fc41,The Cars,My Best Friend's Girl,,1,1,1,,not_enriched,unreviewed
+400,S593c77c285,The Doobie Brothers,Pursuit on 53rd St.,,1,1,1,,not_enriched,unreviewed
+401,S59440e04cf,Grand Funk Railroad,Bad Time,,1,1,1,,not_enriched,unreviewed
+402,S5944a9dff4,Eric Clapton,Alberta,,1,1,1,,not_enriched,unreviewed
+403,S59909dc6f3,Fleetwood Mac,Family Man,,1,1,1,,not_enriched,unreviewed
+404,S5999e1e4bc,The Steve Miller Band,Wish Upon a Star,,1,1,1,,not_enriched,unreviewed
+405,S59a2a14944,Kenny Loggins,Your Mama Don't Dance,,1,1,1,,not_enriched,unreviewed
+406,S59adad6563,The Beatles,Twist And Shout,,1,1,1,,not_enriched,unreviewed
+407,S59dd1eae1a,The Doors,Break On Through,,1,1,1,,not_enriched,unreviewed
+408,S59f26534f4,The J. Geils Band,Monkey Island,,1,1,1,,not_enriched,unreviewed
+409,S5a30ab21b7,The Hollies,On a Carousel,,1,1,1,,not_enriched,unreviewed
+410,S5a4465f267,The Beatles,One After 909,,1,1,1,,not_enriched,unreviewed
+411,S5a57c5dad2,Heart,(Love Me Like Music) I’ll Be Your Song,,1,1,1,,not_enriched,unreviewed
+412,S5a8f79a240,Peter Frampton,Do You Feel Like We Do,,1,1,1,,not_enriched,unreviewed
+413,S5ab2151cd7,Tom Kimmel,5 to 1,,1,1,1,,not_enriched,unreviewed
+414,S5b2fe2c871,Tracy Chapman,Subcity,,1,1,1,,not_enriched,unreviewed
+415,S5b8792b934,Bread,Make It With You,,1,1,1,,not_enriched,unreviewed
+416,S5bea1e5e49,Steve Miller Band,Space Intro,,1,1,1,,not_enriched,unreviewed
+417,S5c02deb752,Journey,Wheel in the Sky,,1,1,1,,not_enriched,unreviewed
+418,S5c07829f4a,Paul McCartney & Wings,Nineteen‐Hundred and Eighty‐Five,,1,1,1,,not_enriched,unreviewed
+419,S5c431559ce,The Byrds,I’ll Feel a Whole Lot Better,,1,1,1,,not_enriched,unreviewed
+420,S5cc72d3d99,The Cars,Hello Again,,1,1,1,,not_enriched,unreviewed
+421,S5cea5ff80c,Chicago,Just You ’n’ Me,,1,1,1,,not_enriched,unreviewed
+422,S5d0303b3b5,Eagles,Wasted Time,,1,1,1,,not_enriched,unreviewed
+423,S5d28b05c72,Led Zeppelin,Babe I'm Gonna Leave You,,1,1,1,,not_enriched,unreviewed
+424,S5d29efd289,Billy Joel,Keeping the Faith,,1,1,1,,not_enriched,unreviewed
+425,S5d3cc1ebd6,Electric Light Orchestra,Sweet Talkin’ Woman,,1,1,1,,not_enriched,unreviewed
+426,S5d4ccb1ee0,The Beatles,Mean Mr. Mustard,,1,1,1,,not_enriched,unreviewed
+427,S5d529cbfef,The Beatles,The Fool on the Hill,,1,1,1,,not_enriched,unreviewed
+428,S5d536942dc,The Beatles,Across The Universe,,1,1,1,,not_enriched,unreviewed
+429,S5d828d5c9f,Billy Joel,Get It Right the First Time,,1,1,1,,not_enriched,unreviewed
+430,S5d8691f81f,The Hollies,Long Cool Woman in a Black Dress,,1,1,1,,not_enriched,unreviewed
+431,S5eee1e8eea,Garth Brooks,That Summer,,1,1,1,,not_enriched,unreviewed
+432,S5f32b755e1,Creedence Clearwater Revival,Have You Ever Seen the Rain?,,1,1,1,,not_enriched,unreviewed
+433,S5f35146465,The Beatles,Octopus’s Garden,,1,1,1,,not_enriched,unreviewed
+434,S5f4e5741a2,Eagles,Most of Us Are Sad,,1,1,1,,not_enriched,unreviewed
+435,S5fabeb4dfc,Billy Idol,Catch My Fall,,1,1,1,,not_enriched,unreviewed
+436,S5fccfafc98,Gordon Lightfoot,I'm Not Sayin' / Ribbon of Darkness,,1,1,1,,not_enriched,unreviewed
+437,S602f5a841c,Sheryl Crow,Members Only,,1,1,1,,not_enriched,unreviewed
+438,S6055ca9683,Neil Diamond,Sweet Caroline,,1,1,1,,not_enriched,unreviewed
+439,S60a8f2f599,The Cars,Drive,,1,1,1,,not_enriched,unreviewed
+440,S618ad609dd,Bon Jovi,Wild in the Streets,,1,1,1,,not_enriched,unreviewed
+441,S61f173e305,Kenny Loggins,I'm Free,,1,1,1,,not_enriched,unreviewed
+442,S622316b77f,The Doobie Brothers,What a Fool Believes,,1,1,1,,not_enriched,unreviewed
+443,S6294e46f8f,Lindsey Buckingham,Surrender the Rain,,1,1,1,,not_enriched,unreviewed
+444,S6298e3627e,The Steve Miller Band,The Stake,,1,1,1,,not_enriched,unreviewed
+445,S629dc1f52e,The Doobie Brothers,Down in the Track,,1,1,1,,not_enriched,unreviewed
+446,S6325a1f320,Gordon Lightfoot,Softly,,1,1,1,,not_enriched,unreviewed
+447,S63a5ebcdfc,The Beatles,Another Girl,,1,1,1,,not_enriched,unreviewed
+448,S63b5bbe102,"Crosby, Stills, Nash & Young",Woodstock,,1,1,1,,not_enriched,unreviewed
+449,S63ba4b1798,Lynyrd Skynyrd,Down South Jukin’,,1,1,1,,not_enriched,unreviewed
+450,S649a5e7bac,The Beatles,Oh! Darling,,1,1,1,,not_enriched,unreviewed
+451,S64b3ea45b3,Gary Lewis & the Playboys,Greatest Hits Medley,,1,1,1,,not_enriched,unreviewed
+452,S64c6671cd7,The Animals,Story of Bo Diddley,,1,1,1,,not_enriched,unreviewed
+453,S64ee604a0b,Steve Miller Band,"Dance, Dance, Dance",,1,1,1,,not_enriched,unreviewed
+454,S6500b60429,Jimi Hendrix,Castles Made of Sand,,1,1,1,,not_enriched,unreviewed
+455,S653d0d134d,Grand Funk Railroad,Shinin’ On,,1,1,1,,not_enriched,unreviewed
+456,S655d90a12d,Alice Cooper,Desperado,,1,1,1,,not_enriched,unreviewed
+457,S6568720e7b,Creedence Clearwater Revival,Fortunate Son,,1,1,1,,not_enriched,unreviewed
+458,S65759ab60c,Paul McCartney,Venus And Mars,,1,1,1,,not_enriched,unreviewed
+459,S65f42ea366,Peter Frampton,Penny for Your Thoughts,,1,1,1,,not_enriched,unreviewed
+460,S663b0a4c10,Sheryl Crow,Sweet Child o’ Mine,,1,1,1,,not_enriched,unreviewed
+461,S66d52a3028,Billy Joel,An Innocent Man,,1,1,1,,not_enriched,unreviewed
+462,S675e3cc60b,Loggins & Messina,Vahevala,,1,1,1,,not_enriched,unreviewed
+463,S67733892ca,Billy Joel,Vienna,,1,1,1,,not_enriched,unreviewed
+464,S6798d74f23,Led Zeppelin,Good Times Bad Times,,1,1,1,,not_enriched,unreviewed
+465,S680c4d6395,Icehouse,No Promises,,1,1,1,,not_enriched,unreviewed
+466,S68269ae086,Heart,White Lightning & Wine,,1,1,1,,not_enriched,unreviewed
+467,S6953cc9032,Bad Company,Nuthin' on the TV,,1,1,1,,not_enriched,unreviewed
+468,S697614ad5c,Dire Straits,Water of Love,,1,1,1,,not_enriched,unreviewed
+469,S697a3d2889,The Association,Enter the Young,,1,1,1,,not_enriched,unreviewed
+470,S69ed3a4fa3,Dire Straits,Lions,,1,1,1,,not_enriched,unreviewed
+471,S6ab01dbee1,Eagles,Train Leaves Here This Morning,,1,1,1,,not_enriched,unreviewed
+472,S6b275cc6d7,The Beatles,Run for Your Life,,1,1,1,,not_enriched,unreviewed
+473,S6b2b6185ac,The Beatles,Dig It,,1,1,1,,not_enriched,unreviewed
+474,S6b3219cb4c,Creedence Clearwater Revival,Travelin’ Band,,1,1,1,,not_enriched,unreviewed
+475,S6b862a9464,Paul McCartney,Oo You,,1,1,1,,not_enriched,unreviewed
+476,S6bab98031e,The Beatles,We Can Work It Out,,1,1,1,,not_enriched,unreviewed
+477,S6bd8f185af,Fleetwood Mac,Sugar Daddy,,1,1,1,,not_enriched,unreviewed
+478,S6c0ed94c01,The Byrds,Mr. Spaceman,,1,1,1,,not_enriched,unreviewed
+479,S6c22cae9ac,The Beatles,Please Please Me,,1,1,1,,not_enriched,unreviewed
+480,S6c28570f86,Greg Kihn Band,Can't Stop Hurtin' Myself,,1,1,1,,not_enriched,unreviewed
+481,S6c35f5ef5e,Paul McCartney,Call Me Back Again,,1,1,1,,not_enriched,unreviewed
+482,S6c490e3b72,Eagles,Chug All Night,,1,1,1,,not_enriched,unreviewed
+483,S6cc322badf,The Hollies,Casualty,,1,1,1,,not_enriched,unreviewed
+484,S6d142d1b72,Fleetwood Mac,Say You Love Me,,1,1,1,,not_enriched,unreviewed
+485,S6d46b24d76,Bread,Truckin’,,1,1,1,,not_enriched,unreviewed
+486,S6d6686224a,The Cars,Good Times Roll,,1,1,1,,not_enriched,unreviewed
+487,S6d90b6bfac,The Beatles,Two Of Us,,1,1,1,,not_enriched,unreviewed
+488,S6dab797392,Neil Diamond,September Morn,,1,1,1,,not_enriched,unreviewed
+489,S6de200d157,Eagles,Hotel California,,1,1,1,,not_enriched,unreviewed
+490,S6df31609b5,Steve Miller Band,Sweet Maree,,1,1,1,,not_enriched,unreviewed
+491,S6e2f37e30e,Foreigner,Fool for You Anyway,,1,1,1,,not_enriched,unreviewed
+492,S6e4027bbd4,Enigma,I Love You… I’ll Kill You,,1,1,1,,not_enriched,unreviewed
+493,S6e9069411f,The Beatles,Your Mother Should Know,,1,1,1,,not_enriched,unreviewed
+494,S6e995abfd1,Chicago,Colour My World,,1,1,1,,not_enriched,unreviewed
+495,S6eca9d8e6f,Huey Lewis & the News,Do You Believe in Love,,1,1,1,,not_enriched,unreviewed
+496,S6ece18f88e,The Doors,"Yes, the River Knows",,1,1,1,,not_enriched,unreviewed
+497,S6f32bea7ed,Heart,Sing Child,,1,1,1,,not_enriched,unreviewed
+498,S6f32c44a96,The Doors,Cars Hiss by My Window,,1,1,1,,not_enriched,unreviewed
+499,S6f581f08db,Sheryl Crow,Strong Enough,,1,1,1,,not_enriched,unreviewed
+500,S6f77939a84,The Beatles,When I’m Sixty‐Four,,1,1,1,,not_enriched,unreviewed
+501,S6fbf69c458,The Animals,Talkin’ ’bout You,,1,1,1,,not_enriched,unreviewed
+502,S6fdadb192f,Michael Jackson,Say Say Say,,1,1,1,,not_enriched,unreviewed
+503,S6ff0b75adc,Electric Light Orchestra,Turn to Stone,,1,1,1,,not_enriched,unreviewed
+504,S6ff7265238,The Guess Who,No Sugar Tonight / New Mother Nature,,1,1,1,,not_enriched,unreviewed
+505,S705f316c3f,The Animals,Don’t Let Me Be Misunderstood,,1,1,1,,not_enriched,unreviewed
+506,S70d145ed93,The Beatles,Michelle,,1,1,1,,not_enriched,unreviewed
+507,S710a897a12,Bob Dylan,Stuck Inside of Mobile With the Memphis Blues Again,,1,1,1,,not_enriched,unreviewed
+508,S712916fdc1,Lynyrd Skynyrd,On the Hunt,,1,1,1,,not_enriched,unreviewed
+509,S712bfdb3e5,Gordon Lightfoot,Minstrel of the Dawn,,1,1,1,,not_enriched,unreviewed
+510,S71d718e4cf,Ace,Time Ain’t Long,,1,1,1,,not_enriched,unreviewed
+511,S71e0e0ec61,Paul McCartney,Momma Miss America,,1,1,1,,not_enriched,unreviewed
+512,S728fc9cfa6,The Beatles,The End,,1,1,1,,not_enriched,unreviewed
+513,S729505045c,Tom Kimmel,True Love,,1,1,1,,not_enriched,unreviewed
+514,S72f8c9af1e,Chicago,Wishing You Were Here,,1,1,1,,not_enriched,unreviewed
+515,S73326473e4,The Mamas & the Papas,Dream a Little Dream of Me,,1,1,1,,not_enriched,unreviewed
+516,S73e75a0dbf,Loggins & Messina,Thinking of You,,1,1,1,,not_enriched,unreviewed
+517,S742a2e02c2,Chicago,Beginnings,,1,1,1,,not_enriched,unreviewed
+518,S74301c6009,The Beatles,Revolution,,1,1,1,,not_enriched,unreviewed
+519,S74d16816e3,Jimi Hendrix,Gloria,,1,1,1,,not_enriched,unreviewed
+520,S74e80195b7,Led Zeppelin,Out on the Tiles,,1,1,1,,not_enriched,unreviewed
+521,S75571ac8e8,The Beatles,Rain,,1,1,1,,not_enriched,unreviewed
+522,S75dc7ad4b5,Led Zeppelin,Dancing Days,,1,1,1,,not_enriched,unreviewed
+523,S75ec3f835f,Eagles,Wasted Time (reprise),,1,1,1,,not_enriched,unreviewed
+524,S75faaa59fa,Collective Soul,Breathe,,1,1,1,,not_enriched,unreviewed
+525,S762007e3ee,The Beatles,I Am the Walrus,,1,1,1,,not_enriched,unreviewed
+526,S7642368f06,Carole King,Smackwater Jack,,1,1,1,,not_enriched,unreviewed
+527,S76dedeb0f4,Garth Brooks,Rodeo,,1,1,1,,not_enriched,unreviewed
+528,S76e3d3171a,Enigma,Out From the Deep,,1,1,1,,not_enriched,unreviewed
+529,S7714053cf4,Dire Straits,Brothers in Arms,,1,1,1,,not_enriched,unreviewed
+530,S77449b0b11,Bread,Everything I Own,,1,1,1,,not_enriched,unreviewed
+531,S774f118bca,The Mamas & the Papas,Creeque Alley,,1,1,1,,not_enriched,unreviewed
+532,S776c7fbc5d,Kenny Loggins,Vox Humana,,1,1,1,,not_enriched,unreviewed
+533,S7779ac3531,Peter Gabriel,Big Time,,1,1,1,,not_enriched,unreviewed
+534,S77cc6a54d6,The Hollies,King Midas in Reverse,,1,1,1,,not_enriched,unreviewed
+535,S77e00658d4,The Beatles,Carry That Weight (early take),,1,1,1,,not_enriched,unreviewed
+536,S77ea40a118,Chicago,25 or 6 to 4,,1,1,1,,not_enriched,unreviewed
+537,S781e02942d,Eagles,Peaceful Easy Feeling,,1,1,1,,not_enriched,unreviewed
+538,S78c214f84e,Bon Jovi,I’d Die for You,,1,1,1,,not_enriched,unreviewed
+539,S7917a72f5f,"Crosby, Stills, Nash & Young",Helpless,,1,1,1,,not_enriched,unreviewed
+540,S79521d82c4,Led Zeppelin,The Ocean,,1,1,1,,not_enriched,unreviewed
+541,S7996e32d74,The Hollies,"He Ain’t Heavy, He’s My Brother",,1,1,1,,not_enriched,unreviewed
+542,S7a64aed880,The Steve Miller Band,Swingtown,,1,1,1,,not_enriched,unreviewed
+543,S7a83e86e19,Kenny Loggins,Welcome to the Hard Life,,1,1,1,,not_enriched,unreviewed
+544,S7acafe2227,Garth Brooks,The Thunder Rolls,,1,1,1,,not_enriched,unreviewed
+545,S7b1381c639,"Crosby, Stills & Nash",Pre‐Road Downs,,1,1,1,,not_enriched,unreviewed
+546,S7b3702b6dc,The Beatles,I Want You,,1,1,1,,not_enriched,unreviewed
+547,S7b52ebf924,Kenny Loggins,Don't Fight It,,1,1,1,,not_enriched,unreviewed
+548,S7bbd51f218,Led Zeppelin,Hats Off to (Roy) Harper,,1,1,1,,not_enriched,unreviewed
+549,S7c0ad3d6c6,Collective Soul,"Goodnight, Good Guy",,1,1,1,,not_enriched,unreviewed
+550,S7c6357e145,Neil Diamond,Jungletime,,1,1,1,,not_enriched,unreviewed
+551,S7c851a6105,The Doors,"Hello, I Love You",,1,1,1,,not_enriched,unreviewed
+552,S7c95e9d3a6,Icehouse,Mr. Big,,1,1,1,,not_enriched,unreviewed
+553,S7d053a793a,Jackson Browne,Daddy's Tune,,1,1,1,,not_enriched,unreviewed
+554,S7d1fda83d4,The Mamas & the Papas,My Girl,,1,1,1,,not_enriched,unreviewed
+555,S7d3a74776a,Kansas,Perfect Lover,,1,1,1,,not_enriched,unreviewed
+556,S7d450f95d1,Bon Jovi,Social Disease,,1,1,1,,not_enriched,unreviewed
+557,S7d6300b241,Eagles,Witchy Woman,,1,1,1,,not_enriched,unreviewed
+558,S7d73c362a2,"Crosby, Stills, Nash & Young",Teach Your Children,,1,1,1,,not_enriched,unreviewed
+559,S7d7f78f8c9,Eric Clapton,Blues Power,,1,1,1,,not_enriched,unreviewed
+560,S7db40631e5,The Beatles,All My Loving,,1,1,1,,not_enriched,unreviewed
+561,S7e0664e00d,The J. Geils Band,Stoop Down #39,,1,1,1,,not_enriched,unreviewed
+562,S7e5f7d70f9,The Mamas & the Papas,Dancing in the Street,,1,1,1,,not_enriched,unreviewed
+563,S7e8eef2651,Bon Jovi,You Give Love a Bad Name,,1,1,1,,not_enriched,unreviewed
+564,S7f030db32c,The Mamas & the Papas,Look Through My Window,,1,1,1,,not_enriched,unreviewed
+565,S7f1d3e6d1b,Paul McCartney,Junk,,1,1,1,,not_enriched,unreviewed
+566,S7f39d5756e,The Guess Who,Undun,,1,1,1,,not_enriched,unreviewed
+567,S7f55ffcf7c,Greg Kihn Band,Trouble in Paradise,,1,1,1,,not_enriched,unreviewed
+568,S7fafeccd03,"Crosby, Stills & Nash",Wooden Ships,,1,1,1,,not_enriched,unreviewed
+569,S803ca199d0,Wings,Silly Love Songs,,1,1,1,,not_enriched,unreviewed
+570,S8052de3768,Foreigner,At War With the World,,1,1,1,,not_enriched,unreviewed
+571,S8089c3088d,The Animals,We Gotta Get Out of This Place,,1,1,1,,not_enriched,unreviewed
+572,S808fd6d691,Bob Dylan,Forever Young,,1,1,1,,not_enriched,unreviewed
+573,S8098af4d9f,The Beatles,Maxwell’s Silver Hammer,,1,1,1,,not_enriched,unreviewed
+574,S80bb5c1aaa,Steve Miller Band,Wild Mountain Honey,,1,1,1,,not_enriched,unreviewed
+575,S811adad412,Fleetwood Mac,Welcome to the Room… Sara,,1,1,1,,not_enriched,unreviewed
+576,S815490a287,The Beatles,Dizzy Miss Lizzy,,1,1,1,,not_enriched,unreviewed
+577,S8159607982,The Beatles,I Feel Fine,,1,1,1,,not_enriched,unreviewed
+578,S81806cd869,The Doobie Brothers,Tell Me What You Want (And I'll Give You What You Need),,1,1,1,,not_enriched,unreviewed
+579,S81d0d6b71a,Journey,Somethin’ to Hide,,1,1,1,,not_enriched,unreviewed
+580,S8242888b11,Sheryl Crow,Can’t Cry Anymore,,1,1,1,,not_enriched,unreviewed
+581,S826a9f2584,New Moon Jelly Roll Freedom Rockers,Black Water,,1,1,1,,not_enriched,unreviewed
+582,S826c2d07c3,New Moon Jelly Roll Freedom Rockers,Blue Guitar,,1,1,1,,not_enriched,unreviewed
+583,S8278a3b46e,The Association,The Time It Is Today,,1,1,1,,not_enriched,unreviewed
+584,S82a629265b,Lynyrd Skynyrd,Tuesday’s Gone,,1,1,1,,not_enriched,unreviewed
+585,S8366e2dd47,The Doobie Brothers,Dependin’ on You,,1,1,1,,not_enriched,unreviewed
+586,S836ecdef52,The Doobie Brothers,Slack Key Soquel Rag,,1,1,1,,not_enriched,unreviewed
+587,S8391356315,Peter Gabriel,Red Rain,,1,1,1,,not_enriched,unreviewed
+588,S844372016d,The Animals,Gonna Send You Back to Walker,,1,1,1,,not_enriched,unreviewed
+589,S84cb549a87,Jackson Browne,The Only Child,,1,1,1,,not_enriched,unreviewed
+590,S84de572dcf,Alice Cooper,Hello Hooray,,1,1,1,,not_enriched,unreviewed
+591,S85187a734f,The Doobie Brothers,Song to See You Through,,1,1,1,,not_enriched,unreviewed
+592,S855d6e61e8,The Steve Miller Band,Winter Time,,1,1,1,,not_enriched,unreviewed
+593,S85d7b03dc2,Electric Light Orchestra,Can’t Get It Out of My Head,,1,1,1,,not_enriched,unreviewed
+594,S862c90e899,Loggins & Messina,House at Pooh Corner,,1,1,1,,not_enriched,unreviewed
+595,S863e69035b,Lindsey Buckingham,Wrong,,1,1,1,,not_enriched,unreviewed
+596,S865cfb2d28,Lindsey Buckingham,Instrumental Introduction To:,,1,1,1,,not_enriched,unreviewed
+597,S86962edd2b,Bread,Too Much Love,,1,1,1,,not_enriched,unreviewed
+598,S8727db24c1,The Beatles,She’s Leaving Home,,1,1,1,,not_enriched,unreviewed
+599,S87a5c95de9,Heart,High Time,,1,1,1,,not_enriched,unreviewed
+600,S880bc18bc7,The Beatles,Fixing a Hole,,1,1,1,,not_enriched,unreviewed
+601,S88209792a6,Bob Dylan,Sweetheat Like You,,1,1,1,,not_enriched,unreviewed
+602,S884cd87851,Heart,Dog & Butterfly,,1,1,1,,not_enriched,unreviewed
+603,S8889e80e40,The Association,Like Always,,1,1,1,,not_enriched,unreviewed
+604,S88fe8ef92f,Journey,La Do Da,,1,1,1,,not_enriched,unreviewed
+605,S891630d77e,Huey Lewis & the News,It’s Alright,,1,1,1,,not_enriched,unreviewed
+606,S8994b13071,Heart,Nothin’ at All,,1,1,1,,not_enriched,unreviewed
+607,S89c9463dcc,The Babys,Every Time I Think of You,,1,1,1,,not_enriched,unreviewed
+608,S89ea18aae9,Fleetwood Mac,Seven Wonders,,1,1,1,,not_enriched,unreviewed
+609,S8a9a120286,Huey Lewis & the News,So Little Kindness,,1,1,1,,not_enriched,unreviewed
+610,S8acb44ad50,Icehouse,Great Southern Land,,1,1,1,,not_enriched,unreviewed
+611,S8b66bae243,The Beatles,She Came In Through the Bathroom Window,,1,1,1,,not_enriched,unreviewed
+612,S8ba908db29,Fleetwood Mac,Big Love,,1,1,1,,not_enriched,unreviewed
+613,S8be10b79f5,The Hollies,Carrie Anne,,1,1,1,,not_enriched,unreviewed
+614,S8c42d4e8a2,Paul McCartney & Wings,Mrs. Vandebilt,,1,1,1,,not_enriched,unreviewed
+615,S8d8a49581f,Billy Joel,The Stranger (reprise),,1,1,1,,not_enriched,unreviewed
+616,S8dac6cc028,The Beatles,You Never Give Me Your Money,,1,1,1,,not_enriched,unreviewed
+617,S8de011c5ad,The Guess Who,Laughing,,1,1,1,,not_enriched,unreviewed
+618,S8def372c10,The Doobie Brothers,Road Angel,,1,1,1,,not_enriched,unreviewed
+619,S8e1fd783f0,Tracy Chapman,Born to Fight,,1,1,1,,not_enriched,unreviewed
+620,S8e2b90cadb,The J. Geils Band,The Lady Makes Demands,,1,1,1,,not_enriched,unreviewed
+621,S8e8ad194cb,Led Zeppelin,Communication Breakdown,,1,1,1,,not_enriched,unreviewed
+622,S8e9902e666,Garth Brooks,"Two of a Kind, Workin' on a Full House",,1,1,1,,not_enriched,unreviewed
+623,S8e9c532f53,Garth Brooks,The River,,1,1,1,,not_enriched,unreviewed
+624,S8eb0998007,Garth Brooks,We Shall Be Free,,1,1,1,,not_enriched,unreviewed
+625,S8ed1d1a52b,Creedence Clearwater Revival,Long as I Can See the Light,,1,1,1,,not_enriched,unreviewed
+626,S8ee1881fe7,Collective Soul,Love Lifted Me,,1,1,1,,not_enriched,unreviewed
+627,S8ef1b67d9f,The Cars,Just What I Needed,,1,1,1,,not_enriched,unreviewed
+628,S8fa3dff6cd,The Doors,The End,,1,1,1,,not_enriched,unreviewed
+629,S8fbd5fa824,Sheryl Crow,The Difficult Kind,,1,1,1,,not_enriched,unreviewed
+630,S90106ec6c5,Heart,Who Will You Run To,,1,1,1,,not_enriched,unreviewed
+631,S90153330bf,Lindsey Buckingham,Soul Drifter,,1,1,1,,not_enriched,unreviewed
+632,S909b6c233c,Fleetwood Mac,Everywhere,,1,1,1,,not_enriched,unreviewed
+633,S90a836ddf4,Greg Kihn Band,When the Music Starts,,1,1,1,,not_enriched,unreviewed
+634,S90a9325b60,Grand Funk Railroad,Walk Like a Man (You Can Call Me Your Man),,1,1,1,,not_enriched,unreviewed
+635,S90eb3baf7a,Heart,Straight On,,1,1,1,,not_enriched,unreviewed
+636,S910aee1d3a,The Doobie Brothers,Neil's Fandango,,1,1,1,,not_enriched,unreviewed
+637,S91da1e5402,Kenny Loggins,Forever,,1,1,1,,not_enriched,unreviewed
+638,S9211a29c7a,The Babys,Give Me Your Love,,1,1,1,,not_enriched,unreviewed
+639,S924d45e227,Foreigner,The Damage Is Done,,1,1,1,,not_enriched,unreviewed
+640,S92645df191,The Beatles,Because,,1,1,1,,not_enriched,unreviewed
+641,S92a8c48edb,The Doobie Brothers,Busted Down Around O’Connelly Corners,,1,1,1,,not_enriched,unreviewed
+642,S92b8e08710,Lynyrd Skynyrd,Saturday Night Special,,1,1,1,,not_enriched,unreviewed
+643,S92dd31e92e,Peter Frampton,All I Want to Be (Is by Your Side),,1,1,1,,not_enriched,unreviewed
+644,S930eee3d8b,George Harrison,Dark Horse,,1,1,1,,not_enriched,unreviewed
+645,S9326d19131,Kenny Loggins,Conviction of the Heart,,1,1,1,,not_enriched,unreviewed
+646,S935f38aea2,The Byrds,5 D (Fifth Dimension),,1,1,1,,not_enriched,unreviewed
+647,S93934dfc25,Roger Hodgson,"Give Me Love, Give Me Life",,1,1,1,,not_enriched,unreviewed
+648,S93c0ccc8a9,Sheryl Crow,Solidify,,1,1,1,,not_enriched,unreviewed
+649,S93eebecc34,Gordon Lightfoot,Rainy Day People,,1,1,1,,not_enriched,unreviewed
+650,S94914bc598,Heart,Nada One,,1,1,1,,not_enriched,unreviewed
+651,S94e79a4093,Bread,Diary,,1,1,1,,not_enriched,unreviewed
+652,S9514350b2d,The Mamas & the Papas,I Call Your Name,,1,1,1,,not_enriched,unreviewed
+653,S9516b415bc,The Babys,If You've Got the Time,,1,1,1,,not_enriched,unreviewed
+654,S958ff7dcbf,Wings,C Moon,,1,1,1,,not_enriched,unreviewed
+655,S959345cf6d,Huey Lewis and the News,Honky Tonk Blues,,1,1,1,,not_enriched,unreviewed
+656,S95c3e16464,Led Zeppelin,No Quarter,,1,1,1,,not_enriched,unreviewed
+657,S95cba4f7fd,Heart,Soul of the Sea,,1,1,1,,not_enriched,unreviewed
+658,S9611960d82,Sheryl Crow,Resuscitation,,1,1,1,,not_enriched,unreviewed
+659,S962538449e,Sheryl Crow,The Na‐Na Song,,1,1,1,,not_enriched,unreviewed
+660,S966a664da1,Bad Company,Downhill Ryder,,1,1,1,,not_enriched,unreviewed
+661,S967b3ac589,Jimi Hendrix,Little Wing,,1,1,1,,not_enriched,unreviewed
+662,S97ab2044e0,Journey,Lights,,1,1,1,,not_enriched,unreviewed
+663,S97cb7c8f0c,The Cars,Looking for Love,,1,1,1,,not_enriched,unreviewed
+664,S98151573b5,Peter Frampton,I Wanna Go to the Sun,,1,1,1,,not_enriched,unreviewed
+665,S986bf4d228,The Guess Who,Hand Me Down World,,1,1,1,,not_enriched,unreviewed
+666,S9884d2dcc2,Led Zeppelin,Rock and Roll,,1,1,1,,not_enriched,unreviewed
+667,S9898e78076,The Beatles,"Hello, Goodbye",,1,1,1,,not_enriched,unreviewed
+668,S98a3ea0c44,Steve Miller Band,The Window,,1,1,1,,not_enriched,unreviewed
+669,S9912caa8f5,Lindsey Buckingham,Countdown,,1,1,1,,not_enriched,unreviewed
+670,S991b36db39,Neil Diamond,I’m Alive,,1,1,1,,not_enriched,unreviewed
+671,S99566c80c6,Led Zeppelin,Immigrant Song,,1,1,1,,not_enriched,unreviewed
+672,S99a45aa40e,The Cars,Stranger Eyes,,1,1,1,,not_enriched,unreviewed
+673,S99d03a25ca,Billy Idol,Flesh for Fantasy,,1,1,1,,not_enriched,unreviewed
+674,S9a19de9da6,The Mamas & the Papas,"Monday, Monday",,1,1,1,,not_enriched,unreviewed
+675,S9a5eba8743,The Hollies,Wasted on the Way,,1,1,1,,not_enriched,unreviewed
+676,S9a89372d37,Creedence Clearwater Revival,Up Around the Bend,,1,1,1,,not_enriched,unreviewed
+677,S9a999e1148,Kansas,Dust in the Wind,,1,1,1,,not_enriched,unreviewed
+678,S9a9d985cfe,Bread,Let Your Love Go,,1,1,1,,not_enriched,unreviewed
+679,S9ab3940724,The 5th Dimension,Together Let's Find Love,,1,1,1,,not_enriched,unreviewed
+680,S9abff869dd,Jimi Hendrix,Purple Haze,,1,1,1,,not_enriched,unreviewed
+681,S9b258d86b2,Creedence Clearwater Revival,Bad Moon Rising,,1,1,1,,not_enriched,unreviewed
+682,S9b400746ae,The Steve Miller Band,Babes in the Wood,,1,1,1,,not_enriched,unreviewed
+683,S9ba46564da,Foreigner,Headknocker,,1,1,1,,not_enriched,unreviewed
+684,S9bce13a964,Chicago,Does Anybody Really Know What Time It Is?,,1,1,1,,not_enriched,unreviewed
+685,S9bd970d1a3,Sheryl Crow,It Don’t Hurt,,1,1,1,,not_enriched,unreviewed
+686,S9c7160fd46,Alice in Chains,Whale & Wasp,,1,1,1,,not_enriched,unreviewed
+687,S9c823bd868,Heart,Hijinx,,1,1,1,,not_enriched,unreviewed
+688,S9ca2aa30be,Journey,Can Do,,1,1,1,,not_enriched,unreviewed
+689,S9cde9e0619,Eric Clapton,Nobody Knows You When You’re Down & Out,,1,1,1,,not_enriched,unreviewed
+690,S9ce9db3c44,The Steve Miller Band,Jungle Love,,1,1,1,,not_enriched,unreviewed
+691,S9d77dc5b5e,The Cars,Why Can't I Have You,,1,1,1,,not_enriched,unreviewed
+692,S9da2f36221,The Beatles,Good Morning Good Morning,,1,1,1,,not_enriched,unreviewed
+693,S9dc841d167,Dire Straits,Private Investigations,,1,1,1,,not_enriched,unreviewed
+694,S9dd196fe7c,The Hollies,Bus Stop,,1,1,1,,not_enriched,unreviewed
+695,S9e199ccdc1,Fleetwood Mac,You Make Loving Fun,,1,1,1,,not_enriched,unreviewed
+696,S9e4ed5192f,Creedence Clearwater Revival,Susie Q,,1,1,1,,not_enriched,unreviewed
+697,S9e675b51b8,The Doors,Love Me Two Times,,1,1,1,,not_enriched,unreviewed
+698,S9e8662f075,The Animals,Boom Boom,,1,1,1,,not_enriched,unreviewed
+699,S9ea82c868c,Jimi Hendrix,Gypsy Eyes,,1,1,1,,not_enriched,unreviewed
+700,S9eb21005b6,Foreigner,I Need You,,1,1,1,,not_enriched,unreviewed
+701,S9ecff0eb55,Sheryl Crow,"Run, Baby, Run",,1,1,1,,not_enriched,unreviewed
+702,S9edf628ae7,Jackson Browne,The Fuse,,1,1,1,,not_enriched,unreviewed
+703,S9f0600cdab,Loggins & Messina,Watching the River Run,,1,1,1,,not_enriched,unreviewed
+704,S9f4ef486ee,The Association,Six Man Band,,1,1,1,,not_enriched,unreviewed
+705,S9ff8adf4c2,Heart,Heartless,,1,1,1,,not_enriched,unreviewed
+706,Sa052aa4ca0,Steve Miller Band,Serenade,,1,1,1,,not_enriched,unreviewed
+707,Sa064604a6c,Icehouse,Walls,,1,1,1,,not_enriched,unreviewed
+708,Sa06a15d68f,Led Zeppelin,Since I’ve Been Loving You,,1,1,1,,not_enriched,unreviewed
+709,Sa0a359842a,Bad Company,Racetrack,,1,1,1,,not_enriched,unreviewed
+710,Sa0d7b118a0,Elton John,Bennie and the Jets,,1,1,1,,not_enriched,unreviewed
+711,Sa0fdfebb49,Tracy Chapman,All That You Have Is Your Soul,,1,1,1,,not_enriched,unreviewed
+712,Sa19801786e,Jimi Hendrix,"Still Raining, Still Dreaming",,1,1,1,,not_enriched,unreviewed
+713,Sa1ef3f2f89,The Byrds,My Back Pages,,1,1,1,,not_enriched,unreviewed
+714,Sa2558f4131,Tom Kimmel,On the Defensive,,1,1,1,,not_enriched,unreviewed
+715,Sa266a03a86,Heart,Alone,,1,1,1,,not_enriched,unreviewed
+716,Sa2bcfb794e,The 5th Dimension,Wedding Bell Blues,,1,1,1,,not_enriched,unreviewed
+717,Sa2bf0f0979,Bob Dylan,Like a Rolling Stone,,1,1,1,,not_enriched,unreviewed
+718,Sa2e23f6900,Greg Kihn Band,The Breakup Song (They Don't Write 'em),,1,1,1,,not_enriched,unreviewed
+719,Sa33c13939f,Sheryl Crow,My Favorite Mistake,,1,1,1,,not_enriched,unreviewed
+720,Sa3cdc6f8ae,The Beatles,I Should Have Known Better,,1,1,1,,not_enriched,unreviewed
+721,Sa3ea1951d4,The Beatles,Please Mr. Postman,,1,1,1,,not_enriched,unreviewed
+722,Sa4891ce61d,Fleetwood Mac,Rhiannon,,1,1,1,,not_enriched,unreviewed
+723,Sa48c3de79a,Enigma,The Cross of Changes,,1,1,1,,not_enriched,unreviewed
+724,Sa4a6e12191,Led Zeppelin,Whole Lotta Love,,1,1,1,,not_enriched,unreviewed
+725,Sa4af2b3bf1,Gordon Lightfoot,Old Dan's Records,,1,1,1,,not_enriched,unreviewed
+726,Sa4b18ae993,Jimi Hendrix,Have You Ever Been (To Electric Ladyland),,1,1,1,,not_enriched,unreviewed
+727,Sa4b9e05177,New Moon Jelly Roll Freedom Rockers,Messin’ With The Kid,,1,1,1,,not_enriched,unreviewed
+728,Sa4d120aacb,The Byrds,So You Want to Be a Rock ’n’ Roll Star,,1,1,1,,not_enriched,unreviewed
+729,Sa5269995b9,The Animals,I’m in Love Again,,1,1,1,,not_enriched,unreviewed
+730,Sa543e5d16b,Carole King,Beautiful,,1,1,1,,not_enriched,unreviewed
+731,Sa582c01468,Alice in Chains,Don’t Follow,,1,1,1,,not_enriched,unreviewed
+732,Sa588d2e9e8,Garth Brooks,Callin' Baton Rouge,,1,1,1,,not_enriched,unreviewed
+733,Sa58afaef45,Carole King,You've Got a Friend,,1,1,1,,not_enriched,unreviewed
+734,Sa5b8ff4813,Paul McCartney,Maybe I’m Amazed,,1,1,1,,not_enriched,unreviewed
+735,Sa5c0a674a3,Led Zeppelin,Heartbreaker,,1,1,1,,not_enriched,unreviewed
+736,Sa5c5a8e81c,Ace,How Long,,1,1,1,,not_enriched,unreviewed
+737,Sa60af0839b,Garth Brooks,Much Too Young (to Feel This Damn Old),,1,1,1,,not_enriched,unreviewed
+738,Sa645f682d0,Fleetwood Mac,Blue Letter,,1,1,1,,not_enriched,unreviewed
+739,Sa65073d995,The Beatles,Act Naturally,,1,1,1,,not_enriched,unreviewed
+740,Sa6a418789f,"Crosby, Stills, Nash & Young",Ohio,,1,1,1,,not_enriched,unreviewed
+741,Sa7066f3daa,Paul McCartney,Venus And Mars-Reprise,,1,1,1,,not_enriched,unreviewed
+742,Sa73c930891,The Beatles,Maggie Mae,,1,1,1,,not_enriched,unreviewed
+743,Sa758471d0e,The Doobie Brothers,Listen to the Music,,1,1,1,,not_enriched,unreviewed
+744,Sa78e7cda15,Led Zeppelin,That’s the Way,,1,1,1,,not_enriched,unreviewed
+745,Sa79e8af178,Eagles,Victim of Love,,1,1,1,,not_enriched,unreviewed
+746,Sa7a64f26c4,Gordon Lightfoot,Song for a Winter's Night,,1,1,1,,not_enriched,unreviewed
+747,Sa7ebdc168f,Paul McCartney,The Lovely Linda,,1,1,1,,not_enriched,unreviewed
+748,Sa8073335b4,The Hollies,Teach Your Children,,1,1,1,,not_enriched,unreviewed
+749,Sa83ad81fe6,Kansas,Opus Insert,,1,1,1,,not_enriched,unreviewed
+750,Sa8aedb0ef1,Fleetwood Mac,Second Hand News,,1,1,1,,not_enriched,unreviewed
+751,Sa8be45baa9,The Steve Miller Band,Threshold,,1,1,1,,not_enriched,unreviewed
+752,Sa8e65969a2,Eric Clapton,Before You Accuse Me,,1,1,1,,not_enriched,unreviewed
+753,Sa96ccf839e,Electric Light Orchestra,Ma‐Ma‐Ma Belle,,1,1,1,,not_enriched,unreviewed
+754,Sa9a5dadeea,Greg Kihn Band,Womankind,,1,1,1,,not_enriched,unreviewed
+755,Sa9c2b541b0,Peter Frampton,(I’ll Give You) Money,,1,1,1,,not_enriched,unreviewed
+756,Sa9ed98422f,The Beatles,Girl,,1,1,1,,not_enriched,unreviewed
+757,Saa4f095bec,The Doors,Waiting for the Sun,,1,1,1,,not_enriched,unreviewed
+758,Saa6777a2f7,Journey,Opened the Door,,1,1,1,,not_enriched,unreviewed
+759,Saa72b5f4cc,Electric Light Orchestra,Evil Woman,,1,1,1,,not_enriched,unreviewed
+760,Saa88314845,Billy Joel,Only the Good Die Young,,1,1,1,,not_enriched,unreviewed
+761,Sab11221832,Foreigner,Feels Like the First Time,,1,1,1,,not_enriched,unreviewed
+762,Sab34ef717e,Lynyrd Skynyrd,I Ain’t the One,,1,1,1,,not_enriched,unreviewed
+763,Sabb69ab1a1,The Byrds,All I Really Want to Do,,1,1,1,,not_enriched,unreviewed
+764,Sabdf5d0a56,Paul,Another Day,,1,1,1,,not_enriched,unreviewed
+765,Sabeb5bb02e,Kansas,Song for America,,1,1,1,,not_enriched,unreviewed
+766,Sac2b8e3064,Billy Idol,The Dead Next Door,,1,1,1,,not_enriched,unreviewed
+767,Sac95a3cd91,Dire Straits,Telegraph Road,,1,1,1,,not_enriched,unreviewed
+768,Sacc876be5b,Gordon Lightfoot,Beautiful,,1,1,1,,not_enriched,unreviewed
+769,Sace0a31696,Lindsey Buckingham,Doing What I Can,,1,1,1,,not_enriched,unreviewed
+770,Sad0e0c16a2,Led Zeppelin,Black Mountain Side,,1,1,1,,not_enriched,unreviewed
+771,Sad3885c620,Bon Jovi,Wanted Dead or Alive,,1,1,1,,not_enriched,unreviewed
+772,Sad4ad8f14f,Gordon Lightfoot,If You Could Read My Mind,,1,1,1,,not_enriched,unreviewed
+773,Sad4be8dad5,Roger Hodgson,In Jeopardy,,1,1,1,,not_enriched,unreviewed
+774,Sad5aca1222,Eric Clapton,Swing Low Sweet Chariot,,1,1,1,,not_enriched,unreviewed
+775,Sad6acfb3a5,The Guess Who,Hang on to Your Life,,1,1,1,,not_enriched,unreviewed
+776,Sade3b2292e,The Beatles,Love You To,,1,1,1,,not_enriched,unreviewed
+777,Sae18f2d413,Fleetwood Mac,Oh Daddy,,1,1,1,,not_enriched,unreviewed
+778,Sae3ac10982,Creedence Clearwater Revival,Down on the Corner,,1,1,1,,not_enriched,unreviewed
+779,Sae5d38c03d,The Mamas & the Papas,For the Love of Ivy,,1,1,1,,not_enriched,unreviewed
+780,Sae9dcf0d0a,Grand Funk Railroad,We’re an American Band,,1,1,1,,not_enriched,unreviewed
+781,Saeb2744578,Creedence Clearwater Revival,Lodi,,1,1,1,,not_enriched,unreviewed
+782,Saedee5e2f3,The Beatles,Old Brown Shoe,,1,1,1,,not_enriched,unreviewed
+783,Saf990dd6d7,Bon Jovi,Pink Flamingos,,1,1,1,,not_enriched,unreviewed
+784,Safc01bb152,The Beatles,She Said She Said,,1,1,1,,not_enriched,unreviewed
+785,Safd99f74e4,Carole King,Where You Lead,,1,1,1,,not_enriched,unreviewed
+786,Saff30dbf78,The 5th Dimension,"Love's Lines, Angles and Rhymes",,1,1,1,,not_enriched,unreviewed
+787,Saffcb61f09,Sheryl Crow,All I Wanna Do,,1,1,1,,not_enriched,unreviewed
+788,Sb00e6ad557,The Steve Miller Band,True Fine Love,,1,1,1,,not_enriched,unreviewed
+789,Sb021230e8a,Led Zeppelin,Tangerine,,1,1,1,,not_enriched,unreviewed
+790,Sb02b3927c6,Creedence Clearwater Revival,Commotion,,1,1,1,,not_enriched,unreviewed
+791,Sb07ef71fcc,The Mamas & the Papas,Twist and Shout,,1,1,1,,not_enriched,unreviewed
+792,Sb0aa457d22,Grand Funk Railroad,The Loco-Motion,,1,1,1,,not_enriched,unreviewed
+793,Sb0b39eb8bb,Garth Brooks,Burning Bridges,,1,1,1,,not_enriched,unreviewed
+794,Sb0ca5ccd42,Led Zeppelin,Moby Dick,,1,1,1,,not_enriched,unreviewed
+795,Sb0e4c35117,The Mamas & the Papas,Words of Love,,1,1,1,,not_enriched,unreviewed
+796,Sb0fa880619,Icehouse,Paradise,,1,1,1,,not_enriched,unreviewed
+797,Sb1164b8fa9,Enigma,Age of Loneliness (Carly’s Song),,1,1,1,,not_enriched,unreviewed
+798,Sb117d81233,Neil Diamond,Heartlight,,1,1,1,,not_enriched,unreviewed
+799,Sb132b092e4,Dire Straits,Southbound Again,,1,1,1,,not_enriched,unreviewed
+800,Sb149887ac4,Heart,Dog and Butterfly (acoustic),,1,1,1,,not_enriched,unreviewed
+801,Sb16000d57a,Paul McCartney,Letting Go,,1,1,1,,not_enriched,unreviewed
+802,Sb169b6235b,Electric Light Orchestra,Livin’ Thing,,1,1,1,,not_enriched,unreviewed
+803,Sb1ca593928,Fleetwood Mac,Songbird,,1,1,1,,not_enriched,unreviewed
+804,Sb233441a55,The Beatles,If I Needed Someone,,1,1,1,,not_enriched,unreviewed
+805,Sb25a37cbae,Lynyrd Skynyrd,I Know a Little,,1,1,1,,not_enriched,unreviewed
+806,Sb26cf037ef,The Doors,Light My Fire,,1,1,1,,not_enriched,unreviewed
+807,Sb26f823617,Alice Cooper,Be My Lover,,1,1,1,,not_enriched,unreviewed
+808,Sb2d415bf8d,The Beatles,Tell Me What You See,,1,1,1,,not_enriched,unreviewed
+809,Sb2d73419e9,Jimi Hendrix,Stepping Stone,,1,1,1,,not_enriched,unreviewed
+810,Sb2da2810d0,The Mamas & the Papas,I Saw Her Again Last Night,,1,1,1,,not_enriched,unreviewed
+811,Sb3fe32edc7,Eric Clapton,Wonderful Tonight,,1,1,1,,not_enriched,unreviewed
+812,Sb400690778,Bad Company,Old Mexico,,1,1,1,,not_enriched,unreviewed
+813,Sb4416d1ad8,Jimi Hendrix,Voodoo Chile (slight return),,1,1,1,,not_enriched,unreviewed
+814,Sb4a719002a,Fleetwood Mac,I'm So Afraid,,1,1,1,,not_enriched,unreviewed
+815,Sb4acc8ff82,The Beatles,You Won’t See Me,,1,1,1,,not_enriched,unreviewed
+816,Sb4c0377516,The Beatles,Lovely Rita,,1,1,1,,not_enriched,unreviewed
+817,Sb4f164c065,Kenny Loggins,Brighter Days,,1,1,1,,not_enriched,unreviewed
+818,Sb516fc7a97,The Beatles,I've Got A Feeling,,1,1,1,,not_enriched,unreviewed
+819,Sb574e8be23,The J. Geils Band,Mean Love,,1,1,1,,not_enriched,unreviewed
+820,Sb591672f4c,Eric Clapton,I Shot the Sheriff,,1,1,1,,not_enriched,unreviewed
+821,Sb5a5fdddd4,The J. Geils Band,Cry One More Time,,1,1,1,,not_enriched,unreviewed
+822,Sb5b7f39492,The Beatles,Getting Better,,1,1,1,,not_enriched,unreviewed
+823,Sb61470721b,The Doors,The Spy,,1,1,1,,not_enriched,unreviewed
+824,Sb68ca3df1e,Tom Kimmel,Heroes,,1,1,1,,not_enriched,unreviewed
+825,Sb6ee2f47ae,The Beatles,Magical Mystery Tour,,1,1,1,,not_enriched,unreviewed
+826,Sb6f9820a4e,Huey Lewis & the News,Bad Is Bad,,1,1,1,,not_enriched,unreviewed
+827,Sb739b7e3b9,The Cars,I'm in Touch With Your World,,1,1,1,,not_enriched,unreviewed
+828,Sb761cd4769,Led Zeppelin,Bron‐Y‐Aur Stomp,,1,1,1,,not_enriched,unreviewed
+829,Sb76e1a88e2,Wings,Live and Let Die,,1,1,1,,not_enriched,unreviewed
+830,Sb79e94720c,Tracy Chapman,This Time,,1,1,1,,not_enriched,unreviewed
+831,Sb7a9d9e38c,Chicago,Call on Me,,1,1,1,,not_enriched,unreviewed
+832,Sb7c9099384,Jimi Hendrix,Freedom,,1,1,1,,not_enriched,unreviewed
+833,Sb7d2824c64,Paul McCartney,Kreen‐Akrore,,1,1,1,,not_enriched,unreviewed
+834,Sb832260617,Huey Lewis and the News,If This Is It,,1,1,1,,not_enriched,unreviewed
+835,Sb83bf55f9b,The Beatles,You’re Going to Lose That Girl,,1,1,1,,not_enriched,unreviewed
+836,Sb95be5a0c9,Jimi Hendrix,Room Full of Mirrors,,1,1,1,,not_enriched,unreviewed
+837,Sba6683aa2a,Paul McCartney,Magneto And Titanium Man,,1,1,1,,not_enriched,unreviewed
+838,Sbb27dca52f,The Babys,Isn't It Time,,1,1,1,,not_enriched,unreviewed
+839,Sbbea4095cd,Alice Cooper,Muscle of Love,,1,1,1,,not_enriched,unreviewed
+840,Sbc0db38c26,Roger Hodgson,Only Because of You,,1,1,1,,not_enriched,unreviewed
+841,Sbc15329ef9,Grand Funk Railroad,Some Kind of Wonderful,,1,1,1,,not_enriched,unreviewed
+842,Sbc1c01ac7a,Led Zeppelin,What Is and What Should Never Be,,1,1,1,,not_enriched,unreviewed
+843,Sbcc41e7460,The Animals,Around and Around,,1,1,1,,not_enriched,unreviewed
+844,Sbce9d1e1c8,The J. Geils Band,Trying to Live My Life Without You,,1,1,1,,not_enriched,unreviewed
+845,Sbda5a033e2,Garth Brooks,Friends in Low Places,,1,1,1,,not_enriched,unreviewed
+846,Sbe366741db,The Beatles,Sgt. Pepper’s Lonely Hearts Club Band,,1,1,1,,not_enriched,unreviewed
+847,Sbe77777fd4,Sheryl Crow,Maybe That’s Something,,1,1,1,,not_enriched,unreviewed
+848,Sbf3be1f13d,Electric Light Orchestra,Strange Magic,,1,1,1,,not_enriched,unreviewed
+849,Sbf72464610,George Harrison,What Is Life,,1,1,1,,not_enriched,unreviewed
+850,Sbfd3253a8b,Garth Brooks,Shameless,,1,1,1,,not_enriched,unreviewed
+851,Sbfecf8ad8d,Huey Lewis & the News,Trouble in Paradise,,1,1,1,,not_enriched,unreviewed
+852,Sbff8b08db5,Chicago,Saturday in the Park,,1,1,1,,not_enriched,unreviewed
+853,Sbffd720a34,"Crosby, Stills & Nash",49 Bye‐Byes,,1,1,1,,not_enriched,unreviewed
+854,Sc1566175c0,Roger Hodgson,I’m Not Afraid,,1,1,1,,not_enriched,unreviewed
+855,Sc17912cda2,Kansas,Point of Know Return,,1,1,1,,not_enriched,unreviewed
+856,Sc195f0dab0,Lynyrd Skynyrd,Sweet Home Alabama,,1,1,1,,not_enriched,unreviewed
+857,Sc1ac72318d,Fleetwood Mac,When I See You Again,,1,1,1,,not_enriched,unreviewed
+858,Sc2507b19f0,Billy Joel,She’s Always a Woman,,1,1,1,,not_enriched,unreviewed
+859,Sc2604592e6,Alice Cooper,Teenage Lament ’74,,1,1,1,,not_enriched,unreviewed
+860,Sc27c84e6b9,The Hollies,The Air That I Breathe,,1,1,1,,not_enriched,unreviewed
+861,Sc294cc5583,Paul McCartney,Treat Her Gently-Lonely Old People,,1,1,1,,not_enriched,unreviewed
+862,Sc2bb1910eb,Jimi Hendrix,The Burning of the Midnight Lamp,,1,1,1,,not_enriched,unreviewed
+863,Sc2cbaea1ea,The Doors,Alabama Song (Whiskey Bar),,1,1,1,,not_enriched,unreviewed
+864,Sc39b7a0f19,Billy Idol,Blue Highway,,1,1,1,,not_enriched,unreviewed
+865,Sc423cce133,Gordon Lightfoot,Early Morning Rain,,1,1,1,,not_enriched,unreviewed
+866,Sc4540f40e7,Alice in Chains,I Stay Away,,1,1,1,,not_enriched,unreviewed
+867,Sc5177b3a34,Sheryl Crow,Riverwide,,1,1,1,,not_enriched,unreviewed
+868,Sc61ec30143,Eagles,Take It Easy,,1,1,1,,not_enriched,unreviewed
+869,Sc64759e6a8,Paul McCartney,Pipes of Peace,,1,1,1,,not_enriched,unreviewed
+870,Sc64d88b1e3,The Beatles,Sun King (early mix),,1,1,1,,not_enriched,unreviewed
+871,Sc6c5312724,The Steve Miller Band,Jet Airliner,,1,1,1,,not_enriched,unreviewed
+872,Sc75f07dc12,Eagles,Try and Love Again,,1,1,1,,not_enriched,unreviewed
+873,Sc829dcdbf3,New Moon Jelly Roll Freedom Rockers,"Oh Lord, Don’t Let Them Drop That Atom Bomb On Me",,1,1,1,,not_enriched,unreviewed
+874,Sc841655ee1,The Beatles,Don’t Let Me Down,,1,1,1,,not_enriched,unreviewed
+875,Sc8ac7254ad,Billy Idol,Daytime Drama,,1,1,1,,not_enriched,unreviewed
+876,Sc8d5225d97,Tom Kimmel,A to Z,,1,1,1,,not_enriched,unreviewed
+877,Sc8f65bdf9b,Jimi Hendrix,Are You Experienced,,1,1,1,,not_enriched,unreviewed
+878,Sc95bc074fe,Carole King,So Far Away,,1,1,1,,not_enriched,unreviewed
+879,Sc9675ba822,Huey Lewis and the News,I Want a New Drug,,1,1,1,,not_enriched,unreviewed
+880,Sc9876c0e30,The Doors,People Are Strange,,1,1,1,,not_enriched,unreviewed
+881,Sc9d90fd9b6,Bon Jovi,Let It Rock,,1,1,1,,not_enriched,unreviewed
+882,Sc9e9ef74d7,Fleetwood Mac,Never Going Back Again,,1,1,1,,not_enriched,unreviewed
+883,Sca215229a7,Huey Lewis & the News,Doing It All for My Baby,,1,1,1,,not_enriched,unreviewed
+884,Sca371087db,Loggins & Messina,My Music,,1,1,1,,not_enriched,unreviewed
+885,Scb59ce60dc,The Doobie Brothers,Rockin’ Down the Highway,,1,1,1,,not_enriched,unreviewed
+886,Scb5ee71aa4,The Animals,House of the Rising Sun,,1,1,1,,not_enriched,unreviewed
+887,Scb6fa633f5,New Moon Jelly Roll Freedom Rockers,She’s About a Mover,,1,1,1,,not_enriched,unreviewed
+888,Scb9ae925b7,Peter Gabriel,This Is the Picture (Excellent Birds),,1,1,1,,not_enriched,unreviewed
+889,Scc243778c4,Huey Lewis & the News,Heart and Soul,,1,1,1,,not_enriched,unreviewed
+890,Scc24fb0fb3,Billy Joel,Christie Lee,,1,1,1,,not_enriched,unreviewed
+891,Scc5b37fd02,Greg Kihn Band,Nothing's Gonna Change,,1,1,1,,not_enriched,unreviewed
+892,Sccaefa7601,Neil Diamond,Hello Again,,1,1,1,,not_enriched,unreviewed
+893,Sccdb1a6990,Creedence Clearwater Revival,Lookin’ out My Back Door,,1,1,1,,not_enriched,unreviewed
+894,Scce92bcfdd,Collective Soul,Reach,,1,1,1,,not_enriched,unreviewed
+895,Scd0555c00c,The Beatles,I Want to Tell You,,1,1,1,,not_enriched,unreviewed
+896,Scd8c9263f2,The Beatles,Good Day Sunshine,,1,1,1,,not_enriched,unreviewed
+897,Scd97eb98ff,Fleetwood Mac,Gold Dust Woman,,1,1,1,,not_enriched,unreviewed
+898,Scdb16e48be,Alice Cooper,Elected,,1,1,1,,not_enriched,unreviewed
+899,Scdc7d8e020,Bob Dylan,Rainy Day Women #12 & 35,,1,1,1,,not_enriched,unreviewed
+900,Scddb0e89d7,The Babys,Money,,1,1,1,,not_enriched,unreviewed
+901,Scdf5ca14df,Fleetwood Mac,World Turning,,1,1,1,,not_enriched,unreviewed
+902,Sce145060a1,Jimi Hendrix,Ezy Ryder,,1,1,1,,not_enriched,unreviewed
+903,Sce984085cf,The Doobie Brothers,Jesus Is Just Alright,,1,1,1,,not_enriched,unreviewed
+904,Scea64bf97d,The Byrds,Eight Miles High,,1,1,1,,not_enriched,unreviewed
+905,Sceefdeb1ae,Dire Straits,Love Over Gold,,1,1,1,,not_enriched,unreviewed
+906,Scf0d733d1f,Billy Joel,Tell Her About It,,1,1,1,,not_enriched,unreviewed
+907,Scf7687e08a,Greg Kihn Band,True Confessions,,1,1,1,,not_enriched,unreviewed
+908,Scf9ab50cd0,Alice Cooper,School’s Out,,1,1,1,,not_enriched,unreviewed
+909,Scfa39a4491,Eric Clapton,Knockin’ on Heaven’s Door,,1,1,1,,not_enriched,unreviewed
+910,Sd018693b14,Fleetwood Mac,Go Your Own Way,,1,1,1,,not_enriched,unreviewed
+911,Sd034175fa8,Heart,Will You Be There (in the Morning),,1,1,1,,not_enriched,unreviewed
+912,Sd0888cc330,Huey Lewis & the News,The Heart of Rock & Roll,,1,1,1,,not_enriched,unreviewed
+913,Sd0c9d9ac41,Greg Kihn Band,Valerie,,1,1,1,,not_enriched,unreviewed
+914,Sd0da05999d,Paul McCartney & Wings,My Love,,1,1,1,,not_enriched,unreviewed
+915,Sd140b65ed4,Peter Frampton,It’s a Plain Shame,,1,1,1,,not_enriched,unreviewed
+916,Sd214dca7ae,The J. Geils Band,First I Look at the Purse,,1,1,1,,not_enriched,unreviewed
+917,Sd246532fc8,Bon Jovi,Without Love,,1,1,1,,not_enriched,unreviewed
+918,Sd26ded9283,The Association,Along Comes Mary,,1,1,1,,not_enriched,unreviewed
+919,Sd2c56c5c0b,Kansas,What’s on My Mind,,1,1,1,,not_enriched,unreviewed
+920,Sd2cd0e2f0e,Lindsey Buckingham,This Nearly Was Mine,,1,1,1,,not_enriched,unreviewed
+921,Sd3562437cb,Kenny Loggins,Danny's Song,,1,1,1,,not_enriched,unreviewed
+922,Sd359b1ca1c,The Doobie Brothers,Natural Thing,,1,1,1,,not_enriched,unreviewed
+923,Sd468993084,New Moon Jelly Roll Freedom Rockers,If Blues Was Money,,1,1,1,,not_enriched,unreviewed
+924,Sd48db844f1,Heart,Stranded,,1,1,1,,not_enriched,unreviewed
+925,Sd4d0eac1b1,Lynyrd Skynyrd,What’s Your Name,,1,1,1,,not_enriched,unreviewed
+926,Sd53844ac0c,Neil Diamond,Brother Love’s Traveling Salvation Show,,1,1,1,,not_enriched,unreviewed
+927,Sd569afcdfe,The Animals,I’m Crying,,1,1,1,,not_enriched,unreviewed
+928,Sd5a9d1b925,Led Zeppelin,D’yer Mak’er,,1,1,1,,not_enriched,unreviewed
+929,Sd5c2126976,Ace,24 Hours,,1,1,1,,not_enriched,unreviewed
+930,Sd626092659,Led Zeppelin,How Many More Times,,1,1,1,,not_enriched,unreviewed
+931,Sd66900a99c,Collective Soul,Burning Bridges,,1,1,1,,not_enriched,unreviewed
+932,Sd6733c310c,Bob Dylan,Tangled Up in Blue,,1,1,1,,not_enriched,unreviewed
+933,Sd675963515,The Hollies,Stop in the Name of Love,,1,1,1,,not_enriched,unreviewed
+934,Sd693b1d269,Eric Clapton,Let It Grow,,1,1,1,,not_enriched,unreviewed
+935,Sd696a03183,Icehouse,Touch the Fire,,1,1,1,,not_enriched,unreviewed
+936,Sd6dc0710a6,The 5th Dimension,One Less Bell to Answer,,1,1,1,,not_enriched,unreviewed
+937,Sd7025a7230,The Beatles,Day Tripper,,1,1,1,,not_enriched,unreviewed
+938,Sd726a2add4,The Babys,Back on My Feet Again,,1,1,1,,not_enriched,unreviewed
+939,Sd79dbdc296,Lindsey Buckingham,Street of Dreams,,1,1,1,,not_enriched,unreviewed
+940,Sd817367b32,"Crosby, Stills & Nash",Lady of the Island,,1,1,1,,not_enriched,unreviewed
+941,Sd8a9a6d352,Billy Joel,Easy Money,,1,1,1,,not_enriched,unreviewed
+942,Sd8cd0bbbb3,Journey,Anytime,,1,1,1,,not_enriched,unreviewed
+943,Sd96b09100c,Dire Straits,Sultans of Swing,,1,1,1,,not_enriched,unreviewed
+944,Sd97e49cb1f,The Animals,Dimples,,1,1,1,,not_enriched,unreviewed
+945,Sd995abd47c,The 5th Dimension,Puppet Man,,1,1,1,,not_enriched,unreviewed
+946,Sd9b0580f98,Collective Soul,Heaven's Already Here,,1,1,1,,not_enriched,unreviewed
+947,Sd9cf2eabdf,Icehouse,Baby You're So Strange,,1,1,1,,not_enriched,unreviewed
+948,Sd9d723920b,Creedence Clearwater Revival,Proud Mary,,1,1,1,,not_enriched,unreviewed
+949,Sd9ee75002f,The Cars,You're All I've Got Tonight,,1,1,1,,not_enriched,unreviewed
+950,Sdab4d635d2,The Cars,Bye Bye Love,,1,1,1,,not_enriched,unreviewed
+951,Sdb481945e4,Fleetwood Mac,Little Lies,,1,1,1,,not_enriched,unreviewed
+952,Sdb4b29cf0c,Gordon Lightfoot,Steel Rail Blues,,1,1,1,,not_enriched,unreviewed
+953,Sdb75263bab,Kenny Loggins,Dangerzone,,1,1,1,,not_enriched,unreviewed
+954,Sdbeec07762,"Crosby, Stills, Nash & Young",Almost Cut My Hair,,1,1,1,,not_enriched,unreviewed
+955,Sdc0d4d08b5,Collective Soul,Sister Don't Cry,,1,1,1,,not_enriched,unreviewed
+956,Sdc35263d65,Steve Miller Band,Mercury Blues,,1,1,1,,not_enriched,unreviewed
+957,Sdc410ac54a,The Beatles,Lucy in the Sky With Diamonds,,1,1,1,,not_enriched,unreviewed
+958,Sdc897fa1c7,Fleetwood Mac,Dreams,,1,1,1,,not_enriched,unreviewed
+959,Sdcbbc9e146,Creedence Clearwater Revival,Who’ll Stop the Rain,,1,1,1,,not_enriched,unreviewed
+960,Sdcdb822a6d,Ace,So Sorry Baby,,1,1,1,,not_enriched,unreviewed
+961,Sdcf795651d,Gordon Lightfoot,Cold on the Shoulder,,1,1,1,,not_enriched,unreviewed
+962,Sdd213e6cf3,Kansas,Magnum Opus: Father Padilla Meets the Perfect Gnat / Howling at the Moon / Man Overboard / Industry on Parade / Release the Beavers / Gnat Attack,,1,1,1,,not_enriched,unreviewed
+963,Sdd32b5be61,Fleetwood Mac,Tango in the Night,,1,1,1,,not_enriched,unreviewed
+964,Sdd59ab48f9,Huey Lewis & the News,I Want a New Drug,,1,1,1,,not_enriched,unreviewed
+965,Sdd6d4cc837,"Crosby, Stills, Nash & Young",Carry On,,1,1,1,,not_enriched,unreviewed
+966,Sdd78e7195e,Bad Company,Kickdown,,1,1,1,,not_enriched,unreviewed
+967,Sddcec664f0,Lindsey Buckingham,This Is the Time,,1,1,1,,not_enriched,unreviewed
+968,Sddf0d99dd6,Bob Dylan,Blowin' in the Wind,,1,1,1,,not_enriched,unreviewed
+969,Sde1860be94,The Doors,Roadhouse Blues,,1,1,1,,not_enriched,unreviewed
+970,Sde57ee0976,Steve Miller Band,Blue Odyssey,,1,1,1,,not_enriched,unreviewed
+971,Sde9c159f16,Fleetwood Mac,I Don’t Want to Know,,1,1,1,,not_enriched,unreviewed
+972,Sdeb00100b4,Bob Dylan,Subterranean Homesick Blues,,1,1,1,,not_enriched,unreviewed
+973,Sdedd8cfb34,Heart,Lighter Touch,,1,1,1,,not_enriched,unreviewed
+974,Sdee5bf7c32,Eric Clapton,Rollin’ & Tumblin’,,1,1,1,,not_enriched,unreviewed
+975,Sdf1b6d8b47,Grand Funk Railroad,Rock & Roll Soul,,1,1,1,,not_enriched,unreviewed
+976,Sdf2f92fb9c,The Beatles,For No One,,1,1,1,,not_enriched,unreviewed
+977,Sdf6cb84522,Collective Soul,Shine,,1,1,1,,not_enriched,unreviewed
+978,Se05e79b034,"Crosby, Stills & Nash",Guinnevere,,1,1,1,,not_enriched,unreviewed
+979,Se061cf11d0,Peter Gabriel,In Your Eyes,,1,1,1,,not_enriched,unreviewed
+980,Se06a679784,Led Zeppelin,Bring It On Home,,1,1,1,,not_enriched,unreviewed
+981,Se092fae393,Paul McCartney,Hot as Sun / Glasses,,1,1,1,,not_enriched,unreviewed
+982,Se13f638bea,Paul McCartney,Spirits Of Ancient Egypt,,1,1,1,,not_enriched,unreviewed
+983,Se16d7dee71,Fleetwood Mac,Isn't It Midnight,,1,1,1,,not_enriched,unreviewed
+984,Se19c0a44b0,Led Zeppelin,Gallows Pole,,1,1,1,,not_enriched,unreviewed
+985,Se19d6c5a17,The Beatles,Carry That Weight,,1,1,1,,not_enriched,unreviewed
+986,Se1bf7fe4d6,Loggins & Messina,Peace of Mind,,1,1,1,,not_enriched,unreviewed
+987,Se2122ec614,George Harrison,Give Me Love (Give Me Peace on Earth),,1,1,1,,not_enriched,unreviewed
+988,Se2a24f5b35,Tracy Chapman,Freedom Now,,1,1,1,,not_enriched,unreviewed
+989,Se2b94506fd,Loggins & Messina,Angry Eyes,,1,1,1,,not_enriched,unreviewed
+990,Se36c759e71,Grand Funk Railroad,To Get Back In,,1,1,1,,not_enriched,unreviewed
+991,Se381f0a0aa,Jackson Browne,Your Bright Baby Blues,,1,1,1,,not_enriched,unreviewed
+992,Se398260940,Tracy Chapman,Be Careful of My Heart,,1,1,1,,not_enriched,unreviewed
+993,Se483c2ceea,"Crosby, Stills & Nash",Helplessly Hoping,,1,1,1,,not_enriched,unreviewed
+994,Se49dde8c3a,Tom Kimmel,That's Freedom,,1,1,1,,not_enriched,unreviewed
+995,Se4d772f4f3,Elton John,Levon,,1,1,1,,not_enriched,unreviewed
+996,Se4e0f9232b,Eric Clapton,Signe,,1,1,1,,not_enriched,unreviewed
+997,Se4ff202230,Sheryl Crow,Mississippi,,1,1,1,,not_enriched,unreviewed
+998,Se5d078ba98,Paul McCartney,Singalong Junk,,1,1,1,,not_enriched,unreviewed
+999,Se61214ef57,The Doobie Brothers,Daughters of the Sea,,1,1,1,,not_enriched,unreviewed
+1000,Se61d5387e6,Bad Company,Cross Country Boy,,1,1,1,,not_enriched,unreviewed
+1001,Se668ee2959,The Cars,I Refuse,,1,1,1,,not_enriched,unreviewed
+1002,Se6b4b82d27,Grand Funk Railroad,Sally,,1,1,1,,not_enriched,unreviewed
+1003,Se6f41a0737,Neil Diamond,I Am I Said…,,1,1,1,,not_enriched,unreviewed
+1004,Se72598a645,Chicago,(I’ve Been) Searchin’ So Long,,1,1,1,,not_enriched,unreviewed
+1005,Se727202070,"Crosby, Stills, Nash & Young",Everybody I Love You,,1,1,1,,not_enriched,unreviewed
+1006,Se75bccd6f7,Foreigner,Woman Oh Woman,,1,1,1,,not_enriched,unreviewed
+1007,Se75cce3cf6,The Guess Who,These Eyes,,1,1,1,,not_enriched,unreviewed
+1008,Se769c1c2b3,Kansas,No One Together,,1,1,1,,not_enriched,unreviewed
+1009,Se77685331b,The Steve Miller Band,My Own Space,,1,1,1,,not_enriched,unreviewed
+1010,Se7a8837026,Gordon Lightfoot,Carefree Highway,,1,1,1,,not_enriched,unreviewed
+1011,Se7de495b79,Peter Frampton,Lines on My Face,,1,1,1,,not_enriched,unreviewed
+1012,Se7f66ecdcc,The 5th Dimension,Aquarius / Let the Sunshine In (The Flesh Failures),,1,1,1,,not_enriched,unreviewed
+1013,Se83c453d75,Electric Light Orchestra,Rockaria!,,1,1,1,,not_enriched,unreviewed
+1014,Se8f910106a,Paul McCartney,Listen To What The Man Said,,1,1,1,,not_enriched,unreviewed
+1015,Se8fa286f12,Eric Clapton,Lay Down Sally,,1,1,1,,not_enriched,unreviewed
+1016,Se900199d6f,Garth Brooks,Papa Loved Mama,,1,1,1,,not_enriched,unreviewed
+1017,Se97cdc548a,The Cars,Heartbeat City,,1,1,1,,not_enriched,unreviewed
+1018,Se97eb8f04d,Paul McCartney,Every Night,,1,1,1,,not_enriched,unreviewed
+1019,Se9d1f983fc,Huey Lewis and the News,Walking on a Thin Line,,1,1,1,,not_enriched,unreviewed
+1020,Sea1cd3c814,Eagles,Life in the Fast Lane,,1,1,1,,not_enriched,unreviewed
+1021,Sea82f4fa74,Led Zeppelin,Misty Mountain Hop,,1,1,1,,not_enriched,unreviewed
+1022,Sea9a7fb9c6,The Beatles,Got to Get You Into My Life,,1,1,1,,not_enriched,unreviewed
+1023,Sea9bee6b31,The Cars,Magic,,1,1,1,,not_enriched,unreviewed
+1024,Seaaa9370f0,The Doors,Maggie M’Gill,,1,1,1,,not_enriched,unreviewed
+1025,Seb8629608d,Tom Kimmel,No Tech,,1,1,1,,not_enriched,unreviewed
+1026,Seb94050f24,Eric Clapton,Bell Bottom Blues,,1,1,1,,not_enriched,unreviewed
+1027,Sebc0fa5542,Sheryl Crow,There Goes the Neighborhood,,1,1,1,,not_enriched,unreviewed
+1028,Sebc2449736,Huey Lewis and the News,Heart and Soul,,1,1,1,,not_enriched,unreviewed
+1029,Sebe1d3920e,Gordon Lightfoot,Don Quixote,,1,1,1,,not_enriched,unreviewed
+1030,Secaab7a398,Icehouse,Sister,,1,1,1,,not_enriched,unreviewed
+1031,Sed1a97f050,Bob Dylan,Just Like a Woman,,1,1,1,,not_enriched,unreviewed
+1032,Sed5167b099,The Animals,"Baby, Let Me Take You Home",,1,1,1,,not_enriched,unreviewed
+1033,Sed8a5b4a62,Tracy Chapman,Bridges,,1,1,1,,not_enriched,unreviewed
+1034,Sedc467a81b,Alice Cooper,Billion Dollar Babies,,1,1,1,,not_enriched,unreviewed
+1035,See2d1c51fb,George Harrison,You,,1,1,1,,not_enriched,unreviewed
+1036,See5a5bde6c,Led Zeppelin,Ramble On,,1,1,1,,not_enriched,unreviewed
+1037,See5bbeede2,Eagles,The Last Resort,,1,1,1,,not_enriched,unreviewed
+1038,See86534565,Dire Straits,The Man’s Too Strong,,1,1,1,,not_enriched,unreviewed
+1039,Seeca2fa6fb,Icehouse,Don't Believe Anymore,,1,1,1,,not_enriched,unreviewed
+1040,Seecb3214b1,Bread,Look What You’ve Done,,1,1,1,,not_enriched,unreviewed
+1041,Sef39401a23,Eric Clapton,Cocaine,,1,1,1,,not_enriched,unreviewed
+1042,Sef59dc7a43,Alice Cooper,I’m Eighteen,,1,1,1,,not_enriched,unreviewed
+1043,Sef92617bdb,Kansas,Cheyenne Anthem,,1,1,1,,not_enriched,unreviewed
+1044,Sefa06f598f,The Guess Who,Do You Miss Me Darlin’?,,1,1,1,,not_enriched,unreviewed
+1045,Sf02046dd77,Bread,Mother Freedom,,1,1,1,,not_enriched,unreviewed
+1046,Sf0471c7298,Alice Cooper,Is It My Body,,1,1,1,,not_enriched,unreviewed
+1047,Sf0d30c06a2,Gordon Lightfoot,Circle of Steel,,1,1,1,,not_enriched,unreviewed
+1048,Sf1d42e0a63,The Doobie Brothers,Minute by Minute,,1,1,1,,not_enriched,unreviewed
+1049,Sf263281f85,Fleetwood Mac,Landslide,,1,1,1,,not_enriched,unreviewed
+1050,Sf268d15beb,The Mamas & the Papas,Twelve Thirty (Young Girls Are Coming to the Canyon),,1,1,1,,not_enriched,unreviewed
+1051,Sf2b64a84ea,Eric Clapton,Old Love,,1,1,1,,not_enriched,unreviewed
+1052,Sf2e0a179c6,Paul McCartney & Wings,Mamunia,,1,1,1,,not_enriched,unreviewed
+1053,Sf303345310,Steve Miller Band,You Send Me,,1,1,1,,not_enriched,unreviewed
+1054,Sf34ca496be,Kenny Loggins,Celebrate My Home,,1,1,1,,not_enriched,unreviewed
+1055,Sf3c3c9afe0,The Mamas & the Papas,Go Where You Wanna Go,,1,1,1,,not_enriched,unreviewed
+1056,Sf460479d2f,Heart,Never,,1,1,1,,not_enriched,unreviewed
+1057,Sf4baef2898,Eagles,Pretty Maids All in a Row,,1,1,1,,not_enriched,unreviewed
+1058,Sf536dd7eae,Grand Funk Railroad,Take Me,,1,1,1,,not_enriched,unreviewed
+1059,Sf543b64ec7,Lynyrd Skynyrd,Simple Man,,1,1,1,,not_enriched,unreviewed
+1060,Sf5f19e9de5,Wings,Let ’Em In,,1,1,1,,not_enriched,unreviewed
+1061,Sf69375dbef,Led Zeppelin,The Rain Song,,1,1,1,,not_enriched,unreviewed
+1062,Sf6b1fe114c,The Association,Never My Love,,1,1,1,,not_enriched,unreviewed
+1063,Sf700ffdbf9,Led Zeppelin,Going to California,,1,1,1,,not_enriched,unreviewed
+1064,Sf708928bb5,Billy Joel,The Stranger,,1,1,1,,not_enriched,unreviewed
+1065,Sf74348f3c6,Billy Idol,Crank Call,,1,1,1,,not_enriched,unreviewed
+1066,Sf75672cf64,"Crosby, Stills & Nash",You Don’t Have to Cry,,1,1,1,,not_enriched,unreviewed
+1067,Sf75a6fc911,The Beatles,Norwegian Wood (This Bird Has Flown),,1,1,1,,not_enriched,unreviewed
+1068,Sf78d970581,The Beatles,Sgt. Pepper’s Lonely Hearts Club Band (Reprise),,1,1,1,,not_enriched,unreviewed
+1069,Sf816e91d88,Carole King,Tapestry,,1,1,1,,not_enriched,unreviewed
+1070,Sf84833f014,Gordon Lightfoot,Canadian Railroad Trilogy,,1,1,1,,not_enriched,unreviewed
+1071,Sf9a6b985d9,The Byrds,Turn! Turn! Turn! (To Everything There Is a Season),,1,1,1,,not_enriched,unreviewed
+1072,Sfa1e4dc4af,Eric Clapton,Promises,,1,1,1,,not_enriched,unreviewed
+1073,Sfa24692dd0,Garth Brooks,The Red Strokes,,1,1,1,,not_enriched,unreviewed
+1074,Sfa4fd00059,Paul McCartney,Medicine Jar,,1,1,1,,not_enriched,unreviewed
+1075,Sfa77b4a7e3,Huey Lewis & the News,If This Is It,,1,1,1,,not_enriched,unreviewed
+1076,Sfaf3082d0f,Paul McCartney,That Would Be Something,,1,1,1,,not_enriched,unreviewed
+1077,Sfb4534e494,Creedence Clearwater Revival,I Heard It Through the Grapevine,,1,1,1,,not_enriched,unreviewed
+1078,Sfb56c7251c,Sheryl Crow,I Shall Believe,,1,1,1,,not_enriched,unreviewed
+1079,Sfb8fac2bbc,George Harrison,Bangla Desh,,1,1,1,,not_enriched,unreviewed
+1080,Sfbafa59bd1,The Beatles,The Night Before,,1,1,1,,not_enriched,unreviewed
+1081,Sfbb85989a3,Gordon Lightfoot,Affair on 8th Avenue,,1,1,1,,not_enriched,unreviewed
+1082,Sfbe30cfa5f,Eric Clapton,Running on Faith,,1,1,1,,not_enriched,unreviewed
+1083,Sfc0b28dbef,Peter Gabriel,We Do What We’re Told (Milgram’s 37),,1,1,1,,not_enriched,unreviewed
+1084,Sfc202eb783,Bon Jovi,Never Say Goodbye,,1,1,1,,not_enriched,unreviewed
+1085,Sfc4bb5079a,The Doobie Brothers,"Another Park, Another Sunday",,1,1,1,,not_enriched,unreviewed
+1086,Sfc4e2dcd15,Tom Kimmel,Shake,,1,1,1,,not_enriched,unreviewed
+1087,Sfc9df5edc7,Enigma,Second Chapter,,1,1,1,,not_enriched,unreviewed
+1088,Sfcaf0235ba,Carole King,Home Again,,1,1,1,,not_enriched,unreviewed
+1089,Sfcc98e9a3a,Billy Joel,Careless Talk,,1,1,1,,not_enriched,unreviewed
+1090,Sfd45e1b4ff,Chicago,Feelin’ Stronger Every Day,,1,1,1,,not_enriched,unreviewed
+1091,Sfd48fcc449,Icehouse,Street Cafe,,1,1,1,,not_enriched,unreviewed
+1092,Sfdf40d6951,Steve Miller Band,Fly Like an Eagle,,1,1,1,,not_enriched,unreviewed
+1093,Sfe75bce146,The Association,Time for Livin',,1,1,1,,not_enriched,unreviewed
+1094,Sfed984fd22,Garth Brooks,Unanswered Prayers,,1,1,1,,not_enriched,unreviewed
+1095,Sfef979a3b6,"Crosby, Stills, Nash & Young","Country Girl: Whiskey Boot Hill – Down, Down, Down – “Country Girl” (I Think You’re Pretty)",,1,1,1,,not_enriched,unreviewed
+1096,Sff7c50d734,Roger Hodgson,Had a Dream (Sleeping with the Enemy),,1,1,1,,not_enriched,unreviewed
+1097,Sff8cadbf2a,Ace,Satellite,,1,1,1,,not_enriched,unreviewed
+1098,Sffb03ce7e6,The Beatles,Dig A Pony,,1,1,1,,not_enriched,unreviewed
+1099,S0263f2a2f0,Vanessa Williams,What Child Is This?,,0,1,0,,not_enriched,unreviewed
+1100,S09c24c9379,Aretha Franklin,O Christmas Tree,,0,1,0,,not_enriched,unreviewed
+1101,S231edc0b9f,AC/DC,Walk All Over You,,0,1,0,,not_enriched,unreviewed
+1102,S3b35d142c8,AC/DC,Get It Hot,,0,1,0,,not_enriched,unreviewed
+1103,S3ec2444186,AC/DC,Highway to Hell,,0,1,0,,not_enriched,unreviewed
+1104,S41e84122a9,Luther Vandross,The Christmas Song,,0,1,0,,not_enriched,unreviewed
+1105,S51e36a1891,Ronnie Spector,Rockin' Around the Christmas Tree,,0,1,0,,not_enriched,unreviewed
+1106,S63f63b8211,AC/DC,If You Want Blood (You’ve Got It),,0,1,0,,not_enriched,unreviewed
+1107,S66f9281fa5,AC/DC,Beating Around the Bush,,0,1,0,,not_enriched,unreviewed
+1108,S681d5b7fa4,Extreme,Christmas Time Again,,0,1,0,,not_enriched,unreviewed
+1109,S6ce1f4a672,Tom Petty and the Heartbreakers,Christmas All Over Again,,0,1,0,,not_enriched,unreviewed
+1110,S77d39ec2fd,Sinéad O’Connor,I Believe in You,,0,1,0,,not_enriched,unreviewed
+1111,S7ad4a0b6fe,AC/DC,Night Prowler,,0,1,0,,not_enriched,unreviewed
+1112,S82b32aad43,Debbie Gibson,Sleigh Ride,,0,1,0,,not_enriched,unreviewed
+1113,S881be9b33d,AC/DC,Love Hungry Man,,0,1,0,,not_enriched,unreviewed
+1114,S8f3cd84192,Run‐D.M.C.,Christmas Is,,0,1,0,,not_enriched,unreviewed
+1115,Sc242364283,Frank Sinatra,Santa Claus Is Coming to Town,,0,1,0,,not_enriched,unreviewed
+1116,Sc2b4e1fdb3,Bonnie Raitt,Merry Christmas Baby,,0,1,0,,not_enriched,unreviewed
+1117,Sd32c8b4a5c,Wilson Phillips,Silent Night,,0,1,0,,not_enriched,unreviewed
+1118,Sd651556059,Ann,Blue Christmas,,0,1,0,,not_enriched,unreviewed
+1119,Sd84abf8aad,Jon Bon Jovi,Please Come Home for Christmas,,0,1,0,,not_enriched,unreviewed
+1120,Sdab6c23473,Michael Bolton,White Christmas,,0,1,0,,not_enriched,unreviewed
+1121,Se6f9b21979,Paul Young,What Christmas Means to Me,,0,1,0,,not_enriched,unreviewed
+1122,Se87b0a302a,Boyz II Men,The Birth of Christ,,0,1,0,,not_enriched,unreviewed
+1123,See76276f2f,Tevin Campbell,O Holy Night,,0,1,0,,not_enriched,unreviewed
+1124,Sf0527e5af9,AC/DC,Touch Too Much,,0,1,0,,not_enriched,unreviewed
+1125,Sf8871b5038,AC/DC,Shot Down in Flames,,0,1,0,,not_enriched,unreviewed
+1126,Sfa06f0a674,Randy Travis,Jingle Bell Rock,,0,1,0,,not_enriched,unreviewed
+1127,Sfedd2ea0d1,AC/DC,Girls Got Rhythm,,0,1,0,,not_enriched,unreviewed
+1128,S0ae3b5e119,The Moody Blues,Dawning Is the Day,,0,0,0,,not_enriched,unreviewed
+1129,S164006fe06,The Moody Blues,Question,,0,0,0,,not_enriched,unreviewed
+1130,S17ce5ed938,The Moody Blues,Evening: The Sun Set / Twilight Time,,0,0,0,,not_enriched,unreviewed
+1131,S2f235ff045,The Moody Blues,Minstrel’s Song,,0,0,0,,not_enriched,unreviewed
+1132,S4cf6b56029,The Moody Blues,Melancholy Man,,0,0,0,,not_enriched,unreviewed
+1133,S6541326272,The Moody Blues,Tortoise and the Hare,,0,0,0,,not_enriched,unreviewed
+1134,S6b93c33943,The Moody Blues,The Balance,,0,0,0,,not_enriched,unreviewed
+1135,S7430410e60,The Moody Blues,And the Tide Rushes In,,0,0,0,,not_enriched,unreviewed
+1136,S788944a30b,The Moody Blues,Dawn: Dawn Is a Feeling,,0,0,0,,not_enriched,unreviewed
+1137,S7bfab38e73,The Moody Blues,Lunch Break: Peak Hour,,0,0,0,,not_enriched,unreviewed
+1138,S85847d5f8c,The Moody Blues,Don’t You Feel Small,,0,0,0,,not_enriched,unreviewed
+1139,S9716f185aa,The Moody Blues,How Is It (We Are Here),,0,0,0,,not_enriched,unreviewed
+1140,Sc9ff033c00,The Moody Blues,The Night: Nights in White Satin,,0,0,0,,not_enriched,unreviewed
+1141,Sca40f4f970,The Moody Blues,The Morning: Another Morning,,0,0,0,,not_enriched,unreviewed
+1142,Sd4d0132b39,The Moody Blues,The Afternoon: Forever Afternoon (Tuesday?) / (Evening) Time to Get Away,,0,0,0,,not_enriched,unreviewed
+1143,Sd66471c85a,The Moody Blues,The Day Begins,,0,0,0,,not_enriched,unreviewed
+1144,Sdb80b5cd10,The Moody Blues,It’s Up to You,,0,0,0,,not_enriched,unreviewed
