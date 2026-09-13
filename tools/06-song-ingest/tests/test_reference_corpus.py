@@ -56,3 +56,53 @@ def test_ontology_linkage_records_authoritative_vocab():
     link = json.loads((PIECE / "ontology-linkage.json").read_text())
     assert link["ontology"]["targets"] >= 86
     assert "music_creation" in link["ontology"]["source_repo"]
+
+
+# ---- hard 4:00 / 100-bar contract (spec correction) -------------------------
+
+STALE_REFERENCES = ["4:48", "288 seconds", "288-second", "120 bars"]
+
+
+def test_exact_four_minute_contract():
+    """HARD: the active corpus must never regress to 4:48 / 288 s / 120 bars."""
+    mmap = json.loads((PIECE / "movement_map.json").read_text())
+    assert mmap["duration_seconds"] == 240.0
+    assert mmap["total_bars"] == 100
+    version = json.loads((PIECE / "composition_version.json").read_text())
+    assert version["tempo_bpm"] == 100
+    events = json.loads((PIECE / "event_manifest.json").read_text())["events"]
+    for e in events:
+        assert e["onset_seconds"] + e["duration_seconds"] <= 240.001
+
+
+def test_conditioning_renders_are_exactly_240s():
+    notes = json.loads((PIECE / "conditioning_render_notes.json").read_text())
+    for name, r in notes["renders"].items():
+        assert r["validation"]["exactly_240"] is True, name
+        assert r["validation"]["not_clipped"] is True, name
+        assert r["validation"]["all_sections_audible"] is True, name
+
+
+def test_no_stale_duration_references_in_generated_outputs():
+    """The generated prompt book, every prompt/exclude file, and the
+    ontology linkage must be free of superseded duration wording."""
+    checked = []
+    book = PIECE / "prompt-book" / "SUNO_RENDERING_PROMPT_BOOK.md"
+    checked.append(("prompt book", book.read_text()))
+    checked.append(("ontology-linkage",
+                    (PIECE / "ontology-linkage.json").read_text()))
+    checked.append(("movement map",
+                    (PIECE / "movement_map.json").read_text()))
+    checked.append(("composition version",
+                    (PIECE / "composition_version.json").read_text()))
+    for tdir in (PIECE / "targets").iterdir():
+        for fname in ("prompt.txt", "exclude.txt", "metadata.json"):
+            f = tdir / fname
+            if f.is_file():
+                checked.append((f"{tdir.name}/{fname}", f.read_text()))
+    failures = []
+    for name, text in checked:
+        for bad in STALE_REFERENCES:
+            if bad.lower() in text.lower():
+                failures.append(f"{name}: {bad!r}")
+    assert not failures, failures

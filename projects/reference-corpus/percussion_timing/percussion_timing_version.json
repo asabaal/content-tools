@@ -1,0 +1,21 @@
+{
+  "schema": "content-tools/reference-composition/timing-version",
+  "schema_version": "0.1",
+  "title": "Percussion Timing Reference",
+  "generated_at": "2026-09-13T21:52:32.438398+00:00",
+  "deterministic": true,
+  "tempo_bpm": 120,
+  "duration_seconds": 120.0,
+  "event_count": 348,
+  "artifacts": {
+    "percussion_timing_reference.mid": {
+      "sha256": "dfa73dabf53a878d2cd6dab5897b678bc9e34b5967e3863c77f7374ee40bae4d"
+    },
+    "percussion_timing_event_manifest.json": {
+      "sha256": "f3d202b29ec05950336d55b269ea0396ff4acfac2a7cdee11c1e6ed3c387bbcf"
+    },
+    "percussion_timing_map.json": {
+      "sha256": "e0972fce8b1bf46dca11fd87820e79fe5acd851b29f316468dd0681750584ab2"
+    }
+  }
+}

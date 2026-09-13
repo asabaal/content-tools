@@ -1,0 +1,22 @@
+{
+  "family": "percussion_timing",
+  "artifacts": {
+    "percussion_timing_version.json": {
+      "sha256": "887e5853a097b282a55c50a41b4fefa4df8f344ec606533c63ff1c35df6e338d",
+      "bytes": 703
+    },
+    "percussion_timing_map.json": {
+      "sha256": "e0972fce8b1bf46dca11fd87820e79fe5acd851b29f316468dd0681750584ab2",
+      "bytes": 2543
+    },
+    "percussion_timing_event_manifest.json": {
+      "sha256": "f3d202b29ec05950336d55b269ea0396ff4acfac2a7cdee11c1e6ed3c387bbcf",
+      "bytes": 174957
+    },
+    "percussion_timing_reference.mid": {
+      "sha256": "dfa73dabf53a878d2cd6dab5897b678bc9e34b5967e3863c77f7374ee40bae4d",
+      "bytes": 2964
+    }
+  },
+  "ingested_at": "2026-09-13T22:09:50.150391+00:00"
+}

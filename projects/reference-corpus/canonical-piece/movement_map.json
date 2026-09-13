@@ -7,8 +7,8 @@
     4,
     4
   ],
-  "total_bars": 120,
-  "duration_seconds": 288.12,
+  "total_bars": 100,
+  "duration_seconds": 240.0,
   "sections": [
     {
       "id": "majors_parade",
@@ -51,9 +51,9 @@
     {
       "id": "scales_and_intervals",
       "title": "III. Scales, Intervals, Registers",
-      "bars": 24,
+      "bars": 18,
       "start_seconds": 57.6,
-      "end_seconds": 115.34,
+      "end_seconds": 100.94,
       "keys_context": [
         "C major; A minor; chromatic; C major (interval study); C major"
       ],
@@ -73,14 +73,14 @@
         "isolated_notes",
         "monophonic"
       ],
-      "note_count": 250
+      "note_count": 182
     },
     {
       "id": "progression_journey",
       "title": "IV. Progression Journey (ii-V-I, pop loops, blues, modulation)",
-      "bars": 16,
-      "start_seconds": 115.2,
-      "end_seconds": 153.6,
+      "bars": 12,
+      "start_seconds": 100.8,
+      "end_seconds": 129.6,
       "keys_context": [
         "C major; F major; G major; A dominant/blues"
       ],
@@ -92,14 +92,14 @@
         "dominant_sevenths",
         "controlled_modulation"
       ],
-      "note_count": 140
+      "note_count": 108
     },
     {
       "id": "texture_counterpoint",
       "title": "V. Counterpoint, Voicings, Articulation",
-      "bars": 16,
-      "start_seconds": 153.6,
-      "end_seconds": 192.18,
+      "bars": 12,
+      "start_seconds": 129.6,
+      "end_seconds": 163.38,
       "keys_context": [
         "D minor; D minor; C major"
       ],
@@ -114,14 +114,14 @@
         "sparse_accompaniment",
         "dense_accompaniment"
       ],
-      "note_count": 192
+      "note_count": 166
     },
     {
       "id": "solos",
       "title": "VI. Two Solos",
-      "bars": 12,
-      "start_seconds": 192.0,
-      "end_seconds": 220.68,
+      "bars": 8,
+      "start_seconds": 158.4,
+      "end_seconds": 177.48,
       "keys_context": [
         "A minor (harmonic color); E minor"
       ],
@@ -133,14 +133,14 @@
         "register_sweep",
         "sparse_accompaniment"
       ],
-      "note_count": 98
+      "note_count": 73
     },
     {
       "id": "bass_role",
       "title": "VII. Bass Behavior",
-      "bars": 8,
-      "start_seconds": 220.8,
-      "end_seconds": 240.12,
+      "bars": 6,
+      "start_seconds": 177.6,
+      "end_seconds": 192.12,
       "keys_context": [
         "F major; C major"
       ],
@@ -150,14 +150,14 @@
         "repeated_notes",
         "sustained_legato"
       ],
-      "note_count": 34
+      "note_count": 26
     },
     {
       "id": "percussion_fx_vocal_roles",
       "title": "VIII. Percussion, FX, Vocal-role behavior",
-      "bars": 8,
-      "start_seconds": 240.0,
-      "end_seconds": 259.26,
+      "bars": 6,
+      "start_seconds": 192.0,
+      "end_seconds": 206.46,
       "keys_context": [
         "A minor"
       ],
@@ -167,14 +167,14 @@
         "fx_transition_gestures",
         "vocal_role_sustained"
       ],
-      "note_count": 56
+      "note_count": 42
     },
     {
       "id": "finale",
       "title": "IX. Finale \u2014 modulation climb and dense climax",
-      "bars": 12,
-      "start_seconds": 259.2,
-      "end_seconds": 288.12,
+      "bars": 14,
+      "start_seconds": 206.4,
+      "end_seconds": 240.0,
       "keys_context": [
         "C major; D major; E minor (final cadence)"
       ],
@@ -185,7 +185,7 @@
         "full_chordal",
         "sustained_legato"
       ],
-      "note_count": 178
+      "note_count": 174
     }
   ]
 }

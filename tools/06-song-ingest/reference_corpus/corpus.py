@@ -63,7 +63,8 @@ def init_corpus(repo_root: Path, *, composition_source: Path,
 
     copied = {}
     for name in ("composition_version.json", "movement_map.json",
-                 "event_manifest.json", "canonical_reference_piece.mid"):
+                 "event_manifest.json", "canonical_reference_piece.mid",
+                 "conditioning_render_notes.json"):
         src = composition_source / name
         if src.is_file():
             shutil.copy(src, piece / name)
@@ -102,4 +103,28 @@ def init_corpus(repo_root: Path, *, composition_source: Path,
         "targets": [asdict(e) for e in entries],
     }
     (piece / "corpus-index.json").write_text(json.dumps(index, indent=2) + "\n")
+    return index
+
+
+def ingest_family_piece(repo_root: Path, family: str,
+                        source_dir: Path) -> dict:
+    """Ingest one timing-reference piece into the corpus suite:
+    projects/reference-corpus/<family>/ with version/map/manifest/midi."""
+    repo_root = Path(repo_root)
+    dest = repo_root / CORPUS_ROOT / family
+    dest.mkdir(parents=True, exist_ok=True)
+    copied = {}
+    prefix = family.replace("_timing", "")   # percussion_timing -> percussion
+    for name in (f"{prefix}_timing_version.json",
+                 f"{prefix}_timing_map.json",
+                 f"{prefix}_timing_event_manifest.json",
+                 f"{prefix}_timing_reference.mid"):
+        src = source_dir / name
+        if src.is_file():
+            shutil.copy(src, dest / name)
+            copied[name] = {"sha256": sha256(dest / name),
+                            "bytes": (dest / name).stat().st_size}
+    index = {"family": family, "artifacts": copied,
+             "ingested_at": datetime.now(timezone.utc).isoformat()}
+    (dest / "family-index.json").write_text(json.dumps(index, indent=2) + "\n")
     return index

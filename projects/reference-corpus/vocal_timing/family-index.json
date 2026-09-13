@@ -1,0 +1,22 @@
+{
+  "family": "vocal_timing",
+  "artifacts": {
+    "vocal_timing_version.json": {
+      "sha256": "895b39416a38576945279f5c5d23e080fd81fc26b5f1eaa07bb1e6850fcf37cb",
+      "bytes": 683
+    },
+    "vocal_timing_map.json": {
+      "sha256": "3cb89360b19f34e596a10ac9fd5297097f942f8e6969818ebabebf630fdf497c",
+      "bytes": 2548
+    },
+    "vocal_timing_event_manifest.json": {
+      "sha256": "de138314f3ac18496adb73f903dbf0d074d91d43d59d151c443dc543459e5d8a",
+      "bytes": 153878
+    },
+    "vocal_timing_reference.mid": {
+      "sha256": "f5c4bce1ea9eaa4ec498f86a73571ee2b59b1963a2e6aa137bd9fd8b529c9f37",
+      "bytes": 2564
+    }
+  },
+  "ingested_at": "2026-09-13T22:09:50.150832+00:00"
+}

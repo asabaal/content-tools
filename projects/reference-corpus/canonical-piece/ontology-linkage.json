@@ -5,22 +5,684 @@
     "standard": 22,
     "beta_total": 68
   },
+  "calibration_suite": {
+    "pitched_harmonic": {
+      "duration_seconds": 240.0,
+      "dir": "canonical-piece"
+    },
+    "percussion_timing": {
+      "duration_seconds": 120.0,
+      "dir": "percussion-timing"
+    },
+    "vocal_timing": {
+      "duration_seconds": 120.0,
+      "dir": "vocal-timing"
+    }
+  },
+  "family_routing": {
+    "counts_primary": {
+      "pitched_harmonic": 61,
+      "percussion_timing": 24,
+      "vocal_timing": 5
+    },
+    "targets": {
+      "lead_vocal": {
+        "primary": "vocal_timing",
+        "all": [
+          "vocal_timing"
+        ],
+        "multi": false
+      },
+      "drums": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "bass": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "backing_vocal": {
+        "primary": "vocal_timing",
+        "all": [
+          "vocal_timing"
+        ],
+        "multi": false
+      },
+      "piano": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "electric_guitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "percussion": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "strings": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "synth": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "acoustic_guitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "other": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "synth_pad": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "synth_bass": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "guitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "brass": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "organ": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "lead_guitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "synth_keys": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "rhythm_electric_guitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "electric_piano": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "upright_bass": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "keyboards": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "kick": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "snare": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "risers": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "synth_strings": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "synth_lead": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "woodwinds": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "rhythm_acoustic_guitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "flute": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "harp": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "tambourine": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "trumpet": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "arpeggiator": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "accordion": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "fiddle": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "slide_guitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "vocoder": {
+        "primary": "vocal_timing",
+        "all": [
+          "vocal_timing",
+          "pitched_harmonic"
+        ],
+        "multi": true
+      },
+      "violin": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "synth_brass": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "mandolin": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "choir": {
+        "primary": "vocal_timing",
+        "all": [
+          "vocal_timing"
+        ],
+        "multi": false
+      },
+      "banjo": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "bells": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing",
+          "pitched_harmonic"
+        ],
+        "multi": true
+      },
+      "clarinet": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "tenor_saxophone": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "trombone": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "shaker": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "french_horn": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "glockenspiel": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing",
+          "pitched_harmonic"
+        ],
+        "multi": true
+      },
+      "cello": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "timpani": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing",
+          "pitched_harmonic"
+        ],
+        "multi": true
+      },
+      "harmonica": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "marimba": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "vibraphone": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "saxophone": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "orchestra": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "cymbals": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "clap": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "oboe": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "celesta": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing",
+          "pitched_harmonic"
+        ],
+        "multi": true
+      },
+      "congas": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "drone": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "alto_saxophone": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "double_bass": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "ukulele": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "harpsichord": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "baritone_saxophone": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "xylophone": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "tuba": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "bass_guitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "whistle": {
+        "primary": "vocal_timing",
+        "all": [
+          "vocal_timing"
+        ],
+        "multi": false
+      },
+      "eight_zero_eight": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "bongos": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "bassoon": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "cowbell": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "viola": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "sitar": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "steel_drums": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "piccolo": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "theremin": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "bagpipes": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "hi_hat": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "music_box": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "melodica": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "tabla": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "koto": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      },
+      "djembe": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "taiko": {
+        "primary": "percussion_timing",
+        "all": [
+          "percussion_timing"
+        ],
+        "multi": false
+      },
+      "didgeridoo": {
+        "primary": "pitched_harmonic",
+        "all": [
+          "pitched_harmonic"
+        ],
+        "multi": false
+      }
+    }
+  },
   "composition": {
     "composition_version.json": {
-      "sha256": "f114c84e14fb96cefb9e27c9599d77bf42761f44e405c1339d667607654155bb",
+      "sha256": "e4058e83cf01c1a8cee2e63ba1ca78e52984e7fd8f4129991da3b4970229a9ed",
       "bytes": 863
     },
     "movement_map.json": {
-      "sha256": "5f848795f83420c18d1c91a55a6f2ff85f838328d7ceea896ec4ca80cc2e365f",
-      "bytes": 4889
+      "sha256": "6b3df0ecacb8da185f839d202c6529a52074be88cb5b113c412de3c8a7e635b4",
+      "bytes": 4886
     },
     "event_manifest.json": {
-      "sha256": "f47c614a77fd9120b3ed4e351d62e79eed9d0d7381998d673c29d4893facb952",
-      "bytes": 429861
+      "sha256": "b9b7cc5917b60585b44dbf626da07644bc9861cadd098cfe59d11d1fd57226fe",
+      "bytes": 365847
     },
     "canonical_reference_piece.mid": {
-      "sha256": "12c8f0904cae77b8943ec4d7b79a217843f41f8db2496f45b79d3adcb86aa7c0",
-      "bytes": 9648
+      "sha256": "83399cdca34f1f975dc59768e5d4f6e35c3b3f54a8d561adbced0cfe340c2611",
+      "bytes": 8222
+    },
+    "conditioning_render_notes.json": {
+      "sha256": "00c56d4f59b66a9b71ae2d9623ed0ab3ce723314783d0668884239c718abc51f",
+      "bytes": 4873
     }
   },
   "prompt_validation": {

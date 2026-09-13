@@ -1,0 +1,140 @@
+{
+  "schema": "content-tools/reference-composition/conditioning-render",
+  "schema_version": "0.1",
+  "generated_at": "2026-09-13T21:29:56.349680+00:00",
+  "purpose": "neutral Suno conditioning candidates \u2014 two encodings of the ONE canonical score; neither is analysis ground truth; artist selects/validates before the corpus run",
+  "special_role_rule": "bass/vocal/fx/percussion ROLE events remain in the score for calibration, but conditioning audio gives them no semantic instrument identity: everything uses the single neutral timbre; percussion-role events are the documented least-semantic exception (rendered as ordinary pitches of the same timbre)",
+  "renders": {
+    "piano_input": {
+      "path": "/mnt/storage/repos/music_creation/reference_composition/output/canonical_reference_piece_piano_input.wav",
+      "sha256": "b900150511e381114f758dd7d477efa5f08917b1b4009908e40b7965393474bf",
+      "timbre": "single GM Acoustic Grand Piano (program 0) for ALL roles; percussion-role events rendered as ordinary piano pitches on a melodic channel (no GM drum kit)",
+      "renderer": "TiMidity++ + FluidR3_GM.sf2",
+      "exact_length_seconds": 240.0,
+      "validation": {
+        "duration_seconds": 240.0,
+        "exactly_240": true,
+        "peak_dbfs": -11.65,
+        "not_clipped": true,
+        "not_silent": true,
+        "all_sections_audible": true,
+        "tail_1p9s_rms": 0.002375,
+        "sections": [
+          {
+            "section": "majors_parade",
+            "rms": 0.02102,
+            "audible": true
+          },
+          {
+            "section": "minors_parade",
+            "rms": 0.02018,
+            "audible": true
+          },
+          {
+            "section": "scales_and_intervals",
+            "rms": 0.01696,
+            "audible": true
+          },
+          {
+            "section": "progression_journey",
+            "rms": 0.02457,
+            "audible": true
+          },
+          {
+            "section": "texture_counterpoint",
+            "rms": 0.02331,
+            "audible": true
+          },
+          {
+            "section": "solos",
+            "rms": 0.01817,
+            "audible": true
+          },
+          {
+            "section": "bass_role",
+            "rms": 0.01636,
+            "audible": true
+          },
+          {
+            "section": "percussion_fx_vocal_roles",
+            "rms": 0.0134,
+            "audible": true
+          },
+          {
+            "section": "finale",
+            "rms": 0.02648,
+            "audible": true
+          }
+        ]
+      }
+    },
+    "synth_input": {
+      "path": "/mnt/storage/repos/music_creation/reference_composition/output/canonical_reference_piece_synth_input.wav",
+      "sha256": "bfe9612f1e3fbc6b8bd837553e3d3f87e28772d5140955c6fe013ce8af7d5f7b",
+      "timbre": "plain sine (0.9 fundamental + 0.1 second partial), 8 ms attack / 50 ms release, velocity-scaled; synthesized per note from event_manifest.json \u2014 no GM identity, no pads/modulation/coloration. Percussion-role events rendered as ordinary sine pitches (least-semantic treatment).",
+      "renderer": "numpy offline synthesis from event_manifest.json",
+      "exact_length_seconds": 240.0,
+      "validation": {
+        "duration_seconds": 240.0,
+        "exactly_240": true,
+        "peak_dbfs": -6.02,
+        "not_clipped": true,
+        "not_silent": true,
+        "all_sections_audible": true,
+        "tail_1p9s_rms": 0.124933,
+        "sections": [
+          {
+            "section": "majors_parade",
+            "rms": 0.05535,
+            "audible": true
+          },
+          {
+            "section": "minors_parade",
+            "rms": 0.05337,
+            "audible": true
+          },
+          {
+            "section": "scales_and_intervals",
+            "rms": 0.03246,
+            "audible": true
+          },
+          {
+            "section": "progression_journey",
+            "rms": 0.06739,
+            "audible": true
+          },
+          {
+            "section": "texture_counterpoint",
+            "rms": 0.06395,
+            "audible": true
+          },
+          {
+            "section": "solos",
+            "rms": 0.05175,
+            "audible": true
+          },
+          {
+            "section": "bass_role",
+            "rms": 0.03099,
+            "audible": true
+          },
+          {
+            "section": "percussion_fx_vocal_roles",
+            "rms": 0.03042,
+            "audible": true
+          },
+          {
+            "section": "finale",
+            "rms": 0.10485,
+            "audible": true
+          }
+        ]
+      }
+    }
+  },
+  "source_midi_sha256": "83399cdca34f1f975dc59768e5d4f6e35c3b3f54a8d561adbced0cfe340c2611",
+  "debug_render": {
+    "path": "/mnt/storage/repos/music_creation/reference_composition/output/canonical_reference_piece_debug.wav",
+    "status": "DEBUG ONLY \u2014 NOT FOR SUNO INPUT"
+  }
+}

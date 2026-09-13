@@ -1,0 +1,21 @@
+{
+  "schema": "content-tools/reference-composition/timing-version",
+  "schema_version": "0.1",
+  "title": "Vocal Timing Reference",
+  "generated_at": "2026-09-13T21:52:32.446695+00:00",
+  "deterministic": true,
+  "tempo_bpm": 120,
+  "duration_seconds": 120.0,
+  "event_count": 278,
+  "artifacts": {
+    "vocal_timing_reference.mid": {
+      "sha256": "f5c4bce1ea9eaa4ec498f86a73571ee2b59b1963a2e6aa137bd9fd8b529c9f37"
+    },
+    "vocal_timing_event_manifest.json": {
+      "sha256": "de138314f3ac18496adb73f903dbf0d074d91d43d59d151c443dc543459e5d8a"
+    },
+    "vocal_timing_map.json": {
+      "sha256": "3cb89360b19f34e596a10ac9fd5297097f942f8e6969818ebabebf630fdf497c"
+    }
+  }
+}

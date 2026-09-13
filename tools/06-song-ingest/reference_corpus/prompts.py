@@ -16,8 +16,8 @@ from .checker import MAX_CHARS, MIN_CHARS, check_prompt
 
 # Compressed one-piece identity: the same for every target.
 IDENTITY = (
-    "Realize 'The Steward's Calibration': 4:48 instrumental reference, 100 "
-    "BPM, 4/4, nine movements in strict order. I Majors Parade: one bar per "
+    "Realize 'The Steward's Calibration': 4:00 instrumental reference, 100 "
+    "BPM, 4/4, 100 bars, nine movements in strict order. I Majors Parade: one bar per "
     "major key, I-IV-V-I. II Minors Parade: one bar per minor key, "
     "i-iv-V-i. III Scales & Intervals: scales, chromatic run, intervals "
     "2nds-octaves both ways, register sweep. IV Progression Journey: ii-V-I, "
@@ -32,6 +32,45 @@ INVARIANTS = (
 
 SHORT_INVARIANTS = ("No drift; every calibration passage stays intact; the "
                     "requested instrument is dominant.")
+
+
+
+# ---- calibration-family identity blocks --------------------------------------
+# Pitched family uses IDENTITY above (the 4:00 nine-movement piece).
+
+PERCUSSION_IDENTITY = (
+    "Perform 'Percussion Timing Reference': 2:00 timing probe on a neutral "
+    "click transient (no drum-kit styling), 120 BPM, eleven regions in "
+    "order. I Pulse 4/4 ostinato, downbeat accents. II Subdivisions: "
+    "eighths, sixteenths, triplets, dotted eighths. III Accents, isolated "
+    "hits, silence windows, crescendo then decrescendo. IV 3+3+2 "
+    "syncopation, offbeats. V Simultaneous three-lane stacks, staggered "
+    "sixteenth rolls. VI Quintuplet runs, burst fills. VII "
+    "Call-and-response, sparse to dense. VIII 3/4. IX 6/8 (2+2+2, 3+3). X "
+    "5/8 (3+2, 2+3). XI 7/8 (2+2+3, 3+2+2). Lanes differ by pitch only.")
+
+PERCUSSION_REALIZATION = (
+    "Percussion timing feature: place every onset exactly where the score "
+    "places it, keep subdivisions even, accents clearly louder, silence "
+    "windows silent, simultaneous hits exactly together, staggered rolls "
+    "evenly spaced, and hold 120 BPM with no drift across any meter change.")
+
+VOCAL_IDENTITY = (
+    "Sing 'Vocal Timing Reference': 2:00 non-lexical vocal timing probe "
+    "('ah' only, no words), 120 BPM, eleven regions in order. I "
+    "repeated-pitch pulses. II staccato, sustained vowels, legato phrases, "
+    "dotted rhythms, tie across a barline. III ascending, descending, arch "
+    "and repeated contours with leaps. IV low/mid/high registers with "
+    "breaths. V syncopated, offbeat and pickup entries. VI triplet and "
+    "quintuplet melisma, dotted phrases. VII one-to-four-part stacks, "
+    "staggered backings, call-and-response. VIII 3/4. IX 6/8. X 5/8 (3+2, "
+    "2+3). XI 7/8 (2+2+3, 3+2+2).")
+
+VOCAL_REALIZATION = (
+    "Vocal timing feature: every onset and offset lands exactly on the "
+    "score position; staccato short, sustains full length, legato "
+    "connected; breaths only in written rests; 120 BPM steady through every "
+    "meter change; the vowel never becomes a word.")
 
 # Category-specific realization guidance for the MAIN prompt.
 CATEGORY_REALIZATION: dict[str, str] = {
@@ -207,10 +246,31 @@ def _assemble(blocks: list[str], pool: list[str], *, target_id: str,
     return text
 
 
-def build_main(target, movement_summary: str = "") -> str:
+def build_main(target, movement_summary: str = "",
+               family: str = "pitched_harmonic") -> str:
+    if family == "percussion_timing":
+        invariants = INVARIANTS
+        blocks = [f"TARGET INSTRUMENT: {target.name}.", PERCUSSION_IDENTITY,
+                  PERCUSSION_REALIZATION, invariants]
+        try:
+            return _assemble(blocks, DIRECTIVE_POOL["main"],
+                             target_id=target.target_id, field="MAIN")
+        except ValueError:
+            blocks[3] = SHORT_INVARIANTS
+            return _assemble(blocks, DIRECTIVE_POOL["main"],
+                             target_id=target.target_id, field="MAIN")
+    if family == "vocal_timing":
+        blocks = [f"TARGET VOICE: {target.name}.", VOCAL_IDENTITY,
+                  VOCAL_REALIZATION, INVARIANTS]
+        try:
+            return _assemble(blocks, DIRECTIVE_POOL["main"],
+                             target_id=target.target_id, field="MAIN")
+        except ValueError:
+            blocks[3] = SHORT_INVARIANTS
+            return _assemble(blocks, DIRECTIVE_POOL["main"],
+                             target_id=target.target_id, field="MAIN")
     realization = CATEGORY_REALIZATION.get(
         target.category, CATEGORY_REALIZATION["other"])
-    invariants = INVARIANTS
     extra = (f" ({target.description})"
              if target.description and target.description not in target.name
              else "")
@@ -218,14 +278,12 @@ def build_main(target, movement_summary: str = "") -> str:
         f"TARGET INSTRUMENT: {target.name}{extra}.",
         IDENTITY,
         realization,
-        invariants,
+        INVARIANTS,
     ]
     try:
         return _assemble(blocks, DIRECTIVE_POOL["main"],
                          target_id=target.target_id, field="MAIN")
     except ValueError:
-        # Oversize: fall back to the short invariant + short realization
-        # (still specific), keeping the identity block intact.
         blocks = [
             f"TARGET INSTRUMENT: {target.name}{extra}.",
             IDENTITY,
@@ -237,25 +295,60 @@ def build_main(target, movement_summary: str = "") -> str:
                          target_id=target.target_id, field="MAIN")
 
 
-def build_exclude(target, all_targets: dict) -> str:
+
+def build_exclude(target, all_targets: dict, *,
+                  family: str = "pitched_harmonic") -> str:
     confusables = ", ".join(_confusables(target, all_targets)[:8])
-    no_vocals = ("" if target.category == "vocal" else
-                 "No sung vocals, lyrics or humming. ")
-    no_drums = ("" if target.category == "percussion" else
-                "No drum kit beyond what the score notates. ")
-    acoustic = ("No synthesized imitation of this acoustic instrument. "
-                if target.category in ("strings", "brass", "woodwind",
-                                       "keyboard", "bass", "other") else "")
-    blocks = [
-        f"EXCLUDE for the {target.name} render of 'The Steward's "
-        f"Calibration'.",
-        f"No other instrument takes the lead — especially {confusables}.",
-        no_vocals + no_drums + acoustic,
-        "No genre transformation away from the neutral reference "
-        "arrangement.",
-        "No arrangement drift: no added countermelodies, re-harmony, tempo "
-        "change, movement reordering, or simplification of calibration "
-        "passages.",
-    ]
+    if family == "percussion_timing":
+        blocks = [
+            f"EXCLUDE for the {target.name} render of 'Percussion Timing "
+            f"Reference'.",
+            "No realistic drum-kit styling that turns the neutral click into "
+            "a kick, snare, hi-hat, conga or cymbal identity; no pitched "
+            "melodic material, no lyrics, no vocals.",
+            f"Avoid nearby percussion targets dominating: {confusables}.",
+            "No groove reinterpretation, ghost-note restyling, tempo drift, "
+            "meter re-grouping or simplification of the subdivision, "
+            "tuplet, accent and asymmetric-meter calibration passages.",
+            "No added reverb tails, room sound or samples that blur onset "
+            "timing.",
+        ]
+    elif family == "vocal_timing":
+        blocks = [
+            f"EXCLUDE for the {target.name} render of 'Vocal Timing "
+            f"Reference'.",
+            "No lexical lyrics or words — the non-lexical 'ah' vowel only; "
+            "no spoken passages.",
+            f"Avoid other voice types taking the lead, especially: "
+            f"{confusables}.",
+            "No vibrato so heavy that onsets and offsets blur; no pitch "
+            "correction artifacts, formant shifts or doubles that move the "
+            "written timing; no melisma replacing notated single notes.",
+            "No arrangement drift: no added ad-libs, no tempo drift, no "
+            "meter re-grouping, no simplification of the contour, register, "
+            "stagger and asymmetric-meter passages.",
+        ]
+    else:
+        no_vocals = ("" if target.category == "vocal" else
+                     "No sung vocals, lyrics or humming. ")
+        no_drums = ("" if target.category == "percussion" else
+                    "No drum kit beyond what the score notates. ")
+        acoustic = ("No synthesized imitation of this acoustic instrument. "
+                    if target.category in ("strings", "brass", "woodwind",
+                                           "keyboard", "bass", "other")
+                    else "")
+        blocks = [
+            f"EXCLUDE for the {target.name} render of 'The Steward's "
+            f"Calibration'.",
+            f"No other instrument takes the lead — especially {confusables}.",
+            no_vocals + no_drums + acoustic,
+            "No genre transformation away from the neutral reference "
+            "arrangement.",
+            "No arrangement drift: no added countermelodies, re-harmony, "
+            "tempo change, movement reordering, or simplification of "
+            "calibration passages.",
+        ]
     return _assemble(blocks, DIRECTIVE_POOL["exclude"],
                      target_id=target.target_id, field="EXCLUDE")
+
+

@@ -37,6 +37,16 @@ def main() -> int:
     print(f"corpus: {len(index['targets'])} target dirs initialized at "
           f"{corpus.CANONICAL_DIR}")
 
+    # timing-reference pieces (percussion 2:00 + vocal 2:00)
+    timing_out = Path(ontology.DEFAULT_REPO) / "reference_composition" \
+        / "timing" / "output"
+    family_indexes = {}
+    for family in ("percussion_timing", "vocal_timing"):
+        family_indexes[family] = corpus.ingest_family_piece(
+            REPO_ROOT, family, timing_out)
+        print(f"family {family} ingested: "
+              f"{len(family_indexes[family]['artifacts'])} artifacts")
+
     built = build_book.build_all(REPO_ROOT)
     if not built:
         return 2
@@ -49,10 +59,29 @@ def main() -> int:
         return 1
 
     # linkage: record ontology + composition provenance inside the piece dir
+    from reference_corpus.families import FAMILY_META, route
+    routing = {}
+    for tid, t in targets.items():
+        fam_route = route(tid, t.category)
+        routing[tid] = {"primary": fam_route.primary,
+                        "all": list(fam_route.all_families),
+                        "multi": fam_route.multi}
+    by_family = {f: 0 for f in FAMILY_META}
+    for info in routing.values():
+        by_family[info["primary"]] += 1
     linkage = {
         "ontology": {"source_repo": ontology.DEFAULT_REPO,
                      "targets": len(targets),
                      "standard": 22, "beta_total": len(targets) - 22},
+        "calibration_suite": {
+            "pitched_harmonic": {"duration_seconds": 240.0,
+                                 "dir": "canonical-piece"},
+            "percussion_timing": {"duration_seconds": 120.0,
+                                  "dir": "percussion-timing"},
+            "vocal_timing": {"duration_seconds": 120.0,
+                             "dir": "vocal-timing"}},
+        "family_routing": {"counts_primary": by_family,
+                           "targets": routing},
         "composition": index["composition_artifacts"],
         "prompt_validation": {"rules": r["rules"], "all_ok": r["all_ok"]},
     }

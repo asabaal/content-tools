@@ -1,24 +1,28 @@
 {
   "schema": "content-tools/reference-corpus/index",
   "schema_version": "0.1",
-  "created_at": "2026-09-13T19:53:59.506496+00:00",
+  "created_at": "2026-09-13T22:09:50.149534+00:00",
   "canonical_piece": "canonical-piece",
   "composition_artifacts": {
     "composition_version.json": {
-      "sha256": "f114c84e14fb96cefb9e27c9599d77bf42761f44e405c1339d667607654155bb",
+      "sha256": "e4058e83cf01c1a8cee2e63ba1ca78e52984e7fd8f4129991da3b4970229a9ed",
       "bytes": 863
     },
     "movement_map.json": {
-      "sha256": "5f848795f83420c18d1c91a55a6f2ff85f838328d7ceea896ec4ca80cc2e365f",
-      "bytes": 4889
+      "sha256": "6b3df0ecacb8da185f839d202c6529a52074be88cb5b113c412de3c8a7e635b4",
+      "bytes": 4886
     },
     "event_manifest.json": {
-      "sha256": "f47c614a77fd9120b3ed4e351d62e79eed9d0d7381998d673c29d4893facb952",
-      "bytes": 429861
+      "sha256": "b9b7cc5917b60585b44dbf626da07644bc9861cadd098cfe59d11d1fd57226fe",
+      "bytes": 365847
     },
     "canonical_reference_piece.mid": {
-      "sha256": "12c8f0904cae77b8943ec4d7b79a217843f41f8db2496f45b79d3adcb86aa7c0",
-      "bytes": 9648
+      "sha256": "83399cdca34f1f975dc59768e5d4f6e35c3b3f54a8d561adbced0cfe340c2611",
+      "bytes": 8222
+    },
+    "conditioning_render_notes.json": {
+      "sha256": "00c56d4f59b66a9b71ae2d9623ed0ab3ce723314783d0668884239c718abc51f",
+      "bytes": 4873
     }
   },
   "targets": [

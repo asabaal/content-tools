@@ -1,0 +1,120 @@
+{
+  "schema": "content-tools/reference-composition/timing-map",
+  "schema_version": "0.1",
+  "title": "Vocal Timing Reference",
+  "tempo_bpm": 120,
+  "duration_seconds": 120.0,
+  "total_beats": 240,
+  "regions": [
+    {
+      "region": "single_voice_pulses",
+      "meter": "4/4",
+      "bars": 8,
+      "start_beats": 0,
+      "beats": 32,
+      "start_seconds": 0.0,
+      "end_seconds": 16.0,
+      "event_count": 32
+    },
+    {
+      "region": "note_lengths_articulation",
+      "meter": "4/4",
+      "bars": 8,
+      "start_beats": 32,
+      "beats": 32,
+      "start_seconds": 16.0,
+      "end_seconds": 32.0,
+      "event_count": 25
+    },
+    {
+      "region": "contours_leaps",
+      "meter": "4/4",
+      "bars": 6,
+      "start_beats": 64,
+      "beats": 24,
+      "start_seconds": 32.0,
+      "end_seconds": 44.0,
+      "event_count": 50
+    },
+    {
+      "region": "registers",
+      "meter": "4/4",
+      "bars": 6,
+      "start_beats": 88,
+      "beats": 24,
+      "start_seconds": 44.0,
+      "end_seconds": 56.0,
+      "event_count": 12
+    },
+    {
+      "region": "syncopation_pickups",
+      "meter": "4/4",
+      "bars": 6,
+      "start_beats": 112,
+      "beats": 24,
+      "start_seconds": 56.0,
+      "end_seconds": 68.0,
+      "event_count": 10
+    },
+    {
+      "region": "tuplets_dotted",
+      "meter": "4/4",
+      "bars": 6,
+      "start_beats": 136,
+      "beats": 24,
+      "start_seconds": 68.0,
+      "end_seconds": 80.0,
+      "event_count": 53
+    },
+    {
+      "region": "harmony_stagger_call_response",
+      "meter": "4/4",
+      "bars": 8,
+      "start_beats": 160,
+      "beats": 32,
+      "start_seconds": 80.0,
+      "end_seconds": 96.0,
+      "event_count": 34
+    },
+    {
+      "region": "meter_3_4",
+      "meter": "3/4",
+      "bars": 8,
+      "start_beats": 192,
+      "beats": 24,
+      "start_seconds": 96.0,
+      "end_seconds": 108.0,
+      "event_count": 24
+    },
+    {
+      "region": "meter_6_8",
+      "meter": "6/8",
+      "bars": 4,
+      "start_beats": 216,
+      "beats": 12,
+      "start_seconds": 108.0,
+      "end_seconds": 114.0,
+      "event_count": 24
+    },
+    {
+      "region": "meter_5_8",
+      "meter": "5/8",
+      "bars": 2,
+      "start_beats": 228,
+      "beats": 5,
+      "start_seconds": 114.0,
+      "end_seconds": 116.5,
+      "event_count": 6
+    },
+    {
+      "region": "meter_7_8",
+      "meter": "7/8",
+      "bars": 2,
+      "start_beats": 233,
+      "beats": 7,
+      "start_seconds": 116.5,
+      "end_seconds": 120.0,
+      "event_count": 8
+    }
+  ]
+}
