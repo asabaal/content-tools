@@ -106,3 +106,49 @@ def test_no_stale_duration_references_in_generated_outputs():
             if bad.lower() in text.lower():
                 failures.append(f"{name}: {bad!r}")
     assert not failures, failures
+
+
+def test_multimodal_schedule_is_canonical():
+    """multimodal_v1: 10 blocks x 24 s, 5 modalities x 2 occurrences,
+    schedule sums to exactly the 4:00 contract."""
+    m = json.loads((PIECE / "multimodal_conditioning_map.json").read_text())
+    blocks = m["schedule"]
+    assert len(blocks) == 10
+    assert sum(b["end_seconds"] - b["start_seconds"] for b in blocks) == 240.0
+    assert blocks[0]["starting_bar"] == 1 and blocks[-1]["ending_bar"] == 100
+    mods = [b["modality_id"] for b in blocks]
+    assert len(set(mods)) == 5                       # 5 modalities
+    assert all(mods.count(mo) == 2 for mo in set(mods))  # each twice
+    for b in blocks:                                  # no modality owns a movement
+        assert mods.count(b["modality_id"]) == 2
+    assert m["output"]["sha256"]
+
+
+def test_no_stale_duration_references_anywhere_in_corpus():
+    """Walk EVERY generated file in the reference corpus — one stale hit
+    anywhere fails the suite."""
+    failures = []
+    for f in sorted(PIECE.rglob("*")):
+        if not f.is_file() or f.suffix in (".mid", ".wav"):
+            continue
+        text = f.read_text(errors="replace")
+        for bad in STALE_REFERENCES:
+            if bad.lower() in text.lower():
+                failures.append(f"{f.relative_to(PIECE)}: {bad!r}")
+    for family_dir in ("percussion-timing", "vocal-timing"):
+        d = PIECE.parent / family_dir
+        for f in sorted(d.rglob("*.json")):
+            text = f.read_text()
+            for bad in STALE_REFERENCES:
+                if bad.lower() in text.lower():
+                    failures.append(f"{f}: {bad!r}")
+    assert not failures, failures
+
+
+def test_pitched_reference_states_correct_contract():
+    book = (PIECE / "prompt-book" / "SUNO_RENDERING_PROMPT_BOOK.md").read_text()
+    assert "4:00" in book
+    assert "100 bars" in book
+    mmap = json.loads((PIECE / "movement_map.json").read_text())
+    assert mmap["duration_seconds"] == 240.0
+    assert mmap["total_bars"] == 100

@@ -15,7 +15,7 @@
       "title": "I. Majors Parade \u2014 one bar per major key",
       "bars": 12,
       "start_seconds": 0.0,
-      "end_seconds": 28.77,
+      "end_seconds": 28.8,
       "keys_context": [
         "C major;   G major;   D major;   A major;   E major;   B major",
         "F# major;  C# major;  F major;   Bb major;  Eb major;  Ab major"
@@ -34,7 +34,7 @@
       "title": "II. Minors Parade \u2014 one bar per minor key (harmonic minor V)",
       "bars": 12,
       "start_seconds": 28.8,
-      "end_seconds": 57.57,
+      "end_seconds": 57.6,
       "keys_context": [
         "A minor;   E minor;   B minor;   F# minor;  C# minor;  G# minor",
         "D# minor;  G minor;   D minor;   C minor;   F minor;   Bb minor"
@@ -53,7 +53,7 @@
       "title": "III. Scales, Intervals, Registers",
       "bars": 18,
       "start_seconds": 57.6,
-      "end_seconds": 100.94,
+      "end_seconds": 100.8,
       "keys_context": [
         "C major; A minor; chromatic; C major (interval study); C major"
       ],
@@ -99,7 +99,7 @@
       "title": "V. Counterpoint, Voicings, Articulation",
       "bars": 12,
       "start_seconds": 129.6,
-      "end_seconds": 163.38,
+      "end_seconds": 158.4,
       "keys_context": [
         "D minor; D minor; C major"
       ],
@@ -121,7 +121,7 @@
       "title": "VI. Two Solos",
       "bars": 8,
       "start_seconds": 158.4,
-      "end_seconds": 177.48,
+      "end_seconds": 177.6,
       "keys_context": [
         "A minor (harmonic color); E minor"
       ],
@@ -137,10 +137,10 @@
     },
     {
       "id": "bass_role",
-      "title": "VII. Bass Behavior",
+      "title": "VII. Bass / Low-Register Behavior",
       "bars": 6,
       "start_seconds": 177.6,
-      "end_seconds": 192.12,
+      "end_seconds": 192.0,
       "keys_context": [
         "F major; C major"
       ],
@@ -154,10 +154,10 @@
     },
     {
       "id": "percussion_fx_vocal_roles",
-      "title": "VIII. Percussion, FX, Vocal-role behavior",
+      "title": "VIII. Transitional / Rhythmic Behavior",
       "bars": 6,
       "start_seconds": 192.0,
-      "end_seconds": 206.46,
+      "end_seconds": 206.4,
       "keys_context": [
         "A minor"
       ],

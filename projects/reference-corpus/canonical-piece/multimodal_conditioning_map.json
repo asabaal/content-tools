@@ -1,0 +1,197 @@
+{
+  "schema": "content-tools/reference-composition/conditioning-render",
+  "schema_version": "0.1",
+  "conditioning_id": "multimodal_v1",
+  "generated_at": "2026-09-13T22:29:06.721454+00:00",
+  "status": "LEADING candidate for the canonical Suno conditioning source (pitched/harmonic family) \u2014 pending artist listening + upload approval",
+  "source_midi": {
+    "path": "/mnt/storage/repos/music_creation/reference_composition/output/canonical_reference_piece.mid",
+    "sha256": "83399cdca34f1f975dc59768e5d4f6e35c3b3f54a8d561adbced0cfe340c2611"
+  },
+  "output": {
+    "path": "/mnt/storage/repos/music_creation/reference_composition/output/canonical_reference_piece_multimodal_input.wav",
+    "sha256": "138ed5c9b767bfb294f315148aa7b532aac3567d606874c5c62fc94b79e9cfa0"
+  },
+  "schedule": [
+    {
+      "block_id": "block_01",
+      "starting_bar": 1,
+      "ending_bar": 10,
+      "start_seconds": 0.0,
+      "end_seconds": 24.0,
+      "modality_id": "piano",
+      "program": 0,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_02",
+      "starting_bar": 11,
+      "ending_bar": 20,
+      "start_seconds": 24.0,
+      "end_seconds": 48.0,
+      "modality_id": "plain_synth",
+      "program": 80,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_03",
+      "starting_bar": 21,
+      "ending_bar": 30,
+      "start_seconds": 48.0,
+      "end_seconds": 72.0,
+      "modality_id": "vocal_ah",
+      "program": 52,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_04",
+      "starting_bar": 31,
+      "ending_bar": 40,
+      "start_seconds": 72.0,
+      "end_seconds": 96.0,
+      "modality_id": "clean_guitar",
+      "program": 26,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_05",
+      "starting_bar": 41,
+      "ending_bar": 50,
+      "start_seconds": 96.0,
+      "end_seconds": 120.0,
+      "modality_id": "organ",
+      "program": 16,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_06",
+      "starting_bar": 51,
+      "ending_bar": 60,
+      "start_seconds": 120.0,
+      "end_seconds": 144.0,
+      "modality_id": "piano",
+      "program": 0,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_07",
+      "starting_bar": 61,
+      "ending_bar": 70,
+      "start_seconds": 144.0,
+      "end_seconds": 168.0,
+      "modality_id": "plain_synth",
+      "program": 80,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_08",
+      "starting_bar": 71,
+      "ending_bar": 80,
+      "start_seconds": 168.0,
+      "end_seconds": 192.0,
+      "modality_id": "vocal_ah",
+      "program": 52,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_09",
+      "starting_bar": 81,
+      "ending_bar": 90,
+      "start_seconds": 192.0,
+      "end_seconds": 216.0,
+      "modality_id": "clean_guitar",
+      "program": 26,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    },
+    {
+      "block_id": "block_10",
+      "starting_bar": 91,
+      "ending_bar": 100,
+      "start_seconds": 216.0,
+      "end_seconds": 240.0,
+      "modality_id": "organ",
+      "program": 16,
+      "renderer": "TiMidity++ + FluidR3_GM.sf2 (full-score render, block-sampled)"
+    }
+  ],
+  "boundary_rule": "A sustained event finishing in the modality in which it began; modality switches occur exactly at block boundaries with a 40 ms equal-gain crossfade \u2014 no onsets move.",
+  "renderer": {
+    "tool": "TiMidity++ (timidity)",
+    "soundfont": "/usr/share/sounds/sf2/FluidR3_GM.sf2",
+    "soundfont_sha256": "74594e8f4250680adf590507a306655a299935343583256f3b722c48a1bc1cb0",
+    "output_format": "WAV PCM 16-bit 44.1kHz stereo"
+  },
+  "special_roles": "percussion-role notes rendered as ordinary pitches of the current block modality (channel moved off 10 \u2014 no GM drum identity)",
+  "validation": {
+    "duration_seconds": 240.0,
+    "exactly_240": true,
+    "peak_dbfs": -10.26,
+    "not_clipped": true,
+    "not_silent": true,
+    "blocks": [
+      {
+        "block": 1,
+        "modality": "piano",
+        "rms": 0.00883,
+        "audible": true
+      },
+      {
+        "block": 2,
+        "modality": "plain_synth",
+        "rms": 0.01374,
+        "audible": true
+      },
+      {
+        "block": 3,
+        "modality": "vocal_ah",
+        "rms": 0.01614,
+        "audible": true
+      },
+      {
+        "block": 4,
+        "modality": "clean_guitar",
+        "rms": 0.01822,
+        "audible": true
+      },
+      {
+        "block": 5,
+        "modality": "organ",
+        "rms": 0.0213,
+        "audible": true
+      },
+      {
+        "block": 6,
+        "modality": "piano",
+        "rms": 0.02437,
+        "audible": true
+      },
+      {
+        "block": 7,
+        "modality": "plain_synth",
+        "rms": 0.02815,
+        "audible": true
+      },
+      {
+        "block": 8,
+        "modality": "vocal_ah",
+        "rms": 0.02993,
+        "audible": true
+      },
+      {
+        "block": 9,
+        "modality": "clean_guitar",
+        "rms": 0.03193,
+        "audible": true
+      },
+      {
+        "block": 10,
+        "modality": "organ",
+        "rms": 0.0355,
+        "audible": true
+      }
+    ],
+    "all_blocks_audible": true,
+    "boundary_count": 9
+  },
+  "schedule_note": "machine-readable modality schedule; blocks are 10 bars = 24 s"
+}

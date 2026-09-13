@@ -2,7 +2,7 @@
   "schema": "content-tools/reference-composition/composition-version",
   "schema_version": "0.1",
   "title": "The Steward's Calibration",
-  "generated_at": "2026-09-13T21:28:30.719601+00:00",
+  "generated_at": "2026-09-13T22:24:43.168174+00:00",
   "generator": "music_creation/reference_composition/generator",
   "generator_version": 1,
   "deterministic": true,
@@ -17,7 +17,7 @@
       "note_count": 1059
     },
     "movement_map.json": {
-      "sha256": "6b3df0ecacb8da185f839d202c6529a52074be88cb5b113c412de3c8a7e635b4"
+      "sha256": "a0ee255246842725d8d9313fe9f387ca8def4b861d1a7222c04f49254e6d5160"
     }
   },
   "contract": "/mnt/storage/repos/music_creation/reference_composition/composition_contract.yaml"

@@ -665,12 +665,12 @@
   },
   "composition": {
     "composition_version.json": {
-      "sha256": "e4058e83cf01c1a8cee2e63ba1ca78e52984e7fd8f4129991da3b4970229a9ed",
+      "sha256": "087c3d627d2a9900f163bae238ab7cc9c2801dbaa46a5374b5def86d7a0860a5",
       "bytes": 863
     },
     "movement_map.json": {
-      "sha256": "6b3df0ecacb8da185f839d202c6529a52074be88cb5b113c412de3c8a7e635b4",
-      "bytes": 4886
+      "sha256": "a0ee255246842725d8d9313fe9f387ca8def4b861d1a7222c04f49254e6d5160",
+      "bytes": 4891
     },
     "event_manifest.json": {
       "sha256": "b9b7cc5917b60585b44dbf626da07644bc9861cadd098cfe59d11d1fd57226fe",
@@ -683,6 +683,10 @@
     "conditioning_render_notes.json": {
       "sha256": "00c56d4f59b66a9b71ae2d9623ed0ab3ce723314783d0668884239c718abc51f",
       "bytes": 4873
+    },
+    "multimodal_conditioning_map.json": {
+      "sha256": "efc1e044b908606d1749f4808895fbfba49fa68a1884f3bc4227f90ca2c3e468",
+      "bytes": 5766
     }
   },
   "prompt_validation": {

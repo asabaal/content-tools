@@ -66,6 +66,9 @@ FAMILY_META: dict[str, dict] = {
         "label": "Pitched / Harmonic Reference",
         "duration_seconds": 240.0,
         "conditioning": [
+            {"candidate": "multimodal_v1", "leading": True,
+             "path": "canonical_reference_piece_multimodal_input.wav",
+             "schedule": "multimodal_conditioning_map.json"},
             {"candidate": "neutral_piano",
              "path": "canonical_reference_piece_piano_input.wav"},
             {"candidate": "neutral_synth",

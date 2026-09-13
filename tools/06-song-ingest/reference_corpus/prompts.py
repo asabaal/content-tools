@@ -12,19 +12,31 @@ every final prompt; anything outside the range raises.
 """
 from __future__ import annotations
 
+import re
+
 from .checker import MAX_CHARS, MIN_CHARS, check_prompt
 
 # Compressed one-piece identity: the same for every target.
-IDENTITY = (
-    "Realize 'The Steward's Calibration': 4:00 instrumental reference, 100 "
-    "BPM, 4/4, 100 bars, nine movements in strict order. I Majors Parade: one bar per "
-    "major key, I-IV-V-I. II Minors Parade: one bar per minor key, "
-    "i-iv-V-i. III Scales & Intervals: scales, chromatic run, intervals "
-    "2nds-octaves both ways, register sweep. IV Progression Journey: ii-V-I, "
-    "I-V-vi-IV, vi-IV-I-V, A blues. V Counterpoint & Voicings: two voices, "
-    "dyads, dense/sparse voicings, sus chords, inverted staccato. VI Two "
-    "Solos. VII Bass Behavior. VIII Percussion & FX. IX Finale: dense "
-    "climax, E-minor cadence.")
+def pitched_identity(mmap: dict) -> str:
+    """Map-driven identity for the pitched/harmonic reference.
+
+    Duration, bar count, movement count and movement names are read from
+    the generated movement_map.json — never hardcoded here."""
+    n = len(mmap["sections"])
+    word = {9: "nine", 10: "ten", 11: "eleven", 12: "twelve"}.get(n, str(n))
+    dur = mmap["duration_seconds"]
+    dur_str = f"{int(dur // 60)}:{int(dur % 60):02d}"
+    names = []
+    for s_sec in mmap["sections"]:
+        # strip roman-numeral prefix and any parenthetical/detail tail
+        t = re.sub(r"^[IVX]+\.?\s*", "", s_sec["title"])
+        t = t.split("—")[0].strip().rstrip(".")
+        names.append(t)
+    return (f"Realize 'The Steward's Calibration': {dur_str} instrumental "
+            f"reference, {mmap['tempo_bpm']} BPM, 4/4, "
+            f"{mmap['total_bars']} bars, {word} movements in strict order: "
+            + "; ".join(names) + ".")
+
 
 INVARIANTS = (
     "Keep movement order, tempo, harmony, contours and all calibration "
@@ -246,54 +258,44 @@ def _assemble(blocks: list[str], pool: list[str], *, target_id: str,
     return text
 
 
-def build_main(target, movement_summary: str = "",
+def build_main(target, identity: str, *,
                family: str = "pitched_harmonic") -> str:
     if family == "percussion_timing":
-        invariants = INVARIANTS
-        blocks = [f"TARGET INSTRUMENT: {target.name}.", PERCUSSION_IDENTITY,
-                  PERCUSSION_REALIZATION, invariants]
-        try:
-            return _assemble(blocks, DIRECTIVE_POOL["main"],
-                             target_id=target.target_id, field="MAIN")
-        except ValueError:
-            blocks[3] = SHORT_INVARIANTS
-            return _assemble(blocks, DIRECTIVE_POOL["main"],
-                             target_id=target.target_id, field="MAIN")
-    if family == "vocal_timing":
-        blocks = [f"TARGET VOICE: {target.name}.", VOCAL_IDENTITY,
+        blocks = [f"TARGET INSTRUMENT: {target.name}.", identity,
+                  PERCUSSION_REALIZATION, INVARIANTS]
+    elif family == "vocal_timing":
+        blocks = [f"TARGET VOICE: {target.name}.", identity,
                   VOCAL_REALIZATION, INVARIANTS]
-        try:
-            return _assemble(blocks, DIRECTIVE_POOL["main"],
-                             target_id=target.target_id, field="MAIN")
-        except ValueError:
-            blocks[3] = SHORT_INVARIANTS
-            return _assemble(blocks, DIRECTIVE_POOL["main"],
-                             target_id=target.target_id, field="MAIN")
-    realization = CATEGORY_REALIZATION.get(
-        target.category, CATEGORY_REALIZATION["other"])
-    extra = (f" ({target.description})"
-             if target.description and target.description not in target.name
-             else "")
-    blocks = [
-        f"TARGET INSTRUMENT: {target.name}{extra}.",
-        IDENTITY,
-        realization,
-        INVARIANTS,
-    ]
+    else:
+        realization = CATEGORY_REALIZATION.get(
+            target.category, CATEGORY_REALIZATION["other"])
+        extra = (f" ({target.description})"
+                 if target.description
+                 and target.description not in target.name else "")
+        blocks = [
+            f"TARGET INSTRUMENT: {target.name}{extra}.",
+            identity,
+            realization,
+            INVARIANTS,
+        ]
     try:
         return _assemble(blocks, DIRECTIVE_POOL["main"],
                          target_id=target.target_id, field="MAIN")
     except ValueError:
-        blocks = [
-            f"TARGET INSTRUMENT: {target.name}{extra}.",
-            IDENTITY,
-            CATEGORY_REALIZATION_SHORT.get(
-                target.category, CATEGORY_REALIZATION_SHORT["other"]),
-            SHORT_INVARIANTS,
-        ]
+        if family != "pitched_harmonic":
+            blocks = [b for b in blocks]
+            blocks[2] = (PERCUSSION_REALIZATION if family == "percussion_timing"
+                         else VOCAL_REALIZATION)
+        else:
+            blocks = [
+                f"TARGET INSTRUMENT: {target.name}{extra}.",
+                identity,
+                CATEGORY_REALIZATION_SHORT.get(
+                    target.category, CATEGORY_REALIZATION_SHORT["other"]),
+                SHORT_INVARIANTS,
+            ]
         return _assemble(blocks, DIRECTIVE_POOL["main"],
                          target_id=target.target_id, field="MAIN")
-
 
 
 def build_exclude(target, all_targets: dict, *,
@@ -340,6 +342,9 @@ def build_exclude(target, all_targets: dict, *,
         blocks = [
             f"EXCLUDE for the {target.name} render of 'The Steward's "
             f"Calibration'.",
+            "No choir or vocal 'ah' pads, no semantic drum-kit percussion, "
+            "and no cinematic FX styling anywhere — the transitional/"
+            "rhythmic movement is played on the target instrument itself.",
             f"No other instrument takes the lead — especially {confusables}.",
             no_vocals + no_drums + acoustic,
             "No genre transformation away from the neutral reference "

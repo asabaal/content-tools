@@ -23,7 +23,7 @@ from pathlib import Path
 from .checker import check_book
 from .families import FAMILY_META, PITCHED, PERCUSSION, VOCAL, route
 from .ontology import DEFAULT_REPO, load_targets
-from .prompts import build_exclude, build_main
+from .prompts import build_exclude, build_main, pitched_identity
 
 FORBIDDEN_STALE_REFERENCES = ["4:48", "288 seconds", "288-second",
                               "120 bars"]
@@ -97,6 +97,28 @@ def family_intro(family: str) -> tuple[list[str], list[str]]:
     return lines, cond_lines
 
 
+def identity_for(family: str) -> str:
+    """Compose the MAIN identity line from the family's generated movement
+    map — the score artifacts are the single source of truth for duration,
+    bars, and movement/region names."""
+    mmap = _piece_map(family)
+    if family == PITCHED:
+        return pitched_identity(mmap)
+    label = title_of(family)
+    dur = mmap["duration_seconds"]
+    dur_str = f"{int(dur // 60)}:{int(dur % 60):02d}"
+    n = len(mmap["regions"])
+    word = {9: "nine", 10: "ten", 11: "eleven"}.get(n, str(n))
+    kind = ("timing probe on a neutral click transient (no drum-kit "
+            "styling)" if family == PERCUSSION else
+            "non-lexical vocal timing probe ('ah' vowel only, no words)")
+    return (f"Perform '{label}': {dur_str} {kind}, {mmap['tempo_bpm']} BPM, "
+            f"{word} regions: "
+            + "; ".join(r["region"].replace("_", " ") for r in mmap["regions"])
+            + ". Lanes/voices may differ by pitch only; onsets stay exactly "
+            "on the written grid.")
+
+
 def build_all(repo_root: Path) -> dict:
     targets = load_targets()
 
@@ -104,11 +126,12 @@ def build_all(repo_root: Path) -> dict:
     for target_id, t in targets.items():
         routed[target_id] = route(target_id, t.category)
 
+    identities = {f: identity_for(f) for f in (PITCHED, PERCUSSION, VOCAL)}
     prompts: dict[str, dict[str, str]] = {}
     for target_id, target in sorted(targets.items()):
         family = routed[target_id].primary
         prompts[target_id] = {
-            "main": build_main(target, family=family),
+            "main": build_main(target, identities[family], family=family),
             "exclude": build_exclude(target, targets, family=family),
         }
 
@@ -118,7 +141,7 @@ def build_all(repo_root: Path) -> dict:
     assert_no_stale_references(texts)
     report = check_book(prompts)
     return {"targets": targets, "routed": routed, "prompts": prompts,
-            "report": report}
+            "report": report, "identities": identities}
 
 
 def write_book(repo_root: Path, built: dict) -> Path:

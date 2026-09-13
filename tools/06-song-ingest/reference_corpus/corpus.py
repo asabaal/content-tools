@@ -64,7 +64,8 @@ def init_corpus(repo_root: Path, *, composition_source: Path,
     copied = {}
     for name in ("composition_version.json", "movement_map.json",
                  "event_manifest.json", "canonical_reference_piece.mid",
-                 "conditioning_render_notes.json"):
+                 "conditioning_render_notes.json",
+                 "multimodal_conditioning_map.json"):
         src = composition_source / name
         if src.is_file():
             shutil.copy(src, piece / name)
