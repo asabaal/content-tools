@@ -1,0 +1,1269 @@
+{
+  "generated_at": "2026-09-13T18:57:09.150036+00:00",
+  "targets": 90,
+  "checks": [
+    {
+      "target_id": "accordion",
+      "field": "MAIN",
+      "char_count": 932,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "accordion",
+      "field": "EXCLUDE",
+      "char_count": 938,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "acoustic_guitar",
+      "field": "MAIN",
+      "char_count": 981,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "acoustic_guitar",
+      "field": "EXCLUDE",
+      "char_count": 912,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "alto_saxophone",
+      "field": "MAIN",
+      "char_count": 925,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "alto_saxophone",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "arpeggiator",
+      "field": "MAIN",
+      "char_count": 983,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "arpeggiator",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "backing_vocal",
+      "field": "MAIN",
+      "char_count": 977,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "backing_vocal",
+      "field": "EXCLUDE",
+      "char_count": 914,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bagpipes",
+      "field": "MAIN",
+      "char_count": 931,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bagpipes",
+      "field": "EXCLUDE",
+      "char_count": 938,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "banjo",
+      "field": "MAIN",
+      "char_count": 923,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "banjo",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "baritone_saxophone",
+      "field": "MAIN",
+      "char_count": 929,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "baritone_saxophone",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bass",
+      "field": "MAIN",
+      "char_count": 953,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bass",
+      "field": "EXCLUDE",
+      "char_count": 955,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bass_guitar",
+      "field": "MAIN",
+      "char_count": 942,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bass_guitar",
+      "field": "EXCLUDE",
+      "char_count": 925,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bassoon",
+      "field": "MAIN",
+      "char_count": 918,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bassoon",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bells",
+      "field": "MAIN",
+      "char_count": 989,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bells",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bongos",
+      "field": "MAIN",
+      "char_count": 948,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "bongos",
+      "field": "EXCLUDE",
+      "char_count": 935,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "brass",
+      "field": "MAIN",
+      "char_count": 920,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "brass",
+      "field": "EXCLUDE",
+      "char_count": 932,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "celesta",
+      "field": "MAIN",
+      "char_count": 937,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "celesta",
+      "field": "EXCLUDE",
+      "char_count": 960,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "cello",
+      "field": "MAIN",
+      "char_count": 923,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "cello",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "choir",
+      "field": "MAIN",
+      "char_count": 962,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "choir",
+      "field": "EXCLUDE",
+      "char_count": 937,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "clap",
+      "field": "MAIN",
+      "char_count": 979,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "clap",
+      "field": "EXCLUDE",
+      "char_count": 933,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "clarinet",
+      "field": "MAIN",
+      "char_count": 919,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "clarinet",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "congas",
+      "field": "MAIN",
+      "char_count": 948,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "congas",
+      "field": "EXCLUDE",
+      "char_count": 935,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "cowbell",
+      "field": "MAIN",
+      "char_count": 949,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "cowbell",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "cymbals",
+      "field": "MAIN",
+      "char_count": 987,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "cymbals",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "didgeridoo",
+      "field": "MAIN",
+      "char_count": 933,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "didgeridoo",
+      "field": "EXCLUDE",
+      "char_count": 938,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "djembe",
+      "field": "MAIN",
+      "char_count": 977,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "djembe",
+      "field": "EXCLUDE",
+      "char_count": 935,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "double_bass",
+      "field": "MAIN",
+      "char_count": 956,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "double_bass",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "drone",
+      "field": "MAIN",
+      "char_count": 980,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "drone",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "drums",
+      "field": "MAIN",
+      "char_count": 982,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "drums",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "eight_zero_eight",
+      "field": "MAIN",
+      "char_count": 929,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "eight_zero_eight",
+      "field": "EXCLUDE",
+      "char_count": 925,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "electric_guitar",
+      "field": "MAIN",
+      "char_count": 948,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "electric_guitar",
+      "field": "EXCLUDE",
+      "char_count": 912,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "electric_piano",
+      "field": "MAIN",
+      "char_count": 987,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "electric_piano",
+      "field": "EXCLUDE",
+      "char_count": 960,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "fiddle",
+      "field": "MAIN",
+      "char_count": 963,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "fiddle",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "flute",
+      "field": "MAIN",
+      "char_count": 916,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "flute",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "french_horn",
+      "field": "MAIN",
+      "char_count": 976,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "french_horn",
+      "field": "EXCLUDE",
+      "char_count": 932,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "glockenspiel",
+      "field": "MAIN",
+      "char_count": 954,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "glockenspiel",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "guitar",
+      "field": "MAIN",
+      "char_count": 1000,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "guitar",
+      "field": "EXCLUDE",
+      "char_count": 904,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "harmonica",
+      "field": "MAIN",
+      "char_count": 932,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "harmonica",
+      "field": "EXCLUDE",
+      "char_count": 938,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "harp",
+      "field": "MAIN",
+      "char_count": 922,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "harp",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "harpsichord",
+      "field": "MAIN",
+      "char_count": 941,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "harpsichord",
+      "field": "EXCLUDE",
+      "char_count": 960,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "hi_hat",
+      "field": "MAIN",
+      "char_count": 974,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "hi_hat",
+      "field": "EXCLUDE",
+      "char_count": 935,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "keyboards",
+      "field": "MAIN",
+      "char_count": 970,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "keyboards",
+      "field": "EXCLUDE",
+      "char_count": 960,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "kick",
+      "field": "MAIN",
+      "char_count": 958,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "kick",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "koto",
+      "field": "MAIN",
+      "char_count": 958,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "koto",
+      "field": "EXCLUDE",
+      "char_count": 959,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "lead_guitar",
+      "field": "MAIN",
+      "char_count": 927,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "lead_guitar",
+      "field": "EXCLUDE",
+      "char_count": 959,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "lead_vocal",
+      "field": "MAIN",
+      "char_count": 980,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "lead_vocal",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "mandolin",
+      "field": "MAIN",
+      "char_count": 926,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "mandolin",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "marimba",
+      "field": "MAIN",
+      "char_count": 949,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "marimba",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "melodica",
+      "field": "MAIN",
+      "char_count": 938,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "melodica",
+      "field": "EXCLUDE",
+      "char_count": 960,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "music_box",
+      "field": "MAIN",
+      "char_count": 951,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "music_box",
+      "field": "EXCLUDE",
+      "char_count": 938,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "oboe",
+      "field": "MAIN",
+      "char_count": 915,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "oboe",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "orchestra",
+      "field": "MAIN",
+      "char_count": 957,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "orchestra",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "organ",
+      "field": "MAIN",
+      "char_count": 972,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "organ",
+      "field": "EXCLUDE",
+      "char_count": 923,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "other",
+      "field": "MAIN",
+      "char_count": 966,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "other",
+      "field": "EXCLUDE",
+      "char_count": 938,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "percussion",
+      "field": "MAIN",
+      "char_count": 985,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "percussion",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "piano",
+      "field": "MAIN",
+      "char_count": 952,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "piano",
+      "field": "EXCLUDE",
+      "char_count": 925,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "piccolo",
+      "field": "MAIN",
+      "char_count": 918,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "piccolo",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "rhythm_acoustic_guitar",
+      "field": "MAIN",
+      "char_count": 949,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "rhythm_acoustic_guitar",
+      "field": "EXCLUDE",
+      "char_count": 959,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "rhythm_electric_guitar",
+      "field": "MAIN",
+      "char_count": 949,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "rhythm_electric_guitar",
+      "field": "EXCLUDE",
+      "char_count": 959,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "risers",
+      "field": "MAIN",
+      "char_count": 950,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "risers",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "saxophone",
+      "field": "MAIN",
+      "char_count": 940,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "saxophone",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "shaker",
+      "field": "MAIN",
+      "char_count": 983,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "shaker",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "sitar",
+      "field": "MAIN",
+      "char_count": 923,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "sitar",
+      "field": "EXCLUDE",
+      "char_count": 960,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "slide_guitar",
+      "field": "MAIN",
+      "char_count": 929,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "slide_guitar",
+      "field": "EXCLUDE",
+      "char_count": 959,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "snare",
+      "field": "MAIN",
+      "char_count": 960,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "snare",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "steel_drums",
+      "field": "MAIN",
+      "char_count": 978,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "steel_drums",
+      "field": "EXCLUDE",
+      "char_count": 940,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "strings",
+      "field": "MAIN",
+      "char_count": 964,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "strings",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth",
+      "field": "MAIN",
+      "char_count": 979,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_bass",
+      "field": "MAIN",
+      "char_count": 973,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_bass",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_brass",
+      "field": "MAIN",
+      "char_count": 975,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_brass",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_keys",
+      "field": "MAIN",
+      "char_count": 949,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_keys",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_lead",
+      "field": "MAIN",
+      "char_count": 988,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_lead",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_pad",
+      "field": "MAIN",
+      "char_count": 993,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_pad",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_strings",
+      "field": "MAIN",
+      "char_count": 983,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "synth_strings",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "tabla",
+      "field": "MAIN",
+      "char_count": 975,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "tabla",
+      "field": "EXCLUDE",
+      "char_count": 934,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "taiko",
+      "field": "MAIN",
+      "char_count": 971,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "taiko",
+      "field": "EXCLUDE",
+      "char_count": 934,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "tambourine",
+      "field": "MAIN",
+      "char_count": 952,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "tambourine",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "tenor_saxophone",
+      "field": "MAIN",
+      "char_count": 926,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "tenor_saxophone",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "theremin",
+      "field": "MAIN",
+      "char_count": 952,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "theremin",
+      "field": "EXCLUDE",
+      "char_count": 933,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "timpani",
+      "field": "MAIN",
+      "char_count": 974,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "timpani",
+      "field": "EXCLUDE",
+      "char_count": 936,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "trombone",
+      "field": "MAIN",
+      "char_count": 973,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "trombone",
+      "field": "EXCLUDE",
+      "char_count": 932,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "trumpet",
+      "field": "MAIN",
+      "char_count": 972,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "trumpet",
+      "field": "EXCLUDE",
+      "char_count": 932,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "tuba",
+      "field": "MAIN",
+      "char_count": 969,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "tuba",
+      "field": "EXCLUDE",
+      "char_count": 932,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "ukulele",
+      "field": "MAIN",
+      "char_count": 973,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "ukulele",
+      "field": "EXCLUDE",
+      "char_count": 959,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "upright_bass",
+      "field": "MAIN",
+      "char_count": 949,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "upright_bass",
+      "field": "EXCLUDE",
+      "char_count": 925,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "vibraphone",
+      "field": "MAIN",
+      "char_count": 973,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "vibraphone",
+      "field": "EXCLUDE",
+      "char_count": 939,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "viola",
+      "field": "MAIN",
+      "char_count": 923,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "viola",
+      "field": "EXCLUDE",
+      "char_count": 960,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "violin",
+      "field": "MAIN",
+      "char_count": 924,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "violin",
+      "field": "EXCLUDE",
+      "char_count": 902,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "vocoder",
+      "field": "MAIN",
+      "char_count": 962,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "vocoder",
+      "field": "EXCLUDE",
+      "char_count": 914,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "whistle",
+      "field": "MAIN",
+      "char_count": 952,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "whistle",
+      "field": "EXCLUDE",
+      "char_count": 914,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "woodwinds",
+      "field": "MAIN",
+      "char_count": 959,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "woodwinds",
+      "field": "EXCLUDE",
+      "char_count": 930,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "xylophone",
+      "field": "MAIN",
+      "char_count": 951,
+      "ok": true,
+      "problems": []
+    },
+    {
+      "target_id": "xylophone",
+      "field": "EXCLUDE",
+      "char_count": 938,
+      "ok": true,
+      "problems": []
+    }
+  ],
+  "all_ok": true,
+  "rules": "900\u20131000 characters inclusive",
+  "prompt_count": 180
+}

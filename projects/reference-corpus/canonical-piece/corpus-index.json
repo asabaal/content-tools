@@ -1,0 +1,656 @@
+{
+  "schema": "content-tools/reference-corpus/index",
+  "schema_version": "0.1",
+  "created_at": "2026-09-13T18:57:09.125569+00:00",
+  "canonical_piece": "canonical-piece",
+  "composition_artifacts": {
+    "composition_version.json": {
+      "sha256": "fe91b375a232d7fdcf6a77bd05baeef80e575c50f5a2f920060b1a141974b28c",
+      "bytes": 864
+    },
+    "movement_map.json": {
+      "sha256": "5f848795f83420c18d1c91a55a6f2ff85f838328d7ceea896ec4ca80cc2e365f",
+      "bytes": 4889
+    },
+    "event_manifest.json": {
+      "sha256": "f47c614a77fd9120b3ed4e351d62e79eed9d0d7381998d673c29d4893facb952",
+      "bytes": 429861
+    },
+    "canonical_reference_piece.mid": {
+      "sha256": "c31edebb7e8304e3bb9e4ff2db916ab9ad79d500261490ba25d2b69e1a8b38e4",
+      "bytes": 11819
+    }
+  },
+  "targets": [
+    {
+      "target_id": "accordion",
+      "name": "Accordion",
+      "category": "other",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/accordion"
+    },
+    {
+      "target_id": "acoustic_guitar",
+      "name": "Acoustic guitar",
+      "category": "guitar",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/acoustic-guitar"
+    },
+    {
+      "target_id": "alto_saxophone",
+      "name": "Alto saxophone",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/alto-saxophone"
+    },
+    {
+      "target_id": "arpeggiator",
+      "name": "Arpeggiator",
+      "category": "synth",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/arpeggiator"
+    },
+    {
+      "target_id": "backing_vocal",
+      "name": "Backing vocal",
+      "category": "vocal",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/backing-vocal"
+    },
+    {
+      "target_id": "bagpipes",
+      "name": "Bagpipes",
+      "category": "other",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/bagpipes"
+    },
+    {
+      "target_id": "banjo",
+      "name": "Banjo",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/banjo"
+    },
+    {
+      "target_id": "baritone_saxophone",
+      "name": "Baritone saxophone",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/baritone-saxophone"
+    },
+    {
+      "target_id": "bass",
+      "name": "Bass",
+      "category": "bass",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/bass"
+    },
+    {
+      "target_id": "bass_guitar",
+      "name": "Bass guitar",
+      "category": "bass",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/bass-guitar"
+    },
+    {
+      "target_id": "bassoon",
+      "name": "Bassoon",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/bassoon"
+    },
+    {
+      "target_id": "bells",
+      "name": "Bells",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/bells"
+    },
+    {
+      "target_id": "bongos",
+      "name": "Bongos",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/bongos"
+    },
+    {
+      "target_id": "brass",
+      "name": "Brass",
+      "category": "brass",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/brass"
+    },
+    {
+      "target_id": "celesta",
+      "name": "Celesta",
+      "category": "keyboard",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/celesta"
+    },
+    {
+      "target_id": "cello",
+      "name": "Cello",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/cello"
+    },
+    {
+      "target_id": "choir",
+      "name": "Choir",
+      "category": "vocal",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/choir"
+    },
+    {
+      "target_id": "clap",
+      "name": "Clap",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/clap"
+    },
+    {
+      "target_id": "clarinet",
+      "name": "Clarinet",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/clarinet"
+    },
+    {
+      "target_id": "congas",
+      "name": "Congas",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/congas"
+    },
+    {
+      "target_id": "cowbell",
+      "name": "Cowbell",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/cowbell"
+    },
+    {
+      "target_id": "cymbals",
+      "name": "Cymbals",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/cymbals"
+    },
+    {
+      "target_id": "didgeridoo",
+      "name": "Didgeridoo",
+      "category": "other",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/didgeridoo"
+    },
+    {
+      "target_id": "djembe",
+      "name": "Djembe",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/djembe"
+    },
+    {
+      "target_id": "double_bass",
+      "name": "Double bass",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/double-bass"
+    },
+    {
+      "target_id": "drone",
+      "name": "Drone",
+      "category": "synth",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/drone"
+    },
+    {
+      "target_id": "drums",
+      "name": "Drums",
+      "category": "percussion",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/drums"
+    },
+    {
+      "target_id": "eight_zero_eight",
+      "name": "808",
+      "category": "bass",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/eight-zero-eight"
+    },
+    {
+      "target_id": "electric_guitar",
+      "name": "Electric guitar",
+      "category": "guitar",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/electric-guitar"
+    },
+    {
+      "target_id": "electric_piano",
+      "name": "Electric piano",
+      "category": "keyboard",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/electric-piano"
+    },
+    {
+      "target_id": "fiddle",
+      "name": "Fiddle",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/fiddle"
+    },
+    {
+      "target_id": "flute",
+      "name": "Flute",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/flute"
+    },
+    {
+      "target_id": "french_horn",
+      "name": "French horn",
+      "category": "brass",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/french-horn"
+    },
+    {
+      "target_id": "glockenspiel",
+      "name": "Glockenspiel",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/glockenspiel"
+    },
+    {
+      "target_id": "guitar",
+      "name": "Guitar",
+      "category": "guitar",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/guitar"
+    },
+    {
+      "target_id": "harmonica",
+      "name": "Harmonica",
+      "category": "other",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/harmonica"
+    },
+    {
+      "target_id": "harp",
+      "name": "Harp",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/harp"
+    },
+    {
+      "target_id": "harpsichord",
+      "name": "Harpsichord",
+      "category": "keyboard",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/harpsichord"
+    },
+    {
+      "target_id": "hi_hat",
+      "name": "Hi-hat",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/hi-hat"
+    },
+    {
+      "target_id": "keyboards",
+      "name": "Keyboards",
+      "category": "keyboard",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/keyboards"
+    },
+    {
+      "target_id": "kick",
+      "name": "Kick",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/kick"
+    },
+    {
+      "target_id": "koto",
+      "name": "Koto",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/koto"
+    },
+    {
+      "target_id": "lead_guitar",
+      "name": "Lead guitar",
+      "category": "guitar",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/lead-guitar"
+    },
+    {
+      "target_id": "lead_vocal",
+      "name": "Lead vocal",
+      "category": "vocal",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/lead-vocal"
+    },
+    {
+      "target_id": "mandolin",
+      "name": "Mandolin",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/mandolin"
+    },
+    {
+      "target_id": "marimba",
+      "name": "Marimba",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/marimba"
+    },
+    {
+      "target_id": "melodica",
+      "name": "Melodica",
+      "category": "keyboard",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/melodica"
+    },
+    {
+      "target_id": "music_box",
+      "name": "Music box",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/music-box"
+    },
+    {
+      "target_id": "oboe",
+      "name": "Oboe",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/oboe"
+    },
+    {
+      "target_id": "orchestra",
+      "name": "Orchestra",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/orchestra"
+    },
+    {
+      "target_id": "organ",
+      "name": "Organ",
+      "category": "keyboard",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/organ"
+    },
+    {
+      "target_id": "other",
+      "name": "Other",
+      "category": "other",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/other"
+    },
+    {
+      "target_id": "percussion",
+      "name": "Percussion",
+      "category": "percussion",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/percussion"
+    },
+    {
+      "target_id": "piano",
+      "name": "Piano",
+      "category": "keyboard",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/piano"
+    },
+    {
+      "target_id": "piccolo",
+      "name": "Piccolo",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/piccolo"
+    },
+    {
+      "target_id": "rhythm_acoustic_guitar",
+      "name": "Rhythm acoustic guitar",
+      "category": "guitar",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/rhythm-acoustic-guitar"
+    },
+    {
+      "target_id": "rhythm_electric_guitar",
+      "name": "Rhythm electric guitar",
+      "category": "guitar",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/rhythm-electric-guitar"
+    },
+    {
+      "target_id": "risers",
+      "name": "Risers",
+      "category": "synth",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/risers"
+    },
+    {
+      "target_id": "saxophone",
+      "name": "Saxophone",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/saxophone"
+    },
+    {
+      "target_id": "shaker",
+      "name": "Shaker",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/shaker"
+    },
+    {
+      "target_id": "sitar",
+      "name": "Sitar",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/sitar"
+    },
+    {
+      "target_id": "slide_guitar",
+      "name": "Slide guitar",
+      "category": "guitar",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/slide-guitar"
+    },
+    {
+      "target_id": "snare",
+      "name": "Snare",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/snare"
+    },
+    {
+      "target_id": "steel_drums",
+      "name": "Steel drums",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/steel-drums"
+    },
+    {
+      "target_id": "strings",
+      "name": "Strings",
+      "category": "strings",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/strings"
+    },
+    {
+      "target_id": "synth",
+      "name": "Synth",
+      "category": "synth",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/synth"
+    },
+    {
+      "target_id": "synth_bass",
+      "name": "Synth bass",
+      "category": "synth",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/synth-bass"
+    },
+    {
+      "target_id": "synth_brass",
+      "name": "Synth brass",
+      "category": "synth",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/synth-brass"
+    },
+    {
+      "target_id": "synth_keys",
+      "name": "Synth keys",
+      "category": "synth",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/synth-keys"
+    },
+    {
+      "target_id": "synth_lead",
+      "name": "Synth lead",
+      "category": "synth",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/synth-lead"
+    },
+    {
+      "target_id": "synth_pad",
+      "name": "Synth pad",
+      "category": "synth",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/synth-pad"
+    },
+    {
+      "target_id": "synth_strings",
+      "name": "Synth strings",
+      "category": "synth",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/synth-strings"
+    },
+    {
+      "target_id": "tabla",
+      "name": "Tabla",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/tabla"
+    },
+    {
+      "target_id": "taiko",
+      "name": "Taiko",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/taiko"
+    },
+    {
+      "target_id": "tambourine",
+      "name": "Tambourine",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/tambourine"
+    },
+    {
+      "target_id": "tenor_saxophone",
+      "name": "Tenor saxophone",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/tenor-saxophone"
+    },
+    {
+      "target_id": "theremin",
+      "name": "Theremin",
+      "category": "synth",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/theremin"
+    },
+    {
+      "target_id": "timpani",
+      "name": "Timpani",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/timpani"
+    },
+    {
+      "target_id": "trombone",
+      "name": "Trombone",
+      "category": "brass",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/trombone"
+    },
+    {
+      "target_id": "trumpet",
+      "name": "Trumpet",
+      "category": "brass",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/trumpet"
+    },
+    {
+      "target_id": "tuba",
+      "name": "Tuba",
+      "category": "brass",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/tuba"
+    },
+    {
+      "target_id": "ukulele",
+      "name": "Ukulele",
+      "category": "guitar",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/ukulele"
+    },
+    {
+      "target_id": "upright_bass",
+      "name": "Upright bass",
+      "category": "bass",
+      "is_beta": false,
+      "directory": "projects/reference-corpus/canonical-piece/targets/upright-bass"
+    },
+    {
+      "target_id": "vibraphone",
+      "name": "Vibraphone",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/vibraphone"
+    },
+    {
+      "target_id": "viola",
+      "name": "Viola",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/viola"
+    },
+    {
+      "target_id": "violin",
+      "name": "Violin",
+      "category": "strings",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/violin"
+    },
+    {
+      "target_id": "vocoder",
+      "name": "Vocoder",
+      "category": "vocal",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/vocoder"
+    },
+    {
+      "target_id": "whistle",
+      "name": "Whistle",
+      "category": "vocal",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/whistle"
+    },
+    {
+      "target_id": "woodwinds",
+      "name": "Woodwinds",
+      "category": "woodwind",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/woodwinds"
+    },
+    {
+      "target_id": "xylophone",
+      "name": "Xylophone",
+      "category": "percussion",
+      "is_beta": true,
+      "directory": "projects/reference-corpus/canonical-piece/targets/xylophone"
+    }
+  ]
+}

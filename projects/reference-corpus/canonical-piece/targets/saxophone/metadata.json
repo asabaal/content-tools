@@ -1,0 +1,22 @@
+{
+  "target_id": "saxophone",
+  "name": "Saxophone",
+  "category": "woodwind",
+  "is_beta": true,
+  "composition_version": {
+    "sha256": "fe91b375a232d7fdcf6a77bd05baeef80e575c50f5a2f920060b1a141974b28c",
+    "bytes": 864
+  },
+  "render_log": {
+    "suno_model_version": "",
+    "render_id": "",
+    "generation_date": "",
+    "keeper": "",
+    "deviations": "",
+    "extraction_performed": false,
+    "extracted_target_path": "",
+    "extracted_target_sha256": "",
+    "midi_extracted": false,
+    "notes": ""
+  }
+}

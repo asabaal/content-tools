@@ -1,0 +1,30 @@
+{
+  "ontology": {
+    "source_repo": "/mnt/storage/repos/music_creation",
+    "targets": 90,
+    "standard": 22,
+    "beta_total": 68
+  },
+  "composition": {
+    "composition_version.json": {
+      "sha256": "fe91b375a232d7fdcf6a77bd05baeef80e575c50f5a2f920060b1a141974b28c",
+      "bytes": 864
+    },
+    "movement_map.json": {
+      "sha256": "5f848795f83420c18d1c91a55a6f2ff85f838328d7ceea896ec4ca80cc2e365f",
+      "bytes": 4889
+    },
+    "event_manifest.json": {
+      "sha256": "f47c614a77fd9120b3ed4e351d62e79eed9d0d7381998d673c29d4893facb952",
+      "bytes": 429861
+    },
+    "canonical_reference_piece.mid": {
+      "sha256": "c31edebb7e8304e3bb9e4ff2db916ab9ad79d500261490ba25d2b69e1a8b38e4",
+      "bytes": 11819
+    }
+  },
+  "prompt_validation": {
+    "rules": "900\u20131000 characters inclusive",
+    "all_ok": true
+  }
+}
