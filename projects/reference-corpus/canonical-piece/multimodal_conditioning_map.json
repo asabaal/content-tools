@@ -3,7 +3,7 @@
   "schema_version": "0.1",
   "conditioning_id": "multimodal_v1",
   "generated_at": "2026-09-13T22:29:06.721454+00:00",
-  "status": "LEADING candidate for the canonical Suno conditioning source (pitched/harmonic family) \u2014 pending artist listening + upload approval",
+  "status": "SUPERSEDED \u2014 MULTI-TIMBRAL GM TEST, NOT CANONICAL MULTIMODAL INPUT",
   "source_midi": {
     "path": "/mnt/storage/repos/music_creation/reference_composition/output/canonical_reference_piece.mid",
     "sha256": "83399cdca34f1f975dc59768e5d4f6e35c3b3f54a8d561adbced0cfe340c2611"
@@ -193,5 +193,7 @@
     "all_blocks_audible": true,
     "boundary_count": 9
   },
-  "schedule_note": "machine-readable modality schedule; blocks are 10 bars = 24 s"
+  "schedule_note": "machine-readable modality schedule; blocks are 10 bars = 24 s",
+  "superseded_by": "canonical_reference_piece_multimodal_v2_input.wav (multimodal_v2)",
+  "reason": "v1 switched GM patch numbers inside one TiMidity++/FluidR3 pipeline \u2014 multi-timbral, not multi-modal"
 }

@@ -685,8 +685,12 @@
       "bytes": 4873
     },
     "multimodal_conditioning_map.json": {
-      "sha256": "efc1e044b908606d1749f4808895fbfba49fa68a1884f3bc4227f90ca2c3e468",
-      "bytes": 5766
+      "sha256": "0fe557b939f9d6b198b97e49be3281c7aef45cebfa3b74a3b5f1c5be532028a0",
+      "bytes": 5910
+    },
+    "multimodal_v2_conditioning_map.json": {
+      "sha256": "a752d106e2d2d110394ef41becb3e817ce89400014b1fed9f00061c7a9a63144",
+      "bytes": 11038
     }
   },
   "prompt_validation": {

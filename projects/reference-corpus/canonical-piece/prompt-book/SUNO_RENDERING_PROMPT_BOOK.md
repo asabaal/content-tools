@@ -1,6 +1,6 @@
 # Suno Rendering Prompt Book — Calibration Suite
 
-_Generated 2026-09-13T22:33:34.487008+00:00 · 90 targets · 180 prompts · all validated at 900–1000 characters inclusive._
+_Generated 2026-09-13T23:00:00.302428+00:00 · 90 targets · 180 prompts · all validated at 900–1000 characters inclusive._
 
 ## The calibration suite (three canonical references)
 
@@ -18,6 +18,7 @@ Duration: 240 s · 61 target(s)
 Reference piece: **The Steward's Calibration** — 240 s, 100 BPM, 9 movements.
 
 **Canonical conditioning artifact(s)**
+- conditioning candidate `multimodal_v2`: `canonical_reference_piece_multimodal_v2_input.wav` (sha256 a983b36514f21628…)
 - conditioning candidate `multimodal_v1`: `canonical_reference_piece_multimodal_input.wav` (sha256 138ed5c9b767bfb2…)
 - conditioning candidate `neutral_piano`: `canonical_reference_piece_piano_input.wav` (sha256 b900150511e38111…)
 - conditioning candidate `neutral_synth`: `canonical_reference_piece_synth_input.wav` (sha256 bfe9612f1e3fbc6b…)

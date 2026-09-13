@@ -1,0 +1,303 @@
+{
+  "schema": "content-tools/reference-composition/conditioning-render",
+  "schema_version": "0.2",
+  "conditioning_id": "multimodal_v2",
+  "supersedes": "multimodal_v1 (SUPERSEDED \u2014 MULTI-TIMBRAL GM TEST, NOT CANONICAL MULTIMODAL INPUT)",
+  "generated_at": "2026-09-13T22:53:38.276100+00:00",
+  "purpose": "genuinely multi-renderer conditioning: the SAME canonical score rendered through distinct production pipelines; tests how Suno responds to rendering modality, not merely timbre",
+  "source_midi": {
+    "path": "/mnt/storage/repos/music_creation/reference_composition/output/canonical_reference_piece.mid",
+    "sha256": "83399cdca34f1f975dc59768e5d4f6e35c3b3f54a8d561adbced0cfe340c2611"
+  },
+  "output": {
+    "path": "/mnt/storage/repos/music_creation/reference_composition/output/canonical_reference_piece_multimodal_v2_input.wav",
+    "sha256": "a983b36514f216280d71b71226eb91862387870eac2516b6ffef474b812032a7"
+  },
+  "schedule": [
+    {
+      "block_id": "block_01",
+      "bars": [
+        1,
+        10
+      ],
+      "start_seconds": 0.0,
+      "end_seconds": 24.0,
+      "rendering_modality": "sf2_wavetable",
+      "renderer": "TiMidity++",
+      "engine": "TiMidity++ wavetable sample playback (FluidR3_GM.sf2)",
+      "sound_source": "FluidR3_GM.sf2 samples (Acoustic Grand)",
+      "instrument_or_patch": "GM 0 Acoustic Grand (FluidR3)",
+      "render_command": "timidity -x 'soundfont FluidR3_GM.sf2' -Ow -A120,100 <program0-copy.mid> -o <block-source>.wav",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "51ede59d5f922a17fe77f786967dd80153e77b7e7c29cc7238290f5e57b1ea90",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_02",
+      "bars": [
+        11,
+        20
+      ],
+      "start_seconds": 24.0,
+      "end_seconds": 48.0,
+      "rendering_modality": "additive_synth",
+      "renderer": "numpy offline synthesis",
+      "engine": "direct additive waveform synthesis (numpy)",
+      "sound_source": "sine blend (0.9 f0 + 0.1 2f0) per event",
+      "instrument_or_patch": "sine blend",
+      "render_command": "numpy additive synthesis from event_manifest.json (see render_additive)",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "c8a192b1ffbce20ce8b84b7db09f131c8b03649a07fe11a658994df478a73632",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_03",
+      "bars": [
+        21,
+        30
+      ],
+      "start_seconds": 48.0,
+      "end_seconds": 72.0,
+      "rendering_modality": "formant_vowel_ah",
+      "renderer": "numpy offline synthesis",
+      "engine": "source-filter formant vowel synthesis (numpy)",
+      "sound_source": "12-harmonic source weighted by 'ah' formants (F1 730 / F2 1090 Hz)",
+      "instrument_or_patch": "'ah' formant voice",
+      "render_command": "numpy source-filter vowel synthesis (F1 730 Hz / F2 1090 Hz; see render_vox)",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "63246c247687f91c51137ca6d5c08a394d2da14394bd4f83a7af36e6e07b593e",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_04",
+      "bars": [
+        31,
+        40
+      ],
+      "start_seconds": 72.0,
+      "end_seconds": 96.0,
+      "rendering_modality": "karplus_strong",
+      "renderer": "numpy offline synthesis",
+      "engine": "Karplus-Strong physical string model (numpy)",
+      "sound_source": "seeded noise burst through delay-line string model",
+      "instrument_or_patch": "KS pluck",
+      "render_command": "numpy Karplus-Strong physical model (see render_pluck)",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "8e8296281997c3dfa1a0a5a118d478c6586e9d6095cb638748496d5bc15292c2",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_05",
+      "bars": [
+        41,
+        50
+      ],
+      "start_seconds": 96.0,
+      "end_seconds": 120.0,
+      "rendering_modality": "additive_synth",
+      "renderer": "numpy offline synthesis",
+      "engine": "direct additive waveform synthesis (numpy)",
+      "sound_source": "sine blend (0.9 f0 + 0.1 2f0) per event",
+      "instrument_or_patch": "sine blend",
+      "render_command": "numpy additive synthesis from event_manifest.json (see render_additive)",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "c8a192b1ffbce20ce8b84b7db09f131c8b03649a07fe11a658994df478a73632",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_06",
+      "bars": [
+        51,
+        60
+      ],
+      "start_seconds": 120.0,
+      "end_seconds": 144.0,
+      "rendering_modality": "sf2_wavetable",
+      "renderer": "TiMidity++",
+      "engine": "TiMidity++ wavetable sample playback (FluidR3_GM.sf2)",
+      "sound_source": "FluidR3_GM.sf2 samples (Acoustic Grand)",
+      "instrument_or_patch": "GM 0 Acoustic Grand (FluidR3)",
+      "render_command": "timidity -x 'soundfont FluidR3_GM.sf2' -Ow -A120,100 <program0-copy.mid> -o <block-source>.wav",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "51ede59d5f922a17fe77f786967dd80153e77b7e7c29cc7238290f5e57b1ea90",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_07",
+      "bars": [
+        61,
+        70
+      ],
+      "start_seconds": 144.0,
+      "end_seconds": 168.0,
+      "rendering_modality": "karplus_strong",
+      "renderer": "numpy offline synthesis",
+      "engine": "Karplus-Strong physical string model (numpy)",
+      "sound_source": "seeded noise burst through delay-line string model",
+      "instrument_or_patch": "KS pluck",
+      "render_command": "numpy Karplus-Strong physical model (see render_pluck)",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "8e8296281997c3dfa1a0a5a118d478c6586e9d6095cb638748496d5bc15292c2",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_08",
+      "bars": [
+        71,
+        80
+      ],
+      "start_seconds": 168.0,
+      "end_seconds": 192.0,
+      "rendering_modality": "formant_vowel_ah",
+      "renderer": "numpy offline synthesis",
+      "engine": "source-filter formant vowel synthesis (numpy)",
+      "sound_source": "12-harmonic source weighted by 'ah' formants (F1 730 / F2 1090 Hz)",
+      "instrument_or_patch": "'ah' formant voice",
+      "render_command": "numpy source-filter vowel synthesis (F1 730 Hz / F2 1090 Hz; see render_vox)",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "63246c247687f91c51137ca6d5c08a394d2da14394bd4f83a7af36e6e07b593e",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_09",
+      "bars": [
+        81,
+        90
+      ],
+      "start_seconds": 192.0,
+      "end_seconds": 216.0,
+      "rendering_modality": "additive_synth",
+      "renderer": "numpy offline synthesis",
+      "engine": "direct additive waveform synthesis (numpy)",
+      "sound_source": "sine blend (0.9 f0 + 0.1 2f0) per event",
+      "instrument_or_patch": "sine blend",
+      "render_command": "numpy additive synthesis from event_manifest.json (see render_additive)",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "c8a192b1ffbce20ce8b84b7db09f131c8b03649a07fe11a658994df478a73632",
+      "latency_compensation_ms": 0.0
+    },
+    {
+      "block_id": "block_10",
+      "bars": [
+        91,
+        100
+      ],
+      "start_seconds": 216.0,
+      "end_seconds": 240.0,
+      "rendering_modality": "sf2_wavetable",
+      "renderer": "TiMidity++",
+      "engine": "TiMidity++ wavetable sample playback (FluidR3_GM.sf2)",
+      "sound_source": "FluidR3_GM.sf2 samples (Acoustic Grand)",
+      "instrument_or_patch": "GM 0 Acoustic Grand (FluidR3)",
+      "render_command": "timidity -x 'soundfont FluidR3_GM.sf2' -Ow -A120,100 <program0-copy.mid> -o <block-source>.wav",
+      "source_artifact": "canonical_reference_piece.mid",
+      "source_hash": "see source_midi.sha256",
+      "rendered_block_hash": "51ede59d5f922a17fe77f786967dd80153e77b7e7c29cc7238290f5e57b1ea90",
+      "latency_compensation_ms": 0.0
+    }
+  ],
+  "assembly": {
+    "rendered_hashes": {
+      "sf2_wavetable": "51ede59d5f922a17fe77f786967dd80153e77b7e7c29cc7238290f5e57b1ea90",
+      "additive_synth": "c8a192b1ffbce20ce8b84b7db09f131c8b03649a07fe11a658994df478a73632",
+      "formant_vowel_ah": "63246c247687f91c51137ca6d5c08a394d2da14394bd4f83a7af36e6e07b593e",
+      "karplus_strong": "8e8296281997c3dfa1a0a5a118d478c6586e9d6095cb638748496d5bc15292c2"
+    },
+    "exact_length_seconds": 240.0
+  },
+  "validation": {
+    "duration_seconds": 240.0,
+    "exactly_240": true,
+    "peak_dbfs": -8.56,
+    "not_clipped": true,
+    "not_silent": true,
+    "blocks": [
+      {
+        "block": 1,
+        "rendering_modality": "sf2_wavetable",
+        "rms": 0.01202,
+        "audible": true
+      },
+      {
+        "block": 2,
+        "rendering_modality": "additive_synth",
+        "rms": 0.02771,
+        "audible": true
+      },
+      {
+        "block": 3,
+        "rendering_modality": "formant_vowel_ah",
+        "rms": 0.04117,
+        "audible": true
+      },
+      {
+        "block": 4,
+        "rendering_modality": "karplus_strong",
+        "rms": 0.0373,
+        "audible": true
+      },
+      {
+        "block": 5,
+        "rendering_modality": "additive_synth",
+        "rms": 0.04215,
+        "audible": true
+      },
+      {
+        "block": 6,
+        "rendering_modality": "sf2_wavetable",
+        "rms": 0.04394,
+        "audible": true
+      },
+      {
+        "block": 7,
+        "rendering_modality": "karplus_strong",
+        "rms": 0.04884,
+        "audible": true
+      },
+      {
+        "block": 8,
+        "rendering_modality": "formant_vowel_ah",
+        "rms": 0.05708,
+        "audible": true
+      },
+      {
+        "block": 9,
+        "rendering_modality": "additive_synth",
+        "rms": 0.06524,
+        "audible": true
+      },
+      {
+        "block": 10,
+        "rendering_modality": "sf2_wavetable",
+        "rms": 0.06557,
+        "audible": true
+      }
+    ],
+    "all_blocks_audible": true,
+    "distinct_rendering_modalities": [
+      "additive_synth",
+      "formant_vowel_ah",
+      "karplus_strong",
+      "sf2_wavetable"
+    ],
+    "not_a_single_gm_renderer_switching_patches": true,
+    "latency_compensation_ms": {
+      "sf2_wavetable": 0.0,
+      "additive_synth": 0.0,
+      "karplus_strong": 0.0,
+      "formant_vowel_ah": 0.0
+    },
+    "events_total": 1059,
+    "events_within_240s": 1059,
+    "ok": true
+  }
+}
