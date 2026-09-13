@@ -27,7 +27,7 @@ from song_ingest.manifest import build_manifest, file_entry, now_iso, write_json
 logger = logging.getLogger("song_ingest")
 
 DEFAULT_STAGES = ["discover", "detect", "reconcile", "midi", "vocals",
-                  "compare", "manifest"]
+                  "suno_targets", "compare", "manifest"]
 
 # Stems that never go through pitch transcription (no meaningful pitches).
 NON_PITCHED = {"drums", "percussion", "fx"}
@@ -122,6 +122,33 @@ def stage_midi(project: Path, ctx: dict, backend_name: str) -> dict:
     from song_ingest.transcribe_midi import get_backend
     backend = get_backend(backend_name)
     stems = ctx["stems"]
+    suno = ctx.get("suno_targets")
+    if suno:
+        lines += ["## Suno Advanced Split target recommendations (canonical)",
+                  "",
+                  "From the Suno Stem Target Recommender (extended mode, "
+                  "full mix). This is the Suno-taxonomy answer; PANNs "
+                  "output is supplemental only.", "",
+                  "| status | target | confidence |", "|---|---|---|"]
+        icon = {"recommend_now": "🟢", "recommend_broad_target": "🟡",
+                "review_before_extracting": "🟠", "not_recommended": "⚪",
+                "covered_by_other_recommendation": "🔵"}
+        for r in sorted(suno["report"]["recommendations"],
+                        key=lambda r: -r["confidence"]):
+            if r["confidence"] < 0.25 and r["status"] == \
+                    "covered_by_other_recommendation":
+                continue
+            lines.append(f"| {icon.get(r['status'], r['status'])} "
+                         f"{r['status']} | {r['target_name']} "
+                         f"| {r['confidence']:.2f} |")
+        v = suno["summary"]["validation"]
+        lines += ["", "Validation vs extracted stems (non-authoritative): "
+                  f"{len(v['positive_recommendation_vs_stems'])} positive "
+                  f"recommendations; stems without a matching "
+                  f"recommendation: "
+                  f"{', '.join(v['stems_without_matching_recommendation']) or 'none'}.",
+                  ""]
+
     recon = ctx.get("reconcile")
     out_dir = project / "derived" / "midi"
     records = {}
@@ -159,6 +186,35 @@ def stage_vocals(project: Path, ctx: dict, model_size: str) -> dict:
                {"model": f"faster-whisper/{model_size}", "passes": results})
     ctx["vocals"] = results
     return results
+
+
+def stage_suno_targets(project: Path, ctx: dict, *, mode: str = "extended") -> dict:
+    """CANONICAL instrumentation stage: the Suno Stem Target Recommender
+    (Suno Advanced Split ontology) run on the full mix. PANNs output stays
+    supplemental. Also validates recommendations against the extracted
+    stems."""
+    from song_ingest.suno_targets import run_extended, validate_against_stems
+    wav = ctx["ingest"].get("audio")
+    if not wav:
+        raise RuntimeError("no full-mix audio discovered")
+    report = run_extended(Path(wav), project, title=project.name, mode=mode)
+    validation = validate_against_stems(report, ctx["stems"])
+
+    counts = report.get("summary", {}).get("status_counts", {})
+    summary = {
+        "mode": mode,
+        "status_counts": counts,
+        "recommendations_emitted": report.get("summary", {}).get(
+            "total_recommendations"),
+        "report_json": str(project / "analysis" / "suno_targets"
+                           / sorted((project / "analysis" / "suno_targets")
+                                    .glob("*_report.json"))[-1].name),
+        "validation": validation,
+    }
+    write_json(project / "analysis" / "suno_targets" / "summary.json",
+               summary)
+    ctx["suno_targets"] = {"report": report, "summary": summary}
+    return {"status_counts": counts}
 
 
 def stage_compare(project: Path, ctx: dict) -> dict:
@@ -268,8 +324,22 @@ def stage_manifest(project: Path, ctx: dict) -> dict:
         "archive": [file_entry(f, "original archive")
                     for f in sorted(project.glob("*.zip"))],
     }
-    analysis = {"instruments": "analysis/instruments/",
-                "reconciliation": "analysis/stems/reconciliation.json",
+    suno = ctx.get("suno_targets")
+    analysis = {"suno_extraction_target_recommendations": (
+        {"canonical": True,
+         "taxonomy": "Suno Advanced Split ontology",
+         "mode": suno["summary"]["mode"] if suno else None,
+         "status_counts": suno["summary"]["status_counts"] if suno else None,
+         "report": suno["summary"]["report_json"] if suno else None,
+         "validation_against_extracted_stems":
+             suno["summary"]["validation"] if suno else None}
+        if suno else "analysis/suno_targets/ (not run)"),
+        "instruments_supplemental_evidence": {
+            "note": "generic AudioSet detector output — supporting evidence, "
+                    "NOT the Suno taxonomy result",
+            "path": "analysis/instruments/",
+            "detector": ctx.get("detect", {}).get("detector")},
+        "reconciliation": "analysis/stems/reconciliation.json",
                 "midi": "analysis/midi/transcriptions.json",
                 "vocals": "analysis/vocals/transcription_index.json",
                 "comparisons": "analysis/comparisons/"}
@@ -296,6 +366,33 @@ def write_report(project: Path, ctx: dict) -> None:
              f"Generated {now_iso()} by song_ingest {__version__} "
              "(local/open-source pipeline; reference MIDI treated as "
              "independent evidence, not ground truth).", ""]
+
+    suno = ctx.get("suno_targets")
+    if suno:
+        lines += ["## Suno Advanced Split target recommendations (canonical)",
+                  "",
+                  "From the Suno Stem Target Recommender (extended mode, "
+                  "full mix). This is the Suno-taxonomy answer; PANNs "
+                  "output is supplemental only.", "",
+                  "| status | target | confidence |", "|---|---|---|"]
+        icon = {"recommend_now": "🟢", "recommend_broad_target": "🟡",
+                "review_before_extracting": "🟠", "not_recommended": "⚪",
+                "covered_by_other_recommendation": "🔵"}
+        for r in sorted(suno["report"]["recommendations"],
+                        key=lambda r: -r["confidence"]):
+            if r["confidence"] < 0.25 and r["status"] == \
+                    "covered_by_other_recommendation":
+                continue
+            lines.append(f"| {icon.get(r['status'], r['status'])} "
+                         f"{r['status']} | {r['target_name']} "
+                         f"| {r['confidence']:.2f} |")
+        v = suno["summary"]["validation"]
+        lines += ["", "Validation vs extracted stems (non-authoritative): "
+                  f"{len(v['positive_recommendation_vs_stems'])} positive "
+                  f"recommendations; stems without a matching "
+                  f"recommendation: "
+                  f"{', '.join(v['stems_without_matching_recommendation']) or 'none'}.",
+                  ""]
 
     recon = ctx.get("reconcile")
     if recon:
@@ -368,6 +465,8 @@ def main(argv=None) -> int:
     ap.add_argument("--detector", default="panns_cnn14")
     ap.add_argument("--midi-backend", default="basic_pitch")
     ap.add_argument("--vocal-model", default="small")
+    ap.add_argument("--suno-mode", default="extended",
+                    choices=("standard", "extended"))
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args(argv)
 
@@ -394,6 +493,9 @@ def main(argv=None) -> int:
             results[stage] = stage_midi(project, ctx, args.midi_backend)
         elif stage == "vocals":
             results[stage] = stage_vocals(project, ctx, args.vocal_model)
+        elif stage == "suno_targets":
+            results[stage] = stage_suno_targets(project, ctx,
+                                                mode=args.suno_mode)
         elif stage == "compare":
             results[stage] = stage_compare(project, ctx)
         elif stage == "manifest":

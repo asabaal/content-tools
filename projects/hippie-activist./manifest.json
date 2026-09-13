@@ -1,7 +1,7 @@
 {
   "schema": "content-tools/song-analysis-package",
   "schema_version": "0.1",
-  "generated_at": "2026-09-13T17:55:34.895420+00:00",
+  "generated_at": "2026-09-13T18:15:34.660169+00:00",
   "project_dir": "/mnt/storage/repos/content-tools/projects/hippie-activist.",
   "generator": {
     "tool": "tools/06-song-ingest",
@@ -229,7 +229,125 @@
     ]
   },
   "analysis": {
-    "instruments": "analysis/instruments/",
+    "suno_extraction_target_recommendations": {
+      "canonical": true,
+      "taxonomy": "Suno Advanced Split ontology",
+      "mode": "extended",
+      "status_counts": {
+        "recommend_now": 6,
+        "recommend_broad_target": 4,
+        "review_before_extracting": 6,
+        "not_recommended": 2,
+        "covered_by_other_recommendation": 17
+      },
+      "report": "/mnt/storage/repos/content-tools/projects/hippie-activist./analysis/suno_targets/0 hippie activist._report.json",
+      "validation_against_extracted_stems": {
+        "note": "Validation only \u2014 Suno's own extraction is neither ground truth nor required to match our recommendations.",
+        "positive_recommendation_vs_stems": [
+          {
+            "target": "Backing vocal",
+            "confidence": 0.9848,
+            "status": "recommend_now",
+            "matching_extracted_stems": [
+              "Backing Vocals"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Organ",
+            "confidence": 0.9576,
+            "status": "recommend_now",
+            "matching_extracted_stems": [
+              "Keyboard"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Lead vocal",
+            "confidence": 0.9105,
+            "status": "recommend_now",
+            "matching_extracted_stems": [
+              "Backing Vocals",
+              "Vocals"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Guitar",
+            "confidence": 0.9052,
+            "status": "recommend_now",
+            "matching_extracted_stems": [
+              "Guitar"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Whistle",
+            "confidence": 0.893,
+            "status": "recommend_now",
+            "matching_extracted_stems": [
+              "Woodwinds"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Drums",
+            "confidence": 0.716,
+            "status": "recommend_now",
+            "matching_extracted_stems": [
+              "Drums"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Synth",
+            "confidence": 0.6672,
+            "status": "recommend_broad_target",
+            "matching_extracted_stems": [
+              "Synth"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Strings",
+            "confidence": 0.6209,
+            "status": "recommend_broad_target",
+            "matching_extracted_stems": [
+              "Strings"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Piano",
+            "confidence": 0.5648,
+            "status": "recommend_broad_target",
+            "matching_extracted_stems": [
+              "Keyboard"
+            ],
+            "validation": "supported"
+          },
+          {
+            "target": "Brass",
+            "confidence": 0.5332,
+            "status": "recommend_broad_target",
+            "matching_extracted_stems": [
+              "Brass"
+            ],
+            "validation": "supported"
+          }
+        ],
+        "stems_without_matching_recommendation": [
+          "FX",
+          "Percussion",
+          "Bass"
+        ]
+      }
+    },
+    "instruments_supplemental_evidence": {
+      "note": "generic AudioSet detector output \u2014 supporting evidence, NOT the Suno taxonomy result",
+      "path": "analysis/instruments/",
+      "detector": "panns_cnn14"
+    },
     "reconciliation": "analysis/stems/reconciliation.json",
     "midi": "analysis/midi/transcriptions.json",
     "vocals": "analysis/vocals/transcription_index.json",
