@@ -164,7 +164,7 @@ def write_book(repo_root: Path, built: dict) -> Path:
         "",
         f"_Generated {datetime.now(timezone.utc).isoformat()} · "
         f"{report['targets']} targets · {report['prompt_count']} prompts · "
-        f"all validated at {report['rules']} characters._",
+        f"all validated at {report['rules']}._",
         "",
         "## The calibration suite (three canonical references)",
         "",

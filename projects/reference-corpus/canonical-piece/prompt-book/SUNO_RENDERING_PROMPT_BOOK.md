@@ -1,6 +1,6 @@
 # Suno Rendering Prompt Book — Calibration Suite
 
-_Generated 2026-09-13T22:30:17.051281+00:00 · 90 targets · 180 prompts · all validated at 900–1000 characters inclusive characters._
+_Generated 2026-09-13T22:33:34.487008+00:00 · 90 targets · 180 prompts · all validated at 900–1000 characters inclusive._
 
 ## The calibration suite (three canonical references)
 
