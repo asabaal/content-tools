@@ -4,17 +4,17 @@
 {
   "dad_sources": 1176,
   "favorite_sources": 174,
-  "songs": 1780,
-  "release_tracks": 1876,
+  "songs": 11048,
+  "release_tracks": 11745,
   "resolution": {
-    "ambiguous": 39,
+    "ambiguous": 206,
     "non_commercial": 44,
-    "probable": 6,
-    "resolved": 114,
-    "unresolved": 973
+    "probable": 48,
+    "resolved": 845,
+    "unresolved": 33
   },
   "annotations": {},
-  "queue_length": 1780,
+  "queue_length": 11048,
   "top300_length": 300
 }
 ```
