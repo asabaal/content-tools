@@ -84,9 +84,9 @@ def compose_solo(name: str, brief: dict) -> str:
         sentences = [
             core,
             "Non-lexical vocalise only ('ah' and 'oo'); no lyrics.",
-            brief["technique"],
-            brief["range"],
-            brief["articulation"],
+            _cap(brief["technique"]),
+            _cap(brief["range"]),
+            _cap(brief["articulation"]),
             "Expose timbre, phrasing, breath, dynamics and expressive "
             "character.",
         ]
@@ -96,14 +96,14 @@ def compose_solo(name: str, brief: dict) -> str:
             "One single characteristic instrument or texture of your "
             "choice — show ONE clear identity: its tone, attack, sustain "
             "and behavior. Do not montage many different instruments.",
-            brief["technique"],
+            _cap(brief["technique"]),
         ]
     else:
         sentences = [
             core,
-            brief["technique"],
-            brief["range"],
-            brief["articulation"],
+            _cap(brief["technique"]),
+            _cap(brief["range"]),
+            _cap(brief["articulation"]),
             "Natural resonance, mechanical noise, breath and physical "
             "playing character are welcome.",
             "Expose timbre, attack, sustain, decay, dynamics and "
@@ -123,24 +123,29 @@ def compose_lead(name: str, brief: dict) -> str:
         sentences = [
             core,
             "Non-lexical vocalise ('ah'); no lyrics, no words.",
-            brief["technique"],
-            brief["range"],
-            brief["articulation"],
+            _cap(brief["technique"]),
+            _cap(brief["range"]),
+            _cap(brief["articulation"]),
             f"Supporting context: {support} — sparse, subordinate, never "
             f"competing. The voice never disappears.",
         ]
     else:
         sentences = [
             core,
-            brief["technique"],
-            brief["range"],
-            brief["articulation"],
+            _cap(brief["technique"]),
+            _cap(brief["range"]),
+            _cap(brief["articulation"]),
             f"Supporting context: {support} — sparse, subordinate, never "
             f"competing for lead status.",
             "No dense arrangement, no vocals, no extended passage without "
             f"the {name_l}.",
         ]
     return _fit(sentences, name, "LEAD")
+
+
+def _cap(text: str) -> str:
+    t = text.strip()
+    return t[0].upper() + t[1:] if t else t
 
 
 def _fit(sentences: list[str], name: str, field: str) -> str:
