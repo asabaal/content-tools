@@ -44,9 +44,9 @@ SEQUENCE = [
     "organ", "piano", "electric_piano", "keyboards", "celesta",
     "harpsichord", "melodica",
     "guitar", "acoustic_guitar", "electric_guitar", "lead_guitar",
-    "rhythm_electric_guitar", "slide_guitar", "ukulele",
+    "rhythm_electric_guitar", "rhythm_acoustic_guitar", "slide_guitar",
+    "ukulele",
     "bass", "bass_guitar", "upright_bass", "eight_zero_eight",
-    "synth_bass",
     "strings", "violin", "fiddle", "viola", "cello", "double_bass",
     "harp", "mandolin", "banjo", "sitar", "koto", "orchestra",
     "woodwinds", "flute", "piccolo", "oboe", "clarinet", "bassoon",
@@ -55,6 +55,7 @@ SEQUENCE = [
     "brass", "trumpet", "trombone", "french_horn", "tuba",
     "synth", "synth_lead", "synth_keys", "synth_pad", "synth_bass",
     "synth_brass", "synth_strings", "arpeggiator", "drone", "theremin",
+    "risers",
     "drums", "kick", "snare", "hi_hat", "cymbals", "clap",
     "percussion", "tambourine", "shaker", "bells", "glockenspiel",
     "marimba", "vibraphone", "xylophone", "timpani", "steel_drums",
@@ -76,84 +77,85 @@ def load_briefs() -> dict:
 
 def compose_solo(name: str, brief: dict) -> str:
     name_l = name.lower()
+    core = (f"{name} solo reference recording. A single {name_l}, "
+            f"{ISOLATION}. About sixty seconds. Instrument-reference "
+            f"performance, not a song.")
     if brief.get("vocalise"):
-        vowel = "'ah' and 'oo'"
-        text = (f"{name} solo reference recording — a single {name_l}, "
-                f"completely unaccompanied: no backing track, no second "
-                f"voice, no harmony stack, no instruments, no ambient bed. "
-                f"Non-lexical vocalise only ({vowel}); no lyrics. "
-                f"{brief['technique']} {brief['range']}. "
-                f"{brief['articulation']}. About sixty seconds exposing "
-                f"timbre, phrasing, breath, dynamics and expressive "
-                f"character. Voice-reference performance, not a song.")
+        sentences = [
+            core,
+            "Non-lexical vocalise only ('ah' and 'oo'); no lyrics.",
+            brief["technique"],
+            brief["range"],
+            brief["articulation"],
+            "Expose timbre, phrasing, breath, dynamics and expressive "
+            "character.",
+        ]
     elif brief.get("catchall"):
-        text = (f"{name} solo reference recording — one single "
-                f"characteristic instrument or texture of your choice, "
-                f"completely unaccompanied: no drums, no bass, no pads, no "
-                f"drones, no accompaniment, no second instrument, no "
-                f"vocals, no ambient bed. Show ONE clear identity — its "
-                f"tone, attack, sustain and behavior — consistently; do "
-                f"not montage many different instruments. {brief['technique']}. "
-                f"About sixty seconds. Instrument-reference performance, "
-                f"not a song.")
+        sentences = [
+            core,
+            "One single characteristic instrument or texture of your "
+            "choice — show ONE clear identity: its tone, attack, sustain "
+            "and behavior. Do not montage many different instruments.",
+            brief["technique"],
+        ]
     else:
-        text = (f"{name} solo reference recording. A single {name_l}, "
-                f"{ISOLATION}. {brief['character']} {brief['technique']} "
-                f"{brief['range']}. {brief['articulation']}. Natural "
-                f"resonance, mechanical noise, breath and physical playing "
-                f"character are welcome. About sixty seconds exposing "
-                f"timbre, attack, sustain, decay, dynamics and expressive "
-                f"character. Instrument-reference performance, not a song.")
-    return _enforce(text, name, "SOLO")
+        sentences = [
+            core,
+            brief["technique"],
+            brief["range"],
+            brief["articulation"],
+            "Natural resonance, mechanical noise, breath and physical "
+            "playing character are welcome.",
+            "Expose timbre, attack, sustain, decay, dynamics and "
+            "expressive character.",
+        ]
+    return _fit(sentences, name, "SOLO")
 
 
 def compose_lead(name: str, brief: dict) -> str:
     name_l = name.lower()
+    core = (f"{name} featured-lead performance. The {name_l} is the "
+            f"unmistakable lead and primary sonic subject for the entire "
+            f"sixty seconds. Instrument calibration reference, not a full "
+            f"song.")
+    support = brief.get("lead_support", "none")
     if brief.get("vocalise"):
-        text = (f"{name} featured-lead vocal performance. The {name_l} is "
-                f"the unmistakable lead and primary sonic subject for the "
-                f"entire sixty seconds — non-lexical vocalise ('ah'), no "
-                f"lyrics. {brief['technique']} {brief['range']}. "
-                f"{brief['articulation']}. {brief['lead_support']}. "
-                f"Nothing competes with the voice and it never disappears. "
-                f"Calibration reference, not a full song.")
+        sentences = [
+            core,
+            "Non-lexical vocalise ('ah'); no lyrics, no words.",
+            brief["technique"],
+            brief["range"],
+            brief["articulation"],
+            f"Supporting context: {support} — sparse, subordinate, never "
+            f"competing. The voice never disappears.",
+        ]
     else:
-        support = brief.get("lead_support", "none")
-        text = (f"{name} featured-lead performance. The {name_l} is the "
-                f"unmistakable lead and primary sonic subject for the "
-                f"entire sixty seconds. {brief['technique']} "
-                f"{brief['range']}. {brief['articulation']}. Supporting "
-                f"context: {support} — sparse, subordinate, never "
-                f"competing for lead status, no dense arrangement, no "
-                f"vocals, no extended passage without the {name_l}. "
-                f"About sixty seconds. Instrument calibration reference, "
-                f"not a full song.")
-    return _enforce(text, name, "LEAD")
+        sentences = [
+            core,
+            brief["technique"],
+            brief["range"],
+            brief["articulation"],
+            f"Supporting context: {support} — sparse, subordinate, never "
+            f"competing for lead status.",
+            "No dense arrangement, no vocals, no extended passage without "
+            f"the {name_l}.",
+        ]
+    return _fit(sentences, name, "LEAD")
 
 
-def _enforce(text: str, name: str, field: str) -> str:
-    """Hard 1000-char ceiling. If oversize, drop the character sentence
-    (least essential); if still oversize, drop range. Fail if impossible.
-    No artificial minimum — concision is a virtue (quality floor 300)."""
-    check = check_prompt(text, name, field)
-    if check.ok or check.char_count < MIN_CHARS and len(text) <= HARD_MAX:
-        if len(text) > HARD_MAX:
-            raise ValueError(f"{name}/{field}: {len(text)} chars")
-        return text
-    return text
-
-
-def _trim_to_ceiling(sentences: list[str], name: str, field: str) -> str:
-    """Join sentences, dropping later optional ones to fit HARD_MAX."""
+def _fit(sentences: list[str], name: str, field: str) -> str:
+    """Join sentences; drop later OPTIONAL sentences (from the end) until
+    the prompt fits the hard 1000-char Suno ceiling. Concision floor 250
+    chars — below that the brief itself is too thin and we fail loudly.
+    No padding, ever."""
     text = ""
     for sentence in sentences:
         candidate = (text + " " + sentence).strip()
-        if len(candidate) > HARD_MAX:
-            continue
-        text = candidate
-    check = check_prompt(text, name, field)
-    if len(text) > HARD_MAX:
-        raise ValueError(f"{name}/{field}: cannot fit under {HARD_MAX}")
+        if len(candidate) <= HARD_MAX:
+            text = candidate
+    if len(text) < 250:
+        raise ValueError(f"{name}/{field}: only {len(text)} usable chars "
+                         f"— brief too thin")
     return text
 
 

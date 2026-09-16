@@ -159,8 +159,17 @@ def write_book(repo_root: Path, built: dict) -> Path:
         raise SystemExit(f"{len(failures)} prompt(s) failed validation; "
                          f"book NOT written")
 
+    supersession = ("CALIBRATION GENERATION SUPERSEDED: the Solo/Lead "
+                    "generation prompts now live in "
+                    "`SUNO_CALIBRATION_PROMPT_BIBLE.md` (one instrument at "
+                    "a time, ~60 s Solo + Lead attempts). This book remains "
+                    "the authoritative source for per-target CONDITIONING "
+                    "prompts only. Old generation prompts preserved in Git "
+                    "history.")
     lines = [
         "# Suno Rendering Prompt Book — Calibration Suite",
+        "",
+        f"> {supersession}",
         "",
         f"_Generated {datetime.now(timezone.utc).isoformat()} · "
         f"{report['targets']} targets · {report['prompt_count']} prompts · "

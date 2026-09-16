@@ -1,6 +1,8 @@
 # Suno Rendering Prompt Book — Calibration Suite
 
-_Generated 2026-09-13T23:00:00.302428+00:00 · 90 targets · 180 prompts · all validated at 900–1000 characters inclusive._
+> CALIBRATION GENERATION SUPERSEDED: the Solo/Lead generation prompts now live in `SUNO_CALIBRATION_PROMPT_BIBLE.md` (one instrument at a time, ~60 s Solo + Lead attempts). This book remains the authoritative source for per-target CONDITIONING prompts only. Old generation prompts preserved in Git history.
+
+_Generated 2026-09-16T19:55:20.846807+00:00 · 90 targets · 180 prompts · all validated at 900–1000 characters inclusive._
 
 ## The calibration suite (three canonical references)
 
