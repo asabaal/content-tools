@@ -77,3 +77,4 @@ projects/prophetic-preprint/projects/*/exports/
 
 # reference/derived MIDI artifacts in song projects are small and valuable
 !projects/**/*.mid
+.venv/

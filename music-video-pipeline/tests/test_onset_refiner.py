@@ -869,3 +869,48 @@ class TestAssignOnsetsNoOverlap:
         result = refine_synced_lines(sr, np.array([63.968, 64.267]))
         self._check_no_overlap(result.lines[0].words)
         self._check_temporal_order(result.lines[0].words)
+
+
+class TestTwoTierOnsetSnap:
+    """Regression test: transcription words too far from any onset for the tight
+    tolerance should still snap via the wide fallback rather than remaining
+    at raw Whisper positions."""
+
+    def _make_word(self, text, start, end, source="transcription"):
+        return SyncedWord(text=text, start=start, end=end, source=source)
+
+    def test_wide_fallback_snaps_far_transcription_words(self):
+        from lyrics.onset_refiner import snap_words_to_onsets
+        # word at 10.5, nearest onset at 10.7 (200ms away — outside tight 0.15s,
+        # inside wide 0.35s). Old code left it unsnapped; new code snaps.
+        words = [self._make_word("hello", 10.5, 11.0, "transcription")]
+        onsets = [10.7]
+        result = snap_words_to_onsets(words, onsets, 10.0, 12.0)
+        assert result[0].source == "whisper_plus_vocal_onset"
+        assert abs(result[0].start - 10.7) < 0.01
+
+    def test_tight_snap_still_preferred(self):
+        from lyrics.onset_refiner import snap_words_to_onsets
+        # word at 10.5, onsets at 10.52 (tight) and 10.75 (wide only)
+        words = [self._make_word("hello", 10.5, 11.0, "transcription")]
+        onsets = [10.75, 10.52]
+        result = snap_words_to_onsets(words, onsets, 10.0, 12.0)
+        assert abs(result[0].start - 10.52) < 0.01  # tight snap wins
+
+    def test_no_onset_within_wide_tolerance_stays_unsnapped(self):
+        from lyrics.onset_refiner import snap_words_to_onsets
+        words = [self._make_word("hello", 10.5, 11.0, "transcription")]
+        onsets = [12.0]  # 1.5s away — outside even wide tolerance
+        result = snap_words_to_onsets(words, onsets, 10.0, 12.0)
+        assert result[0].source == "transcription"  # unsnapped
+        assert abs(result[0].start - 10.5) < 0.01  # unchanged
+
+    def test_interpolated_words_use_wider_tight_tolerance(self):
+        from lyrics.onset_refiner import snap_words_to_onsets
+        # interpolated words already get 0.25s tight tolerance
+        words = [self._make_word("oh", 10.5, 11.0, "interpolated")]
+        onsets = [10.7]
+        result = snap_words_to_onsets(words, onsets, 10.0, 12.0)
+        # interpolated words keep their source label even after snapping
+        assert result[0].source == "interpolated"
+        assert abs(result[0].start - 10.7) < 0.01

@@ -1,0 +1,692 @@
+# Per-target calibration briefs for the Suno Calibration Prompt Bible.
+#
+# Each entry gives the instrument-specific knowledge the prompt composer
+# folds into the SOLO and LEAD attempts. Fields:
+#   character    — timbre/identity sketch
+#   technique    — characteristic playing techniques/behaviors to expose
+#   range        — useful register
+#   articulation — attack/sustain/dynamics behavior
+#   lead_support — restrained supporting context allowed in Lead mode
+#
+# Special flags:
+#   vocalise: true   — target is a voice; Solo mode uses non-lexical
+#                      vocalise (no lyrics)
+#   catchall: true   — target is a broad/catch-all bucket (prompt adapts)
+
+organ:
+  character: "pipe, electric or digital organ; sustained, breath-like or drawbar tone with no natural note decay"
+  technique: "open with a full-voiced sustained chord, move to a single-line melody over held chords, add registration/timbre shifts, finish with a slow swelled chord"
+  range: "full keyboard, favoring the rich mid register"
+  articulation: "legato sweeps, held chords, sharp staccato jabs; articulation comes from key attack and release, not decay"
+  lead_support: "light unobtrusive bass far beneath"
+
+piano:
+  character: "acoustic grand piano; wide dynamic and timbral range, percussive attack with long natural decay"
+  technique: "lone single-line melody, then arpeggios, then full chords, then bass-register octaves; pedal half-pedal color; finish with a long decaying chord"
+  range: "low bass register to sparkling top"
+  articulation: "legato pedaled phrases vs dry staccato; wide dynamic swings from pp to ff"
+  lead_support: "very light brushed drums or soft bass far beneath"
+
+electric_piano:
+  character: "Rhodes/Wurlitzer electric piano; warm bell-like attack, mellow bark when played hard"
+  technique: "comping stabs, rolled chords, single-line melody with tremolo-shake accents, glissando"
+  range: "mid register centered"
+  articulation: "soft TouchScale dynamics; tine bark on hard strikes; sustain with gentle wobble"
+  lead_support: "soft upright bass and brushes far beneath"
+
+keyboards:
+  character: "general keyboard instrument; clean, defined tone"
+  technique: "alternate chords, single lines and arpeggios; show both soft and bright patches"
+  range: "full keyboard"
+  articulation: "legato and staccato contrast, dynamic swells"
+  lead_support: "minimal bass far beneath"
+
+celesta:
+  character: "celesta; delicate, bell-like, twinkling upper-register tone with fast decay"
+  technique: "sparse high melodies, gentle arpeggios, paired notes"
+  range: "high register"
+  articulation: "light touch, crystalline attacks, let tails ring"
+  lead_support: "soft warm pad far beneath"
+
+harpsichord:
+  character: "harpsichord; bright, plucky, mechanically precise quill attack with no dynamic touch-sensitivity"
+  technique: "ornamented lines, trills, rolled chords, terraced echo dynamics between registers"
+  range: "mid-to-high register"
+  articulation: "crisp detached notes, ornaments, repeated-note figures"
+  lead_support: "light cello-style bass line far beneath"
+
+melodica:
+  character: "melodica; breathy, reedy, portable keyboard blown by breath"
+  technique: "single-line melodies with audible breath phrasing, short stabs, tremolo"
+  range: "mid-to-high reedy register"
+  articulation: "breath-attack tongueing, dynamic swells following breath"
+  lead_support: "sparse soft bass far beneath"
+
+synth:
+  character: "general synthesizer; clearly electronic, controllable timbre"
+  technique: "single-line lead with portamento, chord stabs, arpeggios, filter sweeps, register jumps"
+  range: "full range"
+  articulation: "sharp envelopes vs slow filter swells; staccato and legato contrast"
+  lead_support: "minimal soft bass far beneath"
+
+synth_pad:
+  character: "sustained atmospheric synthesizer pad; slow attack, long release, warm and wide"
+  technique: "slow evolving chord changes, subtle internal movement, gentle filter opening"
+  range: "wide sustained register"
+  articulation: "very slow swells, no percussive attacks; dynamics by slow crescendo"
+  lead_support: "a sparse slow melodic line far above is acceptable"
+
+synth_bass:
+  character: "synthesizer bass; tight, round, electronic low register with punchy envelopes"
+  technique: "repeating bassline figures, octave jumps, slide accents, filtered funk lines"
+  range: "low register"
+  articulation: "tight staccato gates, slides, occasional long held notes"
+  lead_support: "sparse unobtrusive drums far beneath"
+
+synth_keys:
+  character: "synthesizer keyboard for leads, stabs and comping"
+  technique: "rhythmic comping stabs, short lead phrases, chord punches"
+  range: "mid register"
+  articulation: "tight stabs with fast release vs held chords"
+  lead_support: "sparse drums and bass far beneath"
+
+synth_lead:
+  character: "synthesizer lead voice; expressive monophonic electronic melody"
+  technique: "portamento slides, pitch-bend expressions, fast runs, held notes with filter movement"
+  range: "lead register"
+  articulation: "legato slides, trills, vibrato via slow pitch movement"
+  lead_support: "minimal bass far beneath"
+
+synth_brass:
+  character: "synthesizer brass; punchy electronic imitation of brass ensemble attacks"
+  technique: "staccato chord stabs, swelled hits, short fanfare phrases"
+  range: "mid register"
+  articulation: "tight envelope attacks, accented hits, slow swells"
+  lead_support: "sparse drums and bass far beneath"
+
+synth_strings:
+  character: "synthesizer string pads; lush sustained electronic ensemble"
+  technique: "slow chord progressions, gentle movement inside chords, swells"
+  range: "wide register"
+  articulation: "slow attacks, long sustains, soft releases"
+  lead_support: "a quiet solo melody far above is acceptable"
+
+arpeggiator:
+  character: "arpeggiated synthesizer pattern; clockwork repeating figures"
+  technique: "one chord held while the arpeggio pattern climbs and falls; pattern-rate and direction changes; gate-length variation"
+  range: "wide register"
+  articulation: "machine-even 16ths, tempo-locked, no humanization"
+  lead_support: "minimal pad far beneath"
+
+drone:
+  character: "sustained drone / pedal tone; static, meditative, unchanging center"
+  technique: "one long held tone with slow overtone movement, slow beat frequencies, subtle intensity swell"
+  range: "low-to-mid register"
+  articulation: "no attacks; a single continuous swell and fade"
+  lead_support: "none; this is a pure drone"
+
+theremin:
+  character: "theremin; eerie continuous portamento sine-like voice with no key attacks"
+  technique: "sliding glissando melodies, wide vibrato, extreme legato, sudden register jumps"
+  range: "high expressive register"
+  articulation: "everything connected; dynamics swell by volume-hand"
+  lead_support: "sparse low pad far beneath"
+
+risers:
+  character: "rising tonal or noise sweeps; transition-effect material"
+  technique: "one long upward sweep, a downward fall, short riser stabs; varying lengths and speeds"
+  range: "full sweep range"
+  articulation: "continuous acceleration of brightness and pitch, clean endings"
+  lead_support: "none; risers alone"
+
+vocoder:
+  character: "vocoder-processed vocal; robotic, harmonically locked electronic speech-like tone"
+  technique: "non-lexical vocoded 'ah' phrases with chord-following harmony, robot portamento, rhythmically gated syllables"
+  range: "mid register"
+  articulation: "gated syllabic attacks, smooth chord tracking"
+  lead_support: "sparse electronic bass far beneath"
+
+choir:
+  character: "choral ensemble; many blended non-lexical 'ah' voices, wide and warm"
+  technique: "sustained chord swells, slow homophonic motion, staggered voice entries, dynamics from intimate to full"
+  range: "wide choral range"
+  articulation: "soft consonant-free attacks, long legato vowels"
+  lead_support: "none beyond the choir's own harmony"
+
+lead_vocal:
+  character: "lead singer voice; expressive solo human voice"
+  vocalise: true
+  technique: "non-lexical vocalise on 'ah' and 'oo': long tones, quick runs, slides, breaths, dynamic intimacy to full voice"
+  range: "comfortable lead range with expressive extremes"
+  articulation: "legato phrases, staccato bursts, melisma, breath control"
+  lead_support: "none in Solo mode"
+
+backing_vocal:
+  character: "secondary/harmony voice; supportive blended vocal"
+  vocalise: true
+  technique: "non-lexical 'ah'/'ooh' harmony stacks, staggered entries, call-and-response between two registers"
+  range: "supportive mid register"
+  articulation: "soft onsets, held vowels, tight or wide blend"
+  lead_support: "none; the harmony voices are the subject"
+
+whistle:
+  character: "human whistle; pure thin breath tone with vibrato"
+  technique: "melodic whistled tunes, trills, slides between pitches, dynamic breath control"
+  range: "high register"
+  articulation: "clean attacks, legato slides, vibrato speed changes"
+  lead_support: "sparse soft bass far beneath"
+
+drums:
+  character: "drum kit / drum machine; full rhythmic color"
+  technique: "grooves at varied densities, fills, ghost notes, rimshots, tom patterns, cymbal colors, tempo-locked and free passages"
+  range: "kit-wide"
+  articulation: "accents, ghost notes, open/closed contrast, buzz and press rolls"
+  lead_support: "none; kit alone"
+
+kick:
+  character: "kick drum; low percussive thump"
+  technique: "varied spacings, double-stroke runs, dynamics from ghost to accented"
+  range: "lowest lane"
+  articulation: "tight low thump, muffled vs open beater"
+  lead_support: "occasional low click layer acceptable"
+
+snare:
+  character: "snare drum; crisp center hits, ghost notes, buzz"
+  technique: "rudiments, rolls from soft to full, rim clicks, ghost-note grooves"
+  range: "mid snare register"
+  articulation: "crack accents vs ghost softness, buzz sustain"
+  lead_support: "occasional kick far beneath"
+
+hi_hat:
+  character: "hi-hat; closed chick, open wash, foot splash"
+  technique: "eighth/sixteenth patterns, open-closed contrasts, foot splashes, accented taps"
+  range: "high lane"
+  articulation: "tight chick, sizzle open, pedal splashes"
+  lead_support: "occasional kick far beneath"
+
+cymbals:
+  character: "cymbals; crash, ride and suspended wash"
+  technique: "crash accents with decay, ride pulse patterns, choked stabs, bowed-like swell"
+  range: "high shimmer register"
+  articulation: "attack then long shimmer, choke cuts, swell blooms"
+  lead_support: "sparse soft pulse far beneath"
+
+clap:
+  character: "hand claps / drum-machine clap; tight human stack"
+  technique: "single claps, rolling stacks, varied spacing, machine-tight grids vs human timing"
+  range: "mid percussive lane"
+  articulation: "sharp attack, tiny natural tail"
+  lead_support: "none"
+
+tambourine:
+  character: "tambourine; jingling frame percussion"
+  technique: "eighth/sixteenth shakes, thumb rolls, accented downbeats, knee clicks"
+  range: "high jingle lane"
+  articulation: "sustained shake vs single accents"
+  lead_support: "occasional kick far beneath"
+
+shaker:
+  character: "shaker / maraca; granular even texture"
+  technique: "even sixteenths with accent rotation, speed changes, direction reversals"
+  range: "high granular lane"
+  articulation: "consistent micro-accents, dynamics by intensity"
+  lead_support: "none"
+
+bells:
+  character: "bells / glockenspiel-like pitched percussion; bright metallic decay"
+  technique: "sparse melodies, tolling repeated notes, gentle arpeggios with long decays"
+  range: "high register"
+  articulation: "clean strikes, let every decay ring"
+  lead_support: "soft pad far beneath"
+
+glockenspiel:
+  character: "glockenspiel; bright steel-bar twinkle"
+  technique: "high melodic figures, fast light runs, paired intervals"
+  range: "very high register"
+  articulation: "crisp attacks, natural ringing decay"
+  lead_support: "soft warm pad far beneath"
+
+marimba:
+  character: "marimba; warm wooden mallet tone with fast decay"
+  technique: "rolling two-mallet lines, cross-rhythms, bass-note-plus-melody texture"
+  range: "low-to-mid wooden register"
+  articulation: "round mallet attacks, muting control"
+  lead_support: "soft shaker far beneath"
+
+vibraphone:
+  character: "vibraphone; shimmering metal bars with motor tremolo"
+  technique: "long ringing melodies with tremolo speed changes, soft mallet chords, damping control"
+  range: "mid-to-high register"
+  articulation: "tremolo warmth, damped vs open"
+  lead_support: "soft bass far beneath"
+
+xylophone:
+  character: "xylophone; dry, bright, wooden, very fast decay"
+  technique: "fast technical runs, glissandi, crisp rhythmic figures"
+  range: "high wooden register"
+  articulation: "sharp dry attacks, rapid repetition"
+  lead_support: "none"
+
+timpani:
+  character: "timpani; deep kettle drums with pitch definition"
+  technique: "marked hits, rolls from pp to ff, pitch-shift accents between two drums"
+  range: "low kettle register"
+  articulation: "deep mallet strokes, tuned accent intervals"
+  lead_support: "none"
+
+steel_drums:
+  character: "steel drums / steelpan; warm Caribbean metal tone"
+  technique: "calypso-style melodic lines, rolls around the pan, bass-pan support figures"
+  range: "mid register"
+  articulation: "bouncy mallet attack, ringing sustain"
+  lead_support: "sparse light groove far beneath"
+
+music_box:
+  character: "music box; tiny delicate tine melody, intimate and mechanical"
+  technique: "simple high melodies with natural mechanical unevenness, slow winding-down feel"
+  range: "very high tine register"
+  articulation: "tiny plucked attacks, delicate decay"
+  lead_support: "none"
+
+bongos:
+  character: "bongos; paired small hand drums, bright and conversational"
+  technique: "fast finger patterns, open/muted strokes, martillo accents, fills between drums"
+  range: "high hand-drum register"
+  articulation: "open tone vs muted tip strokes, slaps"
+  lead_support: "occasional shaker far beneath"
+
+congas:
+  character: "congas; tall hand drums, deep open tones and slaps"
+  technique: "tumbao patterns, open/muted/slap strokes, slow-to-fast phrase density"
+  range: "mid hand-drum register"
+  articulation: "bass tone, open tone, slap, heel-toe muting"
+  lead_support: "occasional shaker far beneath"
+
+djembe:
+  character: "djembe; West African hand drum, wide tonal spread"
+  technique: "bass/tone/slap vocabulary, speed builds, alternating-hand patterns"
+  range: "wide hand-drum register"
+  articulation: "deep bass, cutting slap, tone in between"
+  lead_support: "occasional bell pattern far beneath"
+
+tabla:
+  character: "tabla; Indian hand drums with pitched, finger-controlled tone"
+  technique: "kayda-style phrase patterns, tuned ring strokes, fast tihai endings"
+  range: "pitched tabla register"
+  articulation: "finger tips, heel pressure pitch-bends, ringing open strokes"
+  lead_support: "occasional drone far beneath"
+
+taiko:
+  character: "taiko; large Japanese drum, booming full-body hits"
+  technique: "powerful synchronized patterns, dynamics from soft rim to full body hits, accelerating finishes"
+  range: "very low register"
+  articulation: "full-body impact with resonance, arm-weight strokes"
+  lead_support: "occasional deep voice far beneath"
+
+cowbell:
+  character: "cowbell; penetrating metallic ping"
+  technique: "syncopated bell patterns, spacing variation, accent displacement"
+  range: "metallic mid lane"
+  articulation: "wooden-stick ping, muted vs open"
+  lead_support: "none"
+
+percussion:
+  character: "general percussion palette"
+  technique: "rotate among distinct unpitched hits and textures; vary density, accents and spacing"
+  range: "percussion lanes"
+  articulation: "varied strikes, mutes and textures"
+  lead_support: "none"
+
+bass:
+  character: "bass instrument (broad); low-register harmonic-rhythmic foundation"
+  technique: "walking lines, groove patterns, slides, octaves, held pedals"
+  range: "low register"
+  articulation: "tight vs sustained, ghost notes, slides"
+  lead_support: "sparse unobtrusive drums far beneath"
+
+bass_guitar:
+  character: "electric bass guitar; defined low strings"
+  technique: "fingerstyle grooves, picked lines, slides, hammer-ons, harmonics"
+  range: "low register"
+  articulation: "punchy gates, slides, muted ghost notes"
+  lead_support: "sparse light drums far beneath"
+
+upright_bass:
+  character: "double/upright bass; woody acoustic low register"
+  technique: "jazz walking lines, arco sustained swells, slaps"
+  range: "deepest acoustic register"
+  articulation: "thumpy pizzicato, singing arco, slaps"
+  lead_support: "brushed cymbal wash far beneath"
+
+eight_zero_eight:
+  character: "808 bass/kick; long-tuned electronic sub tone"
+  technique: "gliding sub lines, booming hits with pitch slides, long decays"
+  range: "sub register"
+  articulation: "saturated sustain, pitch glide, hard restarts"
+  lead_support: "sparse tight hi-hats far beneath"
+
+synth_bass:
+  character: "synthesizer bass; tight round electronic low end"
+  technique: "repeating filtered figures, octave jumps, slide accents"
+  range: "low electronic register"
+  articulation: "gated envelopes, filter opens, slides"
+  lead_support: "sparse drums far beneath"
+
+guitar:
+  character: "guitar (any type); strings, pick/finger attack, wide idiom"
+  technique: "strummed chords, fingerpicking, single-line runs, bends, harmonics"
+  range: "full guitar range"
+  articulation: "palm-muted vs open, bends, slides, natural harmonics"
+  lead_support: "sparse soft bass far beneath"
+
+acoustic_guitar:
+  character: "steel-string acoustic guitar; strummy, woody, intimate"
+  technique: "strummed progressions, Travis-style fingerpicking, hammer-ons/pull-offs, percussive body hits"
+  range: "warm mid register"
+  articulation: "open ringing chords vs muted precision"
+  lead_support: "occasional soft bass far beneath"
+
+rhythm_acoustic_guitar:
+  character: "acoustic guitar rhythm part; chordal pulse instrument"
+  technique: "strumming pattern variety, dynamic swells, muted percussive strums"
+  range: "mid chord register"
+  articulation: "accents on/off the beat, tight muted strums"
+  lead_support: "sparse bass far beneath"
+
+electric_guitar:
+  character: "electric guitar; amplifieed string voice from clean to driven"
+  technique: "clean comping, driven chords, single-note runs, bends, vibrato, harmonics"
+  range: "full electric register"
+  articulation: "palm muting, bends, slides, pick attack variety"
+  lead_support: "sparse bass and light drums far beneath"
+
+lead_guitar:
+  character: "lead/featured electric guitar; singing solo voice"
+  technique: "expressive bends, vibrato, fast runs, sustain shaping, harmonics"
+  range: "lead register"
+  articulation: "legato slides, wide vibrato, dynamic picking"
+  lead_support: "sparse bass and light drums far beneath"
+
+rhythm_electric_guitar:
+  character: "rhythm electric guitar; chordal pulse and drive"
+  technique: "chord-groove patterns, muted 16th chugs, voicing changes, dynamic pushes"
+  range: "mid chord register"
+  articulation: "tight palm muting vs open chords, accent placement"
+  lead_support: "sparse bass-and-drums bed far beneath"
+
+slide_guitar:
+  character: "slide/bottleneck guitar; gliding vocal-like string tone"
+  technique: "bottleneck glissandi, sustained slide vibrato, open-tuning chords"
+  range: "mid register"
+  articulation: "smooth slides into exact pitches, behind-the-nut textures"
+  lead_support: "sparse bass far beneath"
+
+ukulele:
+  character: "ukulele; small nylon-strung sunshine strummer"
+  technique: "bright strumming patterns, fingerpicks, chunky muted strums"
+  range: "compact high register"
+  articulation: "rapid strumming, light staccato chunks"
+  lead_support: "sparse soft bass far beneath"
+
+strings:
+  character: "string section; bowed ensemble, wide and expressive"
+  technique: "sustained chord swells, unison melodic lines, pizzicato passages, tremolo waves"
+  range: "wide orchestral register"
+  articulation: "legato bows, detaché, pizzicato, tremolo, dynamic swells"
+  lead_support: "sparse soft bass far beneath"
+
+violin:
+  character: "violin; singing solo string voice"
+  technique: "lyrical melodies, double stops, spiccato runs, wide vibrato, harmonics"
+  range: "high expressive register"
+  articulation: "legato bowing, spiccato, martelé accents"
+  lead_support: "soft piano or low drone far beneath"
+
+fiddle:
+  character: "fiddle; folk-style violin with rhythm in the bow"
+  technique: "dance-reel figures, droning open strings, double-stop shuffles, chops"
+  range: "high folk register"
+  articulation: "driving bow rhythms, slides, accents"
+  lead_support: "occasional soft bass far beneath"
+
+viola:
+  character: "viola; warmer, darker middle string voice"
+  technique: "sustained inner-voice chords, mellow melodies, gentle pizzicato"
+  range: "mid string register"
+  articulation: "legato, detache, soft pizzicato"
+  lead_support: "sparse low strings far beneath"
+
+cello:
+  character: "cello; deep singing string voice close to the human range"
+  technique: "long singing melodies, rich double stops, pizzicato bass lines, dramatic swells"
+  range: "low-to-mid expressive register"
+  articulation: "broad legato, spiccato, sul ponticello color"
+  lead_support: "sparse low drone far beneath"
+
+double_bass:
+  character: "orchestral double bass; foundational bowed/pizz low voice"
+  technique: "sustained low lines, pizzicato walking, resonant swells"
+  range: "deepest orchestral register"
+  articulation: "broad bows, rounded pizzicato"
+  lead_support: "sparse mid strings far beneath"
+
+harp:
+  character: "harp; cascading plucked strings, glissandi and rolled chords"
+  technique: "rolled chords, flowing arpeggios, sweeping glissandi, harmonics"
+  range: "very wide plucked register"
+  articulation: "felty plucks, ringing decays, damped muting"
+  lead_support: "none; harp is self-sufficient"
+
+mandolin:
+  character: "mandolin; bright paired-string tremolo voice"
+  technique: "tremolo melodies, cross-picking, fast fiddle-style runs, chop chords"
+  range: "high paired-string register"
+  articulation: "constant tremolo shimmer, sharp picks"
+  lead_support: "occasional guitar far beneath"
+
+banjo:
+  character: "banjo; bright snapping head with drone string"
+  technique: "rolling fingerpicks, drone-string figures, speed runs, drop-thumb"
+  range: "bright plucked register"
+  articulation: "snappy attacks, ringing drone vs damped"
+  lead_support: "occasional bass far beneath"
+
+sitar:
+  character: "sitar; buzzing sympathetic strings, sliding Indian classical voice"
+  technique: "meend slides into pitches, jawari buzz, slow alap then rhythmic compositions"
+  range: "wide microtonal register"
+  articulation: "pulls (meend), rapid passages, resonant drones"
+  lead_support: "occasional tanpura-style drone far beneath"
+
+koto:
+  character: "koto; Japanese long zither, plucked with presses and bends"
+  technique: "descending figures, pitch presses, graduated string plucks"
+  range: "wide zither register"
+  articulation: "plucks, suri glides, left-hand presses"
+  lead_support: "none"
+
+orchestra:
+  character: "full orchestral arrangement as one calibrated ensemble"
+  technique: "one short arch: strings theme, wind answer, brass peak, timpani close"
+  range: "full orchestra"
+  articulation: "section-by-section contrast, unified dynamics"
+  lead_support: "none; the ensemble itself is the subject"
+
+other:
+  character: "catch-all calibration bucket; a single characteristic non-standard instrument or texture of the generator's choosing"
+  technique: "one clear identity shown solo: its tone, attack and behavior; do not montage many different instruments"
+  range: "whatever the chosen element uses"
+  articulation: "consistent, recognizable, repeatable"
+  lead_support: "none"
+
+brass:
+  character: "brass section; bold ensemble swells and stabs"
+  technique: "chorale chords, stabs, swells, falls, doits, unified articulation"
+  range: "wide brass register"
+  articulation: "accented attacks, marcato, smooth swells"
+  lead_support: "sparse rhythm section far beneath"
+
+trumpet:
+  character: "trumpet; bright, cutting, brilliant lead brass"
+  technique: "fanfare figures, lyrical mid-register lines, shakes, falls, Harmon mute color"
+  range: "bright lead register"
+  articulation: "tongued attacks, shakes, plunger/mute color"
+  lead_support: "sparse rhythm section far beneath"
+
+trombone:
+  character: "trombone; broad vocal brass with a true slide"
+  technique: "glissandi, warm ballad lines, punchy stabs, plunger mute talk"
+  range: "mid-low brass register"
+  articulation: "slide glissandi, marcato stabs, legato phrases"
+  lead_support: "sparse rhythm section far beneath"
+
+french_horn:
+  character: "french horn; round, noble, distant-to-heroic"
+  technique: "sustained harmonies, hunting-style figures, stopped-horn color, long swells"
+  range: "mid brass register"
+  articulation: "smooth legato, stopped accents, hand-mute color"
+  lead_support: "sparse soft strings far beneath"
+
+tuba:
+  character: "tuba; deep, round brass foundation"
+  technique: "oom-pah foundation lines, melodic low passages, dynamic swells"
+  range: "lowest brass register"
+  articulation: "round attacks, clear note separation, breath-length phrases"
+  lead_support: "none"
+
+woodwinds:
+  character: "woodwind section; blended reed ensemble"
+  technique: "blended chord swells, unison lines, staggered entries"
+  range: "wide woodwind register"
+  articulation: "soft tongueing, legato blends"
+  lead_support: "sparse strings far beneath"
+
+flute:
+  character: "flute; airy, agile, bright breath voice"
+  technique: "fast chromatic runs, bird-like figures, breathy tones, wide leaps"
+  range: "high register"
+  articulation: "single/double tonguing, breath accents"
+  lead_support: "sparse harp-like chords far beneath"
+
+piccolo:
+  character: "piccolo; tiny, piercing, octave-above brilliance"
+  technique: "sparkling high figures, trills, cutting melodic lines"
+  range: "very high register"
+  articulation: "crisp tonguing, trills"
+  lead_support: "none"
+
+oboe:
+  character: "oboe; nasal, penetrating, reedy cantilena"
+  technique: "long expressive cantilena, pastoral figures, dynamic control at both extremes"
+  range: "mid-high reedy register"
+  articulation: "smooth tongueing, expressive swells"
+  lead_support: "sparse soft strings far beneath"
+
+clarinet:
+  character: "clarinet; warm, liquid, huge dynamic range"
+  technique: "liquid legato lines, chalumeau-low figures, wide leaps, glissandi"
+  range: "wide reedy register"
+  articulation: "legato tongueing, whisper-soft to full"
+  lead_support: "sparse soft strings far beneath"
+
+bassoon:
+  character: "bassoon; deep, dry, characterful reed bass"
+  technique: "staccato low figures, singing mid-register lines, rapid repeated notes"
+  range: "low reedy register"
+  articulation: "detached low notes, surprisingly agile runs"
+  lead_support: "none"
+
+saxophone:
+  character: "saxophone (broad); expressive reed voice from smoky to bright"
+  technique: "breathy ballad phrases, punchy rhythmic figures, growl and subtone colors, fast runs"
+  range: "wide sax register"
+  articulation: "tongued accents, slurs, ghost notes, growls"
+  lead_support: "sparse hammond-style chords far beneath"
+
+alto_saxophone:
+  character: "alto saxophone; bright, agile middle sax voice"
+  technique: "nimble bebop-style lines, lyrical phrases, alt-register brightness"
+  range: "mid-high sax register"
+  articulation: "flexible tongueing, slurs, accents"
+  lead_support: "sparse organ chords far beneath"
+
+tenor_saxophone:
+  character: "tenor saxophone; warm, breathy, romantic tenor voice"
+  technique: "ballad breathiness, hard-driving rhythm figures, subtone to full-ball"
+  range: "mid sax register"
+  articulation: "slurs, smears, ghosted notes"
+  lead_support: "sparse organ chords far beneath"
+
+baritone_saxophone:
+  character: "baritone saxophone; huge, gravelly low sax foundation"
+  technique: "low honking figures, foundation lines, surprisingly agile runs"
+  range: "low sax register"
+  articulation: "fat tongueed attacks, slap tongue"
+  lead_support: "sparse bass far beneath"
+
+harmonica:
+  character: "harmonica; breathy reeds, bends and wails"
+  technique: "cross-drawn bends, wails, train rhythms, chord.vamp breathing"
+  range: "compact reed register"
+  articulation: "bent notes, tongue-block chord stabs, hand wah"
+  lead_support: "sparse guitar far beneath"
+
+accordion:
+  character: "accordion; breathing reed Chorus with bellows expression"
+  technique: "bellows swells, musette shimmer, chord pulses, single-line songs"
+  range: "wide reed register"
+  articulation: "bellows attack, shake, dynamic bellows control"
+  lead_support: "sparse bass far beneath"
+
+bagpipes:
+  character: "bagpipes; continuous drone with piercing chanter"
+  technique: "continuous air drone, ornamented chanter grace-note figures, no silence possible"
+  range: "piercing high chanter register"
+  articulation: "grace-note ornaments between sustained tones"
+  lead_support: "none; drones are part of the instrument"
+
+didgeridoo:
+  character: "didgeridoo; deep continuous drone with rhythmic breath pulses"
+  technique: "circular-breathing drone, rhythmic tongue/diaphragm pulses, harmonic color changes"
+  range: "very low drone register"
+  articulation: "pulsed breathing patterns over a continuous drone"
+  lead_support: "occasional clap far beneath"
+
+lead_vocal:
+  character: "lead singer; expressive solo human voice"
+  vocalise: true
+  technique: "non-lexical vocalise ('ah', 'oo'): long tones, fast runs, slides, breaths, soft-to-full dynamics"
+  range: "expressive lead range"
+  articulation: "legato phrases, staccato bursts, melisma, controlled breath"
+  lead_support: "none in Solo mode"
+
+backing_vocal:
+  character: "harmony/backing voice; supportive blended vowels"
+  vocalise: true
+  technique: "non-lexical 'ah'/'ooh' stacks, staggered entries, register contrasts, call-and-response"
+  range: "supportive mid register"
+  articulation: "soft onsets, held vowels, blend control"
+  lead_support: "none; the harmony voices are the subject"
+
+choir:
+  character: "choral ensemble; many blended non-lexical voices"
+  vocalise: true
+  technique: "sustained swells, staggered entries, homophonic motion, intimate-to-full dynamics"
+  range: "wide choral range"
+  articulation: "soft vowel attacks, long legato vowels"
+  lead_support: "none beyond the choir's own harmony"
+
+vocoder:
+  character: "vocoder voice; chord-locked electronic speech-like tone"
+  vocalise: true
+  technique: "non-lexical vocoded 'ah' phrases tracking harmony, gated rhythm syllables, robot portamento"
+  range: "mid electronic register"
+  articulation: "gated syllabic attacks, smooth chord tracking"
+  lead_support: "sparse electronic bass far beneath"
+
+whistle:
+  character: "human whistle; pure thin breath tone with vibrato"
+  technique: "whistled tunes, trills, slides, dynamic breath control"
+  range: "high whistle register"
+  articulation: "clean attacks, legato slides, vibrato variation"
+  lead_support: "sparse soft bass far beneath"

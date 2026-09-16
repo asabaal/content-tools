@@ -1,7 +1,7 @@
 {
   "benchmark": "GLM-4.7-Flash Music Video Scripting Benchmark v0",
   "evidence_bundle_version": "1.0",
-  "generated_at": "2026-07-08T17:46:16.628993+00:00",
+  "generated_at": "2026-09-16T19:48:27.097373+00:00",
   "repo_root": "/mnt/storage/repos/content-tools/music-video-pipeline",
   "includes": {
     "source_code": [
@@ -32,8 +32,8 @@
       },
       {
         "path": "src/render/renderer.py",
-        "size_bytes": 56790,
-        "sha256": "9f1ed17a12032881c11679d285998ae1777ecbe24b09cc75c6f0a3dafdf1de58"
+        "size_bytes": 56988,
+        "sha256": "3e6624b29dfdba988aa26c387e38983c780aefab208960cdd2bb99b73b658fdc"
       },
       {
         "path": "src/render/aspect_transform.py",
@@ -77,8 +77,8 @@
       },
       {
         "path": "src/render/encoder.py",
-        "size_bytes": 2471,
-        "sha256": "7f2d185efc413cc18d4264502137a7b1e0a4c7553e802a73d7541219f21bef53"
+        "size_bytes": 3821,
+        "sha256": "4065fe9b7f038e00a0d97eba9881359511155ccc329e5ddb5bb66a04f3c58937"
       },
       {
         "path": "src/pipeline/models.py",
@@ -216,8 +216,8 @@
       },
       {
         "path": "tests/test_render.py",
-        "size_bytes": 89781,
-        "sha256": "a9cb3da632d7c1640ffc7b8d9096a726d0074effb42270656f673eebc8b9085b"
+        "size_bytes": 91700,
+        "sha256": "995634210572a37c783267756db56634704ea613cbe5064e5120020fb0b70d66"
       }
     ],
     "fixtures": [

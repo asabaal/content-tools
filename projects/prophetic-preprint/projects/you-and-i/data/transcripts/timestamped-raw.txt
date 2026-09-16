@@ -1,0 +1,45 @@
+# You and I — timestamped raw transcription (config B, beam 1 no-VAD)
+C-alt lines show where config C (beam 5) decoded differently.
+
+[  13.94–  24.30] (lp -0.64) Every day filled with memories When it ain't the same as true loving   | C-alt: Every day's filled with memories
+[  24.30–  28.42] (lp -0.19) If you ever think that you are not enough
+[  30.66–  34.24] (lp -0.19) Remember that for me you are the one
+
+[  38.02–  40.62] (lp -0.19) There's something to be grateful for
+[  40.62–  43.52] (lp -0.19) I can't believe that I'm just yours
+[  43.52–  46.40] (lp -0.19) There's people wishing me their whole lives
+[  46.40–  49.38] (lp -0.19) There's something like you and I
+[  49.38–  51.62] (lp -0.19) Once again the early days
+[  51.62–  54.46] (lp -0.63) It wasn't just a party, it was a day   | C-alt: It wasn't just a Friday good day
+[  54.46–  56.98] (lp -0.63) I loved my people, I   | C-alt: I love you my beautiful bride
+[  57.56–  60.48] (lp -0.63) Brought our faces in the night   | C-alt: But I'm racing in my own
+[  61.02–  65.38] (lp -0.63) Oh, oh, oh   | C-alt: But I'm racing in my own
+
+[  70.74–  75.08] (lp -0.63) In the years from our own embrace
+[  76.76–  80.90] (lp -0.63) There's one thing I hope to say
+[  80.90–  84.92] (lp -0.37) I never imagined that I'd have such love like this before   | C-alt: I never imagined that some love might be so far
+[  86.38–  90.92] (lp -0.37) Every day I feel it growing even more
+[  94.28–  97.00] (lp -0.37) There's something to be grateful for
+[  97.00–  99.82] (lp -0.37) I can't believe that I'm just yours
+[  99.82– 102.88] (lp -0.37) You've been always there for my life   | C-alt: You've been pushing it all night
+[ 102.88– 105.58] (lp -0.37) There's something like you and I
+[ 105.58– 107.64] (lp -0.37) I won't forget the world today
+[ 107.64– 110.44] (lp -0.84) It wasn't just a tiny new day
+[ 110.44– 113.64] (lp -0.84) I got a mind in my forewarned   | C-alt: I thought it might be time for a ride
+[ 113.64– 119.46] (lp -0.84) All I needed was a light in my mind   | C-alt: Oh, my Jesus, I can't hide, I can't hide, I can't hide, I can't hide.
+
+[ 126.26– 130.40] (lp -0.84) In my mind   | C-alt: Oh, my Jesus, I can't hide, I can't hide, I can't hide, I can't hide.
+
+[ 137.64– 144.64] (lp -0.46) I'll call the lights   | C-alt: Oh, my Jesus, I can't hide, I can't hide, I can't hide, I can't hide.
+
+[ 148.64– 150.52] (lp -0.46) When it's night   | C-alt: 
+
+[ 161.64– 164.02] (lp -0.46) It's something to be grateful for
+[ 164.64– 166.74] (lp -0.46) Can't believe that I'm just yours
+[ 166.74– 169.62] (lp -0.37) There's people wishing their whole lives
+[ 169.62– 172.48] (lp -0.37) Something like you and I
+[ 172.48– 174.68] (lp -0.37) I won't forget the early days
+[ 174.68– 177.34] (lp -0.37) It wasn't just a highly new phase   | C-alt: It wasn't just a honeymoon phase
+[ 177.34– 180.02] (lp -0.37) I love you my little brown   | C-alt: I love you my beautiful bride
+
+[ 198.04– 199.06] (lp -0.55) Thank you.   | C-alt: 

@@ -1,0 +1,9 @@
+{
+  "source_artifact": "/mnt/storage/device-archives/phones/Samsung-R58M578A57T/internal-storage/Download/IMG_8244.MOV",
+  "source_sha256": "d93e43963897784742295861ab3c2a6918a9e6a8a9e44b1d67a6d0b0ff4ac005",
+  "source_container_duration_s": 200.458333,
+  "source_audio": {"codec": "aac", "sample_rate": 44100, "channels": 1},
+  "derived_audio": "you-and-i_source-44100-mono.wav",
+  "derivation": "ffmpeg -i IMG_8244.MOV -vn -acodec pcm_s16le -ar 44100 -ac 1 (lossless PCM transcode of the AAC stream; source MOV unmodified)",
+  "derived_at": "2026-09-05T15:14:33-05:00"
+}

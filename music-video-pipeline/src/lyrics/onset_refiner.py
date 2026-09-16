@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 ONSET_MERGE_THRESHOLD = 0.05
 SNAP_TOLERANCE_TRANSCRIPTION = 0.15
 SNAP_TOLERANCE_INTERPOLATED = 0.25
+SNAP_TOLERANCE_WIDE = 0.35
 MIN_SEGMENT_DURATION = 0.005
 BREATH_DURATION_THRESHOLD = 0.12
 MIN_WORD_DURATION = 0.04
@@ -260,9 +261,11 @@ def snap_words_to_onsets(
 ) -> List[SyncedWord]:
     used_onsets = set()
     new_words = []
+    # Phase 1: tight-tolerance snap (preserves existing behavior)
     for w in words:
         nw = SyncedWord(text=w.text, start=w.start, end=w.end, source=w.source)
-        tol = SNAP_TOLERANCE_INTERPOLATED if w.source == "interpolated" else SNAP_TOLERANCE_TRANSCRIPTION
+        tol = (SNAP_TOLERANCE_INTERPOLATED if w.source == "interpolated"
+               else SNAP_TOLERANCE_TRANSCRIPTION)
         best_dist = tol
         best_oi = None
         for oi, ot in enumerate(onsets):
@@ -280,6 +283,28 @@ def snap_words_to_onsets(
             if nw.source in ("transcription", "vocal_onset"):
                 nw.source = "whisper_plus_vocal_onset"
         new_words.append(nw)
+    # Phase 2: wide-tolerance fallback for unsnapped transcription words.
+    # A 0.35s onset snap is better than leaving a word at its raw Whisper
+    # position, which the corpus audit shows is 150-500ms from real vocal
+    # energy. Each fallback consumes an onset to preserve monotonic mapping.
+    for i, nw in enumerate(new_words):
+        if nw.source != "transcription":
+            continue
+        best_dist = SNAP_TOLERANCE_WIDE
+        best_oi = None
+        for oi, ot in enumerate(onsets):
+            if oi in used_onsets:
+                continue
+            dist = abs(ot - nw.start)
+            if dist < best_dist:
+                best_dist = dist
+                best_oi = oi
+        if best_oi is not None:
+            used_onsets.add(best_oi)
+            nw.start = onsets[best_oi]
+            if nw.start >= nw.end:
+                nw.end = nw.start + 0.001
+            nw.source = "whisper_plus_vocal_onset"
 
     for i in range(len(new_words) - 1):
         if new_words[i].end > new_words[i + 1].start:
