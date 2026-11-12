@@ -160,7 +160,7 @@ SD3_PYTHON = os.environ.get(
 SD3_SCRIPT = str(PROJECT_ROOT / "scripts" / "run_sd3_pipe.py")
 SD3_MODEL_PATH = os.environ.get(
     "SD3_MODEL_PATH",
-    "/mnt/storage/models/sd3-medium/sd3_medium_incl_clips_t5xxlfp8.safetensors",
+    "/mnt/inference/models/sd3-medium/sd3_medium_incl_clips_t5xxlfp8.safetensors",
 )
 SD3_DEFAULT_WIDTH = 1024
 SD3_DEFAULT_HEIGHT = 1024
